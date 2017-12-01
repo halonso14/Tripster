@@ -25,7 +25,7 @@ public class ScrapController {
 	public String registerGET(ScrapVO board,Model model)throws Exception{
 		
 		loger.info("loger test");
-		return "/WEB-INF/views/board/register.jsp";
+		return "board/register.jsp";
 		
 	}
 	
