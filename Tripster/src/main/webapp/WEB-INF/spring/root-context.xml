@@ -13,8 +13,9 @@
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 	
-	<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-	<property name="url" value="jdbc:mysql://127.0.0.1:3306/tripster?useSSL=false"></property>    
+	<property name="driverClassName" 
+			  value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+	<property name="url" value="jdbc:log4jdbc:mysql://127.0.0.1:3306/tripster?useSSL=false"></property>    
 	<property name="username" value="bitNarae"></property>
 	<property name="password" value="1234"></property>
 	</bean>	

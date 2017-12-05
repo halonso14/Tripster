@@ -2,15 +2,15 @@ package com.tripster.dto;
 
 public class LoginDTO {
 
-	private String memberID;
+	private String memberEmail;
 	private String memberPassword;
 	private boolean useCookie;
 	
-	public String getMemberID() {
-		return memberID;
+	public String getMemberEmail() {
+		return memberEmail;
 	}
-	public void setMemberID(String memberID) {
-		this.memberID = memberID;
+	public void setMemberEmail(String memberEmail) {
+		this.memberEmail = memberEmail;
 	}
 	public String getMemberPassword() {
 		return memberPassword;
@@ -27,7 +27,7 @@ public class LoginDTO {
 	
 	@Override
 	public String toString() {
-		return "LoginDTO [memberID=" + memberID + ", memberPassword=" + memberPassword + ", useCookie=" + useCookie
+		return "LoginDTO [memberEmail=" + memberEmail + ", memberPassword=" + memberPassword + ", useCookie=" + useCookie
 				+ "]";
 	}
 	

@@ -5,12 +5,24 @@
 <mapper namespace="com.tripster.mapper.MemberMapper">
 	
 	<select id="login" resultType="MemberVO">
-	select memberID
-		  ,memberPassword
-		  ,memberName
+	select Member_Email memberEmail
+		  ,Member_Password memberPassword
+		  ,Member_Name memberName
 	from tbl_Member
-	where memberID = #{Member_ID}
-	  and memberPassword = #{Member_Password}
+	where Member_Email = #{memberEmail}
+	  and Member_Password = #{memberPassword}
 	</select>
+	
+	<insert id="insertMember">
+	insert into tbl_Member (Member_Email
+						   ,Member_Password
+						   ,Member_Name
+						   ,Member_Birthday)
+						   
+	values				   (#{memberEmail}
+						   ,#{memberPassword}
+						   ,#{memberName}
+						   ,#{memberBirthday})
+	</insert>
 	
 </mapper>

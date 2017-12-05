@@ -28,6 +28,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			session.setAttribute(LOGIN, memberVO);
 			response.sendRedirect("/");
 		}
+		
 	}
 	
 	@Override

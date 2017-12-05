@@ -18,7 +18,6 @@ import com.tripster.service.MemberService;
 @RequestMapping("/member/*")
 public class MemberController {
 	
-	
 	@Inject
 	private MemberService service;
 	
@@ -29,6 +28,7 @@ public class MemberController {
 		
 	@RequestMapping(value="/loginPost", method= RequestMethod.POST)
 	public void loginPOST(LoginDTO dto, HttpSession session, Model model) throws Exception {
+		
 		MemberVO vo= service.login(dto);
 		
 		if(vo == null) {

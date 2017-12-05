@@ -17,7 +17,12 @@ public class MemberDAOImpl implements MemberDAO{
 	private static String namespace = "com.tripster.mapper.MemberMapper";
 	
 	@Override
-	public MemberVO login(LoginDTO dto)throws Exception{
+	public MemberVO login(LoginDTO dto) throws Exception{
 		return session.selectOne(namespace + ".login", dto);
+	}
+	
+	@Override
+	public void insertMember(MemberVO vo) throws Exception{
+		session.insert(namespace+".insertMember", vo);
 	}
 }

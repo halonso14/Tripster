@@ -5,5 +5,7 @@ import com.tripster.dto.LoginDTO;
 
 public interface MemberDAO {
 
-	public MemberVO login(LoginDTO dto)throws Exception;
+	public MemberVO login(LoginDTO dto) throws Exception;
+
+	public void insertMember(MemberVO vo) throws Exception;
 }
