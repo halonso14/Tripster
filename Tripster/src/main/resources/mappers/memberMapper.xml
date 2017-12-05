@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.tripster.mapper.MemberMapper">
+<mapper namespace="com.tripster.mapper.MemberMapper">
 	
 	<select id="login" resultType="MemberVO">
 	select memberID
 		  ,memberPassword
 		  ,memberName
-	from member
+	from tbl_Member
 	where memberID = #{Member_ID}
 	  and memberPassword = #{Member_Password}
 	</select>

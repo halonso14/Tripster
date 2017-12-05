@@ -22,7 +22,7 @@ public class ScrapController {
 	private ScrapService service;
 	
 	@RequestMapping(value="/register",method=RequestMethod.GET)
-	public String registerGET(ScrapVO board,Model model)throws Exception{
+	public String registerGET(ScrapVO board,Model model) throws Exception {
 		
 		loger.info("loger test");
 		return "board/register.jsp";
@@ -30,7 +30,7 @@ public class ScrapController {
 	}
 	
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public String registerPOST(ScrapVO board,Model model)throws Exception{
+	public String registerPOST(ScrapVO board,Model model) throws Exception {
 		
 		service.regist(board);
 		
