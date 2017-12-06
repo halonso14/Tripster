@@ -35,7 +35,7 @@ public class MemberDAOTest {
 		MemberVO vo = new MemberVO();
 		vo.setMemberEmail("kevin0310@korea.ac.kr");
 		vo.setMemberPassword("1234");
-		vo.setMemberName("Á¶»óÀ±");
+		vo.setMemberName("íƒ€ì´ë ˆë†€");
 		vo.setMemberBirthday(date);
 		
 		dao.insertMember(vo);

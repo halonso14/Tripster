@@ -1,19 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>ทฮฑืภฮ</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>๋ก๊ทธ์ธ</title>
 </head>
 <body>
 	
 	<form action="/member/loginPost" method="post">
 		<div>
-			<input type="text" name="memberEmail" placeholder="Emailภป ภิทยวฯผผฟไ"/>
+			<input type="text" name="memberEmail" placeholder="Email์ ์…๋ ฅํ•์ธ์”"/>
 		</div>
 		<div>
-			<input type="password" name="memberPassword" placeholder="บ๑นะน๘ศฃธฆ ภิทยวฯผผฟไ"/>
+			<input type="password" name="memberPassword" placeholder="๋น๋ฐ€๋ฒํธ๋ฅผ ์…๋ ฅํ•์ธ์”"/>
 		</div>
 		<div class="row">
 			<div>
@@ -24,7 +24,7 @@
 				</div>
 			</div>
 			<div>
-				<button type="submit">ทฮฑืภฮ</button>
+				<button type="submit">๋ก๊ทธ์ธ</button>
 			</div>
 		</div>
 	</form>

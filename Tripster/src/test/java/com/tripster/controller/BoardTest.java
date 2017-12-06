@@ -21,8 +21,8 @@ public class BoardTest {
 	public void testCreate() throws Exception {
 	
 		ScrapVO board = new ScrapVO();
-		board.setTitle("»õ·Î¿î ±ÛÀ» ³Ö½À´Ï´Ù. ");
-		board.setContent("»õ·Î¿î ±ÛÀ» ³Ö½À´Ï´Ù. ");
+		board.setTitle("ì œëª©");
+		board.setContent("ë‚´ìš©");
 		board.setWriter("user01");
 		dao.create(board);
 	}
