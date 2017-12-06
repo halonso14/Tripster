@@ -33,9 +33,9 @@ public class MemberDAOTest {
 		Date date = new Date();
 		
 		MemberVO vo = new MemberVO();
-		vo.setMemberEmail("kevin0310@korea.ac.kr");
-		vo.setMemberPassword("1234");
-		vo.setMemberName("타이레놀");
+		vo.setMemberEmail("kevin@korea.ac.kr");
+		vo.setMemberPassword("12341111");
+		vo.setMemberName("왜안돼");
 		vo.setMemberBirthday(date);
 		
 		dao.insertMember(vo);
