@@ -2,53 +2,54 @@ package com.tripster.domain;
 
 public class ScrapVO {
 	
-	private Integer bno;
-	private String title;
-	private String content;
-	private String writer;
-	private String regdate;
-	private int viewcnt;
-	public Integer getBno() {
-		return bno;
+	private int scrapID;
+	private int memberID;
+	private int codeID;
+	private int contentsID;
+	private String contentsTitle;
+	private String contentsPhoto;
+	
+	public int getScrapID() {
+		return scrapID;
 	}
-	public void setBno(Integer bno) {
-		this.bno = bno;
+	public void setScrapID(int scrapID) {
+		this.scrapID = scrapID;
 	}
-	public String getTitle() {
-		return title;
+	public int getMemberID() {
+		return memberID;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setMemberID(int memberID) {
+		this.memberID = memberID;
 	}
-	public String getContent() {
-		return content;
+	public int getCodeID() {
+		return codeID;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setCodeID(int codeID) {
+		this.codeID = codeID;
 	}
-	public String getWriter() {
-		return writer;
+	public int getContentsID() {
+		return contentsID;
 	}
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setContentsID(int contentsID) {
+		this.contentsID = contentsID;
 	}
-	public String getRegdate() {
-		return regdate;
+	public String getContentsTitle() {
+		return contentsTitle;
 	}
-	public void setRegdate(String regdate) {
-		this.regdate = regdate;
+	public void setContentsTitle(String contentsTitle) {
+		this.contentsTitle = contentsTitle;
 	}
-	public int getViewcnt() {
-		return viewcnt;
+	public String getContentsPhoto() {
+		return contentsPhoto;
 	}
-	public void setViewcnt(int viewcnt) {
-		this.viewcnt = viewcnt;
+	public void setContentsPhoto(String contentsPhoto) {
+		this.contentsPhoto = contentsPhoto;
 	}
 	
 	@Override
 	public String toString() {
-		return "DomainTest [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer
-				+ ", regdate=" + regdate + ", viewcnt=" + viewcnt + "]";
+		return "ScrapVO [scrapID=" + scrapID + ", memberID=" + memberID + ", codeID=" + codeID + ", contentsID="
+				+ contentsID + ", contentsTitle=" + contentsTitle + ", contentsPhoto=" + contentsPhoto + "]";
 	}
-
+	
 }

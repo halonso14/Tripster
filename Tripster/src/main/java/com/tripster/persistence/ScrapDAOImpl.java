@@ -1,5 +1,7 @@
 package com.tripster.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -18,6 +20,11 @@ public class ScrapDAOImpl implements ScrapDAO {
 	@Override
 	public void create(ScrapVO vo) throws Exception{
 		session.insert(namespace+".create",vo);
+	}
+	
+	@Override
+	public List<ScrapVO> listAll() throws Exception {
+		return session.selectList(namespace + ".listAll");
 	}
 
 }
