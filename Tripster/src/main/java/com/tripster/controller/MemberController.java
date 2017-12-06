@@ -24,7 +24,7 @@ public class MemberController {
 	@Inject
 	private MemberService service;
 
-	// ·Î±×ÀÎ
+	// ï¿½Î±ï¿½ï¿½ï¿½
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void loginGET(@ModelAttribute("dto") LoginDTO dto) {
 
@@ -44,13 +44,11 @@ public class MemberController {
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public void registerGET(MemberVO vo, Model model) throws Exception {
 
-		logger.info("È¸¿ø°¡ÀÔÈ­¸é");
 	}
 	
 	@RequestMapping(value = "/registerPost", method = RequestMethod.POST)
 	public void registerPost(MemberVO vo, Model model) throws Exception {
 		
-		logger.info("È¸¿ø°¡ÀÔ");
 		logger.info(vo.toString());
 		
 	}
