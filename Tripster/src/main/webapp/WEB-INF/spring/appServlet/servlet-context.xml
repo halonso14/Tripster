@@ -18,12 +18,4 @@
 	
 	<context:component-scan base-package="com.tripster.controller" />
 	
-	<beans:bean id="loginInterceptor" class="com.tripster.interceptor.LoginInterceptor"></beans:bean>
-		<interceptors>
-			<interceptor>
-				<mapping path="/member/loginPost"/>
-				<beans:ref bean="loginInterceptor"/>
-			</interceptor>
-		</interceptors>
-	
 </beans:beans>

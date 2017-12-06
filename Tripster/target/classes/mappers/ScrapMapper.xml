@@ -6,11 +6,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <mapper namespace="ScrapMapper">
   
   <!-- sql문 작성 -->
+
   
-  <insert id="create">
-  insert into tbl_board (title,content,writer)
-  value(#{title},#{content},#{writer})
-  </insert>
+   <select id="listAll" resultType="com.tripster.domain.ScrapVO">
+
+
+</select>
   
   </mapper>
   
