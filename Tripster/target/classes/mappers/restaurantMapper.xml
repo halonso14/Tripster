@@ -28,7 +28,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   ]]>
   </select>
   
-  //여기부터
   <select id="countPaging" resultType="int">
   <![CDATA[
   select 
