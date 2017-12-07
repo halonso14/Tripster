@@ -17,9 +17,9 @@
 		<div>
 			비밀번호<input type="password" name="memberPassword" placeholder="비밀번호를 입력하세요"/>
 		</div>
-		<!-- <div>
-			비밀번호확인<input type="password" name="memberPassword" placeholder="다시 입력하라고"/>
-		</div> -->
+		<div>
+			비밀번호확인<input type="password" name="memberPasswordChk" placeholder="다시 입력하라고"/>
+		</div>
 		<div>
 			닉네임<input type="text" name="memberName" placeholder="닉네임넣어라"/>
 		</div>
@@ -34,5 +34,28 @@
 		</div>
 	</form>
 
+	<script>
+		function validate(){
+			var email = document.getElementById("memberEmail");
+			var password = document.getElementById("memberPassword");
+			var passwordchk = document.getElementById("memberPasswordChk");
+			
+			//이메일 유효성검사
+			if(!chk(/^[\w]{3,}@[\w]+(\.[\w-]+){1,3}$/, email, "이메일 형식이 아닙니다."))
+               return false;
+			
+			//패스워드 유효성검사
+			if(!chk(/{4,}/, password, "패스워드는 최소 4글자라고 임마"))
+				return false;
+			
+			// 비밀번호 확인 검사
+	        if(password.value!=passwordchk.value) {
+	               alert("비번 두개 다름.확인하셈!");
+	        }
+
+		}
+	
+	</script>
+	
 </body>
 </html>
