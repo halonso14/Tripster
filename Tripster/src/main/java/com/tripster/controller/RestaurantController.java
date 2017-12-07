@@ -25,7 +25,7 @@ public class RestaurantController {
 	
 	@RequestMapping(value = "/restaurantList", method = RequestMethod.GET)
 	public void restaurantList(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
-		logger.info(cri.toString());
+//		logger.info(cri.toString());
 
 		model.addAttribute("list", service.getRestaurantList(cri));
 		PageMaker pageMaker = new PageMaker();
@@ -38,6 +38,7 @@ public class RestaurantController {
 	
 	@RequestMapping(value = "/restaurantDetail", method = RequestMethod.GET)
 	public void restaurantDetail(@RequestParam("restaurantID") int restaurantID, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+//		logger.info(cri.toString());
 		model.addAttribute(service.getRestaurantDetail(restaurantID));
 	}
 }

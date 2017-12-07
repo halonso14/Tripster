@@ -25,7 +25,7 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 	
 	@Override
 	public List<RestaurantVO> getRestaurantList(Criteria cri) throws Exception {
-		return session.selectList(namespace + ".showList", cri);
+		return session.selectList(namespace + ".getRestaurantList", cri);
 	}
 	
 	@Override
