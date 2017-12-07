@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	Restaurant_ID = #{restaurantID}
   </select>
   
-  <select id="showList" resultType="RestaurantVO">
+  <select id="getRestaurantList" resultType="RestaurantVO">
   <![CDATA[
   select 
   	Code_ID codeID,Restaurant_ID restaurantID,Restaurant_Title title,Restaurant_Location location, 
@@ -26,6 +26,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   where restaurantID > 0
   order by restaurantID desc
   limit #{startNum}, #{contentsPerPage}
+  ]]>
+  </select>
+ 
+  <select id="getTotalRestaurantNum" resultType="int">
+  <![CDATA[
+  select 
+  	count(Restaurant_ID restaurantID)
+  from
+  	tbl_restaurant
+  where
+    restaurantID > 0
   ]]>
   </select>
   

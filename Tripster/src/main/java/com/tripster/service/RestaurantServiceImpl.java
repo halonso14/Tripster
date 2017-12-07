@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.tripster.domain.Criteria;
 import com.tripster.domain.RestaurantVO;
 import com.tripster.persistence.RestaurantDAO;
 
@@ -16,12 +17,17 @@ public class RestaurantServiceImpl implements RestaurantService {
 	private RestaurantDAO dao;
 	
 	@Override
-	public RestaurantVO read(Integer restaurantID) throws Exception {
+	public RestaurantVO readRestaurantDetail(Integer restaurantID) throws Exception {
 		return dao.read(restaurantID);
 	}
 	
 	@Override
-	public List<RestaurantVO> showList(int curPage) throws Exception {
-		return dao.showList(curPage);
+	public List<RestaurantVO> getRestaurantList(Criteria cri) throws Exception {
+		return dao.getRestaurantList(cri);
+	}
+	
+	@Override
+	public int getTotalRestaurantNum(Criteria cri) throws Exception {
+		return dao.getTotalRestaurantNum(cri);
 	}
 }
