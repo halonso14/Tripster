@@ -8,7 +8,7 @@ public class Criteria {
 	
 	public Criteria() {
 		this.curPage = 1;
-		this.contentsPerPage = 20;
+		this.contentsPerPage = 5;
 	}
 
 	public int getCurPage() {

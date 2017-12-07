@@ -10,9 +10,19 @@
 </head>
 <body>
 	<table>
+		<tr>
+			<th>restaurantID</th>
+			<th>title</th>
+			<th>location</th>
+			<th>rating</th>
+			<th>time</th>
+			<th>contents</th>
+			<th>tel</th>
+			<th>codeID</th>
+		</tr>
 		<c:forEach items="${list}" var="restaurantVO">
 			<tr>
-				<td>${restaurantVO.restaurantID}</td>
+				<td><a href="/restaurants/restaurantDetail?restaurantID=${restaurantVO.restaurantID}">${restaurantVO.restaurantID}</a></td>
 				<td>${restaurantVO.title}</td>
 				<td>${restaurantVO.location}</td>
 				<td>${restaurantVO.rating}</td>
@@ -23,5 +33,25 @@
 			</tr>
 		</c:forEach>
 	</table>
+	
+	<div>
+		<ul>
+			<c:if test="${pageMaker.prev}">
+				<li><a href="/restaurants/restaurantList?curPage=${pageMaker.startPage - 1}">prev</a></li>
+			</c:if>
+			
+			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+				<li
+					<c:out value="${pageMaker.cri.curPage == idx?'class = active':''}"/>>
+					<a href="/restaurants/restaurantList?curPage=${idx}">${idx}</a>
+				</li>
+				</tr>
+			</c:forEach>
+			
+			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+				<li><a href="/restaurants/restaurantList?curPage=${pageMaker.endPage + 1}">next</a></li>
+			</c:if>
+		</ul>
+	</div>
 </body>
 </html>
