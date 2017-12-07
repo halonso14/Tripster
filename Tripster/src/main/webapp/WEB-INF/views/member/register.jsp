@@ -10,21 +10,21 @@
 
 	<h1>회원가입</h1>
 
-	<form action="/action/registerPost" method="post">
+	<form role="form" method="post">
 		<div>
 			이메일<input type="text" name="memberEmail" placeholder="Email을 입력하세요"/>
 		</div>
 		<div>
 			비밀번호<input type="password" name="memberPassword" placeholder="비밀번호를 입력하세요"/>
 		</div>
-		<div>
+		<!-- <div>
 			비밀번호확인<input type="password" name="memberPassword" placeholder="다시 입력하라고"/>
-		</div>
+		</div> -->
 		<div>
 			닉네임<input type="text" name="memberName" placeholder="닉네임넣어라"/>
 		</div>
 		<div>
-			
+			생년월일<input type="date" name="memberBirthday"/>
 		</div>
 		
 		<div class="row">

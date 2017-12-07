@@ -1,5 +1,7 @@
 package com.tripster.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -14,8 +16,13 @@ public class ScrapServiceImpl implements ScrapService{
 	private ScrapDAO dao;
 	
 	@Override
-	public void regist(ScrapVO board)throws Exception{
-		dao.create(board);
+	public void scrap(ScrapVO scrap)throws Exception{
+		dao.create(scrap);
+	}
+	
+	@Override
+	public List<ScrapVO> listAll() throws Exception {
+		return dao.listAll();
 	}
 
 }

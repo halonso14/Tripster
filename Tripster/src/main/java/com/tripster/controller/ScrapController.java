@@ -13,7 +13,7 @@ import com.tripster.domain.ScrapVO;
 import com.tripster.service.ScrapService;
 
 @Controller
-@RequestMapping("/board/*")
+@RequestMapping("/mypage/*")
 public class ScrapController {
 	
 	private static final Logger loger = LoggerFactory.getLogger(ScrapController.class);
@@ -21,20 +21,21 @@ public class ScrapController {
 	@Inject
 	private ScrapService service;
 	
-	@RequestMapping(value="/register",method=RequestMethod.GET)
-	public String registerGET(ScrapVO board,Model model) throws Exception {
+	@RequestMapping(value="/scraplist",method=RequestMethod.GET)
+	public void scraplist(Model model) throws Exception {
 		
-		loger.info("loger test");
-		return "board/register.jsp";
+		loger.info("scrap list");
+		
+		model.addAttribute("list",service.listAll());
 		
 	}
 	
-	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public String registerPOST(ScrapVO board,Model model) throws Exception {
+	@RequestMapping(value="/scrap",method=RequestMethod.POST)
+	public String registerPOST(ScrapVO scrap,Model model) throws Exception {
 		
-		service.regist(board);
-		
-		return "/board/success";
+		service.scrap(scrap);
+		loger.info("scrap regist success");
+		return "redirect:/mypage/scrap";
 	}
-
+	
 }
