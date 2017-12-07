@@ -17,7 +17,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 	private RestaurantDAO dao;
 	
 	@Override
-	public RestaurantVO readRestaurantDetail(Integer restaurantID) throws Exception {
+	public RestaurantVO getRestaurantDetail(Integer restaurantID) throws Exception {
 		return dao.read(restaurantID);
 	}
 	

@@ -7,7 +7,7 @@ import com.tripster.domain.RestaurantVO;
 
 public interface RestaurantService {
 	
-	public RestaurantVO readRestaurantDetail(Integer restaurantID) throws Exception;
+	public RestaurantVO getRestaurantDetail(Integer restaurantID) throws Exception;
 	
 	public List<RestaurantVO> getRestaurantList(Criteria cri) throws Exception;
 	
