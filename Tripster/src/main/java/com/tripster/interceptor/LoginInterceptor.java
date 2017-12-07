@@ -1,5 +1,6 @@
 package com.tripster.interceptor;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,7 +27,20 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		if(memberVO != null) {
 			logger.info("new login success");
 			session.setAttribute(LOGIN, memberVO);
-			response.sendRedirect("/");
+			
+			if(memberVO != null) {
+				logger.info("remember me..");
+				Cookie loginCookie = new Cookie("loginCookie", session.getId());
+				loginCookie.setPath("/");
+				//쿠키 수명 : 하루동안 브라우저에 보관
+				loginCookie.setMaxAge(60*60*24);
+				response.addCookie(loginCookie);
+			}
+			
+			//로그인 후 기존 경로로 연결
+			Object dest = session.getAttribute("dest");
+			
+			response.sendRedirect(dest != null ? (String)dest : "/");
 		}
 		
 	}
