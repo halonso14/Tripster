@@ -1,7 +1,7 @@
 package com.tripster.domain;
 
 public class Criteria {
-	//현재 페이지
+	//현재 페이지 번호
 	private int curPage;
 	//페이지 당 컨텐츠 수
 	private int contentsPerPage;

@@ -19,18 +19,17 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 	private static String namespace = "com.tripster.mapper.RestaurantMapper";
 	
 	@Override
-	public RestaurantVO read(Integer restaurantID) {
-		session.read(namespace + ".read", restaurantID);
+	public RestaurantVO read(Integer restaurantID) throws Exception {
+		return session.selectOne(namespace + ".read", restaurantID);
 	}
 	
 	@Override
-	public List<RestaurantVO> showList(int curPage) {
-		session.showList(namespace + ".showList");
+	public List<RestaurantVO> getRestaurantList(Criteria cri) throws Exception {
+		return session.selectList(namespace + ".showList", cri);
 	}
-
+	
 	@Override
-	public int countPaging(Criteria cri) throws Exception {
-
-		return 0;
+	public int getTotalRestaurantNum(Criteria cri) throws Exception {
+		return session.selectOne(namespace + ".getTotalRestaurantNum", cri);
 	}
 }
