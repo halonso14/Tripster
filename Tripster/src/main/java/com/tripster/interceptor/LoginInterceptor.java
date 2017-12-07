@@ -37,7 +37,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 				response.addCookie(loginCookie);
 			}
 			
-			//로그인 후 기존 경로로 연결
+			//로그인 후 기존 경로로 연결, 필요한 페이지마다 dest설정 필요.(추후 완료시 설정)
 			Object dest = session.getAttribute("dest");
 			
 			response.sendRedirect(dest != null ? (String)dest : "/");
