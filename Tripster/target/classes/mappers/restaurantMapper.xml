@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="restaurantMapper">
+  <mapper namespace="com.tripster.mapper.RestaurantMapper">
   
   <select id="read" resultType="RestaurantVO">
   select 
@@ -16,19 +16,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   </select>
   
   <select id="showList" resultType="RestaurantVO">
-  <![CDATA[
-  select 
-  	Code_ID codeID,Restaurant_ID restaurantID,Restaurant_Title title,Restaurant_Location location, 
-  	Restaurant_Rating rating, Restaurant_Time time, Restaurant_Contents contents,Restaurant_Tel tel
-  from
-  	tbl_restaurant
-  where restaurantID > 0
-  order by restaurantID desc
-  limit #{startNum}, #{contentsPerPage}
-  ]]>
-  </select>
-  
-  <select id="countPaging" resultType="int">
   <![CDATA[
   select 
   	Code_ID codeID,Restaurant_ID restaurantID,Restaurant_Title title,Restaurant_Location location, 

@@ -20,17 +20,11 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 	
 	@Override
 	public RestaurantVO read(Integer restaurantID) {
-		session.read(namespace + ".read", restaurantID);
+		return session.selectOne(namespace + ".read", restaurantID);
 	}
 	
 	@Override
-	public List<RestaurantVO> showList(int curPage) {
-		session.showList(namespace + ".showList");
-	}
-
-	@Override
-	public int countPaging(Criteria cri) throws Exception {
-
-		return 0;
+	public List<RestaurantVO> showList(Criteria cri) {
+		return session.selectList(namespace + ".showList", cri);
 	}
 }
