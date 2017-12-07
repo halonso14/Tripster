@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tripster.domain.MemberVO;
 import com.tripster.dto.LoginDTO;
@@ -44,22 +45,21 @@ public class MemberController {
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public void registerGET(MemberVO vo, Model model) throws Exception {
 
-		logger.info("넌 찍히니?");
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerPost(MemberVO vo, Model model) throws Exception {
+	public String registerPost(MemberVO vo, RedirectAttributes rttr) throws Exception {
 		
 		System.out.println(vo);
 		
 		logger.info("회원 등록");
 		logger.info(vo.toString());
 		
-		service.insertMember(vo);
+		service.register(vo);
 		
-		model.addAttribute("result", "success");
+		rttr.addFlashAttribute("msg", "success");
 		
-		return "/member/registerPost";
+		return "redirect:/member/login";
 	}
 }
 

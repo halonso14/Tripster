@@ -1,11 +1,11 @@
-package com.tripster.service;
+package com.tripster.persistence;
 
 import com.tripster.domain.MemberVO;
 import com.tripster.dto.LoginDTO;
 
-public interface MemberService {
+public interface MemberDAO {
 
 	public MemberVO login(LoginDTO dto) throws Exception;
-	
-	public void register(MemberVO vo) throws Exception;
+
+	public void insertMember(MemberVO vo) throws Exception;
 }

@@ -21,7 +21,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public void insertMember(MemberVO vo) throws Exception{
+	public void register(MemberVO vo) throws Exception{
 		
 		dao.insertMember(vo);
 	}
