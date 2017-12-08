@@ -1,5 +1,6 @@
 package com.tripster.domain;
 
+//페이지에 표시되는 컨텐츠 리스트 관리 클래스
 public class Criteria {
 	//현재 페이지 번호
 	private int curPage;
@@ -16,6 +17,7 @@ public class Criteria {
 	}
 
 	public void setCurPage(int curPage) {
+		//유효성 검사
 		if(curPage <= 0) {
 			this.curPage = 1;
 			return;
@@ -29,6 +31,7 @@ public class Criteria {
 	}
 
 	public void setContentsPerPage(int contentsPerPage) {
+		//유효성 검사
 		if(contentsPerPage <= 0 || contentsPerPage > 100) {
 			this.contentsPerPage = 20;
 		}

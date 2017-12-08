@@ -31,19 +31,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	Restaurant_Review_ID = #{restaurantReviewID}
   </delete>
   
-  <select id="getRestaurantReivewList" resultType="restaurantReviewVO">
-  select *
+  <select id="getRestaurantReviewList" resultType="restaurantReviewVO">
+
+  select Member_ID memberID, Restaurant_Review restaurantReview, Restaurant_Review_Time restaurantReviewTime
   from
   	tbl_restaurant_review
   where
   	Restaurant_ID = #{restaurantID}
-  order by Restaurant_Review_ID
-  limit #{cri.pageStart}, #{cri.contentsPerPage}			  
+  limit #{cri.startNum}, #{cri.contentsPerPage}
+
   </select>
   
   <select id="getTotalRestaurantReviewNum" resultType="int">
   select 
-  	count(Restaurant_Review_ID restaurantReviewID)
+  	count(Restaurant_Review_ID)
   from
   	tbl_restaurant_review
   where

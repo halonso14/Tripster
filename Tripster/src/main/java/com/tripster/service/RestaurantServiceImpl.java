@@ -15,17 +15,17 @@ public class RestaurantServiceImpl implements RestaurantService {
 	
 	@Inject 
 	private RestaurantDAO dao;
-	
+	//맛집 상세 정보 조회
 	@Override
 	public RestaurantVO getRestaurantDetail(Integer restaurantID) throws Exception {
 		return dao.read(restaurantID);
 	}
-	
+	//맛집 리스트 조회
 	@Override
 	public List<RestaurantVO> getRestaurantList(Criteria cri) throws Exception {
 		return dao.getRestaurantList(cri);
 	}
-	
+	//총 맛집 정보 개수 조회
 	@Override
 	public int getTotalRestaurantNum(Criteria cri) throws Exception {
 		return dao.getTotalRestaurantNum(cri);
