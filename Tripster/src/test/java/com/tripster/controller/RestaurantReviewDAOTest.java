@@ -21,6 +21,35 @@ public class RestaurantReviewDAOTest {
 	@Inject
 	private RestaurantReviewDAO dao;
 	
+	@Test
+	public void testWrite() throws Exception {
+		RestaurantReviewVO vo = new RestaurantReviewVO();
+		vo.setMemberID(1);
+		vo.setRestaurantID(1);
+		vo.setRestaurantReview("review test");
+		
+		dao.write(vo);
+	}
+	
+	@Test
+	public void testModify() throws Exception {
+		RestaurantReviewVO vo = new RestaurantReviewVO();
+		vo.setRestaurantReviewID(6);
+		vo.setRestaurantReview("review modify test");
+		
+		dao.modify(vo);
+	}
+	
+	@Test
+	public void testDelete() throws Exception {
+		Integer reviewID = 6;
+		dao.delete(reviewID);
+	}
+	
+	@Test
+	public void testGetTotalRestaurantReviewNum() throws Exception {
+		System.out.println(dao.getTotalRestaurantReviewNum(1));
+	}
 	
 	@Test
 	public void testGetRestaurantReviewList() throws Exception {
@@ -29,19 +58,4 @@ public class RestaurantReviewDAOTest {
 		List<RestaurantReviewVO> list = dao.getRestaurantReviewList(1, cri);
 		System.out.println(list.get(1).toString());
 	}
-	
-//	@Test
-//	public void testGetRestaurantList() throws Exception {
-//		cri.setCurPage(1);
-//		cri.setContentsPerPage(5);
-//		List<RestaurantVO> list = dao.getRestaurantList(cri);
-//		for(int i = 0; i < list.size(); i++) {
-//			System.out.println(list.get(i).toString());
-//		}
-//	}
-//	
-//	@Test
-//	public void testGetTotalRestaurantNum() throws Exception {
-//		System.out.println(dao.getTotalRestaurantNum(cri));
-//	}
 }

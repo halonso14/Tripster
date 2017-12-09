@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+abc
 <!-- 
 	<table>
 		<tr>
@@ -24,7 +25,6 @@
 		</tr>
 		<c:forEach items="${list}" var="restaurantVO">
 			<tr>
-				<td><a href="/restaurants/restaurantDetail?restaurantID=${restaurantVO.restaurantID}">${restaurantVO.restaurantID}</a></td>
 				<td>${restaurantVO.title}</td>
 				<td>${restaurantVO.location}</td>
 				<td>${restaurantVO.rating}</td>
@@ -35,7 +35,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-	
+
 	<div>
 		<ul>
 			<c:if test="${pageMaker.prev}">
@@ -55,7 +55,6 @@
 			</c:if>
 		</ul>
 	</div>
- -->	
 	<div>
 		<ul id="list"></ul>
 	</div>
@@ -73,5 +72,6 @@
 			$("#list").html(str);
 		});
 	</script>
+ -->
 </body>
 </html>
