@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -16,66 +15,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	Restaurant_ID = #{restaurantID}
   </select>
   
-  <select id="showList" resultType="RestaurantVO">
+  <select id="getRestaurantList" resultType="RestaurantVO">
   <![CDATA[
   select 
   	Code_ID codeID,Restaurant_ID restaurantID,Restaurant_Title title,Restaurant_Location location, 
   	Restaurant_Rating rating, Restaurant_Time time, Restaurant_Contents contents,Restaurant_Tel tel
   from
   	tbl_restaurant
-  where restaurantID > 0
-  order by restaurantID desc
+  where Restaurant_ID > 0
+  order by Restaurant_ID desc
   limit #{startNum}, #{contentsPerPage}
   ]]>
   </select>
-  
-  </mapper>
-  
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="com.tripster.mapper.RestaurantMapper">
-  
-  <select id="read" resultType="RestaurantVO">
+ 
+  <select id="getTotalRestaurantNum" resultType="int">
+  <![CDATA[
   select 
-  	Code_ID codeID,Restaurant_ID restaurantID,Restaurant_Title title,Restaurant_Location location, 
-  	Restaurant_Rating rating, Restaurant_Time time, Restaurant_Contents contents,Restaurant_Tel tel
+  	count(Restaurant_ID)
   from
   	tbl_restaurant
   where
-  	Restaurant_ID = #{restaurantID}
-  </select>
-  
-  <select id="showList" resultType="RestaurantVO">
-  <![CDATA[
-  select 
-  	Code_ID codeID,Restaurant_ID restaurantID,Restaurant_Title title,Restaurant_Location location, 
-  	Restaurant_Rating rating, Restaurant_Time time, Restaurant_Contents contents,Restaurant_Tel tel
-  from
-  	tbl_restaurant
-  where restaurantID > 0
-  order by restaurantID desc
-  limit #{startNum}, #{contentsPerPage}
-  ]]>
-  </select>
-  
-  <select id="countPaging" resultType="int">
-  <![CDATA[
-  select 
-  	Code_ID codeID,Restaurant_ID restaurantID,Restaurant_Title title,Restaurant_Location location, 
-  	Restaurant_Rating rating, Restaurant_Time time, Restaurant_Contents contents,Restaurant_Tel tel
-  from
-  	tbl_restaurant
-  where restaurantID > 0
-  order by restaurantID desc
-  limit #{startNum}, #{contentsPerPage}
+    Restaurant_ID > 0
   ]]>
   </select>
   
   </mapper>
-  
->>>>>>> branch 'master' of https://github.com/halonso14/Tripster
-  
