@@ -95,5 +95,19 @@ public class MemberController {
 		}
 		return "member/logout";
 	}
+	
+	//유저 추천페이지 위한 설문페이지 제공
+	@RequestMapping(value = "/register/detail", method = RequestMethod.GET)
+	public String userDetail(MemberVO vo, Model model) throws Exception {
+
+		return "member/userDetail";
+	}
+	
+	//유저 추천페이지 위한 설문페이지 제공
+	@RequestMapping(value = "/register/editDetail", method = RequestMethod.GET)
+	public String editUserDetail(MemberVO vo, Model model) throws Exception {
+
+		return "member/editUserDetail";
+	}
 }
 
