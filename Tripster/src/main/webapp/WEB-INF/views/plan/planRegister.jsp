@@ -7,6 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<h2>planRegisterForm</h2>
+	<form action="/plan/planRegister" method="POST">
+		<input type="hidden" name="memberID" value="1">
+		title: <input type="text" name="planTitle">
+		startDate: <input type="date" name="planStartDate">
+		endDate:<input type="date" name="planEndDate">
+		<br>
+		<input type="submit" value="등록">
+	</form>
 </body>
 </html>
