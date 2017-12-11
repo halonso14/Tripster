@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tripster.domain.ContentsVO;
+import com.tripster.domain.ScrapVO;
 import com.tripster.service.ContentsService;
+import com.tripster.service.ScrapService;
 
 @Controller
 @RequestMapping("/contents/*")
@@ -19,29 +21,28 @@ public class ContentsController {
 	
 private static final Logger loger = LoggerFactory.getLogger(ScrapController.class);
 	
+
 	@Inject
 	private ContentsService service;
+	@Inject
+	private ScrapService scrapService;
 	
+
 	@RequestMapping(value="/foody",method=RequestMethod.GET)
 	public void foody(@RequestParam("Restaurant_ID") int Restaurant_ID,Model model) throws Exception {
 		
-		
 		loger.info("foody page");
-		ContentsVO vo = new ContentsVO();
-		vo = service.read(Restaurant_ID);
-		loger.info(vo.toString());
-		model.addAttribute(vo);
+		model.addAttribute(service.read(Restaurant_ID));
 		
 	}
 	
-	@RequestMapping(value="/foody",method=RequestMethod.POST)
-	public String scrap(@RequestParam("Restaurant_ID") int Restaurant_ID,Model model) throws Exception {
-		
-		
-		
-		return "redirect:/contents/foody";
-	}
-	
-	
+//	@RequestMapping(value="/foody",method=RequestMethod.POST)
+//	public String scrap(@RequestParam("Restaurant_ID") int Restaurant_ID,Model model) throws Exception {
+//		
+//		scrapService.scrap(Restaurant_ID);
+//		
+//		loger.info("");
+//		return "redirect:/contents/foody?Restaurant_ID="+Restaurant_ID;
+//	}
 
 }

@@ -6,8 +6,9 @@ import com.tripster.domain.ScrapVO;
 
 public interface ScrapService {
 	
-	public void scrap(ScrapVO scrap)throws Exception;
+	public List<ScrapVO> listAll(Integer memberid) throws Exception;
 	
-	public List<ScrapVO> listAll() throws Exception;
-		
+	public void scrap(Integer ContentsID) throws Exception;
+	
+	public void delete(Integer scrapID) throws Exception;
 }

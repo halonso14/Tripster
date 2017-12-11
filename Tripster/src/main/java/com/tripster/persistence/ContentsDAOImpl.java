@@ -13,14 +13,14 @@ public class ContentsDAOImpl implements ContentsDAO{
 	@Inject
 	private SqlSession session;
 	
-	private static String namespace = "ContentsMapper";
+	private static String namespace = "contentsMapper";
 	
+	@Override
 	public ContentsVO read(Integer id) throws Exception{
 		return session.selectOne(namespace+".read",id);
 	}
 	
-	public void insert(ContentsVO vo) throws Exception{
-		session.insert(namespace+".insert",vo);
-	}
+	
+	
 
 }

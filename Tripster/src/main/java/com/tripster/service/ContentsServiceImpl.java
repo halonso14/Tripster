@@ -14,6 +14,7 @@ public class ContentsServiceImpl implements ContentsService{
 	private ContentsDAO dao;
 	
 	public ContentsVO read(Integer id) throws Exception{
+		
 		return dao.read(id);
 	}
 
