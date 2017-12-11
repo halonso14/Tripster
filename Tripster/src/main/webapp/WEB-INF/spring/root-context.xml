@@ -37,5 +37,5 @@
 	<context:component-scan base-package="com.tripster.persistence"></context:component-scan>
 	<!-- service의 @service 인식 -->
 	<context:component-scan base-package="com.tripster.service"></context:component-scan>
-		
+	
 </beans>
