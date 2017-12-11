@@ -1,5 +1,8 @@
 package com.tripster.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -16,34 +19,36 @@ public class PlanDetailDAOTest {
 	
 	@Inject
 	private PlanDetailService planDetailService;
-
-	@Test
-	public void insert() {
-		PlanDetailVO vo = new PlanDetailVO();
-		vo.setPlanDetailID(0);
-		vo.setPlanID(2);
-		vo.setTitle("툭툭누들타이333333333");
-		vo.setTitle("타이틀2222222");
-		vo.setPlanDetailStartTime("12:00:00");
-		vo.setPlanDetailDate("2017-12-13");
-		vo.setCodeID(1);
-		
-		planDetailService.registerPlanDetail(vo);
-	}
-	
-	
+//
 //	@Test
-//	public void modify() {
+//	public void insert() throws Exception {
 //		PlanDetailVO vo = new PlanDetailVO();
-//		vo.setPlanDetailID(3);
+//		vo.setPlanDetailID(0);
 //		vo.setPlanID(2);
-//		vo.setTitle("툭툭누들타이 수정 ");
-//		vo.setPlanDetailStartTime("17:00:00");
-//		vo.setPlanDetailDate("2017-12-15");
+//		vo.setTitle("툭툭누들타이333333333");
+//		vo.setTitle("타이틀2222222");
+//		vo.setPlanDetailStartTime("12:00:00");
+//		vo.setPlanDetailDate("2017-12-13");
 //		vo.setCodeID(1);
 //		
-//		planDetailDAO.updatePlanDetail(vo);
+//		planDetailService.registerPlanDetail(vo);
 //	}
+//	
+	
+	@Test
+	public void modify() throws Exception {
+		PlanDetailVO vo = new PlanDetailVO();
+		vo.setPlanDetailID(3);
+		vo.setPlanDetailStartTime("17:00:00");
+		vo.setPlanDetailDate("2017-12-15");
+		vo.setCodeID(1);
+		
+		Map<String, Object> map = new HashMap();
+		
+		map.put("planDetailID",4);
+		map.put("planDetailStartTime","23:00:00");
+		planDetailService.modifyPlanDetail(map);
+	}
 	
 //	@Test
 //	public void delete() {
