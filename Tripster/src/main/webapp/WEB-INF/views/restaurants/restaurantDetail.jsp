@@ -7,6 +7,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<body>
+	<table>
+			<tr>
+				<td>${restaurantVO.restaurantID}</td>
+				<td>${restaurantVO.title}</td>
+				<td>${restaurantVO.location}</td>
+				<td>${restaurantVO.rating}</td>
+				<td>${restaurantVO.time}</td>
+				<td>${restaurantVO.contents}</td>
+				<td>${restaurantVO.tel}</td>
+				<td>${restaurantVO.codeID}</td>
+			</tr>
+	</table>
+</body>
 </body>
 </html>

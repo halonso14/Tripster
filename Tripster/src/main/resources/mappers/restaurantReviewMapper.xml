@@ -7,10 +7,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <insert id="write">
   insert into
-  	tbl_restaurant_review (Restaurant_Review_ID restaurantReviewID, Restaurant_ID restaurantID, Member_ID memberID,
-  		Restaurant_Review restaurantReview, Restaurant_Review_Time restaurantReviewTime)
+  	tbl_restaurant_review (Restaurant_ID, Member_ID, Restaurant_Review)
   values
-  	(#{restaurantReviewID}, #{restaurantID}, #{memberID}, #{restaurantReview})
+  	(#{restaurantID}, #{memberID}, #{restaurantReview})
   </insert>
   
   <update id="modify">
@@ -19,7 +18,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   set
   	Restaurant_Review = #{restaurantReview}, Restaurant_Review_Time = now()
   where
-  <!-- Restaurant_ID = #{restaurantID}, : 리뷰 테이블 하나라서 리뷰에 중복 ID 없습니다?  -->
   	Restaurant_Review_ID = #{restaurantReviewID}
   </update>
  
@@ -31,19 +29,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	Restaurant_Review_ID = #{restaurantReviewID}
   </delete>
   
-  <select id="getRestaurantReivewList" resultType="restaurantReviewVO">
-  select *
+  <select id="getRestaurantReviewList" resultType="restaurantReviewVO">
+
+  select Member_ID memberID, Restaurant_Review restaurantReview, Restaurant_Review_Time restaurantReviewTime
   from
   	tbl_restaurant_review
   where
   	Restaurant_ID = #{restaurantID}
-  order by Restaurant_Review_ID
-  limit #{cri.pageStart}, #{cri.contentsPerPage}			  
+  limit #{cri.startNum}, #{cri.contentsPerPage}
+
   </select>
   
   <select id="getTotalRestaurantReviewNum" resultType="int">
   select 
-  	count(Restaurant_Review_ID restaurantReviewID)
+  	count(Restaurant_Review_ID)
   from
   	tbl_restaurant_review
   where

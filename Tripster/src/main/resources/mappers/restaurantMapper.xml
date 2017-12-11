@@ -22,8 +22,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	Restaurant_Rating rating, Restaurant_Time time, Restaurant_Contents contents,Restaurant_Tel tel
   from
   	tbl_restaurant
-  where restaurantID > 0
-  order by restaurantID desc
+  where Restaurant_ID > 0
+  order by Restaurant_ID desc
   limit #{startNum}, #{contentsPerPage}
   ]]>
   </select>
@@ -31,11 +31,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <select id="getTotalRestaurantNum" resultType="int">
   <![CDATA[
   select 
-  	count(Restaurant_ID restaurantID)
+  	count(Restaurant_ID)
   from
   	tbl_restaurant
   where
-    restaurantID > 0
+    Restaurant_ID > 0
   ]]>
   </select>
   

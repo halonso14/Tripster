@@ -6,14 +6,14 @@ import com.tripster.domain.Criteria;
 import com.tripster.domain.RestaurantVO;
 
 public interface RestaurantDAO {
-	
+	//맛집 상세 정보 조회
 	public RestaurantVO read(Integer restaurantID) throws Exception;
 	
-	//현재 페이지의 컨텐츠 목록 조회
+	//맛집 리스트 조회
 	public List<RestaurantVO> getRestaurantList(Criteria cri) throws Exception;
 	
-	//총 컨텐츠 개수
+	//총 맛집 정보 개수 조회
 	public int getTotalRestaurantNum(Criteria cri) throws Exception;
 	
-	//검색 구현 시 추가
+	//조회수 + 검색 + @
 }

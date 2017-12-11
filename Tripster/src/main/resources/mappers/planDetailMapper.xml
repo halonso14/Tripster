@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tripster.mapper.planDetailMapper">
+	
+	<!-- 등록  -->
+	<insert id="insert">
+		insert into tbl_plan_detail values(#{planDetailID}, #{planID}, #{contentsID}, #{title},#{planDetailStartTime}, #{planDetailDate}, #{codeID})
+	</insert>
+	
+	<!-- 수정. -->
+	<update id="update">
+		update tbl_plan_detail set plan_Detail_StartTime =#{planDetailStartTime}
+		where plan_detail_ID = #{planDetailID}
+	</update>
+	
+	<!-- 삭제. -->
+	<delete id="delete">
+		delete from tbl_plan_detail where plan_detail_id = #{planDetailID}
+	</delete>
+	
+	<!-- 일정 삭제 시, 해당 상세 일정 모두 삭제. -->
+	<delete id="deleteAll">
+		delete from tbl_plan_detail where plan_id = #{planID}
+	</delete>
+	
+	<!-- 한 일정에 해당하는 세부일정 모두 조회.  -->
+	<select id="selectAll" resultType="planDetailVO">
+		select plan_detail_id planDetailID, plan_ID planID, contents_id contentsID, title, plan_detail_startTime planDetailStartTime, plan_detail_date planDetailDate, code_id codeID
+		from tbl_plan_detail
+		where plan_ID = #{planID}
+	</select>
+	
+	<!-- planDetailID값 조회. -->
+	<select id="selectPlanDetailID" resultType="_int">
+		select max(plan_detail_id) from tbl_plan_detail;
+	</select>
+</mapper>
