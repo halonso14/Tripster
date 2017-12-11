@@ -3,3 +3,7 @@
 /.classpath
 /.project
 /.springBeans
+
+.DS_Store
+.gitignore
+.idea/
