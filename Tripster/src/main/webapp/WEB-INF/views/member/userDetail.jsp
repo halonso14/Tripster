@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+유저 리서치 페이지
 </body>
 </html>
