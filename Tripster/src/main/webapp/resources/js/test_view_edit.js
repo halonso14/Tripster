@@ -17,10 +17,22 @@ $().ready(function(){
 
 $("#progressbar li").click(function(){
     console.log('index:'+$(this).index()); //ok
+    console.log('count:'+count); //ok
     var index = $(this).index();
     var i= count;
 	current_fs = $($(".next").get(count)).parent();
     next_fs = $($(".next").get(index)).parent();
+    if(index==11 || count==11){
+        if(count==0)
+            current_fs = $($(".next").get(count)).parent();
+        else
+            current_fs = $($(".previous").get(count-1)).parent();
+        
+        next_fs = $($(".previous").get(index-1)).parent();
+        console.log(current_fs);
+        console.log(next_fs);
+        
+    }
     //console.log(current_fs);
     next_fs.show();
     current_fs.hide();
