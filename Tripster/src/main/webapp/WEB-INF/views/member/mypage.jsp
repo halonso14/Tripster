@@ -8,10 +8,5 @@
 </head>
 <body>
 
-	<script type="text/javascript">
-		alert("회원가입성공");
-		self.location = "/";
-	</script>
-
 </body>
 </html>

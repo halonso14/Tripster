@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 수정. -->
 	<update id="update">
-		update tbl_plan_detail set plan_Detail_StartTime =#{planDetailStartTime}, plan_Detail_Date = #{planDetailDate}
+		update tbl_plan_detail set plan_Detail_StartTime =#{planDetailStartTime}
 		where plan_detail_ID = #{planDetailID}
 	</update>
 	
@@ -31,5 +31,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select plan_detail_id planDetailID, plan_ID planID, contents_id contentsID, title, plan_detail_startTime planDetailStartTime, plan_detail_date planDetailDate, code_id codeID
 		from tbl_plan_detail
 		where plan_ID = #{planID}
+	</select>
+	
+	<!-- planDetailID값 조회. -->
+	<select id="selectPlanDetailID" resultType="_int">
+		select max(plan_detail_id) from tbl_plan_detail;
 	</select>
 </mapper>

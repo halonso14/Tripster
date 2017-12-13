@@ -1,6 +1,7 @@
 package com.tripster.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -18,32 +19,39 @@ public class PlanDetailDAOImpl implements PlanDetailDAO{
 	private static String namespace = "com.tripster.mapper.planDetailMapper";
 
 	@Override
-	public void insertPlanDetail(PlanDetailVO vo) {
+	public void insertPlanDetail(PlanDetailVO vo)throws Exception {
 		session.insert(namespace+".insert",vo);
 		
 	}
 
 	@Override
-	public void updatePlanDetail(PlanDetailVO vo) {
-		session.update(namespace+".update",vo);
+	public void updatePlanDetail(Map<String,Object> map)throws Exception {
+		session.update(namespace+".update",map);
 		
 	}
 
 	@Override
-	public void deletePlanDetail(int planDetailID) {
+	public void deletePlanDetail(int planDetailID)throws Exception {
 		session.delete(namespace+".delete", planDetailID);
 		
 	}
 
 	@Override
-	public void deleteAllByPlanID(int planID) {
+	public void deleteAllByPlanID(int planID)throws Exception {
 		session.delete(namespace+".deleteAll",planID);
 		
 	}
 
 	@Override
-	public List<PlanDetailVO> selectAllByPlanID(int planID) {
+	public List<PlanDetailVO> selectAllByPlanID(int planID)throws Exception {
 		return session.selectList(namespace+".selectAll", planID);
 	}
+
+	@Override
+	public int selectPlanDetailID() throws Exception {
+		return session.selectOne(namespace+".selectPlanDetailID");
+	}
+	
+	
 	
 }

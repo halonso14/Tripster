@@ -9,21 +9,37 @@ import com.tripster.dto.LoginDTO;
 import com.tripster.persistence.MemberDAO;
 
 @Service
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
 
 	@Inject
 	private MemberDAO dao;
-	
+
 	@Override
-	public MemberVO login(LoginDTO dto) throws Exception{
-		
+	public MemberVO login(LoginDTO dto) throws Exception {
+
 		return dao.login(dto);
 	}
-	
+
 	@Override
-	public void register(MemberVO vo) throws Exception{
-		
+	public void register(MemberVO vo) throws Exception {
+
 		dao.insertMember(vo);
 	}
-	
+
+	@Override
+	public String repeatChk(String str) throws Exception {
+		System.out.println("이메일 인증");
+		if (dao.repeatChk(str) == null) {
+			return "T";
+		} else {
+			return "F";
+		}
+	}
+
+	@Override
+	public MemberVO viewMypage(Integer memberID) throws Exception {
+		
+		return dao.viewMember(memberID);
+	}
+
 }
