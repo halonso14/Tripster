@@ -2,6 +2,7 @@ package com.tripster.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,13 +34,13 @@ public class PlanController {
 	
 	//plan 등록 form 페이지 요청.
 	@RequestMapping(value="/planRegister", method=RequestMethod.GET)
-	public void registerGET(PlanVO planVO, Model model) throws Exception{
+	public void registerPlanGET(PlanVO planVO, Model model) throws Exception{
 		
 	}
 		
 	//plan 등록.
 	@RequestMapping(value="/planRegister",method=RequestMethod.POST)
-	public String registerPOST(PlanVO planVO, RedirectAttributes rttr)throws Exception{
+	public String registerPlanPOST(PlanVO planVO, RedirectAttributes rttr)throws Exception{
 		
 		planVO.setPlanID(0);
 		planService.registerPlan(planVO);
@@ -57,7 +59,7 @@ public class PlanController {
 	
 	//planDetail Form 페이지 요청.
 	@RequestMapping(value="/planDetailRegister", method=RequestMethod.GET)
-	public String planDetailRegisterGET(HttpServletRequest request, Model model) throws Exception {
+	public String registerPlanDetailGET(HttpServletRequest request, Model model) throws Exception {
 		
 		if(RequestContextUtils.getInputFlashMap(request) == null)	return "/plan/planRegister";
 		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
@@ -71,16 +73,16 @@ public class PlanController {
 		return "/plan/planDetailRegister";
 	}
 	
+	//상세 일정 등록.
 	@RequestMapping(value="/detailRegister", method=RequestMethod.POST)
-	public @ResponseBody void planDetailRegister(@RequestBody Map<String,Object> modelMap, Model model) {
+	public @ResponseBody int registerPlanDetailPOST(@RequestBody Map<String,Object> modelMap, Model model) throws Exception {
 		PlanDetailVO vo = new PlanDetailVO();
 		
 		//한번에 받아 온 날짜와 시간을 분리하여 저장.
 		String dateAndTime = (String)modelMap.get("dateAndTime");
 		String date[] = dateAndTime.split("T",0);
 	
-//		int contentsID = Integer.parseInt((String)modelMap.get("contentsID"));
-//		System.out.println(contentsID);
+		//받아온 파라미터 값을 detailVO에 저장.
 		vo.setPlanDetailID(0);
 		vo.setPlanID((int)modelMap.get("planID")); //planID는 Integer
 		if(null!=modelMap.get("contentsID")) {
@@ -90,15 +92,39 @@ public class PlanController {
 		vo.setTitle((String)modelMap.get("title"));
 		vo.setPlanDetailDate(date[0]);
 		vo.setPlanDetailStartTime(date[1]);
-		
-		System.out.println(vo.toString());
-		
+				
 		planDetailService.registerPlanDetail(vo);
 		
-		//model.addAttribute("planID",)
+		//db저장 후 할당된 planDetailID 값 조회 후 응답.
+		int planDetailID = planDetailService.readPlanDetailID();
+		System.out.println(planDetailID);
 		
+		return planDetailID;
 	}
 
+	//상세 일정 시간 수정.
+	@RequestMapping(value="/updatePlanDetail", method=RequestMethod.POST)
+	public @ResponseBody void updatePlanDetail(@RequestBody Map<String,Object> modelMap) throws Exception {
+		Map<String, Object> map = new HashMap();
+		
+		System.out.println(modelMap.get("dateAndTime"));
+		
+		String dateAndTime = (String)modelMap.get("dateAndTime");
+		String date[] = dateAndTime.split("T",0);
+		
+		map.put("planDetailStartTime", date[1]);
+		map.put("planDetailID", Integer.parseInt((String)modelMap.get("planDetailID")));
+		
+		
+		planDetailService.modifyPlanDetail(map);
+	}
 	
+	//상세 일정 삭제 .
+	@RequestMapping(value="/deletePlanDetail", method=RequestMethod.POST)
+	public @ResponseBody void deletePlanDetail(@RequestBody Map<String,Object> modelMap ) throws NumberFormatException, Exception {
+		System.out.println(modelMap.get("planDetailID"));
+		int planDetailID = Integer.parseInt((String)modelMap.get("planDetailID"));
+		planDetailService.deletePlanDetail(planDetailID);
+	}
 	
 }

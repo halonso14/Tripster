@@ -1,5 +1,7 @@
 package com.tripster.interceptor;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,8 +26,14 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		ModelMap modelMap = modelAndView.getModelMap();
 		Object memberVO = modelMap.get("memberVO");
 		
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+
+		//로그인 정보가 맞을시
 		if(memberVO != null) {
-			logger.info("new login success");
+			System.out.println(memberVO);
+			logger.info("로그인됐다고");
 			session.setAttribute(LOGIN, memberVO);
 			
 			if(memberVO != null) {
@@ -41,6 +49,16 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			Object dest = session.getAttribute("dest");
 			
 			response.sendRedirect(dest != null ? (String)dest : "/");
+		
+			//로그인 정보가 틀릴시
+		} else {
+			logger.info("로그인정보 불일치");
+			out.print("<script>"
+					+ "alert('로그인 정보를 확인하세요');"
+					+ "history.go(-1);"
+					+ "</script>");
+			out.flush();
+			out.close();
 		}
 		
 	}

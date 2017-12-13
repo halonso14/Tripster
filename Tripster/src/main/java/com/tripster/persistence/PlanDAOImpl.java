@@ -18,32 +18,32 @@ public class PlanDAOImpl implements PlanDAO{
 	
 	//plan 등록.
 	@Override
-	public void insertPlan(PlanVO vo) {
+	public void insertPlan(PlanVO vo)throws Exception {
 		session.insert(namespace+".create", vo);
 	}
 
 	//plan 수정.
 	@Override
-	public void updatePlan( PlanVO planVO) {
+	public void updatePlan( PlanVO planVO)throws Exception {
 		session.update(namespace+".update", planVO);
 		
 	}
 
 	//plan 삭제.
 	@Override
-	public void deletePlan(int planID) {
+	public void deletePlan(int planID)throws Exception {
 		session.delete(namespace+".delete",planID);		
 	}
 
 	//plan 조회 (by planID)
 	@Override
-	public PlanVO selectPlan(int planID) {
+	public PlanVO selectPlan(int planID)throws Exception {
 		return session.selectOne(namespace+".read", planID);
 	}
 	
 	//가장 최근에 등록된 planID값 조회.
 	@Override
-	public int selectLastPlanID() {
+	public int selectLastPlanID()throws Exception {
 		return session.selectOne(namespace+".selectLastPlanID");
 				
 	}

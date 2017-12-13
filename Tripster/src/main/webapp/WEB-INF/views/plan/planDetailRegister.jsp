@@ -21,6 +21,7 @@
             var d = date.getDate();
             var m = date.getMonth();
             var y = date.getFullYear();
+            var sendData = new Object();
 
             var collection =[];
          //   var newEvent=[];
@@ -74,41 +75,51 @@
                 events: [
                 ],
                 eventDrop: function(event) {
-
-                    for(var z=0; z<collection.length; z++){
-                        if(collection[z]._id == event._id){
-                            collection.splice(z,1);
-                            collection.push(event);
-                            break;
-                        }
-                    }
+					var updateData = {};
+					updateData.planDetailID = event.id;
+					updateData.dateAndTime = event.start.format();
+					var updateJson = JSON.stringify(updateData);
+					
+					$.ajax({
+						type:"POST",
+						url:"/plan/updatePlanDetail",
+						data:updateJson,
+						contentType: "application/json; charset=UTF-8",
+                	  		success: function(result){
+                	  		}
+						
+					});
+               
                 },
                 drop: function(date) {
                 	    	
-                	var sendData = new Object();
                 	sendData.planID = ${planVO.planID};
                 	sendData.contentsID = this.id;
                 	sendData.codeID = $(this).attr('name');
-                	sendData.title = $(this).text();
-                	sendData.dateAndTime = date.format();
-                	
+                },
+                eventReceive: function(event) {
+                	sendData.title = event.title;
+                	sendData.dateAndTime = event.start.format();
+               	
                 	var jsonData = JSON.stringify(sendData);
                 	console.log(jsonData);
 
                   $.ajax({
-                	 	dataType:"json",
+                	 	dataType:"text",
                 	  	type:"POST",
                 	  	url:"/plan/detailRegister",
-                	  	async:true, 
+                	  	//async:true, 
                 	  	data: jsonData,
                 	  	contentType: "application/json; charset=UTF-8",
                 	  	success: function(result){
-                	  		alert('성공.');
+                	  		event.id=result;
+                	  		$('#calendar').fullCalendar('updateEvent', event);
+                	  		alert(event.id);
                 	  	}
                   }); 
                 },
                 eventRender: function(event, element) {
-                    if(collection.length ==0 && event._id != undefined){
+                    /* if(collection.length ==0 && event._id != undefined){
                         collection.push(event);
                     }else {
                         for (var i = 0; i < collection.length; i++) {
@@ -125,18 +136,22 @@
                             }
                         }
 
-                }
+                } */
                     element.find('.fc-content').append( "<span class='memo'> ㅁ </span>" );
                     element.find('.fc-content').append( "<span class='closeon'> X </span>" );
                     //삭제
                     element.find(".closeon").click(function() {
-                        for(var j=0; j<collection.length;j++){
-                            if(collection[j]._id == event._id) {
-                                collection.splice(j,1);
-                                break;
-                            }
-                        }
-                        $('#calendar').fullCalendar('removeEvents',event._id);
+                       $.ajax({
+                    	   	 url:'/plan/deletePlanDetail',
+                    	   	 type:"POST",
+                    	   	 data:JSON.stringify({
+                    	   		 planDetailID: event.id
+                    	   	 }),
+                    	   	contentType: "application/json; charset=UTF-8",
+                    	   	success:function(result){}
+                    	   	 
+                       });
+                        $('#calendar').fullCalendar('removeEvents',event.id);
                     });
 
                     //메모
@@ -233,7 +248,7 @@
 
     <div id='external-events'>
         <h4>Draggable Events</h4>
-        <div class='fc-event' id=1 name=1>My Event 1</div>
+        <div class='fc-event' id=1 name=1>한글이</div>
         <div class='fc-event' id="2" name=1>My Event 2</div>
         <div class='fc-event' id="3" name=1>My Event 3</div>
         <div class='fc-event' id="4" name=2>My Event 4</div>
