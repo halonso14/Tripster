@@ -179,9 +179,8 @@ public class PlaceController {
 		}
 		
 		//맛집 리뷰 수정
-		//web.xml - HiddenHttpMethodFilter : RequestMethod.PATCH
 		@RequestMapping(value="/placeDetail/{placeID}/{placeReviewID}",
-				method = { RequestMethod.PUT })
+				method = { RequestMethod.PUT, RequestMethod.PATCH })
 		public ResponseEntity<String> modifyReview(@PathVariable("placeID") Integer placeID,
 											 @PathVariable("placeReviewID") Integer placeReviewID,
 											 @RequestBody PlaceReviewVO vo) {
