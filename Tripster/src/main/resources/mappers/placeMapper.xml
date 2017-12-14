@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.tripster.mapper.PlaceMapper">
+  
+  <select id="read" resultType="PlaceVO">
+  select 
+  	tbl_place.Code_ID codeID,tbl_place.Place_ID placeID,tbl_place.Place_Title title,
+  	tbl_place.Place_Rating rating, tbl_place.Place_View_Cnt placeViewCnt,
+  	tbl_place.Place_Review_Cnt placeReviewCnt, tbl_place_detail.Place_Location location,
+  	tbl_place_detail.Place_Time time, tbl_place_detail.Place_Contents contents,
+  	tbl_place_detail.Place_Tel tel
+  from
+  	tbl_place NATURAL JOIN tbl_place_detail
+  where
+  	tbl_place.Place_ID = #{placeID}	
+  </select>
+  
+  <update id="updatePlaceViewCnt">
+  update
+  	tbl_place
+  set
+  	Place_View_Cnt = Place_View_Cnt + 1
+  where
+  	Place_ID = #{placeID}
+  </update>
+  
+  <select id="getPlaceList" resultType="PlaceVO">
+  <![CDATA[
+  select 
+  	Code_ID codeID, Place_ID placeID, Place_Title title, Place_Rating rating,
+  	Place_View_Cnt placeViewCnt, Place_Review_Cnt placeReviewCnt
+  from
+  	tbl_place
+  where Place_ID > 0
+  order by Place_ID desc
+  limit #{startNum}, #{contentsPerPage}
+  ]]>
+  </select>
+ 
+  <select id="getTotalPlaceNum" resultType="int">
+  <![CDATA[
+  select 
+  	count(Place_ID)
+  from
+  	tbl_place
+  where
+    Place_ID > 0
+  ]]>
+  </select>
+  
+  <update id="updatePlaceReviewCnt">
+  update
+  	tbl_place
+  set
+  	Place_Review_Cnt = Place_Review_Cnt + #{amount}
+  where
+  	Place_ID = #{placeID}
+  </update>
+  
+  </mapper>

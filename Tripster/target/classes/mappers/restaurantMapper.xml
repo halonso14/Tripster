@@ -8,18 +8,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <select id="read" resultType="RestaurantVO">
   select 
   	Code_ID codeID,Restaurant_ID restaurantID,Restaurant_Title title,Restaurant_Location location, 
-  	Restaurant_Rating rating, Restaurant_Time time, Restaurant_Contents contents,Restaurant_Tel tel
+  	Restaurant_Rating rating, Restaurant_Time time, Restaurant_Contents contents,Restaurant_Tel tel,
+  	Restaurant_View_Cnt restaurantViewCnt, Restaurant_Review_Cnt restaurantReviewCnt
   from
   	tbl_restaurant
   where
-  	Restaurant_ID = #{restaurantID}
+  	Restaurant_ID = #{Restaurant_ID}
   </select>
+  
+  <update id="updateRestaurantViewCnt">
+  update
+  	tbl_restaurant
+  set
+  	Restaurant_View_Cnt = Restaurant_View_Cnt + 1
+  where
+  	Restaurant_ID = #{restaurantID}
+  </update>
   
   <select id="getRestaurantList" resultType="RestaurantVO">
   <![CDATA[
   select 
-  	Code_ID codeID,Restaurant_ID restaurantID,Restaurant_Title title,Restaurant_Location location, 
-  	Restaurant_Rating rating, Restaurant_Time time, Restaurant_Contents contents,Restaurant_Tel tel
+  	Code_ID codeID, Restaurant_ID restaurantID, Restaurant_Title title, Restaurant_Rating rating,
+  	Restaurant_View_Cnt restaurantViewCnt, Restaurant_Review_Cnt restaurantReviewCnt
   from
   	tbl_restaurant
   where Restaurant_ID > 0
@@ -38,5 +48,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     Restaurant_ID > 0
   ]]>
   </select>
+  
+  <update id="updateRestaurantReviewCnt">
+  update
+  	tbl_restaurant
+  set
+  	Restaurant_Review_Cnt = Restaurant_Review_Cnt + #{amount}
+  where
+  	Restaurant_ID = #{restaurantID}
+  </update>
   
   </mapper>

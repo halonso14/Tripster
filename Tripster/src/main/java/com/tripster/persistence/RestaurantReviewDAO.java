@@ -20,5 +20,9 @@ public interface RestaurantReviewDAO {
 	
 	//특정 맛집의 리뷰 개수 조회
 	public int getTotalRestaurantReviewNum(Integer restaurantID) throws Exception;
+	
+	//리뷰 대상 맛집의 ID 조회
+	public int getRestaurantID(Integer restaurantReviewID) throws Exception;
+
 	//검색 구현 시 추가
 }

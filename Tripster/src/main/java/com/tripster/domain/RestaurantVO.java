@@ -17,7 +17,10 @@ public class RestaurantVO {
 	private String tel;
 	//서비스 카테고리 분류 코드
 	private int codeID;
-//  private int viewCount; 	
+	//맛집 상세 정보 조회수
+	private Integer restaurantViewCnt;
+	//맛집 리뷰수
+	private Integer restaurantReviewCnt;
 	
 	public Integer getRestaurantID() {
 		return restaurantID;
@@ -67,10 +70,23 @@ public class RestaurantVO {
 	public void setCodeID(int codeID) {
 		this.codeID = codeID;
 	}
+	
+	public Integer getRestaurantViewCnt() {
+		return restaurantViewCnt;
+	}
+	public void setViewCnt(int restaurantViewCnt) {
+		this.restaurantViewCnt = restaurantViewCnt;
+	}
+	public Integer getRestaurantReviewCnt() {
+		return restaurantReviewCnt;
+	}
+	public void setRestaurantReviewCount(int restaurantReviewCnt) {
+		this.restaurantReviewCnt = restaurantReviewCnt;
+	}
 	@Override
 	public String toString() {
 		return "RestaurantVO [restaurantID=" + restaurantID + ", title=" + title + ", location=" + location
 				+ ", rating=" + rating + ", time=" + time + ", contents=" + contents + ", tel=" + tel + ", codeID="
-				+ codeID + "]";
+				+ codeID + ", viewCount=" + restaurantViewCnt + ", restaurantReviewCount=" + restaurantReviewCnt + "]";
 	}
 }

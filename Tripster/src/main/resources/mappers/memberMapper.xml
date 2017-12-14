@@ -4,6 +4,8 @@
 
 <mapper namespace="com.tripster.mapper.MemberMapper">
 	
+	
+	<!-- 회원 로그인 -->
 	<select id="login" resultType="MemberVO">
 	select Member_Email memberEmail
 		  ,Member_Password memberPassword
@@ -13,6 +15,7 @@
 	  and Member_Password = #{memberPassword}
 	</select>
 	
+	<!-- 회원 등록 -->
 	<insert id="insertMember">
 	insert into tbl_Member (Member_Email
 						   ,Member_Password
@@ -24,5 +27,21 @@
 						   ,#{memberName}
 						   ,#{memberBirthday})
 	</insert>
+	
+	<!-- 가입시 이메일 중복확인 -->
+	<select id = "repeatChk" resultType = "MemberVO">
+	select Member_ID memberID 
+	from tbl_Member
+	where Member_email = #{memberEmail}
+	</select>
+	
+	<!-- 회원 마이페이지 조회 -->
+	<select id="viewMember">
+	select Member_Email memberEmail
+		  ,Member_Name memberName
+		  ,Member_Birthday memberBirtyday
+	from tbl_Member
+	where Member_ID = #{memberID}
+	</select>
 	
 </mapper>

@@ -16,25 +16,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tripster.domain.Criteria;
 import com.tripster.domain.PageMaker;
-import com.tripster.domain.RestaurantReviewVO;
-import com.tripster.domain.RestaurantVO;
-import com.tripster.service.RestaurantReviewService;
-import com.tripster.service.RestaurantService;
+import com.tripster.domain.PlaceReviewVO;
+import com.tripster.domain.PlaceVO;
+import com.tripster.service.PlaceReviewService;
+import com.tripster.service.PlaceService;
 
 @RestController
-@RequestMapping("/restaurants/*")
-public class RestaurantController {
-//	private static final Logger logger = LoggerFactory.getLogger(RestaurantController.class);
+@RequestMapping("/places/*")
+public class PlaceController {
+//	private static final Logger logger = LoggerFactory.getLogger(PlaceController.class);
 	
 	@Inject
-	private RestaurantService restaurantService;
+	private PlaceService placeService;
 	@Inject
-	private RestaurantReviewService restaurantReviewService;
+	private PlaceReviewService placeReviewService;
 	
 		//맛집 리스트 조회 - REST 방식
 		//ResponseEntity : JSON 객체  + HTTP 응답상태 전달, @Pathvariable로 변수를 받아서 사용
-		@RequestMapping(value = "restaurantList/{curPage}", method = RequestMethod.GET)
-		public ResponseEntity<Map<String, Object>> restaurantList(@PathVariable("curPage") Integer curPage) throws Exception {
+		@RequestMapping(value = "placeList/{curPage}", method = RequestMethod.GET)
+		public ResponseEntity<Map<String, Object>> placeList(@PathVariable("curPage") Integer curPage) throws Exception {
 			ResponseEntity<Map<String, Object>> entity = null;
 			
 			try {
@@ -49,10 +49,10 @@ public class RestaurantController {
 				Map<String, Object> map = new HashMap<String, Object>();
 				
 				//ResponseEntity 객체에 담을 맛집 객체 리스트 저장  
-				List<RestaurantVO> list = restaurantService.getRestaurantList(cri);
+				List<PlaceVO> list = placeService.getPlaceList(cri);
 				map.put("list", list);
 				//ResponseEntity 객체에 담을 PageMaker 객체 저장
-				pageMaker.setTotalCount(restaurantService.getTotalRestaurantNum(cri));
+				pageMaker.setTotalCount(placeService.getTotalPlaceNum(cri));
 				map.put("pageMaker", pageMaker);
 				
 				//View로 전달할 ResponsEntity 객체 생성 + 정보 전달 
@@ -67,29 +67,29 @@ public class RestaurantController {
 		}
 		
 		//맛집 리스트 조회
-//		@RequestMapping(value = "/restaurantList", method = RequestMethod.GET)
-//		public void restaurantList(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+//		@RequestMapping(value = "/placeList", method = RequestMethod.GET)
+//		public void placeList(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 //			//View에 맛집 리스트 전달
-//			model.addAttribute("list", restaurantService.getRestaurantList(cri));
+//			model.addAttribute("list", placeService.getPlaceList(cri));
 //			//페이징 처리 객체 생성
 //			PageMaker pageMaker = new PageMaker();
 //			//페이징 처리를 위한 Criteria 객체 전달
 //			pageMaker.setCri(cri);
 //			//페이징 처리를 위한 총 맛집 개수 전달 
-//			pageMaker.setTotalCount(restaurantService.getTotalRestaurantNum(cri));
+//			pageMaker.setTotalCount(placeService.getTotalPlaceNum(cri));
 //			//View에 페이징 처리 객체 전달
 //			model.addAttribute("pageMaker", pageMaker);
 //		}
 		
 		//맛집 상세 정보 조회 - REST 방식
 		//ResponseEntity : JSON + HTTP 응답상태까지 전달, @Pathvariable로 변수를 받아서 사용 
-		@RequestMapping(value = "/restaurantDetail/{restaurantID}", method = RequestMethod.GET)
-		public ResponseEntity<RestaurantVO> restaurantDetail(@PathVariable("restaurantID") Integer restaurantID) {
-			ResponseEntity<RestaurantVO> vo = null;
+		@RequestMapping(value = "/placeDetail/{placeID}", method = RequestMethod.GET)
+		public ResponseEntity<PlaceVO> placeDetail(@PathVariable("placeID") Integer placeID) {
+			ResponseEntity<PlaceVO> vo = null;
 			
 			try {
-				//해당 restaurantID를 가진 객체를 vo에 저장
-				vo = new ResponseEntity<>(restaurantService.getRestaurantDetail(restaurantID), HttpStatus.OK);
+				//해당 placeID를 가진 객체를 vo에 저장
+				vo = new ResponseEntity<>(placeService.getPlaceDetail(placeID), HttpStatus.OK);
 				
 			} catch(Exception e) {
 				//오류 발생 시, BAD_REQUEST 상태 입력
@@ -100,12 +100,12 @@ public class RestaurantController {
 		}
 		
 		//맛집 상세 정보 조회 - 구글맵 연동 테스트용 페이지
-		@RequestMapping(value = "/restaurantDetail/{restaurantID}/{location}", method = RequestMethod.GET)
-		public void restaurantDetail() throws Exception {
-//			RestaurantVO vo = null;
+		@RequestMapping(value = "/placeDetail/{placeID}/{location}", method = RequestMethod.GET)
+		public void placeDetail() throws Exception {
+//			PlaceVO vo = null;
 //			try {
-//				//해당 restaurantID를 가진 객체를 vo에 저장
-//				vo = restaurantService.getRestaurantDetail(2);
+//				//해당 placeID를 가진 객체를 vo에 저장
+//				vo = placeService.getPlaceDetail(2);
 //				System.out.println(vo.toString());
 //				System.out.println("hi hello");
 //			} catch(Exception e) {
@@ -117,9 +117,9 @@ public class RestaurantController {
 	
 		//맛집 상세 페이지에서 리뷰 리스트 조회
 		//@PathVariable로 변수를 받아서 사용
-		@RequestMapping(value = "/restaurantDetail/{restaurantID}/{curPage}", method = RequestMethod.GET)
-		public ResponseEntity<Map<String, Object>> restaurantReviewList(
-				@PathVariable("restaurantID") Integer restaurantID,
+		@RequestMapping(value = "/placeDetail/{placeID}/{curPage}", method = RequestMethod.GET)
+		public ResponseEntity<Map<String, Object>> placeReviewList(
+				@PathVariable("placeID") Integer placeID,
 				@PathVariable("curPage") Integer curPage) {
 			ResponseEntity<Map<String, Object>> entity = null;
 				
@@ -136,11 +136,11 @@ public class RestaurantController {
 				//Map 객체 저장
 				Map<String, Object> map = new HashMap<String, Object>();
 				//ResponsEntity 객체에 담을 댓글 리스트 정보 저장
-				List<RestaurantReviewVO> list = restaurantReviewService.getRestaurantReviewList(restaurantID, cri);
+				List<PlaceReviewVO> list = placeReviewService.getPlaceReviewList(placeID, cri);
 				map.put("list", list);
 				
 				//ResponsEntity 객체에 담을 페이지 정보 저장
-				int reviewCount = restaurantReviewService.getTotalRestaurantReviewNum(restaurantID);
+				int reviewCount = placeReviewService.getTotalPlaceReviewNum(placeID);
 				pageMaker.setTotalCount(reviewCount);
 				map.put("pageMaker", pageMaker);
 				
@@ -158,15 +158,15 @@ public class RestaurantController {
 	
 		//맛집 리뷰 작성
 		//@RequestBody : View에서 JSON 객체를 전달 받아 사용
-		@RequestMapping(value="/restaurantDetail/{restaurantID}", method = RequestMethod.POST)
-		public ResponseEntity<String> writeReview(@PathVariable Integer restaurantID, @RequestBody RestaurantReviewVO vo) {
+		@RequestMapping(value="/placeDetail/{placeID}", method = RequestMethod.POST)
+		public ResponseEntity<String> writeReview(@PathVariable Integer placeID, @RequestBody PlaceReviewVO vo) {
 			//ResponseEntity : View로 JSON + HTTP 상태 전달
 			ResponseEntity<String> entity = null;
 			
 			try {
 				//PathVariable 활용, 해당 맛집의 리뷰 저장
-				vo.setRestaurantID(restaurantID);
-				restaurantReviewService.writeReview(vo);
+				vo.setPlaceID(placeID);
+				placeReviewService.writeReview(vo);
 				//View로 전달할 ResponsEntity 객체 생성 + 정보 전달
 				entity = new ResponseEntity<String>("written", HttpStatus.OK);
 			} catch(Exception e) {
@@ -180,18 +180,18 @@ public class RestaurantController {
 		
 		//맛집 리뷰 수정
 		//web.xml - HiddenHttpMethodFilter : RequestMethod.PATCH
-		@RequestMapping(value="/restaurantDetail/{restaurantID}/{restaurantReviewID}",
+		@RequestMapping(value="/placeDetail/{placeID}/{placeReviewID}",
 				method = { RequestMethod.PUT })
-		public ResponseEntity<String> modifyReview(@PathVariable("restaurantID") Integer restaurantID,
-											 @PathVariable("restaurantReviewID") Integer restaurantReviewID,
-											 @RequestBody RestaurantReviewVO vo) {
+		public ResponseEntity<String> modifyReview(@PathVariable("placeID") Integer placeID,
+											 @PathVariable("placeReviewID") Integer placeReviewID,
+											 @RequestBody PlaceReviewVO vo) {
 
 			ResponseEntity<String> entity = null;
 			
 			try {
 				//PathVariable 활용, 해당 맛집의 리뷰 수정 사항 저장
-				vo.setRestaurantReviewID(restaurantReviewID);
-				restaurantReviewService.modifyReview(vo);
+				vo.setPlaceReviewID(placeReviewID);
+				placeReviewService.modifyReview(vo);
 				
 				entity = new ResponseEntity<String>("modified",HttpStatus.OK);
 			} catch(Exception e) {
@@ -204,14 +204,14 @@ public class RestaurantController {
 		}
 		
 		//맛집 리뷰 삭제
-		@RequestMapping(value="/restaurantDetail/{restaurantID}/{restaurantReviewID}", method = RequestMethod.DELETE )
-		public ResponseEntity<String> deleteReview(@PathVariable("restaurantID") Integer restaurantID,
-											 @PathVariable("restaurantReviewID") Integer restaurantReviewID) {
+		@RequestMapping(value="/placeDetail/{placeID}/{placeReviewID}", method = RequestMethod.DELETE )
+		public ResponseEntity<String> deleteReview(@PathVariable("placeID") Integer placeID,
+											 @PathVariable("placeReviewID") Integer placeReviewID) {
 			ResponseEntity<String> entity = null;
 			
 			//PathVariable 활용, 맛집 리뷰 삭제
 			try {
-				restaurantReviewService.deleteReview(restaurantReviewID);
+				placeReviewService.deleteReview(placeReviewID);
 				entity = new ResponseEntity<String>("deleted",HttpStatus.OK);
 			} catch(Exception e) {
 				e.printStackTrace();
