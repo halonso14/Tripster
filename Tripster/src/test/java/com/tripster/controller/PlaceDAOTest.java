@@ -10,16 +10,16 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.tripster.domain.Criteria;
-import com.tripster.domain.RestaurantVO;
-import com.tripster.persistence.RestaurantDAO;
+import com.tripster.domain.PlaceVO;
+import com.tripster.persistence.PlaceDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
 		locations= {"file:src/main/webapp/WEB-INF/spring/**/root-context.xml"})
-public class RestaurantDAOTest {
+public class PlaceDAOTest {
 
 	@Inject
-	private RestaurantDAO dao;
+	private PlaceDAO dao;
 	
 	Criteria cri = new Criteria();
 	
@@ -27,16 +27,16 @@ public class RestaurantDAOTest {
 	@Test
 	public void testRead() throws Exception {
 		System.out.println(dao.read(1).toString());
-		dao.updateRestaurantViewCnt(1);
+		dao.updatePlaceViewCnt(1);
 		System.out.println(dao.read(1).toString());
 	}
 	
 	//맛집 리스트 조회 테스트
 	@Test
-	public void testGetRestaurantList() throws Exception {
+	public void testGetPlaceList() throws Exception {
 		cri.setCurPage(1);
 		cri.setContentsPerPage(5);
-		List<RestaurantVO> list = dao.getRestaurantList(cri);
+		List<PlaceVO> list = dao.getPlaceList(cri);
 		for(int i = 0; i < list.size(); i++) {
 			System.out.println(list.get(i).toString());
 		}
@@ -44,7 +44,7 @@ public class RestaurantDAOTest {
 	
 	//총 맛집 정보 수 조회 테스트
 	@Test
-	public void testGetTotalRestaurantNum() throws Exception {
-		System.out.println(dao.getTotalRestaurantNum(cri));
+	public void testGetTotalPlaceNum() throws Exception {
+		System.out.println(dao.getTotalPlaceNum(cri));
 	}
 }

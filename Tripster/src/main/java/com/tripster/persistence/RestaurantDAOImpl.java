@@ -1,6 +1,8 @@
 package com.tripster.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -25,6 +27,13 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 		return session.selectOne(namespace + ".read", restaurantID);
 	}
 	
+	//맛집 조회 회수 조회
+	@Override
+	public void updateRestaurantViewCnt(Integer restaurantID) throws Exception {
+		//쿼리 결과 반환
+		session.update(namespace + ".updateRestaurantViewCnt", restaurantID);
+	}
+	
 	//맛집 리스트 조회
 	@Override
 	public List<RestaurantVO> getRestaurantList(Criteria cri) throws Exception {
@@ -38,4 +47,15 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 		//쿼리 결과 반환
 		return session.selectOne(namespace + ".getTotalRestaurantNum", cri);
 	}
+	
+	//맛집 리뷰 개수 갱신
+	@Override
+	public void updateRestaurantReviewCnt(Integer restaurantID, int amount) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("restaurantID", restaurantID);
+		paramMap.put("amount", amount);
+		
+		session.update(namespace + ".updateRestaurantReviewCnt", paramMap);
+	};
 }

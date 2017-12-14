@@ -14,7 +14,6 @@ public class RestaurantReviewVO {
 	private String restaurantReview;
 	//맛집 리뷰 작성(수정) 시간
 	private Date restaurantReviewTime;
-//	private int reviewCount;
 	
 	public Integer getMemberID() {
 		return memberID;

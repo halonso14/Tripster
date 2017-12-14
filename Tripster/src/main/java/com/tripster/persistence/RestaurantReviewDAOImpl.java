@@ -24,7 +24,7 @@ public class RestaurantReviewDAOImpl implements RestaurantReviewDAO{
 	public void write(RestaurantReviewVO vo) throws Exception {
 		session.insert(namespace + ".write", vo);
 	}
-
+	
 	@Override
 	public void modify(RestaurantReviewVO vo) throws Exception {
 		session.update(namespace + ".modify", vo);
@@ -54,4 +54,10 @@ public class RestaurantReviewDAOImpl implements RestaurantReviewDAO{
 		//쿼리 결과 반환
 		return session.selectOne(namespace + ".getTotalRestaurantReviewNum", restaurantID);
 	}
+	
+	//리뷰 대상 맛집의 ID 조회
+	@Override
+	public int getRestaurantID(Integer restaurantReviewID) throws Exception {
+		return session.selectOne(namespace + ".getRestaurantID", restaurantReviewID);
+	};
 }

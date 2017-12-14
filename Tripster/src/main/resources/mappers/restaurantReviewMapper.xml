@@ -7,9 +7,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <insert id="write">
   insert into
-  	tbl_restaurant_review (Restaurant_ID, Member_ID, Restaurant_Review)
+  	tbl_restaurant_review (Restaurant_ID, Member_ID, Restaurant_Review, Restaurant_Review_Time)
   values
-  	(#{restaurantID}, #{memberID}, #{restaurantReview})
+  	(#{restaurantID}, #{memberID}, #{restaurantReview}, now())
   </insert>
   
   <update id="modify">
@@ -25,7 +25,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   delete from
   	tbl_restaurant_review
   where
-  <!-- Restaurant_ID = #{restaurantID}, : 리뷰 테이블 하나라서 리뷰에 중복 ID 없습니다?  -->
   	Restaurant_Review_ID = #{restaurantReviewID}
   </delete>
   
@@ -47,6 +46,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	tbl_restaurant_review
   where
     Restaurant_ID = #{restaurantID}
+  </select>
+  
+  <select id="getRestaurantID" resultType="int">
+  select
+  	Restaurant_ID
+  from
+  	tbl_restaurant_review
+  where
+  	Restaurant_Review_ID = #{restaurantReviewID}
   </select>
   
   </mapper>
