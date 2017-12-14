@@ -1,7 +1,5 @@
 package com.tripster.controller;
 
-import java.net.URLEncoder;
-
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -73,18 +71,27 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	//이메일 중복확인(j-query validation)
+	@RequestMapping(value = "/repeatChk" , method = RequestMethod.GET)
+	public @ResponseBody String repeatChkGet(@RequestParam("memberEmail") String memberEmail)throws Exception {
+		
+		if(service.repeatChk(memberEmail) == true) {
+			return "true";
+		} else {
+			return "false";
+		}
+	}
+	
+/*	//이메일 중복확인(중복확인 버튼 활용)
 	@RequestMapping(value = "/repeatChk" , method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-	public @ResponseBody String repeatChk(HttpServletResponse response, @RequestParam("memberEmail") String memberEmail, Model model)throws Exception {
+	public @ResponseBody String repeatChkPost(HttpServletResponse response, @RequestParam("memberEmail") String memberEmail, Model model)throws Exception {
 
-	  String msg = service.repeatChk(memberEmail);
-	  System.out.println(msg);
 	  String chkResponse;
 
-
-	  if(msg == "T") {
+	  if(service.repeatChk(memberEmail) == true) {
 		  chkResponse = "{\"msg\":\""+"사용가능한 이메일 입니다."+"\"}";
 	  }else {
-		  chkResponse = "{\"msg\":\""+"사용이 불가한 이메일 입니다."+"\"}";
+		  chkResponse = "{\"msg\":\""+"이미 가입된 이메일 입니다."+"\"}";
 	  }
 
 
@@ -92,10 +99,9 @@ public class MemberController {
 
 
 //		model.addAttribute("msg", service.authenticate(email));
-	  System.out.println(memberEmail);
 	  return chkResponse;
 
-	}
+	}*/
 	
 	//로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -124,9 +130,69 @@ public class MemberController {
 		return "member/logout";
 	}
 	
+	//마이페이지 조회
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public void view(@RequestParam("memberID") String memberName, Model model) throws Exception {
+	public void mypage(MemberVO vo, HttpSession session, Model model) throws Exception {
 		
+		Object obj = session.getAttribute("login");
+		MemberVO memVo = (MemberVO)obj;
+		
+		service.viewMypage(memVo.getMemberEmail());
+		
+		model.addAttribute(service.viewMypage(memVo.getMemberEmail()));
+	}
+	
+	//회원정보 수정페이지 조회
+	@RequestMapping(value = "/updateMember", method = RequestMethod.GET)
+	public void updateGET(MemberVO vo, HttpSession session, Model model) throws Exception {
+		
+		Object obj = session.getAttribute("login");
+		MemberVO memVo = (MemberVO)obj;
+		
+		service.viewMypage(memVo.getMemberEmail());
+		
+		model.addAttribute(service.viewMypage(memVo.getMemberEmail()));
+	}
+	
+	//회원정보 수정
+	@RequestMapping(value = "/updateMember", method = RequestMethod.POST)
+	public String updatePost(MemberVO vo, RedirectAttributes rttr) throws Exception {
+		
+		logger.info("회원정보 수정");
+		
+		service.updateMember(vo);
+		
+		rttr.addFlashAttribute("msg", "success");
+		
+		return "redirect:/member/mypage";
+	}
+	
+	//회원 탈퇴
+	@RequestMapping(value = "/dropMember", method = RequestMethod.POST)
+	public String remove(MemberVO vo, HttpServletRequest request, HttpServletResponse response,
+						 HttpSession session, RedirectAttributes rttr) throws Exception {
+		
+		Object obj = session.getAttribute("login");
+		MemberVO memVo = (MemberVO)obj;
+		
+		if(obj != null) {
+			session.removeAttribute("login");
+			session.invalidate();
+			
+			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+			
+			if(loginCookie != null) {
+				loginCookie.setPath("/");
+				loginCookie.setMaxAge(0);
+				response.addCookie(loginCookie);
+			}
+		}
+				
+		service.dropMember(memVo.getMemberEmail());
+		
+		rttr.addFlashAttribute("msg", "delete");
+		
+		return "redirect:/";
 	}
 }
 

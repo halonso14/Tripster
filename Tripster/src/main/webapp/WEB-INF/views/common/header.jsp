@@ -57,7 +57,7 @@
         %>
             <button id="logoutBtn" onclick="changeView(3)">로그아웃</button>
             <button id="updateBtn" onclick="changeView(4)">내정보</button>
-        <%    }    %>    
+        <%  }  %>    
  
         </p>
     </div>

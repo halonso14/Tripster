@@ -57,5 +57,5 @@ public class MemberVO {
 				+ ", memberName=" + memberName + ", memberBirthday=" + memberBirthday + ", memberPicture="
 				+ memberPicture + "]";
 	}
-
+	
 }

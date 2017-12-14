@@ -9,7 +9,11 @@ public interface MemberService {
 
 	public void register(MemberVO vo) throws Exception;
 
-	public String repeatChk(String str) throws Exception;
+	public boolean repeatChk(String memberEmail) throws Exception;
 	
-	public MemberVO viewMypage(Integer memberID) throws Exception;
+	public MemberVO viewMypage(String memberEmail) throws Exception;
+	
+	public void updateMember(MemberVO vo) throws Exception;
+	
+	public void dropMember(String memberEmail) throws Exception;
 }

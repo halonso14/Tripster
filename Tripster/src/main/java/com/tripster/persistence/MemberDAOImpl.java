@@ -27,12 +27,22 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public MemberVO repeatChk(String str) throws Exception {
-		return session.selectOne(namespace + ".repeatChk", str);
+	public MemberVO repeatChk(String memberEmail) throws Exception {
+		return session.selectOne(namespace + ".repeatChk", memberEmail);
 	}
 
 	@Override
-	public MemberVO viewMember(Integer memberID) throws Exception {
-		return session.selectOne(namespace + ".viewMember", memberID);
+	public MemberVO viewMember(String memberEmail) throws Exception {
+		return session.selectOne(namespace + ".viewMember", memberEmail);
+	}
+	
+	@Override
+	public void updateMember(MemberVO vo) throws Exception {
+		session.selectOne(namespace + ".updateMember", vo);
+	}
+	
+	@Override
+	public void deleteMember(String memberEmail) throws Exception {
+		session.selectOne(namespace + ".deleteMember", memberEmail);
 	}
 }
