@@ -179,9 +179,8 @@ public class RestaurantController {
 		}
 		
 		//맛집 리뷰 수정
-		//web.xml - HiddenHttpMethodFilter : RequestMethod.PATCH
 		@RequestMapping(value="/restaurantDetail/{restaurantID}/{restaurantReviewID}",
-				method = { RequestMethod.PUT })
+				method = { RequestMethod.PUT, RequestMethod.PATCH })
 		public ResponseEntity<String> modifyReview(@PathVariable("restaurantID") Integer restaurantID,
 											 @PathVariable("restaurantReviewID") Integer restaurantReviewID,
 											 @RequestBody RestaurantReviewVO vo) {
