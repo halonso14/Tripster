@@ -1,5 +1,7 @@
 package com.tripster.controller;
 
+import java.util.Date;
+
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -49,6 +51,14 @@ public class MemberController {
 			return;
 		}
 		model.addAttribute("memberVO", vo);
+		
+		if(dto.isUseCookie()) {
+			int amount = 60 * 60 * 24;
+			
+			Date sessionLimit = new Date(System.currentTimeMillis()+(1000*amount));
+			
+			service.keepLogin(vo.getMemberEmail(), session.getId(), sessionLimit);
+		}
 	}
 
 	//회원가입 화면 접근
@@ -73,7 +83,7 @@ public class MemberController {
 	
 	//이메일 중복확인(j-query validation)
 	@RequestMapping(value = "/repeatChk" , method = RequestMethod.GET)
-	public @ResponseBody String repeatChkGet(@RequestParam("memberEmail") String memberEmail)throws Exception {
+	public @ResponseBody String repeatChk(@RequestParam("memberEmail") String memberEmail)throws Exception {
 		
 		if(service.repeatChk(memberEmail) == true) {
 			return "true";

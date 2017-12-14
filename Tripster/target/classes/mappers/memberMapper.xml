@@ -15,6 +15,21 @@
 	  and Member_Password = #{memberPassword}
 	</select>
 	
+	<!-- 로그인 유지 -->
+	<update id="keepLogin">
+	update tbl_Member
+	set Session_Key = #{sessionID}
+	   ,Session_Limit = #{next}
+	where Member_Email = #{memberEmail}
+	</update>
+	
+	<select id="checkSessionKey" resultType="MemberVO">
+	select *
+	from tbl_Member
+	where Session_Key = #{value}
+	  and Session_Limit > now()
+	</select>
+	
 	<!-- 회원 등록 -->
 	<insert id="insertMember">
 	insert into tbl_Member (Member_Email

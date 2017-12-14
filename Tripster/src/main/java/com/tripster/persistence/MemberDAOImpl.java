@@ -1,5 +1,9 @@
 package com.tripster.persistence;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -22,6 +26,21 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
+	public void keepLogin(String memberEmail, String sessionID, Date next) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("memberEmail", memberEmail);
+		paramMap.put("sessionID", sessionID);
+		paramMap.put("next", next);
+
+		session.update(namespace + ".keepLogin", paramMap);
+	}
+
+	@Override
+	public MemberVO checkSessionKey(String value) {
+		return session.selectOne(namespace + ".checkSessionKey", value);
+	}
+
+	@Override
 	public void insertMember(MemberVO vo) throws Exception {
 		session.insert(namespace + ".insertMember", vo);
 	}
@@ -35,12 +54,12 @@ public class MemberDAOImpl implements MemberDAO {
 	public MemberVO viewMember(String memberEmail) throws Exception {
 		return session.selectOne(namespace + ".viewMember", memberEmail);
 	}
-	
+
 	@Override
 	public void updateMember(MemberVO vo) throws Exception {
 		session.selectOne(namespace + ".updateMember", vo);
 	}
-	
+
 	@Override
 	public void deleteMember(String memberEmail) throws Exception {
 		session.selectOne(namespace + ".deleteMember", memberEmail);
