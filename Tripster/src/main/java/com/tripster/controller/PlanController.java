@@ -169,7 +169,7 @@ public class PlanController {
 	}
 	
 	//메모 수정
-	@RequestMapping(value="/modifyMemo", produces = "application/text; charset=utf8",method=RequestMethod.POST)
+	@RequestMapping(value="/modifyMemo", produces = "application/json; charset=utf8",method=RequestMethod.POST)
 	public @ResponseBody void modifyMemo(@RequestBody MemoVO vo)throws Exception{
 		System.out.println("수정 : "+vo);
 		memoService.updateMemo(vo);
