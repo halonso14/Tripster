@@ -1,37 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
-<<<<<<< HEAD
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
-   xmlns:context="http://www.springframework.org/schema/context"
-   xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-=======
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
->>>>>>> branch 'master' of https://github.com/halonso14/Tripster.git
-
-<<<<<<< HEAD
+		
    <annotation-driven />
-=======
-	<annotation-driven />
 
 	<resources mapping="/resources/**" location="/resources/" />
-<<<<<<< HEAD
-	
-	<beans:bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="10485760"></beans:property>
-	</beans:bean>
-=======
->>>>>>> branch 'master' of https://github.com/halonso14/Tripster.git
->>>>>>> branch 'master' of https://github.com/halonso14/Tripster
-
-<<<<<<< HEAD
-   <resources mapping="/resources/**" location="/resources/" />
 
    <beans:bean
       class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -47,15 +24,15 @@
    
    	<beans:bean id="uploadPath" class="java.lang.String">
 		<beans:constructor-arg value="/Users/kimnarae/Documents/upload"></beans:constructor-arg>
-=======
+	</beans:bean>
+
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
->>>>>>> branch 'master' of https://github.com/halonso14/Tripster.git
 	</beans:bean>
 
-<<<<<<< HEAD
+
    <beans:bean id="loginInterceptor" class="com.tripster.interceptor.LoginInterceptor">
    </beans:bean>
 
@@ -67,22 +44,3 @@
    </interceptors>
 
 </beans:beans>
-=======
-	<context:component-scan base-package="com.tripster.controller" />
-	
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="104857600"></beans:property>
-	</beans:bean>
-
-	<beans:bean id="loginInterceptor" class="com.tripster.interceptor.LoginInterceptor">
-	</beans:bean>
-
-	<interceptors>
-		<interceptor>
-			<mapping path="/member/loginPost" />
-			<beans:ref bean="loginInterceptor" />
-		</interceptor>
-	</interceptors>
-
-</beans:beans>
->>>>>>> branch 'master' of https://github.com/halonso14/Tripster.git

@@ -202,6 +202,7 @@
 
             });
             
+            //메모 등록 버튼.
             $("#registerMemoBtn").click(function(){
             	var url;
             	console.log("register isContents:"+isContents);
@@ -351,7 +352,7 @@ body {
 	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="{{imgsrc}}"></span>
 	<div class="mailbox-attachment-info">
 		<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
-		<a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn"><i class="fa fa-fw fa-remove"></i></a>
+		<a href="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn"><i class="fa fa-fw fa-remove">x</i></a>
 	</div>
 </li>
 </script>
