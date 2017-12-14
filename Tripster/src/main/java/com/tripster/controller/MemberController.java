@@ -195,6 +195,13 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	//유저 추천페이지 위한 설문(수정도 됨)페이지 제공
+	@RequestMapping(value = "/register/detail", method = RequestMethod.GET)
+	public String userDetail(MemberVO vo, Model model) throws Exception {
+
+		return "member/userDetail";
+	}
+	
 	
 }
 
