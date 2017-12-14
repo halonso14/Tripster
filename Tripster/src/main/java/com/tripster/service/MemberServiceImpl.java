@@ -27,19 +27,31 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String repeatChk(String str) throws Exception {
-		System.out.println("이메일 인증");
-		if (dao.repeatChk(str) == null) {
-			return "T";
+	public boolean repeatChk(String memberEmail) throws Exception {
+		
+		if (dao.repeatChk(memberEmail) == null) {
+			return true;
 		} else {
-			return "F";
+			return false;
 		}
 	}
 
 	@Override
-	public MemberVO viewMypage(Integer memberID) throws Exception {
+	public MemberVO viewMypage(String memberEmail) throws Exception {
 		
-		return dao.viewMember(memberID);
+		return dao.viewMember(memberEmail);
+	}
+	
+	@Override
+	public void updateMember(MemberVO vo) throws Exception {
+		
+		dao.updateMember(vo);
+	}
+	
+	@Override
+	public void dropMember(String memberEmail) throws Exception {
+		
+		dao.deleteMember(memberEmail);
 	}
 
 }

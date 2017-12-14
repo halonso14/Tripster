@@ -8,19 +8,23 @@
   src="https://code.jquery.com/jquery-3.2.1.js"
   integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
   crossorigin="anonymous"></script>
+<script type="text/javascript" src="../../../resources/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../../../resources/js/additional-methods.min.js"></script>
+<script type="text/javascript" src="../../../resources/js/messages_ko.min.js"></script>
+
 <title>회원가입</title>
 </head>
 <body>
 
 	<h1>회원가입</h1>
 
-	<form name="form" action="registerPost" method="post">
+	<form id="form" action="registerPost" method="post">
 		<div>
 			이메일<input type="text" name="memberEmail" id="memberEmail" placeholder="Email을 입력하세요"/>
 		</div>
-		<div>
+		<!-- <div>
 			<button type="button" id="repeatChk">중복확인</button>
-		</div>
+		</div> -->
 		<div>
 			비밀번호<input type="password" name="memberPassword" id="memberPassword" placeholder="비밀번호를 입력하세요"/>
 		</div>
@@ -36,15 +40,14 @@
 		
 		<div class="row">
 			<div>
-				<button type="submit" onclick="validate()">회원가입</button>
+				<button type="submit">회원가입</button>
 			</div>
 		</div>
 	</form>
 
 	<script type="text/javascript">
 	
-		
-	$(document).on('click','#repeatChk',function(){
+	/* $(document).on('click','#repeatChk',function(){
 		var memberEmail = $('#memberEmail').val()
 	    $.ajax({
 	        url:'/member/repeatChk',
@@ -64,43 +67,65 @@
 	        	alert('서버와의 통신이 원할하지 않습니다.\n다시 시도 해 주십시오.' );
 	        	}
 	    });
-	});
+	}); */
 	
-	
-		
-		function validate(){
-			var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
-			var email = document.form.memberEmail;
-			var password = document.form.memberPassword;
-			var passwordchk = document.form.memberPasswordChk;
-			
-			if(email.value == ""){
-				alert("이메일 입력해라");
-				email.focus();
-				return false;
-			}
-			
-			if(regex.test(email.value) === false){
-				alert("잘못된 이메일 형식이란다");
-				email.value="";
-				email.focus();
-				return false;
-			}
-			
-			if(password.value.length<4){
-				alert("비번 최소 4자리 ㅇㅇ");
-				password.focus();
-				password.select();
-				return false;
-			}
-		        
-			if(password.value != passwordchk.value){
-				alert("비번 일치 ㄴㄴ");
-				password.focus();
-				password.select();
-				return false;
-			}
-		}
+	$(function(){
+        $("form").validate({
+            
+            //규칙
+            rules: {
+            	memberEmail: {
+                    required : true,
+                    minlength : 2,
+                    email : true,
+                    remote : "/member/repeatChk"
+                },
+                memberPassword: {
+                    required : true,
+                    minlength : 4
+                },
+                memberPasswordChk: {
+                    required : true,
+                    minlength : 4,
+                    equalTo : memberPassword
+                },
+                memberName: {
+                    required : true,
+                    minlength : 2
+                },
+                memberBirthday: {
+                	required : true
+                }
+                
+            },
+            //규칙체크 실패시 출력될 메시지
+            messages : {
+            	memberEmail: {
+                    required : "이메일을 입력하세요",
+                    minlength : "최소 {0}글자이상이어야 합니다",
+                    email : "올바른 이메일 형식이 아닙니다.",
+                    remote : "중복된 이메일입니다."
+                },
+                memberPassword: {
+                    required : "비밀번호를 입력하세요.",
+                    minlength : "최소 {0}글자이상이어야 합니다"
+                },
+                memberPasswordChk: {
+                    required : "비밀번호를 다시 입력하세요.",
+                    minlength : "최소 {0}글자이상이어야 합니다",
+                    equalTo : "비밀번호가 일치하지 않습니다."
+                },
+                memberName: {
+                    required : "닉네임을 입력하세요",
+                    minlength : "최소 {0}글자이상이어야 합니다"
+                },
+                memberBirthday: {
+                	required : "생년월일을 입력하세요."
+                }
+                
+            }
+        });
+})
 
 	</script>
 	

@@ -19,6 +19,10 @@
 	if(result == 'success'){
 		alert("회원가입이 완료되었습니다.");
 	}
+	
+	if(result == 'delete'){
+		alert("개인정보 중국에 판매완료!.");
+	}
 </script>
 
 

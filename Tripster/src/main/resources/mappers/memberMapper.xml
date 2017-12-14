@@ -30,18 +30,34 @@
 	
 	<!-- 가입시 이메일 중복확인 -->
 	<select id = "repeatChk" resultType = "MemberVO">
-	select Member_ID memberID 
+	select Member_Email memberEmail 
 	from tbl_Member
-	where Member_email = #{memberEmail}
+	where Member_Email = #{memberEmail}
 	</select>
 	
 	<!-- 회원 마이페이지 조회 -->
-	<select id="viewMember">
+	<select id="viewMember" resultType = "MemberVO">
 	select Member_Email memberEmail
 		  ,Member_Name memberName
-		  ,Member_Birthday memberBirtyday
+		  ,Member_Birthday memberBirthday
 	from tbl_Member
-	where Member_ID = #{memberID}
+	where Member_Email = #{memberEmail}
 	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateMember">
+	update tbl_Member
+	set Member_Password = #{memberPassword}
+	   ,Member_Name = #{memberName}
+	   ,Member_Birthday = #{memberBirthday}
+	where Member_Email = #{memberEmail}
+	</update>
+	
+	<!-- 회원정보 삭제 -->
+	<delete id="deleteMember">
+	delete
+	from tbl_Member
+	where Member_Email = #{memberEmail}
+	</delete>
 	
 </mapper>

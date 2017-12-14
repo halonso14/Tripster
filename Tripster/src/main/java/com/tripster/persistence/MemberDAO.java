@@ -9,7 +9,11 @@ public interface MemberDAO {
 
 	public void insertMember(MemberVO vo) throws Exception;
 
-	public MemberVO repeatChk(String str) throws Exception;
+	public MemberVO repeatChk(String memberEmail) throws Exception;
 
-	public MemberVO viewMember(Integer memberID) throws Exception;
+	public MemberVO viewMember(String memberEmail) throws Exception;
+	
+	public void updateMember(MemberVO vo) throws Exception;
+	
+	public void deleteMember(String memberEmail) throws Exception;
 }

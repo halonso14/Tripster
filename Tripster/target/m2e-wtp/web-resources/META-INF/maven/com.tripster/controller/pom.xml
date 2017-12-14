@@ -159,6 +159,14 @@
 			<version>2.8.4</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+
+
 		<!-- log4jdbc-log4j2-jdbc4 -->
 		<dependency>
 			<groupId>org.bgee.log4jdbc-log4j2</groupId>
