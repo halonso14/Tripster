@@ -6,8 +6,10 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tripster.domain.PlanDetailVO;
+import com.tripster.persistence.MemoDAO;
 import com.tripster.persistence.PlanDetailDAO;
 
 @Service
@@ -15,6 +17,8 @@ public class PlanDetailServiceImpl implements PlanDetailService{
 
 	@Inject
 	private PlanDetailDAO planDetailDAO;
+	@Inject
+	private MemoDAO memoDAO;
 	
 	@Override
 	public void registerPlanDetail(PlanDetailVO vo)throws Exception {
@@ -29,8 +33,11 @@ public class PlanDetailServiceImpl implements PlanDetailService{
 		
 	}
 
+	@Transactional
 	@Override
 	public void deletePlanDetail(int planDetailID)throws Exception {
+		memoDAO.deleteMemo(planDetailID);
+		memoDAO.deleteAttach(planDetailID);
 		planDetailDAO.deletePlanDetail(planDetailID);
 		
 	}

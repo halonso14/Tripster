@@ -1,35 +1,45 @@
 package com.tripster.domain;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class MemoVO {
-	private int memoID;
 	private int planDetailID;
-	private String momoContents;
+	private String memoContents;
 	
-	
-	//setter / getter
-	public int getMemoID() {
-		return memoID;
-	}
-	public void setMemoID(int memoID) {
-		this.memoID = memoID;
-	}
+	private List<String> memoPictures;
+
 	public int getPlanDetailID() {
 		return planDetailID;
 	}
+
 	public void setPlanDetailID(int planDetailID) {
 		this.planDetailID = planDetailID;
 	}
-	public String getMomoContents() {
-		return momoContents;
-	}
-	public void setMomoContents(String momoContents) {
-		this.momoContents = momoContents;
-	}
-	
-	//toString
-	@Override
-	public String toString() {
-		return "MemoVO [memoID=" + memoID + ", planDetailID=" + planDetailID + ", momoContents=" + momoContents + "]";
+
+	public String getMemoContents() {
+		return memoContents;
 	}
 
+	public void setMemoContents(String memoContents) {
+		this.memoContents = memoContents;
+	}
+
+	public List<String> getMemoPictures() {
+		return memoPictures;
+	}
+
+	public void setMemoPictures(List<String> memoPictures) {
+		this.memoPictures = memoPictures;
+	}
+
+	@Override
+	public String toString() {
+		return "MemoVO [planDetailID=" + planDetailID + ", memoContents=" + memoContents + ", memoPictures="
+				+ memoPictures + "]";
+	}
+
+
+	
+	
 }

@@ -10,16 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import com.tripster.domain.MemoVO;
 import com.tripster.domain.PlanDetailVO;
 import com.tripster.domain.PlanVO;
+import com.tripster.service.MemoService;
 import com.tripster.service.PlanDetailService;
 import com.tripster.service.PlanService;
 
@@ -31,6 +33,8 @@ public class PlanController {
 	private PlanService planService;
 	@Inject
 	private PlanDetailService planDetailService;
+	@Inject
+	private MemoService memoService;
 	
 	//plan 등록 form 페이지 요청.
 	@RequestMapping(value="/planRegister", method=RequestMethod.GET)
@@ -75,7 +79,7 @@ public class PlanController {
 	
 	//상세 일정 등록.
 	@RequestMapping(value="/detailRegister", method=RequestMethod.POST)
-	public @ResponseBody int registerPlanDetailPOST(@RequestBody Map<String,Object> modelMap, Model model) throws Exception {
+	public @ResponseBody int registerPlanDetailPOST(@RequestBody Map<String,Object> modelMap) throws Exception {
 		PlanDetailVO vo = new PlanDetailVO();
 		
 		//한번에 받아 온 날짜와 시간을 분리하여 저장.
@@ -97,7 +101,6 @@ public class PlanController {
 		
 		//db저장 후 할당된 planDetailID 값 조회 후 응답.
 		int planDetailID = planDetailService.readPlanDetailID();
-		System.out.println(planDetailID);
 		
 		return planDetailID;
 	}
@@ -106,25 +109,69 @@ public class PlanController {
 	@RequestMapping(value="/updatePlanDetail", method=RequestMethod.POST)
 	public @ResponseBody void updatePlanDetail(@RequestBody Map<String,Object> modelMap) throws Exception {
 		Map<String, Object> map = new HashMap();
-		
-		System.out.println(modelMap.get("dateAndTime"));
-		
+				
+		//한번에 받아 온 날짜와 시간을 분리하여 저장.
 		String dateAndTime = (String)modelMap.get("dateAndTime");
 		String date[] = dateAndTime.split("T",0);
 		
+		//업데이트 시, 필요한 시간과, planDetailID 값을 map에 저장.
 		map.put("planDetailStartTime", date[1]);
 		map.put("planDetailID", Integer.parseInt((String)modelMap.get("planDetailID")));
 		
-		
+		//업데이트 작업.
 		planDetailService.modifyPlanDetail(map);
 	}
 	
 	//상세 일정 삭제 .
 	@RequestMapping(value="/deletePlanDetail", method=RequestMethod.POST)
-	public @ResponseBody void deletePlanDetail(@RequestBody Map<String,Object> modelMap ) throws NumberFormatException, Exception {
-		System.out.println(modelMap.get("planDetailID"));
+	public @ResponseBody void deletePlanDetail(@RequestBody Map<String,Object> modelMap ) throws  Exception {
+		//브라우저에서 넘어온 파라미터 읽기.
 		int planDetailID = Integer.parseInt((String)modelMap.get("planDetailID"));
+		//삭제 작업.
 		planDetailService.deletePlanDetail(planDetailID);
 	}
 	
+	//사용자 지정 상세 일정 등록.
+	@RequestMapping(value="/UserPlanDetail", method=RequestMethod.POST)
+	public @ResponseBody int registerUserPlanDetail(@RequestBody PlanDetailVO vo)throws Exception{
+		
+		String dateAndTime = (String) vo.getPlanDetailDate();
+		String date[] = dateAndTime.split("T",0);
+		
+		vo.setPlanDetailID(0);
+		vo.setPlanDetailDate(date[0]);
+		vo.setPlanDetailStartTime(date[1]);
+		
+		//등록 작업 수행.
+		planDetailService.registerPlanDetail(vo);
+		
+		//db저장 후 할당된 planDetailID 값 조회 후 응답.
+		int planDetailID = planDetailService.readPlanDetailID();
+		
+		return planDetailID;
+	}
+	
+	//메모 등록
+	@RequestMapping(value="/registerMemo", method= RequestMethod.POST)
+	public @ResponseBody void registerMemo(@RequestBody MemoVO vo )throws Exception{
+		System.out.println("등록. : "+vo);
+		memoService.registerMemo(vo);
+
+	}
+	
+	//메모 조회
+	@RequestMapping(value="/selectMemo", produces = "application/json; charset=utf8",method=RequestMethod.POST)
+	public @ResponseBody Map<String,Object> selectMemo(@RequestBody MemoVO  vo)throws Exception{
+		System.out.println(vo.getPlanDetailID());	
+		//Map<String,Object> map = new HashMap<>();
+		System.out.println(memoService.selectMemo(vo.getPlanDetailID()));
+		return memoService.selectMemo(vo.getPlanDetailID());
+	}
+	
+	//메모 수정
+	@RequestMapping(value="/modifyMemo", produces = "application/text; charset=utf8",method=RequestMethod.POST)
+	public @ResponseBody void modifyMemo(@RequestBody MemoVO vo)throws Exception{
+		System.out.println("수정 : "+vo);
+		memoService.updateMemo(vo);
+	}
 }
