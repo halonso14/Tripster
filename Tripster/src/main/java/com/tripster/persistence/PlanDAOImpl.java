@@ -1,5 +1,7 @@
 package com.tripster.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -47,6 +49,13 @@ public class PlanDAOImpl implements PlanDAO{
 		return session.selectOne(namespace+".selectLastPlanID");
 				
 	}
+	
+	//나의 플랜리스트 조회.
+	@Override
+	public List<PlanVO> selectMyPlan(int memberID) throws Exception {
+		return session.selectList(namespace+".myPlan", memberID);
+	}
+
 	
 	
 }

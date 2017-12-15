@@ -1,6 +1,7 @@
 package com.tripster.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -35,21 +36,29 @@ public class PlanDetailDAOTest {
 //	}
 //	
 	
-	@Test
-	public void modify() throws Exception {
-		PlanDetailVO vo = new PlanDetailVO();
-		vo.setPlanDetailID(3);
-		vo.setPlanDetailStartTime("17:00:00");
-		vo.setPlanDetailDate("2017-12-15");
-		vo.setCodeID(1);
-		
-		Map<String, Object> map = new HashMap();
-		
-		map.put("planDetailID",4);
-		map.put("planDetailStartTime","23:00:00");
-		planDetailService.modifyPlanDetail(map);
-	}
+//	@Test
+//	public void modify() throws Exception {
+//		PlanDetailVO vo = new PlanDetailVO();
+//		vo.setPlanDetailID(3);
+//		vo.setPlanDetailStartTime("17:00:00");
+//		vo.setPlanDetailDate("2017-12-15");
+//		vo.setCodeID(1);
+//		
+//		Map<String, Object> map = new HashMap();
+//		
+//		map.put("planDetailID",4);
+//		map.put("planDetailStartTime","23:00:00");
+//		planDetailService.modifyPlanDetail(map);
+//	}
+//	
 	
+//	@Test
+//	public void selectAll()throws Exception{
+//		System.out.println(planDetailService.readAllPlanDetail(52));
+//		
+//	}
+	
+
 //	@Test
 //	public void delete() {
 //		int id = 3;

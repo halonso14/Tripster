@@ -10,11 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
@@ -59,6 +60,13 @@ public class PlanController {
 		rttr.addFlashAttribute("planVO", planVO);
 		//return "/plan/planDetailRegister";
 		return "redirect:/plan/planDetailRegister";
+	}
+	
+	//plan 조회
+	@RequestMapping(value="/planDetail", method=RequestMethod.GET)
+	public void planDetail(@RequestParam("planID") int planID, ModelMap model) throws Exception{
+		System.out.println(planID);
+		model.addAttribute("plan",planService.readPlan(planID));
 	}
 	
 	//planDetail Form 페이지 요청.
@@ -173,5 +181,21 @@ public class PlanController {
 	public @ResponseBody void modifyMemo(@RequestBody MemoVO vo)throws Exception{
 		System.out.println("수정 : "+vo);
 		memoService.updateMemo(vo);
+	}
+	
+	//메모 삭제
+	@RequestMapping(value="/removeMemo", method=RequestMethod.POST)
+	public @ResponseBody void removeMemo(@RequestBody MemoVO vo) throws Exception{
+		System.out.println(vo);
+		int planDetailID = vo.getPlanDetailID();
+		
+		memoService.deleteMemo(planDetailID);
+		
+	}
+	
+	//내가 등록한 plan 전체 조회
+	@RequestMapping(value="/myPlan", method=RequestMethod.GET)
+	public void myPlan(@RequestParam("memberID") int memberID, ModelMap model) throws Exception {
+		model.addAttribute("myPlanList",planService.myPlan(memberID));
 	}
 }

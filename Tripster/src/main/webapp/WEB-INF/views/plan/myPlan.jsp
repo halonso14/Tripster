@@ -7,12 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>planDetail</h2>
-	${plan.planDetailVO.get(0)}
-	
-	<hr>
-	
-	<button id="remove">REMOVE</button>
-	<button id="modify">MODIFY</button>
+	${myPlanList.get(0) }
 </body>
 </html>

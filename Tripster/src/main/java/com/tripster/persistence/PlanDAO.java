@@ -1,5 +1,7 @@
 package com.tripster.persistence;
 
+import java.util.List;
+
 import com.tripster.domain.PlanVO;
 
 public interface PlanDAO {
@@ -17,5 +19,8 @@ public interface PlanDAO {
 	
 	//가장 최근에 저장된 일정 ID값 조회.
 	public int selectLastPlanID()throws Exception;
+	
+	//나의 일정 조회
+	public List<PlanVO> selectMyPlan(int memberID) throws Exception;
 	
 }

@@ -37,7 +37,6 @@ public class PlanDetailServiceImpl implements PlanDetailService{
 	@Override
 	public void deletePlanDetail(int planDetailID)throws Exception {
 		memoDAO.deleteMemo(planDetailID);
-		memoDAO.deleteAttach(planDetailID);
 		planDetailDAO.deletePlanDetail(planDetailID);
 		
 	}

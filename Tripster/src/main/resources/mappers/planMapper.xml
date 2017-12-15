@@ -30,5 +30,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectLastPlanID" resultType="_int">
 		select max(plan_ID) from tbl_plan;
 	</select>
+	
+	<select id="myPlan" resultType="planVO">
+		select plan_ID planID, Member_ID memberID, plan_Title planTitle, plan_startDate planStartDate, plan_endDate planEndDate from tbl_plan where member_ID = #{memberID}
+	</select>
 	 
 </mapper>

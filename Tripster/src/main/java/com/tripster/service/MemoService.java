@@ -11,11 +11,9 @@ public interface MemoService {
 	//수정
 	public void updateMemo(MemoVO vo)throws Exception;
 	
-	//메모 전체 삭제
+	//메모 삭제
 	public void deleteMemo(int planDetailID)throws Exception;
 	
 	//메모 조회
 	public Map<String,Object>  selectMemo(int planDetailID)throws Exception;
-	
-	
 }

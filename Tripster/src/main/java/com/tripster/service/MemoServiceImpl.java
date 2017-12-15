@@ -38,9 +38,11 @@ public class MemoServiceImpl implements MemoService{
 		memoDAO.updateMemo(vo);
 	}
 
+	@Transactional
 	@Override
 	public void deleteMemo(int planDetailID) throws Exception {
 		memoDAO.deleteMemo(planDetailID);
+		memoDAO.deleteAttach(planDetailID);
 	}
 
 	@Transactional
@@ -54,7 +56,7 @@ public class MemoServiceImpl implements MemoService{
 		List<String> memoPictures = memoDAO.getAttach(planDetailID);
 		
 		memoVO.setMemoContents(memoContents);
-		memoVO.setMemoPictures(memoPictures);
+		memoVO.setMemoPictureName(memoPictures);
 		
 		map.put("memoVO", memoVO);
 		return map;
