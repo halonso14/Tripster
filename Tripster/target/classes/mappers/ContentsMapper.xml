@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <mapper namespace="com.tripster.mapper.ContentsMapper">
   
-  <select id="read" resultType="ContentsVO">
+  <select id="getRestaurantDetail" resultType="ContentsVO">
   select 
   	tbl_contents.Category_ID categoryID,tbl_contents.Contents_ID contentsID,tbl_contents.Contents_Title title,
   	tbl_contents.Contents_Location location, tbl_contents.Contents_Rating rating,
@@ -14,9 +14,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	tbl_contents_detail.Contents_Time time, tbl_contents_detail.Contents_Tel tel
   from
   	tbl_contents NATURAL JOIN tbl_contents_detail
+  where
+  	tbl_contents.Category_ID = 1
   </select>
   
-  <select id="getContentsList" resultType="ContentsVO">
+  <select id="getPlaceDetail" resultType="ContentsVO">
+  select 
+  	tbl_contents.Category_ID categoryID,tbl_contents.Contents_ID contentsID,tbl_contents.Contents_Title title,
+  	tbl_contents.Contents_Location location, tbl_contents.Contents_Rating rating,
+  	tbl_contents.Contents_View_Cnt contentsViewCnt, tbl_contents.Contents_Review_Cnt contentsReviewCnt,
+  	tbl_contents.Contents_Scrap_Cnt contentsScrapCnt, tbl_contents_detail.Contents_Contents contents,
+  	tbl_contents_detail.Contents_Time time, tbl_contents_detail.Contents_Tel tel
+  from
+  	tbl_contents NATURAL JOIN tbl_contents_detail
+  where
+  	tbl_contents.Category_ID = 2
+  </select>
+  
+  <select id="getRestaurantList" resultType="ContentsVO">
   <![CDATA[
   select 
   	Category_ID categoryID, Contents_ID contentsID, Contents_Title title, Contents_Location location,
@@ -24,24 +39,51 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	Contents_Scrap_Cnt contentsScrapCnt
   from
   	tbl_contents
-  where Contents_ID > 0
+  where
+  	Category_ID = 1
+  order by Contents_ID desc
+  limit #{startNum}, #{contentsPerPage}
+  ]]>
+  </select>
+  
+  <select id="getPlaceList" resultType="ContentsVO">
+  <![CDATA[
+  select 
+  	Category_ID categoryID, Contents_ID contentsID, Contents_Title title, Contents_Location location,
+  	Contents_Rating rating, Contents_View_Cnt contentsViewCnt, Contents_Review_Cnt contentsReviewCnt,
+  	Contents_Scrap_Cnt contentsScrapCnt
+  from
+  	tbl_contents
+  where
+  	Category_ID = 2
   order by Contents_ID desc
   limit #{startNum}, #{contentsPerPage}
   ]]>
   </select>
  
-  <select id="getTotalContentsNum" resultType="int">
+  <select id="getTotalRestaurantNum" resultType="int">
   <![CDATA[
   select 
   	count(Contents_ID)
   from
   	tbl_contents
   where
-    Contents_ID > 0
+    Category_ID = 1
   ]]>
   </select>
   
-  <update id="updateContentsViewCnt">
+  <select id="getTotalPlaceNum" resultType="int">
+  <![CDATA[
+  select 
+  	count(Contents_ID)
+  from
+  	tbl_contents
+  where
+    Category_ID = 2
+  ]]>
+  </select>
+  
+  <update id="updateViewCnt">
   update
   	tbl_contents
   set
@@ -50,7 +92,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	Contents_ID = #{contentsID}
   </update>
   
-  <update id="updateContentsScrapCnt">
+  <update id="updateReviewCnt">
+  update
+  	tbl_contents
+  set
+  	Contents_Review_Cnt = Contents_Review_Cnt + #{amount}
+  where
+  	Contents_ID = #{contentsID}
+  </update>
+  
+  <update id="updateScrapCnt">
   update
   	tbl_contents
   set

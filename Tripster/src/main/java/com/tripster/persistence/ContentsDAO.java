@@ -6,23 +6,32 @@ import com.tripster.domain.ContentsVO;
 import com.tripster.domain.Criteria;
 
 public interface ContentsDAO {
-	//컨텐츠 상세 정보 조회
-	public ContentsVO read(Integer contentsID) throws Exception;
+	//맛집 상세 정보 조회
+	public ContentsVO getRestaurantDetail(Integer contentsID) throws Exception;
 	
-	//컨텐츠 리스트 조회
-	public List<ContentsVO> getContentsList(Criteria cri) throws Exception;
+	//관광지 상세 정보 조회
+	public ContentsVO getPlaceDetail(Integer contentsID) throws Exception;
 	
-	//총 컨텐츠 정보 개수 조회
-	public int getTotalContentsNum(Criteria cri) throws Exception;
+	//맛집 리스트 조회
+	public List<ContentsVO> getRestaurantList(Criteria cri) throws Exception;
+	
+	//관광지 리스트 조회
+	public List<ContentsVO> getPlaceList(Criteria cri) throws Exception;
+	
+	//총 맛집 개수 조회
+	public int getTotalRestaurantNum(Criteria cri) throws Exception;
+	
+	//총 관광지 개수 조회
+	public int getTotalPlaceNum(Criteria cri) throws Exception;
 	
 	//컨텐츠 조회수 수정
-	public void updateContentsViewCnt(Integer contentsID) throws Exception;
+	public void updateViewCnt(Integer contentsID) throws Exception;
 		
 	//컨텐츠 리뷰 개수 수정
-	public void updateContentsReviewCnt(Integer contentsID, int amount) throws Exception;
+	public void updateReviewCnt(Integer contentsID, int amount) throws Exception;
 	
 	//컨텐츠 스크랩 횟수 수정
-	public void updateContentsScrapCnt(Integer contentsID, int amount) throws Exception;
+	public void updateScrapCnt(Integer contentsID, int amount) throws Exception;
 
 	//카테고리별 개수 + 검색 + @
 }
