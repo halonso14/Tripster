@@ -5,30 +5,18 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-<<<<<<< HEAD
 
 	<annotation-driven />
-=======
-		
- 	<annotation-driven />
->>>>>>> refs/heads/HD
 
 	<resources mapping="/resources/**" location="/resources/" />
 
-<<<<<<< HEAD
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
-=======
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    	<beans:property name="prefix" value="/WEB-INF/views/" />
-    	<beans:property name="suffix" value=".jsp" />
->>>>>>> refs/heads/HD
 	</beans:bean>
 
 	<context:component-scan base-package="com.tripster.controller" />
-<<<<<<< HEAD
 
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -36,15 +24,6 @@
 	</beans:bean>
 
 	<beans:bean id="uploadPath" class="java.lang.String">
-=======
-   
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-    	<beans:property name="maxUploadSize" value="104857600"></beans:property>
-	</beans:bean>
-  	
-  	<!--  파일 첨부 - 김나래 -->
-  	<beans:bean id="uploadPath" class="java.lang.String">
->>>>>>> refs/heads/HD
 		<beans:constructor-arg value="/Users/kimnarae/Documents/upload"></beans:constructor-arg>
 		<beans:constructor-arg value="C:\\zzz\\tripster"></beans:constructor-arg>
 	</beans:bean>
@@ -63,25 +42,19 @@
 
 	<beans:bean id="loginInterceptor" class="com.tripster.interceptor.LoginInterceptor">
 	</beans:bean>
-<<<<<<< HEAD
 	
 	<beans:bean id="authInterceptor" class="com.tripster.interceptor.AuthInterceptor">
 	</beans:bean>
-=======
->>>>>>> refs/heads/HD
 
 	<interceptors>
 		<interceptor>
 			<mapping path="/member/loginPost" />
 			<beans:ref bean="loginInterceptor" />
 		</interceptor>
-<<<<<<< HEAD
 		<interceptor>
 			<mapping path="/member/mypage" />
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
-=======
->>>>>>> refs/heads/HD
 	</interceptors>
 
 </beans:beans>
