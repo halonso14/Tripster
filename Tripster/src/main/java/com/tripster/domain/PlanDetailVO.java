@@ -1,8 +1,6 @@
 package com.tripster.domain;
 
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import java.util.List;
 
 public class PlanDetailVO {
 	private int planDetailID;
@@ -12,6 +10,7 @@ public class PlanDetailVO {
 	private String planDetailStartTime;
 	private String planDetailDate;
 	private int codeID;
+	private MemoVO memoVO;
 	
 	public int getPlanDetailID() {
 		return planDetailID;
@@ -55,12 +54,21 @@ public class PlanDetailVO {
 	public void setCodeID(int codeID) {
 		this.codeID = codeID;
 	}
+	public MemoVO getMemoVO() {
+		return memoVO;
+	}
+	public void setMemoVO(MemoVO memoVO) {
+		this.memoVO = memoVO;
+	}
 	@Override
 	public String toString() {
 		return "PlanDetailVO [planDetailID=" + planDetailID + ", planID=" + planID + ", contentsID=" + contentsID
 				+ ", title=" + title + ", planDetailStartTime=" + planDetailStartTime + ", planDetailDate="
-				+ planDetailDate + ", codeID=" + codeID + "]";
+				+ planDetailDate + ", codeID=" + codeID + ", memoVO=" + memoVO + "]";
 	}
+	
+	
+
 	
 	
 	

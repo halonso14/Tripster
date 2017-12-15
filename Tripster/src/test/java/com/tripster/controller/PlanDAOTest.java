@@ -1,7 +1,5 @@
 package com.tripster.controller;
 
-import java.util.Date;
-
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -9,15 +7,18 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.tripster.domain.PlanVO;
 import com.tripster.persistence.PlanDAO;
+import com.tripster.service.PlanService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"file:src/main/webapp/WEB-INF/spring/**/root-context.xml"})
 public class PlanDAOTest {
 
+//	@Inject
+//	private PlanDAO planDAO;
+	
 	@Inject
-	private PlanDAO planDAO;
+	private PlanService planService;
 	
 //	@Test
 //	public void createPlan() throws Exception{
@@ -54,8 +55,14 @@ public class PlanDAOTest {
 //		planDAO.deletePlan(3);
 //	}
 	
+//	@Test
+//	public void selectPlanID()throws Exception{
+//		System.out.println(planDAO.selectLastPlanID());
+//	}
+
 	@Test
-	public void selectPlanID()throws Exception{
-		System.out.println(planDAO.selectLastPlanID());
+	public void myPlan()throws Exception{
+		int memberID = 1;
+		System.out.println(planService.myPlan(memberID));
 	}
 }

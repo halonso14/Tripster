@@ -7,7 +7,7 @@ public class MemoVO {
 	private int planDetailID;
 	private String memoContents;
 	
-	private List<String> memoPictures;
+	private List<String> memoPictureName;
 
 	public int getPlanDetailID() {
 		return planDetailID;
@@ -25,18 +25,18 @@ public class MemoVO {
 		this.memoContents = memoContents;
 	}
 
-	public List<String> getMemoPictures() {
-		return memoPictures;
+	public List<String> getMemoPictureName() {
+		return memoPictureName;
 	}
 
-	public void setMemoPictures(List<String> memoPictures) {
-		this.memoPictures = memoPictures;
+	public void setMemoPictureName(List<String> memoPictures) {
+		this.memoPictureName = memoPictures;
 	}
 
 	@Override
 	public String toString() {
-		return "MemoVO [planDetailID=" + planDetailID + ", memoContents=" + memoContents + ", memoPictures="
-				+ memoPictures + "]";
+		return "MemoVO [planDetailID=" + planDetailID + ", memoContents=" + memoContents + ", memoPictureName="
+				+ memoPictureName + "]";
 	}
 
 

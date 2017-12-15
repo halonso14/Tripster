@@ -101,9 +101,9 @@ public class UploadController {
 		return entity;
 	}
 
-	@ResponseBody
+	
 	@RequestMapping(value="/deleteFile", method=RequestMethod.POST)
-	public ResponseEntity<String> deleteFile(String fileName){
+	public @ResponseBody void deleteFile(String fileName){
 		logger.info("delete file: "+fileName);
 		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
 		MediaType mType = MediaUtils.getMediaType(formatName);
@@ -115,7 +115,7 @@ public class UploadController {
 		}
 		new File(uploadPath+fileName.replace('/', File.separatorChar)).delete();
 		
-		return new ResponseEntity<String>("deleted",HttpStatus.OK);
+		//return new ResponseEntity<String>("deleted",HttpStatus.OK);
 	}
 	
 	@ResponseBody
