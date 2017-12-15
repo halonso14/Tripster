@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.tripster.mapper.RestaurantMapper">
+  
+  <select id="read" resultType="RestaurantVO">
+  select 
+  	Code_ID codeID,Restaurant_ID restaurantID,Restaurant_Title title,Restaurant_Location location, 
+  	Restaurant_Rating rating, Restaurant_Time time, Restaurant_Contents contents,Restaurant_Tel tel
+  from
+  	tbl_restaurant
+  where
+  	Restaurant_ID = #{restaurantID}
+  </select>
+  
+  <select id="getRestaurantList" resultType="RestaurantVO">
+  <![CDATA[
+  select 
+  	Code_ID codeID,Restaurant_ID restaurantID,Restaurant_Title title,Restaurant_Location location, 
+  	Restaurant_Rating rating, Restaurant_Time time, Restaurant_Contents contents,Restaurant_Tel tel
+  from
+  	tbl_restaurant
+  where Restaurant_ID > 0
+  order by Restaurant_ID desc
+  limit #{startNum}, #{contentsPerPage}
+  ]]>
+  </select>
+ 
+  <select id="getTotalRestaurantNum" resultType="int">
+  <![CDATA[
+  select 
+  	count(Restaurant_ID)
+  from
+  	tbl_restaurant
+  where
+    Restaurant_ID > 0
+  ]]>
+  </select>
+  
+  </mapper>

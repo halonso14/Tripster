@@ -16,11 +16,13 @@ public class ScrapServiceImpl implements ScrapService{
 	@Inject
 	private ScrapDAO dao;
 
+	// 스크랩 리스트 조회
 	@Override
 	public List<ScrapVO> listAll(Integer memberid) throws Exception {
 		return dao.listAll(memberid);
 	}
 	
+	// 스크랩 추가 
 	@Override
 	public void scrap(Integer contentsID) throws Exception{
 		
@@ -35,9 +37,16 @@ public class ScrapServiceImpl implements ScrapService{
 		
 	}
 	
+	// 스크랩 리스트에서 스크랩 삭제
 	@Override
-	public void delete(Integer scrapID) throws Exception{
-		dao.delete(scrapID);
+	public void scrapIDRemove(Integer scrapID) throws Exception{
+		dao.scrapIDRemove(scrapID);
+	}
+	
+	// 컨텐츠에서 스크랩 삭제
+	@Override
+	public void contentsScrapDelete(Integer contentsID) throws Exception{
+		dao.contentsScrapDelete(contentsID);
 	}
 
 }

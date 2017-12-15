@@ -21,35 +21,26 @@ public class ScrapController {
 	@Inject
 	private ScrapService scrapService;
 	
+	// 스크랩 리스트조회 페이지 맵핑
 	@RequestMapping(value="/mypage/scraplist",method=RequestMethod.GET)
 	public void scraplist(@RequestParam("Member_ID") int Member_ID,Model model) throws Exception {
 		
 		loger.info("scrap list");
-		
+		// 멤버 id를 받아 리스트를 조회하여 뷰단으로 전송
 		model.addAttribute("list",scrapService.listAll(Member_ID));
+		model.addAttribute("id",Member_ID);
 		
 	}
 	
-	@RequestMapping(value="/scraplist",method=RequestMethod.POST)
-	public String scraplistRemove(@RequestParam("scrapID") int scrapID) throws Exception {
-		
-		loger.info("scrapid:"+scrapID);
-		
-		scrapService.delete(scrapID);
-		
-		return "redirect:/mypage/scraplist?Member_ID=1";
-	}
-	
-	@RequestMapping(value="/contents/foody",method=RequestMethod.POST)
-	public String scrap(@RequestParam("Restaurant_ID") int Restaurant_ID,
-						@RequestParam("scrap") boolean scrap,Model model) throws Exception {
-		
-		scrapService.scrap(Restaurant_ID);
-		model.addAttribute("tf", scrap);
-		
-		loger.info("");
+//	// 스크랩 리스트 에서 스크랩 삭제 맵핑
+//	@RequestMapping(value="/scraplist",method=RequestMethod.POST)
+//	public String scraplistRemove(@RequestParam("scrapID") int scrapID) throws Exception {
+//		
+//		loger.info("scrapid:"+scrapID);
+//		// 스크랩 id를 받아 삭제 서비스
+//		scrapService.scrapListDelete(scrapID);
+//		
+//		return "redirect:/mypage/scraplist?Member_ID=1";
+//	}
 
-		return "redirect:/contents/foody?Restaurant_ID="+Restaurant_ID;
-	}
-	
 }

@@ -23,26 +23,15 @@ private static final Logger loger = LoggerFactory.getLogger(ScrapController.clas
 	
 
 	@Inject
-	private ContentsService service;
-	@Inject
-	private ScrapService scrapService;
-	
+	private ContentsService service;	
 
 	@RequestMapping(value="/foody",method=RequestMethod.GET)
 	public void foody(@RequestParam("Restaurant_ID") int Restaurant_ID,Model model) throws Exception {
 		
 		loger.info("foody page");
 		model.addAttribute(service.read(Restaurant_ID));
-		
+		model.addAttribute("tf","0");
 	}
 	
-//	@RequestMapping(value="/foody",method=RequestMethod.POST)
-//	public String scrap(@RequestParam("Restaurant_ID") int Restaurant_ID,Model model) throws Exception {
-//		
-//		scrapService.scrap(Restaurant_ID);
-//		
-//		loger.info("");
-//		return "redirect:/contents/foody?Restaurant_ID="+Restaurant_ID;
-//	}
 
 }

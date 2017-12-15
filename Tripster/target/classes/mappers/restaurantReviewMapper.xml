@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.tripster.mapper.RestaurantReviewMapper">
+  
+  <insert id="write">
+  insert into
+  	tbl_restaurant_review (Restaurant_ID, Member_ID, Restaurant_Review)
+  values
+  	(#{restaurantID}, #{memberID}, #{restaurantReview})
+  </insert>
+  
+  <update id="modify">
+  update
+  	tbl_restaurant_review
+  set
+  	Restaurant_Review = #{restaurantReview}, Restaurant_Review_Time = now()
+  where
+  	Restaurant_Review_ID = #{restaurantReviewID}
+  </update>
+ 
+  <delete id="delete">
+  delete from
+  	tbl_restaurant_review
+  where
+  <!-- Restaurant_ID = #{restaurantID}, : 리뷰 테이블 하나라서 리뷰에 중복 ID 없습니다?  -->
+  	Restaurant_Review_ID = #{restaurantReviewID}
+  </delete>
+  
+  <select id="getRestaurantReviewList" resultType="restaurantReviewVO">
+
+  select Member_ID memberID, Restaurant_Review restaurantReview, Restaurant_Review_Time restaurantReviewTime
+  from
+  	tbl_restaurant_review
+  where
+  	Restaurant_ID = #{restaurantID}
+  limit #{cri.startNum}, #{cri.contentsPerPage}
+
+  </select>
+  
+  <select id="getTotalRestaurantReviewNum" resultType="int">
+  select 
+  	count(Restaurant_Review_ID)
+  from
+  	tbl_restaurant_review
+  where
+    Restaurant_ID = #{restaurantID}
+  </select>
+  
+  </mapper>

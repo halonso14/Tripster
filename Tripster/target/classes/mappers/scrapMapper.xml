@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <mapper namespace="scrapMapper">
 
-<!-- 스크렙 테이블에 데이터 넣는 쿼리 -->
+<!-- 스크랩 객체를 받아 스크렙 테이블에 데이터 넣는 쿼리 -->
 <insert id="scrap">
 	insert into tbl_scrap (
 							Scrap_ID
@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						   )
 					values(
 							#{scrapID}
-							,3 <!-- memberID 는 1로 고정 -->
+							,2 <!-- memberID 는 1로 고정 -->
 							,#{codeID}
 							,#{contentsID}
 							,#{contentsTitle}
@@ -26,6 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 <!-- memberID를 불러와 ScrapVO객체 리스트 넣는 쿼리 -->
+<!-- 멤버의 아이디를 받아 멤버의 스크랩 리스트 조회 -->
 <select id="listAll" resultType="com.tripster.domain.ScrapVO">
 	select
 			 Scrap_ID scrapID
@@ -41,28 +42,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 </select>
 
-<delete id="delete" >
+<!-- 스크랩아이디를 받아 해당 스크랩 삭제 -->
+<delete id="scrapIDRemove" >
 	
 	delete from tbl_scrap
 	where scrap_ID = #{scrapID}
 	
 </delete>
 
-  <select id="read" resultType="com.tripster.domain.ContentsVO">
-  select 
-  		 Code_ID codeID
-  		,Restaurant_ID ID
-  		,Restaurant_Title title
-  		,Restaurant_Location location 
-  		,Restaurant_Rating rating
-  		,Restaurant_Time time
-  		,Restaurant_Contents contents
-  		,Restaurant_Tel tel
-  		
-  from tbl_restaurant
+<!-- 컨텐츠 id를 받아 해당 contents 조회 -->
+ <select id="read" resultType="com.tripster.domain.ContentsVO">
+ select 
+ 		 Code_ID codeID
+ 		,Restaurant_ID ID
+ 		,Restaurant_Title title
+ 		,Restaurant_Location location 
+ 		,Restaurant_Rating rating
+ 		,Restaurant_Time time
+ 		,Restaurant_Contents contents
+ 		,Restaurant_Tel tel
+ 		
+ from tbl_restaurant
+ 
+ where Restaurant_ID = #{ID}
+ </select>
   
-  where Restaurant_ID = #{ID}
-  </select>
+  <!-- 컨텐츠 id를 받아 삭제 -->
+ <delete id="contentsScrapDelete">
+ 
+ 	delete from tbl_scrap
+	where Contents_ID = #{contentsID}
+ 
+ </delete>
   
 </mapper>
   

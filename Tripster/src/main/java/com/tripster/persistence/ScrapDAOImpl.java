@@ -18,23 +18,34 @@ public class ScrapDAOImpl implements ScrapDAO {
 	
 	private static String namespace = "scrapMapper";
 	
+	// 스크랩 리스트 조회
 	@Override
 	public List<ScrapVO> listAll(Integer memberid) throws Exception {
 		return session.selectList(namespace + ".listAll",memberid);
 	}
 	
+	// 스크랩 추가
 	@Override
 	public void insert(ScrapVO vo) throws Exception{
 		session.insert(namespace+".scrap",vo);
 	}
 	
-	public void delete(Integer scrapID) throws Exception{
-		session.delete(namespace+".delete",scrapID);
+	// 스크렙 리스트에서 스크랩 삭제
+	@Override
+	public void scrapIDRemove(Integer scrapID) throws Exception{
+		session.delete(namespace+".scrapIDRemove",scrapID);
 	}
 	
+	// 컨텐츠 조회
 	@Override
 	public ContentsVO read(Integer id) throws Exception{
 		return session.selectOne(namespace+".read",id);
+	}
+	
+	// 컨텐츠에서 스크랩 삭제
+	@Override
+	public void contentsScrapDelete(Integer contentsID) throws Exception{
+		session.delete(namespace+".contentsScrapDelete",contentsID);
 	}
 
 }
