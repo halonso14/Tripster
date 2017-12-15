@@ -1,5 +1,7 @@
 package com.tripster.service;
 
+import java.util.Date;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -18,6 +20,17 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO login(LoginDTO dto) throws Exception {
 
 		return dao.login(dto);
+	}
+	
+	@Override
+	public void keepLogin(String memberEmail, String sessionID, Date next) throws Exception{
+		
+		dao.keepLogin(memberEmail, sessionID, next);
+	}
+	
+	public MemberVO checkLoginBefore(String value) {
+		
+		return dao.checkSessionKey(value);
 	}
 
 	@Override
