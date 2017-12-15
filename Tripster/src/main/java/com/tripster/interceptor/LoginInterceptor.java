@@ -36,8 +36,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			logger.info("로그인됐다고");
 			session.setAttribute(LOGIN, memberVO);
 			
-			if(memberVO != null) {
-				logger.info("remember me..");
+			if(request.getParameter("useCookie") != null) {
+				logger.info("로그인 상태 유지");
 				Cookie loginCookie = new Cookie("loginCookie", session.getId());
 				loginCookie.setPath("/");
 				//쿠키 수명 : 하루동안 브라우저에 보관

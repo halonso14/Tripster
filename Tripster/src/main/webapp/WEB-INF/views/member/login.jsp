@@ -19,7 +19,7 @@
 			<div>
 				<div>
 					<label>
-						<input type="checkbox" name="useCookie">Remember Me
+						<input type="checkbox" name="useCookie">로그인 상태유지
 					</label>
 				</div>
 			</div>
