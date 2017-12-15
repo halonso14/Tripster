@@ -6,7 +6,6 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.tripster.domain.ContentsVO;
 import com.tripster.domain.ScrapVO;
 import com.tripster.persistence.ScrapDAO;
 
@@ -26,14 +25,14 @@ public class ScrapServiceImpl implements ScrapService{
 	@Override
 	public void scrap(Integer contentsID) throws Exception{
 		
-		ContentsVO cont = new ContentsVO();
-		ScrapVO vo = new ScrapVO();
-		cont = dao.read(contentsID);
-		vo.setCodeID(cont.getCodeID());
-		vo.setContentsID(cont.getID());
-		vo.setContentsTitle(cont.getTitle());
-		vo.setContentsPhoto(cont.getContents());
-		dao.insert(vo);
+//		ContentsVO cont = new ContentsVO();
+//		ScrapVO vo = new ScrapVO();
+//		cont = dao.read(contentsID);
+//		vo.setCodeID(cont.getCodeID());
+//		vo.setContentsID(cont.getID());
+//		vo.setContentsTitle(cont.getTitle());
+//		vo.setContentsPhoto(cont.getContents());
+//		dao.insert(vo);
 		
 	}
 	

@@ -10,15 +10,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.tripster.domain.ScrapVO;
-import com.tripster.persistence.ContentsDAO;
 import com.tripster.persistence.ScrapDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/**/*.xml" })
 public class TestClass {
 
-	@Inject
-	private ContentsDAO dao1;
+
 	@Inject
 	private ScrapDAO dao;
 	

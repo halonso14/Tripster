@@ -42,5 +42,14 @@ public class ScrapController {
 //		
 //		return "redirect:/mypage/scraplist?Member_ID=1";
 //	}
+		
+
+	@RequestMapping(value="/foody",method=RequestMethod.GET)
+	public void foody(@RequestParam("Restaurant_ID") int Restaurant_ID,Model model) throws Exception {
+		
+		loger.info("foody page");
+//		model.addAttribute(service.read(Restaurant_ID));
+		model.addAttribute("tf","0");
+	}
 
 }

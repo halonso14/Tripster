@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.tripster.domain.ContentsVO;
 import com.tripster.domain.ScrapVO;
 
 @Repository
@@ -34,12 +33,6 @@ public class ScrapDAOImpl implements ScrapDAO {
 	@Override
 	public void scrapIDRemove(Integer scrapID) throws Exception{
 		session.delete(namespace+".scrapIDRemove",scrapID);
-	}
-	
-	// 컨텐츠 조회
-	@Override
-	public ContentsVO read(Integer id) throws Exception{
-		return session.selectOne(namespace+".read",id);
 	}
 	
 	// 컨텐츠에서 스크랩 삭제
