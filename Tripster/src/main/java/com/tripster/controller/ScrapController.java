@@ -8,34 +8,48 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.tripster.domain.ScrapVO;
 import com.tripster.service.ScrapService;
 
 @Controller
-@RequestMapping("/mypage/*")
+@RequestMapping("/*")
 public class ScrapController {
 	
 	private static final Logger loger = LoggerFactory.getLogger(ScrapController.class);
 	
 	@Inject
-	private ScrapService service;
+	private ScrapService scrapService;
 	
-	@RequestMapping(value="/scraplist",method=RequestMethod.GET)
-	public void scraplist(Model model) throws Exception {
+	// 스크랩 리스트조회 페이지 맵핑
+	@RequestMapping(value="/mypage/scraplist",method=RequestMethod.GET)
+	public void scraplist(@RequestParam("Member_ID") int Member_ID,Model model) throws Exception {
 		
 		loger.info("scrap list");
-		
-		model.addAttribute("list",service.listAll());
+		// 멤버 id를 받아 리스트를 조회하여 뷰단으로 전송
+		model.addAttribute("list",scrapService.listAll(Member_ID));
+		model.addAttribute("id",Member_ID);
 		
 	}
 	
-	@RequestMapping(value="/scrap",method=RequestMethod.POST)
-	public String registerPOST(ScrapVO scrap,Model model) throws Exception {
+//	// 스크랩 리스트 에서 스크랩 삭제 맵핑
+//	@RequestMapping(value="/scraplist",method=RequestMethod.POST)
+//	public String scraplistRemove(@RequestParam("scrapID") int scrapID) throws Exception {
+//		
+//		loger.info("scrapid:"+scrapID);
+//		// 스크랩 id를 받아 삭제 서비스
+//		scrapService.scrapListDelete(scrapID);
+//		
+//		return "redirect:/mypage/scraplist?Member_ID=1";
+//	}
 		
-		service.scrap(scrap);
-		loger.info("scrap regist success");
-		return "redirect:/mypage/scrap";
+
+	@RequestMapping(value="/foody",method=RequestMethod.GET)
+	public void foody(@RequestParam("Restaurant_ID") int Restaurant_ID,Model model) throws Exception {
+		
+		loger.info("foody page");
+//		model.addAttribute(service.read(Restaurant_ID));
+		model.addAttribute("tf","0");
 	}
-	
+
 }

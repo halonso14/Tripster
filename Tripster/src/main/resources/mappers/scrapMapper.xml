@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="scrapMapper">
+
+<!-- 스크랩 객체를 받아 스크렙 테이블에 데이터 넣는 쿼리 -->
+<insert id="scrap">
+	insert into tbl_scrap (
+							Scrap_ID
+						   ,Member_ID
+						   ,Code_ID
+						   ,Contents_ID
+						   ,Contents_Title
+						   ,Contents_Photo
+						   )
+					values(
+							#{scrapID}
+							,2 <!-- memberID 는 1로 고정 -->
+							,#{codeID}
+							,#{contentsID}
+							,#{contentsTitle}
+							,#{contentsPhoto})
+</insert>
+
+
+<!-- memberID를 불러와 ScrapVO객체 리스트 넣는 쿼리 -->
+<!-- 멤버의 아이디를 받아 멤버의 스크랩 리스트 조회 -->
+<select id="listAll" resultType="com.tripster.domain.ScrapVO">
+	select
+			 Scrap_ID scrapID
+			,Member_ID memberID
+			,Code_ID codeID
+			,Contents_ID contentsID
+			,Contents_Title contentsTitle
+			,Contents_Photo contentsPhoto
+			
+	from tbl_scrap
+	
+	where Member_ID = #{memberID};
+
+</select>
+
+<!-- 스크랩아이디를 받아 해당 스크랩 삭제 -->
+<delete id="scrapIDRemove" >
+	
+	delete from tbl_scrap
+	where scrap_ID = #{scrapID}
+	
+</delete>
+
+<!-- 컨텐츠 id를 받아 해당 contents 조회 -->
+ <select id="read" resultType="com.tripster.domain.ContentsVO">
+ select 
+ 		 Code_ID codeID
+ 		,Restaurant_ID ID
+ 		,Restaurant_Title title
+ 		,Restaurant_Location location 
+ 		,Restaurant_Rating rating
+ 		,Restaurant_Time time
+ 		,Restaurant_Contents contents
+ 		,Restaurant_Tel tel
+ 		
+ from tbl_restaurant
+ 
+ where Restaurant_ID = #{ID}
+ </select>
+  
+  <!-- 컨텐츠 id를 받아 삭제 -->
+ <delete id="contentsScrapDelete">
+ 
+ 	delete from tbl_scrap
+	where Contents_ID = #{contentsID}
+ 
+ </delete>
+  
+</mapper>
+  

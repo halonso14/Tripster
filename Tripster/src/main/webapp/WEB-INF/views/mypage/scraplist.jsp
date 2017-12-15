@@ -8,16 +8,57 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
 </head>
 <body>
+	
+	<input type="hidden" id="memberID" value="${id}" />
 
-	<c:forEach items="${list}" var="scrapVO">
-	<tr>
-		<td>${scrapVO.scrapID}</td>
-		<td><a href=''>${scrapVO.contentsTitle}</a></td>
-	</tr>
+	<div class="list">
+		
+	
+	</div>
+	
+	<script>
+			$(document).ready(function (){
 
-</c:forEach>
+				var memberID = $('#memberID').val();
+				// 전체 리스트 조회 함수
+				var getAllList = function(){
+
+					$.getJSON('/scraplist/'+memberID,function(data){
+						
+						var str = "";
+						$(data).each(function(i,list){
+							str += "<li>"+i+".이름:<a href=''>"+list.contentsTitle+"</a>,"+
+							"내용:"+list.contentsPhoto+
+							"<button class='scrapRemove' value="+list.scrapID+">삭제</button></li>";
+						});
+						
+						$('.list').html(str);
+						
+					});
+				};
+				
+				// 페이지 들어올경우 전체리스트 조회
+				getAllList();
+				
+				// 스크랩 삭제
+				$('.list').on('click','.scrapRemove',function () {
+					
+					var scrapID = $(this).val();
+					$.post('/scrapIDremove/'+scrapID,function(data){
+						alert(data);
+						getAllList();
+					});
+
+				});
+				
+			})
+		</script>
 	
 	
 </body>
