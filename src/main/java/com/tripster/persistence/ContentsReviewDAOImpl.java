@@ -37,7 +37,7 @@ public class ContentsReviewDAOImpl implements ContentsReviewDAO{
 	
 	//컨텐츠 리뷰 리스트 조회
 	@Override
-	public List<ContentsReviewVO> getContentsReviewList(Integer contentsID, Criteria cri) throws Exception {
+	public List<ContentsReviewVO> getReviewList(Integer contentsID, Criteria cri) throws Exception {
 		//ContentsID, Criteria 객체를 전달할 Map 객체 생성 
 		Map<String, Object> paramMap = new HashMap<>();
 		
@@ -45,14 +45,14 @@ public class ContentsReviewDAOImpl implements ContentsReviewDAO{
 		paramMap.put("contentsID", contentsID);
 		paramMap.put("cri", cri);
 		//쿼리 결과 반환
-		return session.selectList(namespace + ".getContentsReviewList", paramMap);
+		return session.selectList(namespace + ".getReviewList", paramMap);
 	}
 	
 	//컨텐츠 총 리뷰 개수 조회
 	@Override
-	public int getTotalContentsReviewNum(Integer contentsID) throws Exception {
+	public int getTotalReviewNum(Integer contentsID) throws Exception {
 		//쿼리 결과 반환
-		return session.selectOne(namespace + ".getTotalContentsReviewNum", contentsID);
+		return session.selectOne(namespace + ".getTotalReviewNum", contentsID);
 	}
 	
 	//리뷰 대상 컨텐츠의 ID 조회

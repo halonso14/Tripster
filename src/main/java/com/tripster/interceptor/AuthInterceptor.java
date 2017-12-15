@@ -45,7 +45,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		
 		HttpSession session = request.getSession();
 		
-		//로그인 상태가 아닐경우
 		if(session.getAttribute("login")==null) {
 			logger.info("current user is not logined");
 			
@@ -53,11 +52,10 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			
 			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 			
-			System.out.println("로그인쿠키"+loginCookie);
-			
-			//로그인 쿠키가 유지되고있을 경우
 			if(loginCookie != null) {
 				MemberVO vo = service.checkLoginBefore(loginCookie.getValue());
+				
+				logger.info("MemberVO : " + vo);
 				
 				if(vo != null) {
 					session.setAttribute("login", vo);

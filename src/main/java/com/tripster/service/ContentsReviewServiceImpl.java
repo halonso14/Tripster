@@ -25,7 +25,7 @@ public class ContentsReviewServiceImpl implements ContentsReviewService {
 	@Override
 	public void writeReview(ContentsReviewVO vo) throws Exception {
 		dao.write(vo);
-		contentsDao.updateContentsReviewCnt(vo.getContentsID(), 1);
+		contentsDao.updateReviewCnt(vo.getContentsID(), 1);
 	}
 
 	@Override
@@ -38,17 +38,17 @@ public class ContentsReviewServiceImpl implements ContentsReviewService {
 	public void deleteReview(Integer contentsReviewID) throws Exception {
 		Integer contentsID = dao.getContentsID(contentsReviewID);
 		dao.delete(contentsReviewID);
-		contentsDao.updateContentsReviewCnt(contentsID, -1);
+		contentsDao.updateReviewCnt(contentsID, -1);
 	}
 
 	@Override
-	public List<ContentsReviewVO> getContentsReviewList(Integer contentsID, Criteria cri) throws Exception {
-		return dao.getContentsReviewList(contentsID, cri);
+	public List<ContentsReviewVO> getReviewList(Integer contentsID, Criteria cri) throws Exception {
+		return dao.getReviewList(contentsID, cri);
 	}
 
 	@Override
-	public int getTotalContentsReviewNum(Integer contentsID) throws Exception {
-		return dao.getTotalContentsReviewNum(contentsID);
+	public int getTotalReviewNum(Integer contentsID) throws Exception {
+		return dao.getTotalReviewNum(contentsID);
 	}
 	
 	

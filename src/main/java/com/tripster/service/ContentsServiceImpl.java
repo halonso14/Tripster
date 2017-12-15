@@ -17,23 +17,45 @@ public class ContentsServiceImpl implements ContentsService {
 	@Inject 
 	private ContentsDAO dao;
 	
-	//컨텐츠 상세 정보 조회
+	//맛집 상세 정보 조회
 	@Transactional
 	@Override
-	public ContentsVO getContentsDetail(Integer contentsID) throws Exception {
-		dao.updateContentsViewCnt(contentsID);
-		return dao.read(contentsID);
+	public ContentsVO getRestaurantDetail(Integer contentsID) throws Exception {
+		//조회수 추가
+		dao.updateViewCnt(contentsID);
+		return dao.getRestaurantDetail(contentsID);
 	}
 	
-	//컨텐츠 리스트 조회
+	//관광지 상세 정보 조회
+	@Transactional
 	@Override
-	public List<ContentsVO> getContentsList(Criteria cri) throws Exception {
-		return dao.getContentsList(cri);
+	public ContentsVO getPlaceDetail(Integer contentsID) throws Exception {
+		//조회수 추가
+		dao.updateViewCnt(contentsID);
+		return dao.getPlaceDetail(contentsID);
 	}
 	
-	//총 컨텐츠 개수 조회
+	//맛집 리스트 조회
 	@Override
-	public int getTotalContentsNum(Criteria cri) throws Exception {
-		return dao.getTotalContentsNum(cri);
+	public List<ContentsVO> getRestaurantList(Criteria cri) throws Exception {
+		return dao.getRestaurantList(cri);
+	}
+	
+	//관광지 리스트 조회
+	@Override
+	public List<ContentsVO> getPlaceList(Criteria cri) throws Exception {
+		return dao.getPlaceList(cri);
+	}
+	
+	//총 맛집 개수 조회
+	@Override
+	public int getTotalRestaurantNum(Criteria cri) throws Exception {
+		return dao.getTotalRestaurantNum(cri);
+	}
+	
+	//총 관광지 개수 조회
+	@Override
+	public int getTotalPlaceNum(Criteria cri) throws Exception {
+		return dao.getTotalPlaceNum(cri);
 	}
 }

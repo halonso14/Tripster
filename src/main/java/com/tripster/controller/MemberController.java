@@ -133,7 +133,8 @@ public class MemberController {
 				loginCookie.setMaxAge(0);
 				response.addCookie(loginCookie);
 				
-				service.keepLogin(vo.getMemberEmail(), session.getId(), new Date());
+				//로그인 유지 구현 후 주석처리 삭제
+				//service.keepLogin(vo.getUid(), session.getId(), new Date());
 			}
 		}
 		return "member/logout";

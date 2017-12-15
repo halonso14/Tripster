@@ -5,8 +5,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.UUID;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +28,7 @@ import com.tripster.util.UploadFileUtils;
 public class UploadController {
 	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
 
-	@Resource(name = "uploadPath")
+//	@Resource(name = "uploadPath")
 	private String uploadPath;
 
 	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)

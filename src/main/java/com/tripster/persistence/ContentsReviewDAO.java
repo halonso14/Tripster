@@ -16,10 +16,10 @@ public interface ContentsReviewDAO {
 	public void delete(Integer reviewID) throws Exception;
 	
 	//특정 컨텐츠의 리뷰 목록 조회
-	public List<ContentsReviewVO> getContentsReviewList(Integer contentsID, Criteria cri) throws Exception;
+	public List<ContentsReviewVO> getReviewList(Integer contentsID, Criteria cri) throws Exception;
 	
 	//특정 컨텐츠의 리뷰 개수 조회
-	public int getTotalContentsReviewNum(Integer contentsID) throws Exception;
+	public int getTotalReviewNum(Integer contentsID) throws Exception;
 	
 	//리뷰 대상 컨텐츠의 ID 조회
 	public int getContentsID(Integer contentsReviewID) throws Exception;
