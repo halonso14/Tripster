@@ -10,28 +10,25 @@
 <title>Insert title here</title>
 </head>
 <body>
-abc
-<!-- 
 	<table>
 		<tr>
-			<th>restaurantID</th>
 			<th>title</th>
 			<th>location</th>
 			<th>rating</th>
-			<th>time</th>
-			<th>contents</th>
-			<th>tel</th>
-			<th>codeID</th>
+			<th>categoryID</th>
+			<th>viewCnt</th>
+			<th>reviewCnt</th>
+			<th>scrapCnt</th>
 		</tr>
-		<c:forEach items="${list}" var="restaurantVO">
+		<c:forEach items="${list}" var="contentsVO">
 			<tr>
-				<td>${restaurantVO.title}</td>
-				<td>${restaurantVO.location}</td>
-				<td>${restaurantVO.rating}</td>
-				<td>${restaurantVO.time}</td>
-				<td>${restaurantVO.contents}</td>
-				<td>${restaurantVO.tel}</td>
-				<td>${restaurantVO.codeID}</td>
+				<td><a href='/contents/restaurantDetail/${contentsVO.contentsID}'>${contentsVO.title}</a></td>
+				<td>${contentsVO.location}</td>
+				<td>${contentsVO.rating}</td>
+				<td>${contentsVO.categoryID}</td>
+				<td>${contentsVO.contentsViewCnt}</td>
+				<td>${contentsVO.contentsReviewCnt}</td>
+				<td>${contentsVO.contentsScrapCnt}</td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -39,19 +36,19 @@ abc
 	<div>
 		<ul>
 			<c:if test="${pageMaker.prev}">
-				<li><a href="/restaurants/restaurantList?curPage=${pageMaker.startPage - 1}">prev</a></li>
+				<li><a href="/contents/restaurantList/${pageMaker.startPage - 1}">prev</a></li>
 			</c:if>
 			
 			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 				<li
 					<c:out value="${pageMaker.cri.curPage == idx?'class = active':''}"/>>
-					<a href="/restaurants/restaurantList?curPage=${idx}">${idx}</a>
+					<a href="/contents/restaurantList/${idx}">${idx}</a>
 				</li>
 				</tr>
 			</c:forEach>
 			
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				<li><a href="/restaurants/restaurantList?curPage=${pageMaker.endPage + 1}">next</a></li>
+				<li><a href="/contents/restaurantList/${pageMaker.endPage + 1}">next</a></li>
 			</c:if>
 		</ul>
 	</div>
@@ -60,18 +57,17 @@ abc
 	</div>
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 	<script>
-		$.getJSON("/restaurants/restaurantList", function(data) {
+		$.getJSON("/contents/restaurantList", function(data) {
 			var str = "";
 			
 			$(data).each(
 					function() {
-						str += "<li data-restaurantID='" + this.restaurantID+"' class='resLi'>"
-							+ this.restaurantID +":" + this.title + "</li>";
+						str += "<li data-restaurantID='" + this.contentsID+"' class='resLi'>"
+							+ this.contentsID +":" + this.title + "</li>";
 					});
 			
 			$("#list").html(str);
 		});
 	</script>
- -->
 </body>
 </html>

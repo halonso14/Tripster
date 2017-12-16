@@ -50,6 +50,4 @@ public class ContentsReviewServiceImpl implements ContentsReviewService {
 	public int getTotalReviewNum(Integer contentsID) throws Exception {
 		return dao.getTotalReviewNum(contentsID);
 	}
-	
-	
 }
