@@ -3,13 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.ddiv">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+
 	<table>
 		<tr>
 			<th>title</th>
@@ -21,8 +22,9 @@
 			<th>scrapCnt</th>
 		</tr>
 		<c:forEach items="${list}" var="contentsVO">
-			<tr>
-				<td><a href='/contents/restaurantDetail/${contentsVO.contentsID}'>${contentsVO.title}</a></td>
+			<tr class="detail">
+				<td><a href="/contents/restaurantDetail/${contentsVO.contentsID}">${contentsVO.title}</a></td>
+				<td id="getID">${contentsVO.contentsID}</td>
 				<td>${contentsVO.location}</td>
 				<td>${contentsVO.rating}</td>
 				<td>${contentsVO.categoryID}</td>
@@ -44,7 +46,6 @@
 					<c:out value="${pageMaker.cri.curPage == idx?'class = active':''}"/>>
 					<a href="/contents/restaurantList/${idx}">${idx}</a>
 				</li>
-				</tr>
 			</c:forEach>
 			
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
@@ -52,22 +53,40 @@
 			</c:if>
 		</ul>
 	</div>
-	<div>
-		<ul id="list"></ul>
-	</div>
+	<form id="pageInfo">
+		<input type="hidden" name="pageInfo" value=${pageMaker.cri.curPage}>
+	</form>
+
+
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 	<script>
-		$.getJSON("/contents/restaurantList", function(data) {
-			var str = "";
+	$(document).ready(function(){
+		var curPage = ${cri.curPage};
+		var contentsPerPage = ${cri.contentsPerPage}; 
+		
+		$(".detail").on("click", "a", function(event){
+			event.preventDefault();
 			
-			$(data).each(
-					function() {
-						str += "<li data-restaurantID='" + this.contentsID+"' class='resLi'>"
-							+ this.contentsID +":" + this.title + "</li>";
-					});
+			var targetPage = event.target;
 			
-			$("#list").html(str);
+			$.ajax({
+				type : 'get',
+				url : targetPage,
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "GET"
+				},
+				dataType : 'text',
+				data : JSON.stringify({
+					curPage : curPage,
+					contentsPerPage : contentsPerPage
+				}),
+				success : 
+					location.href = targetPage
+			});
 		});
+	});
+	
 	</script>
 </body>
 </html>

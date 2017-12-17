@@ -5,13 +5,15 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<script type="text/javascript" src="/resources/js/handlebars-v4.0.10.js"></script>
 	<title>title</title>
 </head>
 
 <body>
+
 	<table>
 		<tr>
+			<th>curPage ${cri.curPage}</th>
+			<th>contentsID</th>
 			<th>title</th>
 			<th>location</th>
 			<th>rating</th>
@@ -20,38 +22,51 @@
 			<th>reviewCnt</th>
 			<th>scrapCnt</th>
 		</tr>
-		<c:forEach items="${list}" var="contentsVO">
-			<tr>
-				<td><a href='/contents/restaurantDetail/${contentsVO.contentsID}'>${contentsVO.title}</a></td>
-				<td>${contentsVO.location}</td>
-				<td>${contentsVO.rating}</td>
-				<td>${contentsVO.categoryID}</td>
-				<td>${contentsVO.contentsViewCnt}</td>
-				<td>${contentsVO.contentsReviewCnt}</td>
-				<td>${contentsVO.contentsScrapCnt}</td>
-			</tr>
-		</c:forEach>
+		<tr>
+			<td></td>
+			<td>${vo.contentsID}</td>
+			<td>${vo.title}</td>
+			<td>${vo.location}</td>
+			<td>${vo.rating}</td>
+			<td>${vo.categoryID}</td>
+			<td>${vo.contentsViewCnt}</td>
+			<td>${vo.contentsReviewCnt}</td>
+			<td>${vo.contentsScrapCnt}</td>
+		</tr>
 	</table>
+	<button type="submit" class="getList">리스트 페이지</button>
+
+	<form role="form" method="post">
+		<input type='hidden' name='curPage' value=${pageInfo}>
+	</form>
 
 <script src="/resources/js/jquery.min.js"></script>
-<!-- 
 <script>
 	$(document).ready(function(){
-		detail();
+		
+		$(".getList").on("click", function(){
 
-        $.ajax({
-            type:'get',
-            url:"/contents/restaurantDetail/"+contentsID,
-            data : JSON.stringify({
-                restaurantID : contentsID,
-                restaurantTitle : contentsTitle
-            }),
-            success: function(result) {
-                alert('success');
-            }
-        });
-	};
+			self.location ="/contents/restaurantList/"+pageInfo;
+		});
+	});
+
+	function getReviewList() {
+		$.getJSON("/contents/review/"+contentsID+"/1", function(data) {
+			var str = "";
+			$(data).each(
+				function() {
+					str += "<li data-contentsReviewID='"+this.contentsReviewID+"' class='replyLi'>"
+						+ this.this.contentsReviewID + ":" + this.contentsReview
+						+ "</li>";
+			});
+			$("#replies").html(str);
+		});
+	}
+	$.getJSON("/contents/review/"+${contentsID}+"/"+${curPage}, function(data) {
+		var str = "";
+		console.log(data.length);
+	});
 </script>
- -->
+
 </body>
 </html>
