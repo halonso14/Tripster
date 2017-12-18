@@ -6,12 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.tripster.domain.ScrapVO;
 import com.tripster.service.ScrapService;
 
+// 스크랩 페이지
 @Controller
 @RequestMapping("/mypage/*")
 public class ScrapController {
@@ -21,21 +22,16 @@ public class ScrapController {
 	@Inject
 	private ScrapService service;
 	
-	@RequestMapping(value="/scraplist",method=RequestMethod.GET)
-	public void scraplist(Model model) throws Exception {
+	// 스크랩 리스트 페이지
+	@RequestMapping(value="/scraplist/{memberID}",method=RequestMethod.GET)
+	public String scrpaList (@PathVariable("memberID") Integer memberID,Model model) throws Exception {
 		
 		loger.info("scrap list");
 		
-		model.addAttribute("list",service.listAll());
+		model.addAttribute("memberID",memberID);
 		
-	}
-	
-	@RequestMapping(value="/scrap",method=RequestMethod.POST)
-	public String registerPOST(ScrapVO scrap,Model model) throws Exception {
+		return "mypage/scraplist";
 		
-		service.scrap(scrap);
-		loger.info("scrap regist success");
-		return "redirect:/mypage/scrap";
 	}
 	
 }
