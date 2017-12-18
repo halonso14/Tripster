@@ -20,6 +20,12 @@ public class ContentsDAOImpl implements ContentsDAO{
 	//DB 조회 Mapper 명시
 	private static String namespace = "com.tripster.mapper.ContentsMapper";
 	
+	// 컨텐츠 조회
+	@Override
+	public ContentsVO readContents(Integer contentsID) throws Exception{
+		return session.selectOne(namespace+".contentsRead",contentsID);
+	}
+	
 	//컨텐츠 상세 정보 조회
 	@Override
 	public ContentsVO getRestaurantDetail(Integer contentsID) throws Exception {

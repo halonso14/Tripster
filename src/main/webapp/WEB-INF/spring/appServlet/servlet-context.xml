@@ -25,13 +25,13 @@
 		<beans:property name="maxUploadSize" value="104857600"></beans:property>
 	</beans:bean>
 
-	<beans:bean id="uploadPath" class="java.lang.String">
+<!-- 	<beans:bean id="uploadPath" class="java.lang.String">
 		<beans:constructor-arg value="/Users/kimnarae/Documents/upload"></beans:constructor-arg>
 		<beans:constructor-arg value="C:\\zzz\\tripster"></beans:constructor-arg>
-	</beans:bean>
+	</beans:bean> -->
 	
 	<!-- 파일 첨부 - 서현덕 -->
-<!-- <beans:bean id="HDuploadPath" class="java.lang.String">
+ <beans:bean id="HDuploadPath" class="java.lang.String">
 		<beans:constructor-arg value="C:\\zzz\\tripster"></beans:constructor-arg>
 	</beans:bean>
 
@@ -40,7 +40,7 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
- -->
+
 
 	<beans:bean id="loginInterceptor" class="com.tripster.interceptor.LoginInterceptor">
 	</beans:bean>

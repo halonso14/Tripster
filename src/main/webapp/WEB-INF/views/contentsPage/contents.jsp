@@ -16,11 +16,11 @@
 
 	<h1>restaurent page</h1>
 
-		<input type="hidden" name="Restaurant_ID" id="id" value= ${contentsVO.ID } />
+		<input type="hidden" name="Restaurant_ID" id="id" value= ${contentsVO.contentsID } />
 		<!-- ½ºÅ©·¦ ¹öÆ° -->
-		<button id="scrapBttn" value=${tf } >½ºÅ©·¦</button>
-		<div id="test">
+		<button id="scrapBttn" value=${scrapCheck } >½ºÅ©·¦</button>
 		
+		<div id="test">
 		</div>
 		<script>
 			$(document).ready(function(){
@@ -29,7 +29,7 @@
 			});
 		</script>
 
-	<span>ContentsID : ${contentsVO.ID }</span><br>
+	<span>ContentsID : ${contentsVO.contentsID }</span><br>
 	<span>ContentsTitle : ${contentsVO.title}</span>
 	
 	<script>
@@ -42,21 +42,21 @@
 			// ½ºÅ©·¦ ¹öÆ° Å¬¸¯½Ã
 			scrapbt.on('click',function(){
 				alert(scrapbt.val());
-				// ½ºÅ©·¦ ¾ÆÀÌµð È®ÀÎ ÀÛ¾÷!!
-				if(scrapbt.val()==1){
-					scrapbt.attr('value',"0");
-					alert(scrapbt.val());
-					// ½ºÅ©·¦ Ãß°¡ ajax
-					/* $.post('/scrap/'+id,function(result){
-							alert(result);
-					}); */
-				}else{
+				// ½ºÅ©·¦ ¾ÆÀÌµð È®ÀÎ 
+				if(scrapbt.val()==0){
 					scrapbt.attr('value',"1");
 					alert(scrapbt.val());
-					// ½ºÅ©·¦ Á¦°Å ajax
-					/* $.post('/scrapremove/'+id,function(result){
+					// ½ºÅ©·¦ Ãß°¡ ajax
+					$.post('/scrap/'+id,function(result){
 							alert(result);
-					}); */
+					});
+				}else{
+					scrapbt.attr('value',"0");
+					alert(scrapbt.val());
+					// ½ºÅ©·¦ Á¦°Å ajax
+					$.post('/scrapDelete/'+id,function(result){
+							alert(result);
+					});
 				};
 			});
 			

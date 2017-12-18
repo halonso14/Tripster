@@ -15,12 +15,25 @@
 </head>
 <body>
 	
-	<input type="hidden" id="memberID" value="${id}" />
+	<!-- 컨트롤러에서 memberID를 받아옴  -->
+	<input type="hidden" id="memberID" value="${memberID}" />
+	<div id="test">
+	</div>
+	<script>
+			$(document).ready(function(){
+				var val = $('#memberID').val();
+				$('#test').html(val);
+			});
+	</script>
 
 	<div class="list">
 		
 	
 	</div>
+	
+	<form id="form" method="post">
+	
+	</form>
 	
 	<script>
 			$(document).ready(function (){
@@ -32,10 +45,12 @@
 					$.getJSON('/scraplist/'+memberID,function(data){
 						
 						var str = "";
+						
 						$(data).each(function(i,list){
-							str += "<li>"+i+".이름:<a href=''>"+list.contentsTitle+"</a>,"+
-							"내용:"+list.contentsPhoto+
-							"<button class='scrapRemove' value="+list.scrapID+">삭제</button></li>";
+							str += "<li>"+i+".이름:<div class='contentsID' value="+list.contentsID+">"
+									+list.contentsTitle+"</div>,"+
+									"내용:"+list.contentsPhoto+
+									"<button class='scrapRemove' value="+list.scrapID+">삭제</button></li>";
 						});
 						
 						$('.list').html(str);
@@ -55,6 +70,16 @@
 						getAllList();
 					});
 
+				});
+				
+				// 스크랩 조회
+				$('.list').on('click','.contentsID',function(){
+					
+					var contentsID = $(this).attr("value");
+					$('#form').attr("action","/contentsPage/contents/"+contentsID);
+					$('#form').attr("method","get");
+					$('#form').submit();
+					
 				});
 				
 			})
