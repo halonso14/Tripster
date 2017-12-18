@@ -10,7 +10,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 	<table>
 		<tr>
 			<th>title</th>
@@ -53,16 +52,12 @@
 			</c:if>
 		</ul>
 	</div>
-	<form id="pageInfo">
-		<input type="hidden" name="pageInfo" value=${pageMaker.cri.curPage}>
-	</form>
-
 
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 	<script>
 	$(document).ready(function(){
 		var curPage = ${cri.curPage};
-		var contentsPerPage = ${cri.contentsPerPage}; 
+		var contentsPerPage = ${cri.contentsPerPage};
 		
 		$(".detail").on("click", "a", function(event){
 			event.preventDefault();
@@ -71,7 +66,7 @@
 			
 			$.ajax({
 				type : 'get',
-				url : targetPage,
+				url : targetPage+"?curPage="+curPage,
 				headers : {
 					"Content-Type" : "application/json",
 					"X-HTTP-Method-Override" : "GET"
@@ -82,7 +77,7 @@
 					contentsPerPage : contentsPerPage
 				}),
 				success : 
-					location.href = targetPage
+					location.href = targetPage +"?curPage="+curPage
 			});
 		});
 	});

@@ -29,19 +29,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   </delete>
   
   <select id="getReviewList" resultType="contentsReviewVO">
-
-  select Member_ID memberID, Contents_Review contentsReview, Contents_Review_Time contentsReviewTime
+  select
+  	Member_ID memberID, Contents_Review_ID contentsReviewID, Contents_Review contentsReview, Contents_Review_Time contentsReviewTime
   from
   	tbl_contents_review
   where
   	Contents_ID = #{contentsID}
   limit #{cri.startNum}, #{cri.contentsPerPage}
-
   </select>
   
   <select id="getTotalReviewNum" resultType="int">
   select 
-  	count(Contents_Review_ID)
+  	count(Contents_ID)
   from
   	tbl_contents_review
   where

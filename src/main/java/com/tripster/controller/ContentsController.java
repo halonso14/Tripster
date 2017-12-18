@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -133,13 +132,19 @@ public class ContentsController {
 //		return entity;
 //	}
 	//맛집 상세 페이지
-	@ResponseBody
 	@RequestMapping(value = "/restaurantDetail/{contentsID}", method = RequestMethod.GET)
 	public ModelAndView restaurantDetail(@PathVariable("contentsID") Integer contentsID, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 		ModelAndView resultPage = new ModelAndView("contents/restaurantDetail");
-		System.out.println("####################");
-		System.out.println(cri.toString());
 		model.addAttribute("vo",contentsService.getRestaurantDetail(contentsID));
+		
+		return resultPage;
+	}
+	
+	//맛집 상세 페이지
+	@RequestMapping(value = "/placeDetail/{contentsID}", method = RequestMethod.GET)
+	public ModelAndView placeDetail(@PathVariable("contentsID") Integer contentsID, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+		ModelAndView resultPage = new ModelAndView("contents/PlaceDetail");
+		model.addAttribute("vo",contentsService.getPlaceDetail(contentsID));
 		
 		return resultPage;
 	}
@@ -208,6 +213,7 @@ public class ContentsController {
 			Criteria cri = new Criteria();
 			//현재 댓글 페이지 정보 저장
 			cri.setCurPage(curPage);
+			cri.setContentsPerPage(2);
 			
 			//페이지 정보를 전달하기 위해, PageMaker 객체 생성
 			PageMaker pageMaker = new PageMaker(); 
