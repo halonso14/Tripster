@@ -42,7 +42,7 @@
 	<form action="/member/loginPost" method="post">
     <!-- Login Wrap  -->
     <div class="login-wrap">
-        <img src="../resources/images/logo.png" class="login-img" alt="logo"/><br/>
+        <a href="/"><img src="../resources/images/logo.png" class="login-img" alt="logo"/></a><br/>
         <div class="login-c1">
             <div class="cpadding50">
                 <input type="text" class="form-control logpadding" name="memberEmail" placeholder="UserEmail">
@@ -67,8 +67,8 @@
             </div>
         </div>
         <div class="login-c3">
-            <div class="left"><a href="#" class="whitelink">회원가입</a></div>
-            <div class="right"><a href="#" class="whitelink">비밀번호 찾기</a></div>
+            <div class="left"><a href="/member/register" class="whitelink">회원가입</a></div>
+            <div class="right"><a href="/member/findPassword" class="whitelink">비밀번호 찾기</a></div>
         </div>
     </div>
     <!-- End of Login Wrap  -->

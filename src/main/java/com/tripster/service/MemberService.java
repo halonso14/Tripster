@@ -14,6 +14,10 @@ public interface MemberService {
 	public MemberVO checkLoginBefore(String value);
 
 	public void register(MemberVO vo) throws Exception;
+	
+	public void authMember(String memberEmail) throws Exception;
+	
+	public void findPassword(MemberVO vo) throws Exception;
 
 	public boolean repeatChk(String memberEmail) throws Exception;
 	

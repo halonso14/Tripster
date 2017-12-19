@@ -13,6 +13,13 @@
 	from tbl_Member
 	where Member_Email = #{memberEmail}
 	  and Member_Password = #{memberPassword}
+	  and Member_AuthKey = #{memberEmail}
+	</select>
+	
+	<select id="getPassword" resultType="MemberVO">
+	select Member_Password memberPassword
+	from tbl_Member
+	where member_Email = #{memberEmail}
 	</select>
 	
 	<!-- 로그인 유지 -->
@@ -23,6 +30,7 @@
 	where Member_Email = #{memberEmail}
 	</update>
 	
+	<!-- 세션키 체크 -->
 	<select id="checkSessionKey" resultType="MemberVO">
 	select *
 	from tbl_Member
@@ -43,12 +51,26 @@
 						   ,#{memberBirthday})
 	</insert>
 	
+	<!-- 회원 이메일 인증 키 -->
+	<update id="authMember">
+	update tbl_Member
+	set Member_AuthKey = #{memberAuthkey}
+	where Member_Email = #{memberEmail}
+	</update>
+	
 	<!-- 가입시 이메일 중복확인 -->
 	<select id = "repeatChk" resultType = "MemberVO">
 	select Member_Email memberEmail 
 	from tbl_Member
 	where Member_Email = #{memberEmail}
 	</select>
+	
+	<!-- 비밀번호 찾기 임시 비밀번호 생성 -->
+	<update id="createTempPassword">
+	update tbl_Member
+	set Member_Password = #{memberPassword}
+	where Member_Email = #{memberEmail}
+	</update>
 	
 	<!-- 회원 마이페이지 조회 -->
 	<select id="viewMember" resultType = "MemberVO">

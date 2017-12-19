@@ -58,7 +58,9 @@ public class MemberController {
 			Date sessionLimit = new Date(System.currentTimeMillis()+(1000*amount));
 			
 			service.keepLogin(vo.getMemberEmail(), session.getId(), sessionLimit);
+			
 		}
+		
 	}
 
 	//회원가입 화면 접근
@@ -81,6 +83,15 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	//이메일 인증
+	@RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
+	public String emailConfirm(String memberEmail, Model model) throws Exception {
+		service.authMember(memberEmail);
+		model.addAttribute("memberEmail", memberEmail);
+
+		return "/member/emailConfirm";
+	}
+	
 	//이메일 중복확인(j-query validation)
 	@RequestMapping(value = "/repeatChk" , method = RequestMethod.GET)
 	public @ResponseBody String repeatChk(@RequestParam("memberEmail") String memberEmail)throws Exception {
@@ -90,6 +101,22 @@ public class MemberController {
 		} else {
 			return "false";
 		}
+	}
+	
+	//비밀번호 찾기 화면 접근
+	@RequestMapping(value = "/findPassword", method = RequestMethod.GET)
+	public void findPasswordGET(MemberVO vo, Model model) throws Exception {
+		
+	}
+	
+	//비밀번호 찾기 메일 전송
+	@RequestMapping(value = "/findPassword", method = RequestMethod.POST)
+	public String findPasswordPost(MemberVO vo, RedirectAttributes rttr) throws Exception {
+		service.findPassword(vo);
+		
+		rttr.addFlashAttribute("msg", "findPassword");
+		
+		return "redirect:/";
 	}
 	
 /*	//이메일 중복확인(중복확인 버튼 활용)

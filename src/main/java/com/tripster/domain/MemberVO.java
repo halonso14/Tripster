@@ -13,6 +13,8 @@ public class MemberVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date memberBirthday;
 	private String memberPicture;
+	private String sessionID;
+	private String memberAuthkey;
 	
 	public int getMemberID() {
 		return memberID;
@@ -50,12 +52,23 @@ public class MemberVO {
 	public void setMemberPicture(String memberPicture) {
 		this.memberPicture = memberPicture;
 	}
-	
+	public String getSessionID() {
+		return sessionID;
+	}
+	public void setSessionID(String sessionID) {
+		this.sessionID = sessionID;
+	}
+	public String getMemberAuthKey() {
+		return memberAuthkey;
+	}
+	public void setMemberAuthKey(String memberAuthKey) {
+		this.memberAuthkey = memberAuthKey;
+	}
 	@Override
 	public String toString() {
 		return "MemberVO [memberID=" + memberID + ", memberEmail=" + memberEmail + ", memberPassword=" + memberPassword
 				+ ", memberName=" + memberName + ", memberBirthday=" + memberBirthday + ", memberPicture="
-				+ memberPicture + "]";
+				+ memberPicture + ", sessionID=" + sessionID + ", memberAuthKey=" + memberAuthkey + "]";
 	}
 	
 }

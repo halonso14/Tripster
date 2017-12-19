@@ -24,6 +24,11 @@ public class MemberDAOImpl implements MemberDAO {
 	public MemberVO login(LoginDTO dto) throws Exception {
 		return session.selectOne(namespace + ".login", dto);
 	}
+	
+	@Override
+	public MemberVO getMemberPw(String memberEmail) throws Exception {
+		return session.selectOne(namespace + ".getPassword", memberEmail);
+	}
 
 	@Override
 	public void keepLogin(String memberEmail, String sessionID, Date next) {
@@ -43,6 +48,29 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public void insertMember(MemberVO vo) throws Exception {
 		session.insert(namespace + ".insertMember", vo);
+	}
+	
+	@Override
+	public void createAuthKey(String memberEmail, String memberAuthKey) throws Exception {
+		MemberVO vo = new MemberVO();
+		vo.setMemberEmail(memberEmail);
+		vo.setMemberAuthKey(memberAuthKey);
+		
+		session.selectOne(namespace + ".authMember", vo);
+	}
+	
+	@Override
+	public void authMember(String memberEmail) throws Exception {
+		session.update(namespace + ".authMember", memberEmail);
+	}
+	
+	@Override
+	public void createTempPassword(String memberEmail, String tempPassword) throws Exception {
+		MemberVO vo = new MemberVO();
+		vo.setMemberEmail(memberEmail);
+		vo.setMemberPassword(tempPassword);
+		
+		session.update(namespace + ".createTempPassword", vo);
 	}
 
 	@Override
