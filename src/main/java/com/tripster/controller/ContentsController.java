@@ -131,6 +131,7 @@ public class ContentsController {
 //		}
 //		return entity;
 //	}
+	
 	//맛집 상세 페이지
 	@RequestMapping(value = "/restaurantDetail/{contentsID}", method = RequestMethod.GET)
 	public ModelAndView restaurantDetail(@PathVariable("contentsID") Integer contentsID, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
@@ -140,7 +141,8 @@ public class ContentsController {
 		return resultPage;
 	}
 	
-	//맛집 상세 페이지
+	
+	//관광지 상세 페이지
 	@RequestMapping(value = "/placeDetail/{contentsID}", method = RequestMethod.GET)
 	public ModelAndView placeDetail(@PathVariable("contentsID") Integer contentsID, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 		ModelAndView resultPage = new ModelAndView("contents/PlaceDetail");
@@ -200,7 +202,8 @@ public class ContentsController {
 //		}
 //		return vo;
 	}
-	//리뷰 리스트 페이지
+	
+	//리뷰 리스트 페이지, 컨텐츠 상세 페이지 내부에서 조회
 	//@PathVariable로 변수를 받아서 사용
 	@RequestMapping(value = "/review/{contentsID}/{curPage}", method = RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> contentsReviewList(
@@ -213,7 +216,6 @@ public class ContentsController {
 			Criteria cri = new Criteria();
 			//현재 댓글 페이지 정보 저장
 			cri.setCurPage(curPage);
-			cri.setContentsPerPage(2);
 			
 			//페이지 정보를 전달하기 위해, PageMaker 객체 생성
 			PageMaker pageMaker = new PageMaker(); 
@@ -248,7 +250,7 @@ public class ContentsController {
 	public ResponseEntity<String> writeReview(@PathVariable Integer contentsID, @RequestBody ContentsReviewVO vo) {
 		//ResponseEntity : View로 JSON + HTTP 상태 전달
 		ResponseEntity<String> entity = null;
-		
+		System.out.println(vo.toString());
 		try {
 			//PathVariable 활용, 해당 맛집의 리뷰 저장
 			vo.setContentsID(contentsID);

@@ -35,6 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	tbl_contents_review
   where
   	Contents_ID = #{contentsID}
+  order by Contents_Review_ID desc	
   limit #{cri.startNum}, #{cri.contentsPerPage}
   </select>
   

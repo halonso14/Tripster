@@ -14,7 +14,7 @@ public class PageMaker {
 	private boolean next;
 	
 	//페이지 번호 개수
-	private int displayPageNum = 2;
+	private int displayPageNum = 5;
 	//컨텐츠 리스트 관리 객체
 	private Criteria cri;
 

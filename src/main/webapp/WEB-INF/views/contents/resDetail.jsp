@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file="../include/header.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
@@ -7,55 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Tripster</title>
 	
-    <!-- Bootstrap -->
-    <link href="dist/css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="assets/css/custom.css" rel="stylesheet" media="screen">
-
-
-	<link href="examples/carousel/carousel.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="assets/js/html5shiv.js"></script>
-      <script src="assets/js/respond.min.js"></script>
-    <![endif]-->
-	
-    <!-- Fonts -->	
-	<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet' type='text/css'>	
-	<!-- Font-Awesome -->
-    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css" media="screen" />
-    <!--[if lt IE 7]><link rel="stylesheet" type="text/css" href="assets/css/font-awesome-ie7.css" media="screen" /><![endif]-->
-	
-    <!-- REVOLUTION BANNER CSS SETTINGS -->
-    <link rel="stylesheet" type="text/css" href="css/fullscreen.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="rs-plugin/css/settings.css" media="screen" />
-	
-    <!-- Picker UI-->	
-	<link rel="stylesheet" href="assets/css/jquery-ui.css" />	
-	
-	<!-- bin/jquery.slider.min.css -->
-	<link rel="stylesheet" href="plugins/jslider/css/jslider.css" type="text/css">
-	<link rel="stylesheet" href="plugins/jslider/css/jslider.round-blue.css" type="text/css">
-	
-    <!-- jQuery-->	
-    <script src="assets/js/jquery.v2.0.3.js"></script>
-	<script src="assets/js/jquery-ui.js"></script>	
-	
-	<!-- bin/jquery.slider.min.js -->
-	<script type="text/javascript" src="plugins/jslider/js/jshashtable-2.1_src.js"></script>
-	<script type="text/javascript" src="plugins/jslider/js/jquery.numberformatter-1.2.3.js"></script>
-	<script type="text/javascript" src="plugins/jslider/js/tmpl.js"></script>
-	<script type="text/javascript" src="plugins/jslider/js/jquery.dependClass-0.1.js"></script>
-	<script type="text/javascript" src="plugins/jslider/js/draggable-0.1.js"></script>
-	<script type="text/javascript" src="plugins/jslider/js/jquery.slider.js"></script>
-	<!-- end -->
-
   </head>
   <body id="top" class="thebg" >
     
 	
 	
 	<div class="navbar-wrapper2 navbar-fixed-top">
+
       <div class="container">
 		<div class="navbar mtnav">
 
@@ -67,7 +26,7 @@
 				  <span class="icon-bar"></span>
 				  <span class="icon-bar"></span>
 				</button>
-				<a href="index.html" class="navbar-brand"><img src="images/logo.png" alt="Travel Agency Logo" class="logo"/></a>
+				<a href="index.html" class="navbar-brand"><img src="../../resources/images/logo.png" alt="Travel Agency Logo" class="logo"/></a>
 			  </div>
 			  <div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
@@ -81,11 +40,6 @@
 								  <li><a href="index.html">Home 1 minimal</a></li>
 								  <li><a href="index2.html">Home 2 offers</a></li>
 								  <li><a href="index3.html">Home 3 full search</a></li>
-								  <li><a href="index4.html">Home 4 presentation</a></li>
-								  <li><a href="index5.html">Home 5 footer2</a></li>
-								  <li><a href="index6.html">Home 6 full</a></li>
-								  <li><a href="index7.html">Home 7 </a></li>
-								  <li><a href="z-new-homepage.html">New Homepage</a> <span class="green">new</span></li>									  
 								</ul>
 								<ul class="droplist col-md-4">
 								  <li class="dropdown-header">Intro pages</li>
@@ -95,10 +49,10 @@
 								</ul>
 								<ul class="droplist col-md-4">
 								  <li class="dropdown-header">Colors</li>
-								  <li><a href="../blue/index.html">Blue</a></li>
-								  <li><a href="../green/index.html">Green</a></li>
-								  <li><a href="../orange/index.html">Orange</a></li>
-								  <li><a href="../cyan/index.html">Cyan</a></li>
+								  <li><a href="../../blue/index.html">Blue</a></li>
+								  <li><a href="../../green/index.html">Green</a></li>
+								  <li><a href="../../orange/index.html">Orange</a></li>
+								  <li><a href="../../cyan/index.html">Cyan</a></li>
 								  <li></li>
 								  <li class="inactive size10 lgrey caps"><span class="glyphicon glyphicon-star "></span> Popular pages</li>								  
 								</ul>
@@ -162,21 +116,6 @@
 					  </li>
 					</ul>
 				  </li>
-				  <li><a href="#">Hotels</a></li>
-				  <li><a href="#">Flights</a></li>
-				  <li><a href="#">Vacations</a></li>
-				  <li><a href="#">Cars</a></li>			  
-				  <li><a href="#">Cruises</a></li>			  
-				  <li><a href="#">Last minute</a></li>			  
-				  <li><a href="#">Early booking</a></li>			  
-				  <li class="dropdown">
-					<a data-toggle="dropdown" class="dropdown-toggle" href="#">Deals<b class="lightcaret mt-2"></b></a>
-					<ul class="dropdown-menu">
-					  <li class="dropdown-header">Aligned Right Dropdown</li>	
-					  <li><a href="#">Sample Link 1</a></li>
-					  <li><a href="#">Sample Link 2</a></li>
-					</ul>
-				  </li>		
 				</ul>
 			  </div>
 			  <!-- /Navigation-->			  
@@ -190,18 +129,15 @@
 	
 	<div class="container breadcrub">
 	    <div>
-			<a class="homebtn left" href="#"></a>
 			<div class="left">
-				<ul class="bcrumbs">
+				<ul class="nav navbar-nav navbar-left">
+					<li></li>
+					<li><a class="homebtn large" href="#"></a></li>
+					<li><a href="../restaurantList/1">Restaurant</a></li>
 					<li>/</li>
-					<li><a href="#">Hotels</a></li>
-					<li>/</li>
-					<li><a href="#">U.S.A.</a></li>
-					<li>/</li>					
-					<li><a href="#" class="active">New York</a></li>					
+				  	<li><a href="../placeList/1">Place</a></li>				
 				</ul>				
 			</div>
-			<a class="backbtn right" href="#"></a>
 		</div>
 		<div class="clearfix"></div>
 		<div class="brlines"></div>
@@ -219,28 +155,29 @@
 				<div id="inner">
 					<div id="caroufredsel_wrapper2">
 						<div id="carousel">
-							<img src="images/details-slider/slide1.jpg" alt=""/>
-							<img src="images/details-slider/slide2.jpg" alt=""/>
-							<img src="images/details-slider/slide3.jpg" alt=""/>
-							<img src="images/details-slider/slide4.jpg" alt=""/>
-							<img src="images/details-slider/slide5.jpg" alt=""/>
-							<img src="images/details-slider/slide6.jpg" alt=""/>						
+						<!-- contentsID로 첨부된 사진 조회 -->
+							<img src="../../resources/images/details-slider/slide1.jpg" alt=""/>
+							<img src="../../resources/images/details-slider/slide2.jpg" alt=""/>
+							<img src="../../resources/images/details-slider/slide3.jpg" alt=""/>
+							<img src="../../resources/images/details-slider/slide4.jpg" alt=""/>
+							<img src="../../resources/images/details-slider/slide5.jpg" alt=""/>
+							<img src="../../resources/images/details-slider/slide6.jpg" alt=""/>						
 						</div>
 					</div>
 					<div id="pager-wrapper">
 						<div id="pager">
-							<img src="images/details-slider/slide1.jpg" width="120" height="68" alt=""/>
-							<img src="images/details-slider/slide2.jpg" width="120" height="68" alt=""/>
-							<img src="images/details-slider/slide3.jpg" width="120" height="68" alt=""/>
-							<img src="images/details-slider/slide4.jpg" width="120" height="68" alt=""/>
-							<img src="images/details-slider/slide5.jpg" width="120" height="68" alt=""/>
-							<img src="images/details-slider/slide6.jpg" width="120" height="68" alt=""/>						
+							<img src="../../resources/images/details-slider/slide1.jpg" width="120" height="68" alt=""/>
+							<img src="../../resources/images/details-slider/slide2.jpg" width="120" height="68" alt=""/>
+							<img src="../../resources/images/details-slider/slide3.jpg" width="120" height="68" alt=""/>
+							<img src="../../resources/images/details-slider/slide4.jpg" width="120" height="68" alt=""/>
+							<img src="../../resources/images/details-slider/slide5.jpg" width="120" height="68" alt=""/>
+							<img src="../../resources/images/details-slider/slide6.jpg" width="120" height="68" alt=""/>						
 						</div>
 					</div>
 				</div>
 				<div class="clearfix"></div>
-				<button id="prev_btn2" class="prev2"><img src="images/spacer.png" alt=""/></button>
-				<button id="next_btn2" class="next2"><img src="images/spacer.png" alt=""/></button>		
+				<button id="prev_btn2" class="prev2"><img src="../../resources/images/spacer.png" alt=""/></button>
+				<button id="next_btn2" class="next2"><img src="../../resources/images/spacer.png" alt=""/></button>		
 					
 		</div>
 		</div> <!-- /c-carousel -->
@@ -256,7 +193,7 @@
 			<div class="col-md-4 detailsright offset-0">
 				<div class="padding20">
 					<h4 class="lh1">Mabely Grand Hotel</h4>
-					<img src="images/smallrating-5.png" alt=""/>
+					<img src="../../resources/images/smallrating-5.png" alt=""/>
 				</div>
 				
 				<div class="line3"></div>
@@ -268,7 +205,7 @@
 				<div class="line3 margtop20"></div>
 				
 				<div class="col-md-6 bordertype1 padding20">
-					<span class="opensans size30 bold grey2">97%</span><br/>
+					<span class="opensans size30 bold grey2">데이터 입력</span><br/>
 					of guests<br/>recommend
 				</div>
 				<div class="col-md-6 bordertype2 padding20">
@@ -277,17 +214,17 @@
 				</div>
 				
 				<div class="col-md-6 bordertype3">
-					<img src="images/user-rating-4.png" alt=""/><br/>
-					18 reviews
+					<img src="../../resources/images/user-rating-4.png" alt=""/><br/>
+					수동 입력
 				</div>
 				<div class="col-md-6 bordertype3">
-					<a href="#" class="grey">+Add review</a>
+					<a href="#" class="grey">링크 추가</a>
 				</div>
 				<div class="clearfix"></div><br/>
 				
 				<div class="hpadding20">
-					<a href="#" class="add2fav margtop5">Add to favourite</a>
-					<a href="#" class="booknow margtop20 btnmarg">Book now</a>
+					<a href="#" class="add2fav margtop5">.add2fav margtop5</a>
+					<a href="#" class="booknow margtop20 btnmarg">.booknow margtop20 btnmarg</a>
 				</div>
 			</div>
 			<!-- END OF RIGHT INFO -->
@@ -301,9 +238,7 @@
 				<div class="cstyle10"></div>
 		
 				<ul class="nav nav-tabs" id="myTab">
-					<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#summary"><span class="summary"></span><span class="hidetext">Summary</span>&nbsp;</a></li>
-					<li onclick="mySelectUpdate()" class="active"><a data-toggle="tab" href="#roomrates"><span class="rates"></span><span class="hidetext">Room rates</span>&nbsp;</a></li>
-					<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#preferences"><span class="preferences"></span><span class="hidetext">Preferences</span>&nbsp;</a></li>
+					<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#summary"><span class="summary"></span><span class="hidetext">Detail</span>&nbsp;</a></li>
 					<li onclick="loadScript()" class=""><a data-toggle="tab" href="#maps"><span class="maps"></span><span class="hidetext">Maps</span>&nbsp;</a></li>
 					<li onclick="mySelectUpdate(); trigerJslider(); trigerJslider2(); trigerJslider3(); trigerJslider4(); trigerJslider5(); trigerJslider6();" class=""><a data-toggle="tab" href="#reviews"><span class="reviews"></span><span class="hidetext">Reviews</span>&nbsp;</a></li>
 					<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#thingstodo"><span class="thingstodo"></span><span class="hidetext">Things to do</span>&nbsp;</a></li>
@@ -429,426 +364,6 @@
 						<!-- End of collapse 6 -->								
 				
 					</div>
-					<!-- TAB 2 -->
-					<div id="roomrates" class="tab-pane fade active in">
-					    <div class="hpadding20">
-							<p class="dark">Your travel rates</p>
-							<div class="col-md-4 offset-0">
-								<div class="w50percent">
-									<div class="wh90percent textleft">
-										<span class="opensans size13"><b>Check in</b></span>
-										<input type="text" class="form-control mySelectCalendar" id="datepicker" placeholder="mm/dd/yyyy"/>
-									</div>
-								</div>
-
-								<div class="w50percentlast">
-									<div class="wh90percent textleft right">
-										<span class="opensans size13"><b>Check out</b></span>
-										<input type="text" class="form-control mySelectCalendar" id="datepicker2" placeholder="mm/dd/yyyy"/>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-8 offset-0">
-								<div class="col-md-8 ">
-									<div class="room1" >
-										<div class="w50percent">
-											<div class="wh90percent textleft">
-												<span class="opensans size13"><b>ROOM 1</b></span><br/>
-												
-												<div class="addroom1 block"><a onclick="addroom2()" class="grey cpointer">+ Add room</a></div>
-											</div>
-										</div>
-
-										<div class="w50percentlast">	
-											<div class="wh90percent textleft right ohidden">
-												<div class="w50percent">
-													<div class="wh90percent textleft left">
-														<span class="opensans size13"><b>Adult</b></span>
-														<select class="form-control mySelectBoxClass">
-														  <option>1</option>
-														  <option selected>2</option>
-														  <option>3</option>
-														  <option>4</option>
-														  <option>5</option>
-														</select>
-													</div>
-												</div>							
-												<div class="w50percentlast">
-													<div class="wh90percent textleft right ohidden">
-													<span class="opensans size13"><b>Child</b></span>
-														<select class="form-control mySelectBoxClass">
-														  <option>0</option>
-														  <option selected>1</option>
-														  <option>2</option>
-														  <option>3</option>
-														  <option>4</option>
-														  <option>5</option>
-														</select>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									
-									<div class="room2 none">
-										<div class="clearfix"></div><div class="line1"></div>
-										<div class="w50percent">
-											<div class="wh90percent textleft">
-												<span class="opensans size13"><b>ROOM 2</b></span><br/>
-												<div class="addroom2 block grey"><a onclick="addroom3()" class="grey cpointer">+ Add room</a> | <a onclick="removeroom2()" class="orange cpointer"><img src="images/delete.png" alt="delete"/></a></div>
-											</div>
-										</div>
-
-										<div class="w50percentlast">	
-											<div class="wh90percent textleft right">
-												<div class="w50percent">
-													<div class="wh90percent textleft left">
-														<span class="opensans size13"><b>Adult</b></span>
-														<select class="form-control mySelectBoxClass">
-														  <option>1</option>
-														  <option>2</option>
-														  <option selected>3</option>
-														  <option>4</option>
-														  <option>5</option>
-														</select>
-													</div>
-												</div>							
-												<div class="w50percentlast">
-													<div class="wh90percent textleft right">
-													<span class="opensans size13"><b>Child</b></span>
-														<select class="form-control mySelectBoxClass">
-														  <option selected>0</option>
-														  <option>1</option>
-														  <option>2</option>
-														  <option>3</option>
-														  <option>4</option>
-														  <option>5</option>
-														</select>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>		
-
-									<div class="room3 none">
-										<div class="clearfix"></div><div class="line1"></div>
-										<div class="w50percent">
-											<div class="wh90percent textleft">
-												<span class="opensans size13"><b>ROOM 3</b></span><br/>
-												<div class="addroom3 block grey"><a onclick="addroom3()" class="grey cpointer">+ Add room</a> | <a onclick="removeroom3()" class="orange cpointer"><img src="images/delete.png" alt="delete"/></a></div>
-											</div>
-										</div>
-
-										<div class="w50percentlast">	
-											<div class="wh90percent textleft right">
-												<div class="w50percent">
-													<div class="wh90percent textleft left">
-														<span class="opensans size13"><b>Adult</b></span>
-														<select class="form-control mySelectBoxClass">
-														  <option selected>1</option>
-														  <option>2</option>
-														  <option>3</option>
-														  <option>4</option>
-														  <option>5</option>
-														</select>
-													</div>
-												</div>							
-												<div class="w50percentlast">
-													<div class="wh90percent textleft right">
-													<span class="opensans size13"><b>Child</b></span>
-														<select class="form-control mySelectBoxClass">
-														  <option selected>0</option>
-														  <option>1</option>
-														  <option>2</option>
-														  <option>3</option>
-														  <option>4</option>
-														  <option>5</option>
-														</select>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								
-								<div class="col-md-4 center offset-0">
-									<button class="updatebtn caps center margtop20">Update</button>
-								</div>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<br/>
-						
-						<p class="hpadding20 dark">Room type</p>
-						
-						<div class="line2"></div>
-						
-						<div class="padding20">
-							<div class="col-md-4 offset-0">
-								<a href="#"><img src="images/items2/item1.jpg" alt="" class="fwimg"/></a>
-							</div>
-							<div class="col-md-8 offset-0">
-								<div class="col-md-8 mediafix1">
-									<h4 class="opensans dark bold margtop1 lh1">Standard Double room</h4>
-									Max Occupancy: 2 adults
-									<ul class="hotelpreferences margtop10">
-										<li class="icohp-internet"></li>
-										<li class="icohp-air"></li>
-										<li class="icohp-pool"></li>
-										<li class="icohp-childcare"></li>
-										<li class="icohp-fitness"></li>
-										<li class="icohp-breakfast"></li>
-										<li class="icohp-parking"></li>
-									</ul>
-									<div class="clearfix"></div>
-									<ul class="checklist2 margtop10">
-										<li>FREE Cancellation</li>
-										<li>Pay at hotel or pay today </li>
-									</ul>									
-								</div>
-								<div class="col-md-4 center bordertype4">
-									<span class="opensans orange size24">$49.51</span><br/>
-									<span class="opensans lightgrey size12">avg/night</span><br/><br/>
-									<span class="lred bold">3 left</span><br/><br/>
-									<button class="bookbtn mt1">Book</button>	
-								</div>										
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="line2"></div>		
-
-						<div class="padding20">
-							<div class="col-md-4 offset-0">
-								<a href="#"><img src="images/items2/item2.jpg" alt="" class="fwimg"/></a>
-							</div>
-							<div class="col-md-8 offset-0">
-								<div class="col-md-8">
-									<h4 class="opensans dark bold margtop1 lh1">Double Room with Town View</h4>
-									Max Occupancy: 3 adults
-									<ul class="hotelpreferences margtop10">
-										<li class="icohp-hairdryer"></li>
-										<li class="icohp-garden"></li>
-										<li class="icohp-grill"></li>
-										<li class="icohp-kitchen"></li>
-										<li class="icohp-bar"></li>
-										<li class="icohp-living"></li>
-										<li class="icohp-tv"></li>
-									</ul>
-									<div class="clearfix"></div>
-									<ul class="checklist2 margtop10">
-										<li>FREE Cancellation</li>
-										<li>Pay at hotel or pay today </li>
-									</ul>									
-								</div>
-								<div class="col-md-4 center bordertype4">
-									<span class="opensans orange size24">$105.78</span><br/>
-									<span class="opensans lightgrey size12">avg/night</span><br/><br/>
-									<span class="">9 available</span><br/><br/>
-									<button class="bookbtn mt1">Book</button>	
-								</div>										
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="line2"></div>	
-
-						<div class="padding20">
-							<div class="col-md-4 offset-0">
-								<a href="#"><img src="images/items2/item3.jpg" alt="" class="fwimg"/></a>
-							</div>
-							<div class="col-md-8 offset-0">
-								<div class="col-md-8">
-									<h4 class="opensans dark bold margtop1 lh1">Family Suite</h4>
-									Max Occupancy: 4 adults
-									<ul class="hotelpreferences margtop10">
-										<li class="icohp-fridge"></li>
-										<li class="icohp-microwave"></li>
-										<li class="icohp-washing"></li>
-										<li class="icohp-roomservice"></li>
-										<li class="icohp-safe"></li>
-										<li class="icohp-playground"></li>
-										<li class="icohp-conferenceroom"></li>
-									</ul>
-									<div class="clearfix"></div>
-									<ul class="checklist2 margtop10">
-										<li>FREE Cancellation</li>
-										<li>Pay at hotel or pay today </li>
-									</ul>									
-								</div>
-								<div class="col-md-4 center bordertype4">
-									<span class="opensans orange size24">$186.18</span><br/>
-									<span class="opensans lightgrey size12">avg/night</span><br/><br/>
-									<span class="red bold">booked</span><br/><br/>
-									<button class="bookbtn mt1 cunvailable">Book</button>	
-								</div>										
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="line2"></div>	
-
-						<div class="padding20">
-							<div class="col-md-4 offset-0">
-								<a href="#"><img src="images/items2/item4.jpg" alt="" class="fwimg"/></a>
-							</div>
-							<div class="col-md-8 offset-0">
-								<div class="col-md-8">
-									<h4 class="opensans dark bold margtop1 lh1">Superior, Sea View</h4>
-									Max Occupancy: 3 adults
-									<ul class="hotelpreferences margtop10">
-										<li class="icohp-internet"></li>
-										<li class="icohp-air"></li>
-										<li class="icohp-pool"></li>
-										<li class="icohp-childcare"></li>
-										<li class="icohp-fitness"></li>
-										<li class="icohp-breakfast"></li>
-										<li class="icohp-parking"></li>
-									</ul>
-									<div class="clearfix"></div>
-									<ul class="checklist2 margtop10">
-										<li>FREE Cancellation</li>
-										<li>Pay at hotel or pay today </li>
-									</ul>									
-								</div>
-								<div class="col-md-4 center bordertype4">
-									<span class="opensans orange size24">$211.57</span><br/>
-									<span class="opensans lightgrey size12">avg/night</span><br/><br/>
-									<span class="">12 available</span><br/><br/>
-									<button class="bookbtn mt1">Book</button>	
-								</div>										
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="line2"></div>							
-						
-					</div>
-					
-					<!-- TAB 3 -->					
-					<div id="preferences" class="tab-pane fade">
-						<p class="hpadding20">
-						The hotel offers a snack bar/deli. A bar/lounge is on site where guests can unwind with a drink. Guests can enjoy a complimentary breakfast. An Internet point is located on site and high-speed wireless Internet access is complimentary.
-						</p>
-						
-						<div class="line4"></div>
-						
-						<!-- Collapse 7 -->	
-						<button type="button" class="collapsebtn2" data-toggle="collapse" data-target="#collapse7">
-						  Hotel facilities <span class="collapsearrow"></span>
-						</button>
-						
-						<div id="collapse7" class="collapse in">
-							<div class="hpadding20">
-								
-								<div class="col-md-4 offset-0">
-									<ul class="hotelpreferences2 left">
-										<li class="icohp-internet"></li>
-										<li class="icohp-air"></li>
-										<li class="icohp-pool"></li>
-										<li class="icohp-childcare"></li>
-										<li class="icohp-fitness"></li>
-										<li class="icohp-breakfast"></li>
-										<li class="icohp-parking"></li>
-										<li class="icohp-pets"></li>
-										<li class="icohp-spa"></li>
-										<li class="icohp-hairdryer"></li>
-									</ul>
-									<ul class="hpref-text left">
-										<li>High-speed Internet</li>
-										<li>Air conditioning</li>
-										<li>Swimming pool</li>
-										<li>Childcare</li>
-										<li>Fitness equipment</li>
-										<li>Free breakfast</li>
-										<li>Free parking</li>
-										<li>Pets allowed</li>
-										<li>Spa services on site</li>
-										<li>Hair dryer</li>
-									</ul>
-								</div>
-
-						
-								<div class="col-md-4 offset-0">	
-									<ul class="hotelpreferences2 left">
-										<li class="icohp-garden"></li>
-										<li class="icohp-grill"></li>
-										<li class="icohp-kitchen"></li>
-										<li class="icohp-bar"></li>
-										<li class="icohp-living"></li>
-										<li class="icohp-tv"></li>
-										<li class="icohp-fridge"></li>
-										<li class="icohp-microwave"></li>
-										<li class="icohp-washing"></li>
-										<li class="icohp-roomservice"></li>
-									</ul>
-									<ul class="hpref-text left">
-										<li>Courtyard garden</li>
-										<li>Grill / Barbecue</li>
-										<li>Kitchen</li>
-										<li>Bar</li>
-										<li>Living</li>
-										<li>TV</li>
-										<li>Fridge</li>
-										<li>Microwave</li>
-										<li>Washing maschine</li>
-										<li>Room service</li>
-									</ul>		
-								</div>		
-								<div class="col-md-4 offset-0">	
-									<ul class="hotelpreferences2 left">
-										<li class="icohp-safe"></li>
-										<li class="icohp-playground"></li>
-										<li class="icohp-conferenceroom"></li>										
-									</ul>
-									<ul class="hpref-text left">
-										<li>Reception Safe</li>
-										<li>Playground</li>
-										<li>Conference room</li>
-									</ul>										
-								</div>									
-								<div class="clearfix"></div>
-							</div>
-							
-						</div>
-						<!-- End of collapse 7 -->		
-						<br/>
-						<div class="line4"></div>							
-						
-						<!-- Collapse 8 -->	
-						<button type="button" class="collapsebtn2" data-toggle="collapse" data-target="#collapse8">
-						  Room facilities <span class="collapsearrow"></span>
-						</button>
-						
-						<div id="collapse8" class="collapse in">
-							<div class="hpadding20">
-								<div class="col-md-4">
-									<ul class="checklist">
-										<li>Climate control</li>
-										<li>Air conditioning</li>
-										<li>Direct-dial phone</li>
-										<li>Minibar</li>
-									</ul>
-								</div>
-								<div class="col-md-4">
-									<ul class="checklist">
-										<li>Wake-up calls</li>
-										<li>Daily housekeeping</li>
-										<li>Private bathroom</li>
-										<li>Hair dryer</li>	
-									</ul>									
-								</div>	
-								<div class="col-md-4">
-									<ul class="checklist">								
-										<li>Makeup/shaving mirror</li>
-										<li>Shower/tub combination</li>
-										<li>Satellite TV service</li>
-										<li>Electronic/magnetic keys</li>	
-									</ul>									
-								</div>									
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<!-- End of collapse 8 -->				
-						
-						
-					</div>
 					
 					<!-- TAB 4 -->					
 					<div id="maps" class="tab-pane fade">
@@ -857,62 +372,16 @@
 						</div>
 					</div>
 					
-					<!-- TAB 5 -->					
+					<!-- TAB 5 : 리뷰 -->					
 					<div id="reviews" class="tab-pane fade ">
 						<div class="hpadding20">
-							<div class="col-md-4 offset-0">
-								<span class="opensans dark size60 slim lh3 ">4.5/5</span><br/>
-								<img src="images/user-rating-4.png" alt=""/>
-							</div>
-							<div class="col-md-8 offset-0">
-								<div class="progress progress-striped">
-								  <div class="progress-bar progress-bar-success wh75percent" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-									<span class="sr-only">4.5 out of 5</span>
-								  </div>
-								</div>		
-								<div class="progress progress-striped">
-								  <div class="progress-bar progress-bar-success wh100percent" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-									<span class="sr-only">100% of guests recommend</span>
-								  </div>
-								</div>
-								<div class="clearfix"></div>
-								Ratings based on 5 Verified Reviews
-							</div>			
-							<div class="clearfix"></div>
-							<br/>
-							<span class="opensans dark size16 bold">Average ratings</span>
+							<span class="opensans dark size16 bold">Write Your Review</span>
 						</div>
-						
-						<div class="line4"></div>
-						
+						<!-- 리뷰 작성 -->
 						<div class="hpadding20">
-							<div class="col-md-4 offset-0">
-								<div class="scircle left">4.4</div>
-								<div class="sctext left margtop15">Cleanliness</div>
-								<div class="clearfix"></div>
-								<div class="scircle left">4.0</div>
-								<div class="sctext left margtop15">Service & staff</div>
-								<div class="clearfix"></div>								
-							</div>
-							<div class="col-md-4 offset-0">
-								<div class="scircle left">3.8</div>
-								<div class="sctext left margtop15">Room comfort</div>
-								<div class="clearfix"></div>
-								<div class="scircle left">4.4</div>
-								<div class="sctext left margtop15">Sleep Quality</div>			
-								<div class="clearfix"></div>										
-							</div>
-							<div class="col-md-4 offset-0">
-								<div class="scircle left">4.2</div>
-								<div class="sctext left margtop15">Location</div>
-								<div class="clearfix"></div>
-								<div class="scircle left">4.4</div>
-								<div class="sctext left margtop15">Value for Price</div>		
-								<div class="clearfix"></div>										
-							</div>		
-							<div class="clearfix"></div>
-							
-							<br/>
+							<input type="text">
+						</div>
+						<div class="hpadding20">
 							<span class="opensans dark size16 bold">Reviews</span>
 						</div>
 						
@@ -1295,10 +764,6 @@
 			
 			</div>
 		</div>
-		
-		
-		
-	</div>
 	<!-- END OF CONTENT -->
 	
 	
@@ -1315,12 +780,12 @@
 			<div class="col-md-3">
 				<span class="ftitleblack">Let's socialize</span>
 				<div class="scont">
-					<a href="#" class="social1b"><img src="images/icon-facebook.png" alt=""/></a>
-					<a href="#" class="social2b"><img src="images/icon-twitter.png" alt=""/></a>
-					<a href="#" class="social3b"><img src="images/icon-gplus.png" alt=""/></a>
-					<a href="#" class="social4b"><img src="images/icon-youtube.png" alt=""/></a>
+					<a href="#" class="social1b"><img src="../../resources/images/icon-facebook.png" alt=""/></a>
+					<a href="#" class="social2b"><img src="../../resources/images/icon-twitter.png" alt=""/></a>
+					<a href="#" class="social3b"><img src="../../resources/images/icon-gplus.png" alt=""/></a>
+					<a href="#" class="social4b"><img src="../../resources/images/icon-youtube.png" alt=""/></a>
 					<br/><br/><br/>
-					<a href="#"><img src="images/logosmal2.png" alt="" /></a><br/>
+					<a href="#"><img src="../../resources/images/logosmal2.png" alt="" /></a><br/>
 					<span class="grey2">&copy; 2013  |  <a href="#">Privacy Policy</a><br/>
 					All Rights Reserved </span>
 					<br/><br/>
@@ -1361,7 +826,7 @@
 				<span class="ftitleblack">Newsletter</span>
 				<div class="relative">
 					<input type="email" class="form-control fccustom2black" id="exampleInputEmail1" placeholder="Enter email">
-					<button type="submit" class="btn btn-default btncustom">Submit<img src="images/arrow.png" alt=""/></button>
+					<button type="submit" class="btn btn-default btncustom">Submit<img src="../../resources/images/arrow.png" alt=""/></button>
 				</div>
 				<br/><br/>
 				<span class="ftitleblack">Customer support</span><br/>
@@ -1383,48 +848,48 @@
 		<a href="#">Special offers</a> | 
 		<a href="#">Blog</a> | 
 		<a href="#">Contact</a>
-		<a href="#top" class="gotop scroll"><img src="images/spacer.png" alt=""/></a>
+		<a href="#top" class="gotop scroll"><img src="../../resources/images/spacer.png" alt=""/></a>
 		</div>
 	</div>
 	
 	
 	<!-- Javascript -->	
-	<script src="assets/js/js-details.js"></script>
+	<script src="../../resources/assets/js/js-details.js"></script>
 	
 	<!-- Googlemap -->	
-	<script src="assets/js/initialize-google-map.js"></script>
+	<script src="../../resources/assets/js/initialize-google-map.js"></script>
 	
     <!-- Custom Select -->
-	<script type='text/javascript' src='assets/js/jquery.customSelect.js'></script>
+	<script type='text/javascript' src='../../resources/assets/js/jquery.customSelect.js'></script>
 	
     <!-- Custom functions -->
-    <script src="assets/js/functions.js"></script>
+    <script src="../../resources/assets/js/functions.js"></script>
 
     <!-- Nicescroll  -->	
-	<script src="assets/js/jquery.nicescroll.min.js"></script>
+	<script src="../../resources/assets/js/jquery.nicescroll.min.js"></script>
 	
     <!-- jQuery KenBurn Slider  -->
-    <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+    <script type="text/javascript" src="../../resources/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
 	
     <!-- CarouFredSel -->
-    <script src="assets/js/jquery.carouFredSel-6.2.1-packed.js"></script>
-    <script src="assets/js/helper-plugins/jquery.touchSwipe.min.js"></script>
+    <script src="../../resources/assets/js/jquery.carouFredSel-6.2.1-packed.js"></script>
+    <script src="../../resources/assets/js/helper-plugins/jquery.touchSwipe.min.js"></script>
 	
-	<script type="text/javascript" src="assets/js/helper-plugins/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="assets/js/helper-plugins/jquery.transit.min.js"></script>
-	<script type="text/javascript" src="assets/js/helper-plugins/jquery.ba-throttle-debounce.min.js"></script>
+	<script type="text/javascript" src="../../resources/assets/js/helper-plugins/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="../../resources/assets/js/helper-plugins/jquery.transit.min.js"></script>
+	<script type="text/javascript" src="../../resources/assets/js/helper-plugins/jquery.ba-throttle-debounce.min.js"></script>
 
     <!-- Counter -->	
-    <script src="assets/js/counter.js"></script>	
+    <script src="../../resources/assets/js/counter.js"></script>	
 	
     <!-- Carousel-->	
-    <script src="assets/js/initialize-carousel-detailspage.js"></script>		
+    <script src="../../resources/assets/js/initialize-carousel-detailspage.js"></script>		
 	
     <!-- Js Easing-->	
-    <script src="assets/js/jquery.easing.js"></script>
+    <script src="../../resources/assets/js/jquery.easing.js"></script>
 
 	
     <!-- Bootstrap-->	
-    <script src="dist/js/bootstrap.min.js"></script>
+    <script src="../../resources/dist/js/bootstrap.min.js"></script>
   </body>
 </html>
