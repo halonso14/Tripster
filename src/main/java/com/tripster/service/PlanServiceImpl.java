@@ -55,12 +55,21 @@ public class PlanServiceImpl implements PlanService{
 		return plan;
 	}
 
+	//plan만 조회
+	
+	@Override
+	public PlanVO readOnlyPlan(int planID) throws Exception {
+		return planDAO.selectPlan(planID);
+	}
+
+	
 	//최근 저장된 planID 값 읽기.
 	@Override
 	public int readPlanID() throws Exception {
 		return planDAO.selectLastPlanID();
 	}
 	
+
 	//나의 플랜 조회
 	@Override
 	public List<PlanVO> myPlan(int memberID) throws Exception {

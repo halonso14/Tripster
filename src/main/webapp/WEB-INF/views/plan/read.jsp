@@ -14,7 +14,7 @@
     		 var formObj = $("form[role='form']")
         		$("#modify").click(function(){
         			alert('클릭했당 ');
-        			formObj.attr("action","/plan/planModifyForm");
+        			formObj.attr("action","/plan/update");
         			formObj.attr("method","GET");
         			formObj.submit();
         		});
@@ -47,6 +47,9 @@
 		
 		<button id="remove">REMOVE</button>
 		<button id="modify">MODIFY</button>
+		
+		<hr>
+		
 	</form>
 </body>
 </html>

@@ -19,6 +19,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <script>
+
         $(document).ready(function() {
 
             var date = new Date();
@@ -29,8 +30,6 @@
 			var memoEvent;
 			var eventID;
 			var isContents;
-			var obj = [];
-			var planID = ${plan.planID};
             $('#external-events .fc-event').each(function() {
                 // store data so the calendar knows to render an event upon drop
                $(this).data('event', {
@@ -60,72 +59,46 @@
                 
                 //사용자 지정 이벤트 등록.
                 select: function(start, end, allDay){
-                    var title = prompt('일정을 입력하세요');
-                    if(title){
-                  	  	$.ajax({
-                  	  		dataType:"text",
-                  	  		type:"POST",
-                  	  		url:"/plan/UserPlanDetail",
-                  	  		data: JSON.stringify({
-                     	   		planID:${plan.planID},
-                     	   		title:title,
-                     	   	    planDetailStartTime:start,
-                     	   	    planDetailEndTime : end
-                     	   	 }),
-                      	  	contentType: "application/json; charset=UTF-8",
-                      	  	success: function(result){
-                            	  	calendar.fullCalendar('renderEvent', {
-                                      title: title,
-                                      start:start,
-                                      end:end,
-                                      allDay:allDay,
-                                      id:result
-                                   }, true);
-                      	  	}
-                  	  	});
-    
-                    }
-                    calendar.fullCalendar('unselect');
-                  },
+                  var title = prompt('일정을 입력하세요');
+                  if(title){
+                	  	$.ajax({
+                	  		dataType:"text",
+                	  		type:"POST",
+                	  		url:"/plan/userDetail",
+                	  		data: JSON.stringify({
+                   	   		planID:${planVO.planID},
+                   	   		title:title,
+                   	   	    planDetailStartTime:start,
+                   	   	    planDetailEndTime : end
+                   	   	 }),
+                    	  	contentType: "application/json; charset=UTF-8",
+                    	  	success: function(result){
+                          	  	calendar.fullCalendar('renderEvent', {
+                                    title: title,
+                                    start:start,
+                                    end:end,
+                                    allDay:allDay,
+                                    id:result
+                                 }, true);
+                    	  	}
+                	  	});
+  
+                  }
+                  calendar.fullCalendar('unselect');
+                },
                
                 defaultDate: ${date},
                 navLinks: true, // can click day/week names to navigate views
                 editable: true,
                 droppable: true,
                 eventLimit: true, // allow "more" link when too many events,
-                events:  function(start, end, timezone, callback) {
-                            var events = [];
-                            $.ajax({
-                                url: '/plan/planModifyForm',
-                                type : 'post',
-                                data : JSON.stringify({
-                    					planID:planID
-                    				}),
-                                dataType: 'json',
-                                contentType: "application/json; charset=UTF-8",
-                                success: function(data) {
-                                    var events = [];
-                                    $.each(data, function (index, item) {
-                              		var startT= item.planDetailDate+"T"+item.planDetailStartTime;
-                              		var endT = item.planDetailDate+"T"+item.planDetailEndTime;
-                                    	console.log(item.title);
-                                        events.push({
-                                            title: item.title,
-                                            start: startT,
-                                            end: endT,
-                                            id:item.planDetailID
-                                        });
-                                    });
-                                    callback(events);
-                                }
-                            }); 
-                 
-                },
-             
+                events: [
+                ],
+                
                 //drop 발생 시, external-event로 부터 필요한 값을 읽어 전역변수 sendData에저장.
                 drop: function(date) {
         	    	
-                	sendData.planID = ${plan.planID};
+                	sendData.planID = ${planVO.planID};
                 	sendData.contentsID = this.id;
                 	sendData.categoryID = $(this).attr('name');
                 },
@@ -133,7 +106,7 @@
                 //drop시,event를 받아서 db에 저장.
                 eventReceive: function(event) {
                 	sendData.title = event.title;
-                	sendData.dateAndTime = event.start.format();
+                	sendData.planDetailStartTime = event.start.format();
                	
                 	var jsonData = JSON.stringify(sendData);
                 	console.log(jsonData);
@@ -165,7 +138,7 @@
 					alert('움직');
 					$.ajax({
 						type:"POST",
-						url:"/plan/updatePlanDetail",
+						url:"/plan/updateDetail",
 						data:JSON.stringify({
                   	   		 planDetailID: event.id,
                   	   		 planDetailStartTime: event.start.format(),
@@ -178,13 +151,13 @@
 					});
                
                 },
-                
+
                 eventResize: function(event, delta, revertFunc) {
 				    alert(event.title + " end is now " + event.end.format());
 				    alert(event.start.format())
 				    $.ajax({
 						type:"POST",
-						url:"/plan/updatePlanDetail",
+						url:"/plan/updateDetail",
 						data:JSON.stringify({
                   	   		 planDetailID: event.id,
                   	   		 planDetailStartTime: event.start.format(),
@@ -198,8 +171,7 @@
 					
                 },
                 
-
-                
+      
                 eventRender: function(event, element) {
                     element.find('.fc-content').append( "<span class='memo'> ㅁ </span>" );
                     element.find('.fc-content').append( "<span class='closeon'> X </span>" );
@@ -217,9 +189,8 @@
                     		});
                     	}
                     	
-                    	console.log(event.id)
            			 $.ajax({
-                   	   	 url:'/plan/deletePlanDetail',
+                   	   	 url:'/plan/deleteDetail',
                    	   	 type:"POST",
                    	   	 data:JSON.stringify({
                    	   		 planDetailID: event.id
@@ -233,12 +204,10 @@
                     });
 
                     //메모
-                    element.find(".memo").click(function(){   
-                    		
+                    element.find(".memo").click(function(){                   
                     		eventID= event.id;
-                    		console.log(eventID);
                     		$.ajax({
-                    			url:"/plan/selectMemo",
+                    			url:"/plan/readMemo",
                     			type:"POST",
                     			data:JSON.stringify({
                     				planDetailID:eventID
@@ -280,7 +249,7 @@
             	if(isContents == null){
             		url = "/plan/registerMemo";
             	}else{
-            		url = "/plan/modifyMemo";
+            		url = "/plan/updateMemo";
             	}
                 $.ajax({
                 		url:url,
@@ -318,14 +287,14 @@
 	        	}
 	        	
         		$.ajax({
-        			url:"/plan/removeMemo",
+        			url:"/plan/deleteMemo",
         			type:"POST",
         			contentType: "application/json; charset=UTF-8",
         			data:JSON.stringify({
                	   		planDetailID:eventID,
                	   	 }),
                success:function(result){
-            	   
+            	    
                }
                
         		}); 
@@ -409,7 +378,6 @@ body {
 
 </head>
 <body>
-<h2>Modify Form</h2>
 	<div id='wrap'>
 
 		<div id='external-events'>
@@ -450,8 +418,8 @@ body {
 		</div>
 	</div>
 	
-	<form action="/plan/planDetail" type="get">
-		<input type="hidden" name="planID" value=${plan.planID }>
+	<form action="/plan/read" type="get">
+		<input type="hidden" name="planID" value=${planVO.planID }>
 		<button class="ui positive right labeled icon button" id="registerPlan" href="">
 		SAVE</button>
 	</form>
