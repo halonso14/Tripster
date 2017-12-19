@@ -15,8 +15,8 @@ public interface PlanDetailService {
 	//일정 상세 정보 삭제.
 	public void deletePlanDetail(int planDetailID)throws Exception;
 	
-	//일정 삭제 시, 모든 일정 상세 정보 삭제.
-	public void deleteAllPlanDetail(int planID)throws Exception;
+//	//일정 삭제 시, 모든 일정 상세 정보 삭제.
+//	public void deleteAllPlanDetail(int planID)throws Exception;
 	
 	//모든 일정 조회
 	public List<PlanDetailVO> readAllPlanDetail(int planID)throws Exception;

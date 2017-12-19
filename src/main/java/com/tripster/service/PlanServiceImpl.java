@@ -37,7 +37,7 @@ public class PlanServiceImpl implements PlanService{
 
 	//플랜 삭제.
 	@Override
-	public void removePlan(int planID) throws Exception {
+	public void removePlan(int planID) throws Exception {	
 		planDAO.deletePlan(planID);
 	}
 

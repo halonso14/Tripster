@@ -17,9 +17,8 @@ public class PlanDetailServiceImpl implements PlanDetailService{
 
 	@Inject
 	private PlanDetailDAO planDetailDAO;
-	@Inject
-	private MemoDAO memoDAO;
 	
+	//일정 상세 정보 등록.
 	@Override
 	public void registerPlanDetail(PlanDetailVO vo)throws Exception {
 		System.out.println("service당!!!");
@@ -27,30 +26,33 @@ public class PlanDetailServiceImpl implements PlanDetailService{
 		
 	}
 
+	//일정 상세 정보 수정.
 	@Override
 	public void modifyPlanDetail(Map<String,Object> map)throws Exception {
 		planDetailDAO.updatePlanDetail(map);
 		
 	}
 
-	@Transactional
+	//일정 상세 정보 삭제.
 	@Override
 	public void deletePlanDetail(int planDetailID)throws Exception {
-		memoDAO.deleteMemo(planDetailID);
 		planDetailDAO.deletePlanDetail(planDetailID);
 		
 	}
 
-	@Override
-	public void deleteAllPlanDetail(int planID)throws Exception {
-		planDetailDAO.deleteAllByPlanID(planID);
-	}
+//	//일정 삭제 시, 모든 일정 상세 정보 삭제.
+//	@Override
+//	public void deleteAllPlanDetail(int planID)throws Exception {
+//		planDetailDAO.deleteAllByPlanID(planID);
+//	}
 
+	//모든 일정 조회
 	@Override
 	public List<PlanDetailVO> readAllPlanDetail(int planID)throws Exception {
 		return planDetailDAO.selectAllByPlanID(planID);
 	}
 
+	//최근 등록된 일정 상세의 id 값 조회
 	@Override
 	public int readPlanDetailID() throws Exception {
 		return planDetailDAO.selectPlanDetailID();

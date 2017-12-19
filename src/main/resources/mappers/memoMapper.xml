@@ -4,31 +4,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.tripster.mapper.memoMapper">
+	<!-- 메모 등록. -->
 	<insert id="insertMemo">
 		insert into tbl_memo values(#{planDetailID}, #{memoContents})
 	</insert>
 	
+	<!-- 메모 수. -->
 	<update id="updateMemo">
 		update tbl_memo set memo_contents = #{memoContents} where plan_detail_id =#{planDetailID}
 	</update>
 	
+	<!-- 메모 삭. -->
 	<delete id="deleteMemo">
 		delete from tbl_memo where plan_detail_id= #{planDetailID}
 	</delete>
 	
+	<!-- 메모 조회 by planDetailID. -->
 	<select id="selectOneMemo" resultType="string">
 		select memo_contents memoContents from tbl_memo where plan_Detail_id= #{planDetailID}
 	</select>
 
+	<!-- 사진 등록. -->
 	<insert id="addAttach">
 		insert into tbl_memo_picture(memo_picture_name, plan_detail_id) values(#{memoPictureName}, LAST_INSERT_ID())
 	</insert>
 	
+	<!-- 사진 조회. -->
 	<select id="getAttach" resultType="string">
 		select memo_picture_name memoPictureName from tbl_memo_picture where plan_detail_id = #{memoDetailID} order by memo_picture_ID 
 	</select>
 	
-	<select id="deleteAttach">
+	<!-- 사진 삭제 by planDetailID -->
+	<delete id="deleteAttach">
 		delete from tbl_memo_picture where plan_detail_id = #{planDetailID}
-	</select>
+	</delete>
+		
 </mapper>

@@ -10,10 +10,8 @@
 	href="/resources/css/semantic.css">
 <!--<link href='calendar/fullcalendar.print.min.css' rel='stylesheet' media='print' />-->
 <script src='/resources/js/moment.min.js'></script>
-<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery-ui.min.js"></script>
 <script src='/resources/js/fullcalendar.min.js'></script>
 <script src="/resources/js/semantic.js"></script>
 <script src="/resources/js/locale-all.js"></script>
@@ -70,7 +68,8 @@
                 	  		data: JSON.stringify({
                    	   		planID:${planVO.planID},
                    	   		title:title,
-                   	   	    planDetailDate:start
+                   	   	    planDetailStartTime:start,
+                   	   	    planDetailEndTime : end
                    	   	 }),
                     	  	contentType: "application/json; charset=UTF-8",
                     	  	success: function(result){
@@ -101,7 +100,7 @@
         	    	
                 	sendData.planID = ${planVO.planID};
                 	sendData.contentsID = this.id;
-                	sendData.codeID = $(this).attr('name');
+                	sendData.categoryID = $(this).attr('name');
                 },
                 
                 //drop시,event를 받아서 db에 저장.
@@ -128,15 +127,23 @@
                 
                 //드래그 & 드롭으로 이벤트 시간 변경 시, 해당 이벤트의 db 시간 컬럼 업데이트.
                 eventDrop: function(event) {
-					var updateData = {};
-					updateData.planDetailID = event.id;
-					updateData.dateAndTime = event.start.format();
-					var updateJson = JSON.stringify(updateData);
+                		var endTime = event.end;
+					if(null != endTime ){
+						alert(event.end);
+						endTime = event.end.format();
+					}else{
+						endTime= null;
+					}
 					
+					alert('움직');
 					$.ajax({
 						type:"POST",
 						url:"/plan/updatePlanDetail",
-						data:updateJson,
+						data:JSON.stringify({
+                  	   		 planDetailID: event.id,
+                  	   		 planDetailStartTime: event.start.format(),
+							 planDetailEndTime:endTime
+                  	   	 }),
 						contentType: "application/json; charset=UTF-8",
                 	  		success: function(result){
                 	  		}
@@ -145,7 +152,26 @@
                
                 },
 
+                eventResize: function(event, delta, revertFunc) {
+				    alert(event.title + " end is now " + event.end.format());
+				    alert(event.start.format())
+				    $.ajax({
+						type:"POST",
+						url:"/plan/updatePlanDetail",
+						data:JSON.stringify({
+                  	   		 planDetailID: event.id,
+                  	   		 planDetailStartTime: event.start.format(),
+							 planDetailEndTime:event.end.format()
+                  	   	 }),
+						contentType: "application/json; charset=UTF-8",
+                	  		success: function(result){
+                	  		}
+						
+					});
+					
+                },
                 
+      
                 eventRender: function(event, element) {
                     element.find('.fc-content').append( "<span class='memo'> ㅁ </span>" );
                     element.find('.fc-content').append( "<span class='closeon'> X </span>" );
@@ -268,7 +294,7 @@
                	   		planDetailID:eventID,
                	   	 }),
                success:function(result){
-            	   
+            	    
                }
                
         		}); 
