@@ -31,10 +31,10 @@
 	</beans:bean> -->
 	
 	<!-- 파일 첨부 - 서현덕 -->
-<!-- <beans:bean id="HDuploadPath" class="java.lang.String">
+	<beans:bean id="uploadPath" class="java.lang.String">
 		<beans:constructor-arg value="C:\\zzz\\tripster"></beans:constructor-arg>
 	</beans:bean>
--->
+
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />

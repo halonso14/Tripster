@@ -33,154 +33,80 @@
 			<td>${vo.contentsScrapCnt}</td>
 		</tr>
 	</table>
-	<button type="submit" class="getList">리스트 페이지</button>
-	
-	<div>
-		<div class="line4"></div>
-		Review Text
-		<br/>
-		<textarea name="reviewtext" id="newText" class="form-control" rows="3"></textarea><br/>
-		<button type="submit" id="writeReview">Post<span class="glyphicon glyphicon-arrow-down"></span></button>
-		<br/><br/><br/>
-	</div>
 	
 	
-	<ul id="replies">
-	</ul>
-	<ul class="reviewPaging">
-	</ul>
-	
-	<div class="container mt25 offset-0">
-		<div class="col-md-8 pagecontainer2 offset-0">
-			<div class="cstyle10"></div>
-			<ul class="nav nav-tabs" id="myTab">
-				<li class=""><a data-toggle="tab" href="#reviews"><span class="reviews"></span><span class="hidetext">Reviews</span></a></li>
-			</ul>
-			<div class="tab-content4" >
-				<div id="reviews" class="tab-pane fade active in">
-						<div class="hpadding20">
-							<span class="opensans dark size16 bold">Write Your Review</span>
+	<!-- CONTENT -->
+	<div class="container">
+		<div class="container mt25 offset-0">
+			<div class="col-md-12 pagecontainer2 offset-0">
+				<div class="hpadding50c">
+					<p class="lato size30 slim">Blog</p>
+					<p class="aboutarrow"></p>
+				</div>
+				<div class="line3"></div>
+				
+				<div class="hpadding50c">
+
+					<!-- 왼쪽 파트 -->
+					<!-- 본문 -->
+					<div class="col-md-8 cpdd01 grey2">
+						<div class="abover">
+							<div class="abbg">
+								<a href="/resources/images/about-man.jpg" class="blogpost-hover" data-footer="A custom footer text" data-title="A random title" data-gallery="multiimages" data-toggle="lightbox"><span class="glyphicon glyphicon-zoom-in"></span></a>
+							</div>
+							<img src="/resources/images/about-man.jpg" class="fwimg" alt=""/>
+						</div><br/>
+						
+						<span class="lato size22 dark bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span><br/>
+						<span class="grey">December 25, 2013/<a href="#">0 Comments</a>/in <a href="#">Vacations</a>/by <a href="#">TitanicThemes</a></span><br/>
+						<div class="line4"></div>
+						Donec vehicula nunc in turpis rutrum porta. Nullam lacinia ante non turpis aliquam mattis. Pellentesque luctus leo eget metus egestas egestas. Maecenas hendrerit magna ut porttitor tempor. In hac habitasse platea dictumst. Duis condimentum congue nisi, ac semper ipsum posuere eu. 
+						<br/><br/>
+						<span class="glyphicon glyphicon-tag dark"></span><b>Tags:</b> travel, booking, vacations
+						<button type="submit" class="btn-search4 margtop20 right" id="getList">리스트 페이지</button>	
+						<br/><br/>
+						
+						
+						
+						<div class="line4"></div>
+						
+						<div class="col-md-12 pagecontainer2 offset-0">
+							<div class="cstyle10"></div>
+							<ul class="nav nav-tabs" id="myTab">
+								<li class=""><a data-toggle="tab" disabled><span class="hidetext"></span><span class="reviews"></span>Review</a></li>
+							</ul>
+							<div class="tab-content4" >
+							
+							<!-- 왜 있지? -->
+							<div id="reviews" class="tab-pane fade active in"></div>
+							<!-- 리뷰 리스트 조회 -->
+							<div class="hpadding20">
+							<span class="opensans dark size16 bold">Reviews</span>
 						</div>
+					
+						<div class="line2"></div>
+						
+						<!-- 리뷰 호출 -->
+						<div class="hpadding20" id="reviewList">
+				
+						</div>
+				
+						<!-- 리뷰 페이징 -->
+						<div class="hpadding20">
+							<ul class="pagination right paddingbtm20" id="reviewPaging">
+				
+							</ul>
+						</div>			
+				
 						<!-- 리뷰 작성 -->
+						<br/><br/><br/>
 						<div class="hpadding20">
-							<input type="text">
-						</div>
-						<div class="hpadding20">
-							<span class="opensans dark size16 bold">Reviews</span>
-						</div>
-						
-						<div class="line2"></div>
-						
-						<!-- 리뷰 리스트 조회 -->
-						<div class="hpadding20">							
-							<div class="col-md-4 offset-0 center">
-								<div class="padding20">
-									<div class="bordertype5">
-										<div class="circlewrap">
-											<img src="/resources/images/user-avatar.jpg" class="circleimg" alt=""/>
-											<span>4.5</span>
-										</div>
-										<span class="dark">by Sena</span><br/>
-										from London, UK<br/>
-										<img src="/resources/images/check.png" alt=""/><br/>
-										<span class="green">Recommended<br/>for Everyone</span>
-									</div>
-									
-								</div>
-							</div>
-							<div class="col-md-8 offset-0">
-								<div class="padding20">
-									<span class="opensans size16 dark">Great experience</span><br/>
-									<span class="opensans size13 lgrey">Posted Jun 02, 2013</span><br/>
-									<p id="exampleModal">Excellent hotel, friendly staff would def go there again</p>	
-								</div>
-							</div>
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"id="narae">Modify</button>
-							<div class="clearfix"></div>
-						</div>
-							
-						<div class="line2"></div>
-						
-						<div class="hpadding20">	
-							<div class="col-md-4 offset-0 center">
-								<div class="padding20">
-									<div class="bordertype5">
-										<div class="circlewrap">
-											<img src="/resources/images/user-avatar.jpg" class="circleimg" alt=""/>
-											<span>4.5</span>
-										</div>
-										<span class="dark">by Sena</span><br/>
-										from London, UK<br/>
-										<img src="/resources/images/check.png" alt=""/><br/>
-										<span class="green">Recommended<br/>for Everyone</span>
-									</div>
-									
-								</div>
-							</div>
-							<div class="col-md-8 offset-0">
-								<div class="padding20">
-									<span class="opensans size16 dark">Great experience</span><br/>
-									<span class="opensans size13 lgrey">Posted Jun 02, 2013</span><br/>
-									<p>The view from our balcony in room # 409, was terrific. It was centrally located to everything on and around the port area. Wonderful service and everything was very clean. The breakfast was below average, although not bad. If back in Zante Town we would stay there again.</p>	
-									<ul class="circle-list">
-										<li>4.5</li>
-										<li>3.8</li>
-										<li>4.2</li>
-										<li>5.0</li>
-										<li>4.6</li>
-										<li>4.8</li>
-									</ul>
-								</div>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-							
-						<div class="line2"></div>
-							
-						<div class="hpadding20">	
-							<div class="col-md-4 offset-0 center">
-								<div class="padding20">
-									<div class="bordertype5">
-										<div class="circlewrap">
-											<img src="/resources/images/user-avatar.jpg" class="circleimg" alt=""/>
-											<span>4.5</span>
-										</div>
-										<span class="dark">by Sena</span><br/>
-										from London, UK<br/>
-										<img src="/resources/images/check.png" alt=""/><br/>
-										<span class="green">Recommended<br/>for Everyone</span>
-									</div>
-									
-								</div>
-							</div>
-							<div class="col-md-8 offset-0">
-								<div class="padding20">
-									<span class="opensans size16 dark">Great experience</span><br/>
-									<span class="opensans size13 lgrey">Posted Jun 02, 2013</span><br/>
-									<p>It is close to everything but if you go in the lower season the pool won't be ready even though the temperature was quiet high already.</p>	
-									<ul class="circle-list">
-										<li>4.5</li>
-										<li>3.8</li>
-										<li>4.2</li>
-										<li>5.0</li>
-										<li>4.6</li>
-										<li>4.8</li>
-									</ul>
-								</div>
-							</div>
-							<div class="clearfix"></div>							
-						</div>	
-						
-						<div class="line2"></div>
-						<br/>
-						<br/>
-						<div class="hpadding20">
-							<span class="opensans dark size16 bold">Reviews</span>
+							<span class="opensans dark size16 bold">Write your review</span>
 						</div>
 						
 						<div class="line2"></div>
 
-						<div class="wh33percent left center">
+						<div class="wh25percent left center">
 							<ul class="jslidetext2">
 								<li>Username</li>
 								<li>Evaluation</li>
@@ -188,73 +114,135 @@
 								<li>Comment</li>
 							</ul>
 						</div>
-						<div class="wh66percent right offset-0">
+						<div class="wh75percent right offset-0">
 							<script>
 								//This is a fix for when the slider is used in a hidden div
-								function testTriger(){
-									setTimeout(function (){
-										$(".cstyle01").resize();
-									}, 500);	
-								}
+										function testTriger(){
+											setTimeout(function (){
+												$(".cstyle01").resize();
+											}, 500);	
+										}
 							</script>
-							<div class="padding20 relative wh70percent">
-								
+							<div class="padding12 relative wh75percent">
 								<input type="text" class="form-control margtop10" placeholder="">
 								<select class="form-control mySelectBoxClass margtop10">
-								  <option selected>Wonderful!</option>
-								  <option>Nice</option>
-								  <option>Neutral</option>
-								  <option>Don't recommend</option>
+									<option selected>Wonderful!</option>
+									<option>Nice</option>
+									<option>Neutral</option>
+									<option>Don't recommend</option>
 								</select>
 								<input type="text" class="form-control margtop10" placeholder="">
-								
-								<textarea class="form-control margtop10" rows="3"></textarea>
-								
+								<textarea class="form-control margtop10" rows="5" id="reviewDetail"></textarea>
+										
 								<div class="clearfix"></div>
-								<button type="submit" class="btn-search4 margtop20">Submit</button>	
-
-								<br/>
-								<br/>
-								<br/>
-								<br/>
-								
-							</div>							
+								<button type="submit" class="btn-search4 margtop10" id="writeReview">리뷰 등록</button>	
+		
+										<br/>
+										<br/>
+									</div>							
+								</div>
+								<div class="clearfix"></div>
+		
+							</div>
+						
+						
+						<div class="wh20percent left textleft">
+							<div class="circlewrap2"><img alt="" class="circleimg" src="images/user-avatar.jpg"></div>
 						</div>
-						<div class="clearfix"></div>
+						<div class="wh80percent right"></div>
+					</div>
+				</div>
+					<!-- END OF LEFT IMG -->
+					
+					
+					
+				<!-- 왼쪽 파트 -->
+				<div class="col-md-4 cpdd02">
+					<div class="opensans grey">
+						<input type="text" placeholder="Search.." class="form-control logpadding" name="s"><br/>
+						<span class="lato size18 dark bold">Category</span><br/>
+						
+						<ul class="blogcat">
+							<li><a href="#">Vacations</a> <span class="badge indent0">4</span></li>
+							<li><a href="#">Hotels</a> <span class="badge indent0">8</span></li>
+							<li><a href="#">Flights</a> <span class="badge indent0">15</span></li>
+							<li><a href="#">Early booking</a> <span class="badge indent0">16</span></li>
+							<li><a href="#">Last minute</a> <span class="badge indent0">23</span></li>
+							<li><a href="#">Cruises</a> <span class="badge indent0">42</span></li>
+						</ul>
+						<br/>
+						
+							
+							<!-- Nav tabs -->
+						<ul class="nav navigation-tabs3">
+							<li class="active"><a href="#tab-newtopic" data-toggle="tab"><span class="glyphicon glyphicon-star"></span> Featured</a></li>
+							<li><a href="#tab-comments" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Popular</a></li>
 
+						</ul>
+							
+						<div class="tab-content4">
+								<!-- Tab 1 -->
+							<div class="tab-pane active" id="tab-newtopic">
+								<a href="#"><img alt="" class="left mr20" src="images/smallthumb-1.jpg"></a>
+								<a class="dark" href="#"><b>Hotel Dany</b></a><br>
+								<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
+								<img alt="" src="images/filter-rating-5.png">
+								<div class="line4"></div>
+								<a href="#"><img alt="" class="left mr20" src="images/smallthumb-2.jpg"></a>
+								<a class="dark" href="#"><b>Hotel Amaragua</b></a><br>
+								<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
+								<img alt="" src="images/filter-rating-5.png">
+								<div class="line4"></div>
+								<a href="#"><img alt="" class="left mr20" src="images/smallthumb-3.jpg"></a>
+								<a class="dark" href="#"><b>Hotel Lotus</b></a><br>
+								<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
+								<img alt="" src="images/filter-rating-5.png">
+							</div>
+							<!-- End of Tab 1 -->
+								
+								<!-- Tab 2 -->
+								<div class="tab-pane" id="tab-comments">
+								
+								</div>
+								<!-- End of Tab 2 -->
+								
+								<!-- Tab 3 -->
+								<div class="tab-pane" id="tab-blogcomments">
+
+								</div>
+								<!-- End of Tab 3 -->
+							</div>
+
+							
+							
+							<span class="lato size18 dark bold">Archives</span><br/>
+							<ul class="blogcat">
+								<li><a href="#">December 2013</a></li>
+								<li><a href="#">November 2013</a></li>
+								<li><a href="#">October 2013</a></li>
+								<li><a href="#">September 2013</a></li>
+								<li><a href="#">August 2013</a></li>
+								<li><a href="#">July 2013</a></li>
+								<li><a href="#">June 2013</a></li>
+								<li><a href="#">May 2013</a></li>
+								<li><a href="#">April 2013</a></li>
+							</ul>
+							
+							<br/><br/>
+						</div>
 					</div>
-					</div>
-					</div>
-					</div>
-					
-					<!-- Modal -->
- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" area-hidden="false">
-    <div class="modal-dialog" style="width: 1022px; left: -501px;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="exampleModalLabel">New message</h4>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="control-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="control-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
-    </div>
-  </div>
-  </div>
-					
+					<!-- END OF IMG RIGHT TEXT -->
+					<div class="clearfix"></div>
+					<br/><br/>
+				</div>
+
+			<div class="clearfix"></div><br/><br/>
+		</div>
+	</div>
+</div>
+<!-- END CONTENT -->
+<!-- Modal -->
+
 
 <script src="/resources/js/jquery.min.js"></script>
 <script>
@@ -265,24 +253,13 @@
 		
 		getReviewList(reviewPage);
 		
-		$('#exampleModal').on('show.bs.modal', function (event) {
-			  var button = $(event.relatedTarget) // Button that triggered the modal
-			  var recipient = button.data('whatever') // Extract info from data-* attributes
-			  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-			  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-			  var modal = $(this)
-			  modal.find('.modal-title').text('New message to ' + recipient)
-			  modal.find('.modal-body input').val(recipient)
-		});
-		
-		
-		$(".getList").on("click", function(){
+		$("#getList").on("click", function(){
 			self.location= "/contents/restaurantList/"+listPage;
 		});
 		
 		$("#writeReview").on("click", function(){
 			var memberID = 1;
-			var contentsReview = $("#newText").val();
+			var contentsReview = $("#reviewDetail").val();
 			
 			$.ajax({
 				type :'post',
@@ -302,10 +279,10 @@
 				}
 			});
 			
-			$("#newText").val("")
+			$("#reviewDetail").val("")
 		});
 		
-		$(".reviewPaging").on("click", "a", function(event){
+		$("#reviewPaging").on("click", "a", function(event){
 			event.preventDefault();
 			var tmp = $(this).attr("href");
 			getReviewList(tmp);
@@ -317,12 +294,34 @@
 				var str = "";
 
 				$(data.list).each(function() {
-						str += "<li data-contentsReviewID='"+this.contentsReviewID+"' class='replyLi'>"
-							+ this.contentsReviewID + ":" + this.contentsReview
-							+ "</li>";
+						str += "<div class='col-md-4 offset-0 center' data-contentsReviewID='"+this.contentsReviewID+"'>"
+						+ "		<div class='padding20'>"
+						+ "			<div class='bordertype5'>"
+						+ "				<div class='circlewrap'>"
+						+ "					<img src='/resources/images/user-avatar.jpg' class='circleimg' alt=''/><span>4.5</span>"
+						+ "				</div>"
+						+ "				<span class='dark'>by Sena</span><br/>"
+						+ "				from London, UK<br/>"
+						+ "				<img src='/resources/images/check.png' alt=''/><br/>"
+						+ "				<span class='green'>Recommended<br/>for Everyone</span>"
+						+ "			</div>"
+						+ "		</div>"
+						+ "	</div>"
+						+ "	<div class='col-md-8 offset-0'>"
+						+ "		<div class='padding20'>"
+						+ "			<span class='opensans size16 dark'>Great experience</span><br/>"
+						+ "			<span class='opensans size13 lgrey'>Posted Jun 02, 2013</span><br/>"
+						+ "			<p data-contentsReviewID='"+this.contentsReviewID+"' class='replyLi'>"+ this.contentsReview + "</p>"	
+						+ "		</div>"
+						+ "	</div>"
+						+ "		<button type='button' class='btn btn-primary right' reviewBtnID='"+this.contentsReviewID+"'>Modify</button>"
+						+ "		<div class='clearfix'></div>"
+						+ "</div>"
+						+ ""
+						+ "<div class='line2'></div>";
 				});
 				
-				$("#replies").html(str);
+				$("#reviewList").html(str);
 				
 				printPaging(data.pageMaker);
 			});
@@ -343,7 +342,7 @@
 				str += "<li><a href='"+(pageMaker.endPage+1)+"'> >> </a></li>";
 			}
 			
-			$(".reviewPaging").html(str);
+			$("#reviewPaging").html(str);
 		};
 	});
 </script>

@@ -63,11 +63,11 @@
 		$(".detail").on("click", "a", function(event){
 			event.preventDefault();
 			
-			var targetPage = event.target;
+			var targetPage = event.target+"?curPage="+curPage;
 			
 			$.ajax({
 				type : 'get',
-				url : targetPage+"?curPage="+curPage,
+				url : targetPage,
 				headers : {
 					"Content-Type" : "application/json",
 					"X-HTTP-Method-Override" : "GET"
@@ -78,7 +78,7 @@
 					contentsPerPage : contentsPerPage
 				}),
 				success : 
-					location.href = targetPage +"?curPage="+curPage
+					location.href = targetPage
 			});
 		});
 	});
