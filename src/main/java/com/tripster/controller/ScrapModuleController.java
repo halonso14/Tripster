@@ -34,6 +34,7 @@ public class ScrapModuleController {
 		
 		try {
 			
+					
 			// id 값을 받아서 스크랩 추가 
 			scrapService.scrap(contentsID);
 			loger.info("scrap success");

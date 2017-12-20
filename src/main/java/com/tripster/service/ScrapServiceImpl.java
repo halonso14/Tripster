@@ -58,11 +58,10 @@ public class ScrapServiceImpl implements ScrapService{
 		// 해당 페이지의 컨텐츠id를 받아 스크랩 조회
 		for(int i=0;i<list.size();i++) {
 			if(contentsID == list.get(i).getContentsID()) {
-				return 1;
+				return 0;
 			}
 		}
-		
-		return 0;
+		return 1;
 	}
 
 }

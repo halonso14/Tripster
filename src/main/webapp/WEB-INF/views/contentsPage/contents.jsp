@@ -5,7 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script src="https://unpkg.com/vue"></script>
 <script
   src="https://code.jquery.com/jquery-3.2.1.js"
   integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
@@ -43,15 +42,15 @@
 			scrapbt.on('click',function(){
 				alert(scrapbt.val());
 				// 스크랩 아이디 확인 
-				if(scrapbt.val()==0){
-					scrapbt.attr('value',"1");
+				if(scrapbt.val()==1){
+					scrapbt.attr('value',"0");
 					alert(scrapbt.val());
 					// 스크랩 추가 ajax
 					$.post('/scrap/'+id,function(result){
 							alert(result);
 					});
 				}else{
-					scrapbt.attr('value',"0");
+					scrapbt.attr('value',"1");
 					alert(scrapbt.val());
 					// 스크랩 제거 ajax
 					$.post('/scrapDelete/'+id,function(result){
