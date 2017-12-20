@@ -15,16 +15,31 @@ public class ScrapDAOImpl implements ScrapDAO {
 	@Inject
 	private SqlSession session;
 	
-	private static String namespace = "ScrapMapper";
+	private static String namespace = "scrapMapper";
 	
+	// 스크랩 추가
 	@Override
 	public void create(ScrapVO vo) throws Exception{
-		session.insert(namespace+".create",vo);
+		session.insert(namespace+".scrap",vo);
 	}
 	
+	// 스크랩 삭제
 	@Override
-	public List<ScrapVO> listAll() throws Exception {
-		return session.selectList(namespace + ".listAll");
+	public void scrapDelete(Integer contentsID) throws Exception{
+		session.delete(namespace+".scrapDelete",contentsID);
 	}
+	
+	// 스크랩리스트 조회
+	@Override
+	public List<ScrapVO> listAll(Integer memberID) throws Exception {
+		return session.selectList(namespace + ".listAll",memberID);
+	}
+	
+	// 컨텐츠에서 스크랩 삭제
+	@Override
+	public void scrapIDRemove(Integer contentsID) throws Exception{
+		session.delete(namespace+".scrapIDRemove",contentsID);
+	}
+	
 
 }

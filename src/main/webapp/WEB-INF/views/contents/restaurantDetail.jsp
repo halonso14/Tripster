@@ -59,6 +59,8 @@
 						
 						<span class="lato size22 dark bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span><br/>
 						<span class="grey">December 25, 2013/<a href="#">0 Comments</a>/in <a href="#">Vacations</a>/by <a href="#">TitanicThemes</a></span><br/>
+						<button id="scrapBttn" value=${scrapCheck } >스크랩</button>
+						
 						<div class="line4"></div>
 						Donec vehicula nunc in turpis rutrum porta. Nullam lacinia ante non turpis aliquam mattis. Pellentesque luctus leo eget metus egestas egestas. Maecenas hendrerit magna ut porttitor tempor. In hac habitasse platea dictumst. Duis condimentum congue nisi, ac semper ipsum posuere eu. 
 						<br/><br/>
@@ -250,6 +252,32 @@
 		var listPage = ${cri.curPage};
 		var contentsID = ${contentsID};
 		var reviewPage = 1;
+		
+		var scrapbt = $("#scrapBttn");
+		
+		$.post('/scrapCheck/'+contentsID,function(check){
+			scrapbt.attr('value',check);
+		})
+		
+		scrapbt.on('click',function(){
+				alert(scrapbt.val());
+				// 스크랩 아이디 확인 
+				if(scrapbt.val()==1){
+					scrapbt.attr('value',"0");
+					alert(scrapbt.val());
+					// 스크랩 추가 ajax
+					$.post('/scrap/'+contentsID,function(result){
+							alert(result);
+					});
+				}else{
+					scrapbt.attr('value',"1");
+					alert(scrapbt.val());
+					// 스크랩 제거 ajax
+					$.post('/scrapDelete/'+contentsID,function(result){
+							alert(result);
+					});
+				};
+			});
 		
 		getReviewList(reviewPage);
 		
