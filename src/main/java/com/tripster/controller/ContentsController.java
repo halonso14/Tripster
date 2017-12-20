@@ -35,6 +35,7 @@ public class ContentsController {
 		//ResponseEntity : JSON 객체  + HTTP 응답상태 전달, @Pathvariable로 변수를 받아서 사용
 		@RequestMapping(value = "restaurantList/{curPage}", method = RequestMethod.GET)
 		public ResponseEntity<Map<String, Object>> restaurantList(@PathVariable("curPage") Integer curPage) throws Exception {
+			
 			ResponseEntity<Map<String, Object>> entity = null;
 			
 			try {

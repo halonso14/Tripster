@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tripster.domain.FollowVO;
 import com.tripster.domain.LikeVO;
+import com.tripster.domain.MemberVO;
 import com.tripster.domain.PlanVO;
 
 public interface LikeDAO {
@@ -28,5 +29,11 @@ public interface LikeDAO {
 	
 	// 유저의 팔로우 리스트 조회
 	public List<FollowVO> memberFollowList(Integer memberID) throws Exception;
+	
+	// 유저의 좋아요 리스트의 플랜 조회
+	public List<PlanVO> userLikeList(Integer memberID) throws Exception;
+	
+	// 유저의 팔로우 리스트 조회
+	public List<MemberVO> userFollowList(Integer memberID) throws Exception;
 
 }

@@ -17,9 +17,9 @@ import com.tripster.service.ScrapService;
 // 스크랩 페이지
 @Controller
 @RequestMapping("/mypage/*")
-public class ScrapController {
+public class ListController {
 	
-	private static final Logger loger = LoggerFactory.getLogger(ScrapController.class);
+	private static final Logger loger = LoggerFactory.getLogger(ListController.class);
 	
 	@Inject
 	private ScrapService service;
@@ -27,19 +27,22 @@ public class ScrapController {
 	@Inject
 	private LikeService likeservice;
 	
-	// 스크랩 리스트 페이지
-	@RequestMapping(value="/scraplist/{memberID}",method=RequestMethod.GET)
+	// 유저의 스크랩 리스트 페이지
+	@RequestMapping(value="/{memberID}",method=RequestMethod.GET)
 	public String scrpaList (@PathVariable("memberID") Integer memberID,Model model) throws Exception {
 		
-		loger.info("scrap list");
+		loger.info("list");
 		
 		model.addAttribute("memberID",memberID);
 		
-		return "mypage/scraplist";
+		return "mypage/list";
 		
 	}
 	
-	// 유저 일정 조회
+	// 회원의 스크랩 리스트 페이지
+	
+	
+	// 다른 회원의 일정 조회
 	@RequestMapping(value="/memberSchedule/{planID}")
 	public String userplanList(@PathVariable("planID")Integer planID,Model model)throws Exception {
 		

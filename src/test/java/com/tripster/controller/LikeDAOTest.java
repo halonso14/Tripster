@@ -1,5 +1,6 @@
 package com.tripster.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -9,7 +10,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.tripster.domain.FollowVO;
+import com.tripster.domain.LikeVO;
+import com.tripster.domain.PlanVO;
 import com.tripster.persistence.LikeDAO;
 import com.tripster.persistence.PlanDAO;
 
@@ -52,19 +54,35 @@ public class LikeDAOTest {
 //		
 //	}
 	
+//	@Test
+//	public void memberFollowCheck() throws Exception{
+//		// 유저의 리스트 조회
+//		List<FollowVO> list = dao.memberFollowList(1);
+//		System.out.println("test:!!"+list.toString());
+//		Integer memberID = planDAO.selectPlan(2).getMemberID();
+//		for(int i=0;i<list.size();i++) {
+//			if(memberID == list.get(i).getFollowID()) {
+//				System.out.println("있음");
+//				break;
+//			}
+//		}
+//		System.out.println("없음");
+//	}
+	
 	@Test
-	public void memberFollowCheck() throws Exception{
-		// 유저의 리스트 조회
-		List<FollowVO> list = dao.memberFollowList(1);
-		System.out.println("test:!!"+list.toString());
-		Integer memberID = planDAO.selectPlan(2).getMemberID();
-		for(int i=0;i<list.size();i++) {
-			if(memberID == list.get(i).getFollowID()) {
-				System.out.println("있음");
-				break;
-			}
-		}
-		System.out.println("없음");
+	public void likeList() throws Exception{
+		
+		// 멤버1 의 좋아요 리스트
+//		List<LikeVO> likelist = dao.likeList(1);
+//		List<PlanVO> planlist = new ArrayList<>();
+//		System.out.println(likelist.toString());
+//		for(int i=0;i<likelist.size();i++) {
+//			planlist.add(dao.userSchedule(likelist.get(i).getPlanID()));
+//		}
+//		System.out.println(planlist.toString());
+		List<PlanVO> planlist= dao.userLikeList(1);
+		System.out.println(planlist.toString());
+
 	}
 
 }

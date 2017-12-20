@@ -33,11 +33,17 @@
 	
 	<script>
 		$(document).ready(function (){
-						
+			 
 			var scrapbt = $("#scrapBttn");
+			
 			// contents id 값 저장
 			var id = $('#id').val();
 			
+			// 스크랩 체크
+			$.post('/scrapCheck/'+id,function(check){
+				scrapbt.attr('value',check);
+			})
+
 			// 스크랩 버튼 클릭시
 			scrapbt.on('click',function(){
 				alert(scrapbt.val());

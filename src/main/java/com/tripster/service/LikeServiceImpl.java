@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.tripster.domain.FollowVO;
 import com.tripster.domain.LikeVO;
+import com.tripster.domain.MemberVO;
 import com.tripster.domain.PlanVO;
 import com.tripster.persistence.LikeDAO;
 import com.tripster.persistence.PlanDAO;
@@ -78,6 +79,18 @@ public class LikeServiceImpl implements LikeService{
 		}
 		// 값이 업으면 true.,,
 		return 1;
+	}
+	
+	// 유저 좋아요 리스트의 플랜조회
+	@Override
+	public List<PlanVO> userLikeList(Integer memberID) throws Exception{
+		return likeDAO.userLikeList(memberID);
+	}
+	
+	// 유저의 팔로우 리스트
+	@Override
+	public List<MemberVO> userFollowList(Integer memberID) throws Exception{
+		return likeDAO.userFollowList(memberID);
 	}
 
 }

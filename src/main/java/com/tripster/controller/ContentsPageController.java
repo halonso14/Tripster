@@ -24,13 +24,9 @@ public class ContentsPageController {
 	@RequestMapping(value="/contents/{contentsID}",method=RequestMethod.GET)
 	public String foodyPage(@PathVariable("contentsID") Integer contentsID, Model model) throws Exception {
 		
-		// 현재 회원
-		int memberID = 2;
 		// 컨텐츠 ID 전달
 		model.addAttribute(contentsService.readContents(contentsID));
-		// 스크랩 여부 전달
-		model.addAttribute("scrapCheck",scrapService.scrapCheck(contentsID, memberID));
-		
+
 		return "contentsPage/contents";
 	}
 

@@ -1,5 +1,7 @@
 package com.tripster.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tripster.domain.LikeVO;
+import com.tripster.domain.MemberVO;
+import com.tripster.domain.PlanVO;
 import com.tripster.service.LikeService;
 
 @RestController
@@ -95,6 +99,39 @@ public class LikeController {
 		}catch(Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
+	
+	// 유저 좋아요 리스트의 플랜 조회
+	@RequestMapping(value="/userLikeList/{memberID}")
+	public ResponseEntity<List<PlanVO>> userLikeList(@PathVariable("memberID") Integer memberID){
+		
+		ResponseEntity<List<PlanVO>> entity = null;
+		
+		try {
+			entity = new ResponseEntity<>(service.userLikeList(memberID),HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+		
+	}
+	
+	// 유저의 팔로우 리스트 조회
+	@RequestMapping(value="/userFollowList/{memberID}")
+	public ResponseEntity<List<MemberVO>> userFollowList(@PathVariable("memberID") Integer memberID){
+		
+		ResponseEntity<List<MemberVO>> entity = null;
+		
+		try {
+			entity = new ResponseEntity<>(service.userFollowList(memberID),HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
 		return entity;

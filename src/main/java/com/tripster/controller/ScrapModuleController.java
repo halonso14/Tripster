@@ -33,8 +33,6 @@ public class ScrapModuleController {
 		ResponseEntity<String> entity = null;
 		
 		try {
-			
-					
 			// id 값을 받아서 스크랩 추가 
 			scrapService.scrap(contentsID);
 			loger.info("scrap success");
@@ -75,7 +73,7 @@ public class ScrapModuleController {
 		
 	}
 	
-	// 스크랩 리스트 조회 ( json 변경 ? )
+	// 스크랩 리스트 조회 
 	@RequestMapping(value="/scraplist/{memberID}",method=RequestMethod.GET)
 	public ResponseEntity<List<ScrapVO>> scrapList(@PathVariable("memberID") Integer memberID,Model model){
 		
@@ -115,6 +113,26 @@ public class ScrapModuleController {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
 			
+		}
+		
+		return entity;
+		
+	}
+	
+	// 스크랩 체크
+	@RequestMapping(value="/scrapCheck/{contentsID}",method=RequestMethod.POST)
+	public ResponseEntity<Integer> scrapCheck(@PathVariable ("contentsID") Integer contentsID){
+		
+		ResponseEntity<Integer> entity = null;
+		// 현재 회원
+		Integer memberID = 2;
+		
+		try {
+			Integer check = scrapService.scrapCheck(contentsID, memberID);
+			entity = new ResponseEntity<>(check,HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
 		return entity;
