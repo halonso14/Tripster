@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from tbl_plan_reply
 		where plan_id = #{planID}
 		order by plan_reply_time desc
-		limit #{cri.pageStart}, #{cri.perPageNum}
+		limit #{cri.startNum}, #{cri.contentsPerPage}
 	</select>
 	
 	<!-- 댓글 수 카운트. -->

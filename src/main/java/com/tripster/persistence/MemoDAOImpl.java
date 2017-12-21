@@ -1,5 +1,6 @@
 package com.tripster.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +46,7 @@ public class MemoDAOImpl implements MemoDAO{
 	//사진 추가
 	@Override
 	public void addAttach(String memoPictureName) throws Exception {
-		session.insert(namespace+".addAttach", memoPictureName);
+		session.insert(namespace+".addAttach" ,memoPictureName);
 	}
 
 	//사진 조회

@@ -65,7 +65,7 @@
                   	  	$.ajax({
                   	  		dataType:"text",
                   	  		type:"POST",
-                  	  		url:"/plan/userDetail",
+                  	  		url:"/plan/user/register",
                   	  		data: JSON.stringify({
                      	   		planID:${plan.planID},
                      	   		title:title,
@@ -141,13 +141,12 @@
                   $.ajax({
                 	 	dataType:"text",
                 	  	type:"POST",
-                	  	url:"/plan/detailRegister",
+                	  	url:"/plan/detail/register",
                 	  	data: jsonData,
                 	  	contentType: "application/json; charset=UTF-8",
                 	  	success: function(result){
                 	  		event.id=result;
                 	  		$('#calendar').fullCalendar('updateEvent', event);
-                	  		alert(event.id);
                 	  	}
                   }); 
                 },
@@ -156,16 +155,14 @@
                 eventDrop: function(event) {
                 		var endTime = event.end;
 					if(null != endTime ){
-						alert(event.end);
 						endTime = event.end.format();
 					}else{
 						endTime= null;
 					}
 					
-					alert('움직');
 					$.ajax({
 						type:"POST",
-						url:"/plan/updateDetail",
+						url:"/plan/detail/update",
 						data:JSON.stringify({
                   	   		 planDetailID: event.id,
                   	   		 planDetailStartTime: event.start.format(),
@@ -180,11 +177,9 @@
                 },
                 
                 eventResize: function(event, delta, revertFunc) {
-				    alert(event.title + " end is now " + event.end.format());
-				    alert(event.start.format())
 				    $.ajax({
 						type:"POST",
-						url:"/plan/updateDetail",
+						url:"/plan/detail/update",
 						data:JSON.stringify({
                   	   		 planDetailID: event.id,
                   	   		 planDetailStartTime: event.start.format(),
@@ -219,14 +214,15 @@
                     	
                     	console.log(event.id)
            			 $.ajax({
-                   	   	 url:'/plan/deleteDetail',
+                   	   	 url:'/plan/detail/delete/'+event.id,
                    	   	 type:"POST",
-                   	   	 data:JSON.stringify({
-                   	   		 planDetailID: event.id
-                   	   	 }),
                    	   	contentType: "application/json; charset=UTF-8",
-                   	   	success:function(result){}
-                   	   	 
+                   	   	success:function(result){
+                      	   	 if(result == 'SUCCESS'){
+                       	   		 alert('삭제되었습니다.');
+                       	   	 }
+                   	   	}
+
                       });
                        $('#calendar').fullCalendar('removeEvents',event.id);	
                       
@@ -238,11 +234,8 @@
                     		eventID= event.id;
                     		console.log(eventID);
                     		$.ajax({
-                    			url:"/plan/readMemo",
+                    			url:"/plan/memo/"+eventID,
                     			type:"POST",
-                    			data:JSON.stringify({
-                    				planDetailID:eventID
-                    			}),
                     			async:true,
                     			dataType:"json",
                     			contentType:"application/json; charset=UTF-8",
@@ -278,9 +271,9 @@
             	var url;
             	console.log("register isContents:"+isContents);
             	if(isContents == null){
-            		url = "/plan/registerMemo";
+            		url = "/plan/memo/register";
             	}else{
-            		url = "/plan/updateMemo";
+            		url = "/plan/memo/update";
             	}
                 $.ajax({
                 		url:url,
@@ -292,45 +285,51 @@
                    	   		memoContents:$('textarea').val()
                    	   	 }),
                 	   	success:function(result){
+                  	   	if(result == 'R_SUCCESS'){
+                	   			alert('등록되었습니다.');
+                	   		}else if(result =='U_SUCCESS'){
+                	   			alert('수정되었습니다.');
+                	   		}
                 	   	}
                 });
             });
             
+            //close & cancel 버튼.
             $(".close .cancelMemoBtn").click(function(){
-            		$('.uploadedList').empty();
+            		$('.uploadedList').remove();
             });
+            
+            //메모 삭제 버튼.
+            $("#deleteMemoBtn").click(function(){
+              	alert(eventID);
+      	        	var arr =[];
+      	        	
+      	      	//첨부파일이 있는 경우.
+      	        	$(".uploadedList li").each(function(index){
+      	        		arr.push($(this).attr("data-src"));
+      	        	});
+      	        	
+      	        	if(arr.length >0 ){
+      	        		$.post("/deleteAllFiles",{files:arr},function(){
+      	        		});
+      	        	}
+      	        	
+              		$.ajax({
+              			url:"/plan/memo/delete/"+eventID,
+              			type:"POST",
+              			contentType: "application/json; charset=UTF-8",
+                   		success:function(result){
+                 	   	if(result=='SUCCESS'){
+                 	  	 	$('.ui.modal').hide();
+              	   			//alert('삭제되었습니다.');
+              	   			
+              	   		}
+                     }
+                     
+              		});  
+              });
         });
-        
-/*         //메모 삭제 버튼 클릭.
-        function removeMemo(eventID){
-        	alert('버튼 클');
-	        	var arr =[];
-	        	alert(eventID);
-	        	
-	        	//첨부파일이 있는 경우.
-	        	$(".uploadedList li").each(function(index){
-	        		arr.push($(this).attr("data-src"));
-	        	});
-	        	
-	        	if(arr.length >0 ){
-	        		$.post("/deleteAllFiles",{files:arr},function(){
-	        		});
-	        	}
-	        	
-        		$.ajax({
-        			url:"/plan/deleteMemo",
-        			type:"POST",
-        			contentType: "application/json; charset=UTF-8",
-        			data:JSON.stringify({
-               	   		planDetailID:eventID,
-               	   	 }),
-               success:function(result){
-            	   
-               }
-               
-        		}); 
-        }
-        	 */
+
     //이미지 삭제 버튼.
     function removeAttach(event){
     		console.log(event);

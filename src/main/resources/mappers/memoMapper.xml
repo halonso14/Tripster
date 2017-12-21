@@ -26,12 +26,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 사진 등록. -->
 	<insert id="addAttach">
-		insert into tbl_memo_picture(memo_picture_name, plan_detail_id) values(#{memoPictureName}, LAST_INSERT_ID())
+		insert into tbl_memo_picture (plan_detail_id, memo_picture_name)values(LAST_INSERT_ID(),#{memoPictureName})
 	</insert>
 	
 	<!-- 사진 조회. -->
 	<select id="getAttach" resultType="string">
-		select memo_picture_name memoPictureName from tbl_memo_picture where plan_detail_id = #{memoDetailID} order by memo_picture_ID 
+		select memo_picture_name memoPictureName from tbl_memo_picture where plan_detail_id = #{planDetailID} order by memo_picture_ID 
 	</select>
 	
 	<!-- 사진 삭제 by planDetailID -->

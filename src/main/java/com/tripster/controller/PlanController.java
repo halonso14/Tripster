@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
@@ -146,7 +147,7 @@ public class PlanController {
 	}
 	
 	//상세 일정 등록.
-	@RequestMapping(value="/detailRegister", method=RequestMethod.POST)
+	@RequestMapping(value="/detail/register", method=RequestMethod.POST)
 	public @ResponseBody int detailRegister(@RequestBody PlanDetailVO vo) throws Exception {
 		
 		//한번에 받아 온 날짜와 시간을 분리하여 저장.
@@ -170,38 +171,57 @@ public class PlanController {
 	}
 
 	//상세 일정 시간 수정.
-	@RequestMapping(value="/updateDetail", method=RequestMethod.POST)
-	public  void updateDetail(@RequestBody PlanDetailVO vo) throws Exception {
+	@RequestMapping(value="/detail/update", method=RequestMethod.POST)
+	public  ResponseEntity<String> updateDetail(@RequestBody PlanDetailVO vo) throws Exception {
+		ResponseEntity<String> entity = null;
 		
-		Map<String, Object> map = new HashMap();
-				
-		//한번에 받아 온 날짜와 시간을 분리하여 저장.
-		String planDetailStartTime = vo.getPlanDetailStartTime();
-		String dateStart[] = planDetailStartTime.split("T",0);		
-		String planDetailEndTime = vo.getPlanDetailEndTime();
+		try {
+			Map<String, Object> map = new HashMap();
+					
+			//한번에 받아 온 날짜와 시간을 분리하여 저장.
+			String planDetailStartTime = vo.getPlanDetailStartTime();
+			String dateStart[] = planDetailStartTime.split("T",0);		
+			String planDetailEndTime = vo.getPlanDetailEndTime();
+			
+			//EndTime이 존재하면, endTime도 지정된 포맷으로 저장.
+			if(planDetailEndTime != null) {
+				String dateEnd[] = planDetailEndTime.split("T",0);
+				map.put("planDetailEndTime", dateEnd[1]);
+			}		
 		
-		//EndTime이 존재하면, endTime도 지정된 포맷으로 저장.
-		if(planDetailEndTime != null) {
-			String dateEnd[] = planDetailEndTime.split("T",0);
-			map.put("planDetailEndTime", dateEnd[1]);
-		}		
-	
-		//업데이트 시, 필요한 시간과, planDetailID 값을 map에 저장.
-		map.put("planDetailStartTime", dateStart[1]);	
-		map.put("planDetailID", vo.getPlanDetailID());
-		
-		//업데이트 작업.
-		planDetailService.modifyPlanDetail(map);
+			//업데이트 시, 필요한 시간과, planDetailID 값을 map에 저장.
+			map.put("planDetailStartTime", dateStart[1]);	
+			map.put("planDetailID", vo.getPlanDetailID());
+			
+			//업데이트 작업.
+			planDetailService.modifyPlanDetail(map);
+			
+			entity = new ResponseEntity<String>(HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
 	}
 	
 	//상세 일정 삭제 .
-	@RequestMapping(value="/deleteDetail", method=RequestMethod.POST)
-	public void deleteDetail(@RequestBody PlanDetailVO vo ) throws  Exception {
-		planDetailService.deletePlanDetail(vo.getPlanDetailID());
+	@RequestMapping(value="/detail/delete/{planDetailID}", method=RequestMethod.POST)
+	public ResponseEntity<String> deleteDetail(@PathVariable("planDetailID") int planDetailID ) throws  Exception {
+		ResponseEntity<String> entity = null;
+		
+		try {
+			planDetailService.deletePlanDetail(planDetailID);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+		
 	}
 	
 	//사용자 지정 상세 일정 등록.
-	@RequestMapping(value="/userDetail", method=RequestMethod.POST)
+	@RequestMapping(value="/user/register", method=RequestMethod.POST)
 	public @ResponseBody int registerUserDetail(@RequestBody PlanDetailVO vo)throws Exception{
 		
 		//startTime 과 endTime을 읽어들인 후, 지정된 포맷으로 vo에 다시 셋팅.
@@ -227,35 +247,73 @@ public class PlanController {
 	
 	//**************************메모 관련 ********************************/
 	//메모 등록
-	@RequestMapping(value="/registerMemo", method= RequestMethod.POST)
-	public void registerMemo(@RequestBody MemoVO vo )throws Exception{
+	@RequestMapping(value="/memo/register", method= RequestMethod.POST)
+	public ModelAndView registerMemo( MemoVO vo, @RequestParam("planID") int planID, Model model )throws Exception{
+		System.out.println("MemoVO:"+vo);
+		
+		ModelAndView mnv = new ModelAndView("redirect:/plan/update?planID="+planID);
 		memoService.registerMemo(vo);
+//		ResponseEntity<String> entity = null;
+//		try {
+//			memoService.registerMemo(vo);
+//			entity = new ResponseEntity<String>("R_SUCCESS", HttpStatus.OK	);
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+//		}
+//		
+//		return entity;
+		return mnv;
 
 	}
 	
 	//메모 조회
-	@RequestMapping(value="/readMemo", produces = "application/json; charset=utf8",method=RequestMethod.POST)
-	public @ResponseBody Map<String,Object> readMemo(@RequestBody MemoVO  vo)throws Exception{
-		return memoService.selectMemo(vo.getPlanDetailID());
+	@RequestMapping(value="/memo/{planDetailID}", produces = "application/json; charset=utf8",method=RequestMethod.POST)
+	public @ResponseBody ResponseEntity <Map<String,Object>> readMemo(@PathVariable("planDetailID") int planDetailID)throws Exception{
+		ResponseEntity<Map<String, Object>> entity = null;
+		try {
+			entity= new ResponseEntity<Map<String,Object>>(memoService.selectMemo(planDetailID),HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<Map<String,Object>>( HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
 	}
 	
 	//메모 수정
-	@RequestMapping(value="/updateMemo", produces = "application/json; charset=utf8",method=RequestMethod.POST)
-	public void updateMemo(@RequestBody MemoVO vo)throws Exception{
-		memoService.updateMemo(vo);
+	@RequestMapping(value="/memo/update", produces = "application/json; charset=utf8",method=RequestMethod.POST)
+	public ResponseEntity<String> updateMemo(@RequestBody MemoVO vo)throws Exception{
+		ResponseEntity<String> entity = null;
+		try {
+			memoService.updateMemo(vo);
+			entity = new ResponseEntity<String>("U_SUCCESS",HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		return entity;	
 	}
 	
 	//메모 삭제
-	@RequestMapping(value="/deleteMemo", method=RequestMethod.POST)
-	public void deleteMemo(@RequestBody MemoVO vo) throws Exception{
-		memoService.deleteMemo(vo.getPlanDetailID());
-		
+	@RequestMapping(value="/memo/delete/{planDetailID}", method=RequestMethod.POST)
+	public ResponseEntity<String> deleteMemo(@PathVariable("planDetailID") int planDetailID) throws Exception{
+		ResponseEntity<String> entity =null;
+		try {
+			memoService.deleteMemo(planDetailID);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+
+		return entity;
 	}
 	
 	//**************************댓글 관련 ********************************/
 
 	//댓글 등록.
-	@RequestMapping(value="/registerReply", method=RequestMethod.POST)
+	@RequestMapping(value="/reply/register", produces = "application/text; charset=utf8",method=RequestMethod.POST)
 	public @ResponseBody ResponseEntity<String> registerReply(@RequestBody PlanReplyVO vo){
 		ResponseEntity<String> entity = null;
 		
@@ -270,7 +328,7 @@ public class PlanController {
 	}
 	
 	//댓글 조회
-	@RequestMapping(value="/readReply/{planID}/{page}", method=RequestMethod.GET	)
+	@RequestMapping(value="/reply/read/{planID}/{page}", produces = "application/json; charset=utf8",method=RequestMethod.GET	)
 	public @ResponseBody ResponseEntity<Map<String,Object>> readReply(@PathVariable("planID") int planID, @PathVariable("page") int page){
 		ResponseEntity<Map<String,Object>> entity = null;
 		
@@ -300,7 +358,7 @@ public class PlanController {
 	}
 
 	//댓글 수정
-	@RequestMapping(value="/updateReply", method=RequestMethod.POST)
+	@RequestMapping(value="/reply/update", produces = "application/text; charset=utf8",method=RequestMethod.POST)
 	public @ResponseBody ResponseEntity<String> updateReply(@RequestBody PlanReplyVO vo){
 		ResponseEntity<String> entity = null;
 		
@@ -316,7 +374,7 @@ public class PlanController {
 	}
 	
 	//삭제
-	@RequestMapping(value="/deleteReply/{planReplyID}", method=RequestMethod.POST)
+	@RequestMapping(value="/reply/delete/{planReplyID}",produces = "application/text; charset=utf8", method=RequestMethod.POST)
 	public ResponseEntity<String> deleteReply(@PathVariable("planReplyID") int planReplyID){
 		ResponseEntity<String> entity = null;
 		
