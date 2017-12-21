@@ -31,10 +31,10 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public void keepLogin(String memberEmail, String sessionID, Date next) {
+	public void keepLogin(Integer memberID, String sessionKey, Date next) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("memberEmail", memberEmail);
-		paramMap.put("sessionID", sessionID);
+		paramMap.put("memberID", memberID);
+		paramMap.put("sessionKey", sessionKey);
 		paramMap.put("next", next);
 
 		session.update(namespace + ".keepLogin", paramMap);
@@ -89,7 +89,7 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public void deleteMember(String memberEmail) throws Exception {
-		session.selectOne(namespace + ".deleteMember", memberEmail);
+	public void deleteMember(Integer memberID) throws Exception {
+		session.selectOne(namespace + ".deleteMember", memberID);
 	}
 }

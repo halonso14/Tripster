@@ -8,12 +8,16 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%@include file="/WEB-INF/views/include/header.jsp" %>
     <h1>My Page</h1>
     	<div>
     		이메일 : ${memberVO.memberEmail}
     	</div>
     	<div>
     		닉네임 : ${memberVO.memberName}
+    	</div>
+    	<div>
+    		성별 : ${memberVO.memberSex}
     	</div>
     	<div>
     		생일 : <fmt:formatDate value="${memberVO.memberBirthday}" pattern="yyyy-MM-dd" />

@@ -39,7 +39,7 @@
 <!-- 100% Width & Height container  -->
 <div class="login-fullwidith">
 
-	<form action="/member/loginPost" method="post">
+	<form action="loginPost" method="post">
     <!-- Login Wrap  -->
     <div class="login-wrap">
         <a href="/"><img src="../resources/images/logo.png" class="login-img" alt="logo"/></a><br/>

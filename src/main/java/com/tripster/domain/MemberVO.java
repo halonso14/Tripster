@@ -10,11 +10,12 @@ public class MemberVO {
 	private String memberEmail;
 	private String memberPassword;
 	private String memberName;
+	private String memberSex;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date memberBirthday;
 	private String memberPicture;
-	private String sessionID;
-	private String memberAuthkey;
+	private String sessionKey;
+	private String memberAuthKey;
 	
 	public int getMemberID() {
 		return memberID;
@@ -40,6 +41,12 @@ public class MemberVO {
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
 	}
+	public String getMemberSex() {
+		return memberSex;
+	}
+	public void setMemberSex(String memberSex) {
+		this.memberSex = memberSex;
+	}
 	public Date getMemberBirthday() {
 		return memberBirthday;
 	}
@@ -52,23 +59,24 @@ public class MemberVO {
 	public void setMemberPicture(String memberPicture) {
 		this.memberPicture = memberPicture;
 	}
-	public String getSessionID() {
-		return sessionID;
+	public String getSessionKey() {
+		return sessionKey;
 	}
-	public void setSessionID(String sessionID) {
-		this.sessionID = sessionID;
+	public void setSessionKey(String sessionKey) {
+		this.sessionKey = sessionKey;
 	}
 	public String getMemberAuthKey() {
-		return memberAuthkey;
+		return memberAuthKey;
 	}
 	public void setMemberAuthKey(String memberAuthKey) {
-		this.memberAuthkey = memberAuthKey;
+		this.memberAuthKey = memberAuthKey;
 	}
 	@Override
 	public String toString() {
 		return "MemberVO [memberID=" + memberID + ", memberEmail=" + memberEmail + ", memberPassword=" + memberPassword
-				+ ", memberName=" + memberName + ", memberBirthday=" + memberBirthday + ", memberPicture="
-				+ memberPicture + ", sessionID=" + sessionID + ", memberAuthKey=" + memberAuthkey + "]";
+				+ ", memberName=" + memberName + ", memberSex=" + memberSex + ", memberBirthday=" + memberBirthday
+				+ ", memberPicture=" + memberPicture + ", sessionKey=" + sessionKey + ", memberAuthKey=" + memberAuthKey
+				+ "]";
 	}
 	
 }

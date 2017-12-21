@@ -35,6 +35,11 @@
 		<beans:constructor-arg value="C:\\zzz\\tripster"></beans:constructor-arg>
 	</beans:bean>
 -->
+	<!-- 회원 사진첨부 미구현-->
+	<!-- <beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="C:\\zzz\\tripster"></beans:constructor-arg>
+	</beans:bean> -->
+	
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />

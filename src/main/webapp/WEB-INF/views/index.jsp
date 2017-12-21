@@ -9,14 +9,14 @@
 		<title>Travel Agency - HTML5 Booking template</title>
 
 		<!-- Bootstrap -->
-		<link href="../resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
-		<link href="../resources/assets/css/custom.css" rel="stylesheet" media="screen">
+		<link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
+		<link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
 
 		<!-- Updates -->
-		<link href="../resources/updates/update1/css/style01.css" rel="stylesheet" media="screen">
+		<link href="/resources/updates/update1/css/style01.css" rel="stylesheet" media="screen">
 
 		<!-- Carousel -->
-		<link href="../resources/examples/carousel/carousel.css" rel="stylesheet">
+		<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
 		<script src="../resources/assets/js/html5shiv.js"></script>
@@ -27,23 +27,23 @@
 		<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet' type='text/css'>
 		<!-- Font-Awesome -->
-		<link rel="stylesheet" type="text/css" href="../resources/assets/css/font-awesome.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="/resources/assets/css/font-awesome.css" media="screen" />
 		<!--[if lt IE 7]><link rel="stylesheet" type="text/css" href="../resources/assets/css/font-awesome-ie7.css" media="screen" /><![endif]-->
 
 		<!-- REVOLUTION BANNER CSS SETTINGS -->
-		<link rel="stylesheet" type="text/css" href="../resources/css/fullscreen.css" media="screen" />
-		<link rel="stylesheet" type="text/css" href="../resources/rs-plugin/css/settings.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="/resources/css/fullscreen.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="/resources/rs-plugin/css/settings.css" media="screen" />
 
 		<!-- Picker UI-->
-		<link rel="stylesheet" href="../resources/assets/css/jquery-ui.css" />
+		<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />
 
 		<!-- jQuery -->
-		<script src="../resources/assets/js/jquery.v2.0.3.js"></script>
+		<script src="/resources/assets/js/jquery.v2.0.3.js"></script>
 
 
 		<!-- Masonry -->
-		<link href="../resources/updates/update1/css/masonry.css" rel="stylesheet">
-		<script src="../resources/updates/update1/js/masonry.pkgd.js"></script>
+		<link href="/resources/updates/update1/css/masonry.css" rel="stylesheet">
+		<script src="/resources/updates/update1/js/masonry.pkgd.js"></script>
 		<script>
 	        // http://masonry.desandro.com/masonry.pkgd.js added as external resource
 
@@ -78,7 +78,7 @@
             var result = '${msg}';
 
             if(result == 'success'){
-                alert("회원가입이 완료되었습니다.");
+                alert("가입한 이메일 인증 후 로그인 해주세요.");
             }
 
             if(result == 'delete'){
@@ -128,7 +128,7 @@
 					<!-- FADE -->
 					<li data-transition="fade" data-slotamount="1" data-masterspeed="300">
 
-						<img src="../resources/updates/update1/img/slider/slide2.jpg" alt=""/>
+						<img src="/resources/updates/update1/img/slider/slide2.jpg" alt=""/>
 						<div class="tp-caption scrolleffect sft"
 						     data-x="center"
 						     data-y="120"
@@ -141,7 +141,7 @@
 
 					<!-- FADE -->
 					<li data-transition="fade" data-slotamount="1" data-masterspeed="300">
-						<img src="../resources/updates/update1/img/slider/slide3.jpg" alt=""/>
+						<img src="/resources/updates/update1/img/slider/slide3.jpg" alt=""/>
 						<div class="tp-caption scrolleffect sft"
 						     data-x="center"
 						     data-y="120"
@@ -154,7 +154,7 @@
 
 					<!-- FADE -->
 					<li data-transition="fade" data-slotamount="1" data-masterspeed="300">
-						<img src="../resources/updates/update1/img/slider/slide4.jpg" alt=""/>
+						<img src="/resources/updates/update1/img/slider/slide4.jpg" alt=""/>
 						<div class="tp-caption scrolleffect sft"
 						     data-x="center"
 						     data-y="120"
@@ -259,11 +259,11 @@
 
 			<div class="masonry">
 				<div class="item wt2 ht2">
-					<div class="msbox2"><a href="#"><img src="../resources/updates/update1/img/pic01.jpg" class="fhimg2 left" alt=""></a></div>
+					<div class="msbox2"><a href="#"><img src="/resources/updates/update1/img/pic01.jpg" class="fhimg2 left" alt=""></a></div>
 				</div>
 				<div class="item ht2">
 					<div class="msbox2">
-						<a href="#"><img src="../resources/updates/update1/img/pic02.jpg" class="fhimg" alt=""></a>
+						<a href="#"><img src="/resources/updates/update1/img/pic02.jpg" class="fhimg" alt=""></a>
 						<p class="msctext padding20">
 							<span class="newstitle"><a href="#">The Experts in African Safari Travel</a></span><br/><br/>
 							Sed auctor erat sit amet lorem venenatis, in feugiat nisl fermentum. Nam luctus adipiscing dapibus. Nunc leo felis, ornare non commodo a, elementum a risus.
@@ -271,10 +271,10 @@
 					</div>
 				</div>
 				<div class="item ">
-					<div class="msbox"><a href="#"><img src="../resources/updates/update1/img/pic03.jpg" class="fhimg" alt=""></a></div>
+					<div class="msbox"><a href="#"><img src="/resources/updates/update1/img/pic03.jpg" class="fhimg" alt=""></a></div>
 				</div>
 				<div class="item ht2">
-					<div class="msbox2"><a href="#"><img src="../resources/updates/update1/img/pic04.jpg" class="fhimg" alt=""></a>
+					<div class="msbox2"><a href="#"><img src="/resources/updates/update1/img/pic04.jpg" class="fhimg" alt=""></a>
 						<p class="msctext padding20">
 							<span class="newstitle"><a href="#">Velassaru Beach Resort Island Paradise - Maldives</a></span>
 							<span class="glyphicon glyphicon-star lblue"></span>
@@ -294,12 +294,12 @@
 							Sed auctor erat sit amet lorem venenatis, in feugiat nisl fermentum. Nam luctus adipiscing dapibus. Nunc leo felis, ornare non commodo a.
 						</div>
 						<div class="w50percentlast right">
-							<a href="#"><img src="../resources/updates/update1/img/pic06.jpg" class="fwimg " alt=""></a>
+							<a href="#"><img src="/resources/updates/update1/img/pic06.jpg" class="fwimg " alt=""></a>
 						</div>
 					</div>
 				</div>
 				<div class="item">
-					<div class="msbox"><a href="#"><img src="../resources/updates/update1/img/pic05.jpg" class="fhimg" alt=""></a></div>
+					<div class="msbox"><a href="#"><img src="/resources/updates/update1/img/pic05.jpg" class="fhimg" alt=""></a></div>
 				</div>
 
 			</div>
@@ -323,14 +323,14 @@
 				<div class="container">
 					<footer>
 						<div class="footer">
-							<a href="#" class="social1"><img src="../resources/images/icon-facebook.png" alt=""/></a>
-							<a href="#" class="social2"><img src="../resources/images/icon-twitter.png" alt=""/></a>
-							<a href="#" class="social3"><img src="../resources/images/icon-gplus.png" alt=""/></a>
-							<a href="#" class="social4"><img src="../resources/images/icon-youtube.png" alt=""/></a>
+							<a href="#" class="social1"><img src="/resources/images/icon-facebook.png" alt=""/></a>
+							<a href="#" class="social2"><img src="/resources/images/icon-twitter.png" alt=""/></a>
+							<a href="#" class="social3"><img src="/resources/images/icon-gplus.png" alt=""/></a>
+							<a href="#" class="social4"><img src="/resources/images/icon-youtube.png" alt=""/></a>
 							<br/><br/>
 							Copyright &copy; 2013 <a href="#">Travel Agency</a> All rights reserved. <a href="http://titanicthemes.com">TitanicThemes.com</a>
 							<br/><br/>
-							<a href="#top" id="gotop2" class="gotop"><img src="../resources/images/spacer.png" alt=""/></a>
+							<a href="#top" id="gotop2" class="gotop"><img src="/resources/images/spacer.png" alt=""/></a>
 						</div>
 					</footer>
 				</div>
@@ -348,34 +348,34 @@
 		<!-- Javascript -->
 
 		<!-- This page JS -->
-		<script src="../resources/updates/update1/js/js-new-homepage.js"></script>
+		<script src="/resources/updates/update1/js/js-new-homepage.js"></script>
 
 		<!-- Custom functions -->
-		<script src="../resources/assets/js/functions.js"></script>
+		<script src="/resources/assets/js/functions.js"></script>
 
 		<!-- Picker UI-->
-		<script src="../resources/assets/js/jquery-ui.js"></script>
+		<script src="/resources/assets/js/jquery-ui.js"></script>
 
 		<!-- Easing -->
-		<script src="../resources/assets/js/jquery.easing.js"></script>
+		<script src="/resources/assets/js/jquery.easing.js"></script>
 
 		<!-- jQuery KenBurn Slider  -->
-		<script type="text/javascript" src="../resources/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+		<script type="text/javascript" src="/resources/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
 
 		<!-- Nicescroll  -->
-		<script src="../resources/assets/js/jquery.nicescroll.min.js"></script>
+		<script src="/resources/assets/js/jquery.nicescroll.min.js"></script>
 
 		<!-- CarouFredSel -->
-		<script src="../resources/assets/js/jquery.carouFredSel-6.2.1-packed.js"></script>
-		<script src="../resources/assets/js/helper-plugins/jquery.touchSwipe.min.js"></script>
-		<script type="text/javascript" src="../resources/assets/js/helper-plugins/jquery.mousewheel.min.js"></script>
-		<script type="text/javascript" src="../resources/assets/js/helper-plugins/jquery.transit.min.js"></script>
-		<script type="text/javascript" src="../resources/assets/js/helper-plugins/jquery.ba-throttle-debounce.min.js"></script>
+		<script src="/resources/assets/js/jquery.carouFredSel-6.2.1-packed.js"></script>
+		<script src="/resources/assets/js/helper-plugins/jquery.touchSwipe.min.js"></script>
+		<script type="text/javascript" src="/resources/assets/js/helper-plugins/jquery.mousewheel.min.js"></script>
+		<script type="text/javascript" src="/resources/assets/js/helper-plugins/jquery.transit.min.js"></script>
+		<script type="text/javascript" src="/resources/assets/js/helper-plugins/jquery.ba-throttle-debounce.min.js"></script>
 
 		<!-- Custom Select -->
-		<script type='text/javascript' src='../resources/assets/js/jquery.customSelect.js'></script>
+		<script type='text/javascript' src='/resources/assets/js/jquery.customSelect.js'></script>
 
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="../resources/dist/js/bootstrap.min.js"></script>
+		<script src="/resources/dist/js/bootstrap.min.js"></script>
 	</body>
 </html>

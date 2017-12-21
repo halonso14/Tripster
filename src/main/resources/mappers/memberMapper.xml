@@ -7,9 +7,11 @@
 	
 	<!-- 회원 로그인 -->
 	<select id="login" resultType="MemberVO">
-	select Member_Email memberEmail
-		  ,Member_Password memberPassword
+	select Member_ID memberID
+		  ,Member_Email memberEmail
 		  ,Member_Name memberName
+		  ,Member_Picture memberPicture
+		  ,Session_Key sessionKey
 	from tbl_Member
 	where Member_Email = #{memberEmail}
 	  and Member_Password = #{memberPassword}
@@ -25,14 +27,17 @@
 	<!-- 로그인 유지 -->
 	<update id="keepLogin">
 	update tbl_Member
-	set Session_Key = #{sessionID}
+	set Session_Key = #{sessionKey}
 	   ,Session_Limit = #{next}
-	where Member_Email = #{memberEmail}
+	where Member_ID = #{memberID}
 	</update>
 	
 	<!-- 세션키 체크 -->
 	<select id="checkSessionKey" resultType="MemberVO">
-	select *
+	select Member_ID memberID
+		  ,Member_Email memberEmail
+		  ,Member_Name memberName
+		  ,Session_Key sessionKey
 	from tbl_Member
 	where Session_Key = #{value}
 	  and Session_Limit > now()
@@ -43,18 +48,20 @@
 	insert into tbl_Member (Member_Email
 						   ,Member_Password
 						   ,Member_Name
+						   ,Member_Sex
 						   ,Member_Birthday)
 						   
 	values				   (#{memberEmail}
 						   ,#{memberPassword}
 						   ,#{memberName}
+						   ,#{memberSex}
 						   ,#{memberBirthday})
 	</insert>
 	
 	<!-- 회원 이메일 인증 키 -->
 	<update id="authMember">
 	update tbl_Member
-	set Member_AuthKey = #{memberAuthkey}
+	set Member_AuthKey = #{memberAuthKey}
 	where Member_Email = #{memberEmail}
 	</update>
 	
@@ -76,7 +83,9 @@
 	<select id="viewMember" resultType = "MemberVO">
 	select Member_Email memberEmail
 		  ,Member_Name memberName
+		  ,Member_Sex memberSex
 		  ,Member_Birthday memberBirthday
+		  ,Member_Picture memberPicture
 	from tbl_Member
 	where Member_Email = #{memberEmail}
 	</select>
@@ -87,6 +96,7 @@
 	set Member_Password = #{memberPassword}
 	   ,Member_Name = #{memberName}
 	   ,Member_Birthday = #{memberBirthday}
+	   ,Member_Picture = #{memberPicture}
 	where Member_Email = #{memberEmail}
 	</update>
 	
@@ -94,7 +104,7 @@
 	<delete id="deleteMember">
 	delete
 	from tbl_Member
-	where Member_Email = #{memberEmail}
+	where Member_ID = #{memberID}
 	</delete>
 	
 </mapper>

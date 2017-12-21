@@ -57,7 +57,7 @@ public class MemberController {
 			
 			Date sessionLimit = new Date(System.currentTimeMillis()+(1000*amount));
 			
-			service.keepLogin(vo.getMemberEmail(), session.getId(), sessionLimit);
+			service.keepLogin(vo.getMemberID(), session.getId(), sessionLimit);
 			
 		}
 		
@@ -160,8 +160,7 @@ public class MemberController {
 				loginCookie.setMaxAge(0);
 				response.addCookie(loginCookie);
 				
-				//로그인 유지 구현 후 주석처리 삭제
-				//service.keepLogin(vo.getUid(), session.getId(), new Date());
+				service.keepLogin(vo.getMemberID(), session.getId(), new Date());
 			}
 		}
 		return "member/logout";
@@ -193,9 +192,15 @@ public class MemberController {
 	
 	//회원정보 수정
 	@RequestMapping(value = "/updateMember", method = RequestMethod.POST)
-	public String updatePost(MemberVO vo, RedirectAttributes rttr) throws Exception {
+	public String updatePost(MemberVO vo, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 		
+		HttpSession session = request.getSession();
+		MemberVO memVO = (MemberVO)session.getAttribute("login");
+				
 		logger.info("회원정보 수정");
+
+		String newNick = vo.getMemberName();
+		memVO.setMemberName(newNick);
 		
 		service.updateMember(vo);
 		
@@ -225,7 +230,7 @@ public class MemberController {
 			}
 		}
 				
-		service.dropMember(memVo.getMemberEmail());
+		service.dropMember(memVo.getMemberID());
 		
 		rttr.addFlashAttribute("msg", "delete");
 		

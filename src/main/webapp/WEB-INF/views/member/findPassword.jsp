@@ -15,7 +15,6 @@
 <title>회원가입</title>
 </head>
 <body>
-
 	<h1>비밀번호 찾기</h1>
 
 	<form id="form" action="findPassword" method="post">

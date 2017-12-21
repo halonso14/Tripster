@@ -9,7 +9,7 @@ public interface MemberService {
 
 	public MemberVO login(LoginDTO dto) throws Exception;
 	
-	public void keepLogin(String memberEmail, String sessionID, Date next) throws Exception;
+	public void keepLogin(Integer memberID, String sessionKey, Date next) throws Exception;
 	
 	public MemberVO checkLoginBefore(String value);
 
@@ -25,5 +25,5 @@ public interface MemberService {
 	
 	public void updateMember(MemberVO vo) throws Exception;
 	
-	public void dropMember(String memberEmail) throws Exception;
+	public void dropMember(Integer memberID) throws Exception;
 }

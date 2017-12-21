@@ -49,9 +49,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public void keepLogin(String memberEmail, String sessionID, Date next) throws Exception{
+	public void keepLogin(Integer memberID, String sessionKey, Date next) throws Exception{
 		
-		dao.keepLogin(memberEmail, sessionID, next);
+		dao.keepLogin(memberID, sessionKey, next);
 	}
 	
 	public MemberVO checkLoginBefore(String value) {
@@ -139,9 +139,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public void dropMember(String memberEmail) throws Exception {
+	public void dropMember(Integer memberID) throws Exception {
 		
-		dao.deleteMember(memberEmail);
+		dao.deleteMember(memberID);
 	}
 
 }

@@ -11,13 +11,13 @@ public interface MemberDAO {
 	
 	public MemberVO getMemberPw(String memberEmail) throws Exception;
 	
-	public void keepLogin(String memberEmail, String sessionID, Date next);
+	public void keepLogin(Integer memberID, String sessionKey, Date next);
 	
 	public MemberVO checkSessionKey(String value);
 
 	public void insertMember(MemberVO vo) throws Exception;
 	
-	public void createAuthKey(String memberEmail, String memberAuthCode) throws Exception;
+	public void createAuthKey(String memberEmail, String memberAuthKey) throws Exception;
 	
 	public void authMember(String memberEmail) throws Exception;
 	
@@ -29,5 +29,5 @@ public interface MemberDAO {
 	
 	public void updateMember(MemberVO vo) throws Exception;
 	
-	public void deleteMember(String memberEmail) throws Exception;
+	public void deleteMember(Integer memberID) throws Exception;
 }
