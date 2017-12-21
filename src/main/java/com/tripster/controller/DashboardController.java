@@ -24,6 +24,8 @@ import com.tripster.domain.ContentsReviewVO;
 import com.tripster.domain.ContentsVO;
 import com.tripster.domain.Criteria;
 import com.tripster.domain.DashBriefVO;
+import com.tripster.domain.DashDetailVO;
+import com.tripster.domain.DashLikeVO;
 import com.tripster.domain.MemberVO;
 import com.tripster.domain.PageMaker;
 import com.tripster.service.ContentsReviewService;
@@ -59,8 +61,15 @@ public class DashboardController {
 		try {
 			//Map 객체 생성
 			Map<String, Object> map = new HashMap<String, Object>();
-			DashBriefVO dashBrief = dashboardService.getPlanInfo(memberID);
+			
+			// 화면에 전달한 데이터를 받아옴. 대쉬브리프, 대쉬디테일, 대쉬라이크 현재 세 가지
+			DashBriefVO dashBrief = dashboardService.getPlanBriefInfo(memberID);
+			List<DashDetailVO> detailList = dashboardService.getPlanDetailInfo(memberID);
+			List<DashLikeVO> likeList = dashboardService.getPlanLikeInfo(memberID);
 			map.put("dashBrief", dashBrief);
+			map.put("detailList", detailList);
+			map.put("likeList", likeList);
+	
 			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 			
 			//modelAndView = new ModelAndView();

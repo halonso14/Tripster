@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tripster.domain.DashBriefVO;
+import com.tripster.domain.DashDetailVO;
+import com.tripster.domain.DashLikeVO;
 import com.tripster.persistence.DashboardDAO;
 
 @Service
@@ -19,16 +21,22 @@ public class DashboardServiceImpl implements DashboardService{
 	//맛집 상세 정보 조회
 	@Transactional
 	@Override
-	public DashBriefVO getPlanInfo(Integer memberID) throws Exception {
+	public DashBriefVO getPlanBriefInfo(Integer memberID) throws Exception {
 		//조회수 추가
-		return dao.getPlanInfo(memberID);
+		return dao.getPlanBriefInfo(memberID);
 	}
 
-	
-	//맛집 리스트 조회
-	/*@Override
-	public List<ContentsVO> getRestaurantList(Criteria cri) throws Exception {
-		return dao.getRestaurantList(cri);
+	@Override
+	public List<DashDetailVO> getPlanDetailInfo(Integer memberID) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getPlanDetailInfo(memberID);
 	}
-	 */
+
+	@Override
+	public List<DashLikeVO> getPlanLikeInfo(Integer memberID) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getPlanLikeInfo(memberID);
+	}
+
+
 }

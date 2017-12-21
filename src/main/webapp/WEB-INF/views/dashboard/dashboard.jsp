@@ -14,6 +14,8 @@
     <!-- Bootstrap -->
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
+    <!-- ymmu bootstrap table -->
+    <link href="/resources/bootstrap-table/dist/bootstrap-table.css" rel="stylesheet">
 
 
 	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
@@ -268,9 +270,9 @@
 							<table class="table table-bordered  mt-10">
 							<!-- ymmu data -->
 							<tr class="grey opensans">
-								<td class="center"><span class="size30 slim lh4" id="numPlans">2</span><br/><span class="size12">Plans</span></td>
-								<td class="center"><span class="size30 slim lh4" id="totalDays">14</span><br/><span class="size12">Trip Days</span></td>
-								<td class="center"><span class="size30 slim lh4" id="numCountries">3</span><br/><span class="size12">Countries</span></td>
+								<td class="center"><span class="size30 slim lh4" id="numPlans">1</span><br/><span class="size12">Plans</span></td>
+								<td class="center"><span class="size30 slim lh4" id="totalDays">1</span><br/><span class="size12">Trip Days</span></td>
+								<td class="center"><span class="size30 slim lh4" id="numCountries">1</span><br/><span class="size12">Countries</span></td>
 							</tr>
 							<!-- ymmu data -->
 							</table>
@@ -285,13 +287,7 @@
                             <div class="wrapper_custom">
                                 <div class="stat_label">Plan</div>
                                 <div id="table_custom">
-                                    <table>
-                                       <tr><td>Plan title</td><td>Like</td></tr>
-                                        <tr><td>Cherry blossom trip in japan</td><td>1</td></tr>
-                                        <tr><td>summer vacation</td><td>3</td></tr>
-                                        <tr><td>Cristmas trip</td><td>2</td></tr>
-                                        <tr><td>Europe trip</td><td>1</td></tr>
-                                    </table>
+                                    <table id="table" data-classes="table table-no-bordered" data-halign="center" ></table>
                                 </div>	
                             </div>
                             <div class="wrapper_custom">
@@ -2105,6 +2101,12 @@
     <script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
     <script src="https://www.amcharts.com/lib/3/themes/none.js"></script>
     <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/resources/dist/js/bootstrap.min.js"></script>
+    <script src="/resources/bootstrap-table/dist/bootstrap-table.js"></script>
+	<!-- put your locale files after bootstrap-table.js -->
+	<script src="/resources/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
+    <!-- ymmu my statistacs.js-->
     <script src="/resources/js/statistics.js" type="text/javascript"></script>
     <!-- ymmu my js-->
 	
@@ -2130,7 +2132,8 @@
     <!-- Picker -->	
     <script src="/resources/assets/js/jquery.easing.js"></script>	
 	
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/resources/dist/js/bootstrap.min.js"></script>
+
+
+    
   </body>
 </html>

@@ -72,10 +72,10 @@ var chartData_old={
 };
 
 //var chart = AmCharts.makeChart("chartdiv4", chartdiv41);
-
+var chart;
 AmCharts.ready( function() {
 	 // chart code will go here
-	var chart = new AmCharts.AmSerialChart();
+	chart = new AmCharts.AmSerialChart();
 	chart.dataProvider = chartData;
 	chart.categoryField = "plan";
 	var graph = new AmCharts.AmGraph();
@@ -112,6 +112,8 @@ var ajaxController= function(url){
             
             //data for stat page 
             if(url.match("/stat")){
+            	
+            	
             	var dashBrief = data.dashBrief;
                 $('#numPlans').text(dashBrief.numOfPlans);
                 $('#totalDays').text(dashBrief.totalDays);
@@ -121,25 +123,40 @@ var ajaxController= function(url){
                 chartData[0].how_many=dashBrief.minPlanDays;
                 chartData[1].how_many=dashBrief.maxPlanDays;
                 chartData[2].how_many=dashBrief.avgDays;
-                
-                //chart = AmCharts.makeChart("chartdiv4", chartdiv4);
+                chart.validateData();
                 console.log(chartData[2].how_many);
-                //console.log("야호?"+chartdiv4.dataProvider[2].how_many);
-            	/* DATA OBJECT 출력하기 */
+            	/* DATA OBJECT 출력하기
 	            	var str = '';
 	            	for(key in data.dashBrief) {
 	            		str += key+"="+data.dashBrief[key]+"\n";
 	            	}
 	            	console.log(str);
-            	/**/
+            	*/
+                //data likeList-------------------------
+                var likeList = data.likeList;
+                console.log(likeList);
+                makeTable(likeList);
+
             }
-            
         }
-    });
+    }); 
+} //ajaxfunction
+
+//create Table
+var makeTable = function(list){
     
+	console.log('makeTable 안쪽');
+ $('#table').bootstrapTable({
+    columns: [{
+        field: 'plan_title',
+        title: 'Your plan title'
+    }, {
+        field: 'num',
+        title: 'Like'
+    }],
+    data: list
+ });     
 }
-
-
 
 
 //ymmu ajax-------------------------------------------
