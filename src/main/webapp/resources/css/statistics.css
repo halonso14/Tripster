@@ -1,0 +1,137 @@
+hr { 
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+} 
+
+hr.vertical {
+    height:100%; 
+    width:0;
+    border:1px solid black;
+}
+
+/* children of wrapper class are effected */
+.wrapper_custom{
+    border: 1px solid #ccc;
+    border-radius: 1px;
+    width: 32%;
+    margin: 5px 5px 5px 5px;
+    position: relative;
+    /*padding-bottom: 50%;*/
+    display: inline-block;
+    box-shadow: 1px 1px 1px #999999;
+    
+}
+
+.listwrapper{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 48.5%;
+    margin: 5px 5px 5px 5px;
+    position: relative;
+    /*padding-bottom: 50%;*/
+    display: inline-block;
+    
+}
+
+.first{
+    overflow: visible;
+    margin: 30px auto 10px 10px;
+
+}
+
+#table_custom{
+    height: 300px;
+    overflow: hidden;
+}
+
+table{
+    width: 100%;
+    text-align: center;
+    /*border: 1px solid #ccc;*/
+    font-size: 15px;
+}
+
+
+.stat_label{
+    font-size: 30px;
+    text-align: center;
+    margin: 10px;
+}
+
+#chartdiv {
+  width: 100%;
+  height: 400px;
+}
+
+
+/* pie chart */
+#chartdiv2 {
+    width: 100%;
+    height: 300px;
+    font-size: 11px;
+    vertical-align: top;
+}
+
+/* pie chart */
+#chartdiv4 {
+    width: 100%;
+    height: 300px;
+    font-size: 11px;
+}
+
+
+.amcharts-main-div{
+    width: 100%;
+    
+}
+
+.amcharts-chart-div{
+    
+}
+
+.amcharts-pie-slice {
+    
+  transform: scale(1);
+  transform-origin: 50% 50%;
+  transition-duration: 0.3s;
+  transition: all .3s ease-out;
+  -webkit-transition: all .3s ease-out;
+  -moz-transition: all .3s ease-out;
+  -o-transition: all .3s ease-out;
+  cursor: pointer;
+  box-shadow: 0 0 30px 0 #000;
+  display: inline-block;
+}
+
+.amcharts-pie-slice:hover {
+  transform: scale(1.1);
+  filter: url(#shadow);
+}							
+
+/* radar */
+#chartdiv3 {
+  width: 100%;
+  height: 300px;
+}
+
+
+
+/* my plan*/
+#chartdiv4 {
+  width: 100%;
+  height: 300px;
+}
+
+.amcharts-export-menu-top-right {
+  top: 10px;
+  right: 0;
+}
+
+
+
+/* myplan and */
