@@ -25,7 +25,7 @@ public class ContentsPageController {
 	public String foodyPage(@PathVariable("contentsID") Integer contentsID, Model model) throws Exception {
 		
 		// 컨텐츠 ID 전달
-		model.addAttribute(contentsService.readContents(contentsID));
+		model.addAttribute(contentsService.getRestaurantDetail(contentsID));
 
 		return "contentsPage/contents";
 	}

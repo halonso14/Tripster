@@ -34,4 +34,7 @@ public interface LikeService {
 	
 	// 유저의 팔로우 리스트
 	public List<MemberVO> userFollowList(Integer memberID) throws Exception;
+	
+	// 유저의 팔로잉 리스트
+	public List<MemberVO> userFollowingList(Integer memberID) throws Exception;
 }

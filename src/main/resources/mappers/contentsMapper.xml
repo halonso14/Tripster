@@ -3,21 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="com.tripster.mapper.ContentsMapper">
-  
-  <select id="contentsRead" resultType="ContentsVO">
-  	select 
-  			Category_ID categoryID,
-  			Contents_ID contentsID,
-  			Contents_Title title,
-  			Contents_Location location,
-  			Contents_Rating rating,
-  			Contents_View_Cnt viewCnt,
-  			Contents_ReView_Cnt reviewCnt,
-  			Contents_Scrap_Cnt ScrapCnt
-  	from tbl_contents 
-  	where Contents_ID = #{contentsID}
-  </select>
+  <mapper namespace="com.tripster.mapper.contentsMapper">
   
   <select id="getRestaurantDetail" resultType="ContentsVO">
   select 
@@ -29,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   from
   	tbl_contents NATURAL JOIN tbl_contents_detail
   where
-  	tbl_contents.Category_ID = 1 and tbl_contents.Contents_ID = #{contents_ID}
+  	tbl_contents.Contents_ID = #{contentsID}
   </select>
   
   <select id="getPlaceDetail" resultType="ContentsVO">
@@ -42,11 +28,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   from
   	tbl_contents NATURAL JOIN tbl_contents_detail
   where
-  	tbl_contents.Category_ID = 2 and tbl_contents.Contents_ID = #{contentsID)
+  	tbl_contents.Contents_ID = #{contentsID}
   </select>
   
   <select id="getRestaurantList" resultType="ContentsVO">
-  <![CDATA[
+ <![CDATA[
   select 
   	Category_ID categoryID, Contents_ID contentsID, Contents_Title title, Contents_Location location,
   	Contents_Rating rating, Contents_View_Cnt contentsViewCnt, Contents_Review_Cnt contentsReviewCnt,
@@ -57,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	Category_ID = 1
   order by Contents_ID desc
   limit #{startNum}, #{contentsPerPage}
-  ]]>
+   ]]>
   </select>
   
   <select id="getPlaceList" resultType="ContentsVO">
@@ -123,9 +109,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   where
   	Contents_ID = #{contentsID}
   </update>
-  
-  <select id="read" resultType="ContentsVO">
-  
-  </select>
   
   </mapper>

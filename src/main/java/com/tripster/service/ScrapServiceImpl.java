@@ -24,7 +24,7 @@ public class ScrapServiceImpl implements ScrapService{
 	public void scrap(Integer contentsID)throws Exception{
 		ContentsVO cont = new ContentsVO();
 		ScrapVO vo = new ScrapVO();
-		cont = contentsDao.readContents(contentsID);
+		cont = contentsDao.getRestaurantDetail(contentsID);
 		vo.setCategoryID(cont.getCategoryID());
 		vo.setContentsID(cont.getContentsID());
 		vo.setContentsTitle(cont.getTitle());

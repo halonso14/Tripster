@@ -17,11 +17,6 @@ public class ContentsServiceImpl implements ContentsService {
 	@Inject 
 	private ContentsDAO dao;
 	
-	// 컨텐츠 조회
-	public ContentsVO readContents(Integer contentsID) throws Exception{
-		return dao.readContents(contentsID);
-	}
-	
 	//맛집 상세 정보 조회
 	@Transactional
 	@Override

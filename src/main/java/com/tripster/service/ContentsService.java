@@ -6,10 +6,6 @@ import com.tripster.domain.ContentsVO;
 import com.tripster.domain.Criteria;
 
 public interface ContentsService {
-	
-	// 컨텐츠 조회
-	public ContentsVO readContents(Integer contentsID) throws Exception;
-	
 	//맛집 상세 정보 조회
 	public ContentsVO getRestaurantDetail(Integer contentsID) throws Exception;
 	

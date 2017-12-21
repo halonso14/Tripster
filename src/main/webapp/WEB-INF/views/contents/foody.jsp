@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script src="https://unpkg.com/vue"></script>
 <script
   src="https://code.jquery.com/jquery-3.2.1.js"
   integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
@@ -15,13 +16,12 @@
 
 	<h1>restaurent page</h1>
 
-		<input type="hidden" name="Restaurant_ID" id="id" value= ${contentsVO.contentsID } />
+		<input type="hidden" name="Restaurant_ID" id="id" value= ${contentsVO.ID } />
 		<!-- ½ºÅ©·¦ ¹öÆ° -->
-		<button id="scrapBttn" value=${scrapCheck } >½ºÅ©·¦</button>
-		
+		<button id="scrapBttn" value=${tf } >½ºÅ©·¦</button>
 		<div id="test">
-		</div>
 		
+		</div>
 		<script>
 			$(document).ready(function(){
 				var val = $('#scrapBttn').val();
@@ -29,40 +29,34 @@
 			});
 		</script>
 
-	<span>ContentsID : ${contentsVO.contentsID }</span><br>
+	<span>ContentsID : ${contentsVO.ID }</span><br>
 	<span>ContentsTitle : ${contentsVO.title}</span>
 	
 	<script>
 		$(document).ready(function (){
-			 
+						
 			var scrapbt = $("#scrapBttn");
-			
 			// contents id °ª ÀúÀå
 			var id = $('#id').val();
 			
-			// ½ºÅ©·¦ Ã¼Å©
-			$.post('/scrapCheck/'+id,function(check){
-				scrapbt.attr('value',check);
-			})
-
 			// ½ºÅ©·¦ ¹öÆ° Å¬¸¯½Ã
 			scrapbt.on('click',function(){
 				alert(scrapbt.val());
-				// ½ºÅ©·¦ ¾ÆÀÌµð È®ÀÎ 
+				// ½ºÅ©·¦ ¾ÆÀÌµð È®ÀÎ ÀÛ¾÷!!
 				if(scrapbt.val()==1){
 					scrapbt.attr('value',"0");
 					alert(scrapbt.val());
 					// ½ºÅ©·¦ Ãß°¡ ajax
-					$.post('/scrap/'+id,function(result){
+					/* $.post('/scrap/'+id,function(result){
 							alert(result);
-					});
+					}); */
 				}else{
 					scrapbt.attr('value',"1");
 					alert(scrapbt.val());
 					// ½ºÅ©·¦ Á¦°Å ajax
-					$.post('/scrapDelete/'+id,function(result){
+					/* $.post('/scrapremove/'+id,function(result){
 							alert(result);
-					});
+					}); */
 				};
 			});
 			

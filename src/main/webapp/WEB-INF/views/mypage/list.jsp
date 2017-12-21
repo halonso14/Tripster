@@ -26,8 +26,12 @@
 	<div class="likeList">
 	</div>
 	
-	<button id="followList">follow</button>
+	<button id="followList">follow list</button>
 	<div class="followList">
+	</div>
+	
+	<button id="followingList">following list</button>
+	<div class="followingList">
 	</div>
 	
 	<form id="form" method="post">
@@ -130,22 +134,54 @@
 		// 전체 리스트 조회 함수
 		var getAllList = function(){
 
-			$.getJSON('/userFolloList/'+memberID,function(data){
+			$.getJSON('/userFollowList/'+memberID,function(data){
 				
 				var str = "";
 				
 				$(data).each(function(i,list){
 					str += "<li>"+i+".이름:<div>"+list.memberName+
-							"</div class='planID' value="+list.memberID+">"+
-							"<button class='likeDelete' value="+list.memberID+">삭제</button></li>";
+							"</div class='memberID' value="+list.memberID+">"+
+							"<button class='memberDelete' value="+list.memberID+">삭제</button></li>";
 				});
 				
-				$('.likeList').html(str);
+				$('.followList').html(str);
 				
 			});
 		};
 		
-		$('#likeList').on('click',function(){
+		$('#followList').on('click',function(){
+			getAllList();
+		})
+		
+	})
+	</script>
+	
+	<!-- 팔로잉 리스트 조회 -->
+	<script>
+	$(document).ready(function (){
+		
+		//접속중인 유저 아이디 저장
+		var memberID = $('#memberID').val();
+		
+		// 전체 리스트 조회 함수
+		var getAllList = function(){
+
+			$.getJSON('/userFollowingList/'+memberID,function(data){
+				
+				var str = "";
+				
+				$(data).each(function(i,list){
+					str += "<li>"+i+".이름:<div>"+list.memberName+
+							"</div class='memberID' value="+list.memberID+">"+
+							"<button class='memberDelete' value="+list.memberID+">삭제</button></li>";
+				});
+				
+				$('.followingList').html(str);
+				
+			});
+		};
+		
+		$('#followingList').on('click',function(){
 			getAllList();
 		})
 		

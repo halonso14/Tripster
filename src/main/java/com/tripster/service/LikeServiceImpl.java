@@ -92,5 +92,12 @@ public class LikeServiceImpl implements LikeService{
 	public List<MemberVO> userFollowList(Integer memberID) throws Exception{
 		return likeDAO.userFollowList(memberID);
 	}
+	
+	// 유저의 팔로잉 리스트
+	@Override
+	public List<MemberVO> userFollowingList(Integer memberID) throws Exception{
+		return likeDAO.userFollowingList(memberID);
+
+	}
 
 }

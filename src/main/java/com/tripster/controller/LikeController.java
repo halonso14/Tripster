@@ -137,6 +137,21 @@ public class LikeController {
 		return entity;
 	}
 	
+	// 유저의 팔로잉 리스트 조회
+	@RequestMapping(value="/userFollowingList/{memberID}")
+	public ResponseEntity<List<MemberVO>> userFollowingList(@PathVariable("memberID") Integer memberID){
+		
+		ResponseEntity<List<MemberVO>> entity = null;
+		
+		try {
+			entity = new ResponseEntity<>(service.userFollowingList(memberID),HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
 	
 }
 	

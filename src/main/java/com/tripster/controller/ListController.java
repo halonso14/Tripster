@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.tripster.service.LikeService;
 import com.tripster.service.ScrapService;
 
-// 스크랩 페이지
+// 리스트 페이지
 @Controller
 @RequestMapping("/mypage/*")
 public class ListController {
@@ -27,7 +27,7 @@ public class ListController {
 	@Inject
 	private LikeService likeservice;
 	
-	// 유저의 스크랩 리스트 페이지
+	// 마이 페이지
 	@RequestMapping(value="/{memberID}",method=RequestMethod.GET)
 	public String scrpaList (@PathVariable("memberID") Integer memberID,Model model) throws Exception {
 		
