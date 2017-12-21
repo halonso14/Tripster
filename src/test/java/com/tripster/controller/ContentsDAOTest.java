@@ -24,27 +24,27 @@ public class ContentsDAOTest {
 	Criteria cri = new Criteria();
 	
 	//컨텐츠 상세 정보 검색 / 조회수 갱신 테스트
-	@Test
-	public void testRead() throws Exception {
-		System.out.println(dao.read(1).toString());
-		dao.updateContentsViewCnt(1);
-		System.out.println(dao.read(1).toString());
-	}
-	
-	//컨텐츠 리스트 조회 테스트
-	@Test
-	public void testGetContentsList() throws Exception {
-		cri.setCurPage(1);
-		cri.setContentsPerPage(5);
-		List<ContentsVO> list = dao.getContentsList(cri);
-		for(int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i).toString());
-		}
-	}
-	
-	//총 컨텐츠 정보 수 조회 테스트
-	@Test
-	public void testGetTotalContentsNum() throws Exception {
-		System.out.println(dao.getTotalContentsNum(cri));
-	}
+//	@Test
+//	public void testRead() throws Exception {
+//		System.out.println(dao.read(1).toString());
+//		dao.updateContentsViewCnt(1);
+//		System.out.println(dao.read(1).toString());
+//	}
+//	
+//	//컨텐츠 리스트 조회 테스트
+//	@Test
+//	public void testGetContentsList() throws Exception {
+//		cri.setCurPage(1);
+//		cri.setContentsPerPage(5);
+//		List<ContentsVO> list = dao.getContentsList(cri);
+//		for(int i = 0; i < list.size(); i++) {
+//			System.out.println(list.get(i).toString());
+//		}
+//	}
+//	
+//	//총 컨텐츠 정보 수 조회 테스트
+//	@Test
+//	public void testGetTotalContentsNum() throws Exception {
+//		System.out.println(dao.getTotalContentsNum(cri));
+//	}
 }

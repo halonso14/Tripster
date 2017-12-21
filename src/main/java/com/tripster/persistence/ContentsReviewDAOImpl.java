@@ -18,7 +18,7 @@ public class ContentsReviewDAOImpl implements ContentsReviewDAO{
 	@Inject
 	private SqlSession session;
 	//DB 조회 Mapper 명시
-	private static String namespace = "com.tripster.mapper.ContentsReviewMapper";
+	private static String namespace = "com.tripster.mapper.contentsReviewMapper";
 	
 	@Override
 	public void write(ContentsReviewVO vo) throws Exception {

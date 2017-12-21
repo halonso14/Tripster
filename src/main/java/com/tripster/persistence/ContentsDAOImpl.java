@@ -18,7 +18,7 @@ public class ContentsDAOImpl implements ContentsDAO{
 	@Inject
 	private SqlSession session;
 	//DB 조회 Mapper 명시
-	private static String namespace = "com.tripster.mapper.ContentsMapper";
+	private static String namespace = "com.tripster.mapper.contentsMapper";
 	
 	//컨텐츠 상세 정보 조회
 	@Override

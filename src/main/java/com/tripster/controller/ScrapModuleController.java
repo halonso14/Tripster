@@ -27,15 +27,14 @@ public class ScrapModuleController {
 	private static final Logger loger = LoggerFactory.getLogger(ScrapModuleController.class);
 
 	// 스크랩 추가 
-	@RequestMapping(value="/scrap/{scrapID}",method=RequestMethod.POST)
-	public ResponseEntity<String> scrap(@PathVariable("scrapID") Integer scrapID,Model model) {
+	@RequestMapping(value="/scrap/{contentsID}",method=RequestMethod.POST)
+	public ResponseEntity<String> scrap(@PathVariable("contentsID") Integer contentsID,Model model) {
 		
 		ResponseEntity<String> entity = null;
 		
 		try {
-			
-			// id 값을 받아서 스크랩 추가 서비스
-			scrapService.scrap(scrapID);
+			// id 값을 받아서 스크랩 추가 
+			scrapService.scrap(contentsID);
 			loger.info("scrap success");
 			entity = new ResponseEntity<>("success",HttpStatus.OK);
 			
@@ -50,17 +49,17 @@ public class ScrapModuleController {
 		
 	}
 	
-	// 컨텐츠에서 스크랩 제거 
-	@RequestMapping(value="/scrapremove/{contentsID}",method=RequestMethod.POST)
-	public ResponseEntity<String> scrapremove(@PathVariable("contentsID") Integer contentsID) {
+	// 스크랩 제거 
+	@RequestMapping(value="/scrapDelete/{contentsID}",method=RequestMethod.POST)
+	public ResponseEntity<String> scrapDelete(@PathVariable("contentsID") Integer contentsID) {
 		
 		ResponseEntity<String> entity = null;
 		
 		try {
 			
-			loger.info("scrap remove");
 			// 컨텐츠 스크랩 제거 서비스
-			scrapService.contentsScrapDelete(contentsID);
+			scrapService.scrapDelete(contentsID);
+			loger.info("scrap remove");
 			entity = new ResponseEntity<>("remove",HttpStatus.OK);
 			
 		}catch(Exception e){
@@ -74,9 +73,32 @@ public class ScrapModuleController {
 		
 	}
 	
+	// 스크랩 리스트 조회 
+	@RequestMapping(value="/scraplist/{memberID}",method=RequestMethod.GET)
+	public ResponseEntity<List<ScrapVO>> scrapList(@PathVariable("memberID") Integer memberID,Model model){
+		
+		ResponseEntity<List<ScrapVO>> entity = null;
+		
+		try {
+			
+			loger.info("scrap list");
+			// 멤버 id를 받아 리스트를 조회하여 뷰단으로 전송
+			entity = new ResponseEntity<>(scrapService.listAll(memberID),HttpStatus.OK);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			
+		}
+		
+		return entity;
+		
+	}
+	
 	// 스크랩 리스트에서 스크랩 제거 
 	@RequestMapping(value="/scrapIDremove/{scrapID}",method=RequestMethod.POST)
-	public ResponseEntity<String> contentsScrapRemove(@PathVariable("scrapID") Integer scrapID){
+	public ResponseEntity<String> scrapIDRemove(@PathVariable("scrapID") Integer scrapID){
 		
 		ResponseEntity<String> entity = null;
 		
@@ -97,23 +119,20 @@ public class ScrapModuleController {
 		
 	}
 	
-	// 스크랩 리스트 조회 
-	@RequestMapping(value="/scraplist/{memberID}",method=RequestMethod.GET)
-	public ResponseEntity<List<ScrapVO>> scraplist(@PathVariable("memberID") Integer memberID,Model model){
+	// 스크랩 체크
+	@RequestMapping(value="/scrapCheck/{contentsID}",method=RequestMethod.POST)
+	public ResponseEntity<Integer> scrapCheck(@PathVariable ("contentsID") Integer contentsID){
 		
-		ResponseEntity<List<ScrapVO>> entity = null;
+		ResponseEntity<Integer> entity = null;
+		// 현재 회원
+		Integer memberID = 2;
 		
 		try {
-			
-			loger.info("scrap list");
-			// 멤버 id를 받아 리스트를 조회하여 뷰단으로 전송
-			entity = new ResponseEntity<>(scrapService.listAll(memberID),HttpStatus.OK);
-			
+			Integer check = scrapService.scrapCheck(contentsID, memberID);
+			entity = new ResponseEntity<>(check,HttpStatus.OK);
 		}catch(Exception e) {
-			
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			
 		}
 		
 		return entity;

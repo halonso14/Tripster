@@ -4,7 +4,7 @@ public class ScrapVO {
 	
 	private int scrapID;
 	private int memberID;
-	private int codeID;
+	private int categoryID;
 	private int contentsID;
 	private String contentsTitle;
 	private String contentsPhoto;
@@ -21,11 +21,12 @@ public class ScrapVO {
 	public void setMemberID(int memberID) {
 		this.memberID = memberID;
 	}
-	public int getCodeID() {
-		return codeID;
+	
+	public int getCategoryID() {
+		return categoryID;
 	}
-	public void setCodeID(int codeID) {
-		this.codeID = codeID;
+	public void setCategoryID(int categoryID) {
+		this.categoryID = categoryID;
 	}
 	public int getContentsID() {
 		return contentsID;
@@ -48,8 +49,10 @@ public class ScrapVO {
 	
 	@Override
 	public String toString() {
-		return "ScrapVO [scrapID=" + scrapID + ", memberID=" + memberID + ", codeID=" + codeID + ", contentsID="
+		return "ScrapVO [scrapID=" + scrapID + ", memberID=" + memberID + ", categoryID=" + categoryID + ", contentsID="
 				+ contentsID + ", contentsTitle=" + contentsTitle + ", contentsPhoto=" + contentsPhoto + "]";
 	}
+	
+	
 	
 }

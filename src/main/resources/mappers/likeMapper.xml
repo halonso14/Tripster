@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="likeMapper">
+
+  <!-- 좋아요 -->
+  <insert id="like">
+  	insert into tbl_like(
+  						  Like_ID
+  						 ,Plan_ID
+  						 ,Member_ID
+  						 )
+  					values
+  						(
+  						 #{likeID},
+  						 #{planID},
+  						 #{memberID}		
+  						)
+  </insert>
+  
+  <!-- 플랜 ID로 플랜을 조회 -->
+  <select id="userSchedule" resultType="com.tripster.domain.PlanVO">
+  	select 
+  			Plan_ID planID
+  			,Member_ID memberID
+  			,Plan_Title planTitle
+  			,Plan_StartDate planStartDate
+  			,Plan_EndDate planEndDate
+  			
+  	from tbl_plan
+  	
+  	where Plan_ID = #{planID}
+  
+  </select>
+  
+  <!-- 좋아요 삭제 -->
+  <delete id="likeDelete">
+  delete from tbl_like
+  where Plan_ID = #{planID}
+  
+  </delete>
+  
+  <!-- 유저의 좋아요 리스트 조회 -->
+  <select id="likeList" resultType="com.tripster.domain.LikeVO">
+  select 
+  			Like_ID likeID,
+  			Plan_ID planID,
+  			Member_ID memberID
+  		
+  from tbl_like
+  where Member_ID = #{memberID}
+  
+  </select>
+  
+  <!-- 멤버 팔로우 -->
+  <insert id="memberFollow">
+  insert into tbl_follow (
+  							 Follow_ID
+  							,Member_ID
+  							)
+  					values
+  						  (
+  						   #{followID}
+  						  ,#{memberID}
+  						  )
+  </insert>
+  
+  <!-- 멤버 팔로우 삭제 -->
+  <delete id="memberFollowDelete">
+  delete from tbl_follow 
+  where Member_ID = #{memberID} and Follow_ID = #{followID}
+  </delete>
+  
+  <!-- 유저의  팔로우 리스트 조회 -->
+  <select id="memberFollowList" resultType="com.tripster.domain.FollowVO">
+  select 
+  		Follow_ID followID,
+  		Member_ID memberID
+  from tbl_follow
+  where Member_ID = #{memberID}
+  </select>
+  
+  <!-- 유저의 좋아요 리스트 조회 -->
+  <select id="userlikeList" resultType="com.tripster.domain.PlanVO">
+  select 
+  		 tbl_plan.Plan_ID planID
+  		,tbl_plan.Member_ID memberID
+  		,tbl_plan.Plan_Title planTitle
+  		,tbl_plan.Plan_StartDate planStartDate
+  		,tbl_plan.Plan_EndDate planEndDate
+  from 
+  		tbl_like,tbl_plan
+  where 
+  		tbl_like.Plan_ID = tbl_plan.Plan_ID and tbl_like.Member_ID = #{memberID} 
+  
+  </select>
+  
+  <!-- 유저의 팔로우 리스트 조회 -->
+  <select id="userFollowList" resultType="com.tripster.domain.MemberVO">
+  select 
+  		 tbl_member.Member_ID memberID
+  		,tbl_member.Member_Name memberName
+  		,tbl_member.Member_Email memberEmail
+  		,tbl_member.Member_Password memberPassword
+  		,tbl_member.Member_Birthday memberBirthday
+  		,tbl_member.Member_Picture memberPicture
+  from 
+  		tbl_follow,tbl_member
+  
+  where 
+  		tbl_follow.follow_ID = tbl_member.Member_ID and tbl_follow.Member_ID=#{memberID};
+  	
+  </select>
+  
+  <!-- 유저의 팔로잉 리스트 조회 -->
+  <select id="userFollowingList" resultType="com.tripster.domain.MemberVO">
+  select 
+  		 tbl_member.Member_ID memberID
+  		,tbl_member.Member_Name memberName
+  		,tbl_member.Member_Email memberEmail
+  		,tbl_member.Member_Password memberPassword
+  		,tbl_member.Member_Birthday memberBirthday
+  		,tbl_member.Member_Picture memberPicture
+  from 
+  		tbl_member ,tbl_follow
+  where 
+  		tbl_follow.Member_ID = tbl_member.Member_ID and tbl_follow.Follow_ID = #{memberID};
+  </select>
+  
+</mapper>
+  
