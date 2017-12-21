@@ -7,15 +7,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 등록 -->
 	<insert id="insert">
-		insert into tbl_plan_detail values(#{planDetailID},
-		#{planID}, #{contentsID}, #{title},#{planDetailStartTime},
-		#{planDetailDate}, #{codeID})
+		insert into tbl_plan_detail
+		values(#{planDetailID},#{planID},#{categoryID}, #{contentsID}, #{title},#{planDetailStartTime}, #{planDetailEndTime}, #{planDetailDate})
 	</insert>
 
 	<!-- 수정. -->
 	<update id="update">
 		update tbl_plan_detail set plan_Detail_StartTime
-		=#{planDetailStartTime}
+		=#{planDetailStartTime}, plan_detail_endTime =#{planDetailEndTime}
 		where plan_detail_ID = #{planDetailID}
 	</update>
 
@@ -37,8 +36,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<result column="contents_id" property="contentsID"/>
 	<result column="title" property="title"/>
 	<result column="plan_detail_startTime" property="planDetailStartTime"/>
+	<result column="plan_detail_EndTime" property="planDetailEndTime"/>
 	<result column="plan_detail_date" property="planDetailDate"/>
-	<result column="code_id" property="codeID"/>
+	<result column="category_id" property="categoryID"/>
 	<result column="plan_detail_date" property="planDetailDate"/>
 	<collection property="memoVO" resultMap="MemoVO"/>
 </resultMap>
@@ -59,8 +59,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 한 일정에 해당하는 세부일정 모두 조회. -->
 	<select id="selectAll" resultMap="PlanDetailVO">
 		select detail.plan_detail_id, detail.plan_id, detail.contents_id,
-		detail.title, detail.plan_detail_startTime, detail.plan_detail_date,
-		detail.code_id,
+		detail.title, detail.plan_detail_startTime,detail.plan_detail_endTime, detail.plan_detail_date,
+		detail.category_id,
 		memo.memo_contents, picture.memo_picture_name
 		from tbl_plan_detail detail left join tbl_memo memo on
 		detail.plan_detail_id = memo.plan_detail_id left join tbl_memo_picture

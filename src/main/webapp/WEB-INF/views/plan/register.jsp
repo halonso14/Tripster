@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h2>planRegisterForm</h2>
-	<form action="/plan/planRegister" method="POST">
+	<form action="/plan/register" method="POST">
 		<input type="hidden" name="memberID" value="1">
 		title: <input type="text" name="planTitle">
 		startDate: <input type="date" name="planStartDate">

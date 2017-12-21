@@ -22,14 +22,14 @@ public class MemoServiceImpl implements MemoService{
 	@Override
 	public void registerMemo(MemoVO vo) throws Exception {
 		memoDAO.insertMemo(vo);
-//		
-//		String[] files = vo.getMemoPictures();
-//		
-//		if(files == null) return;
-//		
-//		for(String memoPictureName: files) {
-//			memoDAO.addAttach(memoPictureName);
-		//}
+		
+		List<String>files = vo.getMemoPictureName();
+		
+		if(files == null) return;
+		
+		for(String memoPictureName: files) {
+			memoDAO.addAttach(memoPictureName);
+		}
 		
 	}
 

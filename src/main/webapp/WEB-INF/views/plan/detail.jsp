@@ -10,14 +10,13 @@
 	href="/resources/css/semantic.css">
 <!--<link href='calendar/fullcalendar.print.min.css' rel='stylesheet' media='print' />-->
 <script src='/resources/js/moment.min.js'></script>
-<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery-ui.min.js"></script>
 <script src='/resources/js/fullcalendar.min.js'></script>
 <script src="/resources/js/semantic.js"></script>
 <script src="/resources/js/locale-all.js"></script>
 <script type="text/javascript" src="/resources/js/upload.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <script>
@@ -66,11 +65,12 @@
                 	  	$.ajax({
                 	  		dataType:"text",
                 	  		type:"POST",
-                	  		url:"/plan/UserPlanDetail",
+                	  		url:"/plan/user/register",
                 	  		data: JSON.stringify({
                    	   		planID:${planVO.planID},
                    	   		title:title,
-                   	   	    planDetailDate:start
+                   	   	    planDetailStartTime:start,
+                   	   	    planDetailEndTime : end
                    	   	 }),
                     	  	contentType: "application/json; charset=UTF-8",
                     	  	success: function(result){
@@ -101,13 +101,13 @@
         	    	
                 	sendData.planID = ${planVO.planID};
                 	sendData.contentsID = this.id;
-                	sendData.codeID = $(this).attr('name');
+                	sendData.categoryID = $(this).attr('name');
                 },
                 
                 //drop시,event를 받아서 db에 저장.
                 eventReceive: function(event) {
                 	sendData.title = event.title;
-                	sendData.dateAndTime = event.start.format();
+                	sendData.planDetailStartTime = event.start.format();
                	
                 	var jsonData = JSON.stringify(sendData);
                 	console.log(jsonData);
@@ -115,28 +115,33 @@
                   $.ajax({
                 	 	dataType:"text",
                 	  	type:"POST",
-                	  	url:"/plan/detailRegister",
+                	  	url:"/plan/detail/register",
                 	  	data: jsonData,
                 	  	contentType: "application/json; charset=UTF-8",
                 	  	success: function(result){
                 	  		event.id=result;
                 	  		$('#calendar').fullCalendar('updateEvent', event);
-                	  		alert(event.id);
                 	  	}
                   }); 
                 },
                 
                 //드래그 & 드롭으로 이벤트 시간 변경 시, 해당 이벤트의 db 시간 컬럼 업데이트.
                 eventDrop: function(event) {
-					var updateData = {};
-					updateData.planDetailID = event.id;
-					updateData.dateAndTime = event.start.format();
-					var updateJson = JSON.stringify(updateData);
+                		var endTime = event.end;
+					if(null != endTime ){
+						endTime = event.end.format();
+					}else{
+						endTime= null;
+					}
 					
 					$.ajax({
 						type:"POST",
-						url:"/plan/updatePlanDetail",
-						data:updateJson,
+						url:"/plan/detail/update",
+						data:JSON.stringify({
+                  	   		 planDetailID: event.id,
+                  	   		 planDetailStartTime: event.start.format(),
+							 planDetailEndTime:endTime
+                  	   	 }),
 						contentType: "application/json; charset=UTF-8",
                 	  		success: function(result){
                 	  		}
@@ -145,7 +150,24 @@
                
                 },
 
+                eventResize: function(event, delta, revertFunc) {
+				    $.ajax({
+						type:"POST",
+						url:"/plan/detail/update",
+						data:JSON.stringify({
+                  	   		 planDetailID: event.id,
+                  	   		 planDetailStartTime: event.start.format(),
+							 planDetailEndTime:event.end.format()
+                  	   	 }),
+						contentType: "application/json; charset=UTF-8",
+                	  		success: function(result){
+                	  		}
+						
+					});
+					
+                },
                 
+      
                 eventRender: function(event, element) {
                     element.find('.fc-content').append( "<span class='memo'> ㅁ </span>" );
                     element.find('.fc-content').append( "<span class='closeon'> X </span>" );
@@ -164,13 +186,14 @@
                     	}
                     	
            			 $.ajax({
-                   	   	 url:'/plan/deletePlanDetail',
+                   	   	 url:'/plan/detail/delete/'+event.id,
                    	   	 type:"POST",
-                   	   	 data:JSON.stringify({
-                   	   		 planDetailID: event.id
-                   	   	 }),
                    	   	contentType: "application/json; charset=UTF-8",
-                   	   	success:function(result){}
+                   	   	success:function(result){
+                      	   	 if(result == 'SUCCESS'){
+                       	   		 alert('삭제되었습니다.');
+                       	   	 }
+                   	   	}
                    	   	 
                       });
                        $('#calendar').fullCalendar('removeEvents',event.id);	
@@ -181,11 +204,8 @@
                     element.find(".memo").click(function(){                   
                     		eventID= event.id;
                     		$.ajax({
-                    			url:"/plan/selectMemo",
+                    			url:"/plan/memo/"+eventID,
                     			type:"POST",
-                    			data:JSON.stringify({
-                    				planDetailID:eventID
-                    			}),
                     			async:true,
                     			dataType:"json",
                     			contentType:"application/json; charset=UTF-8",
@@ -217,63 +237,88 @@
             });
             
             //메모 등록 버튼.
-            $("#registerMemoBtn").click(function(){
-            	var url;
-            	console.log("register isContents:"+isContents);
-            	if(isContents == null){
-            		url = "/plan/registerMemo";
-            	}else{
-            		url = "/plan/modifyMemo";
-            	}
-                $.ajax({
+            $("#registerMemoBtn").click(function(event){
+            		event.preventDefault();
+            		alert('알럿');
+            		var formdata = $(this).parent().parent();
+            		console.log(formdata);
+            		var url;
+            		var str;
+            		if(isContents == null){
+            			url = "/plan/memo/register";
+            		}else{
+            			url = "/plan/memo/update";
+          	  	}	
+            	
+            		//formdata.setAttribute('action',url);
+            		$('#memoForm').attr("action", url);
+           	 	str = "<input type='hidden' name='planDetailID' value='" + eventID
+					+ "'>";
+           	 	$(".uploadedList .delbtn").each(
+						function(index) {
+							str += "<input type='hidden' name='memoPictureName' value='" + $(this).attr("data-src")
+									+ "'>";
+						});
+           	    
+           	 	formdata.append(str);
+           	 	formdata.get(0).submit();
+            	
+/*             $.ajax({
                 		url:url,
                 		type:"POST",
                 		dataType:"text",
                 		contentType: "application/json; charset=UTF-8",
                 		data: JSON.stringify({
                    	   		planDetailID:eventID,
-                   	   		memoContents:$('textarea').val()
+                   	   		memoContents:$('textarea').val(),
                    	   	 }),
                 	   	success:function(result){
+                      	   	if(result == 'R_SUCCESS'){
+                	   			alert('등록되었습니다.');
+                	   		}else if(result =='U_SUCCESS'){
+                	   			alert('수정되었습니다.');
+                	   		}
                 	   	}
-                });
+                }); 
+                 */
+       
+            });
+            
+            //메모 삭제 버튼.
+          $("#deleteMemoBtn").click(function(){
+            	alert(eventID);
+    	        	var arr =[];
+    	        	
+    	      	//첨부파일이 있는 경우.
+    	        	$(".uploadedList li").each(function(index){
+    	        		arr.push($(this).attr("data-src"));
+    	        	});
+    	        	
+    	        	if(arr.length >0 ){
+    	        		$.post("/deleteAllFiles",{files:arr},function(){
+    	        		});
+    	        	}
+    	        	
+            		$.ajax({
+            			url:"/plan/memo/delete/"+eventID,
+            			type:"POST",
+            			contentType: "application/json; charset=UTF-8",
+                   success:function(result){
+               	   	if(result=='SUCCESS'){
+               	  	 	$('.ui.modal').hide('slow');
+            	   			//alert('삭제되었습니다.');
+            	   			
+            	   		}
+                   }
+                   
+            		});  
             });
             
             $(".close .cancelMemoBtn").click(function(){
             		$('.uploadedList').empty();
             });
-        });
+  });
         
-/*         //메모 삭제 버튼 클릭.
-        function removeMemo(eventID){
-        	alert('버튼 클');
-	        	var arr =[];
-	        	alert(eventID);
-	        	
-	        	//첨부파일이 있는 경우.
-	        	$(".uploadedList li").each(function(index){
-	        		arr.push($(this).attr("data-src"));
-	        	});
-	        	
-	        	if(arr.length >0 ){
-	        		$.post("/deleteAllFiles",{files:arr},function(){
-	        		});
-	        	}
-	        	
-        		$.ajax({
-        			url:"/plan/removeMemo",
-        			type:"POST",
-        			contentType: "application/json; charset=UTF-8",
-        			data:JSON.stringify({
-               	   		planDetailID:eventID,
-               	   	 }),
-               success:function(result){
-            	   
-               }
-               
-        		}); 
-        }
-        	 */
     //이미지 삭제 버튼.
     function removeAttach(event){
     		console.log(event);
@@ -366,35 +411,36 @@ body {
 		<div id='calendar'></div>
 		<div style='clear: both'></div>
 	</div>
-
 	<div class="ui modal">
-		<i class="close icon"></i>
-		<div class="header">Memo</div>
-		<div class="description">
-			<div class="ui header">내용</div>
-			<textarea rows="10" cols="100" name=></textarea>
-			<div class="form-group">
-				<div class="ui header">사진</div>
-				<label for="exampleInputEmail1">File DROP Here</label>
-				<div class="fileDrop"></div>
-				<div>
-					<hr>
+	 <form role="form" method="post" id="memoForm">
+			<input type="hidden" name="planID" value=${planVO.planID }>
+			<i class="close icon"></i>
+			<div class="header">Memo</div>
+			<div class="description">
+				<div class="ui header">내용</div>
+				<textarea rows="10" cols="100" name="memoContents"></textarea>
+				<div class="form-group">
+					<div class="ui header">사진</div>
+					<label for="exampleInputEmail1">File DROP Here</label>
+					<div class="fileDrop"></div>
+					<div>
+						<hr>
+					</div>
+					<ul class="mailbox-attachments clearfix uploadedList"></ul>
 				</div>
-				<ul class="mailbox-attachments clearfix uploadedList"></ul>
 			</div>
-		</div>
-		<div class="actions">
-			<!-- 			<button class="ui right labeled icon button"
-					id="deleteMemoBtn" onclick="removeMemo(eventID)">DELET</button> -->
-			<button class="ui negative right labeled icon button" id="cancelMemoBtn">CANCEL</button>
-			<button class="ui positive right labeled icon button"
+			<div class="actions">
+				<button class="ui red labeled icon button" id="deleteMemoBtn">DELETE</button>
+				<button class="ui negative right labeled icon button" id="cancelMemoBtn">CANCEL</button>
+				<button class="ui positive right labeled icon button"
 				id="registerMemoBtn">SAVE</button>
-		</div>
-	</div>
-	
-	<form action="/plan/planDetail" type="get">
+			</div>
+			
+		</form>
+	</div>	
+	<form action="/plan/read" type="get">
 		<input type="hidden" name="planID" value=${planVO.planID }>
-		<button class="ui positive right labeled icon button" id="registerPlan" href="">
+		<button class="ui positive right labeled icon button" >
 		SAVE</button>
 	</form>
 

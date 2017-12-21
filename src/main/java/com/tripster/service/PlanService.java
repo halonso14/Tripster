@@ -18,6 +18,9 @@ public interface PlanService {
 	//플랜 조회.
 	public PlanVO readPlan(int planID)throws Exception;
 	
+	//플랜만 조회.
+	public PlanVO readOnlyPlan(int planID)throws Exception;
+	
 	//가장 최근에 저장된 플랜의 id값 조회.
 	public int readPlanID()throws Exception;
 	

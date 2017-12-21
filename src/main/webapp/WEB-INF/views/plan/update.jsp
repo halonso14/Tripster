@@ -10,10 +10,8 @@
 	href="/resources/css/semantic.css">
 <!--<link href='calendar/fullcalendar.print.min.css' rel='stylesheet' media='print' />-->
 <script src='/resources/js/moment.min.js'></script>
-<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script src="/resources/js/jquery.min.js"></script>
+<script src="/resources/js/jquery-ui.min.js"></script>
 <script src='/resources/js/fullcalendar.min.js'></script>
 <script src="/resources/js/semantic.js"></script>
 <script src="/resources/js/locale-all.js"></script>
@@ -21,7 +19,6 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <script>
-
         $(document).ready(function() {
 
             var date = new Date();
@@ -32,6 +29,8 @@
 			var memoEvent;
 			var eventID;
 			var isContents;
+			var obj = [];
+			var planID = ${plan.planID};
             $('#external-events .fc-event').each(function() {
                 // store data so the calendar knows to render an event upon drop
                $(this).data('event', {
@@ -61,53 +60,80 @@
                 
                 //사용자 지정 이벤트 등록.
                 select: function(start, end, allDay){
-                  var title = prompt('일정을 입력하세요');
-                  if(title){
-                	  	$.ajax({
-                	  		dataType:"text",
-                	  		type:"POST",
-                	  		url:"/plan/UserPlanDetail",
-                	  		data: JSON.stringify({
-                   	   		planID:${planVO.planID},
-                   	   		title:title,
-                   	   	    planDetailDate:start
-                   	   	 }),
-                    	  	contentType: "application/json; charset=UTF-8",
-                    	  	success: function(result){
-                          	  	calendar.fullCalendar('renderEvent', {
-                                    title: title,
-                                    start:start,
-                                    end:end,
-                                    allDay:allDay,
-                                    id:result
-                                 }, true);
-                    	  	}
-                	  	});
-  
-                  }
-                  calendar.fullCalendar('unselect');
-                },
+                    var title = prompt('일정을 입력하세요');
+                    if(title){
+                  	  	$.ajax({
+                  	  		dataType:"text",
+                  	  		type:"POST",
+                  	  		url:"/plan/user/register",
+                  	  		data: JSON.stringify({
+                     	   		planID:${plan.planID},
+                     	   		title:title,
+                     	   	    planDetailStartTime:start,
+                     	   	    planDetailEndTime : end
+                     	   	 }),
+                      	  	contentType: "application/json; charset=UTF-8",
+                      	  	success: function(result){
+                            	  	calendar.fullCalendar('renderEvent', {
+                                      title: title,
+                                      start:start,
+                                      end:end,
+                                      allDay:allDay,
+                                      id:result
+                                   }, true);
+                      	  	}
+                  	  	});
+    
+                    }
+                    calendar.fullCalendar('unselect');
+                  },
                
                 defaultDate: ${date},
                 navLinks: true, // can click day/week names to navigate views
                 editable: true,
                 droppable: true,
                 eventLimit: true, // allow "more" link when too many events,
-                events: [
-                ],
-                
+                events:  function(start, end, timezone, callback) {
+                            var events = [];
+                            $.ajax({
+                                url: '/plan/update',
+                                type : 'post',
+                                data : JSON.stringify({
+                    					planID:planID
+                    				}),
+                                dataType: 'json',
+                                contentType: "application/json; charset=UTF-8",
+                                success: function(data) {
+                                    var events = [];
+                                    $.each(data, function (index, item) {
+                              		var startT= item.planDetailDate+"T"+item.planDetailStartTime;
+                              		var endT = item.planDetailDate+"T"+item.planDetailEndTime;
+                                    	console.log(item.title);
+                                        events.push({
+                                            title: item.title,
+                                            start: startT,
+                                            end: endT,
+                                            id:item.planDetailID
+                                        });
+                                    });
+                                    callback(events);
+                                }
+                            }); 
+                 
+                },
+             
                 //drop 발생 시, external-event로 부터 필요한 값을 읽어 전역변수 sendData에저장.
                 drop: function(date) {
         	    	
-                	sendData.planID = ${planVO.planID};
+                	sendData.planID = ${plan.planID};
                 	sendData.contentsID = this.id;
-                	sendData.codeID = $(this).attr('name');
+                	sendData.categoryID = $(this).attr('name');
                 },
                 
                 //drop시,event를 받아서 db에 저장.
                 eventReceive: function(event) {
                 	sendData.title = event.title;
-                	sendData.dateAndTime = event.start.format();
+                	sendData.planDetailStartTime = event.start.format();
                	
                 	var jsonData = JSON.stringify(sendData);
                 	console.log(jsonData);
@@ -115,28 +141,33 @@
                   $.ajax({
                 	 	dataType:"text",
                 	  	type:"POST",
-                	  	url:"/plan/detailRegister",
+                	  	url:"/plan/detail/register",
                 	  	data: jsonData,
                 	  	contentType: "application/json; charset=UTF-8",
                 	  	success: function(result){
                 	  		event.id=result;
                 	  		$('#calendar').fullCalendar('updateEvent', event);
-                	  		alert(event.id);
                 	  	}
                   }); 
                 },
                 
                 //드래그 & 드롭으로 이벤트 시간 변경 시, 해당 이벤트의 db 시간 컬럼 업데이트.
                 eventDrop: function(event) {
-					var updateData = {};
-					updateData.planDetailID = event.id;
-					updateData.dateAndTime = event.start.format();
-					var updateJson = JSON.stringify(updateData);
+                		var endTime = event.end;
+					if(null != endTime ){
+						endTime = event.end.format();
+					}else{
+						endTime= null;
+					}
 					
 					$.ajax({
 						type:"POST",
-						url:"/plan/updatePlanDetail",
-						data:updateJson,
+						url:"/plan/detail/update",
+						data:JSON.stringify({
+                  	   		 planDetailID: event.id,
+                  	   		 planDetailStartTime: event.start.format(),
+							 planDetailEndTime:endTime
+                  	   	 }),
 						contentType: "application/json; charset=UTF-8",
                 	  		success: function(result){
                 	  		}
@@ -144,6 +175,24 @@
 					});
                
                 },
+                
+                eventResize: function(event, delta, revertFunc) {
+				    $.ajax({
+						type:"POST",
+						url:"/plan/detail/update",
+						data:JSON.stringify({
+                  	   		 planDetailID: event.id,
+                  	   		 planDetailStartTime: event.start.format(),
+							 planDetailEndTime:event.end.format()
+                  	   	 }),
+						contentType: "application/json; charset=UTF-8",
+                	  		success: function(result){
+                	  		}
+						
+					});
+					
+                },
+                
 
                 
                 eventRender: function(event, element) {
@@ -163,29 +212,30 @@
                     		});
                     	}
                     	
+                    	console.log(event.id)
            			 $.ajax({
-                   	   	 url:'/plan/deletePlanDetail',
+                   	   	 url:'/plan/detail/delete/'+event.id,
                    	   	 type:"POST",
-                   	   	 data:JSON.stringify({
-                   	   		 planDetailID: event.id
-                   	   	 }),
                    	   	contentType: "application/json; charset=UTF-8",
-                   	   	success:function(result){}
-                   	   	 
+                   	   	success:function(result){
+                      	   	 if(result == 'SUCCESS'){
+                       	   		 alert('삭제되었습니다.');
+                       	   	 }
+                   	   	}
+
                       });
                        $('#calendar').fullCalendar('removeEvents',event.id);	
                       
                     });
 
                     //메모
-                    element.find(".memo").click(function(){                   
+                    element.find(".memo").click(function(){   
+                    		
                     		eventID= event.id;
+                    		console.log(eventID);
                     		$.ajax({
-                    			url:"/plan/selectMemo",
+                    			url:"/plan/memo/"+eventID,
                     			type:"POST",
-                    			data:JSON.stringify({
-                    				planDetailID:eventID
-                    			}),
                     			async:true,
                     			dataType:"json",
                     			contentType:"application/json; charset=UTF-8",
@@ -221,9 +271,9 @@
             	var url;
             	console.log("register isContents:"+isContents);
             	if(isContents == null){
-            		url = "/plan/registerMemo";
+            		url = "/plan/memo/register";
             	}else{
-            		url = "/plan/modifyMemo";
+            		url = "/plan/memo/update";
             	}
                 $.ajax({
                 		url:url,
@@ -235,45 +285,51 @@
                    	   		memoContents:$('textarea').val()
                    	   	 }),
                 	   	success:function(result){
+                  	   	if(result == 'R_SUCCESS'){
+                	   			alert('등록되었습니다.');
+                	   		}else if(result =='U_SUCCESS'){
+                	   			alert('수정되었습니다.');
+                	   		}
                 	   	}
                 });
             });
             
+            //close & cancel 버튼.
             $(".close .cancelMemoBtn").click(function(){
-            		$('.uploadedList').empty();
+            		$('.uploadedList').remove();
             });
+            
+            //메모 삭제 버튼.
+            $("#deleteMemoBtn").click(function(){
+              	alert(eventID);
+      	        	var arr =[];
+      	        	
+      	      	//첨부파일이 있는 경우.
+      	        	$(".uploadedList li").each(function(index){
+      	        		arr.push($(this).attr("data-src"));
+      	        	});
+      	        	
+      	        	if(arr.length >0 ){
+      	        		$.post("/deleteAllFiles",{files:arr},function(){
+      	        		});
+      	        	}
+      	        	
+              		$.ajax({
+              			url:"/plan/memo/delete/"+eventID,
+              			type:"POST",
+              			contentType: "application/json; charset=UTF-8",
+                   		success:function(result){
+                 	   	if(result=='SUCCESS'){
+                 	  	 	$('.ui.modal').hide();
+              	   			//alert('삭제되었습니다.');
+              	   			
+              	   		}
+                     }
+                     
+              		});  
+              });
         });
-        
-/*         //메모 삭제 버튼 클릭.
-        function removeMemo(eventID){
-        	alert('버튼 클');
-	        	var arr =[];
-	        	alert(eventID);
-	        	
-	        	//첨부파일이 있는 경우.
-	        	$(".uploadedList li").each(function(index){
-	        		arr.push($(this).attr("data-src"));
-	        	});
-	        	
-	        	if(arr.length >0 ){
-	        		$.post("/deleteAllFiles",{files:arr},function(){
-	        		});
-	        	}
-	        	
-        		$.ajax({
-        			url:"/plan/removeMemo",
-        			type:"POST",
-        			contentType: "application/json; charset=UTF-8",
-        			data:JSON.stringify({
-               	   		planDetailID:eventID,
-               	   	 }),
-               success:function(result){
-            	   
-               }
-               
-        		}); 
-        }
-        	 */
+
     //이미지 삭제 버튼.
     function removeAttach(event){
     		console.log(event);
@@ -352,7 +408,6 @@ body {
 
 </head>
 <body>
-<h2>Modify Form</h2>
 	<div id='wrap'>
 
 		<div id='external-events'>
@@ -393,8 +448,8 @@ body {
 		</div>
 	</div>
 	
-	<form action="/plan/planDetail" type="get">
-		<input type="hidden" name="planID" value=${planVO.planID }>
+	<form action="/plan/read" type="get">
+		<input type="hidden" name="planID" value=${plan.planID }>
 		<button class="ui positive right labeled icon button" id="registerPlan" href="">
 		SAVE</button>
 	</form>
