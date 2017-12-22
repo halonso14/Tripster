@@ -8,7 +8,8 @@
 	
     <!-- ymum my css-->
     <link rel = "stylesheet" type = "text/css" href ="/resources/css/statistics.css">
-    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/resources/amcharts/plugins/export/export.css" type="text/css" media="all" />
+    <link href="/resources/ammap/ammap.css" rel="stylesheet">
     <!-- ymum my css-->
     
     <!-- Bootstrap -->
@@ -270,7 +271,7 @@
 							<table class="table table-bordered  mt-10">
 							<!-- ymmu data -->
 							<tr class="grey opensans">
-								<td class="center"><span class="size30 slim lh4" id="numPlans">1</span><br/><span class="size12">Plans</span></td>
+								<td class="center"><span class="size30 slim lh4 font-weight-bold" id="numPlans">1</span><br/><span class="size12">Plans</span></td>
 								<td class="center"><span class="size30 slim lh4" id="totalDays">1</span><br/><span class="size12">Trip Days</span></td>
 								<td class="center"><span class="size30 slim lh4" id="numCountries">1</span><br/><span class="size12">Countries</span></td>
 							</tr>
@@ -287,7 +288,7 @@
                             <div class="wrapper_custom">
                                 <div class="stat_label">Plan</div>
                                 <div id="table_custom">
-                                    <table id="table" data-classes="table table-no-bordered" data-halign="center" ></table>
+                                    <table id="table" data-classes="table table-no-bordered table-hover"></table>
                                 </div>	
                             </div>
                             <div class="wrapper_custom">
@@ -295,7 +296,7 @@
                                 <div id="chartdiv4"></div>	
                             </div>
                             <div class="wrapper_custom">
-                                <div class="stat_label">Trip Days</div>
+                                <div class="stat_label">Main Keywords</div>
                                 <div id="chartdiv2"></div>		
                             </div>   
                         <!--will use it later    
@@ -309,13 +310,9 @@
                         <hr>
                             <div class="first">
                             <div class="listwrapper">
-                                <div>"Like" (user) pushed </div>
-                                <div id="chartdiv4"></div>	
+                                <div class="stat_label"><span id="likeAnalysis">Plan "Like" Analysis</span></div>
+                                <div id="chartdiv5"></div>	
                             </div>
-                            <div class="listwrapper">
-                                <div>My plan list people like </div>
-                                <div id="chartdiv2"></div>	
-                            </div>   
                         </div>
                          <hr>
 						<!-- ymmu my map here -->
@@ -2087,20 +2084,19 @@
 	
 	<!-- ymmu my js-->
 	<!-- pie charts -->
-    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
-    <script src="https://www.amcharts.com/lib/3/pie.js"></script>
+    <script src="/resources/amcharts/amcharts.js"></script>
+    <script src="/resources/amcharts/pie.js"></script>
     <!-- radar -->
-    <script src="https://www.amcharts.com/lib/3/radar.js"></script>
+    <script src="/resources/amcharts/radar.js"></script>
 
     <!--myplan chart -->
-    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
-
-    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
-
-    <script src="https://www.amcharts.com/lib/3/ammap.js"></script>
-    <script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
-    <script src="https://www.amcharts.com/lib/3/themes/none.js"></script>
-    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <script src="/resources/amcharts/serial.js"></script>
+    <script src="/resources/amcharts/themes/light.js"></script>
+    <script src="/resources/amcharts/themes/dark.js"></script>
+    <script src="/resources/amcharts/themes/none.js"></script>
+    <script src="/resources/ammap/ammap.js"></script>
+    <script src="/resources/ammap/maps/js/worldLow.js"></script>
+    <script src="/resources/amcharts/plugins/export/export.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/resources/dist/js/bootstrap.min.js"></script>
     <script src="/resources/bootstrap-table/dist/bootstrap-table.js"></script>

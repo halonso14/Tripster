@@ -1,4 +1,40 @@
-//ymmu ajax-------------------------------------------
+//지도데이터 초기데이터
+var mapData={
+	    "map": "worldLow",
+	    "areas": [{
+	      "id": "US",
+	      "color": "#8d1cc6",
+	      "description": "United States is now selected.</br></br>Close this description box to unselect the area.",
+	      "images": [{
+	        "latitude": 40.712784,
+	        "longitude": -74.005941,
+	        "type": "circle",
+	        "label": "New York"
+	      }]
+	    }]
+	  };
+//일정별 통계(detail) 그래프 설정
+var graphConfig = [{
+	    "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+	    "fillAlphas": 0.5,
+	    "labelText": "[[value]]",
+	    "lineAlpha": 0.3,
+	    "title": "Man",
+	    "type": "column",
+	    "newStack": true,
+	    "color": "#000000",
+	    "valueField": "Man"
+	  }, {
+	    "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+	    "fillAlphas": 0.8,
+	    "labelText": "[[value]]",
+	    "lineAlpha": 0.3,
+	    "title": "Woman",
+	    "type": "column",
+	    "color": "#000000",
+	    "valueField": "Woman"
+	  }];
+//일정관련 간단정보(brief) 그래프 초기데이
 var chartData=[{
 	        "plan": "Min",
 	        "how_many":1,
@@ -14,67 +50,47 @@ var chartData=[{
 	        "how_many": 1,
 	        "color": "#8A0CCF"
 	}];
+//일정별 성비, 나이 통계 초기데이터.
+var chartDetailData=[	{
+    "Ages": '10s',
+    "Man": 0,
+    "Woman": 0,
+  }, {
+    "Ages": '20s',
+    "Man": 0,
+    "Woman": 0,
+  }, {
+    "Ages": '30s',
+    "Man": 0,
+    "Woman": 0,
+  }, {
+    "Ages": 'over 40s',
+    "Man": 0,
+    "Woman": 0,
+	  }];
 
 
-var chartData_old={
-    
-    "type": "serial",
-    "theme": "light",
-    "marginRight": 70,
-    
-    "dataProvider": [{
-        "plan": "on going",
-        "how_many": 4,
-        "color": "#00c3ff"
-    }, 
-    {
-        "plan": "done",
-        "how_many": 3,
-        "color": "#2A0CD0"
-    }, 
-    {
-        "plan": "?",
-        "how_many": 2,
-        "color": "#8A0CCF"
-    }],
-    
-    "valueAxes": [{
-        "axisAlpha": 0,
-        "position": "left",
-        "title": ""
-    }],
-    
-    "startDuration": 1,
-    "graphs": [{
-        "balloonText": "<b>[[category]]: [[value]]</b>",
-        "fillColorsField": "color",
-        "fillAlphas": 0.9,
-        "lineAlpha": 0.2,
-        "type": "column",
-        "valueField": "visits"
-    }],
-    
-    "chartCursor": {
-        "categoryBalloonEnabled": false,
-        "cursorAlpha": 0,
-        "zoomable": false
-    },
-    
-    "categoryField": "plan",
-    "categoryAxis": {
-        "gridPosition": "start",
-        "labelRotation": 45
-    },
-    
-    "export": {
-        "enabled": true
-    }
+var categoryAxis={
+  "gridPosition": "start",
+  "axisAlpha": 0,
+  "gridAlpha": 0,
+  "position": "left"
 };
 
-//var chart = AmCharts.makeChart("chartdiv4", chartdiv41);
+//차트관련
 var chart;
+var chartDetail;
+var chartMap;
+
+//서버 데이터 관련
+var likeList;
+var detailList;
+var dashBrief;
+var countryList;
+
 AmCharts.ready( function() {
-	 // chart code will go here
+	 
+	// 일정일수 통계------------------------------
 	chart = new AmCharts.AmSerialChart();
 	chart.dataProvider = chartData;
 	chart.categoryField = "plan";
@@ -89,18 +105,59 @@ AmCharts.ready( function() {
 	graph.fillColorsField = "color",
 	//console.log(graph);
 	chart.addGraph(graph);
-	
 	chart.write( "chartdiv4" );
 	console.log('차트만드는 안쪽');
+	console.log(typeof(graph));
+	/*
+	var str = '';
+	for(key in graph) {
+		str += key+"="+graph[key]+"\n";
+	}
+	console.log(str);
+	 */
+
+	//detail charts------------------------------
+	chartDetail = new AmCharts.AmSerialChart();
+	chartDetail.dataProvider = chartDetailData;
+	chartDetail.categoryField = "Ages";
+	chartDetail.categoryAxis = categoryAxis;
+	var graph2 = new AmCharts.AmGraph();
+	graph2 = graphConfig[0];
+	var graph3 = new AmCharts.AmGraph();
+	graph3 = graphConfig[1];
+	chartDetail.addGraph(graph2);
+	chartDetail.addGraph(graph3);
+	
+	chartDetail.write( "chartdiv5" );
+	console.log('차트만드는 안쪽2');
+	
+	//map chart---------------------------------
+	chartMap = new AmCharts.AmMap();
+	chartMap.dataProvider = mapData;
+	chartMap.projection = "eckert3";
+	chartMap.areasSettings = {
+							    "autoZoom": true,
+							    "selectedColor": "#CC0000"
+							  };
+	  
+	chartMap.addListener({
+	    "event": "descriptionClosed",
+	    "method": function(ev) {
+	      ev.chart.selectObject();
+	    }
+	  });
+	chartMap.write("chartdiv");
+
+	
 });
 
-
-$(document).ready(function(){
-   
+//ajax로 화면 데이터세팅
+$(document).ready(function(){   
     //console.log(window.location.pathname);
     ajaxController('http://localhost:8080/dashboard/stat/1');
 });
 
+//ymmu ajax-------------------------------------------
 var ajaxController= function(url){
     
     $.ajax({
@@ -112,14 +169,15 @@ var ajaxController= function(url){
             
             //data for stat page 
             if(url.match("/stat")){
-            	
-            	
+            
             	var dashBrief = data.dashBrief;
                 $('#numPlans').text(dashBrief.numOfPlans);
                 $('#totalDays').text(dashBrief.totalDays);
-                console.log($('#numPlans').val());
-                console.log($('#totalDays').val());
-                //plan days info
+                
+                //console.log($('#numPlans').val());
+                //console.log($('#totalDays').val());
+                
+                //plan days info--------------------------------
                 chartData[0].how_many=dashBrief.minPlanDays;
                 chartData[1].how_many=dashBrief.maxPlanDays;
                 chartData[2].how_many=dashBrief.avgDays;
@@ -132,30 +190,136 @@ var ajaxController= function(url){
 	            	}
 	            	console.log(str);
             	*/
+                
                 //data likeList-------------------------
-                var likeList = data.likeList;
+                likeList = data.likeList;
                 console.log(likeList);
                 makeTable(likeList);
+                
+              //data detailList-------------------------
+                detailList = data.detailList;
+                console.log(detailList);
+                //makeTable(detailList);
+                
 
+				//data countryList-------------------------
+				countryList = data.countryList;
+				console.log(countryList);
+				var key=0;
+				var count=0;
+				while(key < countryList.length) {
+					var str = '';
+					var i= key;
+					count++;
+					console.log(countryList[i].visitedCountryISO);
+					console.log(countryList[key].visitedCountryISO);
+
+					while(i!=countryList.length && countryList[key].visitedCountryISO == (countryList[i].visitedCountryISO) ){
+						str += countryList[i].plan_title+"</br>";
+						i++;
+					}
+				      mapData.areas.push({
+				          "id": countryList[key].visitedCountryISO,
+				          "color": "#FACC2E",
+				          "description": "<b>이 국가를 다녀온 일정:</b></br></br>" + str
+				      }); 
+				      key = i;
+				  }
+				  //console.log(countryList);
+				  chartMap.validateData();
+				  $('#numCountries').text(count); //방문국가수 업데이트
             }
         }
     }); 
 } //ajaxfunction
 
-//create Table
+//
+$(function () {
+	var $table = $('#table');
+
+	$table.on('click-row.bs.table', function (field, value, row, $el) {
+		console.log(value);
+		//
+		$('#likeAnalysis').text("일정 "+ value.plan_title+" 분석");
+        
+		var ages='';
+		//이전에 들어가 있던 데이터 초기화
+
+		(function(chartDetailData){
+			
+			console.log('전: '+chartDetailData);
+			var limit = 0; // 필요한 데이터는 총 나이대별로 2개씩 최대 8개이므로 타이틀일치로 최대 8번을 돌면 for문을 멈춘다
+			for(key in detailList){
+				if(limit>8) break;
+				if(detailList[key].plan_title == value.plan_title){
+					limit++;
+					switch(detailList[key].numAges_who_chose_plan_id){
+						case '10s':
+							saveDate(0, key,chartDetailData);
+							break;
+						case '20s':
+							saveDate(1, key,chartDetailData);
+							break;
+						case '30s':
+							saveDate(2, key,chartDetailData);
+							break;
+						case 'over 40s':
+							saveDate(3, key,chartDetailData);
+							break;
+						default:
+							break;
+					}
+				}//if 바깥
+			}//for
+				//window.open('https://github.com/wenzhixin/bootstrap-table/issues/1808', '_blank');
+			//console.log(chartDetailData);
+			chartDetail.dataProvider = chartDetailData; 
+			chartDetail.validateData();
+		})(chartDetailData=[{
+		    "Ages": '10s',
+		    "Man": 0,
+		    "Woman": 0,
+		  }, {
+		    "Ages": '20s',
+		    "Man": 0,
+		    "Woman": 0,
+		  }, {
+		    "Ages": '30s',
+		    "Man": 0,
+		    "Woman": 0,
+		  }, {
+		    "Ages": 'over 40s',
+		    "Man": 0,
+		    "Woman": 0,
+			  }]);
+		
+		
+		chartDetail.validateData();
+		//console.log(chartDetailData);
+	});
+});
+
+var saveDate = function(num, key, chartDetailData){
+	if(detailList[key].sex=="남")
+		chartDetailData[num].Man = detailList[key].num;
+	else
+		chartDetailData[num].Woman = detailList[key].num;
+	
+};
+//create plan Table---------------------
 var makeTable = function(list){
     
 	console.log('makeTable 안쪽');
- $('#table').bootstrapTable({
-    columns: [{
-        field: 'plan_title',
-        title: 'Your plan title'
-    }, {
-        field: 'num',
-        title: 'Like'
-    }],
-    data: list
- });     
+	 $('#table').bootstrapTable({
+	    columns: [{
+	        field: 'plan_title',
+	        title: 'Your plan title'
+	    }, {
+	        field: 'num',
+	        title: 'Like'
+	    }],
+	    data: list
+	 });     
 }
 
 
@@ -164,7 +328,7 @@ var makeTable = function(list){
 var targetSVG = "M9,0C4.029,0,0,4.029,0,9s4.029,9,9,9s9-4.029,9-9S13.971,0,9,0z M9,15.93 c-3.83,0-6.93-3.1-6.93-6.93S5.17,2.07,9,2.07s6.93,3.1,6.93,6.93S12.83,15.93,9,15.93 M12.5,9c0,1.933-1.567,3.5-3.5,3.5S5.5,10.933,5.5,9S7.067,5.5,9,5.5 S12.5,7.067,12.5,9z";
 // svg path for plane icon
 var planeSVG = "M19.671,8.11l-2.777,2.777l-3.837-0.861c0.362-0.505,0.916-1.683,0.464-2.135c-0.518-0.517-1.979,0.278-2.305,0.604l-0.913,0.913L7.614,8.804l-2.021,2.021l2.232,1.061l-0.082,0.082l1.701,1.701l0.688-0.687l3.164,1.504L9.571,18.21H6.413l-1.137,1.138l3.6,0.948l1.83,1.83l0.947,3.598l1.137-1.137V21.43l3.725-3.725l1.504,3.164l-0.687,0.687l1.702,1.701l0.081-0.081l1.062,2.231l2.02-2.02l-0.604-2.689l0.912-0.912c0.326-0.326,1.121-1.789,0.604-2.306c-0.452-0.452-1.63,0.101-2.135,0.464l-0.861-3.838l2.777-2.777c0.947-0.947,3.599-4.862,2.62-5.839C24.533,4.512,20.618,7.163,19.671,8.11z";
-
+/*
 var map = AmCharts.makeChart( "chartdiv", {
   "type": "map",
   "theme": "none",
@@ -355,11 +519,7 @@ var map = AmCharts.makeChart( "chartdiv", {
     "enabled": true
   }
 } );
-
-
-
-
-
+*/
 var chart2 = AmCharts.makeChart( "chartdiv2", {
   "type": "pie",
   "theme": "light",
@@ -405,7 +565,6 @@ var chart2 = AmCharts.makeChart( "chartdiv2", {
     "enabled": true
   }
 } );
-
 //-- rador -->
 var chart3 = AmCharts.makeChart( "chartdiv3", {
   "type": "radar",
@@ -447,5 +606,120 @@ var chart3 = AmCharts.makeChart( "chartdiv3", {
   }
 } );
 
+/*
+var chart5 = AmCharts.makeChart( "chartdiv5", {
+	  "type": "serial",
+	  "theme": "dark",
+	  "depth3D": 0,
+	  "angle": 0,
+	  "legend": {
+	    "horizontalGap": 10,
+	    "useGraphSettings": true,
+	    "markerSize": 5
+	  },
+	  "dataProvider": [ {
+	    "year": 2003,
+	    "europe": 2.5,
+	    "namerica": 2.5,
+	  }, {
+	    "year": 2004,
+	    "europe": 2.6,
+	    "namerica": 2.7,
+	  }, {
+	    "year": 2005,
+	    "europe": 2.8,
+	    "namerica": 2.9,
+	  } ],
+	  "valueAxes": [ {
+	    "stackType": "regular",
+	    "axisAlpha": 0,
+	    "gridAlpha": 0
+	  } ],
+	  "graphs": [ {
+	    "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+	    "fillAlphas": 0.8,
+	    "labelText": "[[value]]",
+	    "lineAlpha": 0.3,
+	    "title": "Europe",
+	    "type": "column",
+	    "color": "#000000",
+	    "valueField": "europe"
+	  }, {
+	    "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
+	    "fillAlphas": 0.8,
+	    "labelText": "[[value]]",
+	    "lineAlpha": 0.3,
+	    "title": "North America",
+	    "type": "column",
+	    "newStack": true,
+	    "color": "#000000",
+	    "valueField": "namerica"
+	  } ],
+	  "categoryField": "year",
+	  "categoryAxis": {
+	    "gridPosition": "start",
+	    "axisAlpha": 0,
+	    "gridAlpha": 0,
+	    "position": "left"
+	  },
+	  "export": {
+	    "enabled": true
+	  }
 
-
+	} );
+	
+	var chartData_old={
+    
+    "type": "serial",
+    "theme": "light",
+    "marginRight": 70,
+    
+    "dataProvider": [{
+        "plan": "on going",
+        "how_many": 4,
+        "color": "#00c3ff"
+    }, 
+    {
+        "plan": "done",
+        "how_many": 3,
+        "color": "#2A0CD0"
+    }, 
+    {
+        "plan": "?",
+        "how_many": 2,
+        "color": "#8A0CCF"
+    }],
+    
+    "valueAxes": [{
+        "axisAlpha": 0,
+        "position": "left",
+        "title": ""
+    }],
+    
+    "startDuration": 1,
+    "graphs": [{
+        "balloonText": "<b>[[category]]: [[value]]</b>",
+        "fillColorsField": "color",
+        "fillAlphas": 0.9,
+        "lineAlpha": 0.2,
+        "type": "column",
+        "valueField": "visits"
+    }],
+    
+    "chartCursor": {
+        "categoryBalloonEnabled": false,
+        "cursorAlpha": 0,
+        "zoomable": false
+    },
+    
+    "categoryField": "plan",
+    "categoryAxis": {
+        "gridPosition": "start",
+        "labelRotation": 45
+    },
+    
+    "export": {
+        "enabled": true
+    }
+};
+*/
