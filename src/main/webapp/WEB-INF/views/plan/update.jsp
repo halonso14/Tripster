@@ -16,6 +16,8 @@
 <script src="/resources/js/semantic.js"></script>
 <script src="/resources/js/locale-all.js"></script>
 <script type="text/javascript" src="/resources/js/upload.js"></script>
+<script src="/resources/js/jquery.multifile.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script> 
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <script>
@@ -243,10 +245,11 @@
                     				isContents = result.memoVO.memoContents;
                     				console.log(isContents);
                     				$('textarea').val(isContents);
-                    				
+                    				$('.uploadedList').empty();
                     				//받아온 사진 있으면 조회해서 uploadedList에 뿌려줌.
                     				var template = Handlebars.compile($("#template").html());
-                    				$(result.memoVO.memoPictures).each(function(){
+                    				$(result.memoVO.memoPictureName).each(function(){
+                    					console.log(this);
                     					var fileInfo = getFileInfo(this);
                     					var html = template(fileInfo);
                     					$(".uploadedList").append(html);
@@ -266,42 +269,73 @@
 
             });
             
+            
             //메모 등록 버튼.
-            $("#registerMemoBtn").click(function(){
-            	var url;
-            	console.log("register isContents:"+isContents);
-            	if(isContents == null){
-            		url = "/plan/memo/register";
-            	}else{
-            		url = "/plan/memo/update";
-            	}
-                $.ajax({
-                		url:url,
-                		type:"POST",
-                		dataType:"text",
-                		contentType: "application/json; charset=UTF-8",
-                		data: JSON.stringify({
-                   	   		planDetailID:eventID,
-                   	   		memoContents:$('textarea').val()
-                   	   	 }),
-                	   	success:function(result){
-                  	   	if(result == 'R_SUCCESS'){
-                	   			alert('등록되었습니다.');
-                	   		}else if(result =='U_SUCCESS'){
-                	   			alert('수정되었습니다.');
-                	   		}
-                	   	}
-                });
+            $("#registerMemoBtn").click(function(event){
+            		event.preventDefault();
+            		var formdata = $(this).parent().parent();
+            		console.log(formdata);
+            		var url;
+            		var str;
+            		if(isContents == null){
+            			url = "/plan/memo/register";
+            		}else{
+            			url = "/plan/memo/update";
+          	  	}	
+           	 	str = "<input type='hidden' name='planDetailID' value='" + eventID
+					+ "'>";
+           	 	$(".uploadedList .delbtn").each(
+						function(index) {
+							str += "<input type='hidden' name='memoPictureName' value='" + $(this).attr("data-src")
+									+ "'>";
+						});
+           	 	formdata.append(str);
+           	 	
+				console.log(formdata);
+           	 	console.log(formdata.get(0));
+           	 	var fd = new FormData(formdata.get(0));
+           	 	
+           	 	
+	           	 $.ajax({
+	                 url: url,
+	                 processData: false,
+	                 contentType: false,
+	                 data: fd,
+	                 type: 'POST',
+	                 success: function(result){
+	                	 	if(result =='R_SUCCESS'){
+	                     	alert("등록되었습니다.");
+	                	 	}else{
+	                	 		alert("수정되었습니다.");
+	                	 	}
+	                 }
+	             });
+       
             });
             
             //close & cancel 버튼.
-            $(".close .cancelMemoBtn").click(function(){
-            		$('.uploadedList').remove();
+            $(".close, #cancelMemoBtn").click(function(){
+            		var arr = [];
+            		if(isContents == null){
+		            	//첨부파일이 있는 경우.
+		            	$(".uploadedList li").each(function(index){
+		            		console.log($(this));
+		            		console.log($(this).attr("data-src"));
+		            		arr.push($(this).attr("data-src"));
+		            	});
+		            	
+		            	if(arr.length >0 ){
+		            		$.post("/deleteAllFiles",{files:arr},function(){
+		            		});
+		            		console.log(arr);
+		            	}
+            		}
+            		$('.uploadedList').empty(); 
             });
             
             //메모 삭제 버튼.
             $("#deleteMemoBtn").click(function(){
-              	alert(eventID);
+           	 	event.preventDefault();
       	        	var arr =[];
       	        	
       	      	//첨부파일이 있는 경우.
@@ -321,12 +355,12 @@
                    		success:function(result){
                  	   	if(result=='SUCCESS'){
                  	  	 	$('.ui.modal').hide();
-              	   			//alert('삭제되었습니다.');
+              	   			alert('삭제되었습니다.');
               	   			
               	   		}
                      }
                      
-              		});  
+              	});  
               });
         });
 
@@ -424,33 +458,36 @@ body {
 	</div>
 
 	<div class="ui modal">
-		<i class="close icon"></i>
-		<div class="header">Memo</div>
-		<div class="description">
-			<div class="ui header">내용</div>
-			<textarea rows="10" cols="100" name=></textarea>
-			<div class="form-group">
-				<div class="ui header">사진</div>
-				<label for="exampleInputEmail1">File DROP Here</label>
-				<div class="fileDrop"></div>
-				<div>
-					<hr>
+		 <form method="post" id="memoForm">
+			<input type="hidden" name="planID" value=${plan.planID }>
+			<i class="close icon"></i>
+			<div class="header">Memo</div>
+			<div class="description">
+				<div class="ui header">내용</div>
+				<textarea rows="10" cols="100" name="memoContents"></textarea>
+				<div class="form-group">
+					<div class="ui header">사진</div>
+					<label for="exampleInputEmail1">File DROP Here</label>
+					<div class="fileDrop"></div>
+					<div>
+						<hr>
+					</div>
+					<ul class="mailbox-attachments clearfix uploadedList"></ul>
 				</div>
-				<ul class="mailbox-attachments clearfix uploadedList"></ul>
 			</div>
-		</div>
-		<div class="actions">
-			<!-- 			<button class="ui right labeled icon button"
-					id="deleteMemoBtn" onclick="removeMemo(eventID)">DELET</button> -->
-			<button class="ui negative right labeled icon button" id="cancelMemoBtn">CANCEL</button>
-			<button class="ui positive right labeled icon button"
-				id="registerMemoBtn">SAVE</button>
-		</div>
+			
+			<div class="actions">
+				<input type ="button" class="ui red labeled icon button" id="deleteMemoBtn" value= "DELETE">
+				<input type="button" class="ui negative right labeled icon button" id="cancelMemoBtn" value= "CANCEL">
+				<input type="button" class="ui positive right labeled icon button"
+				id="registerMemoBtn" value="SAVE">
+			</div>
+		</form>
 	</div>
 	
 	<form action="/plan/read" type="get">
 		<input type="hidden" name="planID" value=${plan.planID }>
-		<button class="ui positive right labeled icon button" id="registerPlan" href="">
+		<button class="ui positive right labeled icon button" id="registerPlan" >
 		SAVE</button>
 	</form>
 
@@ -467,7 +504,7 @@ body {
 
 
 	<script id="template" type="text/x-handlebars-template">
-<li>
+<li data-src='{{fullName}}'>
 	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="{{imgsrc}}"></span>
 	<div class="mailbox-attachment-info">
 		<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>

@@ -45,8 +45,11 @@ public class MemoDAOImpl implements MemoDAO{
 
 	//사진 추가
 	@Override
-	public void addAttach(String memoPictureName) throws Exception {
-		session.insert(namespace+".addAttach" ,memoPictureName);
+	public void addAttach(String memoPictureName,int planDetailID) throws Exception {
+		Map<String,Object> map = new HashMap<>();
+		map.put("memoPictureName", memoPictureName);
+		map.put("planDetailID", planDetailID);
+		session.insert(namespace+".addAttach" ,map);
 	}
 
 	//사진 조회
