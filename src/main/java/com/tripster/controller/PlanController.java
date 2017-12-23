@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -247,24 +249,18 @@ public class PlanController {
 	
 	//**************************메모 관련 ********************************/
 	//메모 등록
-	@RequestMapping(value="/memo/register", method= RequestMethod.POST)
-	public ModelAndView registerMemo( MemoVO vo, @RequestParam("planID") int planID, Model model )throws Exception{
-		System.out.println("MemoVO:"+vo);
-		
-		ModelAndView mnv = new ModelAndView("redirect:/plan/update?planID="+planID);
-		memoService.registerMemo(vo);
-//		ResponseEntity<String> entity = null;
-//		try {
-//			memoService.registerMemo(vo);
-//			entity = new ResponseEntity<String>("R_SUCCESS", HttpStatus.OK	);
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
-//		}
-//		
-//		return entity;
-		return mnv;
-
+	@RequestMapping(value="/memo/register",method= RequestMethod.POST)
+	public ResponseEntity<String> registerMemo(MemoVO vo )throws Exception{
+		System.out.println(vo);
+		ResponseEntity<String> entity = null;
+		try {
+			memoService.registerMemo(vo);
+			entity = new ResponseEntity<String>("R_SUCCESS",HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		return entity;
 	}
 	
 	//메모 조회
@@ -282,22 +278,23 @@ public class PlanController {
 	}
 	
 	//메모 수정
-	@RequestMapping(value="/memo/update", produces = "application/json; charset=utf8",method=RequestMethod.POST)
-	public ResponseEntity<String> updateMemo(@RequestBody MemoVO vo)throws Exception{
+	@RequestMapping(value="/memo/update",method=RequestMethod.POST)
+	public  ResponseEntity<String>  updateMemo(MemoVO vo  )throws Exception{
 		ResponseEntity<String> entity = null;
 		try {
 			memoService.updateMemo(vo);
 			entity = new ResponseEntity<String>("U_SUCCESS",HttpStatus.OK);
-		}catch(Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
-		return entity;	
+		return entity;
 	}
 	
 	//메모 삭제
 	@RequestMapping(value="/memo/delete/{planDetailID}", method=RequestMethod.POST)
-	public ResponseEntity<String> deleteMemo(@PathVariable("planDetailID") int planDetailID) throws Exception{
+	public @ResponseBody ResponseEntity<String> deleteMemo(@PathVariable("planDetailID") int planDetailID) throws Exception{
+		System.out.println("삭제!!!!!!!!!!!!!!!!");
 		ResponseEntity<String> entity =null;
 		try {
 			memoService.deleteMemo(planDetailID);

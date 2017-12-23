@@ -7,6 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="/resources/js/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<script>
 <script>
      $(document).ready(function() {
     		 var formObj = $("form[role='form']")
@@ -67,9 +70,14 @@
 		<%-- ${plan.planDetailVO.get(0).planDetailEndTime} --%>
 		<c:forEach items ="${plan.planDetailVO }" var="planDetailVO">
 			${planDetailVO.title }
+			<hr>
+			<div class="uploadedList">
+			
+			</div>
 		</c:forEach>
 		
 		<hr>
+		
 		
 		<button id="remove">REMOVE</button>
 		<button id="modify">MODIFY</button>
@@ -106,6 +114,25 @@
 			<button type="button" id='closeBtn'>Close</button>
 		</div>
 	</div>
+	
+	<script id="templateAttach" type="text/x-handlebars-template">
+	<li data-src='{{fullName}}'>
+	  <span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
+	  <div class="mailbox-attachment-info">
+	   <a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
+	   </span>
+	  </div>
+	</li>                
+	</script>
+	
+	<script>
+		var template = Handlebars.compile($("#templateAttach").html());
+		$(plan.memoVO.memoPictureName).each(function(){
+			var fileInfo = getFileInfo(this);
+			var html = template(fileInfo);
+			$(".uploadedList").append(html);
+		});
+	</script>
 </body>
 <script>
 	var planID = ${plan.planID};

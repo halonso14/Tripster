@@ -25,17 +25,29 @@ public class MemoServiceImpl implements MemoService{
 		
 		List<String>files = vo.getMemoPictureName();
 		
+		int planDetailID = vo.getPlanDetailID();
 		if(files == null) return;
 		
 		for(String memoPictureName: files) {
-			memoDAO.addAttach(memoPictureName);
+			memoDAO.addAttach(memoPictureName,planDetailID);
 		}
 		
 	}
 
+	@Transactional
 	@Override
 	public void updateMemo(MemoVO vo) throws Exception {
 		memoDAO.updateMemo(vo);
+		int planDetailID = vo.getPlanDetailID();
+		
+		memoDAO.deleteAttach(planDetailID);
+		List<String>files = vo.getMemoPictureName();
+		
+		if(files == null) return;
+		
+		for(String memoPictureName : files) {
+			memoDAO.addAttach(memoPictureName, planDetailID);
+		}
 	}
 
 	@Transactional

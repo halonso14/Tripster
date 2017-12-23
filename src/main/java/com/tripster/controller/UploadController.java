@@ -30,7 +30,7 @@ import com.tripster.util.UploadFileUtils;
 public class UploadController {
 	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
 
-//	@Resource(name = "uploadPath")
+	@Resource(name = "uploadPath")
 	private String uploadPath;
 
 	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)

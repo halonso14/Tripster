@@ -19,7 +19,7 @@ public interface MemoDAO {
 	public String selectMemo(int planDetailID) throws Exception;
 
 	//사진 추가
-	public void addAttach(String MemoPictureName) throws Exception;
+	public void addAttach(String MemoPictureName, int planDetailID) throws Exception;
 	
 	//사진 조회
 	public List<String> getAttach(int planDetailID) throws Exception;

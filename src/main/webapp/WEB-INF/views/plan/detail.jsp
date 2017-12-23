@@ -214,9 +214,10 @@
                     				console.log(isContents);
                     				$('textarea').val(isContents);
                     				
+                    				$('.uploadedList').empty();
                     				//받아온 사진 있으면 조회해서 uploadedList에 뿌려줌.
                     				var template = Handlebars.compile($("#template").html());
-                    				$(result.memoVO.memoPictures).each(function(){
+                    				$(result.memoVO.memoPictureName).each(function(){
                     					var fileInfo = getFileInfo(this);
                     					var html = template(fileInfo);
                     					$(".uploadedList").append(html);
@@ -239,7 +240,6 @@
             //메모 등록 버튼.
             $("#registerMemoBtn").click(function(event){
             		event.preventDefault();
-            		alert('알럿');
             		var formdata = $(this).parent().parent();
             		console.log(formdata);
             		var url;
@@ -249,9 +249,6 @@
             		}else{
             			url = "/plan/memo/update";
           	  	}	
-            	
-            		//formdata.setAttribute('action',url);
-            		$('#memoForm').attr("action", url);
            	 	str = "<input type='hidden' name='planDetailID' value='" + eventID
 					+ "'>";
            	 	$(".uploadedList .delbtn").each(
@@ -259,34 +256,33 @@
 							str += "<input type='hidden' name='memoPictureName' value='" + $(this).attr("data-src")
 									+ "'>";
 						});
-           	    
            	 	formdata.append(str);
-           	 	formdata.get(0).submit();
-            	
-/*             $.ajax({
-                		url:url,
-                		type:"POST",
-                		dataType:"text",
-                		contentType: "application/json; charset=UTF-8",
-                		data: JSON.stringify({
-                   	   		planDetailID:eventID,
-                   	   		memoContents:$('textarea').val(),
-                   	   	 }),
-                	   	success:function(result){
-                      	   	if(result == 'R_SUCCESS'){
-                	   			alert('등록되었습니다.');
-                	   		}else if(result =='U_SUCCESS'){
-                	   			alert('수정되었습니다.');
-                	   		}
-                	   	}
-                }); 
-                 */
+           	 	
+				console.log(formdata);
+           	 	console.log(formdata.get(0));
+           	 	var fd = new FormData(formdata.get(0));
+           	 	
+           	 	
+	           	 $.ajax({
+	                 url: url,
+	                 processData: false,
+	                 contentType: false,
+	                 data: fd,
+	                 type: 'POST',
+	                 success: function(result){
+	                	 	if(result =='R_SUCCESS'){
+	                     	alert("등록되었습니다.");
+	                	 	}else{
+	                	 		alert("수정되었습니다.");
+	                	 	}
+	                 }
+	             });
        
             });
             
             //메모 삭제 버튼.
           $("#deleteMemoBtn").click(function(){
-            	alert(eventID);
+        	    event.preventDefault();
     	        	var arr =[];
     	        	
     	      	//첨부파일이 있는 경우.
@@ -305,8 +301,8 @@
             			contentType: "application/json; charset=UTF-8",
                    success:function(result){
                	   	if(result=='SUCCESS'){
-               	  	 	$('.ui.modal').hide('slow');
-            	   			//alert('삭제되었습니다.');
+               	  	 	$('.ui.modal').hide();
+            	   			alert('삭제되었습니다.');
             	   			
             	   		}
                    }
@@ -314,8 +310,23 @@
             		});  
             });
             
-            $(".close .cancelMemoBtn").click(function(){
-            		$('.uploadedList').empty();
+            $(".close ,#cancelMemoBtn").click(function(){
+	            	var arr = [];
+	        		if(isContents == null){
+		            	//첨부파일이 있는 경우.
+		            	$(".uploadedList li").each(function(index){
+		            		console.log($(this));
+		            		console.log($(this).attr("data-src"));
+		            		arr.push($(this).attr("data-src"));
+		            	});
+		            	
+		            	if(arr.length >0 ){
+		            		$.post("/deleteAllFiles",{files:arr},function(){
+		            		});
+		            		console.log(arr);
+		            	}
+	        		}
+	        		$('.uploadedList').empty(); 
             });
   });
         
@@ -412,7 +423,7 @@ body {
 		<div style='clear: both'></div>
 	</div>
 	<div class="ui modal">
-	 <form role="form" method="post" id="memoForm">
+	 <form method="post" id="memoForm">
 			<input type="hidden" name="planID" value=${planVO.planID }>
 			<i class="close icon"></i>
 			<div class="header">Memo</div>
@@ -430,10 +441,10 @@ body {
 				</div>
 			</div>
 			<div class="actions">
-				<button class="ui red labeled icon button" id="deleteMemoBtn">DELETE</button>
-				<button class="ui negative right labeled icon button" id="cancelMemoBtn">CANCEL</button>
-				<button class="ui positive right labeled icon button"
-				id="registerMemoBtn">SAVE</button>
+				<input type ="button" class="ui red labeled icon button" id="deleteMemoBtn" value= "DELETE">
+				<input type="button" class="ui negative right labeled icon button" id="cancelMemoBtn" value= "CANCEL">
+				<input type="button" class="ui positive right labeled icon button"
+				id="registerMemoBtn" value="SAVE">
 			</div>
 			
 		</form>
@@ -445,23 +456,13 @@ body {
 	</form>
 
 
-	<script id="templateAttach" type="text/x-handlebars-template">
-<li data-src='{{fullName}}'>
-  <span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
-  <div class="mailbox-attachment-info">
-   <a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
-   </span>
-  </div>
-</li>                
-</script>
-
 
 	<script id="template" type="text/x-handlebars-template">
-<li>
+<li data-src='{{fullName}}'>
 	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="{{imgsrc}}"></span>
 	<div class="mailbox-attachment-info">
 		<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
-		<a data-src="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn" onclick="removeAttach($(this))">x<a>
+		<a data-src="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn">x<a>
 	</div>
 </li>
 </script>
