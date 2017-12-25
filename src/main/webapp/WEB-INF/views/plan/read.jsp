@@ -10,7 +10,6 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <script>
-<script>
      $(document).ready(function() {
     		 var formObj = $("form[role='form']")
         		$("#modify").click(function(){
@@ -64,7 +63,7 @@
 </head>
 <body>
 	<h2>planDetail</h2>
-	<form role="form" action="modifyPage" method="post">
+	<form role="form"  method="post">
 		<input type="hidden" name="planID" value="${plan.planID }">
 		${plan.planID }
 		<%-- ${plan.planDetailVO.get(0).planDetailEndTime} --%>

@@ -75,10 +75,14 @@ public class PlanController {
 		//plan 등록 폼에서 일정표의 default값으로 시작일정 설정해 주기 위해서 'yyy-MM-dd'와 같은 형식으로 만들어줌.
 		Date from =planVO.getPlanStartDate();
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String to = "'"+transFormat.format(from)+"'";
+		String startDate = "'"+transFormat.format(from)+"'";
+		
+		from = planVO.getPlanEndDate();
+		String endDate =  "'"+transFormat.format(from)+"'";
 		
 		//date , planVO값을 파라미터로 넘겨줌.
-		rttr.addFlashAttribute("date",to);
+		rttr.addFlashAttribute("startDate",startDate);
+		rttr.addFlashAttribute("endDate",endDate);
 		rttr.addFlashAttribute("planVO", planVO);
 		
 		//새로 고침 시, 다시 db에 insert되는 것을 막기 위해 redirect함.
@@ -99,10 +103,13 @@ public class PlanController {
 			//plan 수정 폼에서 default date를 지정해주기 위해서.
 			Date from =vo.getPlanStartDate();
 			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-			String to = "'"+transFormat.format(from)+"'";
+			String startDate = "'"+transFormat.format(from)+"'";
 			
+			from = vo.getPlanEndDate();
+			String endDate = "'"+transFormat.format(from)+"'";
 			model.addAttribute("plan",vo);
-			model.addAttribute("date",to);
+			model.addAttribute("startDate",startDate);
+			model.addAttribute("endDate",endDate);
 		}
 		
 		// plan 수정 폼에서 detailVO 조회.
@@ -280,6 +287,7 @@ public class PlanController {
 	//메모 수정
 	@RequestMapping(value="/memo/update",method=RequestMethod.POST)
 	public  ResponseEntity<String>  updateMemo(MemoVO vo  )throws Exception{
+		System.out.println(vo);
 		ResponseEntity<String> entity = null;
 		try {
 			memoService.updateMemo(vo);

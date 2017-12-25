@@ -22,15 +22,16 @@
 <script>
 
         $(document).ready(function() {
-
-            var date = new Date();
-            var d = date.getDate();
-            var m = date.getMonth();
-            var y = date.getFullYear();
             var sendData = new Object();
 			var memoEvent;
 			var eventID;
 			var isContents;
+			
+			var endDate =new Date(${endDate});
+			var d = endDate.getDate();
+	        var m = endDate.getMonth();
+	        var y = endDate.getFullYear();
+			
             $('#external-events .fc-event').each(function() {
                 // store data so the calendar knows to render an event upon drop
                $(this).data('event', {
@@ -38,7 +39,7 @@
                     title: $.trim($(this).text()), // use the element's text as the event title
                     stick:true // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
                                 // false: 없어짐.
-                });
+                });"src/main/java/com/tripster/domain/DashBriefVO.java"
                 // make the event draggable using jQuery UI
                 $(this).draggable({
                     zIndex: 999,
@@ -54,7 +55,12 @@
                     center: 'title',
                     right: 'next'
                 },
+                allDaySlot:false,
                 defaultView: 'agendaDay',
+                validRange: {
+                    start: ${startDate},
+                    end: new Date(y,m,d+1)
+                },
                 locale:'us',
                 selectable: true,
                 
@@ -88,7 +94,7 @@
                   calendar.fullCalendar('unselect');
                 },
                
-                defaultDate: ${date},
+                defaultDate: ${startDate},
                 navLinks: true, // can click day/week names to navigate views
                 editable: true,
                 droppable: true,
@@ -243,17 +249,17 @@
             		var formdata = $(this).parent().parent();
             		console.log(formdata);
             		var url;
-            		var str;
+            		var str="";
             		if(isContents == null){
             			url = "/plan/memo/register";
             		}else{
             			url = "/plan/memo/update";
           	  	}	
-           	 	str = "<input type='hidden' name='planDetailID' value='" + eventID
+           	 	str = "<input data-src='remove' type='hidden' name='planDetailID' value='" + eventID
 					+ "'>";
            	 	$(".uploadedList .delbtn").each(
 						function(index) {
-							str += "<input type='hidden' name='memoPictureName' value='" + $(this).attr("data-src")
+							str += "<input data-src='remove' type='hidden' name='memoPictureName' value='" + $(this).attr("data-src")
 									+ "'>";
 						});
            	 	formdata.append(str);
@@ -270,6 +276,7 @@
 	                 data: fd,
 	                 type: 'POST',
 	                 success: function(result){
+	                 	$("[data-src='remove']").remove();
 	                	 	if(result =='R_SUCCESS'){
 	                     	alert("등록되었습니다.");
 	                	 	}else{
@@ -301,7 +308,7 @@
             			contentType: "application/json; charset=UTF-8",
                    success:function(result){
                	   	if(result=='SUCCESS'){
-               	  	 	$('.ui.modal').hide();
+               	  	 	$('.ui.modal').modal('hide');
             	   			alert('삭제되었습니다.');
             	   			
             	   		}
@@ -462,7 +469,7 @@ body {
 	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="{{imgsrc}}"></span>
 	<div class="mailbox-attachment-info">
 		<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
-		<a data-src="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn">x<a>
+		<a data-src="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn" onclick="removeAttach($(this))">x<a>
 	</div>
 </li>
 </script>
