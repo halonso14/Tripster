@@ -10,10 +10,10 @@
 	<title>Travel Agency - HTML5 Booking template</title>
 	
     <!-- Bootstrap -->
-    <link href="dist/css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="assets/css/custom.css" rel="stylesheet" media="screen">
+    <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
 
-	<link href="examples/carousel/carousel.css" rel="stylesheet">
+	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="assets/js/html5shiv.js"></script>
@@ -24,30 +24,30 @@
 	<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet' type='text/css'>	
 	<!-- Font-Awesome -->
-    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/resources/assets/css/font-awesome.css" media="screen" />
     <!--[if lt IE 7]><link rel="stylesheet" type="text/css" href="assets/css/font-awesome-ie7.css" media="screen" /><![endif]-->
 	
     <!-- REVOLUTION BANNER CSS SETTINGS -->
-    <link rel="stylesheet" type="text/css" href="css/fullscreen.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="rs-plugin/css/settings.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/resources/css/fullscreen.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/resources/rs-plugin/css/settings.css" media="screen" />
 
     <!-- Picker -->	
-	<link rel="stylesheet" href="assets/css/jquery-ui.css" />	
+	<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />	
 	
 	<!-- bin/jquery.slider.min.css -->
-	<link rel="stylesheet" href="plugins/jslider/css/jslider.css" type="text/css">
-	<link rel="stylesheet" href="plugins/jslider/css/jslider.round.css" type="text/css">	
+	<link rel="stylesheet" href="/resources/plugins/jslider/css/jslider.css" type="text/css">
+	<link rel="stylesheet" href="/resources/plugins/jslider/css/jslider.round.css" type="text/css">	
 
     <!-- jQuery -->	
     <script src="assets/js/jquery.v2.0.3.js"></script>
 	
 	<!-- bin/jquery.slider.min.js -->
-	<script type="text/javascript" src="plugins/jslider/js/jshashtable-2.1_src.js"></script>
-	<script type="text/javascript" src="plugins/jslider/js/jquery.numberformatter-1.2.3.js"></script>
-	<script type="text/javascript" src="plugins/jslider/js/tmpl.js"></script>
-	<script type="text/javascript" src="plugins/jslider/js/jquery.dependClass-0.1.js"></script>
-	<script type="text/javascript" src="plugins/jslider/js/draggable-0.1.js"></script>
-	<script type="text/javascript" src="plugins/jslider/js/jquery.slider.js"></script>
+	<script type="text/javascript" src="/resources/plugins/jslider/js/jshashtable-2.1_src.js"></script>
+	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.numberformatter-1.2.3.js"></script>
+	<script type="text/javascript" src="/resources/plugins/jslider/js/tmpl.js"></script>
+	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.dependClass-0.1.js"></script>
+	<script type="text/javascript" src="/resources/plugins/jslider/js/draggable-0.1.js"></script>
+	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.slider.js"></script>
 	<!-- end -->
   </head>
   <body id="top" class="thebg" >
@@ -76,7 +76,9 @@
 
 	<!--####### CONTAINER #######-->
 	<div class="container">
-		
+		<c:forEach items="${search}" var = "String">
+			<li>${String}</li>
+		</c:forEach>
 		<!-- 컨텐츠 검색 결과 템플릿 : list4.html -->
 		
 		<!-- 일정 검색 결과 템플릿 : list3.html -->

@@ -95,7 +95,7 @@
 				    		$(document).ready(function () { 
 								$('#searchBtn').on("click",function(event) {
 									console.log($('#keywordInput').val());
-										self.location = "search"
+										self.location = "search?"
 												+ '${pageMaker.makeQuery(1)}'
 												+ "&keyword=" + $('#keywordInput').val();
 								});
@@ -106,7 +106,7 @@
 					<input  id="keywordInput" name='keyword' value='${cri.keyword}'type="text" class="form-control inph left" placeholder="ex: New York" ></input>
 					<button id='searchBtn' class="btn btn-default nbtn-search right" type="button"><span class="glyphicon glyphicon-search"></span></button>
 				</div>
-			</div
+			</div>
 			<!-- END OF SEARCH BOX -->
 			
 			<!--####### BANNER #######-->

@@ -14,8 +14,7 @@ import org.junit.Test;
 import static org.elasticsearch.common.xcontent.XContentFactory.*;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -77,8 +76,8 @@ public class EsRepository {
     }
 */
  // 데이터 조회 테스트
-    public HashMap<String, Object> findSongWithPrefix(String prefix) throws IOException{
-        SearchResponse response = client.prepareSearch("mm")
+    public int listCount(String prefix) throws IOException{
+     /*   SearchResponse response = client.prepareSearch("mm")
 		        .setTypes("song")
 		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
 		        .setQuery(QueryBuilders.prefixQuery("name", prefix))
@@ -86,14 +85,36 @@ public class EsRepository {
 		        .get();
     
 	    SearchHits hits = response.getHits();
-	
-	    HashMap<String ,Object> result = new HashMap<>();
-	
-	    result.put("total", hits.getTotalHits());
-	    result.put("contentsList", hits.getHits());
-	   
-	    System.out.println("Total : " + result.get("total"));
+	    int result = (int) hits.getTotalHits();
 	    return result;
+	    */
+    		return 10;
     }
+    
+    public List<String> listCriteria(String prefix) throws IOException{ /*
+    public SearchHits listCriteria(String prefix) throws IOException{
+       SearchResponse response = client.prepareSearch("mm")
+		        .setTypes("song")
+		        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+		        .setQuery(QueryBuilders.prefixQuery("name", prefix))
+		        .setFrom(0).setSize(20).setExplain(true)
+		        .get();
+    
+	    SearchHits hits = response.getHits();
+	    return hits; */
+    		List result = new ArrayList();
+    		result.add("test1");
+    		result.add("test2");
+    		result.add("test3");
+    		result.add("test4");
+    		result.add("test5");
+    		result.add("test6");
+    		result.add("test7");
+    		result.add("test8");
+    		result.add("test9");
+    		result.add("test10");
+    		return result;
+    }
+
 	
 }
