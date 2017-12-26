@@ -1,12 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Travel Agency - HTML5 Booking template</title>
+		<title>Tripster</title>
 
 		<!-- Bootstrap -->
 		<link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
@@ -40,15 +41,12 @@
 		<!-- jQuery -->
 		<script src="/resources/assets/js/jquery.v2.0.3.js"></script>
 
-
 		<!-- Masonry -->
 		<link href="/resources/updates/update1/css/masonry.css" rel="stylesheet">
 		<script src="/resources/updates/update1/js/masonry.pkgd.js"></script>
 		<script>
 	        // http://masonry.desandro.com/masonry.pkgd.js added as external resource
-
 	        docReady( function() {
-
 	            var container = document.querySelector('.masonry');
 	            var button = document.querySelector('#toggle-button');
 	            var msnry = new Masonry( container, {
@@ -65,54 +63,56 @@
 	                }
 	                isActive = !isActive;
 	            });
-
 	        });
 	        //@ sourceURL=pen.js
 		</script>
-
 	</head>
+	
 	<body id="top">
-
-		<%@include file="include/header.jsp" %>
 		<script>
             var result = '${msg}';
 
             if(result == 'success'){
                 alert("가입한 이메일 인증 후 로그인 해주세요.");
             }
-
             if(result == 'delete'){
                 alert("개인정보 중국에 판매완료!.");
             }
-            
             if(result == 'findPassword'){
             	alert("가입된 이메일로 임시비밀번호가 전송되었습니다.")
             }
         </script>
-		<!--
-		#################################
-			- THEMEPUNCH BANNER -
-		#################################
-		-->
+        
+		<!--####### HEADER #######-->
+		<%@include file="include/header.jsp" %>
+
+		<!--####### BANNER CONTAINER #######-->
 		<div id="dajy" class="fullscreen-container2 mtslideb sliderbg fixed">
-
+			
+			<!--####### SEARCH BOX #######-->
 			<div class="searchcontainer textcenter" style="">
+				<script>
+				    		$(document).ready(function () { 
+								$('#searchBtn').on("click",function(event) {
+									console.log($('#keywordInput').val());
+										self.location = "search"
+												+ '${pageMaker.makeQuery(1)}'
+												+ "&keyword=" + $('#keywordInput').val();
+								});
+				    		});				
+				</script>			
 				<span class="lato size48 slim white ">Where do you want to go?</span><br/>
-
 				<div class=" wh95percent center">
-					<input type="text" class="form-control inph left" placeholder="ex: New York"></input>
-					<button class="btn btn-default nbtn-search right" type="button"><span class="glyphicon glyphicon-search"></span></button>
-
+					<input  id="keywordInput" name='keyword' value='${cri.keyword}'type="text" class="form-control inph left" placeholder="ex: New York" ></input>
+					<button id='searchBtn' class="btn btn-default nbtn-search right" type="button"><span class="glyphicon glyphicon-search"></span></button>
 				</div>
-
-			</div>
-
-
+			</div
+			<!-- END OF SEARCH BOX -->
+			
+			<!--####### BANNER #######-->
 			<div class="fullscreenbanner">
 				<ul>
-
 					<!-- papercut fade turnoff flyin slideright slideleft slideup slidedown-->
-
 					<!-- FADE -->
 					<li data-transition="fade" data-slotamount="1" data-masterspeed="300">
 						<img src="../resources/updates/update1/img/slider/slide1.jpg" alt=""/>
@@ -161,24 +161,15 @@
 						     data-speed="1000"
 						     data-start="800"
 						     data-easing="easeOutExpo">
-
 						</div>
 					</li>
-
-
-
 				</ul>
 				<div class="tp-bannertimer none"></div>
 			</div>
+			<!-- END OF BANNER -->
 		</div>
-
-		<!--
-		##############################
-		 - ACTIVATE THE BANNER HERE -
-		##############################
-		-->
+		
 		<script type="text/javascript">
-
 		    var tpj=jQuery;
 		    tpj.noConflict();
 
@@ -205,7 +196,6 @@
 
 		                navigationStyle:false,				// round,square,navbar,round-old,square-old,navbar-old, or any from the list in the docu (choose between 50+ different item), custom
 
-
 		                navigationHAlign:"left",				// Vertical Align top,center,bottom
 		                navigationVAlign:"bottom",					// Horizontal Align left,center,right
 		                navigationHOffset:30,
@@ -223,7 +213,6 @@
 
 		                touchenabled:"on",						// Enable Swipe Function : on/off
 
-
 		                stopAtSlide:-1,							// Stop Timer if Slide "x" has been Reached. If stopAfterLoops set to 0, then it stops already in the first Loop at slide X which defined. -1 means do not stop at any slide. stopAfterLoops has no sinn in this case.
 		                stopAfterLoops:-1,						// Stop Timer if All slides has been played "x" times. IT will stop at THe slide which is defined via stopAtSlide:x, if set to -1 slide never stop automatic
 
@@ -231,31 +220,23 @@
 		                hideAllCaptionAtLilmit:0,				// Hide all The Captions if Width of Browser is less then this value
 		                hideSliderAtLimit:0,					// Hide the whole slider, and stop also functions if Width of Browser is less than this value
 
-
 		                fullWidth:"on",							// Same time only Enable FullScreen of FullWidth !!
 		                fullScreen:"off",						// Same time only Enable FullScreen of FullWidth !!
 
-
 		                shadow:0								//0 = no Shadow, 1,2,3 = 3 Different Art of Shadows -  (No Shadow in Fullwidth Version !)
-
 		            });
-
-
 		    });
 		</script>
+		<!-- END OF BANNER CONTAINER -->
+
 
 
 		<!-- WRAP -->
 		<div class="wrap cst03 bgfix " >
-
-
-
-
-
+		
 			<div class="container lnews">
 				Latest news
 			</div>
-
 
 			<div class="masonry">
 				<div class="item wt2 ht2">
@@ -310,13 +291,6 @@
 				<br/>
 			</div>
 
-
-
-
-
-
-
-
 			<!-- FOOTER -->
 
 			<div class="footerbg lcfix">
@@ -336,14 +310,8 @@
 				</div>
 			</div>
 
-
-
-
-
 		</div>
 		<!-- END OF WRAP -->
-
-
 
 		<!-- Javascript -->
 
