@@ -40,28 +40,22 @@
     <script src="/resources/assets/js/jquery.v2.0.3.js"></script>
     <script type="text/javascript" src="/resources/js/upload.js"></script>
 <script>
-     $(document).ready(function() {
-    		 var formObj = $("form[role='form']")
-        		$("#modify").click(function(){
-        			alert('클릭했당 ');
-        			formObj.attr("action","/plan/update");
-        			formObj.attr("method","GET");
-        			formObj.submit();
-        		});
-    		 
-    		 
-    		 	$("#remove").click(function(){
-    		 		formObj.attr("action","/plan/delete");
-    		 		formObj.submit();
-    		 	})
-    		
-/*     		 $.each(${plan.planDetailVO }, function(index, item){
-    			 var result="";
-    			 result += index +': ' + item.planDetailID +','+ item.title;
-    			 console.log(result);
-    		 }); */
-    		 
-      });
+ $(document).ready(function() {
+	var formObj = $("form[role='form']")
+	$("#modify").click(function(){
+		alert('클릭했당 ');
+		formObj.attr("action","/plan/update");
+		formObj.attr("method","GET");
+		formObj.submit();
+	});
+
+	 
+ 	$("#remove").click(function(){
+ 		formObj.attr("action","/plan/delete");
+ 		formObj.submit();
+ 	})
+		 
+  });
 </script>
 <style>
 #modDiv {
@@ -312,67 +306,55 @@
 						<br/>
 						<form role="form"  method="post">
 							<input type="hidden" name="planID" value="${plan.planID }">
-							<%-- ${plan.planDetailVO.get(0).planDetailEndTime} --%>
-	
-<%-- 			<c:forEach items = "${plan.planDetailVO }" var="detail">
-				${detail.memoVO }
-			</c:forEach> --%>
-			
-		
-	<!-- 	<hr> -->
-		
-		<%--
-		<button id="remove">REMOVE</button>
-		<button id="modify">MODIFY</button> --%>
-					<c:set var = "date" value=""/>
-					<c:forEach items="${plan.planDetailVO }" var="planDetailVO">
-						<c:if test="${planDetailVO.planDetailDate ne date}">
-							<span class="lato size22 dark bold">${planDetailVO.planDetailDate }</span><br/>
-							<c:set var = "date" value="${planDetailVO.planDetailDate }"/>
-							<div class="line4"></div>
-						</c:if>
-						<span class="lato size18 dark bold">-${planDetailVO.planDetailStartTime}:</span>
-						<span class="lato size18 blue bold"> ${planDetailVO.title }</span><br/>
-						
-						<c:if test="${planDetailVO.memoVO.memoContents ne null }">
-								Memo Contents: ${planDetailVO.memoVO.memoContents }
-						</c:if>
-						
-						<c:if test="${planDetailVO.memoVO.memoPictureVO ne null}">
-							<div class="wrapper2">
-								<div class="list_carousel2">
-									<ul id="foo5">
-										<c:forEach items="${planDetailVO.memoVO.memoPictureVO }" var="pictureVO">
-											<c:choose>
-						       					<c:when test="${pictureVO.memoPictureName ne null}">
-						           					 <li>
-														<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img src="/displayFile?fileName=${pictureVO.memoPictureName }" style="width: 100%; max-width: 760px; vertical-align: middle"/></a>
-													</li>
-						       					</c:when>
-						       					<c:otherwise>
-						          					<li>
-														<a href="/resources/planImg/noimg.png"><img src="/resources/planImg/noimg.png" style="width: 100%; vertical-align: middle"/></a>
-													</li>
-						       					</c:otherwise>
-						  					 </c:choose> 	
-										</c:forEach>
-									</ul>
-								<div class="clearfix"></div>
-								<a id="prev_btn" class="xprev" href="#"><img src="/resources/images/spacer.png" alt=""/></a>
-								<a id="next_btn" class="xnext" href="#"><img src="/resources/images/spacer.png" alt=""/></a>
-								</div>
-							</div>
-									
-							<div class="line4"></div>
-						</c:if>
-						<br/><br/>
-					</c:forEach> 
-					
-					<button class="btn-search4 margtop20" id="remove">REMOVE</button>
-					<button class="bluebtn margtop20" id="modify">MODIFY</button>
 
-				</form>
-				<div class="line4"></div>
+							<c:set var = "date" value=""/>
+							<c:forEach items="${plan.planDetailVO }" var="planDetailVO">
+								<c:if test="${planDetailVO.planDetailDate ne date}">
+									<span class="lato size22 dark bold">${planDetailVO.planDetailDate }</span><br/>
+									<c:set var = "date" value="${planDetailVO.planDetailDate }"/>
+									<div class="line4"></div>
+								</c:if>
+								<span class="lato size18 dark bold">-${planDetailVO.planDetailStartTime}:</span>
+								<span class="lato size18 blue bold"> ${planDetailVO.title }</span><br/>
+						
+								<c:if test="${planDetailVO.memoVO.memoContents ne null }">
+									Memo Contents: ${planDetailVO.memoVO.memoContents }
+								</c:if>
+						
+								<c:if test="${planDetailVO.memoVO.memoPictureVO ne null}">
+									<div class="wrapper2">
+										<div class="list_carousel2">
+											<ul id="foo5">
+												<c:forEach items="${planDetailVO.memoVO.memoPictureVO }" var="pictureVO">
+													<c:choose>
+						       							<c:when test="${pictureVO.memoPictureName ne null}">
+						           					 		<li>
+																<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img src="/displayFile?fileName=${pictureVO.memoPictureName }" style="width: 100%; max-width: 760px; vertical-align: middle"/></a>
+															</li>
+						       							</c:when>
+						       							<c:otherwise>
+						          							<li>
+																<a href="/resources/planImg/noimg.png"><img src="/resources/planImg/noimg.png" style="width: 100%; vertical-align: middle"/></a>
+															</li>
+						       							</c:otherwise>
+						  							</c:choose> 	
+											</c:forEach>
+										</ul>
+										<div class="clearfix"></div>
+										<a id="prev_btn" class="xprev" href="#"><img src="/resources/images/spacer.png" alt=""/></a>
+										<a id="next_btn" class="xnext" href="#"><img src="/resources/images/spacer.png" alt=""/></a>
+									</div>
+								</div>
+								<div class="line4"></div>
+							</c:if>
+							<br/><br/>
+						</c:forEach> 
+					
+						<button class="btn-search4 margtop20" id="remove">REMOVE</button>
+						<button class="bluebtn margtop20" id="modify">MODIFY</button>
+
+					</form>
+					<div class="line4"></div>
 				
 				<!-- 댓글 -->
 					<div>
@@ -389,14 +371,6 @@
 						<div class="line4"></div>
 						
 						<div id="replies">
-							
-							<!-- <div class="wh80percent right">
-								<a href="#" class="lblue bold">Dave</a><br/>
-								Maecenas hendrerit magna ut porttitor tempor. In hac habitasse platea dictumst. Duis condimentum congue nisi, ac semper ipsum posuere eu.
-								<br/><span class="grey size12">5 hours ago | <a href="#" class="grey">Reply</a></span>
-							</div>
-							<div class="clearfix"></div>
-							<div class="line4"></div> -->
 
 						</div>
 						<div class="clearfix"></div>
@@ -419,22 +393,9 @@
 			<div class="clearfix"></div><br/><br/>
 			</div>
 			<!-- END CONTENT -->			
-			
-
-			
 		</div>
-		
-		
 	</div>
 	<!-- END OF CONTENT -->
-	
-
-	<ul id="replies">
-		
-	</ul>
-	
-<!-- 	<ul class="pagination">
-	</ul> -->
 	
 	<!-- 댓글 수졍 및 삭제 모달  -->
 	<div id='modDiv' style="display: none;">
@@ -465,9 +426,6 @@
 				+'<div class="wh80percent right "><span class="lblue bold">'+this.memberName+'</span><br/>'+
 				'<span class="replyspan" data-rno="'+this.planReplyID+'">'+this.planReplyContents+'</br><span class="grey size12"><a href="#" class="grey">Modify</a></span></span></div><div class="clearfix"></div><div class="line4">'
 			
-				
-/* 				+"<li data-rno='"+this.planReplyID+"' class='replyLi'>"
-				+ this.planReplyID+":"+this.planReplyContents+"<button>MOD</button></li>"; */
 			});
 			
 			$("#replies").html(str);
