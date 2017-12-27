@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tripster.common.MailHandler;
 import com.tripster.common.TempKey;
-import com.tripster.controller.MemberController;
 import com.tripster.domain.MemberVO;
 import com.tripster.dto.LoginDTO;
 import com.tripster.persistence.MemberDAO;
@@ -21,7 +20,7 @@ import com.tripster.persistence.MemberDAO;
 @Service
 public class MemberServiceImpl implements MemberService {
 
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
 	
 	@Inject
 	private MemberDAO dao;
@@ -127,6 +126,44 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO viewMypage(String memberEmail) throws Exception {
 		
 		return dao.viewMember(memberEmail);
+	}
+	
+	@Override
+	public MemberVO mypage(Integer memberID) throws Exception {
+		
+		return dao.mypage(memberID);
+	}
+	
+	@Override
+	public void changePassword(MemberVO vo) throws Exception {
+		
+		String encPassword = passwordEncoder.encode(vo.getMemberPassword());
+		vo.setMemberPassword(encPassword);
+		
+		dao.changePassword(vo);
+	}
+	
+	@Override
+	public boolean passwordChk(MemberVO vo) throws Exception {
+		
+		//암호화된 비밀번호
+		String pw = dao.getMemberPw(vo.getMemberEmail()).getMemberPassword();
+		//입력한 비밀번호
+		String rawPw = vo.getMemberPassword();
+		logger.info("비밀번호 : " + rawPw);
+		
+		System.out.println("pw : " + pw + ", rawPw : " + rawPw);
+		
+		if (passwordEncoder.matches(rawPw, pw)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	@Override
+	public void uploadPicture(MemberVO vo) throws Exception {
+		dao.uploadPicture(vo);
 	}
 	
 	@Override
