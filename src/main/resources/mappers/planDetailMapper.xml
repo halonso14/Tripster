@@ -46,14 +46,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <resultMap type="MemoVO" id="MemoVO">
 	<result column="plan_detail_id" property="planDetailID"/>
 	<result column="memo_Contents" property="memoContents"/>
-	<collection column="memo_picture_name" property="memoPictureName" javaType="java.util.ArrayList"/>
+	<collection property="memoPictureVO" resultMap="MemoPictureVO"/>
 </resultMap>
 
 <resultMap type="MemoPictureVO" id="MemoPictureVO">
 	<result column="memo_picture_id" property="memoPictureID"/>
 	<result column="plan_detail_id" property="planDetailID"/>
 	<result column="memo_picture_name" property="memoPictureName"/>
-	
 </resultMap>
 
 	<!-- 한 일정에 해당하는 세부일정 모두 조회. -->
@@ -67,6 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		picture
 		on memo.plan_detail_id = picture.plan_detail_id
 		where detail.plan_ID = #{planID}
+		order by plan_Detail_Date asc , plan_detail_startTime asc
 	</select>
 	
 	<!-- planDetailID값 조회. -->

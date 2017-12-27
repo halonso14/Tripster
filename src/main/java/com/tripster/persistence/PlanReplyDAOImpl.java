@@ -54,6 +54,12 @@ public class PlanReplyDAOImpl implements PlanReplyDAO{
 	public int count(int planID) throws Exception {
 		return session.selectOne(namespace+".count", planID);
 	}
+
+	//멤버 이름 조회.
+	@Override
+	public String selectMemberName(int memberID) throws Exception {
+		return session.selectOne(namespace+".memberName",memberID);
+	}
 	
 	
 	

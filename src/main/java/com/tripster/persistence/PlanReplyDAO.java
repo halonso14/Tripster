@@ -21,4 +21,7 @@ public interface PlanReplyDAO {
 	
 	//댓글 수 카운트.
 	public int count(int planID) throws Exception;
+	
+	//멤버 이름 조회.
+	public String selectMemberName(int memberID) throws Exception;
 }
