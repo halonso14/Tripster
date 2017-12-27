@@ -1,5 +1,6 @@
 package com.tripster.controller;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,7 +11,6 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
@@ -92,7 +91,17 @@ public class PlanController {
 	//plan 조회
 		@RequestMapping(value="/read", method=RequestMethod.GET)
 		public void readPlan(@RequestParam("planID") int planID, ModelMap model) throws Exception{
-			model.addAttribute("plan",planService.readPlan(planID));
+			PlanVO plan = planService.readPlan(planID);
+			Date from =plan.getPlanStartDate();
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String startDate = "'"+transFormat.format(from)+"'";
+			
+			from = plan.getPlanEndDate();
+			String endDate = "'"+transFormat.format(from)+"'";
+			System.out.println("@@@@@@@EndDate:"+endDate);
+			model.addAttribute("startDate",startDate);
+			model.addAttribute("endDate",endDate);
+			model.addAttribute("plan",plan);
 		}
 		
 		//plan 수정
@@ -257,7 +266,7 @@ public class PlanController {
 	//**************************메모 관련 ********************************/
 	//메모 등록
 	@RequestMapping(value="/memo/register",method= RequestMethod.POST)
-	public ResponseEntity<String> registerMemo(MemoVO vo )throws Exception{
+	public ResponseEntity<String> registerMemo(MemoVO vo ,HttpServletRequest request)throws Exception{
 		System.out.println(vo);
 		ResponseEntity<String> entity = null;
 		try {

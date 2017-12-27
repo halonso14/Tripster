@@ -36,4 +36,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(plan_ID) from tbl_plan_reply where plan_id = #{planID}
 	</select>
 	
+	<!-- memberName조  -->
+	<select id="memberName" resultType="string">
+		select member_name from tbl_member where member_id = #{memberID}
+	</select>
+	
 </mapper>

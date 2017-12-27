@@ -9,12 +9,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into tbl_memo values(#{planDetailID}, #{memoContents})
 	</insert>
 	
-	<!-- 메모 수. -->
+	<!-- 메모 수정. -->
 	<update id="updateMemo">
 		update tbl_memo set memo_contents = #{memoContents} where plan_detail_id =#{planDetailID}
 	</update>
 	
-	<!-- 메모 삭. -->
+	<!-- 메모 삭제. -->
 	<delete id="deleteMemo">
 		delete from tbl_memo where plan_detail_id= #{planDetailID}
 	</delete>
