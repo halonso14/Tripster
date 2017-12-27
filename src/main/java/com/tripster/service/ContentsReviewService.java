@@ -20,4 +20,8 @@ public interface ContentsReviewService {
 		
 	//특정 맛집의 리뷰 개수 조회
 	public int getTotalReviewNum(Integer contentsID) throws Exception;
+	
+	//리뷰 아이디를 받아 파일 이름 조회
+	public List<String> getFileNames(Integer reviewID) throws Exception;
+	
 }

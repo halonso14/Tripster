@@ -1,5 +1,6 @@
 package com.tripster.domain;
 
+import java.util.Arrays;
 import java.util.Date;
 
 //맛집 리뷰 클래스
@@ -14,7 +15,15 @@ public class ContentsReviewVO {
 	private String contentsReview;
 	//맛집 리뷰 작성(수정) 시간
 	private Date contentsReviewTime;
-	
+	//리뷰 사진
+	private String[] reviewPictureName;
+
+	public String[] getReviewPictureName() {
+		return reviewPictureName;
+	}
+	public void setReviewPictureName(String[] reviewPictureName) {
+		this.reviewPictureName = reviewPictureName;
+	}
 	public Integer getMemberID() {
 		return memberID;
 	}
@@ -48,7 +57,7 @@ public class ContentsReviewVO {
 	@Override
 	public String toString() {
 		return "ContentsReviewVO [memberID=" + memberID + ", contentsID=" + contentsID + ", contentsReviewID="
-				+ contentsReviewID + ", contentsReview=" + contentsReview + ", contentsReviewTime="
-				+ contentsReviewTime + "]";
+				+ contentsReviewID + ", contentsReview=" + contentsReview + ", contentsReviewTime=" + contentsReviewTime
+				+ ", reviewPictureName=" + Arrays.toString(reviewPictureName) + "]";
 	}
 }

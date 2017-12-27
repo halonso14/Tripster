@@ -24,8 +24,15 @@ public class ContentsReviewServiceImpl implements ContentsReviewService {
 	@Transactional
 	@Override
 	public void writeReview(ContentsReviewVO vo) throws Exception {
+		
 		dao.write(vo);
 		contentsDao.updateReviewCnt(vo.getContentsID(), 1);
+		
+		// 파일 이름 저장
+		for(int i=0;i<vo.getReviewPictureName().length;i++) {
+			dao.registReviewPicture(vo.getReviewPictureName()[i]);
+		}
+		
 	}
 
 	@Override
@@ -49,6 +56,12 @@ public class ContentsReviewServiceImpl implements ContentsReviewService {
 	@Override
 	public int getTotalReviewNum(Integer contentsID) throws Exception {
 		return dao.getTotalReviewNum(contentsID);
+	}
+	
+	//리뷰 아이디를 받아 파일 이름 조회
+	@Override
+	public List<String> getFileNames(Integer reviewID) throws Exception{
+		return dao.getFileNames(reviewID);
 	}
 	
 	
