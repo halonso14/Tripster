@@ -25,7 +25,8 @@
  	<property name="dataSource" ref="dataSource" />	
  	<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
  	<!-- mappers 폴더 아래에 있는 Mapper.xml로 끝나는 파일 인식 -->
- 	<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property>			
+ 	<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property>	
+ 			
 	</bean>
 	
 	<!-- db연결과 종료에 관련된 SqlSessionTemplate -->

@@ -97,7 +97,7 @@
 
 				<div class=" wh95percent center">
 					<input type="text" class="form-control inph left" placeholder="ex: New York"></input>
-					<button class="btn btn-default nbtn-search right" type="button"><span class="glyphicon glyphicon-search"></span></button>
+					<button id="serchBtn" class="btn btn-default nbtn-search right" type="button"><span class="glyphicon glyphicon-search"></span></button>
 
 				</div>
 
@@ -305,7 +305,7 @@
 				<br/>
 				<br/>
 			</div>
-
+	
 
 
 
@@ -373,5 +373,6 @@
 
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="../resources/dist/js/bootstrap.min.js"></script>
+
 	</body>
 </html>

@@ -1,6 +1,5 @@
 package com.tripster.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.tripster.domain.ContentsVO;
 import com.tripster.domain.ScrapVO;
 import com.tripster.persistence.ContentsDAO;
 import com.tripster.persistence.ScrapDAO;
@@ -36,31 +36,33 @@ public class ScrapDAOTest {
 //		System.out.println(vo.toString());
 //	}
 	
-//	@Test
-//	public void scrap() throws Exception{
-//		ContentsVO cont = new ContentsVO();
-//		ScrapVO vo = new ScrapVO();
-//		cont = contentsDao.readContents(1);
-//		vo.setCategoryID(cont.getCategoryID());
-//		vo.setContentsID(cont.getContentsID());
-//		vo.setContentsTitle(cont.getTitle());
-//		vo.setContentsPhoto("photo");
-//		scrapDao.create(vo);
-//	}
-	
 	@Test
-	public void scrapCheck() throws Exception{
-		
-		// 멤버의 스크랩리스트 조회
-		List<ScrapVO> list = scrapDao.listAll(1);
-		// 해당 페이지의 컨텐츠id를 받아 스크랩 조회
-		for(int i=0;i<list.size();i++) {
-			if(2 == list.get(i).getContentsID()) {
-				System.out.println("1");
-				break;
-			}
-		}
-		
+	public void scrap() throws Exception{
+		ContentsVO cont = new ContentsVO();
+		ScrapVO vo = new ScrapVO();
+		cont = contentsDao.getRestaurantDetail(2);
+		System.out.println(cont.toString());
+		vo.setCategoryID(cont.getCategoryID());
+		vo.setContentsID(cont.getContentsID());
+		vo.setContentsTitle(cont.getTitle());
+		vo.setContentsPhoto("photo");
+		System.out.println(vo.toString());
+		scrapDao.create(vo);
 	}
+	
+//	@Test
+//	public void scrapCheck() throws Exception{
+//		
+//		// 멤버의 스크랩리스트 조회
+//		List<ScrapVO> list = scrapDao.listAll(1);
+//		// 해당 페이지의 컨텐츠id를 받아 스크랩 조회
+//		for(int i=0;i<list.size();i++) {
+//			if(2 == list.get(i).getContentsID()) {
+//				System.out.println("1");
+//				break;
+//			}
+//		}
+//		
+//	}
 
 }

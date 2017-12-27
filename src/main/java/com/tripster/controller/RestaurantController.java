@@ -90,7 +90,6 @@ public class RestaurantController {
 			try {
 				//해당 restaurantID를 가진 객체를 vo에 저장
 				vo = new ResponseEntity<>(restaurantService.getRestaurantDetail(restaurantID), HttpStatus.OK);
-				
 			} catch(Exception e) {
 				//오류 발생 시, BAD_REQUEST 상태 입력
 				e.printStackTrace();

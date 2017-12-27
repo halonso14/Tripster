@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -32,6 +34,9 @@ public class ContentsController {
 	private ContentsService contentsService;
 	@Inject
 	private ContentsReviewService contentsReviewService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+
 	
 	//맛집 리스트 페이지
 	@RequestMapping(value = "restaurantList/{curPage}", method = RequestMethod.GET)
@@ -252,11 +257,13 @@ public class ContentsController {
 		ResponseEntity<String> entity = null;
 		System.out.println(vo.toString());
 		try {
+			
 			//PathVariable 활용, 해당 맛집의 리뷰 저장
 			vo.setContentsID(contentsID);
 			contentsReviewService.writeReview(vo);
 			//View로 전달할 ResponsEntity 객체 생성 + 정보 전달
 			entity = new ResponseEntity<String>("written", HttpStatus.OK);
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 			//오류 발생 시, BAR_REQUEST 상태 입력
