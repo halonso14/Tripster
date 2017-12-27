@@ -4,6 +4,8 @@ public class DashDetailVO {
 
 	//플랜번호
 	private Integer plan_id;
+	//플랜제목
+	private String plan_title;
 	//총여행일수
 	private String numAges_who_chose_plan_id;
 	//평균여행일수
@@ -18,7 +20,12 @@ public class DashDetailVO {
 	public void setPlan_id(Integer plan_id) {
 		this.plan_id = plan_id;
 	}
-	
+	public String getPlan_title() {
+		return plan_title;
+	}
+	public void setPlan_title(String plan_title) {
+		this.plan_title = plan_title;
+	}
 	public String getNumAges_who_chose_plan_id() {
 		return numAges_who_chose_plan_id;
 	}
