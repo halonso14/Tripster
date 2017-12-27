@@ -33,7 +33,7 @@
 										${userSession.memberName} <span class="badge indent0">1</span><b class="lightcaret mt-2"></b>
 									</a>
 							<ul class="dropdown-menu">
-								<li><a href="member/mypage">내정보 관리</a></li>
+								<li><a href="member/mypage2">내정보 관리</a></li>
 								<li><a href="member/logout">로그아웃</a></li>
 							</ul>
 								</li>

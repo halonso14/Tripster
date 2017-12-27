@@ -28,7 +28,7 @@
 //
 //@Controller
 //public class HDUploadController {
-//	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
+//	private static final Logger logger = LoggerFactory.getLogger(HDUploadController.class);
 //
 //	@Resource(name = "HDuploadPath")
 //	private String uploadPath;

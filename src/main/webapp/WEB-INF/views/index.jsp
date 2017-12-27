@@ -73,7 +73,7 @@
 	</head>
 	<body id="top">
 
-		<%@include file="include/header.jsp" %>
+		<%@include file="/WEB-INF/views/include/header.jsp" %>
 		<script>
             var result = '${msg}';
 
