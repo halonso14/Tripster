@@ -108,6 +108,14 @@
 	where Member_ID = #{memberID}
 	</update>
 	
+	<!-- 기본정보 변경 -->
+	<update id="changeProfile">
+	update tbl_Member
+	set Member_Name = #{memberName}
+	   ,Member_Birthday = #{memberBirthday}
+	where Member_ID = #{memberID}
+	</update>
+	
 	<!-- 비밀번호 변경 -->
 	<update id="changePassword">
 	update tbl_Member

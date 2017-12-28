@@ -7,8 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 
-import com.tripster.controller.UploadController;
-
 // 이미지 타입인지 판단하는 메소드
 public class MediaUtils {
 
@@ -23,6 +21,7 @@ public class MediaUtils {
 		mediaMap.put("JPEG", MediaType.IMAGE_JPEG);
 		mediaMap.put("GIF", MediaType.IMAGE_GIF);
 		mediaMap.put("PNG", MediaType.IMAGE_PNG);
+		mediaMap.put("JPG", MediaType.IMAGE_JPEG);
 	}
 	
 	public static MediaType getMediaType(String type) {

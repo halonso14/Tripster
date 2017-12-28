@@ -135,6 +135,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public void changeProfile(MemberVO vo) throws Exception {
+		
+		dao.changeProfile(vo);
+	}
+	
+	@Override
 	public void changePassword(MemberVO vo) throws Exception {
 		
 		String encPassword = passwordEncoder.encode(vo.getMemberPassword());

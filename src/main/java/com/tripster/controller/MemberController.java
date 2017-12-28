@@ -186,13 +186,30 @@ public class MemberController {
 
 		Object obj = session.getAttribute("login");
 		MemberVO memVO = (MemberVO) obj;
-
-		service.mypage(memVO.getMemberID());
+		vo.setMemberID(memVO.getMemberID());
 
 		model.addAttribute(service.mypage(memVO.getMemberID()));
 	}
+	
+	// 기본정보 변경
+	@RequestMapping(value = "/changeProfile", method = RequestMethod.POST)
+	public String changeProfile(MemberVO vo, HttpSession session, HttpServletRequest request, RedirectAttributes rttr)
+			throws Exception {
 
-	// 비밀번호 수정
+		Object obj = session.getAttribute("login");
+		MemberVO memVO = (MemberVO) obj;
+		vo.setMemberID(memVO.getMemberID());
+
+		System.out.println(vo);
+
+		service.changeProfile(vo);
+
+		rttr.addFlashAttribute("msg", "profile");
+
+		return "redirect:/member/mypage2";
+	}
+
+	// 비밀번호 변경
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	public String changePassword(MemberVO vo, HttpSession session, HttpServletRequest request, RedirectAttributes rttr)
 			throws Exception {
@@ -205,7 +222,7 @@ public class MemberController {
 
 		service.changePassword(vo);
 
-		rttr.addFlashAttribute("msg", "success");
+		rttr.addFlashAttribute("msg", "password");
 
 		return "redirect:/member/mypage2";
 	}
@@ -236,6 +253,8 @@ public class MemberController {
 		MemberVO memVO = (MemberVO) obj;
 
 		service.viewMypage(memVO.getMemberEmail());
+		
+		System.out.println("가나다라마바사" + service.viewMypage(memVO.getMemberEmail()));
 
 		model.addAttribute(service.viewMypage(memVO.getMemberEmail()));
 	}

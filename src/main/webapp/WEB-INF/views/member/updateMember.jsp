@@ -57,7 +57,7 @@
                     <br/>
                     성별<input type="text" class="form-control logpadding" name="memberSex" id="memberSex" value="${memberVO.memberSex}" readonly="readonly"/>
                     <br/>
-                    생년월일<input type="date" class="form-control logpadding" name="memberBirthday" id="memberBirthday" value="<fmt:formatDate value="${memberVO.memberBirthday}" pattern="yyyy-MM-dd" />"/>
+                    생년월일<input type="date" class="form-control logpadding" name="memberBirthday" id="memberBirthday" value='<fmt:formatDate value="${memberVO.memberBirthday}" pattern="yyyy-MM-dd" />'/>
                 </div>
             </div>
             <div class="register-c2">

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
   	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -225,25 +226,21 @@
 						  Wishlist
 						  </a></li>
 					  <li>
-						  <a href="#settings" data-toggle="tab" onclick="mySelectUpdate()">
-						  <span class="settings-icon"></span>								  
-						  Settings
-						  </a></li>
-					  <li>
 						  <a href="#history" data-toggle="tab" onclick="mySelectUpdate()">
 						  <span class="history-icon"></span>								  
 						  History
+						  </a></li>						  
+					  <li>
+						  <a href="#setProfile" data-toggle="tab" onclick="mySelectUpdate()">
+						  <span class="profile-icon"></span>								  
+						  Change profile
 						  </a></li>
 					  <li>
 						  <a href="#password" data-toggle="tab" onclick="mySelectUpdate()">
 						  <span class="password-icon"></span>							  
 						  Change password
 						  </a></li>
-					  <li>
-						  <a href="#newsletter" data-toggle="tab" onclick="mySelectUpdate()">
-						  <span class="newsletter-icon"></span>									  
-						  Newsletters
-						  </a></li>
+					 
 					</ul>
 					<div class="clearfix"></div>
 				</div>
@@ -297,6 +294,7 @@ function fileChange(e) {
         reader.onload = function(e) {
             $("#profileImg").attr("src", e.target.result);
         	$("#profileImg").css("height", "53px")
+        	$("#profileImg").css("width", "53px")
         }
         reader.readAsDataURL(f);
     });
@@ -353,7 +351,7 @@ function fileChange(e) {
 
 }
 </script>
-	<c:set var="memberVO" value='<%= session.getAttribute("login") %>'/>
+	<%-- <c:set var="memberVO" value='<%= session.getAttribute("login") %>'/> --%>
 	<c:set var="profilePic" value="${memberVO.memberPicture}"/>
 
 						  <!-- Admin top -->
@@ -1858,105 +1856,74 @@ function fileChange(e) {
 					  <!-- END OF TAB 3 -->	
 					  
 					  <!-- TAB 4 -->					  
-					  <div class="tab-pane" id="settings">
+					  <div class="tab-pane" id="setProfile">
 						<div class="padding40 dark">
 						
-						
-							<span class="dark size18">Settings</span>
+					  	<form id="changeProfile" action="changeProfile" method="post">					  
+							<span class="dark size18">기본정보 변경</span>
 							<div class="line4"></div>
 							
-							<span class="dark size14 bold">Notifications</span><br/>
-							Change the way you recieve notifications.
-							
-							<div class="checkbox dark">
-							  <label>
-								<input type="checkbox" checked> Make my profile private
-							  </label>
-							</div>
-							<div class="checkbox dark">
-							  <label>
-								<input type="checkbox"> Send an email when someone replyes to one of your comments.
-							  </label>
-							</div>
-							
 							<br/>
+							이메일<br/>
+							<input type="text" class="form-control " name="memberEmail" id="memberEmail" 
+									value="${memberVO.memberEmail}" readonly="readonly"/>
 							<br/>
-						
-							<span class="dark size14 bold">Who can contact me?</span><br/>
-							<select class="form-control mySelectBoxClass hasCustomSelect cpwidth">
-							  <option value="">Everyone</option>
-							  <option value="">No one</option>
-							  <option value="">Friends</option>
-							</select>
-						
+							닉네임<br/>
+							<input type="text" class="form-control " name="memberName" id="memberName" 
+									value="${memberVO.memberName}"/>
 							<br/>
+							성별<br/>
+							<input type="text" class="form-control " name="memberSex" id="memberSex" 
+									value="${memberVO.memberSex}" readonly="readonly"/>
 							<br/>
+							생년월일<br/>
+							<input type="date" class="form-control " name="memberBirthday" id="memberBirthday" 
+									value='<fmt:formatDate value="${memberVO.memberBirthday}" pattern="yyyy-MM-dd" />'/>
 							<br/>
-						
-							<span class="dark size14 bold">Payments</span><br/>
-							<div class="checkbox dark">
-							  <label>
-								<input type="checkbox" checked> Auto Payment
-							  </label>
-							</div>
+							<button type="submit" class="btn-search5">기본정보 변경</button>
 							
 							<br/>
 							<br/>
-													
-							<span class="dark size14 bold">Credit Card Details</span>
-							<div class="line4"></div>							
-							<br/>
-							Card Type<br/>
-							<select class="form-control mySelectBoxClass hasCustomSelect cpwidth">
-							  <option value="">Visa</option>
-							  <option value="">MasterCard</option>
-							  <option value="">Discover</option>
-							  <option value="">American Express</option>
-							</select>
-							<br/>
-							<br/>
-							Card Number<br/>
-							<input type="text" class="form-control" placeholder="XXXX-XXXX-XXXX-XXX">
-							<br/>
-							Expiry date<br/>
-							<select class="form-control mySelectBoxClass hasCustomSelect cpwidth2">
-							  <option value="">01</option>
-							  <option value="">02</option>
-							  <option value="">03</option>
-							  <option value="">04</option>
-							  <option value="">05</option>
-							  <option value="">06</option>
-							  <option value="">07</option>
-							  <option value="">08</option>
-							  <option value="">09</option>
-							  <option value="">10</option>
-							  <option value="">11</option>
-							  <option value="">12</option>
-							</select>
-							/
-							<select class="form-control mySelectBoxClass hasCustomSelect cpwidth2">
-							  <option value="">2013</option>
-							  <option value="">2014</option>
-							  <option value="">2015</option>
-							  <option value="">2016</option>
-							  <option value="">2017</option>
-							  <option value="">2018</option>
-
-							</select>
-							
-							<br/>
-							CVV<br/>
-							<input type="text" class="form-control cpwidth2" placeholder="">
-							<br/>
 							<br/>
 							
-							<button type="submit" class="btn-search5">Save changes</button>
-							
-							
+					  	</form>
 							
 							
 						</div>
 					  </div>
+					  
+<!-- 기본정보 변경 유효성 검사 -->			  
+<script>
+$(function() {
+
+	$("#changeProfile").validate({
+
+		//규칙
+		rules : {
+			memberName: {
+                required : true,
+                minlength : 2
+            },
+			memberBirthday: {
+            	required : true
+            }
+
+		},
+		//규칙체크 실패시 출력될 메시지
+		messages : {
+			memberName: {
+                required : "닉네임을 입력하세요",
+                minlength : "최소 {0}글자이상이어야 합니다"
+            },
+			memberBirthday: {
+            	required : "생년월일을 입력하세요."
+            }
+
+		}
+	});
+})
+</script>
+					  
 					  <!-- END OF TAB 4 -->	
 					  
 					  <!-- TAB 5 -->					  
@@ -2030,7 +1997,7 @@ function fileChange(e) {
 							
 							<br/>
 							기존 비밀번호<br/>
-							<input type="text" class="form-control " name="curMemberPassword" id="curMemberPassword" placeholder="기존 비밀번호">
+							<input type="password" class="form-control " name="curMemberPassword" id="curMemberPassword" placeholder="기존 비밀번호">
 							<br/>
 							새 비밀번호<br/>
 							<input type="password" class="form-control " name="memberPassword" id="memberPassword" placeholder="새 비밀번호">
@@ -2047,6 +2014,8 @@ function fileChange(e) {
 					  	</form>
 						</div>
 					  </div>
+
+<!-- 비밀번호 변경 유효성 검사 -->			  
 <script>
 $(function() {
 
@@ -2091,29 +2060,21 @@ $(function() {
 	});
 })
 </script>
-					  <!-- END OF TAB 6 -->	
-					  
-					  <!-- TAB 7 -->					  
-					  <div class="tab-pane" id="newsletter">
-						<div class="padding40">
 
-							<span class="dark size18">Newsletter</span>
-							<div class="line4"></div>
-						
-							<div class="checkbox dark">
-							  <label>
-								<input type="checkbox" checked> Check this box to receive a monthly newsletter
-							  </label>
-							</div>
-							
-							<br/>
-							<button type="submit" class="btn-search5">Save changes</button>							
-						
-						</div>
-					  </div>
-					  <!-- END OF TAB 7 -->	
-					  
-					  
+
+		<!-- 컨트롤러에서 넘어오는 완료 메시지 -->
+		<script>
+            var result = '${msg}';
+            if(result == 'profile'){
+                alert("기본정보 변경이 완료되었습니다.");
+            }
+            if(result == 'password'){
+                alert("비밀번호 변경이 완료되었습니다.");
+            }
+            
+        </script>					  
+		
+					  <!-- END OF TAB 6 -->	
 
 					  
 					</div>

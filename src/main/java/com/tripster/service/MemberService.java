@@ -25,6 +25,8 @@ public interface MemberService {
 	
 	public MemberVO mypage(Integer memberID) throws Exception;
 	
+	public void changeProfile(MemberVO vo) throws Exception;
+	
 	public void changePassword(MemberVO vo) throws Exception;
 	
 	public boolean passwordChk(MemberVO vo) throws Exception;
