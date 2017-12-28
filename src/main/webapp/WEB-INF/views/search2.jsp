@@ -132,51 +132,49 @@
 				<div class="clearfix"></div>
 				
 				<!--####### 통합검색결과 리스트 ########-->
-				<p class="margleft20"><a> '...' 검색결과 00 건  </a> </p>
 				<div class="itemscontainer offset-1">
+				
 					<!--####### 컨텐츠 검색결과 : 템플릿 z-cruise-list.html #######-->
-					<p class="margleft20"><a>컨텐츠 더보기 </a> </p>
 					<c:forEach items="${contentsList}" var = "esContentsVO">
-						<div class="offset-2" >
-							<div class="col-md-4 offset-0" >
-								<div class = "listitem2" >
-									<a href="/resources/updates/update1/img/activities/act04.jpg" data-footer="A custom footer text" data-title="A random title" data-gallery="multiimages" data-toggle="lightbox">
-									<img src="/resources/updates/update1/img/activities/act04.jpg" alt="" style="display:block" />
-									</a>
+						<div class="offset-2">
+							<div class="col-md-4 offset-0">
+								<div class="listitem2">
+									<a href="/resources/updates/update1/img/activities/act04.jpg" data-footer="A custom footer text" data-title="A random title" data-gallery="multiimages" data-toggle="lightbox"><img src="/resources/updates/update1/img/activities/act04.jpg" alt=""/></a>
 									<div class="liover"></div>
 									<a class="fav-icon" href="#"></a>
 									<a class="book-icon" href="details.html"></a>
-								</div>	
-							</div>
-							<div class="col-md-8 offset-0" style="border:1px solid #e6e6e6" >
-								<div class="labelright">
-									<img src="/resources/images/filter-rating-${esContentsVO.rating}.png" width="60" alt=""><br><br><br>
-									<img src="/resources/images/user-rating-5.png" width="60" alt=""><br>
-									<span class="size11 grey">${esContentsVO.contentsReviewCnt} Reviews</span><br><br>
-									<span class="green size18"><b>1 </b>Plan</span><br>
-									<span class="size11 grey margbot20">/ ${esContentsVO.contentsScrapCnt} Scrap</span><br><br>
-								 	<button class="bookbtn mt1" type="submit">Scrap</button>		
 								</div>
-								<div class="labelleft">			
-									<span class="size16"><b>${esContentsVO.title}</b></span><br>
-									<span class="opensans size14 grey"><span class="grey2">Category:</span> 맛집, 관광</span><br>
-									<div class="line4 wh80percent"></div>									
-									<p class="grey size14 lh6">
-										<span class="opensans size14 grey2">Keyword:</span> #여기에 #태그 #있으면 #좋겠다<br>
-										${esContentsVO.contents}
-									</p>	
-								</div>
-								<div class="clearfix"></div>
 							</div>
-							<div class="clearfix"></div>
+							<div class="col-md-8 offset-0">
+								<div class="itemlabel4">
+									<div class="labelright">
+										<img src="/resources/images/filter-rating-${esContentsVO.rating}.png" width="60" alt=""><br><br><br>
+										<img src="/resources/images/user-rating-5.png" width="60" alt=""><br>
+										<span class="size11 grey">${esContentsVO.contentsReviewCnt} Reviews</span><br><br>
+										<span class="green size18"><b>1 </b>Plan</span><br>
+										<span class="size11 grey">/ ${esContentsVO.contentsScrapCnt} Scrap</span><br><br><br>
+									 	<button class="selectbtn mt1 collapsed" type="button" data-toggle="collapse" data-target="#collapse10">Details</button>			
+									</div>
+									<div class="labelleft2">			
+										<span class="size16"><b>${esContentsVO.title}</b></span><br>
+										<span class="opensans size14 grey"><span class="grey2">Category:</span> 맛집, 관광</span><br>
+										<div class="line4 wh80percent"></div>									
+										<p class="grey size14 lh6">
+											<span class="opensans size14 grey2">Keyword:</span> #여기에 #태그 #있으면 #좋겠다<br>
+											${esContentsVO.contents}
+										</p><br/>
+									
+									</div>
+								</div>
+							</div>
 						</div>
+	
 						<div class="clearfix"></div>
-				
-					</c:forEach>
-					<div class="offset-2"><hr class="featurette-divider2"></div>
+						<div class="offset-2"><hr class="featurette-divider3"></div>
 					
-					<!--####### 일정 검색결과 : 템플릿 list3.html #######-->
-					<p class="margleft20"><a>일정 더보기</a> </p>	
+					</c:forEach>
+				
+					<!--####### 일정 검색결과 : 템플릿 list3.html #######-->	
 					<c:forEach items="${planList}" var = "esPlanVO">
 						<div class="col-md-4">
 							<div class="listitem">
@@ -186,50 +184,71 @@
 								<a class="book-icon" href="#" style="top: 79px; left: 251px;"></a>
 							</div>
 							<div class="itemlabel2">
-								<div class="labelright">													
+		
+								<div class="labelright">
+																		
 									<img src="/resources/images/user.png" alt="유저프로필" class=" ">
 									<p class="size12 grey margtop20">유저아이디</p><br>
 									<span class="size11 grey">댓글수</span><br>
 									<span class="size11 grey">좋아요수</span><br>
 									<button class="bookbtn mt1">Book</button>		
 								</div>
-								<div class="labelleft">	
-									<span class="size16"><b>${esPlanVO.planTitle}</b></span><br>		
-									<br>
+								<div class="labelleft">			
+									<b>${esPlanVO.planTitle}</b>
+									<br><br><br>
 									<p class="grey">${esPlanVO.planDetailVO.title}</p>
 								</div>
 							</div>
-							<div class="clearfix"></div>
 						</div>
 					</c:forEach>
-					<div class="offset-2"><hr class="featurette-divider2"></div>	
-							
-					<!--####### 유저 검색결과 : 템플릿 list2.html #######-->
-					<p class="margleft20"><a>유저 더보기</a> </p>		
+									
+					<!--####### 유저 검색결과 : 템플릿 list2.html #######-->	
+					<script>
+					  $(function (){ //Popover tooltips
+						 $("#username").popover({placement:'top', trigger:'hover'});
+					  });
+					</script>
 					<c:forEach items="${memberList}" var = "esMemberVO">
-						<div class="col-md-4" >
+						<div class="col-md-4 border">
 							<!-- CONTAINER-->
-							<div class="carscontainer" style="border:1px solid #e6e6e6">
+							<div class="carscontainer">
 								<div class="center">
-									<a href=""><img src="/resources/updates/update1/img/cars/car04.jpg" alt="유저 배경사진"/></a>
+									<a href=""><img src="/resources/updates/update1/img/cars/car01.jpg" alt=""></a>
 								</div>
-														
+								<div class="hpadding20">
+									<span class="glyphicon glyphicon-info-sign right lblue cpointer" rel="popover" id="username" data-content="This field is mandatory" data-original-title="Here you can add additional information about the car"></span>
+		  
+									<span class="size14 bold dark">${esMemberVO.memberName}</span><br>
+									<span class="size13 grey">
+									
+										<table>
+											<tbody><tr>
+												<td class="dark bold" valign="top">From:&nbsp;&nbsp;&nbsp;</td>
+												<td>Barcelona Airport</td>
+											</tr>
+											<tr>
+												<td class="dark bold" valign="top">To:</td>
+												<td>Barcelona Hotels</td>
+											</tr>
+											<tr>
+												<td class="dark bold" valign="top">On:</td>
+												<td>Feb 6, 2014 at 06:12 for 2 person(s)</td>
+											</tr>
+										</tbody></table>
+									
+									</span>
+								</div>
 								<div class="purchasecontainer">
-									<div class="col-md-8 offset-0">
-										<img src="/resources/images/user.png" alt="유저프로필"  class="left margright10">
-										<p class="size14 margtop10">
-											<span class="bold">${esMemberVO.memberName}</span><br>
-											<span class="size12 grey">일정수 / 팔로워수</span>
-										</p>
-										<div class="clearfix"></div>
-									</div>		
-									<button class="col-md-4 bookbtn">Follow</button>	
+									<span class="size14 bold margtop-20">완료한 일정수 </span><br><br>
+									<span class="size12 mt-3 grey"><i>/ 작성한 일정수 </i></span>
+									<button class="bookbtn right margtop-20">Follow</button>	
 								</div>
-								<div class="clearfix"></div>
 							</div>
 							<!-- END OF CONTAINER-->
 						</div>
-					</c:forEach>
+					</c:forEach>					
+				</div>	
+				
 				<div class="clearfix"></div>
 				<div class="offset-2"><hr class="featurette-divider3"></div>	
 				<!-- End of 통합검색결과 리스트 -->		
