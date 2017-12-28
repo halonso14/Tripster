@@ -24,6 +24,7 @@ import com.tripster.domain.ContentsReviewVO;
 import com.tripster.domain.ContentsVO;
 import com.tripster.domain.Criteria;
 import com.tripster.domain.DashBriefVO;
+import com.tripster.domain.DashCountryVO;
 import com.tripster.domain.DashDetailVO;
 import com.tripster.domain.DashLikeVO;
 import com.tripster.domain.MemberVO;
@@ -66,10 +67,13 @@ public class DashboardController {
 			DashBriefVO dashBrief = dashboardService.getPlanBriefInfo(memberID);
 			List<DashDetailVO> detailList = dashboardService.getPlanDetailInfo(memberID);
 			List<DashLikeVO> likeList = dashboardService.getPlanLikeInfo(memberID);
+			List<DashCountryVO> countryList = dashboardService.getPlanCountryInfo(memberID);
+			
 			map.put("dashBrief", dashBrief);
 			map.put("detailList", detailList);
 			map.put("likeList", likeList);
-	
+			map.put("countryList", countryList);
+			
 			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 			
 			//modelAndView = new ModelAndView();

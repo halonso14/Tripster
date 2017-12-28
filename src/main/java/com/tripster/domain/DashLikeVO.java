@@ -5,7 +5,7 @@ public class DashLikeVO {
 	//멤버 ID
 	//private Integer memberID;
 	//플랜번호
-	private Integer plan_id;
+	//private Integer plan_id;
 	
 	//플랜제목
 	private String plan_title;
@@ -13,14 +13,7 @@ public class DashLikeVO {
 	//좋아요 수
 	private Integer num;
 	
-	
-	public Integer getPlan_id() {
-		return plan_id;
-	}
-	public void setPlan_id(Integer plan_id) {
-		this.plan_id = plan_id;
-	}
-	
+
 	public String getPlan_title() {
 		return plan_title;
 	}

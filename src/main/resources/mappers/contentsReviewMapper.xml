@@ -57,4 +57,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	Contents_Review_ID = #{contentsReviewID}
   </select>
   
+  <insert id="registReviewPicture">
+  insert into tbl_review_attachment 
+  									   (Contents_Review_ID
+  									   ,Review_Picture_Name)
+  								values
+  									  (
+  									   #{reviewID}
+  									  ,#{fileName}
+  									 )
+  
+  </insert>
+  
+  <select id="maxReviewID" resultType="Integer">
+  	select 
+  			Max(Contents_Review_ID)
+  	from 
+  			tbl_contents_review
+  </select>
+  
+  <select id="getFileNames" resultType="String">
+  select
+  		Review_Picture_Name
+  from 
+  		tbl_review_attachment
+  where Contents_Review_ID = #{reviewID}
+  </select>
+  
   </mapper>

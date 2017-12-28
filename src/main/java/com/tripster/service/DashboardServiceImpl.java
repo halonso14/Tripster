@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tripster.domain.DashBriefVO;
+import com.tripster.domain.DashCountryVO;
 import com.tripster.domain.DashDetailVO;
 import com.tripster.domain.DashLikeVO;
 import com.tripster.persistence.DashboardDAO;
@@ -36,6 +37,12 @@ public class DashboardServiceImpl implements DashboardService{
 	public List<DashLikeVO> getPlanLikeInfo(Integer memberID) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.getPlanLikeInfo(memberID);
+	}
+
+	@Override
+	public List<DashCountryVO> getPlanCountryInfo(Integer memberID) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getPlanCountryInfo(memberID);
 	}
 
 

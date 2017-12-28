@@ -36,7 +36,14 @@ public class PlanReplyServiceImpl implements PlanReplyService{
 	//댓글 전체 조회.
 	@Override
 	public List<PlanReplyVO> read(int planID, Criteria cri) throws Exception {
-		return planReplyDAO.list(planID, cri);
+		List<PlanReplyVO> list=  planReplyDAO.list(planID, cri);
+		
+		for(int i=0; i<list.size();i++) {
+			String name = planReplyDAO.selectMemberName(list.get(i).getMemberID());
+			list.get(i).setMemberName(name);
+		}
+		
+		return list;
 	}
 
 	//댓글 카운트 .

@@ -60,4 +60,21 @@ public class ContentsReviewDAOImpl implements ContentsReviewDAO{
 	public int getContentsID(Integer contentsReviewID) throws Exception {
 		return session.selectOne(namespace + ".getContentsID", contentsReviewID);
 	};
+	
+	// 파일 이름 저장
+	@Override
+	public void registReviewPicture(String fileName) throws Exception{
+		Integer maxReviewID = session.selectOne(namespace+".maxReviewID");
+		Map<String,Object> map = new HashMap<>();
+		map.put("reviewID", maxReviewID);
+		map.put("fileName", fileName);
+		session.insert(namespace+".registReviewPicture",map);
+	};
+	
+	// 파일 이름 조회
+	@Override
+	public List<String> getFileNames(Integer reviewID) throws Exception{
+		return session.selectList(namespace+".getFileNames",reviewID);
+	}
+				
 }

@@ -1,5 +1,6 @@
 package com.tripster.controller;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,7 +11,6 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
@@ -75,10 +74,14 @@ public class PlanController {
 		//plan 등록 폼에서 일정표의 default값으로 시작일정 설정해 주기 위해서 'yyy-MM-dd'와 같은 형식으로 만들어줌.
 		Date from =planVO.getPlanStartDate();
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String to = "'"+transFormat.format(from)+"'";
+		String startDate = "'"+transFormat.format(from)+"'";
+		
+		from = planVO.getPlanEndDate();
+		String endDate =  "'"+transFormat.format(from)+"'";
 		
 		//date , planVO값을 파라미터로 넘겨줌.
-		rttr.addFlashAttribute("date",to);
+		rttr.addFlashAttribute("startDate",startDate);
+		rttr.addFlashAttribute("endDate",endDate);
 		rttr.addFlashAttribute("planVO", planVO);
 		
 		//새로 고침 시, 다시 db에 insert되는 것을 막기 위해 redirect함.
@@ -88,7 +91,17 @@ public class PlanController {
 	//plan 조회
 		@RequestMapping(value="/read", method=RequestMethod.GET)
 		public void readPlan(@RequestParam("planID") int planID, ModelMap model) throws Exception{
-			model.addAttribute("plan",planService.readPlan(planID));
+			PlanVO plan = planService.readPlan(planID);
+			Date from =plan.getPlanStartDate();
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String startDate = "'"+transFormat.format(from)+"'";
+			
+			from = plan.getPlanEndDate();
+			String endDate = "'"+transFormat.format(from)+"'";
+			System.out.println("@@@@@@@EndDate:"+endDate);
+			model.addAttribute("startDate",startDate);
+			model.addAttribute("endDate",endDate);
+			model.addAttribute("plan",plan);
 		}
 		
 		//plan 수정
@@ -99,10 +112,13 @@ public class PlanController {
 			//plan 수정 폼에서 default date를 지정해주기 위해서.
 			Date from =vo.getPlanStartDate();
 			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-			String to = "'"+transFormat.format(from)+"'";
+			String startDate = "'"+transFormat.format(from)+"'";
 			
+			from = vo.getPlanEndDate();
+			String endDate = "'"+transFormat.format(from)+"'";
 			model.addAttribute("plan",vo);
-			model.addAttribute("date",to);
+			model.addAttribute("startDate",startDate);
+			model.addAttribute("endDate",endDate);
 		}
 		
 		// plan 수정 폼에서 detailVO 조회.
@@ -250,7 +266,7 @@ public class PlanController {
 	//**************************메모 관련 ********************************/
 	//메모 등록
 	@RequestMapping(value="/memo/register",method= RequestMethod.POST)
-	public ResponseEntity<String> registerMemo(MemoVO vo )throws Exception{
+	public ResponseEntity<String> registerMemo(MemoVO vo ,HttpServletRequest request)throws Exception{
 		System.out.println(vo);
 		ResponseEntity<String> entity = null;
 		try {
@@ -280,6 +296,7 @@ public class PlanController {
 	//메모 수정
 	@RequestMapping(value="/memo/update",method=RequestMethod.POST)
 	public  ResponseEntity<String>  updateMemo(MemoVO vo  )throws Exception{
+		System.out.println(vo);
 		ResponseEntity<String> entity = null;
 		try {
 			memoService.updateMemo(vo);

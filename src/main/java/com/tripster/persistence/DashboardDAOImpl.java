@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.tripster.domain.DashBriefVO;
+import com.tripster.domain.DashCountryVO;
 import com.tripster.domain.DashDetailVO;
 import com.tripster.domain.DashLikeVO;
 import com.tripster.domain.DashboardVO;
@@ -40,6 +41,12 @@ public class DashboardDAOImpl implements DashboardDAO{
 	public List<DashLikeVO> getPlanLikeInfo(Integer memberID) throws Exception {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace + ".getPlanLikeInfo", memberID);
+	}
+
+	@Override
+	public List<DashCountryVO> getPlanCountryInfo(Integer memberID) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace + ".getPlanCountryInfo", memberID);
 	}
 	
 	

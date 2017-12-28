@@ -25,4 +25,10 @@ public interface ContentsReviewDAO {
 	public int getContentsID(Integer contentsReviewID) throws Exception;
 
 	//검색 구현 시 추가
+	
+	// 파일 이름 저장
+	public void registReviewPicture(String fileName) throws Exception;
+	
+	// 파일 이름 조회
+	public List<String> getFileNames(Integer reviewID) throws Exception;
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tripster.domain.ContentsVO;
 import com.tripster.domain.Criteria;
+import com.tripster.domain.SearchCriteria;
 
 public interface ContentsDAO {
 	//맛집 상세 정보 조회

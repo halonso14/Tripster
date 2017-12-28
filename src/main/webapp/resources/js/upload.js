@@ -4,7 +4,7 @@ function checkImageType(fileName){
 }
 
 function getFileInfo(fullName){
-	var fileName, imgsrc, getLink;
+	var fileName, imgsrc, getLink,originalName;
 	
 	var fileLink;
 	
@@ -15,15 +15,16 @@ function getFileInfo(fullName){
 		var front = fullName.substr(0,12);
 		var end = fullName.substr(14);
 		
+		originalName = front+end;
 		getLink = "/displayFile?fileName="+front+end;
 	}else{
-		imgsrc ="/resources/planImg.png";
+		imgsrc ="/resources/plan/.png";
 		fileLink = fullName.substr(12);
 		getLink = "/displayFile?fileName="+fullName;
 	}
 	
 	fileName = fileLink.substr(fileLink.indexOf("_")+1);
 	
-	return {fileName:fileName, imgsrc:imgsrc, getLink:getLink, fullName: fullName};
+	return {fileName:fileName, imgsrc:imgsrc, getLink:getLink, fullName: fullName,originalName:originalName};
 	
 }

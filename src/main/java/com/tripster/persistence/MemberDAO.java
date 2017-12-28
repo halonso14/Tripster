@@ -27,6 +27,12 @@ public interface MemberDAO {
 
 	public MemberVO viewMember(String memberEmail) throws Exception;
 	
+	public MemberVO mypage(Integer memberID) throws Exception;
+	
+	public MemberVO changePassword(MemberVO vo) throws Exception;
+	
+	public void uploadPicture(MemberVO vo) throws Exception;
+	
 	public void updateMember(MemberVO vo) throws Exception;
 	
 	public void deleteMember(Integer memberID) throws Exception;

@@ -82,6 +82,21 @@ public class MemberDAOImpl implements MemberDAO {
 	public MemberVO viewMember(String memberEmail) throws Exception {
 		return session.selectOne(namespace + ".viewMember", memberEmail);
 	}
+	
+	@Override
+	public MemberVO mypage(Integer memberID) throws Exception {
+		return session.selectOne(namespace + ".mypage", memberID);
+	}
+	
+	@Override
+	public MemberVO changePassword(MemberVO vo) throws Exception {
+		return session.selectOne(namespace + ".changePassword", vo);
+	}
+		
+	@Override
+	public void uploadPicture(MemberVO vo) throws Exception {
+		session.insert(namespace + ".uploadPicture", vo);
+	}
 
 	@Override
 	public void updateMember(MemberVO vo) throws Exception {
