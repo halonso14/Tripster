@@ -8,5 +8,4 @@
 </head>
 <body>
 	${myPlanList.get(0) }
-</body>
 </html>

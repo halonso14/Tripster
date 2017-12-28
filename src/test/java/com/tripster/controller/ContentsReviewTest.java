@@ -25,7 +25,6 @@ public class ContentsReviewTest {
 	@Inject
 	ContentsDAO contentsDAO;
 
-//	@Transactional
 //	@Test
 //	public void registTest() throws Exception {
 //		ContentsReviewVO vo = new ContentsReviewVO();
@@ -51,10 +50,31 @@ public class ContentsReviewTest {
 //		
 //	}
 	
+//	@Test
+//	public void getFileNames() throws Exception{
+//		List<String> filenames = dao.getFileNames(41);
+//		System.out.println(filenames.toString());
+//	}
+	
 	@Test
-	public void getFileNames() throws Exception{
-		List<String> filenames = dao.getFileNames(41);
-		System.out.println(filenames.toString());
+	public void reviewList() throws Exception{
+		Criteria cri = new Criteria();
+		cri.setCurPage(1);
+		List<ContentsReviewVO> list = dao.getReviewList(1, cri);
+		
+		for(int i=0;i<list.size();i++) {
+			
+			List<String> str = dao.getFileNames(list.get(i).getContentsReviewID());
+			System.out.println(str.toString());
+			System.out.println("i"+i);
+			System.out.println(list.get(i).getContentsReviewID());
+			list.get(i).setReviewPictureName(str);
+			
+		}
+		
+		System.out.println(list.toString());
+		
+		
 	}
 
 }

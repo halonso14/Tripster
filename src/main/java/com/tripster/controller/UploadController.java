@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tripster.service.ContentsReviewService;
+import com.tripster.service.MemberService;
 import com.tripster.util.MediaUtils;
 import com.tripster.util.UploadFileUtils;
 
@@ -34,51 +35,10 @@ public class UploadController {
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 	
-//	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
-//	public void uploadForm() {
-//		
-//	}
+	@Inject
+	private MemberService memberService;
+	
 
-//	@RequestMapping(value="/uploadForm",method=RequestMethod.POST)
-//	public void uploadForm(MultipartFile file,Model model) {
-//		logger.info(file.getOriginalFilename());
-//		logger.info("size:"+file.getSize());
-//		logger.info(file.getContentType());
-//	}
-	
-//	@RequestMapping(value="/uploadForm",method=RequestMethod.POST)
-//	public String uploadForm(MultipartFile file, Model model)throws Exception{
-//		
-//		logger.info(file.getOriginalFilename());
-//		logger.info("size:"+file.getSize());
-//		logger.info(file.getContentType());
-//		
-//		// 파일저장 후 이름 저장
-//		String saveName = uploadFile(file.getOriginalFilename(),file.getBytes());
-//		// 생성된 파일 이름을 웹페이지에 보냄
-//		model.addAttribute("saveName", saveName);
-//		
-//		// iframe 내에서 동작하기위해 작성된 페이지이동
-//		return "uploadResult";
-//	}
-	
-//	// 파일을 업로드하는 메소드
-//	private String uploadFile(String originalName,byte[] fileData) throws Exception{
-//		
-//		System.out.println("uploadFile method");
-//		// 랜덤 아이디 생성
-//		UUID uid = UUID.randomUUID();
-//		// 랜덤아이디 + 원래 이름 저장
-//		String saveName = uid.toString() + "_" + originalName;
-//		// 업로드 경로에 저장될 이름 저장
-//		File target = new File(uploadPath,saveName);
-//		// target 경로에 저장된이름으로 fileData 복사
-//		FileCopyUtils.copy(fileData, target);
-//		
-//		return saveName;
-//		
-//	}
-//	
 	@RequestMapping(value="/uploadAjax",method=RequestMethod.GET)
 	public void uploadAjax() {
 		
@@ -88,7 +48,7 @@ public class UploadController {
 	@ResponseBody
 	@RequestMapping(value="/uploadAjax",method=RequestMethod.POST,produces="text/plain;charset=UTF-8")
 	public ResponseEntity<String> upload(MultipartFile file) throws Exception{
-		logger.info("uploadAjax111");
+		logger.info("get file in controller");
 		logger.info(file.getOriginalFilename());
 		logger.info("size:"+file.getSize());
 		logger.info(file.getContentType());

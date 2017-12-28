@@ -2,6 +2,7 @@ package com.tripster.domain;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 //맛집 리뷰 클래스
 public class ContentsReviewVO {
@@ -16,14 +17,9 @@ public class ContentsReviewVO {
 	//맛집 리뷰 작성(수정) 시간
 	private Date contentsReviewTime;
 	//리뷰 사진
-	private String[] reviewPictureName;
+	private List<String>reviewPictureName;
 
-	public String[] getReviewPictureName() {
-		return reviewPictureName;
-	}
-	public void setReviewPictureName(String[] reviewPictureName) {
-		this.reviewPictureName = reviewPictureName;
-	}
+	
 	public Integer getMemberID() {
 		return memberID;
 	}
@@ -54,10 +50,17 @@ public class ContentsReviewVO {
 	public void setContentsReviewTime(Date contentsReviewTime) {
 		this.contentsReviewTime = contentsReviewTime;
 	}
+	public List<String> getReviewPictureName() {
+		return reviewPictureName;
+	}
+	public void setReviewPictureName(List<String> reviewPictureName) {
+		this.reviewPictureName = reviewPictureName;
+	}
 	@Override
 	public String toString() {
 		return "ContentsReviewVO [memberID=" + memberID + ", contentsID=" + contentsID + ", contentsReviewID="
 				+ contentsReviewID + ", contentsReview=" + contentsReview + ", contentsReviewTime=" + contentsReviewTime
-				+ ", reviewPictureName=" + Arrays.toString(reviewPictureName) + "]";
+				+ ", reviewPictureName=" + reviewPictureName + "]";
 	}
+	
 }
