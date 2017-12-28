@@ -18,7 +18,7 @@ function getFileInfo(fullName){
 		originalName = front+end;
 		getLink = "/displayFile?fileName="+front+end;
 	}else{
-		imgsrc ="/resources/plan/.png";
+		imgsrc ="/resources/plan/apple.png";
 		fileLink = fullName.substr(12);
 		getLink = "/displayFile?fileName="+fullName;
 	}

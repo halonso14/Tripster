@@ -9,16 +9,205 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/semantic.css">
 <!--<link href='calendar/fullcalendar.print.min.css' rel='stylesheet' media='print' />-->
+<style>
+body {
+	margin-top: 40px;
+	text-align: center;
+	font-size: 14px;
+	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+}
+
+#wrap {
+	width: 1100px;
+	margin: 0 auto;
+}
+
+#external-events {
+	float: left;
+	width: 150px;
+	padding: 0 10px;
+	border: 1px solid #ccc;
+	background: #eee;
+	text-align: left;
+}
+
+#external-events h4 {
+	font-size: 16px;
+	margin-top: 0;
+	padding-top: 1em;
+}
+
+#external-events .fc-event {
+	margin: 10px 0;
+	cursor: pointer;
+}
+
+#external-events p {
+	margin: 1.5em 0;
+	font-size: 11px;
+	color: #666;
+}
+
+#external-events p input {
+	margin: 0;
+	vertical-align: middle;
+}
+
+#calendar {
+	float: right;
+	width: 900px;
+}
+
+.fileDrop {
+	width: 80%;
+	height: 100px;
+	border: 1px dotted gray;
+	background-color: lightslategrey;
+	margin: auto;
+}
+
+</style>
+
+
+
+</head>
+<body>
+
+	<%@include file="/WEB-INF/views/include/header2.jsp"%>
+	<div id='wrap'>
+
+		<div id='external-events'>
+			<h4>Draggable Events</h4>
+			<div class='fc-event' id=1 name=1>한글이</div>
+			<div class='fc-event' id="2" name=1>My Event 2</div>
+			<div class='fc-event' id="3" name=1>My Event 3</div>
+			<div class='fc-event' id="4" name=2>My Event 4</div>
+			<div class='fc-event' id="5" name=2>My Event 5</div>
+		</div>
+
+		<div id='calendar'></div>
+		<div style='clear: both'></div>
+	</div>
+	
+	
+	<!-- Large modal
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      ...
+    </div>
+  </div>
+</div>
+ -->
+
+	<div class="ui modal">
+		<form method="post" id="memoForm">
+			<input type="hidden" name="planID" value=${planVO.planID }> <i
+				class="close icon"></i>
+			<div class="header">Memo</div>
+			<div class="description">
+				<div class="ui header">내용</div>
+				<textarea rows="10" cols="100" name="memoContents"></textarea>
+				<div class="form-group">
+					<div class="ui header">사진</div>
+					<label for="exampleInputEmail1">File DROP Here</label>
+					<div class="fileDrop"></div>
+					<div>
+						<hr>
+					</div>
+					<ul class="mailbox-attachments clearfix uploadedList"></ul>
+				</div>
+			</div>
+			<div class="actions">
+				<input type="button" class="ui red labeled icon button"
+					id="deleteMemoBtn" value="DELETE"> <input type="button"
+					class="ui negative right labeled icon button" id="cancelMemoBtn"
+					value="CANCEL"> <input type="button"
+					class="ui positive right labeled icon button" id="registerMemoBtn"
+					value="SAVE">
+			</div>
+
+		</form>
+	</div>
+	<form action="/plan/read" type="get">
+		<input type="hidden" name="planID" value=${planVO.planID }>
+		<button class="ui positive right labeled icon button">SAVE</button>
+	</form>
+	<script src="https://code.jquery.com/jquery-2.0.3.js"></script>
+	<%@include file="/WEB-INF/views/include/footer.jsp"%>
+	
+	
 <script src='/resources/js/moment.min.js'></script>
-<script src="/resources/js/jquery.min.js"></script>
+<!-- <script src="/resources/js/jquery.min.js"></script> -->
+
+
+<script src="/resources/js/semantic.js"></script>
 <script src="/resources/js/jquery-ui.min.js"></script>
 <script src='/resources/js/fullcalendar.min.js'></script>
-<script src="/resources/js/semantic.js"></script>
+
 <script src="/resources/js/locale-all.js"></script>
 <script type="text/javascript" src="/resources/js/upload.js"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+
+<script id="templatethub" type="text/x-handlebars-template">
+<li data-src='{{fullName}}'>
+	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="{{imgsrc}}"></span>
+	<div class="mailbox-attachment-info">
+		<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
+		<a data-src="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn" onclick="removeAttach($(this))">x<a>
+	</div>
+</li>
+</script>
+
+	<script id="template" type="text/x-handlebars-template">
+<li data-src='{{fullName}}'>
+	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="{{imgsrc}}"></span>
+	<div class="mailbox-attachment-info">
+		<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
+		<a data-src="{{originalName}}" class="btn btn-default btn-xs pull-right delbtn" onclick="removeAttach($(this))">x<a>
+	</div>
+</li>
+</script>
+
+	<script>
+	var template = Handlebars.compile($("#template").html());
+	
+	$(".fileDrop").on("dragenter dragover", function(event) {
+		event.preventDefault();
+	});
+	
+	$(".fileDrop").on("drop", function(event) {
+		event.preventDefault();
+	
+		var files = event.originalEvent.dataTransfer.files;
+		var file = files[0];
+	
+		var formData = new FormData();
+	
+		formData.append("file", file);
+	
+		$.ajax({
+			url : '/uploadAjax',
+			data : formData,
+			dataType : 'text',
+			processData : false,
+			contentType : false,
+			type : 'POST',
+			success : function(data) {
+				var fileInfo = getFileInfo(data);
+				var html = template(fileInfo);
+	
+				$(".uploadedList").append(html);
+			}
+	
+		});
+	});
+</script>
+
 <script>
 	$(document).ready(function() {
         var sendData = new Object();
@@ -216,9 +405,9 @@
                  					var html = template(fileInfo);
                  					$(".uploadedList").append(html);
                  				});
-                 				
+                 				$('.ui.modal').modal({backdrop: 'static'});
                  			  $('.ui.modal').modal('show');
-                              $('.ui.modal').modal({backdrop: 'static'});
+                              
                  			}
                  		});
                  	});
@@ -257,8 +446,10 @@
 	                 success: function(result){
 	                 	$("[data-src='remove']").remove();
 	                	 	if(result =='R_SUCCESS'){
+	                	 		$('.ui.modal').modal('hide');
 	                     	alert("등록되었습니다.");
 	                	 	}else{
+	                	 		$('.ui.modal').modal('hide');
 	                	 		alert("수정되었습니다.");
 	                	 	}
 	                 }
@@ -308,7 +499,9 @@
 	            		console.log(arr);
 	            	}
         		}
+        		$('.ui.modal').modal('hide');
         		$('.uploadedList').empty(); 
+        		
            });
  	});
         
@@ -327,171 +520,7 @@
 	 		});
 	 } 
 </script>
-<style>
-body {
-	margin-top: 40px;
-	text-align: center;
-	font-size: 14px;
-	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
-}
 
-#wrap {
-	width: 1100px;
-	margin: 0 auto;
-}
-
-#external-events {
-	float: left;
-	width: 150px;
-	padding: 0 10px;
-	border: 1px solid #ccc;
-	background: #eee;
-	text-align: left;
-}
-
-#external-events h4 {
-	font-size: 16px;
-	margin-top: 0;
-	padding-top: 1em;
-}
-
-#external-events .fc-event {
-	margin: 10px 0;
-	cursor: pointer;
-}
-
-#external-events p {
-	margin: 1.5em 0;
-	font-size: 11px;
-	color: #666;
-}
-
-#external-events p input {
-	margin: 0;
-	vertical-align: middle;
-}
-
-#calendar {
-	float: right;
-	width: 900px;
-}
-
-.fileDrop {
-	width: 80%;
-	height: 100px;
-	border: 1px dotted gray;
-	background-color: lightslategrey;
-	margin: auto;
-}
-</style>
-
-
-
-</head>
-<body>
-	<div id='wrap'>
-
-		<div id='external-events'>
-			<h4>Draggable Events</h4>
-			<div class='fc-event' id=1 name=1>한글이</div>
-			<div class='fc-event' id="2" name=1>My Event 2</div>
-			<div class='fc-event' id="3" name=1>My Event 3</div>
-			<div class='fc-event' id="4" name=2>My Event 4</div>
-			<div class='fc-event' id="5" name=2>My Event 5</div>
-		</div>
-
-		<div id='calendar'></div>
-		<div style='clear: both'></div>
-	</div>
-	<div class="ui modal">
-		<form method="post" id="memoForm">
-			<input type="hidden" name="planID" value=${planVO.planID }> <i
-				class="close icon"></i>
-			<div class="header">Memo</div>
-			<div class="description">
-				<div class="ui header">내용</div>
-				<textarea rows="10" cols="100" name="memoContents"></textarea>
-				<div class="form-group">
-					<div class="ui header">사진</div>
-					<label for="exampleInputEmail1">File DROP Here</label>
-					<div class="fileDrop"></div>
-					<div>
-						<hr>
-					</div>
-					<ul class="mailbox-attachments clearfix uploadedList"></ul>
-				</div>
-			</div>
-			<div class="actions">
-				<input type="button" class="ui red labeled icon button"
-					id="deleteMemoBtn" value="DELETE"> <input type="button"
-					class="ui negative right labeled icon button" id="cancelMemoBtn"
-					value="CANCEL"> <input type="button"
-					class="ui positive right labeled icon button" id="registerMemoBtn"
-					value="SAVE">
-			</div>
-
-		</form>
-	</div>
-	<form action="/plan/read" type="get">
-		<input type="hidden" name="planID" value=${planVO.planID }>
-		<button class="ui positive right labeled icon button">SAVE</button>
-	</form>
-
-
-<script id="templatethub" type="text/x-handlebars-template">
-<li data-src='{{fullName}}'>
-	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="{{imgsrc}}"></span>
-	<div class="mailbox-attachment-info">
-		<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
-		<a data-src="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn" onclick="removeAttach($(this))">x<a>
-	</div>
-</li>
-</script>
-
-	<script id="template" type="text/x-handlebars-template">
-<li data-src='{{fullName}}'>
-	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="{{imgsrc}}"></span>
-	<div class="mailbox-attachment-info">
-		<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
-		<a data-src="{{originalName}}" class="btn btn-default btn-xs pull-right delbtn" onclick="removeAttach($(this))">x<a>
-	</div>
-</li>
-</script>
-
-	<script>
-	var template = Handlebars.compile($("#template").html());
-	
-	$(".fileDrop").on("dragenter dragover", function(event) {
-		event.preventDefault();
-	});
-	
-	$(".fileDrop").on("drop", function(event) {
-		event.preventDefault();
-	
-		var files = event.originalEvent.dataTransfer.files;
-		var file = files[0];
-	
-		var formData = new FormData();
-	
-		formData.append("file", file);
-	
-		$.ajax({
-			url : '/uploadAjax',
-			data : formData,
-			dataType : 'text',
-			processData : false,
-			contentType : false,
-			type : 'POST',
-			success : function(data) {
-				var fileInfo = getFileInfo(data);
-				var html = template(fileInfo);
-	
-				$(".uploadedList").append(html);
-			}
-	
-		});
-	});
-</script>
 </body>
 
 </html>

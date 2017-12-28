@@ -5709,7 +5709,7 @@ body.modal-open,
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1040;
+  z-index: 1000;
   display: none;
   overflow: auto;
   overflow-y: hidden;
@@ -5757,7 +5757,7 @@ body.modal-open,
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1030;
+  z-index: 500;
   background-color: #000000;
 }
 
