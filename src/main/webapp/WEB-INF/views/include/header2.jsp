@@ -39,7 +39,9 @@
 	<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />	
 	
 <!--     jQuery	 -->	
-<!--     <script src="/resources/assets/js/jquery.v2.0.3.js"></script> -->
+    <script src="https://code.jquery.com/jquery-2.0.3.js"></script>
+    
+    
 	
 
 	

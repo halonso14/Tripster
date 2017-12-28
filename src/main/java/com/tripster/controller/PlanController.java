@@ -368,7 +368,7 @@ public class PlanController {
 			pageMaker.setTotalCount(replyCount);
 			
 			map.put("pageMaker", pageMaker);
-			
+			map.put("replyCount", replyCount);
 			entity = new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();

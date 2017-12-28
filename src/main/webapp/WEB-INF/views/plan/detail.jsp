@@ -6,8 +6,7 @@
 <head>
 <meta charset='utf-8' />
 <link href='/resources/css/fullcalendar.min.css' rel='stylesheet' />
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/semantic.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!--<link href='calendar/fullcalendar.print.min.css' rel='stylesheet' media='print' />-->
 <style>
 body {
@@ -66,16 +65,40 @@ body {
 	margin: auto;
 }
 
+ .modal {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+        .modal-body {
+            display: inline-block;
+            background-color: #FFF; }
 </style>
 
 
 
 </head>
-<body>
 
 	<%@include file="/WEB-INF/views/include/header2.jsp"%>
-	<div id='wrap'>
 
+<script src='/resources/js/moment.min.js'></script>
+<script src="/resources/js/jquery-ui.min.js"></script>
+<script src='/resources/js/fullcalendar.min.js'></script>
+<script src="/resources/js/locale-all.js"></script>
+<script type="text/javascript" src="/resources/js/upload.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
+	<div id='wrap'>
+		<div class="clearfix"></div>
 		<div id='external-events'>
 			<h4>Draggable Events</h4>
 			<div class='fc-event' id=1 name=1>한글이</div>
@@ -89,81 +112,51 @@ body {
 		<div style='clear: both'></div>
 	</div>
 	
-	
-	<!-- Large modal
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
-
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      ...
-    </div>
-  </div>
-</div>
- -->
-
-	<div class="ui modal">
-		<form method="post" id="memoForm">
-			<input type="hidden" name="planID" value=${planVO.planID }> <i
-				class="close icon"></i>
-			<div class="header">Memo</div>
-			<div class="description">
-				<div class="ui header">내용</div>
-				<textarea rows="10" cols="100" name="memoContents"></textarea>
-				<div class="form-group">
-					<div class="ui header">사진</div>
-					<label for="exampleInputEmail1">File DROP Here</label>
-					<div class="fileDrop"></div>
-					<div>
-						<hr>
-					</div>
-					<ul class="mailbox-attachments clearfix uploadedList"></ul>
-				</div>
-			</div>
-			<div class="actions">
-				<input type="button" class="ui red labeled icon button"
-					id="deleteMemoBtn" value="DELETE"> <input type="button"
-					class="ui negative right labeled icon button" id="cancelMemoBtn"
-					value="CANCEL"> <input type="button"
-					class="ui positive right labeled icon button" id="registerMemoBtn"
-					value="SAVE">
-			</div>
-
-		</form>
-	</div>
 	<form action="/plan/read" type="get">
 		<input type="hidden" name="planID" value=${planVO.planID }>
-		<button class="ui positive right labeled icon button">SAVE</button>
+		<!-- <button class="ui positive right labeled icon button">SAVE</button> -->
+		<button class="bluebtn margtop20" id="modify">SAVE</button>
 	</form>
-	<script src="https://code.jquery.com/jquery-2.0.3.js"></script>
-	<%@include file="/WEB-INF/views/include/footer.jsp"%>
 	
 	
-<script src='/resources/js/moment.min.js'></script>
-<!-- <script src="/resources/js/jquery.min.js"></script> -->
-
-
-<script src="/resources/js/semantic.js"></script>
-<script src="/resources/js/jquery-ui.min.js"></script>
-<script src='/resources/js/fullcalendar.min.js'></script>
-
-<script src="/resources/js/locale-all.js"></script>
-<script type="text/javascript" src="/resources/js/upload.js"></script>
-<script src="http://malsup.github.com/jquery.form.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
-
-<script id="templatethub" type="text/x-handlebars-template">
-<li data-src='{{fullName}}'>
-	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="{{imgsrc}}"></span>
-	<div class="mailbox-attachment-info">
-		<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
-		<a data-src="{{fullName}}" class="btn btn-default btn-xs pull-right delbtn" onclick="removeAttach($(this))">x<a>
+	<div class="container">
+		 <div class="modal fade" id="myModal" role="dialog">
+		 
+			 <form method="post" id="memoForm">
+				<input type="hidden" name="planID" value=${planVO.planID }>
+				<!-- Modal content-->
+          		<div class="modal-content">
+              		<div class="modal-header">
+              		  	<button type="button" class="close" data-dismiss="modal">&times;</button>
+                   	 	<h4 class="modal-title">Memo</h4>
+                    </div>
+					<div class="modal-body">
+						<textarea rows="10" cols="100" name="memoContents"></textarea>
+						<div class="form-group">
+							<h3 class="modal-title">사진</h3>
+							<label for="exampleInputEmail1">File DROP Here</label>
+							<div class="fileDrop"></div>
+							<div>
+								<hr>
+							</div>
+							<ul class="mailbox-attachments clearfix uploadedList"></ul>
+						</div>
+					</div>
+				
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="cancelMemoBtn">CANCEL</button>
+						<input type="button" class="btn-search4 " id="deleteMemoBtn" value= "DELETE">
+						<input type="button" class="btn btn-primary"
+						id="registerMemoBtn" value="SAVE">
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
-</li>
-</script>
+	
+<%@include file="/WEB-INF/views/include/footer.jsp"%>
 
-	<script id="template" type="text/x-handlebars-template">
+<script id="template" type="text/x-handlebars-template">
 <li data-src='{{fullName}}'>
 	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="{{imgsrc}}"></span>
 	<div class="mailbox-attachment-info">
@@ -172,6 +165,8 @@ body {
 	</div>
 </li>
 </script>
+
+
 
 	<script>
 	var template = Handlebars.compile($("#template").html());
@@ -351,8 +346,8 @@ body {
              },
              
              eventRender: function(event, element) {
-                 element.find('.fc-content').append( "<span class='memo'> ㅁ </span>" );
-                 element.find('.fc-content').append( "<span class='closeon'> X </span>" );
+                 element.find('.fc-content').append( '<span class="glyphicon glyphicon-edit memo" aria-hidden="true">' );
+                 element.find('.fc-content').append('<span class="glyphicon glyphicon-trash closeon" aria-hidden="true">' );
                  //삭제
                  element.find(".closeon").click(function() {
                  	var arr =[];
@@ -405,8 +400,8 @@ body {
                  					var html = template(fileInfo);
                  					$(".uploadedList").append(html);
                  				});
-                 				$('.ui.modal').modal({backdrop: 'static'});
-                 			  $('.ui.modal').modal('show');
+                 				$('#myModal').modal({backdrop: 'static'});
+                 			  $('#myModal').modal('show');
                               
                  			}
                  		});
@@ -417,7 +412,7 @@ body {
            //메모 등록 버튼.
            $("#registerMemoBtn").click(function(event){
            		event.preventDefault();
-           		var formdata = $(this).parent().parent();
+           		var formdata = $(this).parent().parent().parent();
            		var url;
            		var str="";
            		if(isContents == null){
@@ -446,10 +441,10 @@ body {
 	                 success: function(result){
 	                 	$("[data-src='remove']").remove();
 	                	 	if(result =='R_SUCCESS'){
-	                	 		$('.ui.modal').modal('hide');
+	                	 		$('#myModal').modal('hide');
 	                     	alert("등록되었습니다.");
 	                	 	}else{
-	                	 		$('.ui.modal').modal('hide');
+	                	 		$('#myModal').modal('hide');
 	                	 		alert("수정되었습니다.");
 	                	 	}
 	                 }
@@ -476,7 +471,7 @@ body {
          		contentType: "application/json; charset=UTF-8",
                  success:function(result){
               	   	if(result=='SUCCESS'){
-              	  	 	$('.ui.modal').modal('hide');
+              	  	 	$('#myModal').modal('hide');
            	   			alert('삭제되었습니다.');
            	   		}
                   }
@@ -499,7 +494,7 @@ body {
 	            		console.log(arr);
 	            	}
         		}
-        		$('.ui.modal').modal('hide');
+        		$('#myModal').modal('hide');
         		$('.uploadedList').empty(); 
         		
            });
@@ -520,7 +515,6 @@ body {
 	 		});
 	 } 
 </script>
-
 </body>
 
 </html>

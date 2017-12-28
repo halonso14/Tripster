@@ -188,8 +188,8 @@
 						<span class="size14 dark bold">Comments</span>
 						<div class="line4"></div>
 						<!-- <input type="hidden" name="memberID" value=1 id="newReplyWriter"> -->
-						<textarea class="form-control" rows="3" name="planReplyContents" id="newReplyText" ></textarea><br/>
-
+						<textarea class="form-control" rows="3" name="planReplyContents" id="newReplyText" ></textarea>
+						<span class="errorMessage" style="color: red; font-weight: bold;"></span><br/>
 						<button onclick="errorMessage()" type="submit" class="btn-search5" id="replyAddBtn">Post <span class="glyphicon glyphicon-arrow-down"></span></button>
 						<br/><br/><br/>
 					</div>
@@ -238,6 +238,18 @@
 		</div>
 	</div>
 	
+	
+	<!-- CarouFredSel -->
+	<script src="/resources/assets/js/jquery.carouFredSel-6.2.1-packed.js"></script>
+    <script src="/resources/assets/js/helper-plugins/jquery.touchSwipe.min.js"></script>
+	<script type="text/javascript" src="/resources/assets/js/helper-plugins/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="/resources/assets/js/helper-plugins/jquery.transit.min.js"></script>
+	<script type="text/javascript" src="/resources/assets/js/helper-plugins/jquery.ba-throttle-debounce.min.js"></script>
+	
+	    <!-- Picker -->	
+    <script src="/resources/assets/js/jquery.easing.js"></script>	
+    
+    
 	<%@include file="/WEB-INF/views/include/footer.jsp"%>
 <script>
 	var planID = ${plan.planID};
@@ -245,7 +257,6 @@
 	
 	function getPageList(page){
 		$.getJSON("/plan/reply/read/"+planID+"/"+page, function(data){
-			var count = data.reply.length;
 			
 			var str ='';
 			var countstr ='';
@@ -256,7 +267,7 @@
 			
 			});
 			
-			countstr='<span class="size14 dark bold">'+count+' comments</span><div class="line4"></div>';
+			countstr='<span class="size14 dark bold">'+data.replyCount+' comments</span><div class="line4"></div>';
 			
 			$("#count").html(countstr);
 			$("#replies").html(str);
@@ -291,11 +302,21 @@
 		getPageList(replyPage);
 	});
 	
-	//댓글 추가
-	$("#replyAddBtn").on("click", function(){
-		/* var replyer = $("#newReplyWriter").attr("value"); */
+	//댓글 입력했는지 여부 확인
+	function errorMessage(){
+		var text = $("#newReplyText").val();
+		var str =''
+		if(text == ''){
+			str = '<span>글을 입력해주세요</span>';
+			$(".errorMessage").html(str);
+		}else{
+			addReply();
+		}
+	}
+	
+	//댓글 추가.
+	function addReply(){
 		var replytext = $("#newReplyText").val();
-		
 		$.ajax({
 			type:'post',
 			url:'/plan/reply/register',
@@ -308,13 +329,13 @@
 			success : function(result) {
 				if (result == 'SUCCESS') {
 					$("#newReplyText").val('');
+					$(".errorMessage").empty();
 					alert("등록 되었습니다.");
 					getPageList(replyPage);
 				}
 			}
 		});
-	});
-	
+	}
 	
 	//mod버튼 클릭 시,
 	$("#replies").on("click", ".replyspan a", function(){
@@ -378,5 +399,7 @@
 	$("#closeBtn").on("click", function() {
 		$("#modDiv").attr("style", "display: none;");
 	});
+	
+
 </script>
 </html>
