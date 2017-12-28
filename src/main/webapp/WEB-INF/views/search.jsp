@@ -7,7 +7,7 @@
   <head>
   	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Travel Agency - HTML5 Booking template</title>
+	<title>검색결과 :: Tripster</title>
 	
     <!-- Bootstrap -->
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
@@ -76,14 +76,40 @@
 
 	<!--####### CONTAINER #######-->
 	<div class="container">
-		<c:forEach items="${search}" var = "String">
-			<li>${String}</li>
-		</c:forEach>
-		<!-- 컨텐츠 검색 결과 템플릿 : list4.html -->
+		<ul>
+			<c:set item="${pageMaker}" var="totalCount">
+				검색결과 총 ${totalCount}
+			</c:set> 
+			 
+			<!-- 컨텐츠 검색 결과 템플릿 : list4.html -->
+			<c:forEach items="${contentsList}" var = esContentsVO">
+				<li>
+					제목 : ${esContentsVO.title}</br>
+					내용 : ${esContentsVO.contents}</br>
+					조회수 ${esContentsVO.contentsViewCnt} | 리뷰 ${esContentsVO.contentsReviewCnt} | 스크랩 ${esContentsVO.contentsScrapCnt}
+				</li>
+			</c:forEach>
+			<!-- 일정 검색 결과 템플릿 : list3.html -->
+			<c:forEach items="${planList}" var = "esPlanVO">
+				<li>
+					제목 : ${esPlanVO.title}</br>
+					내용 : ${esPlanVO.contents}</br>
+					조회수 ${esPlanVO.contentsViewCnt} | 리뷰 ${esPlanVO.contentsReviewCnt} | 스크랩 ${esPlanVO.contentsScrapCnt}
+				</li>
+			</c:forEach>			
+			<!-- 유저 검색 결과 템플릿 : list2.html -->	
+			<c:forEach items="${memberList}" var = "esMemberVO">
+				<li>
+					제목 : ${esMemberVO.title}</br>
+					내용 : ${esMemberVO.contents}</br>
+					조회수 ${esMemberVO.contentsViewCnt} | 리뷰 ${esMemberVO.contentsReviewCnt} | 스크랩 ${esMemberVO.contentsScrapCnt}
+				</li>
+			</c:forEach>
+		</ul>
+
 		
-		<!-- 일정 검색 결과 템플릿 : list3.html -->
 		
-		<!-- 유저 검색 결과 템플릿 : list2.html -->	
+
 		
 	</div>
 	<!-- END OF Container -->

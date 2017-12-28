@@ -1,4 +1,45 @@
 {
-    "name": "Bob",
-    "age": 13
+    "contentsID": "123",
+    "title": "컨텐츠 이름",
+    "location": "컨텐츠 위치",
+    "rating": "12345", 
+    "time": "컨텐츠 이용 시간",
+    "contents": "컨텐츠 상세 정보",
+    "tel": "컨텐츠 전화번호",
+    "categoryID": "123",
+    "contentsViewCnt": "1",
+    "contentsReviewCnt": "1",
+    "contentsScrapCnt": "1",
+    
+	"EsContentsDetailVO": {
+		"contentsDetail": "컨텐츠 상세 정보 객체 "
+	},
+	
+	"ContentsReviewVO": [
+		{
+		    "memberID": "123",
+		    "contentsID": "123",
+		    "contentsReviewID": "123",
+		    "contentsReview": "리뷰 내용",	
+		    "contentsReviewTime": "2017-01-01"	
+		},
+		{
+		    "memberID": "123",
+		    "contentsID": "123",
+		    "contentsReviewID": "123",
+		    "contentsReview": "리뷰 내용",	
+		    "contentsReviewTime": "2017-01-01"
+		},
+		{
+		    "memberID": "123",
+		    "contentsID": "123",
+		    "contentsReviewID": "123",
+		    "contentsReview": "리뷰 내용",	
+		    "contentsReviewTime": "2017-01-01"
+		}
+	]
 }
+	
+	
+	
+    

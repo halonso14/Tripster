@@ -38,11 +38,11 @@ public class SearchPageMaker { // 페이지 처리용 객체.
 	public SearchCriteria getCri() {
 		return cri;
 	}
-	public int getTotalCount() {
+	public long getTotalCount() {
 		return totalCount;
 	}
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
+	public void setTotalCount(long totalCount) {
+		this.totalCount = (int) totalCount;
 		calcData();
 	}
 	public int getStartPage() {
