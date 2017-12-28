@@ -43,7 +43,7 @@ public class ListController {
 	
 	
 	// 다른 회원의 일정 조회
-	@RequestMapping(value="/memberSchedule/{planID}")
+	@RequestMapping(value="/memberSchedule/{planID}",method=RequestMethod.GET)
 	public String userplanList(@PathVariable("planID")Integer planID,Model model)throws Exception {
 		
 		// 현재 접속중인 회원

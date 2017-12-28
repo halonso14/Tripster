@@ -257,6 +257,7 @@
 		var contentsID = ${contentsID};
 		var reviewPage = 1;
 		var scrapbt = $("#scrapBttn");
+		// 화면에서 등록한 파일 이름 저장
 		var fileNames = new Array;
 		
 		// 스크랩 체크
@@ -315,9 +316,10 @@
 						alert(data);
 						// 리뷰 등록후 처음 1 페이지로 이동
 						getReviewList(1);
+						
 				}
 			});
-			
+			// 등록 후 리뷰 텍스트 내용 초기화
 			$("#reviewDetail").val("")
 		});
 		
@@ -347,7 +349,7 @@
 		
 		// 파일을 박스안에 놓을때 	
 		$('.uploadList').on("drop",function(event){
-			
+			console.log('put file');
 			event.preventDefault();
 			// 박스안에 놓인 파일 가져오기
 			var file = event.originalEvent.dataTransfer.files;
@@ -368,7 +370,7 @@
 				// 데이터를 보낸 후 
 				success: function(data){
 					var str = "";
-					console.log('success data:'+data);
+					getFileNames(data);
 					// 생성된 파일의 이름 포맷 검사
 					if(checkImageType(data)){
 						// 이미지 파일일 경우 썸네일 생성
@@ -383,7 +385,6 @@
 						str = "<li><a href='/displayFile?fileName="+data+"'>" + getOriginalName(data) 
 							 +"</a><small fileName="+data+">X</small></li>";
 					}
-					
 					$('.uploadList').append(str);
 				}
 			});
@@ -404,11 +405,11 @@
 		// 리뷰 리스트 함수
 		function getReviewList(reviewPage) {
 			$.getJSON("/contents/review/"+contentsID+"/"+reviewPage, function(data) {
-				alert('get List');
 				var str = "";
 				
 				// 컨텐츠의 리뷰 리스트 받아오기
 				$(data.list).each(function() {
+					console.log('1')
 					str += "<div class='col-md-4 offset-0 center' data-contentsReviewID='"+this.contentsReviewID+"'>"
 						+ "		<div class='padding20'>"
 						+ "			<div class='bordertype5'>"
@@ -427,7 +428,7 @@
 						+ "			<span class='opensans size16 dark'>Great experience</span><br/>"
 						+ "			<span class='opensans size13 lgrey'>Posted Jun 02, 2013</span><br/>"
 						+ "			<p data-contentsReviewID='"+this.contentsReviewID+"' class='"+this.contentsReviewID+"'>"+ this.contentsReview + "</p>"
-						+ 			"<div id='getImage'>"+getImage(this.contentsReviewID)+"</div>"
+						+ 			"<div id='getImage'>"+getImage(this.reviewPictureName)+"</div>"
 						+ "		</div>"
 						+ "	</div>"
 						+ " <div>"
@@ -446,47 +447,39 @@
 				$('.uploadList').html("");
 				// 초기화후 업로드 박스 제거
 				$('.uploadList').removeAttr( 'style' );
+				// 리뷰 등록시 업로드했던 파일 이름 제거
+				fileNames = new Array;
 				// 페이징 처리
 				printPaging(data.pageMaker);
 			});
 		}
 
 		// 리뷰 아이디를 받아 이미지 생성 
-		function getImage(reviewID){
-			var reviewID = reviewID;
-			// 포스트 방식으로 전달
-			/* $.post("/getFileName",{reviewID:reviewID},function(data){ */
-			$.ajax({
-				url:"/getFileName",
-				data: {reviewID : reviewID},
-				type: 'POST',
-				// 데이터를 보낸 후 
-				success: function(data){
-					var str = "" ;
-					console.log("data:" + data);
-					// 받은 파일 이름들로 이미지 추가
-					for(var i=0;i<data.length;i++){
-						console.log("<a href='/displayFile?fileName="+ getImageLink(data[i])+"'>");
-				        // 확장자 검사
-				        if(checkImageType(data[i])){
-				            // 이미지 파일일 경우 썸네일 생성
-				            str = str + "<li>"
-				                // 원본 파일 링크
-				                + "<a href='/displayFile?fileName="+ getImageLink(data[i])+"'>"
-				                // 썸네일 생성
-				                + "<img src='/displayFile?fileName="+data[i]+"'/>"
-				                + getOriginalName(data[i]) +"</a>"
-				                + "<small fileName="+data[i]+">X</small></li>";
-				        }else{
-				            // 이미지 파일이 아닐경우 다운로드
-				            str = str + "<li><a href='/displayFile?fileName="+data[i]+"'>" + getOriginalName(data[i])
-				                +"</a><small fileName="+data[i]+">X</small></li>";
-				        };
-				    };
-					
-					$("#getImage").html(str);
-				}
-			});
+		function getImage(reviewPictureName){
+			var fileList = new Array;
+			fileList = reviewPictureName;
+			var str = "" ;
+			
+			// 받은 파일 이름들로 이미지 추가
+			for(var i=0;i<fileList.length;i++){
+				// 확장자 검사
+		        if(checkImageType(fileList[i])){
+		            // 이미지 파일일 경우 썸네일 생성
+		            str = str + "<li>"
+		                // 원본 파일 링크
+		                + "<a href='/displayFile?fileName="+ getImageLink(fileList[i])+"'>"
+		                // 썸네일 생성
+		                + "<img src='/displayFile?fileName="+fileList[i]+"'/>"
+		                + getOriginalName(fileList[i]) +"</a>";
+		        }else{
+		            // 이미지 파일이 아닐경우 다운로드
+		            str = str + "<li><a href='/displayFile?fileName="+fileList[i]+"'>" + getOriginalName(fileList[i]);
+		                
+		        };
+			}
+			
+		    console.log(str);
+			return str;
 		}
 		
 		// 리뷰 수정
@@ -536,7 +529,7 @@
 			alert('click');
 			// 리뷰 아이디
 			var contentsReviewID = $(this).attr('id');
-			
+			console.log(contentsReviewID);
 			$.ajax({
 				type :'delete',
 				url : '/contents/contentsDetail/'+ contentsID +'/'+ contentsReviewID,
@@ -553,6 +546,11 @@
 			});
 			
 		})
+		
+		// 리뷰 등록시  파일 이름 저장
+		function getFileNames(data){
+			fileNames.push(data);
+		}
 	
 		// 페이징 처리
 		function printPaging(pageMaker) {
@@ -595,13 +593,12 @@
 		
 		// 이미지 파일 링크 처리
 		function getImageLink(fileName){
-			console.log(fileName);
+			
 			// /년/월/일 추출
 			var front = fileName.substr(0,12);
 			// s_ 제거한 원본 이름
 			var end = fileName.substr(14);
 			
-			console.log(front+end);
 			// 원본이름 리턴
 			return front + end;
 		}

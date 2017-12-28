@@ -47,4 +47,10 @@ public class ContentsDAOTest {
 //	public void testGetTotalContentsNum() throws Exception {
 //		System.out.println(dao.getTotalContentsNum(cri));
 //	}
+	
+	@Test
+	public void textContentsVO() throws Exception {
+		
+		System.out.println(dao.getRestaurantDetail(1));
+	}
 }

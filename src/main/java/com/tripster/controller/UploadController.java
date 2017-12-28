@@ -3,6 +3,7 @@ package com.tripster.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tripster.domain.MemberVO;
+import com.tripster.service.ContentsReviewService;
 import com.tripster.service.MemberService;
 import com.tripster.util.MediaUtils;
 import com.tripster.util.UploadFileUtils;
@@ -40,6 +42,9 @@ public class UploadController {
 	
 	@Inject
 	private MemberService service;
+	
+	@Inject
+	ContentsReviewService reviewservice;
 
 	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
 	public void uploadForm() {
@@ -129,6 +134,28 @@ public class UploadController {
 			in.close();
 		}
 		return entity;
+	}
+	
+	// 디비에서 파일 가져오기
+	@RequestMapping(value="/getFileName",method=RequestMethod.POST)
+	public ResponseEntity<List<String>> getAttach(Integer reviewID){
+		
+		logger.info("reviewID:"+reviewID);
+		
+		ResponseEntity<List<String>> entity = null;
+		
+		try {
+			List<String> fileNames = reviewservice.getFileNames(reviewID);
+			logger.info("fileNames:"+fileNames.toString());
+			entity = new ResponseEntity<List<String>>(fileNames,HttpStatus.OK);
+		} catch(Exception e) {
+			e.printStackTrace();
+			//오류 발생 시, BAR_REQUEST 상태 입력
+			entity = new ResponseEntity<List<String>>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+		
 	}
 
 	@ResponseBody

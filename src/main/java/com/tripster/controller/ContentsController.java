@@ -231,12 +231,11 @@ public class ContentsController {
 			//ResponsEntity 객체에 담을 댓글 리스트 정보 저장
 			List<ContentsReviewVO> list = contentsReviewService.getReviewList(contentsID, cri);
 			map.put("list", list);
-			
+			logger.info("list: " + list.toString());
 			//ResponsEntity 객체에 담을 페이지 정보 저장
 			int reviewCount = contentsReviewService.getTotalReviewNum(contentsID);
 			pageMaker.setTotalCount(reviewCount);
 			map.put("pageMaker", pageMaker);
-			
 			//View로 전달할 ResponsEntity 객체 생성 + 정보 전달 
 			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 			
@@ -301,7 +300,7 @@ public class ContentsController {
 	public ResponseEntity<String> deleteReview(@PathVariable("contentsID") Integer contentsID,
 										 @PathVariable("contentsReviewID") Integer contentsReviewID) {
 		ResponseEntity<String> entity = null;
-		
+		logger.info("delete controller");
 		//PathVariable 활용, 컨텐츠 리뷰 삭제
 		try {
 			contentsReviewService.deleteReview(contentsReviewID);

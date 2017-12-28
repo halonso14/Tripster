@@ -42,6 +42,7 @@ public class UploadFileUtils {
 		}else {
 			// 이미지파일이 아닐 경우 아이콘 생성, 원본 이름 저장
 			uploadedFileName = makeIcon(uploadPath,savePath,saveName);
+			logger.info("uploadedFile Name:"+uploadedFileName);
 		}
 		
 		// 저장될 파일 이름 리턴
