@@ -15,7 +15,6 @@
  $(document).ready(function() {
 	var formObj = $("form[role='form']")
 	$("#modify").click(function(){
-		alert('클릭했당 ');
 		formObj.attr("action","/plan/update");
 		formObj.attr("method","GET");
 		formObj.submit();
@@ -99,7 +98,7 @@
 						//------------------------------
 						//CaroufredSell
 						//------------------------------
-						jQuery(document).ready(function(jQuery){
+						$(document).ready(function(jQuery){
 
 							jQuery("#foo5").carouFredSel({
 								width: "100%",
@@ -177,11 +176,16 @@
 							<br/><br/>
 						</c:forEach> 
 					
-						<button class="btn-search4 margtop20" id="remove">REMOVE</button>
-						<button class="bluebtn margtop20" id="modify">MODIFY</button>
-
+						
+						<c:set var="session" value='<%= session.getAttribute("login")%>'/>
+						<c:set var="planWriter" value="${plan.memberID }"/>
+						<c:if test="${session.memberID == planWriter}">
+							<button class="btn-search4 margtop20" id="remove">REMOVE</button>
+							<button class="bluebtn margtop20" id="modify">MODIFY</button>
+							<div class="line4"></div>
+						</c:if>
 					</form>
-					<div class="line4"></div>
+					
 				
 				<!-- 댓글 -->
 					<div>
@@ -194,7 +198,7 @@
 						<br/><br/><br/>
 					</div>
 						
-						<div id="count">
+						<div id="count"> 
 
 						</div>
 						<div id="replies">
@@ -260,13 +264,40 @@
 			
 			var str ='';
 			var countstr ='';
+			var id='';
+			
+			//session의 memberID값 memberID변수에 할당.
+			<c:set value="${session.memberID}" var = "memberID"/>
+			
+			//session값 체크.(session이 있으면 id라는 변수에 해당 session의 memberID값 할당. 아니면 ''값 할당.)
+			<c:choose>
+				<c:when test="${empty session}">
+					id='';
+				</c:when>
+				<c:otherwise>
+					id=${memberID};
+				</c:otherwise>
+			</c:choose>
+			
+		
 			$(data.reply).each(function(){
 				str+= "<br><div class='wh20percent left textleft'><div class='circlewrap2'><img alt='' class='circleimg' src='/resources/images/user-avatar.jpg'></div></div>"
 				+'<div class="wh80percent right "><span class="lblue bold">'+this.memberName+'</span><br/>'+
-				'<span class="replyspan" data-rno="'+this.planReplyID+'">'+this.planReplyContents+'</br><span class="grey size12"><a href="#" class="grey">Modify</a></span></span></div><div class="clearfix"></div><div class="line4">'
-			
+				'<span class="replyspan" data-rno="'+this.planReplyID+'">'+this.planReplyContents+'';
+				
+				//session이 존재하면,	
+ 				if('' != id){
+ 					//session의 id와 댓글 작성자 id와 비교.
+					 if(id == this.memberID){
+						 //같으면 modify버튼 보여줌.
+						str+='</br><span class="grey size12"><a href="#" class="grey">Modify</a></span>'
+					} 
+				}
+				
+				str+='</span></div><div class="clearfix"></div><div class="line4">';
 			});
 			
+			//해당 read페이지에 달 총 댓글 수 보여줌.
 			countstr='<span class="size14 dark bold">'+data.replyCount+' comments</span><div class="line4"></div>';
 			
 			$("#count").html(countstr);

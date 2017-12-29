@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
-<%@include file="/WEB-INF/views/include/planModal.jsp"%>
+<%@include file="/WEB-INF/views/plan/planModal.jsp"%>
 <!-- Top wrapper -->
 <div class="navbar-wrapper3 navbar-fixed-top2">
 	<div class="container">

@@ -61,7 +61,7 @@ body {
 
 
 .fileDrop {
-	width: 80%;
+	width: 100%;
 	height: 100px;
 	border: 1px dotted gray;
 	background-color: lightslategrey;
@@ -135,7 +135,7 @@ body {
                    	 	<h4 class="modal-title">Memo</h4>
                     </div>
 					<div class="modal-body">
-						<textarea rows="10" cols="100" name="memoContents"></textarea>
+						<textarea rows="10" cols="80" name="memoContents"></textarea>
 						<div class="form-group">
 							<h3 class="modal-title">사진</h3>
 							<label for="exampleInputEmail1">File DROP Here</label>
