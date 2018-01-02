@@ -122,7 +122,8 @@ body {
 			<!--id : contentsID name:categoryID  -->
 				<div class='fc-event' id=1 name=1 style="background-color: #f6f8f900; font-size: 14px;">
 					<a href="#"><img alt="" class="left mr20" src="/resources/planImg/noimg.png" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
-					<a class="dark" href="#"><b>Hotel Dany</b></a><br>
+					<a class="dark" href="#" id="contentsTitle"><b>Hotel Dany</b></a><br>
+					<span class="opensans green bold size14">$36-$160</span>
 					<!-- <img alt="" src="/resoureces/images/filter-rating-5.png"> -->
 				</div>
 				<div class="line4"></div>
@@ -239,8 +240,7 @@ body {
         $('#external-events .fc-event').each(function() {
             // store data so the calendar knows to render an event upon drop
            $(this).data('event', {
-               	
-                title: $.trim($(this).text()), // use the element's text as the event title
+        	   		title: $.trim($("#contentsTitle").text()), // use the element's text as the event title
                 stick:true // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
                             // false: 없어짐.
                

@@ -29,9 +29,10 @@
 } */
 </style>
 	<div class="container">
-        <div class="modal fade" id="planModal" role="dialog">
+        
 
             <form role="form" action="/plan/register" method="POST">
+            <div class="modal fade" id="planModal" role="dialog">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -56,8 +57,9 @@
                     <input type="button" class="btn btn-primary" value="등록" onclick="errorCheck()" style="width: 180px">
                 </div>
             </div>
+            </div>
             </form>
-        </div>
+        
     </div>
     
     <script>

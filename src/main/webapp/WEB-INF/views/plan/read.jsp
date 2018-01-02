@@ -61,7 +61,7 @@
     float: left;
     position: relative;
    /*  left: 50%; */
-    bottom: -40px;
+    bottom: -20px;
     width: 25px;
     height: 13px;
     background: url(/resources/images/about-arrow.png) no-repeat;
@@ -79,6 +79,21 @@
 .member_name{
 	float: right;
 }
+
+#eventWrapper{
+	 border-left: 1px solid #ccc;
+}
+
+.dayCircle {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    left: -6px;
+   /*  top: 9px; */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+}
 </style>
 	
 </head>
@@ -94,7 +109,12 @@
 			<!-- CONTENT -->
 			<div class="col-md-12 pagecontainer2 offset-0">
 				<div class="hpadding50c">
-					<p class="lato size30 slim">${plan.planTitle}</p>
+					<div>
+						<div class="lato size30 slim">${plan.planTitle}</div>
+					
+						<!-- <a href="#" class="blogpost-hover" style="float: right"><span class="glyphicon glyphicon-heart"></span></a> -->
+						
+					</div>
 					<div class="lato size15 grey bold">
 						<fmt:formatDate var="parseStartDate" value="${plan.planStartDate }" pattern="yyyy-MM-dd"/>
 						<fmt:formatDate var="parseEndDate" value="${plan.planEndDate }" pattern="yyyy-MM-dd"/>
@@ -149,19 +169,27 @@
 						</script>
 						<!-- Carousel -->
 						<br/>
+						
 						<form role="form"  method="post">
 							<input type="hidden" name="planID" value="${plan.planID }">
 
 							<c:set var = "date" value=""/>
+							<div id="eventWrapper" style="border-left: 1px solid #ccc;padding-left: 20px">
+							<%-- <fmt:parseDate var="startDate" value="${plan.planStartDate }" pattern="yyyy-MM-dd"/> --%>
+							<%-- <c:set var="startDate" value="${plan.planStartDate }"/> --%>
+							
 							<c:forEach items="${plan.planDetailVO }" var="planDetailVO">
+								<%-- <fmt:parseDate var="nowDate" value="${planDetailVO.planDetailDatee }" pattern="yyyy-MM-dd"/> --%>
+								<%-- <c:set var="nowDate" value="${planDetailVO.planDetailDate }"/> --%>
 								<c:if test="${planDetailVO.planDetailDate ne date}">
-									<span class="lato size22 dark bold" style="color:#ca4a09">${planDetailVO.planDetailDate }</span><br/>
+								
+									<div class="dayCircle"></div>${nowDate-startDate }<span class="lato size22 dark bold" style="color:#ca4a09">${planDetailVO.planDetailDate }</span><br/>
 									<c:set var = "date" value="${planDetailVO.planDetailDate }"/>
 									<div class="line4"></div>
 								</c:if>
 								<c:set var = "detailStart" value = "${ planDetailVO.planDetailStartTime}"/>
 								<c:set var = "formatDetailStart" value = "${fn:substring(detailStart, 0, 5)}" />
-								<span class="lato size18 dark bold">-${formatDetailStart}&nbsp</span>
+								<div class="dayCircle"></div><span class="lato size18 dark bold">${formatDetailStart}&nbsp</span>
 								<span class="lato size18 blue bold"> ${planDetailVO.title }</span><br/>
 						
 								<c:if test="${planDetailVO.memoVO.memoContents ne null }">
@@ -196,12 +224,11 @@
 										<a id="next_btn" class="xnext" href="#"><img src="/resources/images/spacer.png" alt=""/></a>
 									</div>
 								</div>
-								<div class="line4"></div>
+								<!-- <div class="line4"></div> -->
 							</c:if>
-							<br/><br/>
 						</c:forEach> 
-					
-						
+						</div>
+						</br></br>
 						<c:set var="session" value='<%= session.getAttribute("login")%>'/>
 						<c:set var="planWriter" value="${plan.memberID }"/>
 						<c:if test="${session.memberID == planWriter}">
@@ -214,7 +241,8 @@
 				
 				<!-- 댓글 -->
 					<div>
-						<span class="size14 dark bold">Comments</span>
+						<div id="count"></div>
+						
 						<div class="line4"></div>
 						<!-- <input type="hidden" name="memberID" value=1 id="newReplyWriter"> -->
 						<textarea class="form-control" rows="3" name="planReplyContents" id="newReplyText" ></textarea>
@@ -223,15 +251,16 @@
 						<br/><br/><br/>
 					</div>
 						
-						<div id="count"> 
+						<!-- <div id="count"> 
 
-						</div>
+						</div> -->
 						<div id="replies">
 
 						</div>
 						<div class="clearfix"></div>
-						<div class="line4"></div>
+						<!-- <div class="line4"></div> -->
 						<span></span>
+						<br>
 						<ul class="pagination">
 						</ul>
 						<br/>
@@ -340,7 +369,8 @@
 			});
 			
 			//해당 read페이지에 달린 총 댓글 수 보여줌.
-			countstr='<span class="size14 dark bold">'+data.replyCount+' comments</span><div class="line4"></div>';
+			
+			countstr='<span class="size14 dark bold">Comment <span class="glyphicon glyphicon-comment"></span> ( '+data.replyCount+' )</span></div>';
 			
 			$("#count").html(countstr);
 			$("#replies").html(str);
