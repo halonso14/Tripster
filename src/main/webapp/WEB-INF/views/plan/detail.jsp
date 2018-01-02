@@ -23,22 +23,32 @@ body {
 
 #external-events {
 	float: left;
-	width: 150px;
+	width: 300px;
 	padding: 0 10px;
 	border: 1px solid #ccc;
 	background: #eee;
 	text-align: left;
+	overflow-y:scroll; 
+ 	overflow-x:hidden; 
+	height:620px;
+	/* display: block !important; */
+	
 }
 
 #external-events h4 {
-	font-size: 16px;
+	font-size: 18px;
 	margin-top: 0;
 	padding-top: 1em;
+	color:#ff6633;
 }
 
 #external-events .fc-event {
 	margin: 10px 0;
 	cursor: pointer;
+	height:65px;
+	width:100%;
+	max-width:300px;
+	
 }
 
 #external-events p {
@@ -54,8 +64,9 @@ body {
 
 #calendar {
 	float: right;
-	width: 900px;
+	width: 750px;
 }
+
 
 .fileDrop {
 	width: 100%;
@@ -66,19 +77,22 @@ body {
 }
 
  .modal {
-            position: fixed;
-            left: 50%;
-            top: 50%;
+    position: fixed;
+    left: 50%;
+    top: 50%;
 
-            -webkit-transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-            -moz-transform: translate(-50%, -50%);
-            -o-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-        }
-        .modal-body {
-            display: inline-block;
-            background-color: #FFF; }
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.modal-body {
+    display: inline-block;
+    background-color: #FFF; 
+}
+        
+       
 </style>
 
 
@@ -99,13 +113,20 @@ body {
 	
 	<div id='wrap'>
 		<div class="clearfix"></div>
-		<div id='external-events'>
-			<h4>Draggable Events</h4>
-			<div class='fc-event' id=1 name=1>한글이</div>
-			<div class='fc-event' id="2" name=1>My Event 2</div>
-			<div class='fc-event' id="3" name=1>My Event 3</div>
-			<div class='fc-event' id="4" name=2>My Event 4</div>
-			<div class='fc-event' id="5" name=2>My Event 5</div>
+		
+		<!-- Scrap List 뿌려주는 곳.  -->
+		<div id='external-events' style="overflow:scroll;height:620px;">
+			<h4>Scrap List</h4>
+			<div class="line4"></div>
+			<div class="tab-pane active" id="tab-newtopic">
+			<!--id : contentsID name:categoryID  -->
+				<div class='fc-event' id=1 name=1 style="background-color: #f6f8f900; font-size: 14px;">
+					<a href="#"><img alt="" class="left mr20" src="/resources/planImg/noimg.png" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
+					<a class="dark" href="#"><b>Hotel Dany</b></a><br>
+					<!-- <img alt="" src="/resoureces/images/filter-rating-5.png"> -->
+				</div>
+				<div class="line4"></div>
+			</div>
 		</div>
 
 		<div id='calendar'></div>
@@ -115,7 +136,7 @@ body {
 	<form action="/plan/read" type="get">
 		<input type="hidden" name="planID" value=${planVO.planID }>
 		<!-- <button class="ui positive right labeled icon button">SAVE</button> -->
-		<button class="bluebtn margtop20" id="modify">SAVE</button>
+		<button class="bluebtn margtop20" id="modify" style="width: 180px;float: right;margin-right: 21%;">SAVE</button>
 	</form>
 	
 	
@@ -144,10 +165,10 @@ body {
 					</div>
 				
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal" id="cancelMemoBtn">CANCEL</button>
-						<input type="button" class="btn-search4 " id="deleteMemoBtn" value= "DELETE">
-						<input type="button" class="btn btn-primary"
-						id="registerMemoBtn" value="SAVE">
+						<button type="button" class="btn-search4" data-dismiss="modal" id="cancelMemoBtn" style="width: 90px; background: gray; border: 1px solid gray;">CANCEL</button>
+						<input type="button" class="btn-search4 " id="deleteMemoBtn" value= "DELETE" style="width: 90px;">
+						<input type="button" class="btn-search4"
+						id="registerMemoBtn" value="SAVE" style="width: 90px; background: #3994d4; border: 1px solid #006699;">
 					</div>
 				</div>
 			</form>
@@ -222,12 +243,14 @@ body {
                 title: $.trim($(this).text()), // use the element's text as the event title
                 stick:true // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
                             // false: 없어짐.
+               
             });"src/main/java/com/tripster/domain/DashBriefVO.java"
             // make the event draggable using jQuery UI
             $(this).draggable({
                 zIndex: 999,
                 revert: true,      // will cause the event to go back to its
-                revertDuration: 0  //  original position after the drag
+                revertDuration: 0,  //  original position after the drag
+                helper : 'clone'
 
             });
         });

@@ -46,7 +46,7 @@
 	list-style: none;
 	float: left;
 	padding: 3px;
-	border: 1px solid blue;
+	/* border: 1px solid blue; */
 	margin: 3px;
 }
 
@@ -100,7 +100,7 @@
 						//------------------------------
 						$(document).ready(function(jQuery){
 
-							jQuery("#foo5").carouFredSel({
+							jQuery(".foo5").carouFredSel({
 								width: "100%",
 								height: 407,
 								items: {
@@ -136,7 +136,7 @@
 							<c:set var = "date" value=""/>
 							<c:forEach items="${plan.planDetailVO }" var="planDetailVO">
 								<c:if test="${planDetailVO.planDetailDate ne date}">
-									<span class="lato size22 dark bold">${planDetailVO.planDetailDate }</span><br/>
+									<span class="lato size22 dark bold" style="color:#ca4a09">${planDetailVO.planDetailDate }</span><br/>
 									<c:set var = "date" value="${planDetailVO.planDetailDate }"/>
 									<div class="line4"></div>
 								</c:if>
@@ -150,22 +150,24 @@
 								<c:if test="${planDetailVO.memoVO.memoPictureVO ne null}">
 									<div class="wrapper2">
 										<div class="list_carousel2">
-											<ul id="foo5">
+											
 												<c:forEach items="${planDetailVO.memoVO.memoPictureVO }" var="pictureVO">
-													<c:choose>
-						       							<c:when test="${pictureVO.memoPictureName ne null}">
-						           					 		<li>
-																<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img src="/displayFile?fileName=${pictureVO.memoPictureName }" style="width: 100%; max-width: 760px; vertical-align: middle"/></a>
-															</li>
-						       							</c:when>
-						       							<c:otherwise>
-						          							<li>
-																<a href="/resources/planImg/noimg.png"><img src="/resources/planImg/noimg.png" style="width: 100%; vertical-align: middle"/></a>
-															</li>
-						       							</c:otherwise>
-						  							</c:choose> 	
+													<ul class="foo5">
+														<c:choose>
+							       							<c:when test="${pictureVO.memoPictureName ne null}">
+							           					 		<li>
+																	<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img src="/displayFile?fileName=${pictureVO.memoPictureName }" style="width: 100%; max-width: 760px; vertical-align: middle"/></a>
+																</li>
+							       							</c:when>
+							       							<c:otherwise>
+							          							<li>
+																	<a href="/resources/planImg/noimg.png"><img src="/resources/planImg/noimg.png" style="width: 100%; vertical-align: middle"/></a>
+																</li>
+							       							</c:otherwise>
+							  							</c:choose> 	
+						  							</ul>
 											</c:forEach>
-										</ul>
+										
 										<div class="clearfix"></div>
 										<a id="prev_btn" class="xprev" href="#"><img src="/resources/images/spacer.png" alt=""/></a>
 										<a id="next_btn" class="xnext" href="#"><img src="/resources/images/spacer.png" alt=""/></a>
@@ -180,8 +182,8 @@
 						<c:set var="session" value='<%= session.getAttribute("login")%>'/>
 						<c:set var="planWriter" value="${plan.memberID }"/>
 						<c:if test="${session.memberID == planWriter}">
-							<button class="btn-search4 margtop20" id="remove">REMOVE</button>
-							<button class="bluebtn margtop20" id="modify">MODIFY</button>
+							<button class="btn-search4 margtop20" id="remove" style="width: 180px; font-size: 14px;">REMOVE</button>
+							<button class="bluebtn margtop20" id="modify" style="width: 180px;">MODIFY</button>
 							<div class="line4"></div>
 						</c:if>
 					</form>
@@ -257,6 +259,7 @@
 	<%@include file="/WEB-INF/views/include/footer.jsp"%>
 <script>
 	var planID = ${plan.planID};
+	var id='';
 	getPageList(1);
 	
 	function getPageList(page){
@@ -297,7 +300,7 @@
 				str+='</span></div><div class="clearfix"></div><div class="line4">';
 			});
 			
-			//해당 read페이지에 달 총 댓글 수 보여줌.
+			//해당 read페이지에 달린 총 댓글 수 보여줌.
 			countstr='<span class="size14 dark bold">'+data.replyCount+' comments</span><div class="line4"></div>';
 			
 			$("#count").html(countstr);
@@ -337,15 +340,35 @@
 	function errorMessage(){
 		var text = $("#newReplyText").val();
 		var str =''
-		if(text == ''){
-			str = '<span>글을 입력해주세요</span>';
-			$(".errorMessage").html(str);
+			
+		//session확인.
+		<c:choose>
+			<c:when test="${empty session}">
+				id='';
+			</c:when>
+			<c:otherwise>
+				id=${memberID};
+			</c:otherwise>
+		</c:choose>
+	
+		//session이 존재하면 	
+		if('' != id){
+			//글 입력 확인.
+			 if(text == ''){
+				 //빈값이면 에러메세지 출력.
+				str = '<span>글을 입력해주세요</span>';
+				$(".errorMessage").html(str);
+			}else{
+				//댓글등록 함수 호출.
+				addReply();
+			} 
 		}else{
-			addReply();
+			//session이 존재하지 않으면.
+			alert('로그인 후 이용해주세요.');
 		}
 	}
 	
-	//댓글 추가.
+	//댓글 등록.
 	function addReply(){
 		var replytext = $("#newReplyText").val();
 		$.ajax({

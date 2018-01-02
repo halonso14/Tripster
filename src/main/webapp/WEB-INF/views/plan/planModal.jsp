@@ -20,6 +20,13 @@
 .modal-body {
     display: inline-block;
     background-color: #FFF; }
+    
+/* button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    width: 180px;
+} */
 </style>
 	<div class="container">
         <div class="modal fade" id="planModal" role="dialog">
@@ -31,22 +38,22 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">여행 일정 등록</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="width:100%;    text-align-last: center;">
                 		<div>
-                   	  TITLE <input type="text" id="planTitle" name="planTitle" style="width: 400px" onmousedown="titleMouseDown()">
+                   	  TITLE <input type="text" id="planTitle" name="planTitle" style="width: 420px;text-align-last: left;" onmousedown="titleMouseDown()">
                      </div>
                      <span class="titleError" id="titleError"style="color: red; font-weight: bold;"></span>
-                    <hr>
+                    <div class="line4"></div>
                     <div>
-                        시작일 <input type="date" name="planStartDate" id="planStartDate" onmousedown="dateMouseDown()">  ~  종료일 <input type="date" id="planEndDate" name="planEndDate" onmousedown="dateMouseDown()">
+                        시작일 <input type="date" name="planStartDate" id="planStartDate" onmousedown="dateMouseDown()" style="width: 180px">&nbsp;&nbsp; ~ &nbsp; 종료일 <input type="date" id="planEndDate" name="planEndDate" onmousedown="dateMouseDown()" style="width: 180px">
 
                     </div>
-                    <span class="dateError" id="dateError"style="color: red; font-weight: bold;"></span>
+                    <span class="dateError" id="dateError" style="color: red; font-weight: bold;"></span>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelMemoBtn">CANCEL</button>
-                    <input type="button" class="btn btn-primary" value="등록" onclick="errorCheck()">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelMemoBtn" style="width: 180px">CANCEL</button>
+                    <input type="button" class="btn btn-primary" value="등록" onclick="errorCheck()" style="width: 180px">
                 </div>
             </div>
             </form>
@@ -67,23 +74,31 @@
     			var endDate= $("#planEndDate").val();
     			var errorMessage='';
     			var title = $("#planTitle").val();
-    			console.log(startDate);
+    			
+    			//title입력 여부?	
      			if(''!= title){
+     				//yes-> startDate && endDate 입력여부?
     					if(startDate && endDate){
+    						//yes -> startDate 와 endDate를 date type으로 변환.
 	    					var start = new Date(startDate);
 	    					var end = new Date(endDate);
+	    					//startDate > endDate ?
 		    				if(startDate > endDate){
+		    					//yes -> errorMessage출력.		
 			    				errorMessage ='<span>여행 일정을 확인해주세요.</span>';
 			    				$(".dateError").html(errorMessage);
 			    			}else{
+			    				//no -> 입력 검증 완료, form 전송.
 			    				var formdata =$("form[role='form']").get(0);
 			    				formdata.submit();
 			    			}
 	    				}else{
+	    					//no-> errorMessage 출력.
 	    					errorMessage ='<span>여행 일정을 확인해주세요.</span>';
 	    					$(".dateError").html(errorMessage);
 	    				} 
     				}else{
+    					//no-> errorMessage 출력.
 	   				errorMessage = '<span>제목을 입력하세요.</span>';
     				$('.titleError').html(errorMessage); 
     			} 
