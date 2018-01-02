@@ -54,7 +54,7 @@
             <div class="logmargfix">
                 <div class="chpadding50">
                     <div class="alignbottom">
-                        <button class="btn-search4"  type="submit" onclick="errorMessage()">로그인</button>
+                        <button class="btn-search4"  type="submit">로그인</button>
                     </div>
                     <div class="alignbottom2">
                         <div class="checkbox">
@@ -68,11 +68,24 @@
         </div>
         <div class="login-c3">
             <div class="left"><a href="/member/register" class="whitelink">회원가입</a></div>
-            <div class="right"><a href="/member/findPassword" class="whitelink">비밀번호 찾기</a></div>
+            <div class="right"><a href="javascript:void();" class="whitelink" onclick="popup();">비밀번호 찾기</a></div>
         </div>
     </div>
     <!-- End of Login Wrap  -->
     </form>
+    
+    <script>
+    
+    function popup(){
+    	//event.preventDefault();
+		
+    	var url="/member/findPassword";
+    	var option= "resizable=no, scrollbars=no, status=no, width=600, height=400 left=650, top=300";
+    	
+    	window.open(url, 'findPassword', option);
+    }
+    	
+    </script>
 
 </div>
 <!-- End of Container  -->

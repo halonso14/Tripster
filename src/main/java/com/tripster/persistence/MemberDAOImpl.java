@@ -77,11 +77,6 @@ public class MemberDAOImpl implements MemberDAO {
 	public MemberVO repeatChk(String memberEmail) throws Exception {
 		return session.selectOne(namespace + ".repeatChk", memberEmail);
 	}
-
-	@Override
-	public MemberVO viewMember(String memberEmail) throws Exception {
-		return session.selectOne(namespace + ".viewMember", memberEmail);
-	}
 	
 	@Override
 	public MemberVO mypage(Integer memberID) throws Exception {
@@ -101,11 +96,6 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public void uploadPicture(MemberVO vo) throws Exception {
 		session.insert(namespace + ".uploadPicture", vo);
-	}
-
-	@Override
-	public void updateMember(MemberVO vo) throws Exception {
-		session.selectOne(namespace + ".updateMember", vo);
 	}
 
 	@Override

@@ -64,7 +64,7 @@
 	        });
 	        //@ sourceURL=pen.js
 		</script>
-
+		
 	</head>
 	<body id="top">
 
@@ -78,9 +78,6 @@
                 alert("개인정보 중국에 판매완료!.");
             }
             
-            if(result == 'findPassword'){
-            	alert("가입된 이메일로 임시비밀번호가 전송되었습니다.")
-            }
         </script>
 		<!--
 		#################################

@@ -21,8 +21,6 @@ public interface MemberService {
 
 	public boolean repeatChk(String memberEmail) throws Exception;
 	
-	public MemberVO viewMypage(String memberEmail) throws Exception;
-	
 	public MemberVO mypage(Integer memberID) throws Exception;
 	
 	public void changeProfile(MemberVO vo) throws Exception;
@@ -32,8 +30,6 @@ public interface MemberService {
 	public boolean passwordChk(MemberVO vo) throws Exception;
 	
 	public void uploadPicture(MemberVO vo) throws Exception;
-	
-	public void updateMember(MemberVO vo) throws Exception;
 	
 	public void dropMember(Integer memberID) throws Exception;
 }

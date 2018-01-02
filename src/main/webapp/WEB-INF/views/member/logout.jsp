@@ -10,7 +10,7 @@
 
 	<script type="text/javascript">
 		alert("로그아웃 되었습니다.");
-		self.location = "/";
+		location.replace("/");
 	</script>
 
 </body>
