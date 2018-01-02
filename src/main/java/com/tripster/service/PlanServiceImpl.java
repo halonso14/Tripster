@@ -86,7 +86,12 @@ public class PlanServiceImpl implements PlanService{
 		return list;
 
 	}
-	
 
+	//memberName조회
+	@Override
+	public String memberName(int memberID) throws Exception {
+		return planDAO.selectMemberName(memberID);
+	}
+	
 	
 }

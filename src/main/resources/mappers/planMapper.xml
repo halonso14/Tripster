@@ -41,4 +41,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update tbl_plan set plan_endChk = #{planEndChk} where plan_id = #{planID}
 	</update>
 	 
+	 <!-- memberName조회. -->
+	<select id="memberName" resultType="string">
+		select member_name from tbl_member where member_id = #{memberID}
+	</select>
 </mapper>

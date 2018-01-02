@@ -121,9 +121,9 @@ body {
 			<div class="tab-pane active" id="tab-newtopic">
 			<!--id : contentsID name:categoryID  -->
 				<div class='fc-event' id=1 name=1 style="background-color: #f6f8f900; font-size: 14px;">
-					<a href="#"><img alt="" class="left mr20" src="/resources/planImg/noimg.png" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
+					<a href="#"><img alt="" class="left mr20 bordertype1" src="/resources/planImg/noimg.png" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
 					<a class="dark" href="#"><b>Hotel Dany</b></a><br>
-					<!-- <img alt="" src="/resoureces/images/filter-rating-5.png"> -->
+					<!-- <img alt="" src="/resources/images/filter-rating-5.png"> -->
 				</div>
 				<div class="line4"></div>
 				
@@ -419,7 +419,7 @@ $(document).ready(function() {
          },
            
          eventRender: function(event, element) {
-             element.find('.fc-content').append( '<span class="glyphicon glyphicon-edit memo" aria-hidden="true">' );
+             element.find('.fc-content').append( '<span class="glyphicon glyphicon-edit memo" aria-hidden="true">&nbsp' );
              element.find('.fc-content').append( '<span class="glyphicon glyphicon-trash closeon" aria-hidden="true">' );
              
              //삭제

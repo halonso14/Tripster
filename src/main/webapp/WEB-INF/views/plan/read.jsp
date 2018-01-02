@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -65,6 +66,19 @@
     height: 13px;
     background: url(/resources/images/about-arrow.png) no-repeat;
 }
+.memoText{
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+    border-left: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding-left: 8px;
+    padding-right: 8px;
+    line-height: 22px;
+}
+.member_name{
+	float: right;
+}
 </style>
 	
 </head>
@@ -81,8 +95,13 @@
 			<div class="col-md-12 pagecontainer2 offset-0">
 				<div class="hpadding50c">
 					<p class="lato size30 slim">${plan.planTitle}</p>
-					
-					<span class="lato size15 grey bold">전체일정 : ${plan.planStartDate } ~ ${plan.planEndDate }</span>
+					<div class="lato size15 grey bold">
+						<fmt:formatDate var="parseStartDate" value="${plan.planStartDate }" pattern="yyyy-MM-dd"/>
+						<fmt:formatDate var="parseEndDate" value="${plan.planEndDate }" pattern="yyyy-MM-dd"/>
+						
+						<span class="lato size15 grey bold">전체일정 : ${parseStartDate} ~ ${parseEndDate }</span>
+						<span class="member_name">작성자 : ${memberName }</span>
+					</div>
 					<p class="aboutarrow"></p>
 				</div>
 				<div class="line3"></div>
@@ -140,11 +159,15 @@
 									<c:set var = "date" value="${planDetailVO.planDetailDate }"/>
 									<div class="line4"></div>
 								</c:if>
-								<span class="lato size18 dark bold">-${planDetailVO.planDetailStartTime}:</span>
+								<c:set var = "detailStart" value = "${ planDetailVO.planDetailStartTime}"/>
+								<c:set var = "formatDetailStart" value = "${fn:substring(detailStart, 0, 5)}" />
+								<span class="lato size18 dark bold">-${formatDetailStart}&nbsp</span>
 								<span class="lato size18 blue bold"> ${planDetailVO.title }</span><br/>
 						
 								<c:if test="${planDetailVO.memoVO.memoContents ne null }">
-									Memo Contents: ${planDetailVO.memoVO.memoContents }
+									<div class="memoText">
+										${planDetailVO.memoVO.memoContents }
+									</div>
 								</c:if>
 						
 								<c:if test="${planDetailVO.memoVO.memoPictureVO ne null}">
@@ -262,6 +285,14 @@
 	var id='';
 	getPageList(1);
 	
+	Number.prototype.padLeft = function(base,chr){
+	    var  len = (String(base || 10).length - String(this).length)+1;
+	    return len > 0? new Array(len).join(chr || '0')+this : this;
+	}
+	// usage
+	//=> 3..padLeft() => '03'
+	//=> 3..padLeft(100,'-') => '--3' 
+	
 	function getPageList(page){
 		$.getJSON("/plan/reply/read/"+planID+"/"+page, function(data){
 			
@@ -282,18 +313,26 @@
 				</c:otherwise>
 			</c:choose>
 			
-		
+			
 			$(data.reply).each(function(){
+				var d =new Date( this.planReplyTime),dformat = [d.getFullYear(), (d.getMonth()+1).padLeft(),
+		               d.getDate().padLeft()
+		               ].join('/') +' ' +
+		              [d.getHours().padLeft(),
+		               d.getMinutes().padLeft(),
+		               d.getSeconds().padLeft()].join(':');
+				
+			
 				str+= "<br><div class='wh20percent left textleft'><div class='circlewrap2'><img alt='' class='circleimg' src='/resources/images/user-avatar.jpg'></div></div>"
-				+'<div class="wh80percent right "><span class="lblue bold">'+this.memberName+'</span><br/>'+
-				'<span class="replyspan" data-rno="'+this.planReplyID+'">'+this.planReplyContents+'';
+				+'<div class="wh80percent right "><span class="lblue bold">'+this.memberName+'</span>&nbsp&nbsp<span class="grey size12">'+dformat+'</span><br/>'+
+				'<span class="replyspan" data-rno="'+this.planReplyID+'">'+this.planReplyContents;
 				
 				//session이 존재하면,	
  				if('' != id){
  					//session의 id와 댓글 작성자 id와 비교.
 					 if(id == this.memberID){
 						 //같으면 modify버튼 보여줌.
-						str+='</br><span class="grey size12"><a href="#" class="grey">Modify</a></span>'
+						str+='</br><span class="grey size12"><a href="#" class="orange">Modify</a></span>'
 					} 
 				}
 				
