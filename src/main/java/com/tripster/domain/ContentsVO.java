@@ -3,20 +3,18 @@ package com.tripster.domain;
 public class ContentsVO {
 	//컨텐츠 ID
 	private Integer contentsID;	
-	//컨텐츠 이름
+	//컨텐츠 카테고리 분류 코드
+	private int categoryID;	
+	//컨텐츠 제목
 	private String title;	
 	//컨텐츠 위치
 	private String location;
-	//컨텐츠 평가
+	//컨텐츠 평점
 	private int rating;	
-	//컨텐츠 이용 시간
-	private String time;
-	//컨텐츠 상세 정보
+	//컨텐츠 키워드 
 	private String contents;
-	//컨텐츠 전화 번호
-	private String tel;	
-	//컨텐츠 카테고리 분류 코드
-	private int categoryID;	
+	//컨텐츠 섬네일 
+	private String tumb;
 	//컨텐츠 상세 정보 조회수
 	private Integer contentsViewCnt;
 	//컨텐츠 리뷰 개수
@@ -29,6 +27,12 @@ public class ContentsVO {
 	}
 	public void setContentsID(Integer contentsID) {
 		this.contentsID = contentsID;
+	}
+	public int getCategoryID() {
+		return categoryID;
+	}
+	public void setCategoryID(int categoryID) {
+		this.categoryID = categoryID;
 	}
 	public String getTitle() {
 		return title;
@@ -48,29 +52,17 @@ public class ContentsVO {
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
-	public String getTime() {
-		return time;
-	}
-	public void setTime(String time) {
-		this.time = time;
-	}
 	public String getContents() {
 		return contents;
 	}
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	public String getTel() {
-		return tel;
+	public String getTumb() {
+		return tumb;
 	}
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
-	public int getCategoryID() {
-		return categoryID;
-	}
-	public void setCategoryID(int categoryID) {
-		this.categoryID = categoryID;
+	public void setTumb(String tumb) {
+		this.tumb = tumb;
 	}
 	public Integer getContentsViewCnt() {
 		return contentsViewCnt;
@@ -92,8 +84,8 @@ public class ContentsVO {
 	}
 	@Override
 	public String toString() {
-		return "ContentsVO [contentsID=" + contentsID + ", title=" + title + ", location=" + location + ", rating="
-				+ rating + ", time=" + time + ", contents=" + contents + ", tel=" + tel + ", categoryID=" + categoryID
+		return "ContentsVO [contentsID=" + contentsID + ", categoryID=" + categoryID + ", title=" + title
+				+ ", location=" + location + ", rating=" + rating + ", contents=" + contents + ", tumb=" + tumb
 				+ ", contentsViewCnt=" + contentsViewCnt + ", contentsReviewCnt=" + contentsReviewCnt
 				+ ", contentsScrapCnt=" + contentsScrapCnt + "]";
 	}
