@@ -13,8 +13,7 @@
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 		<elasticsearch.version>5.5.0</elasticsearch.version>
-		<lucene.version>6.6.0</lucene.version>
-		<apache.log4j>2.9.1</apache.log4j>
+
 	</properties>
 	<dependencies>
 		<!-- Spring -->
@@ -242,30 +241,6 @@
 		    <artifactId>transport</artifactId>
 		    <version>${elasticsearch.version}</version>
 		</dependency>	
-		<!-- elasticsearch Test -->
-		<dependency>
-			 <groupId>org.apache.lucene</groupId>
-			 <artifactId>lucene-test-framework</artifactId>
-			 <version>${lucene.version}</version>
-			 <scope>test</scope>
-		</dependency>	
-		<dependency>
-			<groupId>org.elasticsearch.test</groupId>
-			<artifactId>framework</artifactId>
-			<version>${elasticsearch.version}</version>
-			<scope>test</scope>
-		</dependency>	
-		<!-- elasticsearch Log4j 2 Logger -->
-		<dependency>
-		    <groupId>org.apache.logging.log4j</groupId>
-		    <artifactId>log4j-core</artifactId>
-		    <version>${apache.log4j}</version>
-		</dependency> 
-		<dependency>
-		    <groupId>org.apache.logging.log4j</groupId>
-		    <artifactId>log4j-api</artifactId>
-		    <version>${apache.log4j}</version>
-		</dependency>
 						
 	</dependencies>
 	<build>
