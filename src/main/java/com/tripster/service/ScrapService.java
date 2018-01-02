@@ -7,7 +7,7 @@ import com.tripster.domain.ScrapVO;
 public interface ScrapService {
 	
 	// 스크랩 추가
-	public void scrap(Integer contentsID)throws Exception;
+	public void scrap(Integer contentsID,Integer memberID)throws Exception;
 	
 	// 스크랩 삭제
 	public void scrapDelete(Integer contentsID) throws Exception;

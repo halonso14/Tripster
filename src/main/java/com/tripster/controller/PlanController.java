@@ -194,7 +194,7 @@ public class PlanController {
 		ResponseEntity<String> entity = null;
 		
 		try {
-			Map<String, Object> map = new HashMap();
+			Map<String, Object> map = new HashMap<>();
 					
 			//한번에 받아 온 날짜와 시간을 분리하여 저장.
 			String planDetailStartTime = vo.getPlanDetailStartTime();

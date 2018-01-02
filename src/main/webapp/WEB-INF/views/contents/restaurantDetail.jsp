@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@include file="../include/header.jsp" %>
+<%@include file="../include/header2.jsp" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -37,6 +38,8 @@
 	
 	
 	<!-- CONTENT -->
+	<!-- 유저 세션  -->
+	<c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
 	<div class="container">
 		<div class="container mt25 offset-0">
 			<div class="col-md-12 pagecontainer2 offset-0">
@@ -60,7 +63,18 @@
 						
 						<span class="lato size22 dark bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span><br/>
 						<span class="grey">December 25, 2013/<a href="#">0 Comments</a>/in <a href="#">Vacations</a>/by <a href="#">TitanicThemes</a></span><br/>
-						<button id="scrapBttn" value=${scrapCheck } >스크랩</button>
+						
+						<!-- 로그인 체크 -->
+						<c:choose>
+	        				<c:when test = "${empty userSession}">
+								<!-- 스크랩 버튼 없음 -->
+							</c:when>
+			
+ 							<c:otherwise>		
+ 								<!-- 로그인시 스크랩 버튼 추가 -->
+	 							<button id="scrapBttn" value=${scrapCheck } >스크랩</button>
+							</c:otherwise>
+        				</c:choose>
 						
 						<div class="line4"></div>
 						Donec vehicula nunc in turpis rutrum porta. Nullam lacinia ante non turpis aliquam mattis. Pellentesque luctus leo eget metus egestas egestas. Maecenas hendrerit magna ut porttitor tempor. In hac habitasse platea dictumst. Duis condimentum congue nisi, ac semper ipsum posuere eu. 
@@ -470,10 +484,10 @@
 		                + "<a href='/displayFile?fileName="+ getImageLink(fileList[i])+"'>"
 		                // 썸네일 생성
 		                + "<img src='/displayFile?fileName="+fileList[i]+"'/>"
-		                + getOriginalName(fileList[i]) +"</a>";
+		                + getOriginalName(fileList[i]) +"</a></li>";
 		        }else{
 		            // 이미지 파일이 아닐경우 다운로드
-		            str = str + "<li><a href='/displayFile?fileName="+fileList[i]+"'>" + getOriginalName(fileList[i]);
+		            str = str + "<li><a href='/displayFile?fileName="+fileList[i]+"'>" + getOriginalName(fileList[i])+"</a></li>";
 		                
 		        };
 			}

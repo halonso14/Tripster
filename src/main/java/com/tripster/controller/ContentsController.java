@@ -142,8 +142,9 @@ public class ContentsController {
 	public ModelAndView restaurantDetail(@PathVariable("contentsID") Integer contentsID, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 		ModelAndView resultPage = new ModelAndView("contents/restaurantDetail");
 		model.addAttribute("vo",contentsService.getRestaurantDetail(contentsID));
-		
+		logger.info("aop test");
 		return resultPage;
+		
 	}
 	
 	

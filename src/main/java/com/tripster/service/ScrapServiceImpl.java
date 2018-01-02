@@ -21,7 +21,7 @@ public class ScrapServiceImpl implements ScrapService{
 	
 	// 스크랩
 	@Override
-	public void scrap(Integer contentsID)throws Exception{
+	public void scrap(Integer contentsID,Integer memberID)throws Exception{
 		ContentsVO cont = new ContentsVO();
 		ScrapVO vo = new ScrapVO();
 		cont = contentsDao.getRestaurantDetail(contentsID);
@@ -29,6 +29,7 @@ public class ScrapServiceImpl implements ScrapService{
 		vo.setContentsID(cont.getContentsID());
 		vo.setContentsTitle(cont.getTitle());
 		vo.setContentsPhoto("photo");
+		vo.setMemberID(memberID);
 		scrapDao.create(vo);
 	}
 	

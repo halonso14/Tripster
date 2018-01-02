@@ -230,9 +230,9 @@
 						  Settings
 						  </a></li>
 					  <li>
-						  <a href="#history" data-toggle="tab" onclick="mySelectUpdate()">
+						  <a href="#scrapList" data-toggle="tab" onclick="mySelectUpdate()" id="scrapBttn">
 						  <span class="history-icon"></span>								  
-						  History
+						  ScrapList
 						  </a></li>
 					  <li>
 						  <a href="#password" data-toggle="tab" onclick="mySelectUpdate()">
@@ -1958,63 +1958,90 @@ function fileChange(e) {
 						</div>
 					  </div>
 					  <!-- END OF TAB 4 -->	
-					  
+					  <!-- 스크랩 리스트 -->
 					  <!-- TAB 5 -->					  
-					  <div class="tab-pane" id="history">
+					  <div class="tab-pane" id="scrapList">
 						<div class="padding40">
 						
-							<span class="dark size18">History</span>
-							<div class="line4"></div>
+							<span class="dark size18">scrpList</span>
+							<div class="line4"></div><br/>
 							
-							<br/>
+							<!-- <button id="scrapList">스크랩 리스트</button>	 -->
+							<div class="scrapList">
 							
-							<div class="col-md-3 bold">Date</div>
-							<div class="col-md-3 bold">Destination</div>
-							<div class="col-md-3 bold">Service</div>
-							<div class="col-md-3 bold textright">Action</div>
-							<div class="clearfix"></div>
-							<div class="line4"></div>
+							</div>
 							
-							<div class="col-md-3">01.05.09</div>
-							<div class="col-md-3">Grece - Zakynthos</div>
-							<div class="col-md-3">Hotel</div>
-							<div class="col-md-3 textright"><button type="submit" class="btn-search5"><span class="glyphicon glyphicon-plus"></span></button></div>
-							<div class="clearfix"></div>
+							<div class="portlet-body">
+                                    <div class="mt-element-list">
+                                        <div class="mt-list-head list-simple font-white bg-red">
+                                            <div class="list-head-title-container">
+                                                <div class="list-date">Nov 8, 2015</div>
+                                                <h3 class="list-title">Simple List</h3>
+                                            </div>
+                                        </div>
+                                        <div class="mt-list-container list-simple">
+                                            <ul>
+                                                <li class="mt-list-item">
+                                                    <div class="list-icon-container done">
+                                                        <i class="icon-check"></i>
+                                                    </div>
+                                                    <div class="list-datetime"> 8 Nov </div>
+                                                    <div class="list-item-content">
+                                                        <h3 class="uppercase">
+                                                            <a href="javascript:;">Concept Proof</a>
+                                                        </h3>
+                                                    </div>
+                                                </li>
+                                                <li class="mt-list-item">
+                                                    <div class="list-icon-container">
+                                                        <i class="icon-close"></i>
+                                                    </div>
+                                                    <div class="list-datetime"> 8 Nov </div>
+                                                    <div class="list-item-content">
+                                                        <h3 class="uppercase">
+                                                            <a href="javascript:;">Listings Feature</a>
+                                                        </h3>
+                                                    </div>
+                                                </li>
+                                                <li class="mt-list-item">
+                                                    <div class="list-icon-container">
+                                                        <i class="icon-close"></i>
+                                                    </div>
+                                                    <div class="list-datetime"> 8 Nov </div>
+                                                    <div class="list-item-content">
+                                                        <h3 class="uppercase">
+                                                            <a href="javascript:;">Listings Feature</a>
+                                                        </h3>
+                                                    </div>
+                                                </li>
+                                                <li class="mt-list-item">
+                                                    <div class="list-icon-container done">
+                                                        <i class="icon-check"></i>
+                                                    </div>
+                                                    <div class="list-datetime"> 8 Nov </div>
+                                                    <div class="list-item-content">
+                                                        <h3 class="uppercase">
+                                                            <a href="javascript:;">Listings Feature</a>
+                                                        </h3>
+                                                    </div>
+                                                </li>
+                                                <li class="mt-list-item">
+                                                    <div class="list-icon-container">
+                                                        <i class="icon-close"></i>
+                                                    </div>
+                                                    <div class="list-datetime"> 8 Nov </div>
+                                                    <div class="list-item-content">
+                                                        <h3 class="uppercase">
+                                                            <a href="javascript:;">Listings Feature</a>
+                                                        </h3>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
 							
-							<div class="line4"></div>
-							<div class="col-md-3">17.07.10</div>
-							<div class="col-md-3">Spain - Malaga</div>
-							<div class="col-md-3">Flight Tickets</div>
-							<div class="col-md-3 textright"><button type="submit" class="btn-search5"><span class="glyphicon glyphicon-plus"></span></button></div>
-							<div class="clearfix"></div>
-							
-							<div class="line4"></div>
-							<div class="col-md-3">01.05.09</div>
-							<div class="col-md-3">Bulgary - Sunny Beach</div>
-							<div class="col-md-3">Flight Tickets</div>
-							<div class="col-md-3 textright"><button type="submit" class="btn-search5"><span class="glyphicon glyphicon-plus"></span></button></div>
-							<div class="clearfix"></div>
-							
-							<div class="line4"></div>
-							<div class="col-md-3">01.05.09</div>
-							<div class="col-md-3">France - Paris</div>
-							<div class="col-md-3">Rent a car</div>
-							<div class="col-md-3 textright"><button type="submit" class="btn-search5"><span class="glyphicon glyphicon-plus"></span></button></div>
-							<div class="clearfix"></div>
-							
-							<div class="line4"></div>
-							<div class="col-md-3">15.03.11</div>
-							<div class="col-md-3">U.A.E. - Dubai</div>
-							<div class="col-md-3">Car + Hotel + Flight</div>
-							<div class="col-md-3 textright"><button type="submit" class="btn-search5"><span class="glyphicon glyphicon-plus"></span></button></div>
-							<div class="clearfix"></div>
-							
-							<div class="line4"></div>
-							<div class="col-md-3">15.06.12</div>
-							<div class="col-md-3">Grand Britain - London</div>
-							<div class="col-md-3">Car + Hotel + Flight</div>
-							<div class="col-md-3 textright"><button type="submit" class="btn-search5"><span class="glyphicon glyphicon-plus"></span></button></div>
-							<div class="clearfix"></div>
+							<form id="form" method="post"></form>
 							
 						</div>
 					  </div>
@@ -2046,7 +2073,59 @@ function fileChange(e) {
 							
 					  	</form>
 						</div>
+
 					  </div>
+<!-- 스크랩 -->
+<script>
+$(document).ready(function (){
+	
+	// 전체 스크랩 리스트 조회 함수
+	var getAllList = function(){
+
+		$.getJSON('/scraplist',function(data){
+			
+			var str = "";
+			
+			$(data).each(function(i,list){
+				str += "<li>"+i+".이름:<span class='contentsID' value="+list.contentsID+">"
+						+list.contentsTitle+"</span>,"+
+						"썸네일:"+list.contentsPhoto+
+						"<button class='scrapRemove' value="+list.scrapID+">삭제</button></li>";
+			});
+			
+			$('.scrapList').html(str);
+			
+		});
+	};
+	
+	// 스크랩 리스트 버튼을 누를경우 스크랩 리스트 조회
+	$('#scrapBttn').on('click',function(){
+		getAllList();
+	})
+	
+	// 스크랩 삭제
+	$('.scrapList').on('click','.scrapRemove',function () {
+		
+		var scrapID = $(this).val();
+		$.post('/scrapIDremove/'+scrapID,function(data){
+			alert(data);
+			getAllList();
+		});
+
+	});
+	
+	// 스크랩한 컨텐츠 조회
+	$('.scrapList').on('click','.contentsID',function(){
+		
+		var contentsID = $(this).attr("value");
+		$('#form').attr("action","/contents/restaurantDetail/"+contentsID);
+		$('#form').attr("method","get");
+		$('#form').submit();
+		
+	});
+	
+})
+</script>
 <script>
 $(function() {
 

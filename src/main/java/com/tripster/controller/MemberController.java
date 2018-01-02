@@ -174,10 +174,12 @@ public class MemberController {
 
 		Object obj = session.getAttribute("login");
 		MemberVO memVO = (MemberVO) obj;
-
+		
+		logger.info(memVO.toString());
 		service.viewMypage(memVO.getMemberEmail());
 
 		model.addAttribute(service.viewMypage(memVO.getMemberEmail()));
+		
 	}
 
 	// 대시보드형 마이페이지

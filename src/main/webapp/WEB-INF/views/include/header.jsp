@@ -35,6 +35,7 @@
 							<ul class="dropdown-menu">
 								<li><a href="member/mypage2">내정보 관리</a></li>
 								<li><a href="member/logout">로그아웃</a></li>
+								<li><a href="scrapList">스크랩 리스트</a></li>
 							</ul>
 								</li>
 								<li><a href="#">일정등록버튼</a></li>
