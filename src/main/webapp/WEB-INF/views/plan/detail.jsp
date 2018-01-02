@@ -119,13 +119,8 @@ body {
 			<h4>Scrap List</h4>
 			<div class="line4"></div>
 			<div class="tab-pane active" id="tab-newtopic">
-			<!--id : contentsID name:categoryID  -->
-				<div class='fc-event' id=1 name=1 style="background-color: #f6f8f900; font-size: 14px;">
-					<a href="#"><img alt="" class="left mr20" src="/resources/planImg/noimg.png" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
-					<a class="dark" href="#"><b>Hotel Dany</b></a><br>
-					<!-- <img alt="" src="/resoureces/images/filter-rating-5.png"> -->
-				</div>
-				<div class="line4"></div>
+			<!--id : contentsID name: categoryID  -->
+				
 			</div>
 		</div>
 
@@ -183,11 +178,32 @@ body {
 	<div class="mailbox-attachment-info">
 		<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
 		<a data-src="{{originalName}}" class="btn btn-default btn-xs pull-right delbtn" onclick="removeAttach($(this))">x<a>
-	</div>
+	</div> 
 </li>
 </script>
 
+<script id="scrapList" type="text/x-handlebars-template">
 
+<div class='fc-event' id={{contentsID}} name={{categoryID}} style="background-color: #f6f8f900; font-size: 14px;">
+					<a href="#"><img alt="" class="left mr20" src="/resources/planImg/noimg.png" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
+					<a class="dark" href="#" id="contentsTitle"><b>{{contentsTitle}}</b></a><br>
+					<span class="opensans green bold size14">$36-$160</span>
+				</div>
+				<div class="line4"></div>
+</script>
+
+<!-- 스크랩 리스트 조회 -->
+<script>
+var source = $("#scrapList").html();
+var template = handlebars.compile(source);
+var data = {
+		contentsID : 1,
+		categoryID : 1,
+		contentsTitle : "title"
+}
+$("#tab-newtopic").html(template(data));
+/* $("#tab-newtopic").append(template(data)); */
+</script>
 
 	<script>
 	var template = Handlebars.compile($("#template").html());
@@ -239,8 +255,7 @@ body {
         $('#external-events .fc-event').each(function() {
             // store data so the calendar knows to render an event upon drop
            $(this).data('event', {
-               	
-                title: $.trim($(this).text()), // use the element's text as the event title
+        	    title: $.trim($("#contentsTitle").text()),  // use the element's text as the event title
                 stick:true // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
                             // false: 없어짐.
                

@@ -85,10 +85,11 @@ public class ScrapModuleController {
 		
 		try {
 			
-			loger.info("scrap list");
+//			loger.info("scrap list");
 			Object obj = session.getAttribute("login");
 			MemberVO memberVO = (MemberVO) obj;
 			// 멤버 id를 받아 리스트를 조회하여 뷰단으로 전송
+			loger.info("scrap list"+scrapService.listAll(memberVO.getMemberID()).toString());
 			entity = new ResponseEntity<>(scrapService.listAll(memberVO.getMemberID()),HttpStatus.OK);
 			
 		}catch(Exception e) {
