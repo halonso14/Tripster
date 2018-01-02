@@ -1,6 +1,5 @@
 package com.tripster.controller;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,6 +8,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.tripster.domain.Criteria;
+import com.tripster.domain.MemberVO;
 import com.tripster.domain.MemoVO;
 import com.tripster.domain.PageMaker;
 import com.tripster.domain.PlanDetailVO;
@@ -59,11 +59,14 @@ public class PlanController {
 		
 	//plan 등록.
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public String registerPOST(PlanVO planVO, RedirectAttributes rttr)throws Exception{
+	public String registerPOST(PlanVO planVO, RedirectAttributes rttr,HttpSession session)throws Exception{
+		//session읽어들이기
+		MemberVO memberVO = (MemberVO)session.getAttribute("login");
 		
 		//planID & planEndChk default값 설정.
 		planVO.setPlanID(0);
 		planVO.setPlanEndChk(0);
+		planVO.setMemberID(memberVO.getMemberID());
 		
 		//등록 작업 수행.
 		planService.registerPlan(planVO);
@@ -328,9 +331,12 @@ public class PlanController {
 
 	//댓글 등록.
 	@RequestMapping(value="/reply/register", produces = "application/text; charset=utf8",method=RequestMethod.POST)
-	public @ResponseBody ResponseEntity<String> registerReply(@RequestBody PlanReplyVO vo){
+	public @ResponseBody ResponseEntity<String> registerReply(@RequestBody PlanReplyVO vo, HttpSession session){
 		ResponseEntity<String> entity = null;
 		
+		//memberID값 받기.
+		MemberVO memberVO = (MemberVO)session.getAttribute("login");
+		vo.setMemberID(memberVO.getMemberID());
 		try {
 			planReplyService.register(vo);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK	);
@@ -362,7 +368,7 @@ public class PlanController {
 			pageMaker.setTotalCount(replyCount);
 			
 			map.put("pageMaker", pageMaker);
-			
+			map.put("replyCount", replyCount);
 			entity = new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();

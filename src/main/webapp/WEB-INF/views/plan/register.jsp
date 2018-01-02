@@ -9,10 +9,9 @@
 <body>
 	<h2>planRegisterForm</h2>
 	<form action="/plan/register" method="POST">
-		<input type="hidden" name="memberID" value="1">
-		title: <input type="text" name="planTitle">
-		startDate: <input type="date" name="planStartDate">
-		endDate:<input type="date" name="planEndDate">
+		title: <input type="text" name="planTitle" required>
+		startDate: <input type="date" name="planStartDate" required>
+		endDate:<input type="date" name="planEndDate" required>
 		<br>
 		<input type="submit" value="등록">
 	</form>

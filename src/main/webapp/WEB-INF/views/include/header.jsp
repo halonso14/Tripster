@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
-
+<%@include file="/WEB-INF/views/plan/planModal.jsp"%>
 <!-- Top wrapper -->
 <div class="navbar-wrapper3 navbar-fixed-top2">
 	<div class="container">
@@ -35,10 +35,9 @@
 							<ul class="dropdown-menu">
 								<li><a href="member/mypage2">내정보 관리</a></li>
 								<li><a href="member/logout">로그아웃</a></li>
-								<li><a href="scrapList">스크랩 리스트</a></li>
 							</ul>
 								</li>
-								<li><a href="#">일정등록버튼</a></li>
+								<li><a href="#" onclick="planModal();">일정등록버튼</a></li>
 							</ul>
 						</c:otherwise>
         			

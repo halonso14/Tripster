@@ -38,13 +38,16 @@
     <!-- Picker -->	
 	<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />	
 	
-    <!-- jQuery -->		
-    <script src="/resources/assets/js/jquery.v2.0.3.js"></script>
+<!--     jQuery	 -->	
+    <script src="https://code.jquery.com/jquery-2.0.3.js"></script>
+    
+    
 	
 
 	
   </head>
     
+   <body id="top" class="thebg" >
 	<div class="navbar-wrapper2 navbar-fixed-top">
       <div class="container">
 		<div class="navbar mtnav">
@@ -176,5 +179,17 @@
       </div>
     </div>
 	
-	<div class="container breadcrub">
-	</div>
+    <div class="container breadcrub">
+	    <div>
+			<a class="homebtn left" href="#"></a>
+			<div class="left">
+				<ul class="bcrumbs">
+					<li>/</li>
+					<li><a href="#" class="active">About us</a></li>					
+				</ul>				
+			</div>
+			<a class="backbtn right" href="#"></a>
+		</div>
+		<div class="clearfix"></div>
+		<div class="brlines"></div>
+	</div>	
