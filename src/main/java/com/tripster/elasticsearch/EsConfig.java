@@ -21,7 +21,7 @@ public class EsConfig {
         InetAddress address = InetAddress.getLocalHost();
        
         return new PreBuiltTransportClient(settings)
-                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getLocalHost(), 9200));
+                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("localhost"), 9300));
 
     }
 }
