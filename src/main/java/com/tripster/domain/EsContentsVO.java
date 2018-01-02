@@ -4,12 +4,11 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.JsonFilter;
 
 import com.tripster.domain.ContentsReviewVO;
-import com.tripster.domain.EsContentsDetailVO;
 
 @JsonFilter("EsContentsFilter")
 public class EsContentsVO extends ContentsVO{
 
-	private EsContentsDetailVO EsContentsDetailVO;
+	private HashMap<String,String> contentsDetail;
 	
 	private List<ContentsReviewVO> ContentsReviewVO;
 	

@@ -1,11 +1,9 @@
 package com.tripster.domain;
 
 import java.util.*;
-import lombok.*;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 
-@Data 
 @JsonFilter("EsContentsFilter")
 public class ContentsReviewVO {
 	//리뷰 작성자 ID
@@ -18,5 +16,42 @@ public class ContentsReviewVO {
 	private String contentsReview;
 	//리뷰 작성(수정) 시간
 	private Date contentsReviewTime;
+	public Integer getMemberID() {
+		return memberID;
+	}
+	public void setMemberID(Integer memberID) {
+		this.memberID = memberID;
+	}
+	public Integer getContentsID() {
+		return contentsID;
+	}
+	public void setContentsID(Integer contentsID) {
+		this.contentsID = contentsID;
+	}
+	public Integer getContentsReviewID() {
+		return contentsReviewID;
+	}
+	public void setContentsReviewID(Integer contentsReviewID) {
+		this.contentsReviewID = contentsReviewID;
+	}
+	public String getContentsReview() {
+		return contentsReview;
+	}
+	public void setContentsReview(String contentsReview) {
+		this.contentsReview = contentsReview;
+	}
+	public Date getContentsReviewTime() {
+		return contentsReviewTime;
+	}
+	public void setContentsReviewTime(Date contentsReviewTime) {
+		this.contentsReviewTime = contentsReviewTime;
+	}
+	@Override
+	public String toString() {
+		return "ContentsReviewVO [memberID=" + memberID + ", contentsID=" + contentsID + ", contentsReviewID="
+				+ contentsReviewID + ", contentsReview=" + contentsReview + ", contentsReviewTime=" + contentsReviewTime
+				+ "]";
+	}
 
+	
 }
