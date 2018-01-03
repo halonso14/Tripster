@@ -7,14 +7,6 @@
 
 	
 	<!-- TOP TIP -->
-	<div class="filtertip">
-		<div class="padding20">
-			<p class="size13"><span class="size18 bold counthotel">53</span> Hotels starting at</p>
-			<p class="size30 bold">$<span class="countprice"></span></p>
-			<p class="size13">Narrow results or <a href="#">view all</a></p>
-		</div>
-		<div class="tip-arrow"></div>
-	</div>
 
 	<div class="bookfilters hpadding20">
 			<div class="w50percent">
