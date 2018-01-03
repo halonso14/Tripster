@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select plan_reply_id planReplyID, member_id memberID, plan_reply_contents planReplyContents, plan_reply_time planReplyTime 
 		from tbl_plan_reply
 		where plan_id = #{planID}
-		order by plan_reply_time desc
+		order by plan_reply_id desc
 		limit #{cri.startNum}, #{cri.contentsPerPage}
 	</select>
 	
@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(plan_ID) from tbl_plan_reply where plan_id = #{planID}
 	</select>
 	
-	<!-- memberName조  -->
+	<!-- memberName조회.  -->
 	<select id="memberName" resultType="string">
 		select member_name from tbl_member where member_id = #{memberID}
 	</select>

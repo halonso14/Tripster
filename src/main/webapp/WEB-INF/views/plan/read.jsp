@@ -102,6 +102,68 @@
     background: #ff9900;
     margin-left: 10px;
 }
+
+#replyDelBtn{
+    text-transform: uppercase;
+    border: 1px solid #d75124;
+    padding: 0px 0px;
+    background: #e35121;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ff6633), to(#e35121));
+    background: -webkit-linear-gradient(top, #ff6633, #e35121);
+    background: -moz-linear-gradient(top, #ff6633, #e35121);
+    background: -ms-linear-gradient(top, #ff6633, #e35121);
+    background: -o-linear-gradient(top, #ff6633, #e35121);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.18) 0 1px 0;
+    -moz-box-shadow: rgba(0,0,0,0.18) 0 1px 0;
+    box-shadow: rgba(0,0,0,0.18) 0 1px 0;
+    text-shadow: rgba(0,0,0,.4) 0 -1px 0;
+    color: #ffffff;
+    font-size: 2px;
+    font-family: Helvetica, Arial, Sans-Serif;
+    text-decoration: none;
+    vertical-align: middle;
+    font-family: "Open Sans";
+    font-weight: 700;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    transition: .3s;
+    width: 55px;
+    height: 20px;
+}
+
+.planModifyBtn{
+	text-transform: uppercase;
+    border: 1px solid #006699;
+    padding: 0px 0px;
+    background: #3994d4;
+    background: -webkit-gradient(linear, left top, left bottom, from(#3994d4), to(#1d7db7));
+    background: -webkit-linear-gradient(top, #3994d4, #1d7db7);
+    background: -moz-linear-gradient(top, #3994d4, #1d7db7);
+    background: -ms-linear-gradient(top, #3994d4, #1d7db7);
+    background: -o-linear-gradient(top, #3994d4, #1d7db7);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.18) 0 1px 0;
+    -moz-box-shadow: rgba(0,0,0,0.18) 0 1px 0;
+    box-shadow: rgba(0,0,0,0.18) 0 1px 0;
+    text-shadow: rgba(0,0,0,.4) 0 -1px 0;
+    color: #ffffff;
+    font-size: 2px;
+    font-family: Helvetica, Arial, Sans-Serif;
+    text-decoration: none;
+    vertical-align: middle;
+    font-family: "Open Sans";
+    font-weight: 700;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    transition: .3s;
+    width: 55px;
+    height: 20px;
+}
 </style>
 	
 </head>
@@ -227,7 +289,7 @@
 														<c:choose>
 							       							<c:when test="${pictureVO.memoPictureName ne null}">
 							           					 		<li>
-																	<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img src="/displayFile?fileName=${pictureVO.memoPictureName }" style="width: 100%; max-width: 760px; vertical-align: middle"/></a>
+																	<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img  class="img-responsive" src="/displayFile?fileName=${pictureVO.memoPictureName }" style="width: 100%; max-width: 760px; vertical-align: middle"/></a>
 																</li>
 							       							</c:when>
 							       							<c:otherwise>
@@ -303,20 +365,6 @@
 	</div>
 	<!-- END OF CONTENT -->
 	
-	<!-- 댓글 수졍 및 삭제 모달  -->
-	<div id='modDiv' style="display: none;">
-		<div class='modal-title'></div>
-		<div>
-			<input type='text' id='replytext'>
-		</div>
-		<div>
-			<button type="button" id="replyModBtn">Modify</button>
-			<button type="button" id="replyDelBtn">DELETE</button>
-			<button type="button" id='closeBtn'>Close</button>
-		</div>
-	</div>
-	
-	
 	<!-- CarouFredSel -->
 	<script src="/resources/assets/js/jquery.carouFredSel-6.2.1-packed.js"></script>
     <script src="/resources/assets/js/helper-plugins/jquery.touchSwipe.min.js"></script>
@@ -330,6 +378,7 @@
     
 	<%@include file="/WEB-INF/views/include/footer.jsp"%>
 <script>
+
 	var planID = ${plan.planID};
 	var id='';
 	getPageList(1);
@@ -376,14 +425,14 @@
 			
 				str+= "<br><div class='wh20percent left textleft'><div class='circlewrap2'><img alt='' class='circleimg' src='/resources/images/user-avatar.jpg'></div></div>"
 				+'<div class="wh80percent right "><span class="lblue bold">'+this.memberName+'</span>&nbsp&nbsp<span class="grey size12">'+dformat+'</span><br/>'+
-				'<span class="replyspan" data-rno="'+this.planReplyID+'">'+this.planReplyContents;
+				'<span class="replyspan" data-rno="'+this.planReplyID+'">'+"<span class='replyContents'>"+this.planReplyContents+"</span>";
 				
 				//session이 존재하면,	
  				if('' != id){
  					//session의 id와 댓글 작성자 id와 비교.
 					 if(id == this.memberID){
 						 //같으면 modify버튼 보여줌.
-						str+='</br><span class="grey size12"><a href="#" class="orange">Modify</a></span>'
+						str+='</br><span class="grey size12"><input type="button" class="btn-search4 planReplyBtn" id="replyDelBtn" value="Remove" onclick="replyRemove($(this))">&nbsp</span><span class="grey size12"><input type="button" input type="button" class="planModifyBtn"  value="Modify" onclick="modifyForm($(this))"></span>'
 					} 
 				}
 				
@@ -483,24 +532,23 @@
 	}
 	
 	//mod버튼 클릭 시,
-	$("#replies").on("click", ".replyspan a", function(){
-		var reply = $(this).parent().parent();
-		console.log(reply.get(0));
+	function modifyForm(event){
+		var reply = event.parent().parent();
 		var rno = reply.attr("data-rno");
 		var replytext = reply.text();
-
 		
- 		$(".modal-title").html(rno);
-		$("#replytext").val(replytext);
-		$("#modDiv").show("slow"); 	
-	});
+		reply.empty();
+		str = "<div class='replyModDiv' ><textarea id='replytext' class='form-control' rows='3' col='20'>"+replytext+"</textarea></br><input type='button' class='planModifyBtn' id='replyModBtn' value='저장' onclick='replyModify()'></div>"
+		reply.append(str); 
+		$(".replyModDiv").attr("id", rno);
+	}
 	
 	//삭제 호출		
-	$("#replyDelBtn").on("click",function(){
-		var rno = $(".modal-title").html();
-		var replytext = $("#replytext").val();
-		
-		$.ajax({
+	function replyRemove(event){
+		var reply = event.parent().parent();
+		var rno = reply.attr("data-rno");
+
+		 $.ajax({
 			type:'post',
 			url:'/plan/reply/delete/'+rno,
 			contentType : "application/json",
@@ -508,19 +556,17 @@
 			success : function(result) {
 				if (result == 'SUCCESS') {
 					alert("삭제 되었습니다.");
-					$("#modDiv").hide("slow");
 					getPageList(replyPage);
 				}
 			}
-		});
-	});
+		}); 
+	}
 	
 	//수정 버튼 클릭.
-	$("#replyModBtn").on("click", function() {
-		var rno = $(".modal-title").html();
+	function replyModify() {
+		var rno = $(".replyModDiv").attr("id");
 		var replytext = $("#replytext").val();
-		alert(rno);
-		$.ajax({
+		 $.ajax({
 			type : 'post',
 			url : '/plan/reply/update',
 			contentType : "application/json",
@@ -530,21 +576,13 @@
 				planReplyContents : replytext
 			}),
 			success : function(result) {
-				console.log("result: " + result);
 				if (result == 'SUCCESS') {
 					alert("수정 되었습니다.");
-					$("#modDiv").hide("slow");
 					getPageList(replyPage);
 				}
 			}
-		}); 
-	});
+		});  
+	};
 	
-	//닫기 버튼 클릭 시,
-	$("#closeBtn").on("click", function() {
-		$("#modDiv").attr("style", "display: none;");
-	});
-	
-
 </script>
 </html>

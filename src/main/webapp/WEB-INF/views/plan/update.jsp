@@ -82,7 +82,7 @@ body {
  .modal {
     position: fixed;
     left: 50%;
-    top: 50%;
+    
 
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
@@ -155,7 +155,7 @@ body {
 	
 	
 	<div class="container">
-		 <div class="modal fade" id="myModal" role="dialog">
+		 <div class="modal fade" id="myModal" role="dialog" style="width: 800px;height:700px; margin-bottom: 50px">
 		 
 			 <form method="post" id="memoForm">
 				<input type="hidden" name="planID" value=${plan.planID }>

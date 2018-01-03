@@ -79,7 +79,7 @@ body {
  .modal {
     position: fixed;
     left: 50%;
-    top: 50%;
+    
 
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
@@ -142,7 +142,7 @@ body {
 	
 	
 	<div class="container">
-		 <div class="modal fade" id="myModal" role="dialog">
+		<div class="modal fade" id="myModal" role="dialog" style="width: 800px;height:700px; margin-bottom: 50px">
 		 
 			 <form method="post" id="memoForm">
 				<input type="hidden" name="planID" value=${planVO.planID }>
@@ -369,7 +369,7 @@ body {
              },
              
              eventRender: function(event, element) {
-                 element.find('.fc-content').append( '<span class="glyphicon glyphicon-edit memo" aria-hidden="true">' );
+                 element.find('.fc-content').append( '<span class="glyphicon glyphicon-edit memo" aria-hidden="true">&nbsp' );
                  element.find('.fc-content').append('<span class="glyphicon glyphicon-trash closeon" aria-hidden="true">' );
                  //삭제
                  element.find(".closeon").click(function() {
