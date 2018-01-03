@@ -89,62 +89,60 @@
 			
 			<!-- RIGHT CONTENT -->
 			<div class="rightcontent col-md-9 offset-0">
-				
-				<!--####### Top FILTERS ########-->
-				<div class="hpadding20">
-					<div class="topsortby">
-						<div class="col-md-4 offset-0">
-								
-								<div class="left mt7"><b>Sort by:</b></div>
-								
-								<div class="right wh70percent">
-									<select class="form-control mySelectBoxClass ">
-									  <option selected>Guest rating</option>
-									  <option>5 stars</option>
-									  <option>4 stars</option>
-									  <option>3 stars</option>
-									  <option>2 stars</option>
-									  <option>1 stars</option>
-									</select>
-								</div>
-
-						</div>			
-						<div class="col-md-4">
-							<div class="w50percent">
-								<div class="wh90percent">
-									<select class="form-control mySelectBoxClass ">
-									  <option selected>Name</option>
-									  <option>A to Z</option>
-									  <option>Z to A</option>
-									</select>
-								</div>
-							</div>
-							<div class="w50percentlast">
-								<div class="wh90percent">
-									<select class="form-control mySelectBoxClass ">
-									  <option selected>Price</option>
-									  <option>Ascending</option>
-									  <option>Descending</option>
-									</select>
-								</div>
-							</div>					
-						</div>
-						<div class="col-md-4 offset-0">
-							<button class="popularbtn left">Most Popular</button>
-							<div class="right">
-								<button class="gridbtn" onClick="window.open('list2.html','_self');">&nbsp;</button>
-								<button class="listbtn active">&nbsp;</button>
-								<button class="grid2btn" onClick="window.open('list3.html','_self');">&nbsp;</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- End of Top FILTERS-->
-							
 				<div class="tab-content6">
 						
 						<!-- Tab totalList -->
 						<div class="tab-pane  active" id="totalList">
+							<!-- Top FILTERS -->
+							<div class="hpadding20">
+								<div class="topsortby">
+									<div class="col-md-4 offset-0">
+											
+											<div class="left mt7"><b>Sort by:</b></div>
+											
+											<div class="right wh70percent">
+												<select class="form-control mySelectBoxClass ">
+												  <option selected>Guest rating</option>
+												  <option>5 stars</option>
+												  <option>4 stars</option>
+												  <option>3 stars</option>
+												  <option>2 stars</option>
+												  <option>1 stars</option>
+												</select>
+											</div>
+			
+									</div>			
+									<div class="col-md-4">
+										<div class="w50percent">
+											<div class="wh90percent">
+												<select class="form-control mySelectBoxClass ">
+												  <option selected>Name</option>
+												  <option>A to Z</option>
+												  <option>Z to A</option>
+												</select>
+											</div>
+										</div>
+										<div class="w50percentlast">
+											<div class="wh90percent">
+												<select class="form-control mySelectBoxClass ">
+												  <option selected>Price</option>
+												  <option>Ascending</option>
+												  <option>Descending</option>
+												</select>
+											</div>
+										</div>					
+									</div>
+									<div class="col-md-4 offset-0">
+										<button class="popularbtn left">Most Popular</button>
+										<div class="right">
+											<button class="gridbtn" onClick="window.open('list2.html','_self');">&nbsp;</button>
+											<button class="listbtn active">&nbsp;</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- End of Top FILTERS-->
+							
 							<div class="itemscontainer offset-1">
 								<!--####### 컨텐츠 검색결과 : 템플릿 z-cruise-list.html #######-->
 								<c:forEach items="${contentsList}" var = "esContentsVO">
