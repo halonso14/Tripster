@@ -94,6 +94,14 @@
     border-radius: 6px;
     background: #fff;
 }
+
+.whichDay {
+    font-size: 16px;
+    padding: 7px 16px;
+    color: #fff;
+    background: #ff9900;
+    margin-left: 10px;
+}
 </style>
 	
 </head>
@@ -116,6 +124,7 @@
 						
 					</div>
 					<div class="lato size15 grey bold">
+						
 						<fmt:formatDate var="parseStartDate" value="${plan.planStartDate }" pattern="yyyy-MM-dd"/>
 						<fmt:formatDate var="parseEndDate" value="${plan.planEndDate }" pattern="yyyy-MM-dd"/>
 						
@@ -175,19 +184,30 @@
 
 							<c:set var = "date" value=""/>
 							<div id="eventWrapper" style="border-left: 1px solid #ccc;padding-left: 20px">
-							<%-- <fmt:parseDate var="startDate" value="${plan.planStartDate }" pattern="yyyy-MM-dd"/> --%>
-							<%-- <c:set var="startDate" value="${plan.planStartDate }"/> --%>
+							<!-- Day 계산 -->
+							<!-- 
+								 fmt:parseDate : String 형을 받아서 하는 format으로 자료형을 Date 형태로 변경 시켜 준다.
+								 fmt:formatDate : Date 형을 받아서 원하는 format으로 날짜 형태를 변경시켜 준다.
+								 planStartDate는 Date형 -> yyyy-mm-dd로 format -> Date형으로 다시 파싱.->일자를 초단위로 파싱.
+							-->
+							<fmt:formatDate var="startPlanDate" value="${plan.planStartDate }" pattern="yyyy-MM-dd"/>
+							<fmt:parseDate var="parseStartDate" value="${startPlanDate }" pattern="yyyy-MM-dd"/>
+							<fmt:parseNumber value="${parseStartDate.time / (1000*60*60*24)}" integerOnly="true" var="startDate"></fmt:parseNumber>
+
 							
 							<c:forEach items="${plan.planDetailVO }" var="planDetailVO">
-								<%-- <fmt:parseDate var="nowDate" value="${planDetailVO.planDetailDatee }" pattern="yyyy-MM-dd"/> --%>
-								<%-- <c:set var="nowDate" value="${planDetailVO.planDetailDate }"/> --%>
+								<!-- planDetailDate는 String형 -> yyyy-mm-dd로 Date 형태로 변경.-> 일자를 초단위로 파싱. -->
+								<fmt:parseDate var="nowPlanDate" value="${planDetailVO.planDetailDate }" pattern="yyyy-MM-dd"/>
+								<fmt:parseNumber value="${nowPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="nowDate"></fmt:parseNumber>
+					
 								<c:if test="${planDetailVO.planDetailDate ne date}">
-								
-									<div class="dayCircle"></div>${nowDate-startDate }<span class="lato size22 dark bold" style="color:#ca4a09">${planDetailVO.planDetailDate }</span><br/>
+									<!-- 현재 Detial Date에서 전체 일정 시작 날짜를 빼서 Day 구해줌.  -->
+									<div class="dayCircle"></div><span class="whichDay">Day ${nowDate-startDate+1 }</span>&nbsp&nbsp<span class="lato size22 dark bold" ">${planDetailVO.planDetailDate }</span><br/>
 									<c:set var = "date" value="${planDetailVO.planDetailDate }"/>
 									<div class="line4"></div>
 								</c:if>
 								<c:set var = "detailStart" value = "${ planDetailVO.planDetailStartTime}"/>
+								<!-- 시:분 까지만 뿌려주기 위해서 초단위 부분은 잘라줌.  -->
 								<c:set var = "formatDetailStart" value = "${fn:substring(detailStart, 0, 5)}" />
 								<div class="dayCircle"></div><span class="lato size18 dark bold">${formatDetailStart}&nbsp</span>
 								<span class="lato size18 blue bold"> ${planDetailVO.title }</span><br/>
@@ -220,8 +240,8 @@
 											</c:forEach>
 										
 										<div class="clearfix"></div>
-										<a id="prev_btn" class="xprev" href="#"><img src="/resources/images/spacer.png" alt=""/></a>
-										<a id="next_btn" class="xnext" href="#"><img src="/resources/images/spacer.png" alt=""/></a>
+										<a id="prev_btn" class="xprev" href=""><img src="/resources/images/spacer.png" alt=""/></a>
+										<a id="next_btn" class="xnext" href=""><img src="/resources/images/spacer.png" alt=""/></a>
 									</div>
 								</div>
 								<!-- <div class="line4"></div> -->
@@ -314,6 +334,7 @@
 	var id='';
 	getPageList(1);
 	
+	//날짜 형태를 02-01와 같은 형태를 위한 함수.
 	Number.prototype.padLeft = function(base,chr){
 	    var  len = (String(base || 10).length - String(this).length)+1;
 	    return len > 0? new Array(len).join(chr || '0')+this : this;
@@ -344,6 +365,7 @@
 			
 			
 			$(data.reply).each(function(){
+				//댓글 작성 시간을 '2017/12/28 15:55:55'와 같은 형태로 파싱.
 				var d =new Date( this.planReplyTime),dformat = [d.getFullYear(), (d.getMonth()+1).padLeft(),
 		               d.getDate().padLeft()
 		               ].join('/') +' ' +
@@ -378,7 +400,7 @@
 		});
 	}
 	
-	
+	//page 뿌려주는 함수.
 	function printPaging(pageMaker) {
 		var str = "";
 		if (pageMaker.prev) {
