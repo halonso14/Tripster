@@ -4,19 +4,19 @@ PUT test
   	"contents": {
   		"properties": {
   			"contentsID": { "type": "integer" },
+  			"categoryID": { "type": "integer" },
   			"title": { "type": "text" },	
   			"location": { "type": "text" },
-  			"rating": { "type": "integer" },	
-  			"time": { "type": "text" },
+  			"rating": { "type": "integer" },	 			
   			"contents": { "type": "text" },	
-  			"tel": { "type": "text" },
-  			"categoryID": { "type": "integer" },
+  			"tumb": { "type": "text" },
   			"contentsViewCnt": { "type": "integer" },
   			"contentsReviewCnt": { "type": "integer" },
   			"contentsScrapCnt": { "type": "integer" },
-  			"EsContentsDetailVO": {
+  			"contentsDetail": {
   				"properties": {
-  					"contentsDetail": { "type": "text" }
+  					"time": { "type": "text" },
+  					"tel": { "type": "text" },
   				}
   			},
   			"ContentsReviewVO" : { 
