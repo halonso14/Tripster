@@ -16,8 +16,8 @@ public class EsConfig {
 	@Bean
     public Client client() throws Exception {
         Settings settings = Settings.builder()
-                .put("cluster.name",  "my-application").build();
+                .put("cluster.name",  "elasticsearch").build();
 
-        return new PreBuiltTransportClient(settings).addTransportAddress(new InetSocketTransportAddress(new InetSocketAddress("192.168.0.3", 9300)));
+        return new PreBuiltTransportClient(settings).addTransportAddress(new InetSocketTransportAddress(new InetSocketAddress("13.125.123.218", 9300)));
     }
 }
