@@ -12,3 +12,4 @@ bin
 *.properties
 root-context.xml
 .springBeans
+EsConfig.java
