@@ -67,186 +67,237 @@
 		<div class="brlines"></div>
 	</div>	
 
+
 	<!--####### CONTAINER #######-->
 	<div class="container">
-		<!--####### CONTENTS CONTAINER ########-->
+		<!-- CONTENTS CONTAINER -->
 		<div class="container pagecontainer offset-0">	
+			
+			<!-- LEFT CONTENT: SIDE FILTERS -->
+			<div class="col-md-3 filters offset-0">
+				<ul class="blogcat margleft20 margright20 margtop10">
+					<li onclick="mySelectUpdate()" class="size16">
+						<a data-toggle="tab" href="#contentsList">
+						<span class="hoteltab3"></span><span class="hidetext">'${keyword }'검색결과</span>&nbsp; 
+						<span class="badge indent0">${getNum.get("totalNum") }</span></a></li>
+					<li onclick="mySelectUpdate()" class="">
+						<a data-toggle="tab" href="#contentsList">
+						<span class="hoteltab3"></span><span class="hidetext">컨텐츠</span>&nbsp; 
+						<span class="badge indent0">${getNum.get("contentsNum") }</span></a></li>
+					<li onclick="mySelectUpdate()" class="">
+						<a data-toggle="tab" href="#planList">
+						<span class="cartab3"></span><span class="hidetext">일정</span>&nbsp; 
+						<span class="badge indent0">${getNum.get("planNum") }</span></a></li>
+					<li onclick="mySelectUpdate()" class="">
+						<a data-toggle="tab" href="#vacationstab3">
+						<span class="suitcasetab3"></span><span class="hidetext">회원</span>&nbsp; 
+						<span class="badge indent0">${getNum.get("memberNum") }</span></a></li>
+				</ul>
 
-			<!--####### LEFT CONTENT: SIDE FILTERS ########-->
-			<%@include file="include/filterList.jsp" %>
-			<!--####### RIGHT CONTENT ########-->
+				
+				
+				
+			</div>
+			
+			<!-- RIGHT CONTENT -->
 			<div class="rightcontent col-md-9 offset-0">
-				
-				<!--####### Top FILTERS ########-->
-				<div class="hpadding20">
-					<div class="topsortby">
-						<div class="col-md-4 offset-0">
-								
-								<div class="left mt7"><b>Sort by:</b></div>
-								
-								<div class="right wh70percent">
-									<select class="form-control mySelectBoxClass ">
-									  <option selected>Guest rating</option>
-									  <option>5 stars</option>
-									  <option>4 stars</option>
-									  <option>3 stars</option>
-									  <option>2 stars</option>
-									  <option>1 stars</option>
-									</select>
-								</div>
-
-						</div>			
-						<div class="col-md-4">
-							<div class="w50percent">
-								<div class="wh90percent">
-									<select class="form-control mySelectBoxClass ">
-									  <option selected>Name</option>
-									  <option>A to Z</option>
-									  <option>Z to A</option>
-									</select>
-								</div>
-							</div>
-							<div class="w50percentlast">
-								<div class="wh90percent">
-									<select class="form-control mySelectBoxClass ">
-									  <option selected>Price</option>
-									  <option>Ascending</option>
-									  <option>Descending</option>
-									</select>
-								</div>
-							</div>					
-						</div>
-						<div class="col-md-4 offset-0">
-							<button class="popularbtn left">Most Popular</button>
-							<div class="right">
-								<button class="gridbtn" onClick="window.open('list2.html','_self');">&nbsp;</button>
-								<button class="listbtn active">&nbsp;</button>
-								<button class="grid2btn" onClick="window.open('list3.html','_self');">&nbsp;</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- End of Top FILTERS-->
-				
-				<br/><br/>
-				<div class="clearfix"></div>
-				
-				<!--####### 통합검색결과 리스트 ########-->
-				<p class="margleft20"><a> '...' 검색결과 00 건  </a> </p>
-				<div class="itemscontainer offset-1">
-					<!--####### 컨텐츠 검색결과 : 템플릿 z-cruise-list.html #######-->
-					<p class="margleft20"><a>컨텐츠 더보기 </a> </p>
-					<c:forEach items="${contentsList}" var = "esContentsVO">
-						<div class="offset-2" >
-							<div class="col-md-4 offset-0" >
-								<div class = "listitem2" >
-									<a href="/resources/updates/update1/img/activities/act04.jpg" data-footer="A custom footer text" data-title="A random title" data-gallery="multiimages" data-toggle="lightbox">
-									<img src="/resources/updates/update1/img/activities/act04.jpg" alt="" style="display:block" />
-									</a>
-									<div class="liover"></div>
-									<a class="fav-icon" href="#"></a>
-									<a class="book-icon" href="details.html"></a>
-								</div>	
-							</div>
-							<div class="col-md-8 offset-0" style="border:1px solid #e6e6e6" >
-								<div class="labelright">
-									<img src="/resources/images/filter-rating-${esContentsVO.rating}.png" width="60" alt=""><br><br><br>
-									<img src="/resources/images/user-rating-5.png" width="60" alt=""><br>
-									<span class="size11 grey">${esContentsVO.contentsReviewCnt} Reviews</span><br><br>
-									<span class="green size18"><b>1 </b>Plan</span><br>
-									<span class="size11 grey margbot20">/ ${esContentsVO.contentsScrapCnt} Scrap</span><br><br>
-								 	<button class="bookbtn mt1" type="submit">Scrap</button>		
-								</div>
-								<div class="labelleft">			
-									<span class="size16"><b>${esContentsVO.title}</b></span><br>
-									<span class="opensans size14 grey"><span class="grey2">Category:</span> 맛집, 관광</span><br>
-									<div class="line4 wh80percent"></div>									
-									<p class="grey size14 lh6">
-										<span class="opensans size14 grey2">Keyword:</span> #여기에 #태그 #있으면 #좋겠다<br>
-										${esContentsVO.contents}
-									</p>	
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="clearfix"></div>
-				
-					</c:forEach>
-					<div class="offset-2"><hr class="featurette-divider2"></div>
-					
-					<!--####### 일정 검색결과 : 템플릿 list3.html #######-->
-					<p class="margleft20"><a>일정 더보기</a> </p>	
-					<c:forEach items="${planList}" var = "esPlanVO">
-						<div class="col-md-4">
-							<div class="listitem">
-								<img src="/resources/images/items/item1.jpg" alt="일정사진은 뭘로쓸까">
-								<div class="liover" style="width: 10%; height: 10%; background-color: rgb(255, 153, 0); position: absolute; top: 90px; left: 125.5px; opacity: 0;"></div>
-								<a class="fav-icon" href="#" style="top: 79px; left: -25px;"></a>
-								<a class="book-icon" href="#" style="top: 79px; left: 251px;"></a>
-							</div>
-							<div class="itemlabel2">
-								<div class="labelright">													
-									<img src="/resources/images/user.png" alt="유저프로필" class=" ">
-									<p class="size12 grey margtop20">유저아이디</p><br>
-									<span class="size11 grey">댓글수</span><br>
-									<span class="size11 grey">좋아요수</span><br>
-									<button class="bookbtn mt1">Book</button>		
-								</div>
-								<div class="labelleft">	
-									<span class="size16"><b>${esPlanVO.planTitle}</b></span><br>		
-									<br>
-									<p class="grey">${esPlanVO.planDetailVO.title}</p>
+				<div class="tab-content6">
+						
+						<!-- Tab totalList -->
+						<div class="tab-pane  active" id="totalList">
+							<!-- Top FILTERS -->
+							<div class="hpadding20">
+								<div class="topsortby">
+									<div class="col-md-4 offset-0">
+											
+											<div class="left mt7"><b>Sort by:</b></div>
+											
+											<div class="right wh70percent">
+												<select class="form-control mySelectBoxClass ">
+												  <option selected>Guest rating</option>
+												  <option>5 stars</option>
+												  <option>4 stars</option>
+												  <option>3 stars</option>
+												  <option>2 stars</option>
+												  <option>1 stars</option>
+												</select>
+											</div>
+			
+									</div>			
+									<div class="col-md-4">
+										<div class="w50percent">
+											<div class="wh90percent">
+												<select class="form-control mySelectBoxClass ">
+												  <option selected>Name</option>
+												  <option>A to Z</option>
+												  <option>Z to A</option>
+												</select>
+											</div>
+										</div>
+										<div class="w50percentlast">
+											<div class="wh90percent">
+												<select class="form-control mySelectBoxClass ">
+												  <option selected>Price</option>
+												  <option>Ascending</option>
+												  <option>Descending</option>
+												</select>
+											</div>
+										</div>					
+									</div>
+									<div class="col-md-4 offset-0">
+										<button class="popularbtn left">Most Popular</button>
+										<div class="right">
+											<button class="gridbtn" onClick="window.open('list2.html','_self');">&nbsp;</button>
+											<button class="listbtn active">&nbsp;</button>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="clearfix"></div>
-						</div>
-					</c:forEach>
-					<div class="offset-2"><hr class="featurette-divider2"></div>	
+							<!-- End of Top FILTERS-->
 							
-					<!--####### 유저 검색결과 : 템플릿 list2.html #######-->
-					<p class="margleft20"><a>유저 더보기</a> </p>		
-					<c:forEach items="${memberList}" var = "esMemberVO">
-						<div class="col-md-4" >
-							<!-- CONTAINER-->
-							<div class="carscontainer" style="border:1px solid #e6e6e6">
-								<div class="center">
-									<a href=""><img src="/resources/updates/update1/img/cars/car04.jpg" alt="유저 배경사진"/></a>
-								</div>
-														
-								<div class="purchasecontainer">
-									<div class="col-md-8 offset-0">
-										<img src="/resources/images/user.png" alt="유저프로필"  class="left margright10">
-										<p class="size14 margtop10">
-											<span class="bold">${esMemberVO.memberName}</span><br>
-											<span class="size12 grey">일정수 / 팔로워수</span>
-										</p>
+							<div class="itemscontainer offset-1">
+								<!--####### 컨텐츠 검색결과 : 템플릿 z-cruise-list.html #######-->
+								<c:forEach items="${contentsList}" var = "esContentsVO">
+									<div class="offset-2" >
+										<div class="col-md-4 offset-0" >
+											<div class = "listitem2" >
+												<a href="/resources/updates/update1/img/activities/act04.jpg" data-footer="A custom footer text" data-title="A random title" data-gallery="multiimages" data-toggle="lightbox">
+												<img src="/resources/updates/update1/img/activities/act04.jpg" alt="" style="display:block" />
+												</a>
+												<div class="liover"></div>
+												<a class="fav-icon" href="#"></a>
+												<a class="book-icon" href="details.html"></a>
+											</div>	
+										</div>
+										<div class="col-md-8 offset-0" style="border:1px solid #e6e6e6" >
+											<div class="labelright">
+												<img src="/resources/images/filter-rating-${esContentsVO.rating}.png" width="60" alt=""><br><br><br>
+												<img src="/resources/images/user-rating-5.png" width="60" alt=""><br>
+												<span class="size11 grey">${esContentsVO.contentsReviewCnt} Reviews</span><br><br>
+												<span class="green size18"><b>1 </b>Plan</span><br>
+												<span class="size11 grey margbot20">/ ${esContentsVO.contentsScrapCnt} Scrap</span><br><br>
+											 	<button class="bookbtn mt1" type="submit">Scrap</button>		
+											</div>
+											<div class="labelleft">			
+												<span class="size16"><b>${esContentsVO.title}</b></span><br>
+												<span class="opensans size14 grey"><span class="grey2">Category:</span> 맛집, 관광</span><br>
+												<div class="line4 wh80percent"></div>									
+												<p class="grey size14 lh6">
+													<span class="opensans size14 grey2">Keyword:</span> #여기에 #태그 #있으면 #좋겠다<br>
+													${esContentsVO.contents}
+												</p>	
+											</div>
+											<div class="clearfix"></div>
+										</div>
 										<div class="clearfix"></div>
-									</div>		
-									<button class="col-md-4 bookbtn">Follow</button>	
-								</div>
+									</div>
+									<div class="clearfix"></div>
+							
+								</c:forEach>
+								<div class="offset-2"><hr class="featurette-divider2"></div>
+							
+								<!--####### 일정 검색결과 : 템플릿 list3.html #######-->
+								<p class="margleft20"><a>일정 더보기</a> </p>	
+								<c:forEach items="${planList}" var = "esPlanVO">
+									<div class="col-md-4">
+										<div class="listitem">
+											<img src="/resources/images/items/item1.jpg" alt="일정사진은 뭘로쓸까">
+											<div class="liover" style="width: 10%; height: 10%; background-color: rgb(255, 153, 0); position: absolute; top: 90px; left: 125.5px; opacity: 0;"></div>
+											<a class="fav-icon" href="#" style="top: 79px; left: -25px;"></a>
+											<a class="book-icon" href="#" style="top: 79px; left: 251px;"></a>
+										</div>
+										<div class="itemlabel2">
+											<div class="labelright">													
+												<img src="/resources/images/user.png" alt="유저프로필" class=" ">
+												<p class="size12 grey margtop20">유저아이디</p><br>
+												<span class="size11 grey">댓글수</span><br>
+												<span class="size11 grey">좋아요수</span><br>
+												<button class="bookbtn mt1">Book</button>		
+											</div>
+											<div class="labelleft">	
+												<span class="size16"><b>${esPlanVO.planTitle}</b></span><br>		
+												<br>
+												<p class="grey">${esPlanVO.planDetailVO.title}</p>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+									</div>
+								</c:forEach>
+								<div class="offset-2"><hr class="featurette-divider2"></div>	
+										
+								<!--####### 유저 검색결과 : 템플릿 list2.html #######-->
+								<p class="margleft20"><a>유저 더보기</a> </p>		
+								<c:forEach items="${memberList}" var = "esMemberVO">
+									<div class="col-md-4" >
+										<!-- CONTAINER-->
+										<div class="carscontainer" style="border:1px solid #e6e6e6">
+											<div class="center">
+												<a href=""><img src="/resources/updates/update1/img/cars/car04.jpg" alt="유저 배경사진"/></a>
+											</div>
+																	
+											<div class="purchasecontainer">
+												<div class="col-md-8 offset-0">
+													<img src="/resources/images/user.png" alt="유저프로필"  class="left margright10">
+													<p class="size14 margtop10">
+														<span class="bold">${esMemberVO.memberName}</span><br>
+														<span class="size12 grey">일정수 / 팔로워수</span>
+													</p>
+													<div class="clearfix"></div>
+												</div>		
+												<button class="col-md-4 bookbtn">Follow</button>	
+											</div>
+											<div class="clearfix"></div>
+										</div>
+										<!-- END OF CONTAINER-->
+									</div>
+								</c:forEach>
 								<div class="clearfix"></div>
+								<div class="offset-2"><hr class="featurette-divider3"></div>	
+									
 							</div>
-							<!-- END OF CONTAINER-->
 						</div>
-					</c:forEach>
-				<div class="clearfix"></div>
-				<div class="offset-2"><hr class="featurette-divider3"></div>	
-				<!-- End of 통합검색결과 리스트 -->		
-
-				<div class="hpadding20">
-				
-					<ul class="pagination right paddingbtm20">
-					  <li class="disabled"><a href="#">&laquo;</a></li>
-					  <li><a href="#">1</a></li>
-					  <li><a href="#">2</a></li>
-					  <li><a href="#">3</a></li>
-					  <li><a href="#">4</a></li>
-					  <li><a href="#">5</a></li>
-					  <li><a href="#">&raquo;</a></li>
-					</ul>
+						<!-- End of Tab totalList -->
+						
+						<!-- Tab contentsList -->
+						<div class="tab-pane " id="contentsList">
+							<div class="itemscontainer offset-1">
+								컨텐츠 검색 상세 리스트 
+								
+							</div>
+							<br/><br/>
+							<div class="clearfix"></div>
+							
+							<div class="hpadding20">
+								<ul class="pagination right paddingbtm20">
+								  <li class="disabled"><a href="#">&laquo;</a></li>
+								  <li><a href="#">1</a></li>
+								  <li><a href="#">2</a></li>
+								  <li><a href="#">3</a></li>
+								  <li><a href="#">4</a></li>
+								  <li><a href="#">5</a></li>
+								  <li><a href="#">&raquo;</a></li>
+								</ul>
+							</div>
+						</div>
+						<!-- End of Tab contentsList -->							
+					
+						<!-- Tab "planList" -->
+						<div class="tab-pane " id="planList">
+						</div>
+						<!-- End of Tab "planList" -->		
+					
+						<!-- Tab userList -->
+						<div class="tab-pane " id="userList">
+						</div>
+						<!-- End of Tab userList -->		
+						
+						
+						<div class="clearfix"></div><br/>
 
 				</div>
+						  
+						
+				
 
 			</div>
 			<!-- END OF CONTENTS CONTAINER -->

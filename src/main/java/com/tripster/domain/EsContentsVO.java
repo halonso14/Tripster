@@ -13,5 +13,3 @@ public class EsContentsVO extends ContentsVO{
 	private List<ContentsReviewVO> ContentsReviewVO;
 	
 }		
-
-

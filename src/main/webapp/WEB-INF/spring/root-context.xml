@@ -13,13 +13,8 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
   
-<!-- 	<bean id="dataSource"
-        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="${jdbc.driver}" />
-        <property name="url" value="${jdbc.url}" />
-        <property name="username" value="${jdbc.username}" />
-        <property name="password" value="${jdbc.password}" />
-	</bean> -->
+
+	
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
@@ -27,7 +22,7 @@
 		<property name="url"
 			value="jdbc:log4jdbc:mysql://127.0.0.1:3306/tripster?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8"></property>
 		<property name="username" value="bitNarae"></property>
-		<property name="password" value="12341234"></property>
+		<property name="password" value="1234"></property>
 	</bean>
 
 
