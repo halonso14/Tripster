@@ -120,13 +120,6 @@ body {
 			<div class="line4"></div>
 			<div class="tab-pane active" id="tab-newtopic">
 			<!--id : contentsID name:categoryID  -->
-				<div class='fc-event' id=1 name=1 style="background-color: #f6f8f900; font-size: 14px;">
-					<a href="#"><img alt="" class="left mr20" src="/resources/planImg/noimg.png" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
-					<a class="dark" href="#" id="contentsTitle"><b>Hotel Dany</b></a><br>
-					<span class="opensans green bold size14">$36-$160</span>
-					<!-- <img alt="" src="/resoureces/images/filter-rating-5.png"> -->
-				</div>
-				<div class="line4"></div>
 			</div>
 		</div>
 
@@ -187,8 +180,6 @@ body {
 	</div>
 </li>
 </script>
-
-
 
 	<script>
 	var template = Handlebars.compile($("#template").html());
@@ -537,6 +528,62 @@ body {
 	 			}
 	 		});
 	 } 
+</script>
+
+<!-- 스크랩리스트 템플릿 -->
+<script id="scrapList" type="text/x-handlebars-template">
+
+<div class='fc-event' id={{contentsID}} name={{categoryID}} style="background-color: #f6f8f900; font-size: 14px;">
+               <a href="#"><img alt="" class="left mr20" src="/resources/planImg/noimg.png" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
+               <a class="dark" href="#" id="contentsTitle"><b>{{contentsTitle}}</b></a><br>
+               <span class="opensans green bold size14">$36-$160</span>
+            </div>
+            <div class="line4"></div>
+</script>
+
+<!-- 스크랩 리스트 조회 -->
+<script>
+$.getJSON('/scraplist',function(data){
+   
+   var str = "";
+   
+   $(data).each(function(i,list){
+      console.log(list);
+      var source = $("#scrapList").html();
+      var scrapData = {
+            contentsID : list.contentsID,
+            categoryID : list.categoryID,
+            contentsTitle : list.contentsTitle
+      }
+      console.log(scrapData);
+      var template = Handlebars.compile(source);
+      str += template(scrapData);
+   });
+   
+   $('#tab-newtopic').html(str);
+   
+   $('#external-events .fc-event').each(function() {
+       // store data so the calendar knows to render an event upon drop
+          
+          event.preventDefault();   
+           $(this).data('event', {
+               title: $.trim($("#contentsTitle").text()), // use the element's text as the event title
+               stick:true, // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
+                             // false: 없어짐.
+               color:$(this).data('color')
+           });
+           // make the event draggable using jQuery UI
+           $(this).draggable({
+               zIndex: 999,
+               revert: true,      // will cause the event to go back to its
+               revertDuration: 0,  //  original position after the drag
+               helper : 'clone'
+               
+           });
+           
+       });
+   
+});
 </script>
 </body>
 

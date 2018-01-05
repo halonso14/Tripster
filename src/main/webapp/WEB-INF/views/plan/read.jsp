@@ -280,34 +280,33 @@
 									</div>
 								</c:if>
 						
-								<c:if test="${planDetailVO.memoVO.memoPictureVO ne null}">
-									<div class="wrapper2">
-										<div class="list_carousel2">
-											
-												<c:forEach items="${planDetailVO.memoVO.memoPictureVO }" var="pictureVO">
-													<ul class="foo5">
-														<c:choose>
-							       							<c:when test="${pictureVO.memoPictureName ne null}">
-							           					 		<li>
-																	<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img  class="img-responsive" src="/displayFile?fileName=${pictureVO.memoPictureName }" style="width: 100%; max-width: 760px; vertical-align: middle"/></a>
-																</li>
-							       							</c:when>
-							       							<c:otherwise>
-							          							<li>
-																	<a href="/resources/planImg/noimg.png"><img src="/resources/planImg/noimg.png" style="width: 100%; vertical-align: middle"/></a>
-																</li>
-							       							</c:otherwise>
-							  							</c:choose> 	
-						  							</ul>
-											</c:forEach>
+								<div class="wrapper2">
+									<div class="list_carousel2">
 										
-										<div class="clearfix"></div>
-										<a id="prev_btn" class="xprev" href=""><img src="/resources/images/spacer.png" alt=""/></a>
-										<a id="next_btn" class="xnext" href=""><img src="/resources/images/spacer.png" alt=""/></a>
-									</div>
+											<c:forEach items="${planDetailVO.memoVO.memoPictureVO }" var="pictureVO">
+												<ul class="foo5">
+													<c:set var="image" value=""/>
+													<c:choose>
+						       							<c:when test="${pictureVO.memoPictureName ne null}">
+						           					 		<li>
+																<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img  class="img-responsive" src="/displayFile?fileName=${pictureVO.memoPictureName }" style="width: 100%; max-width: 760px; vertical-align: middle"/></a>
+															</li>
+						       							</c:when>
+						       							<c:otherwise>
+						          							<li>
+																<a href="/resources/planImg/noimg.png"><img src="/resources/planImg/noimg.png" style="width: 100%; vertical-align: middle"/></a>
+															</li>
+						       							</c:otherwise>
+						  							</c:choose> 	
+					  							</ul>
+										</c:forEach>
+									
+									<div class="clearfix"></div>
+									<a id="prev_btn" class="xprev" href=""><img src="/resources/images/spacer.png" alt=""/></a>
+									<a id="next_btn" class="xnext" href=""><img src="/resources/images/spacer.png" alt=""/></a>
 								</div>
-								<!-- <div class="line4"></div> -->
-							</c:if>
+							</div>
+							<!-- <div class="line4"></div> -->
 						</c:forEach> 
 						</div>
 						</br></br>
@@ -424,8 +423,15 @@
 				
 			
 				str+= "<br><div class='wh20percent left textleft'><div class='circlewrap2'><img alt='' class='circleimg' src='/resources/images/user-avatar.jpg'></div></div>"
-				+'<div class="wh80percent right "><span class="lblue bold">'+this.memberName+'</span>&nbsp&nbsp<span class="grey size12">'+dformat+'</span><br/>'+
-				'<span class="replyspan" data-rno="'+this.planReplyID+'">'+"<span class='replyContents'>"+this.planReplyContents+"</span>";
+				+'<div class="wh80percent right "><span class="lblue bold">'
+				+this.memberName
+				+'</span>&nbsp&nbsp<span class="grey size12">'
+				+dformat
+				+'</span><br/>'
+				+'<span class="replyspan" data-rno="'
+				+this.planReplyID+'">'
+				+"<span class='replyContents'>"
+				+this.planReplyContents+"</span>";
 				
 				//session이 존재하면,	
  				if('' != id){
@@ -441,7 +447,8 @@
 			
 			//해당 read페이지에 달린 총 댓글 수 보여줌.
 			
-			countstr='<span class="size14 dark bold">Comment <span class="glyphicon glyphicon-comment"></span> ( '+data.replyCount+' )</span></div>';
+			countstr='<span class="size14 dark bold">Comment <span class="glyphicon glyphicon-comment"></span> ( '
+					+data.replyCount+' )</span></div>';
 			
 			$("#count").html(countstr);
 			$("#replies").html(str);
@@ -538,7 +545,9 @@
 		var replytext = reply.text();
 		
 		reply.empty();
-		str = "<div class='replyModDiv' ><textarea id='replytext' class='form-control' rows='3' col='20'>"+replytext+"</textarea></br><input type='button' class='planModifyBtn' id='replyModBtn' value='저장' onclick='replyModify()'></div>"
+		str = "<div class='replyModDiv' ><textarea id='replytext' class='form-control' rows='3' col='20'>"
+			+replytext
+			+"</textarea></br><input type='button' class='planModifyBtn' id='replyModBtn' value='저장' onclick='replyModify()'></div>"
 		reply.append(str); 
 		$(".replyModDiv").attr("id", rno);
 	}
