@@ -42,17 +42,17 @@ public class MemberDAOTest {
 //		
 //	}
 	
-	@Test
-	public void testUpdateMember()throws Exception{
-		
-		Date date = new Date();
-		
-		MemberVO vo = new MemberVO();
-		vo.setMemberEmail("kevin0310@korea.ac.kr");
-		vo.setMemberPassword("1234");
-		vo.setMemberName("후추선생님");
-		vo.setMemberBirthday(date);
-		
-		dao.updateMember(vo);
-	}
+//	@Test
+//	public void testUpdateMember()throws Exception{
+//		
+//		Date date = new Date();
+//		
+//		MemberVO vo = new MemberVO();
+//		vo.setMemberEmail("kevin0310@korea.ac.kr");
+//		vo.setMemberPassword("1234");
+//		vo.setMemberName("후추선생님");
+//		vo.setMemberBirthday(date);
+//		
+//		dao.updateMember(vo);
+//	}
 }

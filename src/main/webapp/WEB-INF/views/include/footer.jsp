@@ -78,40 +78,40 @@
 		</div>
 	</div>
 	
+	<!-- 
+	Javascript -->
+<!-- 	<script src="/resources/assets/js/js-blog.js"></script> -->
 	
-	<!-- Javascript  -->
-	<script src="/resources/assets/js/js-blog.js"></script>
-	
-	<!-- Easy Pie Chart  -->
+<!-- <!-- 	Easy Pie Chart 
 	<script src="/resources/assets/js/jquery.easy-pie-chart.js"></script>
 	
-    <!-- Nicescroll  -->	
-	<script src="/resources/assets/js/jquery.nicescroll.min.js"></script>
+    Nicescroll 	
+	<script src="/resources/assets/js/jquery.nicescroll.min.js"></script> --> 
 	
     <!-- Custom functions -->
-    <script src="/resources/assets/js/functions.js"></script>
+<!--     <script src="/resources/assets/js/functions.js"></script>
 	
-    <!-- Custom Select -->
+    Custom Select
 	<script type='text/javascript' src='/resources/js/lightbox.js'></script>	
 	
-    <!-- Custom Select -->
+    Custom Select
 	<script type='text/javascript' src='/resources/assets/js/jquery.customSelect.js'></script>
 	
-	<!-- Load Animo -->
-	<script src="/resources/plugins/animo/animo.js"></script>
+	Load Animo
+	<script src="/resources/plugins/animo/animo.js"></script> -->
 
     <!-- CarouFredSel -->
-    <script src="/resources/assets/js/jquery.carouFredSel-6.2.1-packed.js"></script>
+<!--     <script src="/resources/assets/js/jquery.carouFredSel-6.2.1-packed.js"></script>
     <script src="/resources/assets/js/helper-plugins/jquery.touchSwipe.min.js"></script>
 	<script type="text/javascript" src="/resources/assets/js/helper-plugins/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="/resources/assets/js/helper-plugins/jquery.transit.min.js"></script>
-	<script type="text/javascript" src="/resources/assets/js/helper-plugins/jquery.ba-throttle-debounce.min.js"></script>
+	<script type="text/javascript" src="/resources/assets/js/helper-plugins/jquery.ba-throttle-debounce.min.js"></script> -->
 	
     <!-- JUI -->	
 	<script src="/resources/assets/js/jquery-ui.js"></script>	
 
     <!-- Picker -->	
-    <script src="/resources/assets/js/jquery.easing.js"></script>	
+<!--     <script src="/resources/assets/js/jquery.easing.js"></script>	 -->
 	
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/resources/dist/js/bootstrap.min.js"></script>

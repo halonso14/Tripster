@@ -9,17 +9,19 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.tripster.domain.ContentsVO;
+import com.tripster.domain.ContentsReviewVO;
 import com.tripster.domain.Criteria;
 import com.tripster.persistence.ContentsDAO;
+import com.tripster.persistence.ContentsReviewDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(
-		locations= {"file:src/main/webapp/WEB-INF/spring/**/root-context.xml"})
+@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/**/*.xml"})
 public class ContentsDAOTest {
 
 	@Inject
 	private ContentsDAO dao;
+	@Inject
+	private ContentsReviewDAO reviewdao;
 	
 	Criteria cri = new Criteria();
 	
@@ -48,9 +50,24 @@ public class ContentsDAOTest {
 //		System.out.println(dao.getTotalContentsNum(cri));
 //	}
 	
-	@Test
-	public void textContentsVO() throws Exception {
-		
-		System.out.println(dao.getRestaurantDetail(1));
-	}
+//	@Test
+//	public void textContentsVO() throws Exception {
+//		
+//		System.out.println(dao.getRestaurantDetail().toString());
+//	}
+	
+//	@Test
+//	public void RatingTest() throws Exception{
+//		//컨텐츠의 평점 넣기
+//		List<ContentsReviewVO> list = reviewdao.getReviewList(1, new Criteria());
+//		Integer contentsRating = 0;
+//		Integer sum = 0;
+//		for(int i=0;i<list.size();i++) {
+//			sum += list.get(i).getRanking();
+//		};
+//		contentsRating = sum/list.size();
+//		System.out.println(contentsRating);
+//		dao.updateContentsRating(contentsRating,1);
+//	}
+	
 }

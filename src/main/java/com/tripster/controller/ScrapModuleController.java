@@ -3,6 +3,7 @@ package com.tripster.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tripster.domain.MemberVO;
 import com.tripster.domain.ScrapVO;
 import com.tripster.service.ScrapService;
 
@@ -28,13 +30,15 @@ public class ScrapModuleController {
 
 	// 스크랩 추가 
 	@RequestMapping(value="/scrap/{contentsID}",method=RequestMethod.POST)
-	public ResponseEntity<String> scrap(@PathVariable("contentsID") Integer contentsID,Model model) {
+	public ResponseEntity<String> scrap(@PathVariable("contentsID") Integer contentsID,HttpSession session) {
 		
 		ResponseEntity<String> entity = null;
 		
 		try {
+			// session의 회원정보 가져오기
+			MemberVO memberVO = (MemberVO) session.getAttribute("login");
 			// id 값을 받아서 스크랩 추가 
-			scrapService.scrap(contentsID);
+			scrapService.scrap(contentsID,memberVO.getMemberID());
 			loger.info("scrap success");
 			entity = new ResponseEntity<>("success",HttpStatus.OK);
 			
@@ -74,16 +78,19 @@ public class ScrapModuleController {
 	}
 	
 	// 스크랩 리스트 조회 
-	@RequestMapping(value="/scraplist/{memberID}",method=RequestMethod.GET)
-	public ResponseEntity<List<ScrapVO>> scrapList(@PathVariable("memberID") Integer memberID,Model model){
+	@RequestMapping(value="/scraplist",method=RequestMethod.GET)
+	public ResponseEntity<List<ScrapVO>> scrapList(HttpSession session, Model model){
 		
 		ResponseEntity<List<ScrapVO>> entity = null;
 		
 		try {
 			
-			loger.info("scrap list");
+//			loger.info("scrap list");
+			Object obj = session.getAttribute("login");
+			MemberVO memberVO = (MemberVO) obj;
 			// 멤버 id를 받아 리스트를 조회하여 뷰단으로 전송
-			entity = new ResponseEntity<>(scrapService.listAll(memberID),HttpStatus.OK);
+			loger.info("scrap list"+scrapService.listAll(memberVO.getMemberID()).toString());
+			entity = new ResponseEntity<>(scrapService.listAll(memberVO.getMemberID()),HttpStatus.OK);
 			
 		}catch(Exception e) {
 			

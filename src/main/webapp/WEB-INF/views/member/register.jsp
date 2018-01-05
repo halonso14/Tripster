@@ -99,7 +99,6 @@
 		event.preventDefault();
 		location.href="/";
 	}
-
     function errorMessage(){
         $('.register-wrap').animo( { animation: 'tada' } );
     }
@@ -119,15 +118,11 @@
 	        data: {'memberEmail' : memberEmail},
 	        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 	        dataType : "json",
-
 	        success:function(data){
 	            console.log("success")
 	            alert(decodeURIComponent(data.msg))
-
-
 	        },
 	        error: function (XMLHttpRequest, textStatus, errorThrown){
-
 	        	alert('서버와의 통신이 원할하지 않습니다.\n다시 시도 해 주십시오.' );
 	        	}
 	    });
@@ -191,7 +186,6 @@
             }
         });
 })
-
 	</script>
 	
 </body>

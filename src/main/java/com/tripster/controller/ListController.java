@@ -1,5 +1,9 @@
 package com.tripster.controller;
 
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import javax.inject.Inject;
 import javax.naming.LinkLoopException;
 
@@ -16,7 +20,6 @@ import com.tripster.service.ScrapService;
 
 // 리스트 페이지
 @Controller
-@RequestMapping("/mypage/*")
 public class ListController {
 	
 	private static final Logger loger = LoggerFactory.getLogger(ListController.class);
@@ -28,15 +31,10 @@ public class ListController {
 	private LikeService likeservice;
 	
 	// 마이 페이지
-	@RequestMapping(value="/{memberID}",method=RequestMethod.GET)
-	public String scrpaList (@PathVariable("memberID") Integer memberID,Model model) throws Exception {
-		
-		loger.info("list");
-		
-		model.addAttribute("memberID",memberID);
-		
+	@RequestMapping(value = "/scrapList", method = RequestMethod.GET)
+	public String scrapList() {
+
 		return "mypage/list";
-		
 	}
 	
 	// 회원의 스크랩 리스트 페이지

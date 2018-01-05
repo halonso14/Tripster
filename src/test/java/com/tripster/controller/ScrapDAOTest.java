@@ -17,7 +17,7 @@ import com.tripster.persistence.ContentsDAO;
 import com.tripster.persistence.ScrapDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/**/*.xml" })
+@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/**/*.xml" })
 public class ScrapDAOTest {
 
 
@@ -40,14 +40,14 @@ public class ScrapDAOTest {
 	public void scrap() throws Exception{
 		ContentsVO cont = new ContentsVO();
 		ScrapVO vo = new ScrapVO();
-		cont = contentsDao.getRestaurantDetail(2);
+		cont = contentsDao.getRestaurantDetail(1);
 		System.out.println(cont.toString());
-		vo.setCategoryID(cont.getCategoryID());
-		vo.setContentsID(cont.getContentsID());
-		vo.setContentsTitle(cont.getTitle());
-		vo.setContentsPhoto("photo");
-		System.out.println(vo.toString());
-		scrapDao.create(vo);
+//		vo.setCategoryID(cont.getCategoryID());
+//		vo.setContentsID(cont.getContentsID());
+//		vo.setContentsTitle(cont.getTitle());
+//		vo.setContentsPhoto("photo");
+//		System.out.println(vo.toString());
+//		scrapDao.create(vo);
 	}
 	
 //	@Test

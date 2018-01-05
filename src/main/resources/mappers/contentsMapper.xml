@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="com.tripster.mapper.contentsMapper">
+<mapper namespace="com.tripster.mapper.contentsMapper">
   
   <select id="getRestaurantDetail" resultType="ContentsVO">
   select 
@@ -116,4 +116,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	Contents_ID = #{contentsID}
   </update>
   
-  </mapper>
+  <!-- 컨텐츠 평점 -->
+  <update id="updateContentsRating">
+  update
+  	tbl_contents
+  set
+  	Contents_Rating = #{contentsRating}
+  where
+  	Contents_ID = #{contentsID}
+  </update>
+  
+</mapper>

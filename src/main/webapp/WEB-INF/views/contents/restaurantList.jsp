@@ -23,7 +23,7 @@
 		</tr>
 		<c:forEach items="${list}" var="contentsVO">
 			<tr class="detail">
-				<td><a href="/contents/restaurantDetail/${contentsVO.contentsID}">${contentsVO.title}</a></td>
+				<td><a href="/contents/${contentsVO.categoryID }/${contentsVO.contentsID}">${contentsVO.title}</a></td>
 				<td id="getID">${contentsVO.contentsID}</td>
 				<td>${contentsVO.location}</td>
 				<td>${contentsVO.rating}</td>
@@ -38,18 +38,18 @@
 	<div>
 		<ul>
 			<c:if test="${pageMaker.prev}">
-				<li><a href="/contents/restaurantList/${pageMaker.startPage - 1}">prev</a></li>
+				<li><a href="/contents/contentsList/${categoryID }/${pageMaker.startPage - 1}">prev</a></li>
 			</c:if>
 			
 			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 				<li
 					<c:out value="${pageMaker.cri.curPage == idx?'class = active':''}"/>>
-					<a href="/contents/restaurantList/${idx}">${idx}</a>
+					<a href="/contents/contentsList/${categoryID }/${idx}">${idx}</a>
 				</li>
 			</c:forEach>
 			
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				<li><a href="/contents/restaurantList/${pageMaker.endPage + 1}">next</a></li>
+				<li><a href="/contents/contentsList/${categoryID }/${pageMaker.endPage + 1}">next</a></li>
 			</c:if>
 		</ul>
 	</div>

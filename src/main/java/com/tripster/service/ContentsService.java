@@ -23,4 +23,8 @@ public interface ContentsService {
 		
 	//총 관광지 개수 조회
 	public int getTotalPlaceNum(Criteria cri) throws Exception;
+	
+	//컨텐츠 평점
+	public void updateContentsRating(Integer contentsRating,Integer contentsID) throws Exception;
+	
 }

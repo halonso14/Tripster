@@ -275,26 +275,19 @@ response.setHeader("Pragma", "no-cache");
 					  
 <script>
 var sel_file;
-
 $(document).ready(function() {
     $("#input_img").on("change", fileChange);
 });
-
 function fileChange(e) {
 	e.preventDefault();
-
-
 	var files = e.target.files;
     var filesArr = Array.prototype.slice.call(files);
-
     filesArr.forEach(function(f) {
         if(!f.type.match("image.*")) {
             alert("확장자는 이미지 확장자만 가능합니다.");
             return;
         }
-
         sel_file = f;
-
         var reader = new FileReader();
         reader.onload = function(e) {
             $("#profileImg").attr("src", e.target.result);
@@ -303,13 +296,10 @@ function fileChange(e) {
         }
         reader.readAsDataURL(f);
     });
-
     var file = files[0]
     console.log(file)
     var formData = new FormData();
-
     formData.append("file", file);
-
 		$.ajax({
     	url: '/uploadProfile',
 		  data: formData,
@@ -318,42 +308,28 @@ function fileChange(e) {
 		  contentType: false,
 		  type: 'POST',
 		  success: function(data){
-
 			alert("프로필 이미지가 변경 되었습니다.")
-
 		  }
 		})
-
-
  		function checkImageType(fileName){
  			var pattern = /jpg$|gif$|png$|jpeg$/i;
  			return fileName.match(pattern);
  		}
-
-
  		function getOriginalName(fileName){
  			if(checkImageType(fileName)){
  				return;
  			}
-
  			var idx = fileName.indexOf("_") + 1 ;
  			return fileName.substr(idx);
-
  		}
-
-
  		function getImageLink(fileName){
-
  			if(!checkImageType(fileName)){
  				return;
  			}
  			var front = fileName.substr(0,12);
  			var end = fileName.substr(14);
-
  			return front + end;
-
  		}
-
 }
 </script>
 	<%-- <c:set var="memberVO" value='<%= session.getAttribute("login") %>'/> --%>
@@ -1923,9 +1899,7 @@ function fileChange(e) {
 <!-- 기본정보 변경 유효성 검사 -->			  
 <script>
 $(function() {
-
 	$("#changeProfile").validate({
-
 		//규칙
 		rules : {
 			memberName: {
@@ -1935,7 +1909,6 @@ $(function() {
 			memberBirthday: {
             	required : true
             }
-
 		},
 		//규칙체크 실패시 출력될 메시지
 		messages : {
@@ -1946,7 +1919,6 @@ $(function() {
 			memberBirthday: {
             	required : "생년월일을 입력하세요."
             }
-
 		}
 	});
 })
@@ -2046,9 +2018,7 @@ $(function() {
 <!-- 비밀번호 변경 유효성 검사 -->			  
 <script>
 $(function() {
-
 	$("#chkPassword").validate({
-
 		//규칙
 		rules : {
 			curMemberPassword : {
@@ -2065,7 +2035,6 @@ $(function() {
 				minlength : 4,
 				equalTo : memberPassword
 			}
-
 		},
 		//규칙체크 실패시 출력될 메시지
 		messages : {
@@ -2083,7 +2052,6 @@ $(function() {
 				minlength : "최소 {0}글자이상이어야 합니다",
 				equalTo : "비밀번호가 일치하지 않습니다."
 			}
-
 		}
 	});
 })

@@ -13,11 +13,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						   ,Category_ID
 						   ,Contents_ID
 						   ,Contents_Title
-						   ,Contents_Photo
+						   ,Contents_Picture_Name
 						   )
 					values(
 							#{scrapID}
-							,2 <!-- memberID 는 1로 고정 -->
+							,#{memberID} 
 							,#{categoryID}
 							,#{contentsID}
 							,#{contentsTitle}
@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			,Category_ID categoryID
 			,Contents_ID contentsID
 			,Contents_Title contentsTitle
-			,Contents_Photo contentsPhoto
+			,Contents_Picture_Name contentsPhoto
 			
 	from tbl_scrap
 	

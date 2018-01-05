@@ -39,15 +39,14 @@
 				<li><a href="/contents/contentsList/${pageMaker.startPage - 1}">prev</a></li>
 			</c:if>
 			
-			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+			<c:forEach items="${list}" begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 				<li
 					<c:out value="${pageMaker.cri.curPage == idx?'class = active':''}"/>>
-					<a href="/contents/contentsList/${idx}">${idx}</a>
+					<a href="/contents/contentsList/${contentsVO.categoryID}/${idx}">${idx}</a>
 				</li>
-				</tr>
 			</c:forEach>
 			
-			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+			<c:if test="${pageMaker.next && pageMaker.endPage > 0}" >
 				<li><a href="/contents/contentsList/${pageMaker.endPage + 1}">next</a></li>
 			</c:if>
 		</ul>
