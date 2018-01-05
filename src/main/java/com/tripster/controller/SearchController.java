@@ -36,9 +36,9 @@ public class SearchController {
 		
 		
 		// 전체 페이지 불러오기
-		EsSearchResult result = esSearchService.getTotalSearchList(cri);
+		EsSearchResult results = esSearchService.getTotalSearchList(cri);
 		// 10개 목록만 불러오기
-		EsSearchResult results = esSearchService.pageList(cri);
+		EsSearchResult result = esSearchService.pageList(cri);
 		
 		model.addAttribute("contentsList",results.getContentsList());
 		model.addAttribute("planList",results.getPlanList());

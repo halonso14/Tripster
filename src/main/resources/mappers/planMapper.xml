@@ -12,37 +12,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- plan 조회. -->
 	<select id="read" resultType="PlanVO">
-		select plan_ID planID, Member_ID memberID, plan_Title planTitle, plan_startDate planStartDate, plan_endDate planEndDate from tbl_plan where plan_ID = #{planID}
+		select plan_ID planID, Member_ID memberID, plan_Title planTitle, plan_startDate planStartDate, plan_endDate planEndDate from tbl_Plan where plan_ID = #{planID}
 	</select>
 	
 	<!-- plan 수정. -->
 	<update id="update">
-		update tbl_plan set plan_Title = #{planTitle}, plan_StartDate = #{planStartDate}, plan_EndDate = #{planEndDate}
+		update tbl_Plan set plan_Title = #{planTitle}, plan_StartDate = #{planStartDate}, plan_EndDate = #{planEndDate}
 		where plan_ID = #{planID}
 	</update>
 	
 	<!-- plan 삭제.  -->
  	<delete id="delete">
-		delete from tbl_plan where plan_ID = #{planID}
+		delete from tbl_Plan where plan_ID = #{planID}
 	</delete>
 	
 	<!-- 마지막 planID 조회.  -->
 	<select id="selectLastPlanID" resultType="_int">
-		select max(plan_ID) from tbl_plan;
+		select max(plan_ID) from tbl_Plan;
 	</select>
 	
 	<!-- 내가 등록한 일정 전체 조회.  -->
 	<select id="myPlan" resultType="planVO">
-		select plan_ID planID, Member_ID memberID, plan_Title planTitle, plan_startDate planStartDate, plan_endDate planEndDate from tbl_plan where member_ID = #{memberID}
+		select plan_ID planID, Member_ID memberID, plan_Title planTitle, plan_startDate planStartDate, plan_endDate planEndDate from tbl_Plan where member_ID = #{memberID}
 	</select>
 	
 	<!-- planChk 업데이트~  -->
 	<update id="planChk">
-		update tbl_plan set plan_endChk = #{planEndChk} where plan_id = #{planID}
+		update tbl_Plan set plan_endChk = #{planEndChk} where plan_id = #{planID}
 	</update>
 	 
 	 <!-- memberName조회. -->
 	<select id="memberName" resultType="string">
-		select member_name from tbl_member where member_id = #{memberID}
+		select member_name from tbl_Member where member_id = #{memberID}
 	</select>
 </mapper>

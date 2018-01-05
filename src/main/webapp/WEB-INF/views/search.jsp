@@ -157,7 +157,7 @@
 							
 							<div class="itemscontainer offset-1">
 								<!--####### 컨텐츠 검색결과 : 템플릿 z-cruise-list.html #######-->
-								<c:forEach items="${contentsList}" var = "esContentsVO">
+								<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="9">
 									<div class="offset-2" >
 										<div class="col-md-4 offset-0" >
 											<div class = "listitem2" >
@@ -198,7 +198,7 @@
 							
 								<!--####### 일정 검색결과 : 템플릿 list3.html #######-->
 								<p class="margleft20"><a>일정 더보기</a> </p>	
-								<c:forEach items="${planList}" var = "esPlanVO">
+								<c:forEach items="${planList}" var = "esPlanVO" begin="0" end="9">
 									<div class="col-md-4">
 										<div class="listitem">
 											<img src="/resources/images/items/item1.jpg" alt="일정사진은 뭘로쓸까">
@@ -227,7 +227,7 @@
 										
 								<!--####### 유저 검색결과 : 템플릿 list2.html #######-->
 								<p class="margleft20"><a>유저 더보기</a> </p>		
-								<c:forEach items="${memberList}" var = "esMemberVO">
+								<c:forEach items="${memberList}" var = "esMemberVO" begin="0" end="9">
 									<div class="col-md-4" >
 										<!-- CONTAINER-->
 										<div class="carscontainer" style="border:1px solid #e6e6e6">

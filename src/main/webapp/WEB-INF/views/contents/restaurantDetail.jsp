@@ -254,7 +254,6 @@
 				if(scrapbt.val()==1){
 					scrapbt.attr('value',"0");
 					alert(scrapbt.val());
-					// 스크랩 추가 ajax
 					$.post('/scrap/'+contentsID,function(result){
 							alert(result);
 					});
@@ -389,6 +388,7 @@
 		// 리뷰 리스트 함수
 		function getReviewList(reviewPage) {
 			$.getJSON("/contents/review/"+contentsID+"/"+reviewPage, function(data) {
+				alert("review list")
 				var str = "";
 				
 				// 컨텐츠의 리뷰 리스트 받아오기
@@ -412,7 +412,7 @@
 						+ "			<span class='opensans size16 dark'>Great experience</span><br/>"
 						+ "			<span class='opensans size13 lgrey'>Posted Jun 02, 2013</span><br/>"
 						+ "			<p data-contentsReviewID='"+this.contentsReviewID+"' class='"+this.contentsReviewID+"'>"+ this.contentsReview + "</p>"
-						+ 			"<div id='getImage'>"+getImage(this.reviewPictureName)+"</div>"
+						+ " 			<div id='getImage'>"+getImage(this.reviewPictureName)+"</div>" 
 						+ "		</div>"
 						+ "	</div>"
 						+ " <div>"
@@ -427,6 +427,7 @@
 				// reviewList 에 추가
 				$("#reviewList").html(str);
 				
+				alert("review List add");
 				// 초기화 후 업로드박스안의 파일 제거
 				$('.uploadList').html("");
 				// 초기화후 업로드 박스 제거
@@ -443,7 +444,7 @@
 			var fileList = new Array;
 			fileList = reviewPictureName;
 			var str = "" ;
-			
+			console.log("fileList" + fileList);
 			// 받은 파일 이름들로 이미지 추가
 			for(var i=0;i<fileList.length;i++){
 				// 확장자 검사
@@ -457,12 +458,9 @@
 		                + getOriginalName(fileList[i]) +"</a></li>";
 		        }else{
 		            // 이미지 파일이 아닐경우 다운로드
-		            str = str + "<li><a href='/displayFile?fileName="+fileList[i]+"'>" + getOriginalName(fileList[i])+"</a></li>";
-		                
-		        };
+		            str = str + "<li><a href='/displayFile?fileName="+fileList[i]+"'>" + getOriginalName(fileList[i])+"</a></li>"; 
+		        };	
 			}
-			
-		    console.log(str);
 			return str;
 		}
 		

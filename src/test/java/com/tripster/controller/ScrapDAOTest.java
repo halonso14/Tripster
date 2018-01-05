@@ -42,11 +42,12 @@ public class ScrapDAOTest {
 		ScrapVO vo = new ScrapVO();
 		cont = contentsDao.getRestaurantDetail(1);
 		System.out.println(cont.toString());
-//		vo.setCategoryID(cont.getCategoryID());
-//		vo.setContentsID(cont.getContentsID());
-//		vo.setContentsTitle(cont.getTitle());
-//		vo.setContentsPhoto("photo");
-//		System.out.println(vo.toString());
+		vo.setMemberID(1);
+		vo.setCategoryID(cont.getCategoryID());
+		vo.setContentsID(cont.getContentsID());
+		vo.setContentsTitle(cont.getTitle());
+		vo.setContentsPhoto("photo");
+		System.out.println(vo.toString());
 //		scrapDao.create(vo);
 	}
 	

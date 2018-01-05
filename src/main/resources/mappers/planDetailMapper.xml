@@ -7,26 +7,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 등록 -->
 	<insert id="insert">
-		insert into tbl_plan_detail
+		insert into tbl_Plan_detail
 		values(#{planDetailID},#{planID},#{categoryID}, #{contentsID}, #{title},#{planDetailStartTime}, #{planDetailEndTime}, #{planDetailDate})
 	</insert>
 
 	<!-- 수정. -->
 	<update id="update">
-		update tbl_plan_detail set plan_Detail_StartTime
+		update tbl_Plan_detail set plan_Detail_StartTime
 		=#{planDetailStartTime}, plan_detail_endTime =#{planDetailEndTime}
 		where plan_detail_ID = #{planDetailID}
 	</update>
 
 	<!-- 삭제. -->
 	<delete id="delete">
-		delete from tbl_plan_detail where plan_detail_id =
+		delete from tbl_Plan_detail where plan_detail_id =
 		#{planDetailID}
 	</delete>
 
 	<!-- 일정 삭제 시, 해당 상세 일정 모두 삭제. -->
 	<delete id="deleteAll">
-		delete from tbl_plan_detail where plan_id = #{planID}
+		delete from tbl_Plan_detail where plan_id = #{planID}
 	</delete>
 
 
@@ -61,8 +61,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		detail.title, detail.plan_detail_startTime,detail.plan_detail_endTime, detail.plan_detail_date,
 		detail.category_id,
 		memo.memo_contents, picture.memo_picture_name
-		from tbl_plan_detail detail left join tbl_memo memo on
-		detail.plan_detail_id = memo.plan_detail_id left join tbl_memo_picture
+		from tbl_Plan_detail detail left join tbl_Memo memo on
+		detail.plan_detail_id = memo.plan_detail_id left join tbl_Memo_picture
 		picture
 		on memo.plan_detail_id = picture.plan_detail_id
 		where detail.plan_ID = #{planID}
@@ -72,6 +72,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- planDetailID값 조회. -->
 	<select id="selectPlanDetailID" resultType="_int">
 		select
-		max(plan_detail_id) from tbl_plan_detail
+		max(plan_detail_id) from tbl_Plan_detail
 	</select>
 </mapper>
