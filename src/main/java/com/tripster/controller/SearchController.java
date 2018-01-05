@@ -22,33 +22,37 @@ import com.tripster.service.EsSearchService;
 
 @Controller
 public class SearchController {
+	
 	private static final Logger logger = LogManager.getLogger(SearchController.class);
 	
 	@Inject
 	private EsSearchService esSearchService;
 	
-	
 	// 통합검색 결과리스트 요청
 	@RequestMapping(value="/search*", method = RequestMethod.GET)
 	public void search(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
 		
-		logger.info(cri.toString());
+		System.out.println("search cri="+cri.toString());
 		
-		EsSearchResult results = esSearchService.getTotalSearchList(cri);
-		List<EsContentsVO> contentsList = results.contentsList;
-		List<EsPlanVO> planList = results.planList;
-		List<EsMemberVO> memberList = results.memberList;
 		
-		model.addAttribute("contentsList",contentsList);
-		model.addAttribute("planList",planList);
-		model.addAttribute("memberList",memberList);
+		// 전체 페이지 불러오기
+		EsSearchResult result = esSearchService.getTotalSearchList(cri);
+		// 10개 목록만 불러오기
+		EsSearchResult results = esSearchService.pageList(cri);
+		
+		model.addAttribute("contentsList",results.getContentsList());
+		model.addAttribute("planList",results.getPlanList());
+		model.addAttribute("memberList",results.getMemberList());
+		model.addAttribute("getNum",esSearchService.getTotalSearchNum(cri));
+		model.addAttribute("keyword",cri.getKeyword());
 		
 		// model에 EsRepository의 검색결과 건수를 담아서 SearchPageMaker로 보낸다.
-		SearchPageMaker pageMaker = new SearchPageMaker();	
+		SearchPageMaker pageMaker = new SearchPageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(esSearchService.getTotalSearchNum(cri));
+		pageMaker.setTotalCount(Long.parseLong(esSearchService.getTotalSearchNum(cri).get("totalNum")));
 
 		model.addAttribute("pageMaker",pageMaker);
+		
 	}
 	
 }

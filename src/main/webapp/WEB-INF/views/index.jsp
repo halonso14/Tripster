@@ -1,12 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Travel Agency - HTML5 Booking template</title>
+		<title>Tripster</title>
 
 		<!-- Bootstrap -->
 		<link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
@@ -40,7 +41,6 @@
 		<!-- jQuery -->
 		<script src="/resources/assets/js/jquery.v2.0.3.js"></script>
 
-
 		<!-- Masonry -->
 		<link href="/resources/updates/update1/css/masonry.css" rel="stylesheet">
 		<script src="/resources/updates/update1/js/masonry.pkgd.js"></script>
@@ -64,11 +64,9 @@
 	        });
 	        //@ sourceURL=pen.js
 		</script>
-		
 	</head>
+	
 	<body id="top">
-
-		<%@include file="include/header.jsp" %>
 		<script>
             var result = '${msg}';
             if(result == 'success'){
@@ -77,41 +75,41 @@
             if(result == 'delete'){
                 alert("개인정보 중국에 판매완료!.");
             }
-            
-            </script>
-            
-    		<!--####### HEADER #######-->
-    		<%@include file="include/header.jsp" %>
+            if(result == 'findPassword'){
+            	alert("가입된 이메일로 임시비밀번호가 전송되었습니다.")
+            }
+        </script>
+        
+		<!--####### HEADER #######-->
+		<%@include file="include/header.jsp" %>
 
-    		<!--####### BANNER CONTAINER #######-->
-    		<div id="dajy" class="fullscreen-container2 mtslideb sliderbg fixed">
-    			
-    			<!--####### SEARCH BOX #######-->
-    			<div class="searchcontainer textcenter" style="">
-    				<script>
-    				    		$(document).ready(function () { 
-    								$('#searchBtn').on("click",function(event) {
-    									console.log($('#keywordInput').val());
-    										self.location = "search?"
-    												+ '${pageMaker.makeQuery(1)}'
-    												+ "&keyword=" + $('#keywordInput').val();
-    								});
-    				    		});				
-    				</script>			
-    				<span class="lato size48 slim white ">Where do you want to go?</span><br/>
-    				<div class=" wh95percent center">
-    					<input  id="keywordInput" name='keyword' value='${cri.keyword}'type="text" class="form-control inph left" placeholder="ex: New York" ></input>
-    					<button id='searchBtn' class="btn btn-default nbtn-search right" type="button"><span class="glyphicon glyphicon-search"></span></button>
-    				</div>
-    			</div>
-    			<!-- END OF SEARCH BOX -->
-    			
+		<!--####### BANNER CONTAINER #######-->
+		<div id="dajy" class="fullscreen-container2 mtslideb sliderbg fixed">
+			
+			<!--####### SEARCH BOX #######-->
+			<div class="searchcontainer textcenter" style="">
+				<script>
+					function search(){
+						console.log($('#keywordInput').val());
+						self.location = "search?"
+								+ '${pageMaker.makeQuery(1)}'
+								+ "&keyword=" + $('#keywordInput').val();
+					}	
+				</script>			
+				<span class="lato size48 slim white ">Where do you want to go?</span><br/>
+					<form action="search">
+					<div class=" wh95percent center">
+						<input  id="keywordInput" name='keyword' value='${cri.keyword}'type="text" class="form-control inph left" placeholder="ex: New York" ></input>
+						<button id='searchBtn' class="btn btn-default nbtn-search right" type="submit" onclick="search()"><span class="glyphicon glyphicon-search"></span></button>
+					</div>
+					</form>
+			</div>
+			<!-- END OF SEARCH BOX -->
+			
 			<!--####### BANNER #######-->
 			<div class="fullscreenbanner">
 				<ul>
-
 					<!-- papercut fade turnoff flyin slideright slideleft slideup slidedown-->
-
 					<!-- FADE -->
 					<li data-transition="fade" data-slotamount="1" data-masterspeed="300">
 						<img src="../resources/updates/update1/img/slider/slide1.jpg" alt=""/>
@@ -160,22 +158,14 @@
 						     data-speed="1000"
 						     data-start="800"
 						     data-easing="easeOutExpo">
-
 						</div>
 					</li>
-
-
-
 				</ul>
 				<div class="tp-bannertimer none"></div>
 			</div>
+			<!-- END OF BANNER -->
 		</div>
-
-		<!--
-		##############################
-		 - ACTIVATE THE BANNER HERE -
-		##############################
-		-->
+		
 		<script type="text/javascript">
 		    var tpj=jQuery;
 		    tpj.noConflict();
@@ -219,19 +209,16 @@
 		            });
 		    });
 		</script>
+		<!-- END OF BANNER CONTAINER -->
+
 
 
 		<!-- WRAP -->
 		<div class="wrap cst03 bgfix " >
-
-
-
-
-
+		
 			<div class="container lnews">
 				Latest news
 			</div>
-
 
 			<div class="masonry">
 				<div class="item wt2 ht2">
@@ -285,41 +272,10 @@
 				<br/>
 				<br/>
 			</div>
-
-
-
-
-
-
-
-
-			<!-- FOOTER -->
-
-			<div class="footerbg lcfix">
-				<div class="container">
-					<footer>
-						<div class="footer">
-							<a href="#" class="social1"><img src="/resources/images/icon-facebook.png" alt=""/></a>
-							<a href="#" class="social2"><img src="/resources/images/icon-twitter.png" alt=""/></a>
-							<a href="#" class="social3"><img src="/resources/images/icon-gplus.png" alt=""/></a>
-							<a href="#" class="social4"><img src="/resources/images/icon-youtube.png" alt=""/></a>
-							<br/><br/>
-							Copyright &copy; 2013 <a href="#">Travel Agency</a> All rights reserved. <a href="http://titanicthemes.com">TitanicThemes.com</a>
-							<br/><br/>
-							<a href="#top" id="gotop2" class="gotop"><img src="/resources/images/spacer.png" alt=""/></a>
-						</div>
-					</footer>
-				</div>
-			</div>
-
-
-
-
-
+			<!--####### HEADER #######-->
+			<%@include file="include/footer2.jsp" %>
 		</div>
 		<!-- END OF WRAP -->
-
-
 
 		<!-- Javascript -->
 

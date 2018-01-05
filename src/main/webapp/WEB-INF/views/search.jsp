@@ -76,10 +76,22 @@
 			<!-- LEFT CONTENT: SIDE FILTERS -->
 			<div class="col-md-3 filters offset-0">
 				<ul class="blogcat margleft20 margright20 margtop10">
-					<li onclick="mySelectUpdate()" class="size16"><a data-toggle="tab" href="#contentsList"><span class="hoteltab3"></span><span class="hidetext">'ooo'검색결과</span>&nbsp; <span class="badge indent0">1</span></a></li>
-					<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#contentsList"><span class="hoteltab3"></span><span class="hidetext">컨텐츠</span>&nbsp; <span class="badge indent0">1</span></a></li>
-					<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#planList"><span class="cartab3"></span><span class="hidetext">일정</span>&nbsp; <span class="badge indent0">1</span></a></li>
-					<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#vacationstab3"><span class="suitcasetab3"></span><span class="hidetext">회원</span>&nbsp; <span class="badge indent0">1</span></a></li>
+					<li onclick="mySelectUpdate()" class="size16">
+						<a data-toggle="tab" href="#contentsList">
+						<span class="hoteltab3"></span><span class="hidetext">'${keyword }'검색결과</span>&nbsp; 
+						<span class="badge indent0">${getNum.get("totalNum") }</span></a></li>
+					<li onclick="mySelectUpdate()" class="">
+						<a data-toggle="tab" href="#contentsList">
+						<span class="hoteltab3"></span><span class="hidetext">컨텐츠</span>&nbsp; 
+						<span class="badge indent0">${getNum.get("contentsNum") }</span></a></li>
+					<li onclick="mySelectUpdate()" class="">
+						<a data-toggle="tab" href="#planList">
+						<span class="cartab3"></span><span class="hidetext">일정</span>&nbsp; 
+						<span class="badge indent0">${getNum.get("planNum") }</span></a></li>
+					<li onclick="mySelectUpdate()" class="">
+						<a data-toggle="tab" href="#vacationstab3">
+						<span class="suitcasetab3"></span><span class="hidetext">회원</span>&nbsp; 
+						<span class="badge indent0">${getNum.get("memberNum") }</span></a></li>
 				</ul>
 
 				
@@ -324,4 +336,3 @@
   </body>
 
 </html>
-
