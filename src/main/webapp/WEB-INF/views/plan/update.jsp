@@ -18,12 +18,10 @@ body {
 	font-size: 14px;
 	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
 }
-
 #wrap {
 	width: 1100px;
 	margin: 0 auto;
 }
-
 #external-events {
 	float: left;
 	width: 300px;
@@ -37,14 +35,12 @@ body {
 	/* display: block !important; */
 	
 }
-
 #external-events h4 {
 	font-size: 18px;
 	margin-top: 0;
 	padding-top: 1em;
 	color:#ff6633;
 }
-
 #external-events .fc-event {
 	margin: 10px 0;
 	cursor: pointer;
@@ -53,24 +49,19 @@ body {
 	max-width:300px;
 	
 }
-
 #external-events p {
 	margin: 1.5em 0;
 	font-size: 11px;
 	color: #666;
 }
-
 #external-events p input {
 	margin: 0;
 	vertical-align: middle;
 }
-
 #calendar {
 	float: right;
 	width: 750px;
 }
-
-
 .fileDrop {
 	width: 100%;
 	height: 100px;
@@ -78,12 +69,10 @@ body {
 	background-color: lightslategrey;
 	margin: auto;
 }
-
  .modal {
     position: fixed;
     left: 50%;
-    top: 50%;
-
+    
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
@@ -118,15 +107,8 @@ body {
 		<div id='external-events'>
 			<h4>Scrap List</h4>
 			<div class="line4"></div>
-			<div class="tab-pane active" id="tab-newtopic" name="scrapList">
+			<div class="tab-pane active" id="tab-newtopic">
 			<!--id : contentsID name:categoryID  -->
-			<div class='fc-event' id={{contentsID}} name={{categoryID}} style="background-color: #f6f8f900; font-size: 14px;">
-					<a href="#"><img alt="" class="left mr20" src="/resources/planImg/noimg.png" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
-					<a class="dark" href="#" id="contentsTitle"><b>{{contentsTitle}}</b></a><br>
-					<span class="opensans green bold size14">$36-$160</span>
-			</div>
-			<div class="line4"></div>	
-
 			</div>
 			
 		</div>
@@ -144,7 +126,7 @@ body {
 	
 	
 	<div class="container">
-		 <div class="modal fade" id="myModal" role="dialog">
+		 <div class="modal fade" id="myModal" role="dialog" style="width: 800px;height:700px; margin-bottom: 50px">
 		 
 			 <form method="post" id="memoForm">
 				<input type="hidden" name="planID" value=${plan.planID }>
@@ -201,62 +183,6 @@ body {
 </li>
 </script>
 
-<!-- 스크랩리스트 템플릿 -->
-<script id="scrapList" type="text/x-handlebars-template">
-
-<div class='fc-event' id={{contentsID}} name={{categoryID}} style="background-color: #f6f8f900; font-size: 14px;">
-					<a href="#"><img alt="" class="left mr20" src="/resources/planImg/noimg.png" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
-					<a class="dark" href="#" id="contentsTitle"><b>{{contentsTitle}}</b></a><br>
-					<span class="opensans green bold size14">$36-$160</span>
-				</div>
-				<div class="line4"></div>
-</script>
-
-<!-- 스크랩 리스트 조회 -->
-<script>
-$.getJSON('/scraplist',function(data){
-	
-	var str = "";
-	
-	$(data).each(function(i,list){
-		console.log(list);
-		var source = $("#scrapList").html();
-		var scrapData = {
-				contentsID : list.contentsID,
-				categoryID : list.categoryID,
-				contentsTitle : list.contentsTitle
-		}
-		console.log(scrapData);
-		var template = Handlebars.compile(source);
-		str += template(scrapData);
-	});
-	
-	$('#tab-newtopic').html(str);
-	
-	$('#external-events .fc-event').each(function() {
-	    // store data so the calendar knows to render an event upon drop
-	    	
-	    	event.preventDefault();	
-	        $(this).data('event', {
-	            title: $.trim($("#contentsTitle").text()), // use the element's text as the event title
-	            stick:true, // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
-	                          // false: 없어짐.
-	            color:$(this).data('color')
-	        });
-	        // make the event draggable using jQuery UI
-	        $(this).draggable({
-	            zIndex: 999,
-	            revert: true,      // will cause the event to go back to its
-	            revertDuration: 0,  //  original position after the drag
-	            helper : 'clone'
-	            
-	        });
-	        
-	    });
-	
-});
-</script>
-
 <script>
 	var template = Handlebars.compile($("#template").html());
 	
@@ -295,7 +221,6 @@ $.getJSON('/scraplist',function(data){
 
 <script>
 $(document).ready(function() {
-
 	var endDate =new Date(${endDate});
 	var d = endDate.getDate();
     var m = endDate.getMonth();
@@ -307,8 +232,24 @@ $(document).ready(function() {
 	var obj = [];
 	var planID = ${plan.planID};
 	
-    
-
+    $('#external-events .fc-event').each(function() {
+    // store data so the calendar knows to render an event upon drop
+    		
+        $(this).data('event', {
+            title: $.trim($("#contentsTitle").text()), // use the element's text as the event title
+            stick:true, // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
+                          // false: 없어짐.
+            color:$(this).data('color')
+        });
+        // make the event draggable using jQuery UI
+        $(this).draggable({
+            zIndex: 999,
+            revert: true,      // will cause the event to go back to its
+            revertDuration: 0,  //  original position after the drag
+            helper : 'clone'
+            
+        });
+    });
     var calendar = $('#calendar').fullCalendar({
     		
         header: {
@@ -389,9 +330,12 @@ $(document).ready(function() {
         
           //drop 발생 시, external-event로 부터 필요한 값을 읽어 전역변수 sendData에저장.
           drop: function(date) {
+        		
           	sendData.planID = ${plan.planID};
           	sendData.contentsID = this.id;
           	sendData.categoryID = $(this).attr('name');
+          
+          	
           },
            
           //drop시,event를 받아서 db에 저장.
@@ -401,7 +345,6 @@ $(document).ready(function() {
          	
           	var jsonData = JSON.stringify(sendData);
           	console.log(jsonData);
-
             $.ajax({
           	 	dataType:"text",
           	  	type:"POST",
@@ -423,7 +366,6 @@ $(document).ready(function() {
 			}else{
 				endTime= null;
 			}
-
 			$.ajax({
 				type:"POST",
 				url:"/plan/detail/update",
@@ -452,11 +394,10 @@ $(document).ready(function() {
 				contentType: "application/json; charset=UTF-8",
 	
 			});
-
          },
            
          eventRender: function(event, element) {
-             element.find('.fc-content').append( '<span class="glyphicon glyphicon-edit memo" aria-hidden="true">' );
+             element.find('.fc-content').append( '<span class="glyphicon glyphicon-edit memo" aria-hidden="true">&nbsp' );
              element.find('.fc-content').append( '<span class="glyphicon glyphicon-trash closeon" aria-hidden="true">' );
              
              //삭제
@@ -482,7 +423,6 @@ $(document).ready(function() {
                });
                $('#calendar').fullCalendar('removeEvents',event.id);	
              });
-
              //메모
              element.find(".memo").click(function(){   
              		eventID= event.id;
@@ -602,7 +542,6 @@ $(document).ready(function() {
         		});  
         });
      });
-
      //이미지 삭제 버튼.
      function removeAttach(event){
     		console.log(event);
@@ -619,5 +558,59 @@ $(document).ready(function() {
     	} 
 </script>
 
+<!-- 스크랩리스트 템플릿 -->
+<script id="scrapList" type="text/x-handlebars-template">
 
+<div class='fc-event' id={{contentsID}} name={{categoryID}} style="background-color: #f6f8f900; font-size: 14px;">
+               <a href="#"><img alt="" class="left mr20" src="/resources/planImg/noimg.png" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
+               <a class="dark" href="#" id="contentsTitle"><b>{{contentsTitle}}</b></a><br>
+               <span class="opensans green bold size14">$36-$160</span>
+            </div>
+            <div class="line4"></div>
+</script>
+
+<!-- 스크랩 리스트 조회 -->
+<script>
+$.getJSON('/scraplist',function(data){
+   
+   var str = "";
+   
+   $(data).each(function(i,list){
+      console.log(list);
+      var source = $("#scrapList").html();
+      var scrapData = {
+            contentsID : list.contentsID,
+            categoryID : list.categoryID,
+            contentsTitle : list.contentsTitle
+      }
+      console.log(scrapData);
+      var template = Handlebars.compile(source);
+      str += template(scrapData);
+   });
+   
+   $('#tab-newtopic').html(str);
+   
+   $('#external-events .fc-event').each(function() {
+       // store data so the calendar knows to render an event upon drop
+          
+          event.preventDefault();   
+           $(this).data('event', {
+               title: $.trim($("#contentsTitle").text()), // use the element's text as the event title
+               stick:true, // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
+                             // false: 없어짐.
+               color:$(this).data('color')
+           });
+           // make the event draggable using jQuery UI
+           $(this).draggable({
+               zIndex: 999,
+               revert: true,      // will cause the event to go back to its
+               revertDuration: 0,  //  original position after the drag
+               helper : 'clone'
+               
+           });
+           
+       });
+   
+});
+</script>
 </html>

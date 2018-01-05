@@ -101,10 +101,15 @@ public class PlanController {
 			
 			from = plan.getPlanEndDate();
 			String endDate = "'"+transFormat.format(from)+"'";
-			System.out.println("@@@@@@@EndDate:"+endDate);
+			
+			//작성자 명 조회.
+			String memberName = planService.memberName(plan.getMemberID());
+			System.out.println("작성자:"+memberName);
+			
 			model.addAttribute("startDate",startDate);
 			model.addAttribute("endDate",endDate);
 			model.addAttribute("plan",plan);
+			model.addAttribute("memberName", memberName);
 		}
 		
 		//plan 수정
@@ -119,6 +124,8 @@ public class PlanController {
 			
 			from = vo.getPlanEndDate();
 			String endDate = "'"+transFormat.format(from)+"'";
+			
+
 			model.addAttribute("plan",vo);
 			model.addAttribute("startDate",startDate);
 			model.addAttribute("endDate",endDate);
@@ -174,7 +181,6 @@ public class PlanController {
 		//한번에 받아 온 날짜와 시간을 분리하여 저장.
 		String startTime = vo.getPlanDetailStartTime();
 		String date[] = startTime.split("T",0);
-	
 		//받아온 파라미터 값중 planDetailID의 default 값 셋팅.
 		vo.setPlanDetailID(0);
 		//date & startTime을 지정된 형식으로 vo에 값 셋팅.
@@ -197,7 +203,7 @@ public class PlanController {
 		ResponseEntity<String> entity = null;
 		
 		try {
-			Map<String, Object> map = new HashMap<>();
+			Map<String, Object> map = new HashMap();
 					
 			//한번에 받아 온 날짜와 시간을 분리하여 저장.
 			String planDetailStartTime = vo.getPlanDetailStartTime();

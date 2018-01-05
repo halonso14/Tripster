@@ -23,4 +23,6 @@ public interface PlanDAO {
 	//나의 일정 조회
 	public List<PlanVO> selectMyPlan(int memberID) throws Exception;
 	
+	//memberName조회
+	public String selectMemberName(int memberID)throws Exception;
 }

@@ -56,6 +56,14 @@ public class PlanDAOImpl implements PlanDAO{
 		return session.selectList(namespace+".myPlan", memberID);
 	}
 
+	//memberName 조회.
+	@Override
+	public String selectMemberName(int memberID) throws Exception {
+		return session.selectOne(namespace+".memberName",memberID);
+	}
+
+	
+	
 	
 	
 }

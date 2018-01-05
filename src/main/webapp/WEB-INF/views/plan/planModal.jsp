@@ -9,14 +9,12 @@
             position: fixed;
             left: 50%;
             top: 50%;
-
             -webkit-transform: translate(-50%, -50%);
             -ms-transform: translate(-50%, -50%);
             -moz-transform: translate(-50%, -50%);
             -o-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
         }
-
 .modal-body {
     display: inline-block;
     background-color: #FFF; }
@@ -29,9 +27,10 @@
 } */
 </style>
 	<div class="container">
-        <div class="modal fade" id="planModal" role="dialog">
+        
 
             <form role="form" action="/plan/register" method="POST">
+            <div class="modal fade" id="planModal" role="dialog">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -56,8 +55,9 @@
                     <input type="button" class="btn btn-primary" value="등록" onclick="errorCheck()" style="width: 180px">
                 </div>
             </div>
+            </div>
             </form>
-        </div>
+        
     </div>
     
     <script>

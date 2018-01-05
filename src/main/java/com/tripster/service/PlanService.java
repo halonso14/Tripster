@@ -26,4 +26,7 @@ public interface PlanService {
 	
 	//나의 플랜 조회
 	public List<PlanVO> myPlan(int memberID) throws Exception;
+	
+	//memberName조회
+	public String memberName(int memberID)throws Exception;
 }
