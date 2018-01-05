@@ -76,9 +76,4 @@ public class PlanVO {
 	}
 
 	
-	
-	
-	
-	
-	
 }

@@ -1,9 +1,10 @@
 package com.tripster.domain;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonFilter;
 
+@JsonFilter("EsPlanFilter")
 public class PlanDetailVO {
-	private int planDetailID; //일정 삭세 식별 번호.
+	private int planDetailID; //일정 상세 식별 번호.
 	private int planID; //일정 식별번호.
 	private int contentsID; //컨텐츠 식별번호.
 	private String title; //컨텐츠 제목.
@@ -12,6 +13,7 @@ public class PlanDetailVO {
 	private String planDetailDate;	//일정 상세 날짜
 	private int categoryID;	//카테고리 식별번호.	
 	private MemoVO memoVO; 	//memo join시 사용.
+	
 	public int getPlanDetailID() {
 		return planDetailID;
 	}
@@ -66,7 +68,6 @@ public class PlanDetailVO {
 	public void setMemoVO(MemoVO memoVO) {
 		this.memoVO = memoVO;
 	}
-	
 	@Override
 	public String toString() {
 		return "PlanDetailVO [planDetailID=" + planDetailID + ", planID=" + planID + ", contentsID=" + contentsID
@@ -74,12 +75,4 @@ public class PlanDetailVO {
 				+ planDetailEndTime + ", planDetailDate=" + planDetailDate + ", categoryID=" + categoryID + ", memoVO="
 				+ memoVO + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 }

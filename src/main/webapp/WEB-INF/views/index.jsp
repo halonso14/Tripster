@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 
@@ -79,26 +78,35 @@
                 alert("개인정보 중국에 판매완료!.");
             }
             
-        </script>
-		<!--
-		#################################
-			- THEMEPUNCH BANNER -
-		#################################
-		-->
-		<div id="dajy" class="fullscreen-container2 mtslideb sliderbg fixed">
+            </script>
+            
+    		<!--####### HEADER #######-->
+    		<%@include file="include/header.jsp" %>
 
-			<div class="searchcontainer textcenter" style="">
-				<span class="lato size48 slim white ">Where do you want to go?</span><br/>
-
-				<div class=" wh95percent center">
-					<input type="text" class="form-control inph left" placeholder="ex: New York"></input>
-					<button class="btn btn-default nbtn-search right" type="button"><span class="glyphicon glyphicon-search"></span></button>
-
-				</div>
-
-			</div>
-
-
+    		<!--####### BANNER CONTAINER #######-->
+    		<div id="dajy" class="fullscreen-container2 mtslideb sliderbg fixed">
+    			
+    			<!--####### SEARCH BOX #######-->
+    			<div class="searchcontainer textcenter" style="">
+    				<script>
+    				    		$(document).ready(function () { 
+    								$('#searchBtn').on("click",function(event) {
+    									console.log($('#keywordInput').val());
+    										self.location = "search?"
+    												+ '${pageMaker.makeQuery(1)}'
+    												+ "&keyword=" + $('#keywordInput').val();
+    								});
+    				    		});				
+    				</script>			
+    				<span class="lato size48 slim white ">Where do you want to go?</span><br/>
+    				<div class=" wh95percent center">
+    					<input  id="keywordInput" name='keyword' value='${cri.keyword}'type="text" class="form-control inph left" placeholder="ex: New York" ></input>
+    					<button id='searchBtn' class="btn btn-default nbtn-search right" type="button"><span class="glyphicon glyphicon-search"></span></button>
+    				</div>
+    			</div>
+    			<!-- END OF SEARCH BOX -->
+    			
+			<!--####### BANNER #######-->
 			<div class="fullscreenbanner">
 				<ul>
 
