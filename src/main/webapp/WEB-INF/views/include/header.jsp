@@ -41,7 +41,7 @@ response.setHeader("Pragma", "no-cache");
 								<li><a href="member/logout">로그아웃</a></li>
 							</ul>
 								</li>
-								<li><a href="#">일정등록버튼</a></li>
+								<li><a href="#" onclick="planModal();">일정등록버튼</a></li>
 							</ul>
 						</c:otherwise>
         			
