@@ -10,5 +10,49 @@ public class EsSearchResult {
 	public List<EsPlanVO> planList;
 
 	public List<EsMemberVO> memberList;
+	
+	
 
+	public List<EsContentsVO> getContentsList() {
+		return contentsList;
+	}
+
+
+
+	public void setContentsList(List<EsContentsVO> contentsList) {
+		this.contentsList = contentsList;
+	}
+
+
+
+	public List<EsPlanVO> getPlanList() {
+		return planList;
+	}
+
+
+
+	public void setPlanList(List<EsPlanVO> planList) {
+		this.planList = planList;
+	}
+
+
+
+	public List<EsMemberVO> getMemberList() {
+		return memberList;
+	}
+
+
+
+	public void setMemberList(List<EsMemberVO> memberList) {
+		this.memberList = memberList;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "EsSearchResult [contentsList=" + contentsList + ", planList=" + planList + ", memberList=" + memberList
+				+ "]";
+	}
+	
 }

@@ -62,36 +62,5 @@ public class EsSearchMapper {
         return response;
     }
     
-	// 통합 검색결과 리스트 조회
-    public HashMap<String,SearchResponse> multiSearch(SearchCriteria cri) throws Exception{
- 		
-    		SimpleQueryStringBuilder qb = simpleQueryStringQuery(cri.getKeyword());	
-       
-    		ArrayList<String> type = new ArrayList<String>();	
-    		type.add(0,new String("cotents"));
-    		type.add(1,new String("plan"));
-    		type.add(2,new String("member"));
-    		
-        MultiSearchResponse items = client.prepareMultiSearch()
-        		.add(client.prepareSearch(getIndexName()).setTypes(type.get(0)).setQuery(qb))
-        		.add(client.prepareSearch(getIndexName()).setTypes(type.get(1)).setQuery(qb))
-        		.add(client.prepareSearch(getIndexName()).setTypes(type.get(2)).setQuery(qb))
-        		.get();
-       
-        ListIterator<String> types = type.listIterator(0);
-        HashMap<String,SearchResponse> responses = new HashMap<>();
-        
-//        long totalHits = 0;
-       
-        for (MultiSearchResponse.Item item : items.getResponses()) {
-			SearchResponse response = item.getResponse();
-			responses.put(types.next(),response);		
-//			totalHits += response.getHits().getTotalHits();
-		}
-        return responses;
-    }
-  
-
-
 }
 
