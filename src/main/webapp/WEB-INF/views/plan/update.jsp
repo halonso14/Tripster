@@ -201,7 +201,7 @@ body {
 </li>
 </script>
 
-
+<!-- 스크랩리스트 템플릿 -->
 <script id="scrapList" type="text/x-handlebars-template">
 
 <div class='fc-event' id={{contentsID}} name={{categoryID}} style="background-color: #f6f8f900; font-size: 14px;">
@@ -255,9 +255,7 @@ $.getJSON('/scraplist',function(data){
 	    });
 	
 });
- 
 </script>
-
 
 <script>
 	var template = Handlebars.compile($("#template").html());

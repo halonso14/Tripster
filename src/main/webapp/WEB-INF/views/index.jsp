@@ -275,18 +275,18 @@
 			</div>
 
 			<div>
-				<a href="contents/restaurantDetail/1">맛집 페이지1</a><br/>
-				<a href="contents/restaurantDetail/2">맛집 페이지2</a><br/>
-				<a href="contents/restaurantDetail/3">맛집 페이지3</a><br/>
-				<a href="contents/restaurantDetail/4">맛집 페이지4</a><br/>
-				<a href="contents/restaurantDetail/5">맛집 페이지5</a><br/>
-				<a href="contents/restaurantDetail/6">맛집 페이지6</a><br/>
-				<a href="contents/restaurantDetail/7">맛집 페이지7</a><br/>
-				<a href="contents/restaurantDetail/8">맛집 페이지8</a><br/>
-				<a href="contents/restaurantDetail/9">맛집 페이지9</a><br/>
-				<a href="contents/restaurantDetail/10">맛집 페이지10</a><br/>
-				<a href="contents/restaurantDetail/11">맛집 페이지11</a><br/>
-				<a href="contents/restaurantDetail/12">맛집 페이지12</a><br/>
+				<a href="contents/1/1">맛집 페이지1</a><br/>
+				<a href="contents/1/2">맛집 페이지2</a><br/>
+				<a href="contents/1/3">맛집 페이지3</a><br/>
+				<a href="contents/1/4">맛집 페이지4</a><br/>
+				<a href="contents/1/5">맛집 페이지5</a><br/>
+				<a href="contents/1/6">맛집 페이지6</a><br/>
+				<a href="contents/1/7">맛집 페이지7</a><br/>
+				<a href="contents/1/8">맛집 페이지8</a><br/>
+				<a href="contents/1/9">맛집 페이지9</a><br/>
+				<a href="contents/1/10">맛집 페이지10</a><br/>
+				<a href="contents/1/11">맛집 페이지11</a><br/>
+				<a href="contents/1/12">맛집 페이지12</a><br/>
 			</div>
 
 

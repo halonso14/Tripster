@@ -37,162 +37,47 @@ public class ContentsController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
-	
-	//맛집 리스트 페이지
-	@RequestMapping(value = "restaurantList/{curPage}", method = RequestMethod.GET)
-	public ModelAndView restaurantList(@PathVariable int curPage, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {		
-		ModelAndView resultPage = new ModelAndView("contents/restaurantList");
-		model.addAttribute("list",contentsService.getRestaurantList(cri));
-
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(contentsService.getTotalRestaurantNum(cri));
-
-		model.addAttribute("pageMaker", pageMaker);
-			
-		return resultPage;
-	}
-	
-	//관광지 리스트 페이지
-	@RequestMapping(value = "placeList/{curPage}", method = RequestMethod.GET)
-	public ModelAndView placeList(@PathVariable int curPage, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {		
-		ModelAndView resultPage = new ModelAndView("contents/placeList");
-		model.addAttribute("list",contentsService.getPlaceList(cri));
+	//컨텐츠 리스트 페이지
+	@RequestMapping(value = "contentsList/{categoryID}/{curPage}", method = RequestMethod.GET)
+	public ModelAndView restaurantList(@PathVariable int curPage
+									   ,@PathVariable int categoryID
+									   ,@ModelAttribute("cri") Criteria cri, Model model) throws Exception {		
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(contentsService.getTotalPlaceNum(cri));
-		model.addAttribute("pageMaker", pageMaker);
-			
-		return resultPage;
+		if(categoryID == 1) {
+			model.addAttribute("list",contentsService.getRestaurantList(cri));
+			model.addAttribute("categoryID",categoryID);
+			pageMaker.setTotalCount(contentsService.getTotalRestaurantNum(cri));
+			model.addAttribute("pageMaker", pageMaker);
+			ModelAndView resultPage = new ModelAndView("contents/restaurantList");
+			return resultPage;
+		}else {
+			model.addAttribute("list",contentsService.getPlaceList(cri));
+			pageMaker.setTotalCount(contentsService.getTotalPlaceNum(cri));
+			model.addAttribute("pageMaker", pageMaker);
+			ModelAndView resultPage = new ModelAndView("contents/placeList");
+			return resultPage;
+		}
+
 	}
-	
-////	맛집 리스트 조회 - REST 방식
-////	ResponseEntity : JSON 객체  + HTTP 응답상태 전달, @Pathvariable로 변수를 받아서 사용
-//	@RequestMapping(value = "restaurantList/{curPage}", method = RequestMethod.GET)
-//	public ResponseEntity<Map<String, Object>> restaurantList(@PathVariable("curPage") Integer curPage) throws Exception {
-//		ResponseEntity<Map<String, Object>> entity = null;
-//		
-//		try {
-//			//컨텐츠 리스트 정보를 전달하기 위해, Criteria 객체 생성
-//			Criteria cri = new Criteria();
-//			cri.setCurPage(curPage);
-//			//페이지 정보를 전달하기 위해, PageMaker 객체 생성
-//			PageMaker pageMaker = new PageMaker();
-//			pageMaker.setCri(cri);
-//			
-//			//Map 객체 생성
-//			Map<String, Object> map = new HashMap<String, Object>();
-//			
-//			//ResponseEntity 객체에 담을 컨텐츠 객체 리스트 저장  
-//			List<ContentsVO> list = contentsService.getRestaurantList(cri);
-//			map.put("list", list);
-//			//ResponseEntity 객체에 담을 PageMaker 객체 저장
-//			pageMaker.setTotalCount(contentsService.getTotalRestaurantNum(cri));
-//			map.put("pageMaker", pageMaker);
-//			
-//			//View로 전달할 ResponsEntity 객체 생성 + 정보 전달 
-//			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-//			
-//		} catch(Exception e) {
-//			//오류 발생 시, BAD_REQUEST 상태 입력
-//			e.printStackTrace();
-//			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//		}
-//		return entity;
-//	}
-//	
-//	//관광지 리스트 조회 - REST 방식
-//	//ResponseEntity : JSON 객체  + HTTP 응답상태 전달, @Pathvariable로 변수를 받아서 사용
-//	@RequestMapping(value = "placeList/{curPage}", method = RequestMethod.GET)
-//	public ResponseEntity<Map<String, Object>> placeList(@PathVariable("curPage") Integer curPage) throws Exception {
-//		ResponseEntity<Map<String, Object>> entity = null;
-//		
-//		try {
-//			//컨텐츠 리스트 정보를 전달하기 위해, Criteria 객체 생성
-//			Criteria cri = new Criteria();
-//			cri.setCurPage(curPage);
-//			//페이지 정보를 전달하기 위해, PageMaker 객체 생성
-//			PageMaker pageMaker = new PageMaker();
-//			pageMaker.setCri(cri);
-//			
-//			//Map 객체 생성
-//			Map<String, Object> map = new HashMap<String, Object>();
-//			
-//			//ResponseEntity 객체에 담을 컨텐츠 객체 리스트 저장  
-//			List<ContentsVO> list = contentsService.getPlaceList(cri);
-//			map.put("list", list);
-//			//ResponseEntity 객체에 담을 PageMaker 객체 저장
-//			pageMaker.setTotalCount(contentsService.getTotalPlaceNum(cri));
-//			map.put("pageMaker", pageMaker);
-//			
-//			//View로 전달할 ResponsEntity 객체 생성 + 정보 전달 
-//			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-//			
-//		} catch(Exception e) {
-//			//오류 발생 시, BAD_REQUEST 상태 입력
-//			e.printStackTrace();
-//			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//		}
-//		return entity;
-//	}
-	
-	//맛집 상세 페이지
-	@RequestMapping(value = "/restaurantDetail/{contentsID}", method = RequestMethod.GET)
-	public ModelAndView restaurantDetail(@PathVariable("contentsID") Integer contentsID, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
-		ModelAndView resultPage = new ModelAndView("contents/restaurantDetail");
-		model.addAttribute("vo",contentsService.getRestaurantDetail(contentsID));
-		logger.info("aop test");
-		return resultPage;
-		
+
+	//컨텐츠 상세 페이지
+	@RequestMapping(value = "/{categoryID}/{contentsID}", method = RequestMethod.GET)
+	public ModelAndView restaurantDetail(@PathVariable("contentsID") Integer contentsID
+										 ,@PathVariable("categoryID") Integer categoryID
+										 ,@ModelAttribute("cri") Criteria cri ,Model model) throws Exception {
+		if(categoryID == 1) {
+			ModelAndView resultPage = new ModelAndView("contents/restaurantDetail");
+			model.addAttribute("vo",contentsService.getRestaurantDetail(contentsID));
+			return resultPage;
+		}else {
+			ModelAndView resultPage = new ModelAndView("contents/PlaceDetail");
+			model.addAttribute("vo",contentsService.getPlaceDetail(contentsID));
+			return resultPage;
+		}
 	}
-	
-	
-	//관광지 상세 페이지
-	@RequestMapping(value = "/placeDetail/{contentsID}", method = RequestMethod.GET)
-	public ModelAndView placeDetail(@PathVariable("contentsID") Integer contentsID, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
-		ModelAndView resultPage = new ModelAndView("contents/PlaceDetail");
-		model.addAttribute("vo",contentsService.getPlaceDetail(contentsID));
-		
-		return resultPage;
-	}
-	
-//	//맛집 상세 정보 조회 - REST 방식
-//	//ResponseEntity : JSON + HTTP 응답상태까지 전달, @Pathvariable로 변수를 받아서 사용 
-//	@RequestMapping(value = "/restaurantDetail/{contentsID}", method = RequestMethod.GET)
-//	public ResponseEntity<ContentsVO> restaurantDetail(@PathVariable("contentsID") Integer contentsID) {
-//		ResponseEntity<ContentsVO> vo = null;
-//		
-//		try {
-//			//해당 contentsID를 가진 객체를 vo에 저장
-//			vo = new ResponseEntity<>(contentsService.getRestaurantDetail(contentsID), HttpStatus.OK);
-//			
-//		} catch(Exception e) {
-//			//오류 발생 시, BAD_REQUEST 상태 입력
-//			e.printStackTrace();
-//			vo = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//		}
-//		return vo;
-//	}
-//	
-//	//관광지 상세 정보 조회 - REST 방식
-//	//ResponseEntity : JSON + HTTP 응답상태까지 전달, @Pathvariable로 변수를 받아서 사용 
-//	@RequestMapping(value = "/placeDetail/{contentsID}", method = RequestMethod.GET)
-//	public ResponseEntity<ContentsVO> placeDetail(@PathVariable("contentsID") Integer contentsID) {
-//		ResponseEntity<ContentsVO> vo = null;
-//		
-//		try {
-//			//해당 contentsID를 가진 객체를 vo에 저장
-//			vo = new ResponseEntity<>(contentsService.getPlaceDetail(contentsID), HttpStatus.OK);
-//			
-//		} catch(Exception e) {
-//			//오류 발생 시, BAD_REQUEST 상태 입력
-//			e.printStackTrace();
-//			vo = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//		}
-//		return vo;
-//	}
-	
+
 	//컨텐츠 상세 정보 조회 - 구글맵 연동 테스트용 페이지
 	@RequestMapping(value = "/contentsDetail/{contentsID}/{location}", method = RequestMethod.GET)
 	public void contentsDetail() throws Exception {
@@ -255,12 +140,23 @@ public class ContentsController {
 	public ResponseEntity<String> writeReview(@PathVariable Integer contentsID, @RequestBody ContentsReviewVO vo) {
 		//ResponseEntity : View로 JSON + HTTP 상태 전달
 		ResponseEntity<String> entity = null;
-		System.out.println(vo.toString());
+		System.out.println("contentsReviewVO="+vo.toString());
 		try {
 			
 			//PathVariable 활용, 해당 맛집의 리뷰 저장
 			vo.setContentsID(contentsID);
 			contentsReviewService.writeReview(vo);
+			
+			//컨텐츠의 평점 넣기
+			List<ContentsReviewVO> list = contentsReviewService.getReviewList(contentsID, new Criteria());
+			Integer contentsRating = 0;
+			Integer sum = 0;
+			for(int i=0;i<list.size();i++) {
+				sum += list.get(i).getRanking();
+			};
+			contentsRating = sum/list.size();
+			contentsService.updateContentsRating(contentsRating,contentsID);
+			
 			//View로 전달할 ResponsEntity 객체 생성 + 정보 전달
 			entity = new ResponseEntity<String>("written", HttpStatus.OK);
 			

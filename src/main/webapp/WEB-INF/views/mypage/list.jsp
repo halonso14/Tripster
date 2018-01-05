@@ -77,7 +77,7 @@
 				$('.scrapList').on('click','.contentsID',function(){
 					
 					var contentsID = $(this).attr("value");
-					$('#form').attr("action","/contentsPage/contents/"+contentsID);
+					$('#form').attr("action","/planDetail/"+contentsID);
 					$('#form').attr("method","get");
 					$('#form').submit();
 					

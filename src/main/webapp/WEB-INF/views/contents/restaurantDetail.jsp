@@ -44,16 +44,22 @@
 		<div class="container mt25 offset-0">
 			<div class="col-md-12 pagecontainer2 offset-0">
 				<div class="hpadding50c">
-					<p class="lato size30 slim">Blog</p>
+					<p class="lato size30 slim">${vo.title}
+					<button class="btn-search4 right" id="getList">리스트 페이지</button>
+					
+					</p>
+					
 					<p class="aboutarrow"></p>
+					
 				</div>
+				
 				<div class="line3"></div>
 				
 				<div class="hpadding50c">
 
 					<!-- 왼쪽 파트 -->
 					<!-- 본문 -->
-					<div class="col-md-8 cpdd01 grey2">
+					<div class="col-md-8 cpdd01 grey2" style="width:100%;">
 						<div class="abover">
 							<div class="abbg">
 								<a href="/resources/images/about-man.jpg" class="blogpost-hover" data-footer="A custom footer text" data-title="A random title" data-gallery="multiimages" data-toggle="lightbox"><span class="glyphicon glyphicon-zoom-in"></span></a>
@@ -61,9 +67,7 @@
 							<img src="/resources/images/about-man.jpg" class="fwimg" alt=""/>
 						</div><br/>
 						
-						<span class="lato size22 dark bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span><br/>
-						<span class="grey">December 25, 2013/<a href="#">0 Comments</a>/in <a href="#">Vacations</a>/by <a href="#">TitanicThemes</a></span><br/>
-						
+						<span class="lato size22 dark bold">소제목?</span><br/>						
 						<!-- 로그인 체크 -->
 						<c:choose>
 	        				<c:when test = "${empty userSession}">
@@ -77,14 +81,9 @@
         				</c:choose>
 						
 						<div class="line4"></div>
-						Donec vehicula nunc in turpis rutrum porta. Nullam lacinia ante non turpis aliquam mattis. Pellentesque luctus leo eget metus egestas egestas. Maecenas hendrerit magna ut porttitor tempor. In hac habitasse platea dictumst. Duis condimentum congue nisi, ac semper ipsum posuere eu. 
+						컨텐츠 내용
 						<br/><br/>
-						<span class="glyphicon glyphicon-tag dark"></span><b>Tags:</b> travel, booking, vacations
-						<button type="submit" class="btn-search4 margtop20 right" id="getList">리스트 페이지</button>	
 						<br/><br/>
-						
-						
-						
 						<div class="line4"></div>
 						
 						<div class="col-md-12 pagecontainer2 offset-0">
@@ -123,12 +122,13 @@
 						
 						<div class="line2"></div>
 
-						<div class="wh25percent left center">
+						<div class="wh25percent left center" style=" height: 400px;">
 							<ul class="jslidetext2">
 								<li>Username</li>
 								<li>Evaluation</li>
 								<li>Title</li>
-								<li>Comment</li>
+								<li>rating</li>
+								<li style="margin: 120px 0px;">Comment</li>
 							</ul>
 						</div>
 						<div class="wh75percent right offset-0">
@@ -149,6 +149,37 @@
 									<option>Don't recommend</option>
 								</select>
 								<input type="text" class="form-control margtop10" placeholder="">
+								<div id="collapse1" class="collapse in">
+									<div class="hpadding20">
+										<div class="checkbox">
+											<label>
+											   <input type="checkbox" value=5><img src="/resources/images/filter-rating-5.png" class="imgpos1" /> 5 Stars		
+											</label>
+										</div>
+										<div class="checkbox">
+											<label>
+											  <input type="checkbox" value=4><img src="/resources/images/filter-rating-4.png" class="imgpos1" /> 4 Stars
+											</label>
+										</div>
+										<div class="checkbox">
+											<label>
+											  <input type="checkbox" value=3><img src="/resources/images/filter-rating-3.png" class="imgpos1" /> 3 Stars
+											</label>
+										</div>
+										<div class="checkbox">
+											<label>
+											  <input type="checkbox" value=2><img src="/resources/images/filter-rating-2.png" class="imgpos1" /> 2 Stars
+											</label>
+										</div>
+										<div class="checkbox">
+											<label>
+											  <input type="checkbox" value=1><img src="/resources/images/filter-rating-1.png" class="imgpos1" /> 1 Star
+											</label>
+										</div>	
+									</div>
+									<div class="clearfix"></div>
+								</div>
+								<!-- End of Star ratings -->	
 								<textarea class="form-control margtop10" rows="5" id="reviewDetail"></textarea>
 										
 								<div class="clearfix"></div>
@@ -173,85 +204,10 @@
 						<div class="wh80percent right"></div>
 					</div>
 				</div>
-					<!-- END OF LEFT IMG -->
+				<!-- END OF LEFT IMG -->
 					
 					
-					
-				<!-- 왼쪽 파트 -->
-				<div class="col-md-4 cpdd02">
-					<div class="opensans grey">
-						<input type="text" placeholder="Search.." class="form-control logpadding" name="s"><br/>
-						<span class="lato size18 dark bold">Category</span><br/>
-						
-						<ul class="blogcat">
-							<li><a href="#">Vacations</a> <span class="badge indent0">4</span></li>
-							<li><a href="#">Hotels</a> <span class="badge indent0">8</span></li>
-							<li><a href="#">Flights</a> <span class="badge indent0">15</span></li>
-							<li><a href="#">Early booking</a> <span class="badge indent0">16</span></li>
-							<li><a href="#">Last minute</a> <span class="badge indent0">23</span></li>
-							<li><a href="#">Cruises</a> <span class="badge indent0">42</span></li>
-						</ul>
-						<br/>
-						
-							
-							<!-- Nav tabs -->
-						<ul class="nav navigation-tabs3">
-							<li class="active"><a href="#tab-newtopic" data-toggle="tab"><span class="glyphicon glyphicon-star"></span> Featured</a></li>
-							<li><a href="#tab-comments" data-toggle="tab"><span class="glyphicon glyphicon-stats"></span> Popular</a></li>
-
-						</ul>
-							
-						<div class="tab-content4">
-								<!-- Tab 1 -->
-							<div class="tab-pane active" id="tab-newtopic">
-								<a href="#"><img alt="" class="left mr20" src="images/smallthumb-1.jpg"></a>
-								<a class="dark" href="#"><b>Hotel Dany</b></a><br>
-								<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
-								<img alt="" src="images/filter-rating-5.png">
-								<div class="line4"></div>
-								<a href="#"><img alt="" class="left mr20" src="images/smallthumb-2.jpg"></a>
-								<a class="dark" href="#"><b>Hotel Amaragua</b></a><br>
-								<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
-								<img alt="" src="images/filter-rating-5.png">
-								<div class="line4"></div>
-								<a href="#"><img alt="" class="left mr20" src="images/smallthumb-3.jpg"></a>
-								<a class="dark" href="#"><b>Hotel Lotus</b></a><br>
-								<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
-								<img alt="" src="images/filter-rating-5.png">
-							</div>
-							<!-- End of Tab 1 -->
-								
-								<!-- Tab 2 -->
-								<div class="tab-pane" id="tab-comments">
-								
-								</div>
-								<!-- End of Tab 2 -->
-								
-								<!-- Tab 3 -->
-								<div class="tab-pane" id="tab-blogcomments">
-
-								</div>
-								<!-- End of Tab 3 -->
-							</div>
-
-							
-							
-							<span class="lato size18 dark bold">Archives</span><br/>
-							<ul class="blogcat">
-								<li><a href="#">December 2013</a></li>
-								<li><a href="#">November 2013</a></li>
-								<li><a href="#">October 2013</a></li>
-								<li><a href="#">September 2013</a></li>
-								<li><a href="#">August 2013</a></li>
-								<li><a href="#">July 2013</a></li>
-								<li><a href="#">June 2013</a></li>
-								<li><a href="#">May 2013</a></li>
-								<li><a href="#">April 2013</a></li>
-							</ul>
-							
-							<br/><br/>
-						</div>
-					</div>
+				
 					<!-- END OF IMG RIGHT TEXT -->
 					<div class="clearfix"></div>
 					<br/><br/>
@@ -261,18 +217,30 @@
 		</div>
 	</div>
 </div>
+
 <!-- END CONTENT -->
 <!-- Modal -->
 
 <script>
 	$(document).ready(function(){
+		
 		var memberID = 1;
 		var listPage = ${cri.curPage};
 		var contentsID = ${contentsID};
+		var categoryID = ${categoryID};
 		var reviewPage = 1;
 		var scrapbt = $("#scrapBttn");
+		
 		// 화면에서 등록한 파일 이름 저장
 		var fileNames = new Array;
+		var ranking = 0;
+		
+		// 리뷰 평점 저장
+		$('input[type="checkbox"]').on("click",function () {
+	        $('input[type="checkbox"]').not(this).prop("checked", false);
+	        ranking = this.value;
+	        alert(ranking);
+	    });
 		
 		// 스크랩 체크
 		$.post('/scrapCheck/'+contentsID,function(check){
@@ -305,11 +273,12 @@
 		
 		// 컨텐츠 리스트 페이지 가기
 		$("#getList").on("click", function(){
-			self.location= "/contents/restaurantList/"+listPage;
+			self.location= "/contents/contentsList/"+categoryID+"/"+listPage;
 		});
 		
 		// 리뷰 등록
 		$("#writeReview").on("click", function(){
+			alert(ranking);
 			var contentsReview = $("#reviewDetail").val();
 			
 			$.ajax({
@@ -324,7 +293,8 @@
 					contentsID : contentsID,
 					memberID : memberID,
 					contentsReview : contentsReview,
-					reviewPictureName : fileNames
+					reviewPictureName : fileNames,
+					ranking : ranking
 				}),
 				success : function(data) {
 						alert(data);

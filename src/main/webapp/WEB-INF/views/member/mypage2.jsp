@@ -1971,76 +1971,6 @@ function fileChange(e) {
 							
 							</div>
 							
-							<div class="portlet-body">
-                                    <div class="mt-element-list">
-                                        <div class="mt-list-head list-simple font-white bg-red">
-                                            <div class="list-head-title-container">
-                                                <div class="list-date">Nov 8, 2015</div>
-                                                <h3 class="list-title">Simple List</h3>
-                                            </div>
-                                        </div>
-                                        <div class="mt-list-container list-simple">
-                                            <ul>
-                                                <li class="mt-list-item">
-                                                    <div class="list-icon-container done">
-                                                        <i class="icon-check"></i>
-                                                    </div>
-                                                    <div class="list-datetime"> 8 Nov </div>
-                                                    <div class="list-item-content">
-                                                        <h3 class="uppercase">
-                                                            <a href="javascript:;">Concept Proof</a>
-                                                        </h3>
-                                                    </div>
-                                                </li>
-                                                <li class="mt-list-item">
-                                                    <div class="list-icon-container">
-                                                        <i class="icon-close"></i>
-                                                    </div>
-                                                    <div class="list-datetime"> 8 Nov </div>
-                                                    <div class="list-item-content">
-                                                        <h3 class="uppercase">
-                                                            <a href="javascript:;">Listings Feature</a>
-                                                        </h3>
-                                                    </div>
-                                                </li>
-                                                <li class="mt-list-item">
-                                                    <div class="list-icon-container">
-                                                        <i class="icon-close"></i>
-                                                    </div>
-                                                    <div class="list-datetime"> 8 Nov </div>
-                                                    <div class="list-item-content">
-                                                        <h3 class="uppercase">
-                                                            <a href="javascript:;">Listings Feature</a>
-                                                        </h3>
-                                                    </div>
-                                                </li>
-                                                <li class="mt-list-item">
-                                                    <div class="list-icon-container done">
-                                                        <i class="icon-check"></i>
-                                                    </div>
-                                                    <div class="list-datetime"> 8 Nov </div>
-                                                    <div class="list-item-content">
-                                                        <h3 class="uppercase">
-                                                            <a href="javascript:;">Listings Feature</a>
-                                                        </h3>
-                                                    </div>
-                                                </li>
-                                                <li class="mt-list-item">
-                                                    <div class="list-icon-container">
-                                                        <i class="icon-close"></i>
-                                                    </div>
-                                                    <div class="list-datetime"> 8 Nov </div>
-                                                    <div class="list-item-content">
-                                                        <h3 class="uppercase">
-                                                            <a href="javascript:;">Listings Feature</a>
-                                                        </h3>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-							
 							<form id="form" method="post"></form>
 							
 						</div>
@@ -2118,7 +2048,7 @@ $(document).ready(function (){
 	$('.scrapList').on('click','.contentsID',function(){
 		
 		var contentsID = $(this).attr("value");
-		$('#form').attr("action","/contents/restaurantDetail/"+contentsID);
+		$('#form').attr("action","/contents/1/"+contentsID);
 		$('#form').attr("method","get");
 		$('#form').submit();
 		

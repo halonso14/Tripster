@@ -16,6 +16,8 @@ public class ContentsReviewVO {
 	private String contentsReview;
 	//맛집 리뷰 작성(수정) 시간
 	private Date contentsReviewTime;
+	//리뷰 평점
+	private Integer ranking;
 	//리뷰 사진
 	private List<String>reviewPictureName;
 
@@ -25,6 +27,12 @@ public class ContentsReviewVO {
 	}
 	public void setMemberID(Integer memberID) {
 		this.memberID = memberID;
+	}
+	public Integer getRanking() {
+		return ranking;
+	}
+	public void setRanking(Integer ranking) {
+		this.ranking = ranking;
 	}
 	public Integer getContentsID() {
 		return contentsID;
@@ -60,7 +68,9 @@ public class ContentsReviewVO {
 	public String toString() {
 		return "ContentsReviewVO [memberID=" + memberID + ", contentsID=" + contentsID + ", contentsReviewID="
 				+ contentsReviewID + ", contentsReview=" + contentsReview + ", contentsReviewTime=" + contentsReviewTime
-				+ ", reviewPictureName=" + reviewPictureName + "]";
+				+ ", ranking=" + ranking + ", reviewPictureName=" + reviewPictureName + "]";
 	}
+	
+	
 	
 }

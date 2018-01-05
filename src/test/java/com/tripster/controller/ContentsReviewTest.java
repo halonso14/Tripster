@@ -39,16 +39,16 @@ public class ContentsReviewTest {
 //		}
 //	}
 	
-//	@Test
-//	public void mapperTest() throws Exception{
-//		
-//		List<ContentsReviewVO> list = new ArrayList<ContentsReviewVO>();
-//		Criteria cri = new Criteria();
-//		cri.setCurPage(1);
-//		list = dao.getReviewList(1,cri);
-//		System.out.println(list.toString());
-//		
-//	}
+	@Test
+	public void mapperTest() throws Exception{
+		
+		List<ContentsReviewVO> list = new ArrayList<ContentsReviewVO>();
+		Criteria cri = new Criteria();
+		cri.setCurPage(1);
+		list = dao.getReviewList(1,cri);
+		System.out.println(list.toString());
+		
+	}
 	
 //	@Test
 //	public void getFileNames() throws Exception{
@@ -56,25 +56,37 @@ public class ContentsReviewTest {
 //		System.out.println(filenames.toString());
 //	}
 	
-	@Test
-	public void reviewList() throws Exception{
-		Criteria cri = new Criteria();
-		cri.setCurPage(1);
-		List<ContentsReviewVO> list = dao.getReviewList(1, cri);
-		
-		for(int i=0;i<list.size();i++) {
-			
-			List<String> str = dao.getFileNames(list.get(i).getContentsReviewID());
-			System.out.println(str.toString());
-			System.out.println("i"+i);
-			System.out.println(list.get(i).getContentsReviewID());
-			list.get(i).setReviewPictureName(str);
-			
-		}
-		
-		System.out.println(list.toString());
-		
-		
-	}
+//	@Test
+//	public void reviewList() throws Exception{
+//		Criteria cri = new Criteria();
+//		cri.setCurPage(1);
+//		List<ContentsReviewVO> list = dao.getReviewList(1, cri);
+//		
+//		for(int i=0;i<list.size();i++) {
+//			
+//			List<String> str = dao.getFileNames(list.get(i).getContentsReviewID());
+//			System.out.println(str.toString());
+//			System.out.println("i"+i);
+//			System.out.println(list.get(i).getContentsReviewID());
+//			list.get(i).setReviewPictureName(str);
+//			
+//		}
+//		
+//		System.out.println(list.toString());
+//		
+//		
+//	}
+	
+//	@Test
+//	public void rankingTest() throws Exception{
+//		System.out.println("1");
+//		//댓글 리스트 정보를 전달하기 위해, Criteria 객체 생성
+////		Criteria cri = new Criteria();
+//		//현재 댓글 페이지 정보 저장
+////		cri.setCurPage(1);
+////		
+////		System.out.println(dao.getReviewList(1, cri).get(1).toString());
+////		
+//	}
 
 }

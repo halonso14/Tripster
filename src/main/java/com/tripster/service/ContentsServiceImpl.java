@@ -58,4 +58,10 @@ public class ContentsServiceImpl implements ContentsService {
 	public int getTotalPlaceNum(Criteria cri) throws Exception {
 		return dao.getTotalPlaceNum(cri);
 	}
+	
+	//컨텐츠 평점
+	@Override
+	public void updateContentsRating(Integer contentsRating,Integer contentsID) throws Exception{
+		dao.updateContentsRating(contentsRating,contentsID);
+	}
 }

@@ -7,9 +7,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <insert id="write">
   insert into
-  	tbl_contents_review (Contents_ID, Member_ID, Contents_Review, Contents_Review_Time)
+  	tbl_contents_review (Contents_ID, Member_ID, Contents_Review, Contents_Review_Time, Contents_Review_Ranking)
   values
-  	(#{contentsID}, #{memberID}, #{contentsReview}, now())
+  	(#{contentsID}, #{memberID}, #{contentsReview}, now(), #{ranking})
   </insert>
   
   <update id="modify">
@@ -30,7 +30,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <select id="getReviewList" resultType="contentsReviewVO">
   select
-  	Member_ID memberID, Contents_Review_ID contentsReviewID, Contents_Review contentsReview, Contents_Review_Time contentsReviewTime
+  	Member_ID memberID, 
+  	Contents_Review_ID contentsReviewID, 
+  	Contents_Review contentsReview, 
+  	Contents_Review_Time contentsReviewTime,
+  	Contents_Review_Ranking ranking
   from
   	tbl_contents_review
   where
@@ -66,7 +70,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   									   #{reviewID}
   									  ,#{fileName}
   									 )
-  
   </insert>
   
   <select id="maxReviewID" resultType="Integer">
@@ -81,6 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		Review_Picture_Name
   from 
   		tbl_review_attachment
+  		
   where Contents_Review_ID = #{reviewID}
   </select>
   

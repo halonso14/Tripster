@@ -17,7 +17,7 @@ import com.tripster.persistence.ContentsDAO;
 import com.tripster.persistence.ScrapDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/**/*.xml" })
+@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/**/*.xml" })
 public class ScrapDAOTest {
 
 

@@ -61,7 +61,7 @@ public class ContentsReviewServiceImpl implements ContentsReviewService {
 			list.get(i).setReviewPictureName(str);
 			
 		}
-		System.out.println();
+
 		return list;
 	}
 
