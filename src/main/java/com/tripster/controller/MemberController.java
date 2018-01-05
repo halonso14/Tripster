@@ -44,12 +44,16 @@ public class MemberController {
 	public void loginPOST(LoginDTO dto, HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 
 		MemberVO vo = service.login(dto);
-
-		if (vo == null) {
-
+		
+		try {
+			if (vo == null) {
+				
+				return;
+			}
+			model.addAttribute("memberVO", vo);
+		} catch(Exception e) {
 			return;
 		}
-		model.addAttribute("memberVO", vo);
 
 		if (dto.isUseCookie()) {
 			int amount = 60 * 60 * 24;
@@ -111,36 +115,20 @@ public class MemberController {
 	// 비밀번호 찾기 메일 전송
 	@RequestMapping(value = "/findPassword", method = RequestMethod.POST)
 	public String findPasswordPost(MemberVO vo, RedirectAttributes rttr) throws Exception {
-		service.findPassword(vo);
-
-		rttr.addFlashAttribute("msg", "findPassword");
-
-		return "redirect:/";
+		
+		//가입된 메일이 아닐경우
+		if(service.repeatChk(vo.getMemberEmail())) {
+			rttr.addFlashAttribute("msg", "fail");
+			return "redirect:/member/findPassword";
+			
+		//가입된 메일인경우 메일 전송
+		} else {
+			service.findPassword(vo);
+			rttr.addFlashAttribute("msg", "success");
+			return "redirect:/member/findPassword";
+		}
+		
 	}
-
-	/*
-	 * //이메일 중복확인(중복확인 버튼 활용)
-	 * 
-	 * @RequestMapping(value = "/repeatChk" , method = RequestMethod.POST, produces
-	 * = "application/json; charset=utf-8") public @ResponseBody String
-	 * repeatChkPost(HttpServletResponse response, @RequestParam("memberEmail")
-	 * String memberEmail, Model model)throws Exception {
-	 * 
-	 * String chkResponse;
-	 * 
-	 * if(service.repeatChk(memberEmail) == true) { chkResponse =
-	 * "{\"msg\":\""+"사용가능한 이메일 입니다."+"\"}"; }else { chkResponse =
-	 * "{\"msg\":\""+"이미 가입된 이메일 입니다."+"\"}"; }
-	 * 
-	 * 
-	 * URLEncoder.encode(chkResponse , "UTF-8");
-	 * 
-	 * 
-	 * // model.addAttribute("msg", service.authenticate(email)); return
-	 * chkResponse;
-	 * 
-	 * }
-	 */
 
 	// 로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -170,29 +158,35 @@ public class MemberController {
 
 	// 마이페이지 조회
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public void mypage(MemberVO vo, HttpSession session, Model model) throws Exception {
-
-		Object obj = session.getAttribute("login");
-		MemberVO memVO = (MemberVO) obj;
-
-		service.viewMypage(memVO.getMemberEmail());
-
-		model.addAttribute(service.viewMypage(memVO.getMemberEmail()));
-	}
-
-	// 대시보드형 마이페이지
-	@RequestMapping(value = "/mypage2", method = RequestMethod.GET)
 	public void mypage2(MemberVO vo, HttpSession session, Model model) throws Exception {
 
 		Object obj = session.getAttribute("login");
 		MemberVO memVO = (MemberVO) obj;
-
-		service.mypage(memVO.getMemberID());
+		vo.setMemberID(memVO.getMemberID());
 
 		model.addAttribute(service.mypage(memVO.getMemberID()));
 	}
+	
+	// 기본정보 변경
+	@RequestMapping(value = "/changeProfile", method = RequestMethod.POST)
+	public String changeProfile(MemberVO vo, HttpSession session, HttpServletRequest request, RedirectAttributes rttr)
+			throws Exception {
 
-	// 비밀번호 수정
+		Object obj = session.getAttribute("login");
+		MemberVO memVO = (MemberVO) obj;
+		vo.setMemberID(memVO.getMemberID());
+		
+		String newNick = vo.getMemberName();
+		memVO.setMemberName(newNick);
+
+		service.changeProfile(vo);
+
+		rttr.addFlashAttribute("msg", "profile");
+
+		return "redirect:/member/mypage";
+	}
+
+	// 비밀번호 변경
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	public String changePassword(MemberVO vo, HttpSession session, HttpServletRequest request, RedirectAttributes rttr)
 			throws Exception {
@@ -205,9 +199,9 @@ public class MemberController {
 
 		service.changePassword(vo);
 
-		rttr.addFlashAttribute("msg", "success");
+		rttr.addFlashAttribute("msg", "password");
 
-		return "redirect:/member/mypage2";
+		return "redirect:/member/mypage";
 	}
 
 	// 기존 비밀번호 확인(j-query validation)
@@ -226,37 +220,6 @@ public class MemberController {
 		} else {
 			return "false";
 		}
-	}
-
-	// 회원정보 수정페이지 조회
-	@RequestMapping(value = "/updateMember", method = RequestMethod.GET)
-	public void updateGET(MemberVO vo, HttpSession session, Model model) throws Exception {
-
-		Object obj = session.getAttribute("login");
-		MemberVO memVO = (MemberVO) obj;
-
-		service.viewMypage(memVO.getMemberEmail());
-
-		model.addAttribute(service.viewMypage(memVO.getMemberEmail()));
-	}
-
-	// 회원정보 수정
-	@RequestMapping(value = "/updateMember", method = RequestMethod.POST)
-	public String updatePost(MemberVO vo, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
-
-		HttpSession session = request.getSession();
-		MemberVO memVO = (MemberVO) session.getAttribute("login");
-
-		logger.info("회원정보 수정");
-
-		String newNick = vo.getMemberName();
-		memVO.setMemberName(newNick);
-
-		service.updateMember(vo);
-
-		rttr.addFlashAttribute("msg", "success");
-
-		return "redirect:/member/mypage";
 	}
 
 	// 회원 탈퇴

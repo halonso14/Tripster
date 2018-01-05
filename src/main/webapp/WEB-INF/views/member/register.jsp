@@ -57,7 +57,7 @@
                     닉네임<input type="text" class="form-control logpadding" name="memberName" id="memberName" placeholder="닉네임을 입력하세요">
                     <br/>
                     성별
-                    <div class="form-control">
+                    <div class="form-control logpadding" style="height:42px">
                     남<input type="radio" class="radio-inline" name="memberSex" id="male" value="남자" checked="checked">
                     여<input type="radio" class="radio-inline" name="memberSex" id="female" value="여자">
                     </div>
@@ -72,7 +72,7 @@
                             <button class="btn-search4" onclick="cancel()"> 취  소 </button>
                         </div>
                         <div class="alignbottom2">
-                            <button class="btn-search4" type="submit" onclick="errorMessage()">회원가입</button>
+                            <button class="btn-search4" type="submit">회원가입</button>
                         </div>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
 	
 	function cancel(){
 		event.preventDefault();
-		history.go(-1);
+		location.href="/";
 	}
 
     function errorMessage(){

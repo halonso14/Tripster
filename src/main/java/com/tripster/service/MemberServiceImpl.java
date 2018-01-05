@@ -32,12 +32,17 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO login(LoginDTO dto) throws Exception {
 
+		//DB Null Check
+		if(dao.getMemberPw(dto.getMemberEmail())==null) {
+			return dao.login(dto);
+		}
+		
 		//암호화된 비밀번호
 		String pw = dao.getMemberPw(dto.getMemberEmail()).getMemberPassword();
 		//입력한 비밀번호
 		String rawPw = dto.getMemberPassword();
 		logger.info("비밀번호 : " + rawPw);
-		
+				
 		if(passwordEncoder.matches(rawPw, pw)) {
 			logger.info("비밀번호 일치");
 			dto.setMemberPassword(pw);
@@ -93,18 +98,19 @@ public class MemberServiceImpl implements MemberService {
 		vo.setMemberPassword(encPassword);
 		
 		dao.createTempPassword(vo.getMemberEmail(), encPassword);
-		
+
 		MailHandler sendMail = new MailHandler(mailSender);
 		
 		sendMail.setSubject("Tripster 비밀번호 찾기");
 		sendMail.setText(new StringBuffer().append("<h1>임시비밀번호</h1>")
-					.append("임시 비밀번호는").append(key)
-					.append("입니다. 로그인 후 비밀번호를 변경해주세요.</br>")
-					.append("<a href='http://localhost:10000/")
-					.append("' target='_blank'>Tripster 바로가기</a>").toString());
+				.append("임시 비밀번호는").append(key)
+				.append("입니다. 로그인 후 비밀번호를 변경해주세요.</br>")
+				.append("<a href='http://localhost:10000/")
+				.append("' target='_blank'>Tripster 바로가기</a>").toString());
 		sendMail.setFrom("projecttripster@gmail.com", "Tripster관리자");
 		sendMail.setTo(vo.getMemberEmail());
 		sendMail.send();
+		
 	}
 	
 	@Override
@@ -123,15 +129,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public MemberVO viewMypage(String memberEmail) throws Exception {
-		
-		return dao.viewMember(memberEmail);
-	}
-	
-	@Override
 	public MemberVO mypage(Integer memberID) throws Exception {
 		
 		return dao.mypage(memberID);
+	}
+	
+	@Override
+	public void changeProfile(MemberVO vo) throws Exception {
+		
+		dao.changeProfile(vo);
 	}
 	
 	@Override
@@ -164,15 +170,6 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void uploadPicture(MemberVO vo) throws Exception {
 		dao.uploadPicture(vo);
-	}
-	
-	@Override
-	public void updateMember(MemberVO vo) throws Exception {
-		
-		String encPassword = passwordEncoder.encode(vo.getMemberPassword());
-		vo.setMemberPassword(encPassword);
-		
-		dao.updateMember(vo);
 	}
 	
 	@Override

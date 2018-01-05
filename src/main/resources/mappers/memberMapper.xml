@@ -18,12 +18,6 @@
 	  and Member_AuthKey = #{memberEmail}
 	</select>
 	
-	<select id="getPassword" resultType="MemberVO">
-	select Member_Password memberPassword
-	from tbl_Member
-	where member_Email = #{memberEmail}
-	</select>
-	
 	<!-- 로그인 유지 -->
 	<update id="keepLogin">
 	update tbl_Member
@@ -80,16 +74,6 @@
 	</update>
 	
 	<!-- 회원 마이페이지 조회 -->
-	<select id="viewMember" resultType = "MemberVO">
-	select Member_Email memberEmail
-		  ,Member_Name memberName
-		  ,Member_Sex memberSex
-		  ,Member_Birthday memberBirthday
-		  ,Member_Picture memberPicture
-	from tbl_Member
-	where Member_Email = #{memberEmail}
-	</select>
-	
 	<select id="mypage" resultType = "MemberVO">
 	select Member_ID memberID
 		  ,Member_Email memberEmail
@@ -108,21 +92,26 @@
 	where Member_ID = #{memberID}
 	</update>
 	
+	<!-- 기본정보 변경 -->
+	<update id="changeProfile">
+	update tbl_Member
+	set Member_Name = #{memberName}
+	   ,Member_Birthday = #{memberBirthday}
+	where Member_ID = #{memberID}
+	</update>
+
+	<!-- 비밀번호 변경시 기존 비밀번호 확인 -->
+	<select id="getPassword" resultType="MemberVO">
+	select Member_Password memberPassword
+	from tbl_Member
+	where member_Email = #{memberEmail}
+	</select>
+	
 	<!-- 비밀번호 변경 -->
 	<update id="changePassword">
 	update tbl_Member
 	set Member_Password = #{memberPassword}
 	where Member_ID = #{memberID}
-	</update>
-	
-	<!-- 회원 정보 수정 -->
-	<update id="updateMember">
-	update tbl_Member
-	set Member_Password = #{memberPassword}
-	   ,Member_Name = #{memberName}
-	   ,Member_Birthday = #{memberBirthday}
-	   ,Member_Picture = #{memberPicture}
-	where Member_Email = #{memberEmail}
 	</update>
 	
 	<!-- 회원정보 삭제 -->

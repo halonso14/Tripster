@@ -9,7 +9,7 @@
 <body>
 
 	<script type="text/javascript">
-		self.location = "/";
+		location.replace = "/";
 	</script>
 
 </body>
