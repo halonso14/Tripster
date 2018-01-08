@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -50,11 +51,10 @@ public class DashboardController {
 	}
 	
 	
-	//맛집 리스트 조회 - REST 방식
-	//ResponseEntity : JSON 객체  + HTTP 응답상태 전달, @Pathvariable로 변수를 받아서 사용
+	//유저의 통계페이지 내용을 전달한다
 	@RequestMapping(value = "stat/{memberID}", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>> restaurantList(@PathVariable("memberID") Integer memberID) throws Exception {
+	public ResponseEntity<Map<String, Object>> dashboardList(@PathVariable("memberID") Integer memberID) throws Exception {
 		
 		ResponseEntity<Map<String, Object>> entity = null;
 		//ModelAndView modelAndView = null;
@@ -103,17 +103,16 @@ public class DashboardController {
 		//return modelAndView;
 	}
 	
-	//맛집 리스트 조회 - REST 방식
-	//ResponseEntity : JSON 객체  + HTTP 응답상태 전달, @Pathvariable로 변수를 받아서 사용
-	
+	//유저 추천페이지의 내용을 전달한다
 	@RequestMapping(value = "/rcm", method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> placeList(@PathVariable("curPage") Integer curPage) throws Exception {
+	public ResponseEntity<Map<String, Object>> recommandationList(@PathVariable("curPage") Integer curPage) throws Exception {
 		ResponseEntity<Map<String, Object>> entity = null;
 		
 		try {
 			
 			//Map 객체 생성
 			Map<String, Object> map = new HashMap<String, Object>();
+			
 			/*
 			//컨텐츠 리스트 정보를 전달하기 위해, Criteria 객체 생성
 			Criteria cri = new Criteria();
