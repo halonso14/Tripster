@@ -7,26 +7,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 등록 -->
 	<insert id="insert">
-		insert into tbl_plan_detail
+		insert into tbl_Plan_Detail (plan_detail_id, plan_id, category_id, contents_id, title, plan_Detail_startTime, plan_detail_endTime, plan_detail_date)
 		values(#{planDetailID},#{planID},#{categoryID}, #{contentsID}, #{title},#{planDetailStartTime}, #{planDetailEndTime}, #{planDetailDate})
 	</insert>
 
 	<!-- 수정. -->
 	<update id="update">
-		update tbl_plan_detail set plan_Detail_StartTime
-		=#{planDetailStartTime}, plan_detail_endTime =#{planDetailEndTime}
-		where plan_detail_ID = #{planDetailID}
+		update tbl_Plan_Detail set plan_Detail_StartTime
+		=#{planDetailStartTime}, plan_Detail_EndTime =#{planDetailEndTime}
+		where plan_Detail_ID = #{planDetailID}
 	</update>
 
 	<!-- 삭제. -->
 	<delete id="delete">
-		delete from tbl_plan_detail where plan_detail_id =
+		delete from tbl_Plan_Detail where plan_Detail_ID =
 		#{planDetailID}
 	</delete>
 
 	<!-- 일정 삭제 시, 해당 상세 일정 모두 삭제. -->
 	<delete id="deleteAll">
-		delete from tbl_plan_detail where plan_id = #{planID}
+		delete from tbl_Plan_Detail where plan_ID = #{planID}
 	</delete>
 
 
@@ -57,21 +57,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 한 일정에 해당하는 세부일정 모두 조회. -->
 	<select id="selectAll" resultMap="PlanDetailVO">
-		select detail.plan_detail_id, detail.plan_id, detail.contents_id,
-		detail.title, detail.plan_detail_startTime,detail.plan_detail_endTime, detail.plan_detail_date,
-		detail.category_id,
-		memo.memo_contents, picture.memo_picture_name
-		from tbl_plan_detail detail left join tbl_memo memo on
-		detail.plan_detail_id = memo.plan_detail_id left join tbl_memo_picture
+		select detail.plan_Detail_ID, detail.plan_ID, detail.contents_ID,
+		detail.title, detail.plan_Detail_StartTime,detail.plan_Detail_EndTime, detail.plan_Detail_Date,
+		detail.category_ID,
+		memo.memo_contents, picture.memo_Picture_Name
+		from tbl_Plan_Detail detail left join tbl_Memo memo on
+		detail.plan_Detail_ID = memo.plan_Detail_ID left join tbl_Memo_Picture
 		picture
-		on memo.plan_detail_id = picture.plan_detail_id
+		on memo.plan_Detail_ID = picture.plan_Detail_ID
 		where detail.plan_ID = #{planID}
-		order by plan_Detail_Date asc , plan_detail_startTime asc
+		order by plan_Detail_Date asc , plan_Detail_StartTime asc
 	</select>
 	
 	<!-- planDetailID값 조회. -->
 	<select id="selectPlanDetailID" resultType="_int">
 		select
-		max(plan_detail_id) from tbl_plan_detail
+		max(plan_Detail_ID) from tbl_Plan_Detail
 	</select>
 </mapper>

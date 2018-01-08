@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset='utf-8' />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href='/resources/css/fullcalendar.min.css' rel='stylesheet' />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" type="text/css" media="screen" /> -->
@@ -18,10 +17,12 @@ body {
 	font-size: 14px;
 	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
 }
+
 #wrap {
 	width: 1100px;
 	margin: 0 auto;
 }
+
 #external-events {
 	float: left;
 	width: 300px;
@@ -35,12 +36,14 @@ body {
 	/* display: block !important; */
 	
 }
+
 #external-events h4 {
 	font-size: 18px;
 	margin-top: 0;
 	padding-top: 1em;
 	color:#ff6633;
 }
+
 #external-events .fc-event {
 	margin: 10px 0;
 	cursor: pointer;
@@ -49,19 +52,24 @@ body {
 	max-width:300px;
 	
 }
+
 #external-events p {
 	margin: 1.5em 0;
 	font-size: 11px;
 	color: #666;
 }
+
 #external-events p input {
 	margin: 0;
 	vertical-align: middle;
 }
+
 #calendar {
 	float: right;
 	width: 750px;
 }
+
+
 .fileDrop {
 	width: 100%;
 	height: 100px;
@@ -69,10 +77,12 @@ body {
 	background-color: lightslategrey;
 	margin: auto;
 }
+
  .modal {
     position: fixed;
     left: 50%;
     
+
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
@@ -90,9 +100,8 @@ body {
 
 
 </head>
-<body>
 
-<%@include file="/WEB-INF/views/include/header2.jsp"%>
+<%@include file="/WEB-INF/views/include/planHeader.jsp"%>
 
 <script src='/resources/js/moment.min.js'></script>
 <script src="/resources/js/jquery-ui.min.js"></script>
@@ -100,7 +109,7 @@ body {
 <script src="/resources/js/locale-all.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 <script type="text/javascript" src="/resources/js/upload.js"></script>
 	<div id='wrap'>
 
@@ -221,6 +230,7 @@ body {
 
 <script>
 $(document).ready(function() {
+
 	var endDate =new Date(${endDate});
 	var d = endDate.getDate();
     var m = endDate.getMonth();
@@ -250,6 +260,7 @@ $(document).ready(function() {
             
         });
     });
+
     var calendar = $('#calendar').fullCalendar({
     		
         header: {
@@ -324,7 +335,10 @@ $(document).ready(function() {
                               });
                           });
                           callback(events);
-                      }
+                      },
+	                  error:function(request,status,error){
+	                      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	                     }
                   }); 
           },
         
@@ -345,6 +359,7 @@ $(document).ready(function() {
          	
           	var jsonData = JSON.stringify(sendData);
           	console.log(jsonData);
+
             $.ajax({
           	 	dataType:"text",
           	  	type:"POST",
@@ -366,6 +381,7 @@ $(document).ready(function() {
 			}else{
 				endTime= null;
 			}
+
 			$.ajax({
 				type:"POST",
 				url:"/plan/detail/update",
@@ -394,6 +410,7 @@ $(document).ready(function() {
 				contentType: "application/json; charset=UTF-8",
 	
 			});
+
          },
            
          eventRender: function(event, element) {
@@ -423,6 +440,7 @@ $(document).ready(function() {
                });
                $('#calendar').fullCalendar('removeEvents',event.id);	
              });
+
              //메모
              element.find(".memo").click(function(){   
              		eventID= event.id;
@@ -542,6 +560,7 @@ $(document).ready(function() {
         		});  
         });
      });
+
      //이미지 삭제 버튼.
      function removeAttach(event){
     		console.log(event);

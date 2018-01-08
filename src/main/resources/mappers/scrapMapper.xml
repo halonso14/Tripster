@@ -7,13 +7,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- db에 스크랩 추가 -->
 <insert id="scrap">
-	insert into tbl_scrap (
+	insert into tbl_Scrap (
 							Scrap_ID
 						   ,Member_ID
 						   ,Category_ID
 						   ,Contents_ID
 						   ,Contents_Title
-						   ,Contents_Picture_Name
+						   ,Contents_Thumbnail
+						   ,Created
+						   ,Updated
 						   )
 					values(
 							#{scrapID}
@@ -21,13 +23,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							,#{categoryID}
 							,#{contentsID}
 							,#{contentsTitle}
-							,#{contentsPhoto})
+							,#{contentsPhoto}
+							,now()
+							,now()
+							)
 </insert>
 
   <!-- 스크랩 삭제 -->
  <delete id="scrapDelete">
  
- 	delete from tbl_scrap
+ 	delete from tbl_Scrap
 	where Contents_ID = #{contentsID}
  
  </delete>
@@ -40,9 +45,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			,Category_ID categoryID
 			,Contents_ID contentsID
 			,Contents_Title contentsTitle
-			,Contents_Picture_Name contentsPhoto
+			,Contents_Thumbnail contentsPhoto
+			,Created created
 			
-	from tbl_scrap
+	from tbl_Scrap
 	
 	where Member_ID = #{memberID}
 
@@ -51,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- scrapID 삭제 -->
 <delete id="scrapIDRemove" >
 	
-	delete from tbl_scrap
+	delete from tbl_Scrap
 	where scrap_ID = #{scrapID}
 	
 </delete>

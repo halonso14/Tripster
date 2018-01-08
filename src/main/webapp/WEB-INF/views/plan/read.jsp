@@ -158,7 +158,7 @@
 </style>
 	
 </head>
-	<%@include file="/WEB-INF/views/include/header2.jsp"%>
+	<%@include file="/WEB-INF/views/include/planHeader.jsp"%>
 
 	<!-- CONTENT -->
 	<div class="container">
@@ -270,32 +270,36 @@
 									</div>
 								</c:if>
 						
-								<div class="wrapper2">
-									<div class="list_carousel2">
-										
-											<c:forEach items="${planDetailVO.memoVO.memoPictureVO }" var="pictureVO">
-												<ul class="foo5">
-													<c:set var="image" value=""/>
-													<c:choose>
-						       							<c:when test="${pictureVO.memoPictureName ne null}">
-						           					 		<li>
-																<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img  class="img-responsive" src="/displayFile?fileName=${pictureVO.memoPictureName }" style="width: 100%; max-width: 760px; vertical-align: middle"/></a>
-															</li>
-						       							</c:when>
-						       							<c:otherwise>
-						          							<li>
-																<a href="/resources/planImg/noimg.png"><img src="/resources/planImg/noimg.png" style="width: 100%; vertical-align: middle"/></a>
-															</li>
-						       							</c:otherwise>
-						  							</c:choose> 	
-					  							</ul>
-										</c:forEach>
-									
-									<div class="clearfix"></div>
-									<a id="prev_btn" class="xprev" href=""><img src="/resources/images/spacer.png" alt=""/></a>
-									<a id="next_btn" class="xnext" href=""><img src="/resources/images/spacer.png" alt=""/></a>
+								<!-- 사진 있을 경우에만 사진 띄워줌. -->
+								<c:if test="${not empty planDetailVO.memoVO.memoPictureVO.get(0).memoPictureName }">
+									<div class="wrapper2">
+										<div class="list_carousel2">
+											
+												<c:forEach items="${planDetailVO.memoVO.memoPictureVO }" var="pictureVO">
+													<ul class="foo5">
+														<c:set var="image" value=""/>
+														<%-- <c:choose>
+							       							<c:when test="${pictureVO.memoPictureName ne null}"> --%>
+							           					 		<li>
+																	<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img  class="img-responsive" src="/displayFile?fileName=${pictureVO.memoPictureName }" style="width: 100%; max-width: 760px; vertical-align: middle"/></a>
+																</li>
+							       							<%-- </c:when> --%>
+							       							<!-- noImage  -->
+							       							<%-- <c:otherwise>
+							          							<li>
+																	<a href="/resources/planImg/noimg.png"><img src="/resources/planImg/noimg.png" style="width: 100%; vertical-align: middle"/></a>
+																</li>
+							       							</c:otherwise> --%>
+							  							<%-- </c:choose> 	 --%>
+						  							</ul>
+											</c:forEach>
+										<div class="clearfix"></div>
+										<a id="prev_btn" class="xprev" href=""><img src="/resources/images/spacer.png" alt=""/></a>
+										<a id="next_btn" class="xnext" href=""><img src="/resources/images/spacer.png" alt=""/></a>
+									</div>
 								</div>
-							</div>
+								<div class="line4"></div>
+							</c:if>
 							<!-- <div class="line4"></div> -->
 						</c:forEach> 
 						</div>
