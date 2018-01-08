@@ -10,6 +10,5 @@ bin
 *.DS_Store
 *.iml
 *.properties
-root-context.xml
 .springBeans
 EsConfig.java

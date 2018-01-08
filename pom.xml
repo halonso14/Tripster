@@ -257,12 +257,14 @@
 		    <artifactId>elasticsearch</artifactId>
 		    <version>${elasticsearch.version}</version>
 		</dependency>
+		
 	 	<!-- elasticsearch java api -->
 		<dependency>
 		    <groupId>org.elasticsearch.client</groupId>
 		    <artifactId>transport</artifactId>
 		    <version>${elasticsearch.version}</version>
 		</dependency>	
+		
 			<!-- elasticsearch Log4j 2 Logger -->
 		<dependency>
 		    <groupId>org.apache.logging.log4j</groupId>
