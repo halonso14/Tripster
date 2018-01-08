@@ -1,7 +1,7 @@
-package com.tripster.elasticsearch;
-
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-
-public class EsPlanJsonFilter extends SimpleBeanPropertyFilter{
-
-}
+//package com.tripster.elasticsearch;
+//
+//import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+//
+//public class EsPlanJsonFilter extends SimpleBeanPropertyFilter{
+//
+//}

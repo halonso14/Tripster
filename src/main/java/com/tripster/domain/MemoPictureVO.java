@@ -3,8 +3,9 @@ package com.tripster.domain;
 public class MemoPictureVO {
 	private int memoPictureID;
 	private int planDetailID;
-	private String pictureName;
+	private String memoPictureName;
 	
+	//setter/ getter()
 	public int getMemoPictureID() {
 		return memoPictureID;
 	}
@@ -17,16 +18,19 @@ public class MemoPictureVO {
 	public void setPlanDetailID(int planDetailID) {
 		this.planDetailID = planDetailID;
 	}
-	public String getPictureName() {
-		return pictureName;
+	public String getMemoPictureName() {
+		return memoPictureName;
 	}
-	public void setPictureName(String pictureName) {
-		this.pictureName = pictureName;
+	public void setMemoPictureName(String memoPictureName) {
+		this.memoPictureName = memoPictureName;
 	}
+	
+	//toString();
 	@Override
 	public String toString() {
-		return "MemoPictureVO [memoPictureID=" + memoPictureID + ", planDetailID=" + planDetailID + ", pictureName="
-				+ pictureName + "]";
+		return "MemoPictureVO [memoPictureID=" + memoPictureID + ", planDetailID=" + planDetailID + ", memoPictureName=" + memoPictureName
+				+ "]";
 	}
-
+	
+	
 }

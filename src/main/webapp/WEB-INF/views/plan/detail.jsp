@@ -15,10 +15,12 @@ body {
 	font-size: 14px;
 	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
 }
+
 #wrap {
 	width: 1100px;
 	margin: 0 auto;
 }
+
 #external-events {
 	float: left;
 	width: 300px;
@@ -32,12 +34,14 @@ body {
 	/* display: block !important; */
 	
 }
+
 #external-events h4 {
 	font-size: 18px;
 	margin-top: 0;
 	padding-top: 1em;
 	color:#ff6633;
 }
+
 #external-events .fc-event {
 	margin: 10px 0;
 	cursor: pointer;
@@ -46,19 +50,24 @@ body {
 	max-width:300px;
 	
 }
+
 #external-events p {
 	margin: 1.5em 0;
 	font-size: 11px;
 	color: #666;
 }
+
 #external-events p input {
 	margin: 0;
 	vertical-align: middle;
 }
+
 #calendar {
 	float: right;
 	width: 750px;
 }
+
+
 .fileDrop {
 	width: 100%;
 	height: 100px;
@@ -66,10 +75,12 @@ body {
 	background-color: lightslategrey;
 	margin: auto;
 }
+
  .modal {
     position: fixed;
     left: 50%;
     
+
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
@@ -88,7 +99,7 @@ body {
 
 </head>
 
-	<%@include file="/WEB-INF/views/include/header2.jsp"%>
+	<%@include file="/WEB-INF/views/include/planHeader.jsp"%>
 
 <script src='/resources/js/moment.min.js'></script>
 <script src="/resources/js/jquery-ui.min.js"></script>
@@ -97,7 +108,7 @@ body {
 <script type="text/javascript" src="/resources/js/upload.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 	
 	
 	<div id='wrap'>
@@ -231,8 +242,10 @@ body {
                 revert: true,      // will cause the event to go back to its
                 revertDuration: 0,  //  original position after the drag
                 helper : 'clone'
+
             });
         });
+
          var calendar = $('#calendar').fullCalendar({
              header: {
                  left: 'prev',
@@ -298,6 +311,7 @@ body {
              	sendData.planDetailStartTime = event.start.format();
              	var jsonData = JSON.stringify(sendData);
              	console.log(jsonData);
+
                 $.ajax({
              	 	dataType:"text",
              	  	type:"POST",
@@ -331,6 +345,7 @@ body {
 						contentType: "application/json; charset=UTF-8",
 					});
              },
+
              eventResize: function(event, delta, revertFunc) {
 	   			 $.ajax({
 					type:"POST",
@@ -373,6 +388,7 @@ body {
 	                   });
         				 $('#calendar').fullCalendar('removeEvents',event.id);	
                  });
+
                  //메모
                  element.find(".memo").click(function(){                   
                  		eventID= event.id;

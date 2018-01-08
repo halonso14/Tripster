@@ -2,7 +2,7 @@ package com.tripster.domain;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 
-@JsonFilter("EsPlanFilter")
+//@JsonFilter("EsPlanFilter")
 public class PlanDetailVO {
 	private int planDetailID; //일정 상세 식별 번호.
 	private int planID; //일정 식별번호.
