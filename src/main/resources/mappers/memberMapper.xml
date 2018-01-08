@@ -18,6 +18,17 @@
 	  and Member_AuthKey = #{memberEmail}
 	</select>
 	
+	<!-- Facebook 로그인 -->
+	<select id="facebookLogin" resultType="MemberVO">
+	select Member_ID memberID
+		  ,SNS_ID snsID
+		  ,Member_Email memberEmail
+		  ,Member_Name memberName
+		  ,Member_Picture memberPicture
+	from tbl_Member
+	where SNS_ID = #{snsID}
+	</select>
+	
 	<!-- 로그인 유지 -->
 	<update id="keepLogin">
 	update tbl_Member
@@ -40,12 +51,14 @@
 	<!-- 회원 등록 -->
 	<insert id="insertMember">
 	insert into tbl_Member (Member_Email
+						   ,SNS_ID
 						   ,Member_Password
 						   ,Member_Name
 						   ,Member_Sex
 						   ,Member_Birthday)
 						   
 	values				   (#{memberEmail}
+						   ,#{snsID}
 						   ,#{memberPassword}
 						   ,#{memberName}
 						   ,#{memberSex}
@@ -76,6 +89,7 @@
 	<!-- 회원 마이페이지 조회 -->
 	<select id="mypage" resultType = "MemberVO">
 	select Member_ID memberID
+		  ,SNS_ID snsID
 		  ,Member_Email memberEmail
 		  ,Member_Name memberName
 		  ,Member_Sex memberSex

@@ -15,6 +15,9 @@
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/register.css" rel="stylesheet" media="screen">
+    
+    <!-- Bootstrap Social Buttons -->
+    <link href="/resources/bootstrap-social.css" rel="stylesheet">
 
     <!-- Animo css-->
     <link href="/resources/plugins/animo/animate+animo.css" rel="stylesheet" media="screen">
@@ -29,8 +32,9 @@
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet' type='text/css'>
-    <!-- Font-Awesome -->
-    <link rel="stylesheet" type="text/css" href="/resources/assets/css/font-awesome.css" media="screen" />
+     <!-- Font-Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/resources/assets/css/font-awesome.css" media="screen" /> -->
     <!--[if lt IE 7]><link rel="stylesheet" type="text/css" href="assets/css/font-awesome-ie7.css" media="screen" /><![endif]-->
 
     <!-- Load jQuery -->
@@ -42,7 +46,7 @@
 <!-- 100% Width & Height container  -->
 <div class="register-fullwidith">
 
-    <form role="form" action="registerPost" method="post">
+    <form id="registerForm" role="form" action="registerPost" method="post">
         <!-- Register Wrap  -->
         <div class="register-wrap">
             <a href="/"><img src="/resources/images/logo.png" class="register-img" alt="logo"/></a><br/>
@@ -78,11 +82,27 @@
                 </div>
             </div>
             <div class="register-c3">
-                
+            	<a href="javascript:void(0)" id="fbBtn" class="btn btn-block btn-social btn-facebook">
+					<span class="fa fa-facebook"></span>페이스북으로 계속하기
+				</a>
             </div>
         </div>
         <!-- End of Register Wrap  -->
     </form>
+    
+    <form action="/connect/facebook" method="post" id="facebook-form" style="display:none">
+		<input type="hidden" name="scope" value="public_profile, email" />
+		<button id="socialBtn" type="submit">Sign In with Facebook</button>
+	</form>
+	
+	<script>
+    
+    $(document).ready(function(){
+  		$("#fbBtn").click(function(){
+  			$("#socialBtn").click();
+  		});
+    });
+    </script>
 
 </div>
 <!-- End of Container  -->
@@ -135,7 +155,7 @@
 	
 	$(function(){
 		
-        $("form").validate({
+        $("#registerForm").validate({
             
             //규칙
             rules: {

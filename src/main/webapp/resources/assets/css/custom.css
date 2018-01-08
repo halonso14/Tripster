@@ -1,3 +1,8 @@
+.btn-facebook {
+	width: 350px;
+    margin: 0 auto;
+    margin-top: 335px;
+}
 
 /*Makes bootstrap menu drop on hover*/
 @media (min-width: 992px) {

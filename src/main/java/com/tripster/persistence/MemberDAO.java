@@ -9,6 +9,8 @@ public interface MemberDAO {
 
 	public MemberVO login(LoginDTO dto) throws Exception;
 	
+	public MemberVO facebookLogin(String snsID) throws Exception;
+	
 	public MemberVO getMemberPw(String memberEmail) throws Exception;
 	
 	public void keepLogin(Integer memberID, String sessionKey, Date next);

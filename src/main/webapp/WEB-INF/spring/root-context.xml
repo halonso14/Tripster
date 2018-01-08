@@ -63,4 +63,23 @@
 	</bean>
 	<tx:annotation-driven />
 
+	<!-- Facebook 로그인 관련 -->
+	<context:property-placeholder location="classpath:/application.properties" />
+
+	<bean id="connectionFactoryLocator"
+		class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
+		<property name="connectionFactories">
+			<bean
+				class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+				<constructor-arg value="${spring.social.facebook.appId}" />
+				<constructor-arg value="${spring.social.facebook.appSecret}" />
+
+			</bean>
+		</property>
+	</bean>
+	<bean id="inMemoryConnectionRepository"
+		class="org.springframework.social.connect.mem.InMemoryConnectionRepository">
+		<constructor-arg ref="connectionFactoryLocator" />
+	</bean>
+
 </beans>

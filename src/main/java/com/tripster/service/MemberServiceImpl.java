@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.social.facebook.api.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +51,33 @@ public class MemberServiceImpl implements MemberService {
 			logger.info("비밀번호 불일치");
 		}
 		return dao.login(dto);
+	}
+	
+	@Override
+	public MemberVO oAuthenticationBinding(MemberVO vo, User facebookUser)throws Exception{
+		
+		vo.setSnsID(facebookUser.getId());
+		vo.setMemberEmail(facebookUser.getEmail());
+		vo.setMemberName(facebookUser.getName());
+		
+		Date date = new Date();
+		
+		vo.setMemberBirthday(date);
+		
+		String sex="";
+		if(facebookUser.getGender().equals("male")) {
+			sex = "남자";
+		} else {
+			sex = "여자";
+		}
+		vo.setMemberSex(sex);
+		
+		if(dao.facebookLogin(vo.getSnsID()) == null) {
+			dao.insertMember(vo);
+		}
+		
+		System.out.println(vo.toString());
+		return dao.facebookLogin(vo.getSnsID());
 	}
 	
 	@Override
