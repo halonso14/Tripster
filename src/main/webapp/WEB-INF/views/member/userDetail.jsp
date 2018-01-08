@@ -16,7 +16,7 @@
     <!-- multistep form -->
 <form id="msform">
 	<!--18/01/08 추가. submit할때 유저ID보내주기 위해서 -->
-	<input type="text" id="memberID" value="${memberID}" />
+	<input type="hidden" id="memberID" value="${memberID}" />
 	<!-- progressbar -->
 	<ul id="progressbar">
 		<li class="active" >Age</li> <!-- 1 -->

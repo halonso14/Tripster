@@ -254,17 +254,13 @@ public class MemberController {
 	//유저 추천페이지 위한 설문(수정도 됨)페이지 제공
 	// 추천서비스를 위한 유저디테일 페이지로 넘어가면서 멤버아이디도 같이 넘겨준다.
 	// 회원 아이디를 세션으로 받아오는데, memberVo vo 매개변수를 줄 경우 이건 무슨 역할을 하는지 복습할것(12/1/8)
-	@RequestMapping(value = "/register/detail", method = RequestMethod.GET)
-	public String userDetail(MemberVO vo, Model model) throws Exception {
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public String userDetail(MemberVO vo,HttpSession session, Model model) throws Exception {
 		
 		try {
-
-			// 세션으로부터 멤머아이디를 얻어와 모델엔뷰에 넘겨준다.
+			Object obj = session.getAttribute("login");
+			vo.setMemberID(((MemberVO)obj).getMemberID());
 			model.addAttribute("memberID", vo.getMemberID());
-			//modelAndView.addObject("memberID", memVo.getMemberID());
-			//보여질 페이지를 설정해준다.
-			//modelAndView.setViewName("/member/userDetail");
-
 		} catch(Exception e) {
 			//오류 발생 시, BAD_REQUEST 상태 입력
 			e.printStackTrace();
