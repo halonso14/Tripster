@@ -2,12 +2,16 @@ package com.tripster.service;
 
 import java.util.Date;
 
+import org.springframework.social.facebook.api.User;
+
 import com.tripster.domain.MemberVO;
 import com.tripster.dto.LoginDTO;
 
 public interface MemberService {
 
 	public MemberVO login(LoginDTO dto) throws Exception;
+	
+	public MemberVO oAuthenticationBinding(MemberVO vo, User facebookUser)throws Exception;
 	
 	public void keepLogin(Integer memberID, String sessionKey, Date next) throws Exception;
 	

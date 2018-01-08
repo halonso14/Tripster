@@ -16,6 +16,7 @@ public class MemberVO {
 	private String memberPicture;
 	private String sessionKey;
 	private String memberAuthKey;
+	private String snsID;
 	
 	public int getMemberID() {
 		return memberID;
@@ -71,12 +72,20 @@ public class MemberVO {
 	public void setMemberAuthKey(String memberAuthKey) {
 		this.memberAuthKey = memberAuthKey;
 	}
+	public String getSnsID() {
+		return snsID;
+	}
+	public void setSnsID(String snsID) {
+		this.snsID = snsID;
+	}
+	
 	@Override
 	public String toString() {
 		return "MemberVO [memberID=" + memberID + ", memberEmail=" + memberEmail + ", memberPassword=" + memberPassword
 				+ ", memberName=" + memberName + ", memberSex=" + memberSex + ", memberBirthday=" + memberBirthday
 				+ ", memberPicture=" + memberPicture + ", sessionKey=" + sessionKey + ", memberAuthKey=" + memberAuthKey
-				+ "]";
+				+ ", snsID=" + snsID + "]";
 	}
+
 	
 }

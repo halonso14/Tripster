@@ -26,6 +26,11 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	
 	@Override
+	public MemberVO facebookLogin(String snsID) throws Exception {
+		return session.selectOne(namespace + ".facebookLogin", snsID);
+	}
+	
+	@Override
 	public MemberVO getMemberPw(String memberEmail) throws Exception {
 		return session.selectOne(namespace + ".getPassword", memberEmail);
 	}

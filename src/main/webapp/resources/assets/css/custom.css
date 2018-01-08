@@ -1,4 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+.btn-facebook {
+	width: 350px;
+    margin: 0 auto;
+    margin-top: 335px;
+}
+>>>>>>> 0fd66e91f7358387b0d46bbd20805aad66b30292
 
 /*Makes bootstrap menu drop on hover*/
 @media (min-width: 992px) {
@@ -2595,7 +2603,11 @@ padding:9px 10px;
 }
 
 span.gcircle{display:block; float:left; padding-top:7px; width:40px; height:40px; background:#666; text-align:center; font-size:18px; font-family:lato; font-weight:700; color:#fff; -webkit-border-radius: 100px;	-moz-border-radius: 100px;	border-radius: 100px;}
+<<<<<<< HEAD
 .aboutarrow{display:block; float:left; position:relative; left:50%; bottom:-40px; width:25px; height:13px; background:url('../../images/about-arrow.png') no-repeat; }
+=======
+.aboutarrow{display:block; float:left; position:relative; left:50%; bottom:-20px; width:25px; height:13px; background:url('../../images/about-arrow.png') no-repeat; }
+>>>>>>> 0fd66e91f7358387b0d46bbd20805aad66b30292
 
 .abover{position:relative; overflow:hidden;}
 .abover-off{position:relative; overflow:hidden;}
@@ -2773,6 +2785,7 @@ padding-top:3px;
 .line6{background:#e8e8e8; height:1px;  margin:30px 0 30px 0; padding:0; display:block;}
 .indent0{text-indent:0px;}
 
+<<<<<<< HEAD
 =======
 
 /*Makes bootstrap menu drop on hover*/
@@ -5549,3 +5562,5 @@ padding-top:3px;
 .indent0{text-indent:0px;}
 
 >>>>>>> 112070bf0f823adadf9edeb54214d37f5743cdca
+=======
+>>>>>>> 0fd66e91f7358387b0d46bbd20805aad66b30292

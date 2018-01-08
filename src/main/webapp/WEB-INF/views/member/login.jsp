@@ -8,13 +8,16 @@
     <title>Travel Agency - HTML5 Booking template</title>
 
     <!-- Bootstrap -->
-    <link href="../resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="../resources/assets/css/custom.css" rel="stylesheet" media="screen">
+    <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
+    
+    <!-- Bootstrap Social Buttons -->
+    <link href="/resources/bootstrap-social.css" rel="stylesheet">
 
     <!-- Animo css-->
-    <link href="../resources/plugins/animo/animate+animo.css" rel="stylesheet" media="screen">
+    <link href="/resources/plugins/animo/animate+animo.css" rel="stylesheet" media="screen">
 
-    <link href="../resources/examples/carousel/carousel.css" rel="stylesheet">
+    <link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="assets/js/html5shiv.js"></script>
@@ -25,11 +28,13 @@
     <link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet' type='text/css'>
     <!-- Font-Awesome -->
-    <link rel="stylesheet" type="text/css" href="../resources/assets/css/font-awesome.css" media="screen" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/resources/assets/css/font-awesome.css" media="screen" /> -->
+
     <!--[if lt IE 7]><link rel="stylesheet" type="text/css" href="assets/css/font-awesome-ie7.css" media="screen" /><![endif]-->
 
     <!-- Load jQuery -->
-    <script src="../resources/assets/js/jquery.v2.0.3.js"></script>
+    <script src="/resources/assets/js/jquery.v2.0.3.js"></script>
 
 
 
@@ -39,10 +44,10 @@
 <!-- 100% Width & Height container  -->
 <div class="login-fullwidith">
 
-	<form action="loginPost" method="post">
+	<form id="login" action="loginPost" method="post">
     <!-- Login Wrap  -->
     <div class="login-wrap">
-        <a href="/"><img src="../resources/images/logo.png" class="login-img" alt="logo"/></a><br/>
+        <a href="/"><img src="/resources/images/logo.png" class="login-img" alt="logo"/></a><br/>
         <div class="login-c1">
             <div class="cpadding50">
                 <input type="text" class="form-control logpadding" name="memberEmail" placeholder="UserEmail">
@@ -70,11 +75,28 @@
             <div class="left"><a href="/member/register" class="whitelink">회원가입</a></div>
             <div class="right"><a href="javascript:void();" class="whitelink" onclick="popup();">비밀번호 찾기</a></div>
         </div>
+        
+        <a href="javascript:void(0)" id="fbBtn" class="btn btn-block btn-social btn-facebook">
+			<span class="fa fa-facebook"></span>페이스북으로 계속하기
+		</a>
+        
     </div>
-    <!-- End of Login Wrap  -->
     </form>
+
+	<form action="/connect/facebook" method="post" id="facebook-form" style="display:none">
+		<input type="hidden" name="scope" value="public_profile, email" />
+		<button id="socialBtn" type="submit">Sign In with Facebook</button>
+	</form>
+	
+    <!-- End of Login Wrap  -->
     
     <script>
+    
+    $(document).ready(function(){
+  		$("#fbBtn").click(function(){
+  			$("#socialBtn").click();
+  		});
+    });
     
     function popup(){
     	//event.preventDefault();
@@ -84,17 +106,17 @@
     	
     	window.open(url, 'findPassword', option);
     }
-    	
+    
     </script>
 
 </div>
 <!-- End of Container  -->
 
 <!-- Javascript  -->
-<script src="../resources/assets/js/initialize-loginpage.js"></script>
-<script src="../resources/assets/js/jquery.easing.js"></script>
+<script src="/resources/assets/js/initialize-loginpage.js"></script>
+<script src="/resources/assets/js/jquery.easing.js"></script>
 <!-- Load Animo -->
-<script src="../resources/plugins/animo/animo.js"></script>
+<script src="/resources/plugins/animo/animo.js"></script>
 <script>
     function errorMessage(){
         $('.login-wrap').animo( { animation: 'tada' } );
@@ -102,6 +124,6 @@
 </script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../resources/dist/js/bootstrap.min.js"></script>
+<script src="/resources/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

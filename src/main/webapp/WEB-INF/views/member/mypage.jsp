@@ -200,6 +200,9 @@ response.setHeader("Pragma", "no-cache");
 		<div class="brlines"></div>
 	</div>	
 
+<c:set var="snsLogin" value="${memberVO.snsID}"/>
+
+
 	<!-- CONTENT -->
 	<div class="container">
 
@@ -240,12 +243,18 @@ response.setHeader("Pragma", "no-cache");
 						  <span class="profile-icon"></span>								  
 						  Change profile
 						  </a></li>
+						  
+				<c:choose>
+					<c:when test="${empty snsLogin }">
 					  <li>
 						  <a href="#password" data-toggle="tab" onclick="mySelectUpdate()">
 						  <span class="password-icon"></span>							  
 						  Change password
 						  </a></li>
-					 
+					 </c:when>
+					 <c:otherwise>
+					 </c:otherwise>
+				</c:choose>
 					</ul>
 					<div class="clearfix"></div>
 				</div>
