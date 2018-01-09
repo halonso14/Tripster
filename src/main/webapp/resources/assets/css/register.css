@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* Register PAGE CSS*/
 .register-fullwidith{
     width:100%;
@@ -119,7 +118,7 @@ input.radiopadding{
     border-radius:23px;
     padding:1px 0 0 6px;
     border:1px solid #ccc;
-=======
+}
 
 .register-c3 .btn-facebook {
 	margin-top:0;
@@ -245,5 +244,4 @@ input.radiopadding{
     border-radius:23px;
     padding:1px 0 0 6px;
     border:1px solid #ccc;
->>>>>>> 0fd66e91f7358387b0d46bbd20805aad66b30292
 }

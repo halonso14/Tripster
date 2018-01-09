@@ -57,12 +57,12 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO oAuthenticationBinding(MemberVO vo, User facebookUser)throws Exception{
 		
 		vo.setSnsID(facebookUser.getId());
-		vo.setMemberEmail(facebookUser.getEmail());
 		vo.setMemberName(facebookUser.getName());
 		
-		Date date = new Date();
-		
-		vo.setMemberBirthday(date);
+		//페북에 등록된 이메일과 중복이 없을 경우에만 이메일 저장
+		if(dao.repeatChk(facebookUser.getEmail()) == null) {
+			vo.setMemberEmail(facebookUser.getEmail());
+		}
 		
 		String sex="";
 		if(facebookUser.getGender().equals("male")) {

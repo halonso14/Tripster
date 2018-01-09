@@ -109,6 +109,7 @@ background:#ccc;
 
 .navbar-collapse, .in  {	background:white;	}
 .navbar-collapse ul.nav2 li a{color:#666;}
+
 @media (min-width: 992px) {
 .navbar-collapse, .in {	background:transparent;	}
 .navbar-collapse ul.nav2 li a{color:#fff;}
