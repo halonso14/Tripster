@@ -1885,7 +1885,6 @@ function fileChange(e) {
 							
 						</div>
 					  </div>
-					  
 <script>
 	$(document).ready(function(){
   		$("#dropBtn").click(function(){

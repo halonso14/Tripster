@@ -24,7 +24,6 @@
     <!-- END HEAD -->
 
     <body class=" page-500-full-page">
-    <%-- 	<%@include file="/WEB-INF/views/include/planHeader.jsp"%> --%>
         <div class="row" style="margin-top: 200px">
             <div class="col-md-12 page-500">
                 <div class=" number font-red"> 404 </div>

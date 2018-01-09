@@ -26,7 +26,7 @@
     <body class=" page-500-full-page">
         <div class="row" style="margin-top: 200px">
             <div class="col-md-12 page-500">
-                <div class=" number font-red"> 404 </div>
+                <div class=" number font-red"> 500 </div>
                 <div class=" details">
                     <h3>Oops! Something went wrong.</h3>
                     <p> We are fixing it! Please come back in a while.

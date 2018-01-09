@@ -112,7 +112,16 @@ public class PlanController {
 			model.addAttribute("memberName", memberName);
 		}
 		
-		//plan 수정
+		//plan Title & 전체일정 수정
+		@RequestMapping(value="/updateTAD" ,method=RequestMethod.POST)
+		public String updateTitleAndDetail(PlanVO planVO) throws Exception {
+			System.out.println(planVO);
+			planService.modifyPlan(planVO);
+			
+			return "redirect:/plan/update?planID="+planVO.getPlanID();
+		}
+		
+		//plan Detail 수정
 		@RequestMapping(value="/update", method=RequestMethod.GET)
 		public void updatePlanGET(@RequestParam("planID") int planID, ModelMap model)throws Exception{
 			PlanVO  vo = planService.readOnlyPlan(planID);

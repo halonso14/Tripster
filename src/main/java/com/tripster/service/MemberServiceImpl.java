@@ -57,8 +57,12 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO oAuthenticationBinding(MemberVO vo, User facebookUser)throws Exception{
 		
 		vo.setSnsID(facebookUser.getId());
-		vo.setMemberEmail(facebookUser.getEmail());
 		vo.setMemberName(facebookUser.getName());
+
+		if(dao.repeatChk(facebookUser.getEmail()) == null) {
+			vo.setMemberEmail(facebookUser.getEmail());
+		}
+		
 		
 		Date date = new Date();
 		

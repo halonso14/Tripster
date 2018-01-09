@@ -14,17 +14,12 @@
    	<script src="https://code.jquery.com/jquery-2.0.3.js"></script>
 <script>
  $(document).ready(function() {
-	var formObj = $("form[role='form']")
-	$("#modify").click(function(){
-		formObj.attr("action","/plan/update");
-		formObj.attr("method","GET");
-		formObj.submit();
-	});
-	 
+	var formObj = $("#planForm");
+	  
  	$("#remove").click(function(){
  		formObj.attr("action","/plan/delete");
  		formObj.submit();
- 	})
+ 	});
 		 
   });
 </script>
@@ -158,8 +153,8 @@
 </style>
 	
 </head>
-	<%@include file="/WEB-INF/views/include/planHeader.jsp"%>
-
+	<%@include file="/WEB-INF/views/include/header2.jsp"%>
+	<%@include file="/WEB-INF/views/plan/updateModal.jsp" %>
 	<!-- CONTENT -->
 	<div class="container">
 
@@ -168,7 +163,7 @@
 			
 			
 			<!-- CONTENT -->
-			<div class="col-md-12 pagecontainer2 offset-0">
+			<div class="col-md-12 pagecontainer2 offset-0" >
 				<div class="hpadding50c">
 					<div>
 						<div class="lato size30 slim">${plan.planTitle}</div>
@@ -193,7 +188,7 @@
 			
 
 					<!-- LEFT IMG -->
-					<div class="col-md-12 cpdd01 grey2">
+					<div class="col-md-12 cpdd01 grey2" style="padding-left: 0px">
 						
 						<script>
 						//------------------------------
@@ -231,7 +226,7 @@
 						<!-- Carousel -->
 						<br/>
 						
-						<form role="form"  method="post">
+						<form role="form" id="planForm" action="" method="POST">
 							<input type="hidden" name="planID" value="${plan.planID }">
 
 							<c:set var = "date" value=""/>
@@ -308,7 +303,9 @@
 						<c:set var="planWriter" value="${plan.memberID }"/>
 						<c:if test="${session.memberID == planWriter}">
 							<button class="btn-search4 margtop20" id="remove" style="width: 180px; font-size: 14px;">REMOVE</button>
-							<button class="bluebtn margtop20" id="modify" style="width: 180px;">MODIFY</button>
+							<!-- <input type="button" class="btn-search4 margtop20" id="remove" style="width: 180px; font-size: 14px;" onclick="removePlan();" value="REMOVE"/> -->
+							<input type="button" class="bluebtn margtop20" id="modify" style="width: 180px;" onclick="updateModal();" value="MODIFY"/>
+							<!-- <button class="bluebtn margtop20" id="modify" style="width: 180px;" onclick="updateModal();">MODIFY</button> -->
 							<div class="line4"></div>
 						</c:if>
 					</form>

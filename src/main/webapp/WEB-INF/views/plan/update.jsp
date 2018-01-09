@@ -101,7 +101,7 @@ body {
 
 </head>
 
-<%@include file="/WEB-INF/views/include/planHeader.jsp"%>
+<%@include file="/WEB-INF/views/include/header2.jsp"%>
 
 <script src='/resources/js/moment.min.js'></script>
 <script src="/resources/js/jquery-ui.min.js"></script>
