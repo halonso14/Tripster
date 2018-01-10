@@ -22,6 +22,7 @@ jQuery(document).ready(function(){
 	//jQuery('.mySelectBoxClass').customSelect({customClass:'mySelectBoxClass'});
 });
 
+//ymmu 수정할거임
 function mySelectUpdate(){
 	setTimeout(function (){
 		$('.mySelectBoxClass').trigger('update');

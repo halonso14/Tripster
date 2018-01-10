@@ -98,6 +98,7 @@ table{
 }
 
 
+
 /* pie chart */
 #chartdiv2 {
     width: 100%;
@@ -167,6 +168,70 @@ table{
   right: 0;
 }
 
+#maps {
+  width: 100%;
+  height: 500px;
+  /*border: 1px solid #eee;*/
+  margin: 10px auto;
+  position: relative;
+}
 
+.mapdiv {
+  width: 100%;
+  height: 500px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
+.description{
+	margin-top: 20px;
+	width: 100%;
+	position: relative;
+	/*padding: 10px auto*/
+	box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+
+.description_title{
+	margin: -85px 36px 85px;
+}
+
+.general_font{
+	font: 300 34px Roboto,HelveticaNeue-Light,HelveticaNeue,sans-serif-light,Arial,sans-serif;
+	font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-variant-east-asian: normal;
+    font-weight: 300;
+    font-stretch: normal;
+    font-size: 34px;
+    line-height: normal;
+    font-family: Roboto, HelveticaNeue-Light, HelveticaNeue, sans-serif-light, Arial, sans-serif;
+}
+.country_name_font{
+
+	color:#ffffff;
+}
+
+.rcm_title_font{
+	color:#5d5d5d;
+}
+.general_text{
+	width: 100%;
+	position: relative;
+	padding: 20px 20px 20px 20px;
+}
+
+.rectangle{
+	display:inline-block;
+	width: 20px;
+	height: 20px;
+	overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.inline_rec{
+	display:inline-block;
+}
 /* myplan and */

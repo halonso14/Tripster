@@ -4,13 +4,13 @@ var mapData={
 	    "areas": [{
 	      "id": "US",
 	      "color": "#8d1cc6",
-	      "description": "United States is now selected.</br></br>Close this description box to unselect the area.",
-	      "images": [{
+	      "description": "United States is now selected.</br></br>Close this description box to unselect the area."
+	      /*,"images": [{
 	        "latitude": 40.712784,
 	        "longitude": -74.005941,
 	        "type": "circle",
 	        "label": "New York"
-	      }]
+	      }]*/
 	    }]
 	  };
 //일정별 통계(detail) 그래프 설정
@@ -88,6 +88,43 @@ var detailList;
 var dashBrief;
 var countryList;
 
+//지도데이터 초기데이터
+var mapData2={
+	    "map": "worldLow",
+	    "getAreasFromMap": true, //추가
+	    "areas": [{
+	      "id": "US",
+	      "color": "#8d1cc6",
+	      "description": "United States is now selected.</br></br>Close this description box to unselect the area.",
+	      "images": [{
+	        "latitude": 40.712784,
+	        "longitude": -74.005941,
+	        "type": "circle",
+	        "label": "New York"
+	      }]
+	    }]
+	  };
+
+
+//차트관련
+var chartMap2;
+
+//서버 데이터 관련
+var rcmCountryList;
+
+/**
+ * Create the Google Map
+ */
+var gmap;
+
+/**
+ * Setup breaking points between amCharts and Google Maps
+ */
+AmCharts.amBreakLevel = 3;
+AmCharts.amBreakLevelReturn = 2; // used to return from GMap
+AmCharts.gBreakLevel = 4; //이 값보다 작으면 구글맵이 감춰진다.
+
+
 AmCharts.ready( function() {
 	 
 	// 일정일수 통계------------------------------
@@ -149,12 +186,67 @@ AmCharts.ready( function() {
 	chartMap.write("chartdiv");
 
 	
+	
+	/*
+	//map chart 추천
+	//map chart 2 for recommand-----
+	chartMap2 = new AmCharts.AmMap();
+	chartMap2.dataProvider = mapData2;
+	chartMap2.projection = "eckert3";
+	chartMap2.areasSettings = {
+							    "autoZoom": true,
+							    "selectedColor": "#CC0000"
+							  };
+	//예제에 있어서 넣긴했는데.
+	chartMap2.zoomControl= {
+							    "bottom": 15,
+							    "right": 15
+							};  
+	
+	
+	
+	chartMap2.addListener({
+	    "event": "zoomCompleted",
+	    "method": function( e ) {  //18/1/8 예제에 포함되어 있어 넣었음.
+	    	 //GMap inited?
+	         
+	        if ( typeof gmap === "undefined" ){
+	        	console.log('dkdd');
+		          return;
+
+	        }
+
+	        if ( chartMap2.zoomLevel() >= AmCharts.amBreakLevel ) {
+	        	console.log('dkdd');
+	          // sync position
+	          gmap.setCenter( {
+	            lat: chartMap2.zoomLatitude(),
+	            lng: chartMap2.zoomLongitude()
+	          } );
+
+	          // set zoom level
+	          gmap.setZoom( AmCharts.gBreakLevel );
+
+	          // switch to Google map
+	          document.getElementById( "chartdiv_rcm" ).style.visibility = "hidden";
+	          document.getElementById( "gmap" ).style.visibility = "visible";
+    	      }
+    	      
+	    }
+	}); //addToListener
+		
+	chartMap2.write("chartdiv_rcm");
+	console.log(AmCharts.zoomLevels);
+	console.log(AmCharts.amBreakLevel);
+	*/
+	
 });
+
 
 //ajax로 화면 데이터세팅
 $(document).ready(function(){   
     //console.log(window.location.pathname);
-    ajaxController('http://localhost:8080/dashboard/stat/1');
+    ajaxController('/dashboard/stat/1');
 });
 
 //ymmu ajax-------------------------------------------
@@ -181,7 +273,7 @@ var ajaxController= function(url){
                 chartData[0].how_many=dashBrief.minPlanDays;
                 chartData[1].how_many=dashBrief.maxPlanDays;
                 chartData[2].how_many=dashBrief.avgDays;
-                chart.validateData();
+                //chart.validateData(); //에러나서 다 막음
                 console.log(chartData[2].how_many);
             	/* DATA OBJECT 출력하기
 	            	var str = '';
@@ -218,6 +310,7 @@ var ajaxController= function(url){
 						str += countryList[i].plan_title+"</br>";
 						i++;
 					}
+					//지도에 다녀온 국가 데이터 넣는다
 				      mapData.areas.push({
 				          "id": countryList[key].visitedCountryISO,
 				          "color": "#FACC2E",
@@ -226,17 +319,19 @@ var ajaxController= function(url){
 				      key = i;
 				  }
 				  //console.log(countryList);
-				  chartMap.validateData();
+				  //chartMap.validateData(); //에러나서 다 막음
 				  $('#numCountries').text(count); //방문국가수 업데이트
             }
         }
     }); 
 } //ajaxfunction
 
-//
+//일정-좋아요 테이블 세팅
 $(function () {
+	
+	//일정-좋아요 테이블
 	var $table = $('#table');
-
+	//일정-좋아요 테이블 행 눌렀을 때 분석데이터 바인딩
 	$table.on('click-row.bs.table', function (field, value, row, $el) {
 		console.log(value);
 		//
@@ -298,7 +393,7 @@ $(function () {
 		//console.log(chartDetailData);
 	});
 });
-
+//일정-좋아요 테이블 안에서 쓰이는 함수
 var saveDate = function(num, key, chartDetailData){
 	if(detailList[key].sex=="남")
 		chartDetailData[num].Man = detailList[key].num;
@@ -306,7 +401,9 @@ var saveDate = function(num, key, chartDetailData){
 		chartDetailData[num].Woman = detailList[key].num;
 	
 };
-//create plan Table---------------------
+
+
+//일정-좋아요 테이블 생성 함수---------------------
 var makeTable = function(list){
     
 	console.log('makeTable 안쪽');
@@ -322,204 +419,12 @@ var makeTable = function(list){
 	 });     
 }
 
-
 //ymmu ajax-------------------------------------------
 // svg path for target icon
 var targetSVG = "M9,0C4.029,0,0,4.029,0,9s4.029,9,9,9s9-4.029,9-9S13.971,0,9,0z M9,15.93 c-3.83,0-6.93-3.1-6.93-6.93S5.17,2.07,9,2.07s6.93,3.1,6.93,6.93S12.83,15.93,9,15.93 M12.5,9c0,1.933-1.567,3.5-3.5,3.5S5.5,10.933,5.5,9S7.067,5.5,9,5.5 S12.5,7.067,12.5,9z";
 // svg path for plane icon
 var planeSVG = "M19.671,8.11l-2.777,2.777l-3.837-0.861c0.362-0.505,0.916-1.683,0.464-2.135c-0.518-0.517-1.979,0.278-2.305,0.604l-0.913,0.913L7.614,8.804l-2.021,2.021l2.232,1.061l-0.082,0.082l1.701,1.701l0.688-0.687l3.164,1.504L9.571,18.21H6.413l-1.137,1.138l3.6,0.948l1.83,1.83l0.947,3.598l1.137-1.137V21.43l3.725-3.725l1.504,3.164l-0.687,0.687l1.702,1.701l0.081-0.081l1.062,2.231l2.02-2.02l-0.604-2.689l0.912-0.912c0.326-0.326,1.121-1.789,0.604-2.306c-0.452-0.452-1.63,0.101-2.135,0.464l-0.861-3.838l2.777-2.777c0.947-0.947,3.599-4.862,2.62-5.839C24.533,4.512,20.618,7.163,19.671,8.11z";
-/*
-var map = AmCharts.makeChart( "chartdiv", {
-  "type": "map",
-  "theme": "none",
-  "dataProvider": {
-    "map": "worldLow",
-    "zoomLevel": 3.5,
-    "zoomLongitude": -20.1341,
-    "zoomLatitude": 49.1712,
 
-    "lines": [ {
-      "latitudes": [ 51.5002, 50.4422 ],
-      "longitudes": [ -0.1262, 30.5367 ]
-    }, {
-      "latitudes": [ 51.5002, 46.9480 ],
-      "longitudes": [ -0.1262, 7.4481 ]
-    }, {
-      "latitudes": [ 51.5002, 59.3328 ],
-      "longitudes": [ -0.1262, 18.0645 ]
-    }, {
-      "latitudes": [ 51.5002, 40.4167 ],
-      "longitudes": [ -0.1262, -3.7033 ]
-    }, {
-      "latitudes": [ 51.5002, 46.0514 ],
-      "longitudes": [ -0.1262, 14.5060 ]
-    }, {
-      "latitudes": [ 51.5002, 48.2116 ],
-      "longitudes": [ -0.1262, 17.1547 ]
-    }, {
-      "latitudes": [ 51.5002, 44.8048 ],
-      "longitudes": [ -0.1262, 20.4781 ]
-    }, {
-      "latitudes": [ 51.5002, 55.7558 ],
-      "longitudes": [ -0.1262, 37.6176 ]
-    }, {
-      "latitudes": [ 51.5002, 38.7072 ],
-      "longitudes": [ -0.1262, -9.1355 ]
-    }, {
-      "latitudes": [ 51.5002, 54.6896 ],
-      "longitudes": [ -0.1262, 25.2799 ]
-    }, {
-      "latitudes": [ 51.5002, 64.1353 ],
-      "longitudes": [ -0.1262, -21.8952 ]
-    }, {
-      "latitudes": [ 51.5002, 40.4300 ],
-      "longitudes": [ -0.1262, -74.0000 ]
-    } ],
-    "images": [ {
-      "id": "london",
-      "svgPath": targetSVG,
-      "title": "London",
-      "latitude": 51.5002,
-      "longitude": -0.1262,
-      "scale": 1
-    }, {
-      "svgPath": targetSVG,
-      "title": "Brussels",
-      "latitude": 50.8371,
-      "longitude": 4.3676,
-      "scale": 0.5
-    }, {
-      "svgPath": targetSVG,
-      "title": "Prague",
-      "latitude": 50.0878,
-      "longitude": 14.4205,
-      "scale": 0.5
-    }, {
-      "svgPath": targetSVG,
-      "title": "Athens",
-      "latitude": 37.9792,
-      "longitude": 23.7166,
-      "scale": 0.5
-    }, {
-      "svgPath": targetSVG,
-      "title": "Reykjavik",
-      "latitude": 64.1353,
-      "longitude": -21.8952,
-      "scale": 0.5
-    }, {
-      "svgPath": targetSVG,
-      "title": "Dublin",
-      "latitude": 53.3441,
-      "longitude": -6.2675,
-      "scale": 0.5
-    }, {
-      "svgPath": targetSVG,
-      "title": "Oslo",
-      "latitude": 59.9138,
-      "longitude": 10.7387,
-      "scale": 0.5
-    }, {
-      "svgPath": targetSVG,
-      "title": "Lisbon",
-      "latitude": 38.7072,
-      "longitude": -9.1355,
-      "scale": 0.5
-    }, {
-      "svgPath": targetSVG,
-      "title": "Moscow",
-      "latitude": 55.7558,
-      "longitude": 37.6176,
-      "scale": 0.5
-    }, {
-      "svgPath": targetSVG,
-      "title": "Belgrade",
-      "latitude": 44.8048,
-      "longitude": 20.4781,
-      "scale": 0.5
-    }, {
-      "svgPath": targetSVG,
-      "title": "Bratislava",
-      "latitude": 48.2116,
-      "longitude": 17.1547,
-      "scale": 0.5
-    }, {
-      "svgPath": targetSVG,
-      "title": "Ljubljana",
-      "latitude": 46.0514,
-      "longitude": 14.5060,
-      "scale": 0.5
-    }, {
-      "svgPath": targetSVG,
-      "title": "Madrid",
-      "latitude": 40.4167,
-      "longitude": -3.7033,
-      "scale": 0.5
-    }, {
-      "svgPath": targetSVG,
-      "title": "Stockholm",
-      "latitude": 59.3328,
-      "longitude": 18.0645,
-      "scale": 0.5
-    }, {
-      "svgPath": targetSVG,
-      "title": "Bern",
-      "latitude": 46.9480,
-      "longitude": 7.4481,
-      "scale": 0.5
-    }, {
-      "svgPath": targetSVG,
-      "title": "Kiev",
-      "latitude": 50.4422,
-      "longitude": 30.5367,
-      "scale": 0.5
-    }, {
-      "svgPath": targetSVG,
-      "title": "Paris",
-      "latitude": 48.8567,
-      "longitude": 2.3510,
-      "scale": 0.5
-    }, {
-      "svgPath": targetSVG,
-      "title": "New York",
-      "latitude": 40.43,
-      "longitude": -74,
-      "scale": 0.5
-    } ]
-  },
-
-  "areasSettings": {
-    "unlistedAreasColor": "#FFCC00",
-    "unlistedAreasAlpha": 0.9
-  },
-
-  "imagesSettings": {
-    "color": "#CC0000",
-    "rollOverColor": "#CC0000",
-    "selectedColor": "#000000"
-  },
-
-  "linesSettings": {
-    "arc": -0.7, // this makes lines curved. Use value from -1 to 1
-    "arrow": "middle",
-    "color": "#CC0000",
-    "alpha": 0.4,
-    "arrowAlpha": 1,
-    "arrowSize": 4
-  },
-  "zoomControl": {
-    "gridHeight": 100,
-    "draggerAlpha": 1,
-    "gridAlpha": 0.2
-  },
-
-  "backgroundZoomsToTop": true,
-  "linesAboveImages": true,
-  
-  "export": {
-    "enabled": true
-  }
-} );
-*/
 var chart2 = AmCharts.makeChart( "chartdiv2", {
   "type": "pie",
   "theme": "light",
@@ -565,161 +470,158 @@ var chart2 = AmCharts.makeChart( "chartdiv2", {
     "enabled": true
   }
 } );
-//-- rador -->
-var chart3 = AmCharts.makeChart( "chartdiv3", {
-  "type": "radar",
+
+
+
+/**
+ * Create the amCharts Map
+ */
+var chartMap2 = AmCharts.makeChart( "chartdiv_rcm", {
+  "type": "map",
   "theme": "light",
-  "dataProvider": [ {
-    "country": "Czech Republic",
-    "litres": 156.9
-  }, {
-    "country": "Ireland",
-    "litres": 131.1
-  }, {
-    "country": "Germany",
-    "litres": 115.8
-  }, {
-    "country": "Australia",
-    "litres": 109.9
-  }, {
-    "country": "Austria",
-    "litres": 108.3
-  }, {
-    "country": "UK",
-    "litres": 99
-  } ],
-  "valueAxes": [ {
-    "axisTitleOffset": 20,
-    "minimum": 0,
-    "axisAlpha": 0.15
-  } ],
-  "startDuration": 2,
-  "graphs": [ {
-    "balloonText": "[[value]] litres of beer per year",
-    "bullet": "round",
-    "lineThickness": 2,
-    "valueField": "litres"
-  } ],
-  "categoryField": "country",
-  "export": {
-    "enabled": true
-  }
+  "projection": "eckert3",
+  "dataProvider": {
+    "map": "worldLow",
+    "getAreasFromMap": true,
+    "areas": [{
+	      "id": "AU",
+	      "color": "#8d1cc6",
+	      "description": "United States is now selected.</br></br>Close this description box to unselect the area.",
+	      "images": [{
+	        "latitude": 40.712784,
+	        "longitude": -74.005941,
+	        "type": "circle",
+	        "label": "New York"
+	      }]
+	    }]
+  },
+  "areasSettings": {
+    "autoZoom": true,
+    "selectedColor": "#0bff85"
+  },
+  "zoomControl": {
+	"zoomControlEnabled": true,
+    "bottom": 10,
+    "right": 10,
+    "zoomFactor":3
+  },
+  "listeners": [ 
+	   {
+	    "event": "zoomCompleted",
+	    "method": function( e ) {
+	
+	      // GMap inited?
+	      if ( typeof gmap === "undefined" )
+	        return;
+
+	     if ( chartMap2.zoomLevel() >= AmCharts.amBreakLevel ) {
+		        // sync position
+		        gmap.setCenter( {
+		          lat: chartMap2.zoomLatitude(),
+		          lng: chartMap2.zoomLongitude()
+		        } );
+		        console.log('after gmap -> setCenter');
+		        console.log('chartMap2 zoomlevel:'+chartMap2.zoomLevel());
+		        // set zoom level
+		        gmap.setZoom( AmCharts.gBreakLevel );
+		        //gmap.setZoom(chartMap2.zoomLevel());
+		        console.log('gmap.getCenter: '+gmap.getZoom());
+		
+		        // switch to Google map
+		        document.getElementById( "chartdiv_rcm" ).style.visibility = "hidden";
+		        document.getElementById( "gmap" ).style.visibility = "visible";
+		        google.maps.event.trigger(gmap, 'resize'); // 구글맵 갱신.
+	      }
+	    }
+  }, 
+	  
+	  {
+		    "event": "clickMapObject",
+		    "method": function(event) {
+		    	
+		        // GMap inited?
+		        if ( typeof gmap === "undefined" )
+		          return;
+		    	// sync position
+		        gmap.setCenter( {
+		          lat: chartMap2.zoomLatitude(),
+		          lng: chartMap2.zoomLongitude()
+		        } );
+		        console.log('zoomlevel:'+chartMap2.zoomLevel());
+		        
+		        /*
+		        console.log('after gmap -> setCenter');
+		        // set zoom level
+		        gmap.setZoom(chartMap2.zoomLevel());
+		        //gmap.setZoom( AmCharts.gBreakLevel );
+		        console.log('gmap.getCenter: '+gmap.getCenter());
+
+		        document.getElementById( "chartdiv_rcm" ).style.visibility = "hidden";
+		        document.getElementById( "gmap" ).style.visibility = "visible";
+		        */
+		        google.maps.event.trigger(gmap, 'resize'); // 구글맵 갱신.
+		        
+		    }
+		  }]
 } );
 
-/*
-var chart5 = AmCharts.makeChart( "chartdiv5", {
-	  "type": "serial",
-	  "theme": "dark",
-	  "depth3D": 0,
-	  "angle": 0,
-	  "legend": {
-	    "horizontalGap": 10,
-	    "useGraphSettings": true,
-	    "markerSize": 5
-	  },
-	  "dataProvider": [ {
-	    "year": 2003,
-	    "europe": 2.5,
-	    "namerica": 2.5,
-	  }, {
-	    "year": 2004,
-	    "europe": 2.6,
-	    "namerica": 2.7,
-	  }, {
-	    "year": 2005,
-	    "europe": 2.8,
-	    "namerica": 2.9,
-	  } ],
-	  "valueAxes": [ {
-	    "stackType": "regular",
-	    "axisAlpha": 0,
-	    "gridAlpha": 0
-	  } ],
-	  "graphs": [ {
-	    "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-	    "fillAlphas": 0.8,
-	    "labelText": "[[value]]",
-	    "lineAlpha": 0.3,
-	    "title": "Europe",
-	    "type": "column",
-	    "color": "#000000",
-	    "valueField": "europe"
-	  }, {
-	    "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
-	    "fillAlphas": 0.8,
-	    "labelText": "[[value]]",
-	    "lineAlpha": 0.3,
-	    "title": "North America",
-	    "type": "column",
-	    "newStack": true,
-	    "color": "#000000",
-	    "valueField": "namerica"
-	  } ],
-	  "categoryField": "year",
-	  "categoryAxis": {
-	    "gridPosition": "start",
-	    "axisAlpha": 0,
-	    "gridAlpha": 0,
-	    "position": "left"
-	  },
-	  "export": {
-	    "enabled": true
-	  }
+/** Create the Google Map*/
+var gmap;
 
-	} );
-	
-	var chartData_old={
+window.initGoogleMap=function() {
+  gmap = new google.maps.Map( document.getElementById( 'gmap' ), {
+    scrollwheel: true,
     
-    "type": "serial",
-    "theme": "light",
-    "marginRight": 70,
-    
-    "dataProvider": [{
-        "plan": "on going",
-        "how_many": 4,
-        "color": "#00c3ff"
-    }, 
-    {
-        "plan": "done",
-        "how_many": 3,
-        "color": "#2A0CD0"
-    }, 
-    {
-        "plan": "?",
-        "how_many": 2,
-        "color": "#8A0CCF"
-    }],
-    
-    "valueAxes": [{
-        "axisAlpha": 0,
-        "position": "left",
-        "title": ""
-    }],
-    
-    "startDuration": 1,
-    "graphs": [{
-        "balloonText": "<b>[[category]]: [[value]]</b>",
-        "fillColorsField": "color",
-        "fillAlphas": 0.9,
-        "lineAlpha": 0.2,
-        "type": "column",
-        "valueField": "visits"
-    }],
-    
-    "chartCursor": {
-        "categoryBalloonEnabled": false,
-        "cursorAlpha": 0,
-        "zoomable": false
-    },
-    
-    "categoryField": "plan",
-    "categoryAxis": {
-        "gridPosition": "start",
-        "labelRotation": 45
-    },
-    
-    "export": {
-        "enabled": true
+  } );
+
+  gmap.addListener( "zoom_changed", function() {
+    /**Switch back to amCharts*/
+    if ( gmap.getZoom() < AmCharts.gBreakLevel ) {
+
+      // sync position
+      var center = gmap.getCenter();
+      chartMap2.zoomToLongLat(
+        AmCharts.amBreakLevelReturn,
+        center.lng(),
+        center.lat(),
+        true
+      );
+      console.log('gmap.addListener: '+ center);
+      // switch to Google map
+      document.getElementById( "chartdiv_rcm" ).style.visibility = "visible";
+      document.getElementById( "gmap" ).style.visibility = "hidden";
+      //console.log(gmap);
     }
-};
-*/
+  } );
+}
+
+
+/** Function which tries to convert between amCharts zoom level and Google's */
+function amZoomLevelToGoogle( level ) {
+
+  // round
+  level = Math.round( level );
+  var newLevel = Math.round( Math.sqrt( level ) );
+
+  // find a zoom level
+  AmCharts.zoomLevels.forEach( function( zoomLevel ) {
+    if ( level >= zoomLevel.am )
+      newLevel = zoomLevel.g;
+  } );
+  return newLevel;
+}
+
+/** Function which tries to convert between Google's zoom level and amCharts */
+function gZoomLevelToAm( level ) {
+
+  // round
+  level = Math.round( level );
+  var newLevel = Math.round( Math.sqrt( level ) );
+
+  // find a zoom level
+  AmCharts.zoomLevels.forEach( function( zoomLevel ) {
+    if ( level >= zoomLevel.g )
+      newLevel = zoomLevel.am;
+  } );
+  return newLevel;
+}
