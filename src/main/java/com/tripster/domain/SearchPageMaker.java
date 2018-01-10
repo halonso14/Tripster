@@ -18,6 +18,7 @@ public class SearchPageMaker { // 페이지 처리용 객체.
 	private SearchCriteria cri;
 
 	private void calcData() {
+		
 		endPage = (int) (Math.ceil(cri.getPage() / (double) displayPageNum) * displayPageNum);
 		startPage = (endPage - displayPageNum) + 1;
 		int tempEndPage = (int) (Math.ceil(totalCount / (double) cri.getPerPageNum()));
@@ -81,11 +82,13 @@ public class SearchPageMaker { // 페이지 처리용 객체.
 	
 	//GET방식으로 페이지 처리가 복잡해짐 -> makeQuery메소드로 처리 
 	//UriComponents :  path나 query에 해당하는 문자열들을 추가해 원하는 URI를 생성해줌.
-	public String makeQuery(int page) {
+	public String makeQuery(int page,String go) {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance()
 				.queryParam("page", page)
 				.queryParam("perPageNum", cri.getPerPageNum())
+				.queryParam("go", go)
 				.queryParam("keyword", cri.getKeyword()).build();
+		
 		return uriComponents.toUriString();
 	}
 	

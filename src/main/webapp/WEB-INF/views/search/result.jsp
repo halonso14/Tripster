@@ -77,19 +77,19 @@
 			<div class="col-md-3 filters offset-0">
 				<ul class="blogcat margleft20 margright20 margtop10">
 					<li onclick="searchTotal()" class="size16">
-						<a data-toggle="tab" href="#totalList">
+						<a href="#">
 						<span class="hidetext">'${cri.keyword }'검색결과</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("totalNum") }</span></a></li>
 					<li onclick="searchContents()">
-						<a data-toggle="tab">
+						<a href="#">
 						<span class="hidetext">컨텐츠</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("contentsNum") }</span></a></li>
 					<li onclick="searchPlan()" class="">
-						<a data-toggle="tab" href="#planList">
+						<a href="#">
 						<span class="hidetext">일정</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("planNum") }</span></a></li>
 					<li onclick="searchMember()" class="">
-						<a data-toggle="tab" href="#userList">
+						<a href="#">
 						<span class="hidetext">회원</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("memberNum") }</span></a></li>
 				</ul>
@@ -97,16 +97,16 @@
 			<script>
 				
 				function searchTotal(){
-					self.location = "result?"+ "keyword="+$("#keyword").val()+"&go=total";
+					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=total";
 				}
 				function searchContents(){
-					self.location = "result?"+ "keyword="+$("#keyword").val()+"&go=contents";
+					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=contents";
 				}
 				function searchPlan(){
-					self.location = "result?"+ "keyword="+$("#keyword").val()+"&go=plan";
+					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=plan";
 				}
 				function searchMember(){
-					self.location = "result?"+ "keyword="+$("#keyword").val()+"&go=member";
+					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=member";
 				}
 				
 			</script>

@@ -77,19 +77,19 @@
 			<div class="col-md-3 filters offset-0">
 				<ul class="blogcat margleft20 margright20 margtop10">
 					<li onclick="searchTotal()" class="size16">
-						<a data-toggle="tab" href="#totalList">
+						<a href="#">
 						<span class="hidetext">'${cri.keyword }'검색결과</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("totalNum") }</span></a></li>
-					<li onclick="searchContents()">
-						<a data-toggle="tab">
+					<li onclick="searchContents()" class="">
+						<a href="#">
 						<span class="hidetext">컨텐츠</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("contentsNum") }</span></a></li>
 					<li onclick="searchPlan()" class="">
-						<a data-toggle="tab" href="#planList">
+						<a href="#">
 						<span class="hidetext">일정</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("planNum") }</span></a></li>
 					<li onclick="searchMember()" class="">
-						<a data-toggle="tab" href="#userList">
+						<a href="#">
 						<span class="hidetext">회원</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("memberNum") }</span></a></li>
 				</ul>
@@ -98,16 +98,16 @@
 			<script>
 			
 				function searchTotal(){
-					self.location = "result?"+ "keyword="+$("#keyword").val()+"&go=total";
+					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=total";
 				}
 				function searchContents(){
-					self.location = "result?"+ "keyword="+$("#keyword").val()+"&go=contents";
+					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=contents";
 				}
 				function searchPlan(){
-					self.location = "result?"+ "keyword="+$("#keyword").val()+"&go=plan";
+					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=plan";
 				}
 				function searchMember(){
-					self.location = "result?"+ "keyword="+$("#keyword").val()+"&go=member";
+					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=member";
 				}
 				
 			</script>
@@ -168,7 +168,7 @@
 						
 						<div class="itemscontainer offset-1" >
 							<!--####### 컨텐츠 검색결과 : 템플릿 z-cruise-list.html #######-->
-							<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="9" varStatus="status">
+							<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="19" varStatus="status">
 								<div class="offset-2" >
 									<div class="col-md-4 offset-0" >
 										<div class = "listitem2" >
@@ -212,20 +212,27 @@
 							<!-- pagination -->
 							<div class="hpadding20">
 								<ul class="pagination right paddingbtm20">
+									<c:set value="contents" var="go"/>
+									
 									<c:if test="${pageMaker.prev }">
-										<li><a href="${pageMaker.makeQuery(pageMaker.startPage-1) }">&laquo;</a></li>
+										<li><a href="${pageMaker.makeQuery(pageMaker.startPage-1,go) }">&laquo;</a></li>
 									</c:if>
+									
 									<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+										
 										<li id="contentsPage"
 											<c:out value="${pageMaker.cri.page == idx?'class=active':'' }"></c:out>>
-											<a href="${pageMaker.makeQuery(idx) }" >${idx }</a>
+											<a href=${pageMaker.makeQuery(idx,go) } >${idx }</a>
 										</li>
+										
 									</c:forEach>
+									
 									<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
-										<li><a href="${pageMaker.makeQuery(pageMaker.endPage+1) }">&raquo;</a></li>
+										<li><a href="${pageMaker.makeQuery(pageMaker.endPage+1,go) }">&raquo;</a></li>
 									</c:if>
 								</ul>
 							</div>
+							
 						</div>
 					</div>					
 					<!-- 컨텐츠 리스트 끝 -->		

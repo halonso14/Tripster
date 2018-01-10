@@ -28,30 +28,33 @@ public class SearchController {
 	// 통합검색 결과리스트 요청
 	@RequestMapping(value="result", method = RequestMethod.GET)
 	public String search(@ModelAttribute("cri") SearchCriteria cri
-					  ,@RequestParam("go")String go, Model model) throws Exception{
+					  	,@ModelAttribute("go")String go, Model model) throws Exception{
 		
 		System.out.println("search cri="+cri.toString());
-		
-		// 전체 페이지 불러오기
-		EsSearchResult results = esSearchService.getTotalSearchList(cri);
-		// 10개 목록만 불러오기
-//		EsSearchResult result = esSearchService.pageList(cri);
-
-		model.addAttribute("contentsList",results.getContentsList());
-		model.addAttribute("planList",results.getPlanList());
-		model.addAttribute("memberList",results.getMemberList());
+	
+		model.addAttribute("contentsList",esSearchService.contentsList(cri));
+		model.addAttribute("planList",esSearchService.planList(cri));
+		model.addAttribute("memberList",esSearchService.memberList(cri));
 		model.addAttribute("getNum",esSearchService.getTotalSearchNum(cri));
 		
 		// model에 EsRepository의 검색결과 건수를 담아서 SearchPageMaker로 보낸다.
 		SearchPageMaker pageMaker = new SearchPageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(Long.parseLong(esSearchService.getTotalSearchNum(cri).get("totalNum")));
 
 		model.addAttribute("pageMaker",pageMaker);
 		
-		if(go.equals("contents")) return "search/contentsResult";
-		else if(go.equals("member")) return "search/memberResult";
-		else if(go.equals("plan")) return "search/planResult";
+		if(go.equals("contents")) {
+			pageMaker.setTotalCount(Long.parseLong(esSearchService.getTotalSearchNum(cri).get("contentsNum")));
+			return "search/contentsResult";
+		}
+		else if(go.equals("member")) {
+			pageMaker.setTotalCount(Long.parseLong(esSearchService.getTotalSearchNum(cri).get("memberNum")));
+			return "search/memberResult";
+		}
+		else if(go.equals("plan")) {
+			pageMaker.setTotalCount(Long.parseLong(esSearchService.getTotalSearchNum(cri).get("planNum")));
+			return "search/planResult";
+		}
 		else return "search/result";
 		
 	}

@@ -1,5 +1,7 @@
 package com.tripster.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -7,8 +9,9 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.tripster.domain.EsContentsVO;
 import com.tripster.domain.SearchCriteria;
-import com.tripster.domain.SearchPageMaker;
+import com.tripster.persistence.EsContentsDAO;
 import com.tripster.service.EsSearchService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -17,6 +20,8 @@ public class esSearchTest {
 	
 	@Inject
 	EsSearchService service;
+	@Inject
+	EsContentsDAO dao;
 	
 //	@Test
 //	public void contentsListPageTest() throws Exception{
@@ -33,12 +38,15 @@ public class esSearchTest {
 	
 	@Test
 	public void pageTest() throws Exception{
-		SearchPageMaker page = new SearchPageMaker();
+		
 		SearchCriteria cri = new SearchCriteria();
-		cri.setPage(1);
 		cri.setKeyword("11");
-		page.setCri(cri);
-		System.out.println(page.toString());
+		
+		List<EsContentsVO> list = dao.getContentsList(cri);
+		
+		System.out.println(list.size());
+		System.out.println(dao.getTotalContentsNum(cri));
+		
 	}
 
 }

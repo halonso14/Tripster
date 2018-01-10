@@ -77,19 +77,19 @@
 			<div class="col-md-3 filters offset-0">
 				<ul class="blogcat margleft20 margright20 margtop10">
 					<li onclick="searchTotal()" class="size16">
-						<a data-toggle="tab" href="#totalList">
+						<a href="#">
 						<span class="hidetext">'${cri.keyword }'검색결과</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("totalNum") }</span></a></li>
 					<li onclick="searchContents()">
-						<a data-toggle="tab">
+						<a href="#">
 						<span class="hidetext">컨텐츠</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("contentsNum") }</span></a></li>
 					<li onclick="searchPlan()" class="">
-						<a data-toggle="tab" href="#planList">
+						<a href="#">
 						<span class="hidetext">일정</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("planNum") }</span></a></li>
 					<li onclick="searchMember()" class="">
-						<a data-toggle="tab" href="#userList">
+						<a href="#">
 						<span class="hidetext">회원</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("memberNum") }</span></a></li>
 				</ul>
@@ -97,16 +97,16 @@
 			<script>
 			
 				function searchTotal(){
-					self.location = "result?"+ "keyword="+$("#keyword").val()+"&go=total";
+					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=total";
 				}
 				function searchContents(){
-					self.location = "result?"+ "keyword="+$("#keyword").val()+"&go=contents";
+					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=contents";
 				}
 				function searchPlan(){
-					self.location = "result?"+ "keyword="+$("#keyword").val()+"&go=plan";
+					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=plan";
 				}
 				function searchMember(){
-					self.location = "result?"+ "keyword="+$("#keyword").val()+"&go=member";
+					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=member";
 				}
 				
 			</script>
@@ -167,8 +167,8 @@
 						<!-- End of Top FILTERS-->
 						
 						<!--####### 일정 검색결과 : 템플릿 list3.html #######-->
-						<p class="margleft20"><a>일정 더보기</a> </p>	
-						<c:forEach items="${planList}" var = "esPlanVO" begin="0" end="2">
+						<!-- <p class="margleft20"><a>일정 더보기</a> </p>	 -->
+						<c:forEach items="${planList}" var = "esPlanVO" begin="0" end="9">
 							<div class="col-md-4">
 								<div class="listitem">
 									<img src="/resources/images/items/item1.jpg" alt="일정사진은 뭘로쓸까">
@@ -194,7 +194,30 @@
 							</div>
 						</c:forEach>
 						<div class="clearfix"></div>
-						<div class="offset-2"><hr class="featurette-divider2"></div>
+						
+						<!-- pagination -->
+							<div class="hpadding20">
+								<ul class="pagination right paddingbtm20">
+									<c:set value="plan" var="go"/>
+									
+									<c:if test="${pageMaker.prev }">
+										<li><a href="${pageMaker.makeQuery(pageMaker.startPage-1,go) }">&laquo;</a></li>
+									</c:if>
+									
+									<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+										
+										<li id="contentsPage"
+											<c:out value="${pageMaker.cri.page == idx?'class=active':'' }"></c:out>>
+											<a href=${pageMaker.makeQuery(idx,go) } >${idx }</a>
+										</li>
+										
+									</c:forEach>
+									
+									<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
+										<li><a href="${pageMaker.makeQuery(pageMaker.endPage+1,go) }">&raquo;</a></li>
+									</c:if>
+								</ul>
+							</div>
 						
 					</div>
 					<!-- 일정 리스트 끝 -->		

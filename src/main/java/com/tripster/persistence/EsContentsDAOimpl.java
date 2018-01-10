@@ -37,6 +37,7 @@ public class EsContentsDAOimpl implements EsContentsDAO {
 	    		EsContentsVO contents = om.readValue(sJson, EsContentsVO.class);
 	    		result.add(contents);
 		}
+		
 		return result;
 	}
 	
@@ -47,7 +48,6 @@ public class EsContentsDAOimpl implements EsContentsDAO {
 		long result = response.getHits().getTotalHits();
 		return result;
 	}
-
 
 }
 

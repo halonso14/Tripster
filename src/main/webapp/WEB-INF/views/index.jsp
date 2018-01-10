@@ -88,20 +88,15 @@
 			
 			<!--####### SEARCH BOX #######-->
 			<div class="searchcontainer textcenter" style="">
-				<script>
-					function search(){
-						console.log($('#keywordInput').val());
-						
-					}	
-				</script>			
+							
 				<span class="lato size48 slim white ">Where do you want to go?</span><br/>
 					<form action="search/result">
 						<div class=" wh95percent center">
 							<input  id="keywordInput" name='keyword' value='${cri.keyword}'type="text" class="form-control inph left" placeholder="ex: New York" ></input>
-							<input type="hidden" name='go' value="total" />
 							<button id='searchBtn' class="btn btn-default nbtn-search right" type="submit" ><span class="glyphicon glyphicon-search"></span></button>
 						</div>
 					</form>
+					
 			</div>
 			<!-- END OF SEARCH BOX -->
 			
