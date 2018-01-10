@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 
-//@JsonFilter("EsPlanFilter")
+@JsonFilter("EsPlanFilter")
 public class EsPlanVO extends PlanVO{
 	
 	private PlanDetailVO planDetail;

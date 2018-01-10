@@ -82,7 +82,7 @@
                 </div>
             </div>
             <div class="register-c3">
-            	<a href="javascript:void(0)" id="fbBtn" class="btn btn-block btn-social btn-facebook">
+            	<a href="javascript:void(0)" id="fbBtn" class="btn btn-block btn-social btn-facebook" >
 					<span class="fa fa-facebook"></span>페이스북으로 계속하기
 				</a>
             </div>
