@@ -6,7 +6,7 @@
 <head>
 <meta charset='utf-8' />
 <link href='/resources/css/fullcalendar.min.css' rel='stylesheet' />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" type="text/css" media="screen" /> -->
 <!-- <link href='/resources/css/fullcalendar.print.css' rel='stylesheet' media='print' /> -->
 

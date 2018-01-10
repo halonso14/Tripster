@@ -150,6 +150,20 @@
     width: 55px;
     height: 20px;
 }
+
+.plan_pre {
+  display: block; 
+  margin: 0 0 0px; 
+  font-size: 13px; 
+  color: #333333; 
+  word-break: break-all; 
+  word-wrap: break-word; 
+  background-color: #ffffff; 
+  border: 1px solid #ffffff;
+  border-radius: 4px; 
+  padding: 0px;
+}
+
 </style>
 	
 </head>
@@ -261,7 +275,7 @@
 						
 								<c:if test="${planDetailVO.memoVO.memoContents ne null }">
 									<div class="memoText">
-										${planDetailVO.memoVO.memoContents }
+										<pre class="plan_pre">${planDetailVO.memoVO.memoContents }</pre>
 									</div>
 								</c:if>
 						
@@ -416,8 +430,8 @@
 				+'</span><br/>'
 				+'<span class="replyspan" data-rno="'
 				+this.planReplyID+'">'
-				+"<span class='replyContents'>"
-				+this.planReplyContents+"</span>";
+				+"<span class='replyContents'><pre class='plan_pre'>"
+				+this.planReplyContents+"</pre></span>";
 				
 				//session이 존재하면,	
  				if('' != id){

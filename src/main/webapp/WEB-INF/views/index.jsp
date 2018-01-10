@@ -99,7 +99,7 @@
 				<span class="lato size48 slim white ">Where do you want to go?</span><br/>
 					<form action="search">
 					<div class=" wh95percent center">
-						<input  id="keywordInput" name='keyword' value='${cri.keyword}'type="text" class="form-control inph left" placeholder="ex: New York" ></input>
+						<input  id="keywordInput" name='keyword' value='${cri.keyword}'type="text" class="inph form-control left" placeholder="ex: New York" ></input>
 						<button id='searchBtn' class="btn btn-default nbtn-search right" type="submit" onclick="search()"><span class="glyphicon glyphicon-search"></span></button>
 					</div>
 					</form>

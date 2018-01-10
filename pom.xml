@@ -13,7 +13,7 @@
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 		<elasticsearch.version>5.5.0</elasticsearch.version>
-		<apache.log4j>2.9.1</apache.log4j>
+		<apache.log4j>2.8.2</apache.log4j>
 	</properties>
 	<dependencies>
 		<!-- Spring -->

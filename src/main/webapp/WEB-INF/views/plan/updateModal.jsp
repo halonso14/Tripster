@@ -5,8 +5,8 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-<link rel="stylesheet" href="/resources/dist/css/bootstrap.css">
-<script src="/resources/dist/js/bootstrap.min.js"></script>
+<!-- <link rel="stylesheet" href="/resources/dist/css/bootstrap.css">
+<script src="/resources/dist/js/bootstrap.js"></script> -->
 <style>
 .modal {
             position: fixed;
@@ -57,8 +57,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <input type="reset" class="btn btn-default" style="width: 180px" value="CANCEL">
-                    <input type="button" class="btn btn-primary" value="수정" onclick="updateErrorCheck()" style="width: 180px">
+                    <input type="reset" class="btn btn-default" style="width: 180px" value="초기화">
+                    <input type="button" class="btn btn-primary" value="다음" onclick="updateErrorCheck()" style="width: 180px">
                 </div>
             </div>
             </div>
