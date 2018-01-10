@@ -48,5 +48,6 @@ public class EsContentsDAOimpl implements EsContentsDAO {
 		return result;
 	}
 
+
 }
 

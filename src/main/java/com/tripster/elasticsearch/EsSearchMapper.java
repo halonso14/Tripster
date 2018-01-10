@@ -32,7 +32,7 @@ public class EsSearchMapper {
 	// 컨텐츠 검색결과 더보기 리스트 조회
     public SearchResponse contentsSearch(SearchCriteria cri) throws Exception{
  		
-    		SimpleQueryStringBuilder qb = simpleQueryStringQuery(cri.getKeyword());	
+    	SimpleQueryStringBuilder qb = simpleQueryStringQuery(cri.getKeyword());	
     		
         SearchResponse response = client.prepareSearch()
         		.setIndices(getIndexName()).setTypes("contents").setQuery(qb).get();
@@ -43,7 +43,7 @@ public class EsSearchMapper {
 	// 일정 검색결과 더보기 리스트 조회
     public SearchResponse planSearch(SearchCriteria cri) throws Exception{
  		
-    		SimpleQueryStringBuilder qb = simpleQueryStringQuery(cri.getKeyword());	
+    	SimpleQueryStringBuilder qb = simpleQueryStringQuery(cri.getKeyword());	
     		
         SearchResponse response = client.prepareSearch()
         		.setIndices(getIndexName()).setTypes("plan").setQuery(qb).get();
@@ -54,7 +54,7 @@ public class EsSearchMapper {
 	// 유저 검색결과 더보기 리스트 조회
     public SearchResponse memberSearch(SearchCriteria cri) throws Exception{
  		
-    		SimpleQueryStringBuilder qb = simpleQueryStringQuery(cri.getKeyword());	
+    	SimpleQueryStringBuilder qb = simpleQueryStringQuery(cri.getKeyword());	
     		
         SearchResponse response = client.prepareSearch()
         		.setIndices(getIndexName()).setTypes("member").setQuery(qb).get();

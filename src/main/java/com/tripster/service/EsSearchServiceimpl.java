@@ -85,5 +85,24 @@ public class EsSearchServiceimpl implements EsSearchService {
 		return getNumbers;
 		
 	}
+	
+	// 컨텐츠 페이지 처리
+	@Override
+	public List<EsContentsVO> contentsList(SearchCriteria cri) throws Exception{
+		
+		List<EsContentsVO> contentsList = contentsDao.getContentsList(cri);
+		List<EsContentsVO> result = new ArrayList<>();
+		
+		if(contentsList.size() > 10) {			
+			for(int i=cri.getPageStart();i<cri.getPage()*cri.getPerPageNum();i++) {
+				result.add(contentsList.get(i));
+			}
+		}else {
+			result = contentsList;
+		}
+		
+		return result;
+		
+	}
 
 }

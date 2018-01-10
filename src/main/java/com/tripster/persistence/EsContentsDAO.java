@@ -10,5 +10,6 @@ public interface EsContentsDAO {
 	public List<EsContentsVO> getContentsList(SearchCriteria cri) throws Exception;
 	// 컨텐츠 검색결과 건수 조회
 	public long getTotalContentsNum(SearchCriteria cri) throws Exception;
+	
 }
 

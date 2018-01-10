@@ -263,7 +263,7 @@
 		    <artifactId>transport</artifactId>
 		    <version>${elasticsearch.version}</version>
 		</dependency>	
-			<!-- elasticsearch Log4j 2 Logger -->
+		<!-- elasticsearch Log4j 2 Logger -->
 		<dependency>
 		    <groupId>org.apache.logging.log4j</groupId>
 		    <artifactId>log4j-core</artifactId>
