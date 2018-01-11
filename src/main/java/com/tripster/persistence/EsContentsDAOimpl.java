@@ -27,7 +27,7 @@ public class EsContentsDAOimpl implements EsContentsDAO {
 		
 		SearchResponse response = namespace.contentsSearch(cri);
 		SearchHits hits = response.getHits();
-		
+
 		ArrayList<EsContentsVO> result = new ArrayList<EsContentsVO>();
 		ObjectMapper om = new ObjectMapper(); 
 		om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

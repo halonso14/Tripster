@@ -40,12 +40,11 @@ public class esSearchTest {
 	public void pageTest() throws Exception{
 		
 		SearchCriteria cri = new SearchCriteria();
-		cri.setKeyword("11");
+		cri.setKeyword("편안한횟집");
 		
 		List<EsContentsVO> list = dao.getContentsList(cri);
 		
-		System.out.println(list.size());
-		System.out.println(dao.getTotalContentsNum(cri));
+		System.out.println(list.get(0).getContents_keyword());
 		
 	}
 

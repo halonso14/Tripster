@@ -31,7 +31,7 @@ public class SearchController {
 					  	,@ModelAttribute("go")String go, Model model) throws Exception{
 		
 		System.out.println("search cri="+cri.toString());
-	
+		
 		model.addAttribute("contentsList",esSearchService.contentsList(cri));
 		model.addAttribute("planList",esSearchService.planList(cri));
 		model.addAttribute("memberList",esSearchService.memberList(cri));
