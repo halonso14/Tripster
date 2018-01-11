@@ -18,6 +18,13 @@ response.setHeader("Pragma", "no-cache");
     <link rel = "stylesheet" type = "text/css" href ="/resources/css/statistics.css">
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
     <link href="/resources/ammap/ammap.css" rel="stylesheet">
+    <!-- ymmu slick for carousel -->
+	<link rel="stylesheet" type="text/css" href="/resources/slick-1.8.0/slick/slick.css"/>
+	<!-- Add the new slick-theme.css if you want the default styling --> 
+	<link rel="stylesheet" type="text/css" href="/resources/slick-1.8.0/slick/slick-theme.css"/>
+	<!--ymmu icon css -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- ymum my css-->
     
     <!-- Bootstrap -->
@@ -387,9 +394,254 @@ response.setHeader("Pragma", "no-cache");
 					    			<div class="general_font country_name_font">Austrailia</div>
 					    		</div>
 					    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed Heads is located next to the border with Queensland, adjacent to its "Twin Town" of Coolangatta, which is a suburb of the Gold Coast. It is often referred to as a town where people can change time zones – even celebrate New Year twice within an hour – simply by crossing the street, due to its proximity to the Queensland border, and the fact that New South Wales observes daylight saving whereas Queensland does not.</div>
-					    		
 					    	</div>
 					    	<div class="clearfix"></div>
+					    	
+			    			<!--ymmu 여기가 나라 정보  -->
+						    <div class="first">
+						    	<div class="info_about_country_contents">
+						    		<div class="info_icon">
+						    			<i class="material-icons" style="font-size:48px;color:#42b520">local_atm</i><br>
+						    				환율
+						    		</div>
+						    	</div>
+						    	<div class="info_about_country_contents">
+						    		<div class="info_icon">
+						    			<i class="material-icons" style="font-size:48px;color:#42b520">flight</i><br>
+						    				평균 비행기표 가격
+						    		</div>
+						    		<div class="info_description">
+						    				<b>편도 최저가격</b><br>
+						    				KRW 855,500<br><br>
+						    				<b>직항 소요시간</b><br>
+						    				13h 45m<br>	
+						    		</div>
+						    	</div>
+						    	<div class="info_about_country_contents">
+						    		<div class="info_icon">
+						    			<i class="fa fa-smile-o" style="font-size:48px;color:#42b520"></i><br>
+						    				안전도
+						    		</div>
+						    	</div>
+						    	<div class="info_about_country_contents">
+						    		<div class="info_icon">
+						    			<i class="material-icons" style="font-size:48px;color:#42b520">local_dining</i><br>
+						    				빅맥가격
+						    		</div>
+						    	</div>
+						    	<div class="info_about_country_contents">
+						    		<div class="info_icon">
+						    			<i class="fa fa-file-word-o" style="font-size:48px;color:#42b520"></i><br>
+						    				국가단어
+						    		</div>
+						    	</div>
+						    	<div class="info_about_country_contents">
+						    		<div class="info_icon">
+						    			<i class="material-icons" style="font-size:48px;color:#42b520">query_builder</i><br>
+						    				시차
+						    		</div>
+						    	</div>
+						    </div>
+			    	
+			    			<!--ymmu 이 국가의 맵에 표시되지 않은 도시들 부분보여줌  -->					    	
+					    	<div class="general_font rcm_title_font just_padding_for_subtitle"><h2>이 국가에 관련된 다른 도시들</h2></div>
+							<div class="relavtive_rcm">
+					    		  <div class="your-class">
+								    <div class="contents_rcm">
+								    	<div class="inner_card">
+								    		<img src="/resources/images/Port Macquarie.jpg" width="100%" />
+								    	 	<div class="content_rcm_title">
+					    						<div class="general_font country_name_font">Tweed Heads</div>
+					    					</div>
+								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+								    	</div>
+								    </div>
+
+								    <div class="contents_rcm">
+								    	<div class="inner_card">
+								    		<img src="/resources/images/Port Macquarie.jpg" width="100%" />
+								    		<div class="content_rcm_title">
+					    						<div class="general_font country_name_font">Tweed Heads</div>
+					    					</div>
+								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+								    	</div>
+								    </div>
+								    <div class="contents_rcm">
+								    <div class="inner_card">
+								    <img src="/resources/images/Port Macquarie.jpg" width="100%" />
+								    	<div class="content_rcm_title">
+					    						<div class="general_font country_name_font">Tweed Heads</div>
+					    					</div>
+								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+								    	</div>
+									</div>
+								    <div class="contents_rcm">
+								    	<div class="inner_card">
+								    	<img src="/resources/images/Port Macquarie.jpg" width="100%" />
+								    		<div class="content_rcm_title">
+					    						<div class="general_font country_name_font">Tweed Heads</div>
+					    					</div>
+								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+
+								    	</div>
+								    </div>
+								    <div class="contents_rcm">
+										<div class="inner_card">
+										<img src="/resources/images/Port Macquarie.jpg" width="100%" />
+								    		<div class="content_rcm_title">
+					    						<div class="general_font country_name_font">Tweed Heads</div>
+					    					</div>
+								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+
+								    	</div>
+								    </div>
+								    <div class="contents_rcm">
+								    	<div class="inner_card">
+								    	<img src="/resources/images/Port Macquarie.jpg" width="100%" />
+								    		<div class="content_rcm_title">
+					    						<div class="general_font country_name_font">Tweed Heads</div>
+					    					</div>
+								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+
+								    	</div>
+								    </div>
+								  </div>
+					    	</div>
+
+
+			    			<!--ymmu 이 국가에 관련된 유튜브 영상 추천 -->					    	
+					    	<div class="general_font rcm_title_font just_padding_for_subtitle"><h2>이 국가에 관련된 유튜브 영상</h2></div>
+							<div class="relavtive_rcm">
+					    		  <div class="your-class">
+								    <div class="contents_rcm">
+								    	<div class="inner_card">
+								    		<img src="/resources/images/Port Macquarie.jpg" width="100%" />
+								    	 	<div class="content_rcm_title">
+					    						<div class="general_font country_name_font">Tweed Heads</div>
+					    					</div>
+								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+								    	</div>
+								    </div>
+
+								    <div class="contents_rcm">
+								    	<div class="inner_card">
+								    		<img src="/resources/images/Port Macquarie.jpg" width="100%" />
+								    		<div class="content_rcm_title">
+					    						<div class="general_font country_name_font">Tweed Heads</div>
+					    					</div>
+								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+								    	</div>
+								    </div>
+								    <div class="contents_rcm">
+								    <div class="inner_card">
+								    <img src="/resources/images/Port Macquarie.jpg" width="100%" />
+								    	<div class="content_rcm_title">
+					    						<div class="general_font country_name_font">Tweed Heads</div>
+					    					</div>
+								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+								    	</div>
+									</div>
+								    <div class="contents_rcm">
+								    	<div class="inner_card">
+								    	<img src="/resources/images/Port Macquarie.jpg" width="100%" />
+								    		<div class="content_rcm_title">
+					    						<div class="general_font country_name_font">Tweed Heads</div>
+					    					</div>
+								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+
+								    	</div>
+								    </div>
+								    <div class="contents_rcm">
+										<div class="inner_card">
+										<img src="/resources/images/Port Macquarie.jpg" width="100%" />
+								    		<div class="content_rcm_title">
+					    						<div class="general_font country_name_font">Tweed Heads</div>
+					    					</div>
+								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+
+								    	</div>
+								    </div>
+								    <div class="contents_rcm">
+								    	<div class="inner_card">
+								    	<img src="/resources/images/Port Macquarie.jpg" width="100%" />
+								    		<div class="content_rcm_title">
+					    						<div class="general_font country_name_font">Tweed Heads</div>
+					    					</div>
+								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+
+								    	</div>
+								    </div>
+								  </div>
+					    	</div>
+
+
+
+
+							<!--ymmu  이 국가에 관련된 일정 추천 부분이다  -->					    	
+					    	<div class="general_font rcm_title_font just_padding_for_subtitle"><h2>이 국가에 관련된 일정 추천</h2></div>
+							<div class="relavtive_rcm">
+					    		  <div class="your-class">
+								    <div class="contents_rcm">
+								    	<div class="inner_card">
+								    		<img src="/resources/images/Port Macquarie.jpg" width="100%" />
+								    	 	<div class="content_rcm_title">
+					    						<div class="general_font country_name_font">Tweed Heads</div>
+					    					</div>
+								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+								    	</div>
+								    </div>
+
+								    <div class="contents_rcm">
+								    	<div class="inner_card">
+								    		<img src="/resources/images/Port Macquarie.jpg" width="100%" />
+								    		<div class="content_rcm_title">
+					    						<div class="general_font country_name_font">Tweed Heads</div>
+					    					</div>
+								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+								    	</div>
+								    </div>
+								    <div class="contents_rcm">
+								    <div class="inner_card">
+								    <img src="/resources/images/Port Macquarie.jpg" width="100%" />
+								    	<div class="content_rcm_title">
+					    						<div class="general_font country_name_font">Tweed Heads</div>
+					    					</div>
+								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+								    	</div>
+									</div>
+								    <div class="contents_rcm">
+								    	<div class="inner_card">
+								    	<img src="/resources/images/Port Macquarie.jpg" width="100%" />
+								    		<div class="content_rcm_title">
+					    						<div class="general_font country_name_font">Tweed Heads</div>
+					    					</div>
+								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+
+								    	</div>
+								    </div>
+								    <div class="contents_rcm">
+										<div class="inner_card">
+										<img src="/resources/images/Port Macquarie.jpg" width="100%" />
+								    		<div class="content_rcm_title">
+					    						<div class="general_font country_name_font">Tweed Heads</div>
+					    					</div>
+								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+
+								    	</div>
+								    </div>
+								    <div class="contents_rcm">
+								    	<div class="inner_card">
+								    	<img src="/resources/images/Port Macquarie.jpg" width="100%" />
+								    		<div class="content_rcm_title">
+					    						<div class="general_font country_name_font">Tweed Heads</div>
+					    					</div>
+								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+
+								    	</div>
+								    </div>
+								  </div>
+					    	</div>
+
 
 
 
@@ -784,6 +1036,7 @@ response.setHeader("Pragma", "no-cache");
 	<script type="text/javascript" src="/resources/js/additional-methods.min.js"></script>
 	<script type="text/javascript" src="/resources/js/messages_ko.min.js"></script>
     <!-- ymmu my js-->
+    <script type="text/javascript" src="/resources/slick-1.8.0/slick/slick.min.js"></script>
 	<!-- ymmu my js-->
 	<!-- pie charts -->
 

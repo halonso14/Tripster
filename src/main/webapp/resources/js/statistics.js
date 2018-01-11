@@ -246,8 +246,24 @@ AmCharts.ready( function() {
 //ajax로 화면 데이터세팅
 $(document).ready(function(){   
     //console.log(window.location.pathname);
-    ajaxController('/dashboard/stat/1');
+	$('.your-class').slick(getSliderSettings());
+	ajaxController('/dashboard/stat/1');
+    
 });
+
+var getSliderSettings =function () {
+	console.log('getSliderSettings');
+    return {
+  	  infinite: true,
+	  slidesToShow: 3,
+	  slidesToScroll: 3,
+	  initialSlide:3
+	  ,accessibility: true
+	  ,draggable: false,
+	  variableWidth: true
+  }
+};
+
 
 //ymmu ajax-------------------------------------------
 var ajaxController= function(url){
@@ -625,3 +641,6 @@ function gZoomLevelToAm( level ) {
   } );
   return newLevel;
 }
+
+
+

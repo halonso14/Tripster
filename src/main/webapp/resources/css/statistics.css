@@ -234,4 +234,72 @@ table{
 .inline_rec{
 	display:inline-block;
 }
+
+.contents_rcm{
+	/*background-color:#00cc00;*/
+	/*width: 318px;*/
+	padding: 3px;
+	border-width: 1px;
+	height:360px;
+}
+
+/* slick 버튼색깔*/
+.slick-prev:before {
+  color: #ffffff;
+  box-shadow: 0 4px 4px rgba(0,0,0,0.3), 0 0 4px rgba(0,0,0,0.2);
+  border-width: 1px;
+  border-radius: 50px;
+  background-color: #A4A4A4;
+}
+.slick-next:before {
+  color: #ffffff;
+  box-shadow: 0 4px 4px rgba(0,0,0,0.3), 0 0 4px rgba(0,0,0,0.2);
+  border-width: 1px;
+  border-radius: 50px;
+  background-color: #A4A4A4;
+}
+
+
+.inner_card{
+	height:350px;
+	box-shadow: 0 4px 4px rgba(0,0,0,0.3), 0 0 4px rgba(0,0,0,0.2);
+	border-width: 1px;
+ 	border-radius: 3px;
+}
+
+.relavtive_rcm{
+	width: 100%;
+	padding: 5px;
+	padding-top: 30px;
+}
+
+.content_rcm_title{
+	margin: -50px 20px auto;
+}
+
+
+.info_about_country_contents{
+	display: inline-block;
+	background-color:#eeeeec;
+	height: 300px;
+	width: 19.2%;
+	padding: 20px;
+	vertical-align: middle;
+}
+
+.info_icon{
+	text-align: center;
+	height: 35%;
+}
+
+.info_description{
+	text-align: center;
+	height: 63%;
+}
+
+.just_padding_for_subtitle{
+	
+	padding-top: 30px;
+}
+
 /* myplan and */
