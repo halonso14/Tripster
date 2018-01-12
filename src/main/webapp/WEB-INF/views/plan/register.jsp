@@ -69,16 +69,7 @@
 	
 		<!--HOME OBJECTS -->	
 		<img class="couple" src="/resources/images/couple.png" alt="" />
-		<img class="girl" src="/resources/images/girl.png" alt="" />
-		<img class="girl2" src="/resources/images/girl2.png" alt="" />
-		<img class="girl-car" src="/resources/images/girl-car.png" alt="" />
-		<img class="car" src="/resources/images/car.png" alt="" />
-		<img class="girl-cruise" src="/resources/images/girl-cruise.png" alt="" />
 		<div class="palmbgcontainer"></div>
-		<img class="dubai" src="/resources/images/dubai.jpg" alt="" />
-		<img class="plane" src="/resources/images/plane.jpg" alt="" />
-		<img class="road" src="/resources/images/road.jpg" alt="" />
-		<img class="cruise" src="/resources/images/cruise.jpg" alt="" />
 
 		<!--TAB 1 -->	
 		<div id="tab1">
@@ -112,7 +103,6 @@
 		
 	</div>
 	<!-- END OF WHITE SECTION -->	
-	
 	<script>
   		//modal open			  
     		function planModal(){

@@ -11,17 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Plan Detail</title>
    <script type="text/javascript" src="/resources/js/upload.js"></script>
-<script>
- $(document).ready(function() {
-	var formObj = $("#planForm");
-	  
- 	$("#remove").click(function(){
- 		formObj.attr("action","/plan/delete");
- 		formObj.submit();
- 	});
-		 
-  });
-</script>
+
 <style>
 #modDiv {
 	width: 300px;
@@ -258,7 +248,7 @@
 								scroll: {
 									items: 1,
 									easing: "easeInOutQuad",
-									duration: 400,
+									duration: 300,
 									pauseOnHover: true
 								},
 								auto: true,
@@ -429,6 +419,19 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <!-- <script src="/resources/dist/js/bootstrap.min.js"></script> -->
     
+    
+<script>
+ $(document).ready(function() {
+	var formObj = $("#planForm");
+	  
+ 	$("#remove").click(function(){
+ 		formObj.attr("action","/plan/delete");
+ 		formObj.submit();
+ 	});
+		 
+  });
+</script>
+
 <script>
 	var planID = ${plan.planID};
 	var id='';
