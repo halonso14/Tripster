@@ -11,7 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Plan Detail</title>
    <script type="text/javascript" src="/resources/js/upload.js"></script>
-   	<script src="https://code.jquery.com/jquery-2.0.3.js"></script>
 <script>
  $(document).ready(function() {
 	var formObj = $("#planForm");
@@ -167,6 +166,45 @@
 </style>
 	
 </head>
+    <!-- ymum my css-->
+    <link rel = "stylesheet" type = "text/css" href ="/resources/css/statistics.css">
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <!-- ymum my css-->
+    
+    <!-- Bootstrap -->
+    <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
+    
+    <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
+    <!-- ymmu bootstrap table -->
+    <link href="/resources/bootstrap-table/dist/bootstrap-table.css" rel="stylesheet">
+
+
+	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.js"></script>
+      <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+	
+    <!-- Fonts -->	
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet' type='text/css'>	
+	<!-- Font-Awesome -->
+    <link rel="stylesheet" type="text/css" href="/resources/assets/css/font-awesome.css" media="screen" />
+    <!--[if lt IE 7]><link rel="stylesheet" type="text/css" href="assets/css/font-awesome-ie7.css" media="screen" /><![endif]-->
+	
+	<!-- Animo css-->
+	<link href="/resources/plugins/animo/animate+animo.css" rel="stylesheet" media="screen">
+
+    <!-- Picker -->	
+	<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />	
+	
+<!--     jQuery	 -->	
+    <script src="https://code.jquery.com/jquery-2.0.3.js"></script>
+
+<!-- bootstrap -->
+	<script src="/resources/dist/js/bootstrap.min.js"></script>
+	
 	<%@include file="/WEB-INF/views/include/header2.jsp"%>
 	<%@include file="/WEB-INF/views/plan/updateModal.jsp" %>
 	<!-- CONTENT -->
@@ -283,25 +321,14 @@
 								<c:if test="${not empty planDetailVO.memoVO.memoPictureVO.get(0).memoPictureName }">
 									<div class="wrapper2">
 										<div class="list_carousel2">
-											
+											<ul class="foo5" >
 												<c:forEach items="${planDetailVO.memoVO.memoPictureVO }" var="pictureVO">
-													<ul class="foo5">
-														<c:set var="image" value=""/>
-														<%-- <c:choose>
-							       							<c:when test="${pictureVO.memoPictureName ne null}"> --%>
-							           					 		<li>
-																	<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img  class="img-responsive" src="/displayFile?fileName=${pictureVO.memoPictureName }" style="width: 100%; max-width: 760px; vertical-align: middle"/></a>
-																</li>
-							       							<%-- </c:when> --%>
-							       							<!-- noImage  -->
-							       							<%-- <c:otherwise>
-							          							<li>
-																	<a href="/resources/planImg/noimg.png"><img src="/resources/planImg/noimg.png" style="width: 100%; vertical-align: middle"/></a>
-																</li>
-							       							</c:otherwise> --%>
-							  							<%-- </c:choose> 	 --%>
-						  							</ul>
-											</c:forEach>
+													<c:set var="image" value=""/>
+				           					 		<li>
+														<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img  class="img-responsive" src="/displayFile?fileName=${pictureVO.memoPictureName }" style="width: 100%; max-width: 760px; vertical-align: middle; "/></a>
+													</li>
+												</c:forEach>
+											</ul>
 										<div class="clearfix"></div>
 										<a id="prev_btn" class="xprev" href=""><img src="/resources/images/spacer.png" alt=""/></a>
 										<a id="next_btn" class="xnext" href=""><img src="/resources/images/spacer.png" alt=""/></a>
@@ -365,18 +392,43 @@
 	</div>
 	<!-- END OF CONTENT -->
 	
-	<!-- CarouFredSel -->
-	<script src="/resources/assets/js/jquery.carouFredSel-6.2.1-packed.js"></script>
+<!-- Javascript  -->
+	<script src="/resources/assets/js/js-blog.js"></script>
+	
+	<!-- Easy Pie Chart  -->
+	<script src="/resources/assets/js/jquery.easy-pie-chart.js"></script>
+	
+    <!-- Nicescroll  -->	
+	<script src="/resources/assets/js/jquery.nicescroll.min.js"></script>
+	
+    <!-- Custom functions -->
+    <script src="/resources/assets/js/functions.js"></script>
+	
+    <!-- Custom Select -->
+	<script type='text/javascript' src='/resources/js/lightbox.js'></script>	
+	
+    <!-- Custom Select -->
+	<script type='text/javascript' src='/resources/assets/js/jquery.customSelect.js'></script>
+	
+	<!-- Load Animo -->
+	<script src="/resources/plugins/animo/animo.js"></script>
+
+    <!-- CarouFredSel -->
+    <script src="/resources/assets/js/jquery.carouFredSel-6.2.1-packed.js"></script>
     <script src="/resources/assets/js/helper-plugins/jquery.touchSwipe.min.js"></script>
 	<script type="text/javascript" src="/resources/assets/js/helper-plugins/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="/resources/assets/js/helper-plugins/jquery.transit.min.js"></script>
 	<script type="text/javascript" src="/resources/assets/js/helper-plugins/jquery.ba-throttle-debounce.min.js"></script>
 	
-	    <!-- Picker -->	
+    <!-- JUI -->	
+	<script src="/resources/assets/js/jquery-ui.js"></script>	
+
+    <!-- Picker -->	
     <script src="/resources/assets/js/jquery.easing.js"></script>	
+	
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- <script src="/resources/dist/js/bootstrap.min.js"></script> -->
     
-    
-	<%@include file="/WEB-INF/views/include/footer.jsp"%>
 <script>
 	var planID = ${plan.planID};
 	var id='';
@@ -594,4 +646,5 @@
 	};
 	
 </script>
+	<%@include file="/WEB-INF/views/include/footer.jsp"%>
 </html>
