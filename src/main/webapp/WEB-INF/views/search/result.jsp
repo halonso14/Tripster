@@ -193,10 +193,10 @@
 												<span class="opensans size14 grey">
 													<span class="grey2">Category:
 													<c:set var="category" value="${esContentsVO.category_id }"/>
-														<c:choose>
-															<c:when test="${category == 1 }">맛집</c:when>
-															<c:otherwise>관광지</c:otherwise>
-														</c:choose>
+													<c:choose>
+														<c:when test="${category == 1 }">맛집</c:when>
+														<c:otherwise>관광지</c:otherwise>
+													</c:choose>
 													</span>
 												</span><br>
 												<div class="line4 wh80percent"></div>

@@ -113,6 +113,7 @@ public class ScrapModuleController {
 			
 			loger.info("scrpalist scrap remove");
 			scrapService.scrapIDRemove(scrapID);
+			
 			entity = new ResponseEntity<>("scrapIDRemove",HttpStatus.OK);
 			
 		}catch(Exception e){

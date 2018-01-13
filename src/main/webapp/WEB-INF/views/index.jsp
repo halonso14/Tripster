@@ -15,7 +15,7 @@
 
 		<!-- Updates -->
 		<link href="/resources/updates/update1/css/style01.css" rel="stylesheet" media="screen">
-
+	
 		<!-- Carousel -->
 		<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
