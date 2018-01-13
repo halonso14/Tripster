@@ -66,6 +66,7 @@
 				$('.scrapList').on('click','.scrapRemove',function () {
 					
 					var scrapID = $(this).val();
+					
 					$.post('/scrapIDremove/'+scrapID,function(data){
 						alert(data);
 						getAllList();

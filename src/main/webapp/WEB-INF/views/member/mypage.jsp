@@ -15,6 +15,7 @@ response.setHeader("Pragma", "no-cache");
 	<script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="/resources/js/additional-methods.min.js"></script>
 	<script type="text/javascript" src="/resources/js/messages_ko.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 	<title>Travel Agency - HTML5 Booking template</title>
 	
     <!-- ymum my css-->
@@ -27,8 +28,6 @@ response.setHeader("Pragma", "no-cache");
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
     <!-- ymmu bootstrap table -->
     <link href="/resources/bootstrap-table/dist/bootstrap-table.css" rel="stylesheet">
-
-
 	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -205,12 +204,9 @@ response.setHeader("Pragma", "no-cache");
 
 	<!-- CONTENT -->
 	<div class="container">
-
-		
+	
 		<div class="container mt25 offset-0">
-			
-			
-			
+	
 			<!-- CONTENT -->
 			<div class="col-md-12 pagecontainer2 offset-0">
 				
@@ -234,9 +230,9 @@ response.setHeader("Pragma", "no-cache");
 						  Wishlist
 						  </a></li>
 					  <li>
-						  <a href="#history" data-toggle="tab" onclick="mySelectUpdate()">
+						  <a href="#scrapList" data-toggle="tab" onclick="scrapList()">
 						  <span class="history-icon"></span>								  
-						  History
+						  ScrapList
 						  </a></li>						  
 					  <li>
 						  <a href="#setProfile" data-toggle="tab" onclick="mySelectUpdate()">
@@ -1527,9 +1523,7 @@ function fileChange(e) {
 	
 					  </div>
 					  <!-- END OF TAB 1 -->		
-
-					  
-					  
+  
 					  <!-- TAB 2 -->					  
 					  <div class="tab-pane" id="bookings">
 						<div class="padding40">
@@ -1721,119 +1715,112 @@ function fileChange(e) {
 							<br/>
 							
 							<span class="dark size18">Favourites list</span>
-							<div class="right mt-5">
-								<select class="form-control mySelectBoxClass hasCustomSelect cpwidth2">
-								  <option value="">5/page</option>
-								  <option value="">15/page</option>
-								  <option value="">20/page</option>
-								</select>
-							</div>								
-							<div class="line4"></div>
-							<br/>
-							
-							<div>
-								<div class="col-md-4 offset-0">
-									<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-1.jpg"></a>
-									<a class="dark" href="#"><b>Hotel Dany</b></a> /
-									<span class="dark size12">Greece - Zakynthos</span><br>
-									<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
-									<img alt="" src="/resources/images/filter-rating-5.png"><br/>
+							<div class="col-md-12 offset-0">
+								<div class="line4"></div>
+								<br/>
+								
+								<div class="col-md-6 offset-0">
+									<div>
+									
+										<div class="col-md-9 offset-0">
+											<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-1.jpg"></a>
+										
+											<a class="dark" href="#"><b>제목</b></a> /
+											<span class="dark size12"> 뭐 넣을까 </span><br>
+											<span class="opensans green bold size14">카테고리</span> <span class="grey">1</span><br>
+											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
+										</div>
+										<div class="col-md-3 offset-0">
+											<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>
+										</div>
+										<div class="clearfix"></div>
+										<div class="line2"></div>
+										
+									</div>
+								
+									<div>
+										<div class="col-md-4 offset-0">
+											<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-2.jpg"></a>
+											<a class="dark" href="#"><b>Hotel Dany</b></a> /
+											<span class="dark size12">Greece - Zakynthos</span><br>
+											<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
+											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
+										</div>
+										<div class="col-md-7">
+											<span class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam faucibus, quam vel interdum lacinia, lacus justo rutrum lorem, in fermentum ligula est a diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
+										</div>
+										<div class="col-md-1 offset-0">
+											<button onclick="errorMessage()" type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-heart dark"></span></button>
+										</div>
+										<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>
+										<div class="clearfix"></div>
+										<div class="line6"></div>
+									</div>
 								</div>
-								<div class="col-md-7">
-									<span class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam faucibus, quam vel interdum lacinia, lacus justo rutrum lorem, in fermentum ligula est a diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
+								
+								<div class="col-md-6 offset-0">
+									<div>
+										<div class="col-md-4 offset-0">
+											<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-3.jpg"></a>
+											<a class="dark" href="#"><b>Hotel Dany</b></a> /
+											<span class="dark size12">Greece - Zakynthos</span><br>
+											<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
+											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
+										</div>
+										<div class="col-md-7">
+											<span class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam faucibus, quam vel interdum lacinia, lacus justo rutrum lorem, in fermentum ligula est a diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
+										</div>
+										<div class="col-md-1 offset-0">
+											<button onclick="errorMessage()" type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-heart"></span></button>
+										</div>
+										<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>									
+										<div class="clearfix"></div>
+										<div class="line6"></div>
+									</div>
+								
+									<div>
+										<div class="col-md-4 offset-0">
+											<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-1.jpg"></a>
+											<a class="dark" href="#"><b>Hotel Dany</b></a> /
+											<span class="dark size12">Greece - Zakynthos</span><br>
+											<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
+											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
+										</div>
+										<div class="col-md-7">
+											<span class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam faucibus, quam vel interdum lacinia, lacus justo rutrum lorem, in fermentum ligula est a diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
+										</div>
+										<div class="col-md-1 offset-0">
+											<button onclick="errorMessage()" type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-heart dark"></span></button>
+										</div>
+										<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>									
+										<div class="clearfix"></div>
+										<div class="line6"></div>
+									</div>
+									
+									<div>
+										<div class="col-md-4 offset-0">
+											<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-2.jpg"></a>
+											<a class="dark" href="#"><b>Hotel Dany</b></a> /
+											<span class="dark size12">Greece - Zakynthos</span><br>
+											<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
+											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
+										</div>
+										<div class="col-md-7">
+											<span class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam faucibus, quam vel interdum lacinia, lacus justo rutrum lorem, in fermentum ligula est a diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
+										</div>
+										<div class="col-md-1 offset-0">
+											<button onclick="errorMessage()" type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-heart"></span></button>
+										</div>
+										<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>									
+										<div class="clearfix"></div>
+									</div>
+					
+									<div class="line4"></div>
+								
 								</div>
-								<div class="col-md-1 offset-0">
-									<button onclick="errorMessage()" type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-heart dark"></span></button>
-								</div>
-								<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>	
-								<div class="clearfix"></div>
-								<div class="line6"></div>
-							</div>
-							
-							<div>
-								<div class="col-md-4 offset-0">
-									<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-2.jpg"></a>
-									<a class="dark" href="#"><b>Hotel Dany</b></a> /
-									<span class="dark size12">Greece - Zakynthos</span><br>
-									<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
-									<img alt="" src="/resources/images/filter-rating-5.png"><br/>
-								</div>
-								<div class="col-md-7">
-									<span class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam faucibus, quam vel interdum lacinia, lacus justo rutrum lorem, in fermentum ligula est a diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-								</div>
-								<div class="col-md-1 offset-0">
-									<button onclick="errorMessage()" type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-heart dark"></span></button>
-								</div>
-								<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>
-								<div class="clearfix"></div>
-								<div class="line6"></div>
-							</div>
-							
-							<div>
-								<div class="col-md-4 offset-0">
-									<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-3.jpg"></a>
-									<a class="dark" href="#"><b>Hotel Dany</b></a> /
-									<span class="dark size12">Greece - Zakynthos</span><br>
-									<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
-									<img alt="" src="/resources/images/filter-rating-5.png"><br/>
-								</div>
-								<div class="col-md-7">
-									<span class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam faucibus, quam vel interdum lacinia, lacus justo rutrum lorem, in fermentum ligula est a diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-								</div>
-								<div class="col-md-1 offset-0">
-									<button onclick="errorMessage()" type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-heart"></span></button>
-								</div>
-								<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>									
-								<div class="clearfix"></div>
-								<div class="line6"></div>
-							</div>
-							
-							<div>
-								<div class="col-md-4 offset-0">
-									<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-1.jpg"></a>
-									<a class="dark" href="#"><b>Hotel Dany</b></a> /
-									<span class="dark size12">Greece - Zakynthos</span><br>
-									<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
-									<img alt="" src="/resources/images/filter-rating-5.png"><br/>
-								</div>
-								<div class="col-md-7">
-									<span class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam faucibus, quam vel interdum lacinia, lacus justo rutrum lorem, in fermentum ligula est a diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-								</div>
-								<div class="col-md-1 offset-0">
-									<button onclick="errorMessage()" type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-heart dark"></span></button>
-								</div>
-								<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>									
-								<div class="clearfix"></div>
-								<div class="line6"></div>
-							</div>
-							
-							<div>
-								<div class="col-md-4 offset-0">
-									<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-2.jpg"></a>
-									<a class="dark" href="#"><b>Hotel Dany</b></a> /
-									<span class="dark size12">Greece - Zakynthos</span><br>
-									<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
-									<img alt="" src="/resources/images/filter-rating-5.png"><br/>
-								</div>
-								<div class="col-md-7">
-									<span class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam faucibus, quam vel interdum lacinia, lacus justo rutrum lorem, in fermentum ligula est a diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-								</div>
-								<div class="col-md-1 offset-0">
-									<button onclick="errorMessage()" type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-heart"></span></button>
-								</div>
-								<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>									
-								<div class="clearfix"></div>
-							</div>
-				
-							<div class="line4"></div>
-							<ul class="pagination right paddingbtm20">
-							  <li class="disabled"><a href="#">«</a></li>
-							  <li><a href="#">1</a></li>
-							  <li><a href="#">2</a></li>
-							  <li><a href="#">»</a></li>
-							</ul>
+								
 
-						
+							</div>
 						</div>
 					  </div>
 					  <!-- END OF TAB 3 -->	
@@ -1928,63 +1915,142 @@ $(function() {
 					  <!-- END OF TAB 4 -->	
 					  
 					  <!-- TAB 5 -->					  
-					  <div class="tab-pane" id="history">
-						<div class="padding40">
+					  <div class="tab-pane" id="scrapList">
+				
+						<div class="scrapList padding40">
 						
-							<span class="dark size18">History</span>
-							<div class="line4"></div>
+							<ul class="nav nav-tabs" id="myTab">
+								<li onclick="scrapList()" class="active"><a data-toggle="tab" href="#restaurant"><span class="reviews"></span><span class="hidetext">Restaurant</span>&nbsp;</a></li>
+								<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#roomrates"><span class="maps"></span><span class="hidetext">Place</span>&nbsp;</a></li>
+								<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#preferences"><span class="preferences"></span><span class="hidetext">Preferences</span>&nbsp;</a></li>
+								<li onclick="loadScript()" class=""><a data-toggle="tab" href="#maps"><span class="maps"></span><span class="hidetext">Maps</span>&nbsp;</a></li>
+								<li onclick="mySelectUpdate(); trigerJslider(); trigerJslider2(); trigerJslider3(); trigerJslider4(); trigerJslider5(); trigerJslider6();" class=""><a data-toggle="tab" href="#reviews"><span class="reviews"></span><span class="hidetext">Reviews</span>&nbsp;</a></li>
+								<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#thingstodo"><span class="thingstodo"></span><span class="hidetext">Things to do</span>&nbsp;</a></li>
+			
+							</ul>			
 							
-							<br/>
+							<div class="line4" ></div>
 							
-							<div class="col-md-3 bold">Date</div>
-							<div class="col-md-3 bold">Destination</div>
-							<div class="col-md-3 bold">Service</div>
-							<div class="col-md-3 bold textright">Action</div>
-							<div class="clearfix"></div>
-							<div class="line4"></div>
+							<div class="col-md-12 offset-0" >
 							
-							<div class="col-md-3">01.05.09</div>
-							<div class="col-md-3">Grece - Zakynthos</div>
-							<div class="col-md-3">Hotel</div>
-							<div class="col-md-3 textright"><button type="submit" class="btn-search5"><span class="glyphicon glyphicon-plus"></span></button></div>
-							<div class="clearfix"></div>
-							
-							<div class="line4"></div>
-							<div class="col-md-3">17.07.10</div>
-							<div class="col-md-3">Spain - Malaga</div>
-							<div class="col-md-3">Flight Tickets</div>
-							<div class="col-md-3 textright"><button type="submit" class="btn-search5"><span class="glyphicon glyphicon-plus"></span></button></div>
-							<div class="clearfix"></div>
-							
-							<div class="line4"></div>
-							<div class="col-md-3">01.05.09</div>
-							<div class="col-md-3">Bulgary - Sunny Beach</div>
-							<div class="col-md-3">Flight Tickets</div>
-							<div class="col-md-3 textright"><button type="submit" class="btn-search5"><span class="glyphicon glyphicon-plus"></span></button></div>
-							<div class="clearfix"></div>
-							
-							<div class="line4"></div>
-							<div class="col-md-3">01.05.09</div>
-							<div class="col-md-3">France - Paris</div>
-							<div class="col-md-3">Rent a car</div>
-							<div class="col-md-3 textright"><button type="submit" class="btn-search5"><span class="glyphicon glyphicon-plus"></span></button></div>
-							<div class="clearfix"></div>
-							
-							<div class="line4"></div>
-							<div class="col-md-3">15.03.11</div>
-							<div class="col-md-3">U.A.E. - Dubai</div>
-							<div class="col-md-3">Car + Hotel + Flight</div>
-							<div class="col-md-3 textright"><button type="submit" class="btn-search5"><span class="glyphicon glyphicon-plus"></span></button></div>
-							<div class="clearfix"></div>
-							
-							<div class="line4"></div>
-							<div class="col-md-3">15.06.12</div>
-							<div class="col-md-3">Grand Britain - London</div>
-							<div class="col-md-3">Car + Hotel + Flight</div>
-							<div class="col-md-3 textright"><button type="submit" class="btn-search5"><span class="glyphicon glyphicon-plus"></span></button></div>
-							<div class="clearfix"></div>
-							
+								<!-- TAB 1 -->				
+								<div id="restaurant" class="tab-pane fade active in">
+								
+									<div class="col-md-5 offset-0" id="scrap1">
+									</div>		
+									
+									<div class="col-md-2 offset-0">
+									</div>
+									
+									<div class="col-md-5 offset-0" id="scrap2">
+									</div>
+									
+								</div>
+								
+								<!-- TAB 2 -->
+								<div id="roomrates" class="tab-pane fade ">
+								    
+								</div>
+								
+								<!-- TAB 3 -->					
+								<div id="preferences" class="tab-pane fade">
+								
+								</div>
+								
+								<!-- TAB 4 -->					
+								<div id="maps" class="tab-pane fade">
+									
+								</div>
+								
+								<!-- TAB 5 -->					
+								<div id="reviews" class="tab-pane fade ">
+								
+								</div>
+								
+								<!-- TAB 6 -->					
+								<div id="thingstodo" class="tab-pane fade">
+								
+								</div>
+								
+								<script id="restaurantTemplate" type="text/x-handlebars-template">
+										
+									<div>
+										<div class="col-md-9 offset-0">
+											<input type="hidden" id="scrapID" value="{{scrapID}}">
+											<img alt="" class="left mr20" src="{{thumbnail}}" style="width:100px;,height:auto;">
+											
+											<a class="dark" href="/contents/1/{{contentsID}}"><b>{{title}}</b></a> /
+											<span class="dark size12"> 뭐 넣을까 </span><br>
+											<span class="opensans green bold size14">맛집</span> <span class="grey">{{category}}</span><br>
+											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
+										</div>
+										<div class="col-md-3 offset-0">
+											<button class="close mr20 mt10" value="{{scrapID}}" onclick="scrapDelete(this)">×</button>
+										</div>
+										<div class="clearfix"></div>
+										<div class="line2"></div>
+									</div>
+
+								</script>	
+								<script>
+								
+									// 스크랩 리스트 불러오기
+									function scrapList(){
+										
+										$.getJSON('/scraplist',function(data){
+											
+											var str1 = "";
+											var str2 = "";
+											
+											$(data).each(function(i,list){
+												var source = $("#restaurantTemplate").html();
+												var template = Handlebars.compile(source);
+												// 카테고리 구별
+												if(list.categoryID == 1){
+													if(i%2 == 1){
+														var scrapData1 = {
+																  scrapID : list.scrapID,
+															      category : list.categoryID,
+															      title : list.contentsTitle,
+															      thumbnail : list.contentsPhoto,
+															      contentsID : list.contentsID
+															}
+														str1 += template(scrapData1);
+													}else{
+														var scrapData2 = {
+																  scrapID : list.scrapID,
+															      category : list.categoryID,
+															      title : list.contentsTitle,
+															      thumbnail : list.contentsPhoto
+															}
+														str2 += template(scrapData2);
+													}	
+												}
+												
+											 });
+											 
+											$("#scrap1").html(str1);   
+											$("#scrap2").html(str2);
+											
+										});
+										
+									}
+									
+									// 스크랩 삭제
+									function scrapDelete(data){
+										var scrapID = data.value;
+										$.post("/scrapIDremove/"+scrapID,function(data){
+											alert(data);
+											scrapList();
+										})
+									}
+									 
+								</script>
+								
+									
+							</div>
 						</div>
+
 					  </div>
 					  <!-- END OF TAB 5 -->	
 					  

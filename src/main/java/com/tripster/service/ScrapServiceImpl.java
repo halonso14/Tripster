@@ -28,7 +28,7 @@ public class ScrapServiceImpl implements ScrapService{
 		vo.setCategoryID(cont.getCategoryID());
 		vo.setContentsID(cont.getContentsID());
 		vo.setContentsTitle(cont.getTitle());
-		vo.setContentsPhoto("photo");
+		vo.setContentsPhoto("http://cfile26.uf.tistory.com/image/2642053B532A9F7519A004");
 		vo.setMemberID(memberID);
 		scrapDao.create(vo);
 	}
