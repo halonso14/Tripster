@@ -88,21 +88,16 @@
 			
 			<!--####### SEARCH BOX #######-->
 			<div class="searchcontainer textcenter" style="">
-				<script>
-					function search(){
-						console.log($('#keywordInput').val());
-						self.location = "search?"
-								+ '${pageMaker.makeQuery(1)}'
-								+ "&keyword=" + $('#keywordInput').val();
-					}	
-				</script>			
+							
 				<span class="lato size48 slim white ">Where do you want to go?</span><br/>
-					<form action="search">
-					<div class=" wh95percent center">
-						<input  id="keywordInput" name='keyword' value='${cri.keyword}'type="text" class="inph form-control left" placeholder="ex: New York" ></input>
-						<button id='searchBtn' class="btn btn-default nbtn-search right" type="submit" onclick="search()"><span class="glyphicon glyphicon-search"></span></button>
-					</div>
+
+					<form action="search/result">
+						<div class=" wh95percent center">
+							<input  id="keywordInput" name='keyword' value='${cri.keyword}'type="text" class="form-control inph left" placeholder="ex: New York" ></input>
+							<button id='searchBtn' class="btn btn-default nbtn-search right" type="submit" ><span class="glyphicon glyphicon-search"></span></button>
+						</div>
 					</form>
+					
 			</div>
 			<!-- END OF SEARCH BOX -->
 			
@@ -268,6 +263,7 @@
 			</div>
 
 			<div>
+			<h2><a href="contents/1/1">언더그라운드</a></h2>
 				<br/>
 				<br/>
 				<br/>

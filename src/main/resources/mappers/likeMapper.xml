@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   <!-- 좋아요 -->
   <insert id="like">
-  	insert into tbl_like(
+  	insert into tbl_Like(
   						  Like_ID
   						 ,Plan_ID
   						 ,Member_ID
@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   			,Plan_StartDate planStartDate
   			,Plan_EndDate planEndDate
   			
-  	from tbl_plan
+  	from tbl_Plan
   	
   	where Plan_ID = #{planID}
   
@@ -37,7 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <!-- 좋아요 삭제 -->
   <delete id="likeDelete">
-  delete from tbl_like
+  delete from tbl_Like
   where Plan_ID = #{planID}
   
   </delete>
@@ -49,14 +49,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   			Plan_ID planID,
   			Member_ID memberID
   		
-  from tbl_like
+  from tbl_Like
   where Member_ID = #{memberID}
   
   </select>
   
   <!-- 멤버 팔로우 -->
   <insert id="memberFollow">
-  insert into tbl_follow (
+  insert into tbl_Follow (
   							 Follow_ID
   							,Member_ID
   							)
@@ -69,7 +69,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <!-- 멤버 팔로우 삭제 -->
   <delete id="memberFollowDelete">
-  delete from tbl_follow 
+  delete from tbl_Follow 
   where Member_ID = #{memberID} and Follow_ID = #{followID}
   </delete>
   
@@ -78,55 +78,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   select 
   		Follow_ID followID,
   		Member_ID memberID
-  from tbl_follow
+  from tbl_Follow
   where Member_ID = #{memberID}
   </select>
   
   <!-- 유저의 좋아요 리스트 조회 -->
   <select id="userlikeList" resultType="com.tripster.domain.PlanVO">
   select 
-  		 tbl_plan.Plan_ID planID
-  		,tbl_plan.Member_ID memberID
-  		,tbl_plan.Plan_Title planTitle
-  		,tbl_plan.Plan_StartDate planStartDate
-  		,tbl_plan.Plan_EndDate planEndDate
+  		 tbl_Plan.Plan_ID planID
+  		,tbl_Plan.Member_ID memberID
+  		,tbl_Plan.Plan_Title planTitle
+  		,tbl_Plan.Plan_StartDate planStartDate
+  		,tbl_Plan.Plan_EndDate planEndDate
   from 
-  		tbl_like,tbl_plan
+  		tbl_Like,tbl_Plan
   where 
-  		tbl_like.Plan_ID = tbl_plan.Plan_ID and tbl_like.Member_ID = #{memberID} 
+  		tbl_Like.Plan_ID = tbl_Plan.Plan_ID and tbl_Like.Member_ID = #{memberID} 
   
   </select>
   
   <!-- 유저의 팔로우 리스트 조회 -->
   <select id="userFollowList" resultType="com.tripster.domain.MemberVO">
   select 
-  		 tbl_member.Member_ID memberID
-  		,tbl_member.Member_Name memberName
-  		,tbl_member.Member_Email memberEmail
-  		,tbl_member.Member_Password memberPassword
-  		,tbl_member.Member_Birthday memberBirthday
-  		,tbl_member.Member_Picture memberPicture
+  		 tbl_Member.Member_ID memberID
+  		,tbl_Member.Member_Name memberName
+  		,tbl_Member.Member_Email memberEmail
+  		,tbl_Member.Member_Password memberPassword
+  		,tbl_Member.Member_Birthday memberBirthday
+  		,tbl_Member.Member_Picture memberPicture
   from 
-  		tbl_follow,tbl_member
+  		tbl_Follow,tbl_Member
   
   where 
-  		tbl_follow.follow_ID = tbl_member.Member_ID and tbl_follow.Member_ID=#{memberID};
+  		tbl_Follow.follow_ID = tbl_Member.Member_ID and tbl_Follow.Member_ID=#{memberID};
   	
   </select>
   
   <!-- 유저의 팔로잉 리스트 조회 -->
   <select id="userFollowingList" resultType="com.tripster.domain.MemberVO">
   select 
-  		 tbl_member.Member_ID memberID
-  		,tbl_member.Member_Name memberName
-  		,tbl_member.Member_Email memberEmail
-  		,tbl_member.Member_Password memberPassword
-  		,tbl_member.Member_Birthday memberBirthday
-  		,tbl_member.Member_Picture memberPicture
+  		 tbl_Member.Member_ID memberID
+  		,tbl_Member.Member_Name memberName
+  		,tbl_Member.Member_Email memberEmail
+  		,tbl_Member.Member_Password memberPassword
+  		,tbl_Member.Member_Birthday memberBirthday
+  		,tbl_Member.Member_Picture memberPicture
   from 
-  		tbl_member ,tbl_follow
+  		tbl_Member ,tbl_Follow
   where 
-  		tbl_follow.Member_ID = tbl_member.Member_ID and tbl_follow.Follow_ID = #{memberID};
+  		tbl_Follow.Member_ID = tbl_Member.Member_ID and tbl_Follow.Follow_ID = #{memberID};
   </select>
   
 </mapper>

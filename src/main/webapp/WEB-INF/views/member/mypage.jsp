@@ -1524,10 +1524,7 @@ function fileChange(e) {
 							</div>			
 						</div>
 						
-						
-						
-						
-						
+	
 					  </div>
 					  <!-- END OF TAB 1 -->		
 
@@ -1835,11 +1832,7 @@ function fileChange(e) {
 							  <li><a href="#">2</a></li>
 							  <li><a href="#">»</a></li>
 							</ul>
-							
-							
-						
-						
-						
+
 						
 						</div>
 					  </div>

@@ -28,7 +28,6 @@ public class EsSearchServiceimpl implements EsSearchService {
 	@Inject
 	private EsMemberDAO memberDao;
 	
-	
 	// 통합검색결과 리스트 조회 
 	@Override
 	public EsSearchResult getTotalSearchList(SearchCriteria cri) throws Exception{
@@ -43,35 +42,12 @@ public class EsSearchServiceimpl implements EsSearchService {
 		
 	}
 	
-	// 페이지 처리
-	@Override
-	public EsSearchResult pageList(SearchCriteria cri) throws Exception{
-		
-		EsSearchResult result = getTotalSearchList(cri);
-		
-		List<EsContentsVO> contentsList = new ArrayList<>();
-		List<EsPlanVO> planList = new ArrayList<>();
-		List<EsMemberVO> memberList = new ArrayList<>();
-		
-		for(int i=0;i<1;i++) {
-			contentsList.add(result.getContentsList().get(i));
-//			planList.add(result.getPlanList().get(i));
-//			memberList.add(result.getMemberList().get(i));
-		}
-		
-		result.contentsList = contentsList;
-		result.planList = planList;
-		result.memberList = memberList;
-		
-		return result;
-
-	}
-	
 	// 통합검색결과 건수 조회 
 	@Override
 	public HashMap<String,String> getTotalSearchNum(SearchCriteria cri) throws Exception{
 		
 		HashMap<String,String> getNumbers = new HashMap<>();
+		
 		long result = 0;
 		result += contentsDao.getTotalContentsNum(cri);
 		result += planDao.getTotalPlanNum(cri);
@@ -83,6 +59,61 @@ public class EsSearchServiceimpl implements EsSearchService {
 		getNumbers.put("totalNum", String.valueOf(result));
 		
 		return getNumbers;
+		
+	}
+	
+	// 컨텐츠 페이지 처리
+	@Override
+	public List<EsContentsVO> contentsList(SearchCriteria cri) throws Exception{
+		
+		List<EsContentsVO> contentsList = contentsDao.getContentsList(cri);
+		System.out.println("contentsSize:"+contentsList.size());
+		List<EsContentsVO> result = new ArrayList<>();
+		if(contentsList.size() > 10) {
+			for(int i=cri.getPageStart();i<cri.getPage()*cri.getPerPageNum();i++) {
+				result.add(contentsList.get(i));
+			}
+		}else {
+			result = contentsList;
+		}
+		System.out.println("contentsList"+result.toString());
+		return result;
+		
+	}
+	
+	// 플랜 페이지 처리
+	@Override
+	public List<EsPlanVO> planList(SearchCriteria cri) throws Exception{
+		
+		List<EsPlanVO> planList = planDao.getPlanList(cri);
+		List<EsPlanVO> result = new ArrayList<>();
+		if(planList.size() > 10) {
+			for(int i=cri.getPageStart();i<cri.getPage()*cri.getPerPageNum();i++) {
+				result.add(planList.get(i));
+			}
+		}else {
+			result = planList;
+		}
+		System.out.println("contentsList"+result.toString());
+		return result;
+		
+	}
+	
+	// 멤버 페이지 처리
+	@Override
+	public List<EsMemberVO> memberList(SearchCriteria cri) throws Exception{
+		
+		List<EsMemberVO> memberList = memberDao.getMemberList(cri);
+		List<EsMemberVO> result = new ArrayList<>();
+		if(memberList.size() > 10) {
+			for(int i=cri.getPageStart();i<cri.getPage()*cri.getPerPageNum();i++) {
+				result.add(memberList.get(i));
+			}
+		}else {
+			result = memberList;
+		}
+		System.out.println("contentsList"+result.toString());
+		return result;
 		
 	}
 

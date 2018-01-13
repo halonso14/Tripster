@@ -6,11 +6,9 @@ import java.net.URLEncoder;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-
 public class SearchPageMaker { // 페이지 처리용 객체.
 	
 	private int totalCount; // DB에서 계산되는 데이터 (전체 게시글 개수)
-	
 	private int startPage; // 계산을 통해 만들어지는 데이터
 	private int endPage;
 	private boolean prev;
@@ -20,6 +18,7 @@ public class SearchPageMaker { // 페이지 처리용 객체.
 	private SearchCriteria cri;
 
 	private void calcData() {
+		
 		endPage = (int) (Math.ceil(cri.getPage() / (double) displayPageNum) * displayPageNum);
 		startPage = (endPage - displayPageNum) + 1;
 		int tempEndPage = (int) (Math.ceil(totalCount / (double) cri.getPerPageNum()));
@@ -83,14 +82,19 @@ public class SearchPageMaker { // 페이지 처리용 객체.
 	
 	//GET방식으로 페이지 처리가 복잡해짐 -> makeQuery메소드로 처리 
 	//UriComponents :  path나 query에 해당하는 문자열들을 추가해 원하는 URI를 생성해줌.
-	public String makeQuery(int page) {
-		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
-				.queryParam("perPageNum", cri.getPerPageNum()).build();
+	public String makeQuery(int page,String go) {
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
+				.queryParam("perPageNum", cri.getPerPageNum())
+				.queryParam("go", go)
+				.queryParam("keyword", cri.getKeyword()).build();
+		
 		return uriComponents.toUriString();
 	}
 	
 	public String makeSearch(int page) {
-		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
 				.queryParam("perPageNum", cri.getPerPageNum())
 				.queryParam("keyword", ((SearchCriteria) cri).getKeyword()).build();
 		return uriComponents.toUriString();
@@ -106,4 +110,5 @@ public class SearchPageMaker { // 페이지 처리용 객체.
 			return "";
 		}
 	}
+	
 }

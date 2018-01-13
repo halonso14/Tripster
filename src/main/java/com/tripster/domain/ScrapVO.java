@@ -1,5 +1,7 @@
 package com.tripster.domain;
 
+import java.util.Date;
+
 public class ScrapVO {
 	
 	private int scrapID;
@@ -8,6 +10,8 @@ public class ScrapVO {
 	private int contentsID;
 	private String contentsTitle;
 	private String contentsPhoto;
+	private Date created;
+	private Date updated;
 	
 	public int getScrapID() {
 		return scrapID;
