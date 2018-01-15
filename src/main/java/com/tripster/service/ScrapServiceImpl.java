@@ -16,21 +16,11 @@ public class ScrapServiceImpl implements ScrapService{
 	
 	@Inject
 	private ScrapDAO scrapDao;
-	@Inject 
-	private ContentsDAO contentsDao;
 	
 	// 스크랩
 	@Override
-	public void scrap(Integer contentsID,Integer memberID)throws Exception{
-		ContentsVO cont = new ContentsVO();
-		ScrapVO vo = new ScrapVO();
-		cont = contentsDao.getRestaurantDetail(contentsID);
-		vo.setCategoryID(cont.getCategoryID());
-		vo.setContentsID(cont.getContentsID());
-		vo.setContentsTitle(cont.getTitle());
-		vo.setContentsPhoto("http://cfile26.uf.tistory.com/image/2642053B532A9F7519A004");
-		vo.setMemberID(memberID);
-		scrapDao.create(vo);
+	public void scrap(Integer memberID,Integer contentsID)throws Exception{
+		scrapDao.create(memberID,contentsID);
 	}
 	
 	// 스크랩 삭제

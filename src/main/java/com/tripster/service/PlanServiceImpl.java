@@ -92,6 +92,6 @@ public class PlanServiceImpl implements PlanService{
 	public String memberName(int memberID) throws Exception {
 		return planDAO.selectMemberName(memberID);
 	}
-	
+
 	
 }

@@ -41,6 +41,7 @@
 	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.dependClass-0.1.js"></script>
 	<script type="text/javascript" src="/resources/plugins/jslider/js/draggable-0.1.js"></script>
 	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.slider.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 	<!-- end -->
   </head>
   <body id="top" class="thebg" >
@@ -75,40 +76,25 @@
 			<!-- LEFT CONTENT: SIDE FILTERS -->
 			<div class="col-md-3 filters offset-0">
 				<ul class="blogcat margleft20 margright20 margtop10">
-					<li onclick="searchTotal()" class="size16">
-						<a href="#">
+					<li class="size16">
+						<a href="result?keyword=${cri.keyword }&go=total" >
 						<span class="hidetext">'${cri.keyword }'검색결과</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("totalNum") }</span></a></li>
-					<li onclick="searchContents()">
-						<a href="#">
+					<li class="">
+						<a href="result?keyword=${cri.keyword }&go=contents">
 						<span class="hidetext">컨텐츠</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("contentsNum") }</span></a></li>
-					<li onclick="searchPlan()" class="">
-						<a href="#">
+					<li class="">
+						<a href="result?keyword=${cri.keyword }&go=plan">
 						<span class="hidetext">일정</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("planNum") }</span></a></li>
-					<li onclick="searchMember()" class="">
-						<a href="#">
+					<li class="">
+						<a href="result?keyword=${cri.keyword }&go=member">
 						<span class="hidetext">회원</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("memberNum") }</span></a></li>
 				</ul>
 			</div>
-			<script>
-				
-				function searchTotal(){
-					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=total";
-				}
-				function searchContents(){
-					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=contents";
-				}
-				function searchPlan(){
-					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=plan";
-				}
-				function searchMember(){
-					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=member";
-				}
-				
-			</script>
+			
 			<!-- RIGHT CONTENT -->
 			<div class="rightcontent col-md-9 offset-0">
 				<div class="tab-content6">
@@ -189,7 +175,7 @@
 											 	<button class="bookbtn mt1" type="submit">Detail</button>		
 											</div>
 											<div class="labelleft">			
-												<span class="size16"><b>${esContentsVO.contents_title}</b></span><br>
+												<span class="size16"><a href="/contents/${esContentsVO.category_id }/${esContentsVO.contents_id }"><b>${esContentsVO.contents_title}</b></a></span><br>
 												<span class="opensans size14 grey">
 													<span class="grey2">Category:
 													<c:set var="category" value="${esContentsVO.category_id }"/>
@@ -220,11 +206,13 @@
 							</c:forEach>
 							
 							<div style="text-align: right">
-								<a href="#" onclick="searchContents()" style="color:blue;padding-right: 20px;">컨텐츠 더보기 </a>
+								<a href="/search/result?keyword=${cri.keyword }&go=contents" style="color:blue;padding-right: 20px;">컨텐츠 더보기 </a>
 							</div>
 								
 							<div class="offset-2"><hr class="featurette-divider3"></div>
 						</div>
+						
+						
 
 						<!--####### 일정 검색결과 : 템플릿 list3.html #######-->	
 						<div class="plans" style=" height: 400px;display: block;">
@@ -245,9 +233,9 @@
 											<button class="bookbtn mt1">Book</button>		
 										</div>
 										<div class="labelleft">	
-											<span class="size16"><b>${esPlanVO.planTitle}</b></span><br>		
+											<span class="size16"><b>${esPlanVO.plan_title}</b></span><br>		
 											<br>
-											<p class="grey">${esPlanVO.planDetailVO.title}</p>
+											<p class="grey"></p>
 										</div>
 									</div>
 									<div class="clearfix"></div>
@@ -257,7 +245,7 @@
 							<div class="offset-2"><hr class="featurette-divider2"></div>	
 							
 						</div>
-						
+			
 						<!--####### 유저 검색결과 : 템플릿 list2.html #######-->
 						<div class="members">
 							<c:forEach items="${memberList}" var = "esMemberVO" begin="0" end="2">

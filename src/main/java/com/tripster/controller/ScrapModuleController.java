@@ -38,7 +38,7 @@ public class ScrapModuleController {
 			// session의 회원정보 가져오기
 			MemberVO memberVO = (MemberVO) session.getAttribute("login");
 			// id 값을 받아서 스크랩 추가 
-			scrapService.scrap(contentsID,memberVO.getMemberID());
+			scrapService.scrap(memberVO.getMemberID(),contentsID);
 			loger.info("scrap success");
 			entity = new ResponseEntity<>("success",HttpStatus.OK);
 			
@@ -86,8 +86,7 @@ public class ScrapModuleController {
 		try {
 			
 //			loger.info("scrap list");
-			Object obj = session.getAttribute("login");
-			MemberVO memberVO = (MemberVO) obj;
+			MemberVO memberVO = (MemberVO) session.getAttribute("login");
 			// 멤버 id를 받아 리스트를 조회하여 뷰단으로 전송
 			loger.info("scrap list"+scrapService.listAll(memberVO.getMemberID()).toString());
 			entity = new ResponseEntity<>(scrapService.listAll(memberVO.getMemberID()),HttpStatus.OK);

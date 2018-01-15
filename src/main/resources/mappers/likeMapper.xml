@@ -20,6 +20,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   						)
   </insert>
   
+  <!-- 좋아요 카운트 갱신 -->
+  <update id="likeCnt">
+  update tbl_Plan 
+  set Plan_Like_Cnt = Plan_Like_Cnt + #{amount} ,Updated = now()
+  where Plan_ID = #{planID};
+  </update>
+
+
   <!-- 플랜 ID로 플랜을 조회 -->
   <select id="userSchedule" resultType="com.tripster.domain.PlanVO">
   	select 

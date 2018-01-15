@@ -26,12 +26,12 @@ public class ContentsDAOTest {
 	Criteria cri = new Criteria();
 	
 	//컨텐츠 상세 정보 검색 / 조회수 갱신 테스트
-//	@Test
-//	public void testRead() throws Exception {
-//		System.out.println(dao.read(1).toString());
-//		dao.updateContentsViewCnt(1);
-//		System.out.println(dao.read(1).toString());
-//	}
+	@Test
+	public void testRead() throws Exception {
+		System.out.println(dao.getRestaurantDetail(24));
+		
+		System.out.println();
+	}
 //	
 //	//컨텐츠 리스트 조회 테스트
 //	@Test

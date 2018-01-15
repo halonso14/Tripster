@@ -9,9 +9,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.tripster.domain.EsContentsVO;
+import com.tripster.domain.EsPlanVO;
 import com.tripster.domain.SearchCriteria;
 import com.tripster.persistence.EsContentsDAO;
+import com.tripster.persistence.EsPlanDAO;
 import com.tripster.service.EsSearchService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,7 +23,8 @@ public class esSearchTest {
 	EsSearchService service;
 	@Inject
 	EsContentsDAO dao;
-	
+	@Inject
+	EsPlanDAO plandao;
 //	@Test
 //	public void contentsListPageTest() throws Exception{
 //		
@@ -36,16 +38,27 @@ public class esSearchTest {
 //		
 //	}
 	
+//	@Test
+//	public void pageTest() throws Exception{
+//		
+//		SearchCriteria cri = new SearchCriteria();
+//		cri.setKeyword("1");
+//		
+//		List<EsContentsVO> list = dao.getContentsList(cri);
+//		
+//		System.out.println(dao.getTotalContentsNum(cri));
+//		System.out.println(list.size());
+//		
+//	}
+	
 	@Test
-	public void pageTest() throws Exception{
+	public void planList() throws Exception{
 		
 		SearchCriteria cri = new SearchCriteria();
-		cri.setKeyword("편안한횟집");
+		cri.setKeyword("1");
+		List<EsPlanVO> list = plandao.getPlanList(cri);
 		
-		List<EsContentsVO> list = dao.getContentsList(cri);
-		
-		System.out.println(list.get(0).getContents_keyword());
-		
+		System.out.println(list.toString());
 	}
 
 }

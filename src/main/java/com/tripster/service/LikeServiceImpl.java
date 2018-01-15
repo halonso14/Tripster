@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tripster.domain.FollowVO;
 import com.tripster.domain.LikeVO;
@@ -22,10 +23,12 @@ public class LikeServiceImpl implements LikeService{
 	@Inject
 	PlanDAO planDAO;
 	
-	// 좋아요 
+	// 좋아요 추가
+	@Transactional
 	@Override
 	public void like(LikeVO vo) throws Exception{
 		likeDAO.like(vo);
+		likeDAO.updateLike(vo.getPlanID(), 1);
 	}
 	
 	// 유저의 플랜 조회
@@ -35,9 +38,11 @@ public class LikeServiceImpl implements LikeService{
 	}
 	
 	// 좋아요 삭제
+	@Transactional
 	@Override
 	public void likeDelete(Integer planID) throws Exception{
 		likeDAO.likeDelete(planID);
+		likeDAO.updateLike(planID, -1);
 	}
 
 	// 유저의 좋아요 체크

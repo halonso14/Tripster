@@ -94,4 +94,5 @@ public class ContentsDAOImpl implements ContentsDAO{
 		map.put("contentsID",contentsID);
 		session.insert(namespace+".updateContentsRating",map);
 	}
+	
 }
