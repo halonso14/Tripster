@@ -7,44 +7,70 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <select id="getRestaurantDetail" resultType="ContentsVO">
   select 
-  	 tbl_contents.Category_ID categoryID
-  	,tbl_contents.Contents_ID contentsID
-  	,tbl_contents.Contents_Title title
-  	,tbl_contents.Contents_Location location 
-  	,tbl_contents.Contents_Rating rating
-  	,tbl_contents.Contents_View_Cnt contentsViewCnt
-  	,tbl_contents.Contents_Review_Cnt contentsReviewCnt
-  	,tbl_contents.Contents_Scrap_Cnt contentsScrapCnt
-  	,tbl_contents_detail.Contents_Contents contents
-  	,tbl_contents_detail.Contents_Time time
-  	,tbl_contents_detail.Contents_Tel tel
+  	tbl_Contents.Contents_ID contentsID
+  	,tbl_Contents.Category_ID categoryID
+  	,tbl_Contents.Contents_Title title
+  	,tbl_Contents.Contents_Keyword keyword
+  	,tbl_Contents.Contents_Location location
+  	,tbl_Contents.Contents_Country country
+  	,tbl_Contents.Contents_City city
+  	,tbl_Contents.Contents_Rating rating
+  	,tbl_Contents.Contents_View_Cnt contentsViewCnt
+  	,tbl_Contents.Contents_Review_Cnt contentsReviewCnt
+  	,tbl_Contents.Contents_Scrap_Cnt contentsScrapCnt
+  	,tbl_Contents.Contents_Thumbnail contentsThumbnail
+  	,tbl_Contents_Detail.Contents_Contents contents
+  	,tbl_Contents_Detail.Contents_Time time
+  	,tbl_Contents_Detail.Contents_Tel tel
+  	,tbl_Contents_Detail.Contents_Lat lat
+  	,tbl_Contents_Detail.Contents_Long lng
   from
-  	tbl_contents NATURAL JOIN tbl_contents_detail
+  	tbl_Contents NATURAL JOIN tbl_Contents_Detail
   where
-  	tbl_contents.Contents_ID = #{contentsID}
+  	tbl_Contents.Contents_ID = #{contentsID}
   </select>
   
   <select id="getPlaceDetail" resultType="ContentsVO">
   select 
-  	tbl_contents.Category_ID categoryID,tbl_contents.Contents_ID contentsID,tbl_contents.Contents_Title title,
-  	tbl_contents.Contents_Location location, tbl_contents.Contents_Rating rating,
-  	tbl_contents.Contents_View_Cnt contentsViewCnt, tbl_contents.Contents_Review_Cnt contentsReviewCnt,
-  	tbl_contents.Contents_Scrap_Cnt contentsScrapCnt, tbl_contents_detail.Contents_Contents contents,
-  	tbl_contents_detail.Contents_Time time, tbl_contents_detail.Contents_Tel tel
+  	tbl_Contents.Contents_ID contentsID
+  	,tbl_Contents.Category_ID categoryID
+  	,tbl_Contents.Contents_Title title
+  	,tbl_Contents.Contents_Keyword keyword
+  	,tbl_Contents.Contents_Location location
+  	,tbl_Contents.Contents_Country country
+  	,tbl_Contents.Contents_City city
+  	,tbl_Contents.Contents_Rating rating
+  	,tbl_Contents.Contents_View_Cnt contentsViewCnt
+  	,tbl_Contents.Contents_Review_Cnt contentsReviewCnt
+  	,tbl_Contents.Contents_Scrap_Cnt contentsScrapCnt
+  	,tbl_Contents.Contents_Thumbnail contentsThumbnail
+  	,tbl_Contents_Detail.Contents_Contents contents
+  	,tbl_Contents_Detail.Contents_Time time
+  	,tbl_Contents_Detail.Contents_Tel tel
+  	,tbl_Contents_Detail.Contents_Lat lat
+  	,tbl_Contents_Detail.Contents_Long lng
   from
-  	tbl_contents NATURAL JOIN tbl_contents_detail
+  	tbl_Contents NATURAL JOIN tbl_Contents_Detail
   where
-  	tbl_contents.Contents_ID = #{contentsID}
+  	tbl_Contents.Contents_ID = #{contentsID}
   </select>
   
   <select id="getRestaurantList" resultType="ContentsVO">
  <![CDATA[
   select 
-  	Category_ID categoryID, Contents_ID contentsID, Contents_Title title, Contents_Location location,
-  	Contents_Rating rating, Contents_View_Cnt contentsViewCnt, Contents_Review_Cnt contentsReviewCnt,
-  	Contents_Scrap_Cnt contentsScrapCnt
+  	Contents_ID contentsID
+  	,Category_ID categoryID
+  	,Contents_Title title
+  	,Contents_Keyword keyword
+  	,Contents_Location location
+  	,Contents_Country country
+  	,Contents_City city
+  	,Contents_Rating rating
+  	,Contents_View_Cnt contentsViewCnt
+  	,Contents_Review_Cnt contentsReviewCnt
+  	,Contents_Scrap_Cnt contentsScrapCnt
   from
-  	tbl_contents
+  	tbl_Contents
   where
   	Category_ID = 1
   order by Contents_ID desc
@@ -55,11 +81,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <select id="getPlaceList" resultType="ContentsVO">
   <![CDATA[
   select 
-  	Category_ID categoryID, Contents_ID contentsID, Contents_Title title, Contents_Location location,
-  	Contents_Rating rating, Contents_View_Cnt contentsViewCnt, Contents_Review_Cnt contentsReviewCnt,
-  	Contents_Scrap_Cnt contentsScrapCnt
+  	Contents_ID contentsID
+  	,Category_ID categoryID
+  	,Contents_Title title
+  	,Contents_Keyword keyword
+  	,Contents_Location location
+  	,Contents_Country country
+  	,Contents_City city
+  	,Contents_Rating rating
+  	,Contents_View_Cnt contentsViewCnt
+  	,Contents_Review_Cnt contentsReviewCnt
+  	,Contents_Scrap_Cnt contentsScrapCnt
   from
-  	tbl_contents
+  	tbl_Contents
   where
   	Category_ID = 2
   order by Contents_ID desc
@@ -72,7 +106,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   select 
   	count(Contents_ID)
   from
-  	tbl_contents
+  	tbl_Contents
   where
     Category_ID = 1
   ]]>
@@ -83,7 +117,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   select 
   	count(Contents_ID)
   from
-  	tbl_contents
+  	tbl_Contents
   where
     Category_ID = 2
   ]]>
@@ -91,7 +125,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <update id="updateViewCnt">
   update
-  	tbl_contents
+  	tbl_Contents
   set
   	Contents_View_Cnt = Contents_View_Cnt + 1
   where
@@ -100,7 +134,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <update id="updateReviewCnt">
   update
-  	tbl_contents
+  	tbl_Contents
   set
   	Contents_Review_Cnt = Contents_Review_Cnt + #{amount}
   where
@@ -109,7 +143,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <update id="updateScrapCnt">
   update
-  	tbl_contents
+  	tbl_Contents
   set
   	Contents_Scrap_Cnt = Contents_Scrap_Cnt + #{amount}
   where
@@ -119,7 +153,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 컨텐츠 평점 -->
   <update id="updateContentsRating">
   update
-  	tbl_contents
+  	tbl_Contents
   set
   	Contents_Rating = #{contentsRating}
   where

@@ -11,80 +11,79 @@
 
 </head>
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="/resources/assets/js/js-blog.js"></script>
 <body>
-	<table>
-		<tr>
-			<th>${cri.curPage}</th>
-			<th>contentsID</th>
-			<th>title</th>
-			<th>location</th>
-			<th>rating</th>
-			<th>categoryID</th>
-			<th>viewCnt</th>
-			<th>reviewCnt</th>
-			<th>scrapCnt</th>
-		</tr>
-		<tr>
-			<td>${vo.contentsID}</td>
-			<td>${vo.title}</td>
-			<td>${vo.location}</td>
-			<td>${vo.rating}</td>
-			<td>${vo.categoryID}</td>
-			<td>${vo.contentsViewCnt}</td>
-			<td>${vo.contentsReviewCnt}</td>
-			<td>${vo.contentsScrapCnt}</td>
-		</tr>
-	</table>
-	
 	
 	<!-- CONTENT -->
 	<!-- 유저 세션  -->
 	<c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
+	
 	<div class="container">
 		<div class="container mt25 offset-0">
 			<div class="col-md-12 pagecontainer2 offset-0">
 				<div class="hpadding50c">
-					<p class="lato size30 slim">${vo.title}
+					<span class="lato size30 dark bold">${vo.title}
 					<button class="btn-search4 right" id="getList">리스트 페이지</button>
-					
-					</p>
-					
+					</span>
 					<p class="aboutarrow"></p>
-					
 				</div>
-				
 				<div class="line3"></div>
+			</div>
+		</div>				
 				
-				<div class="hpadding50c">
-
-					<!-- 왼쪽 파트 -->
-					<!-- 본문 -->
-					<div class="col-md-8 cpdd01 grey2" style="width:100%;">
-						<div class="abover">
-							<div class="abbg">
-								<a href="/resources/images/about-man.jpg" class="blogpost-hover" data-footer="A custom footer text" data-title="A random title" data-gallery="multiimages" data-toggle="lightbox"><span class="glyphicon glyphicon-zoom-in"></span></a>
-							</div>
-							<img src="/resources/images/about-man.jpg" class="fwimg" alt=""/>
+		<!-- 상단 파트 시작 -->
+		<div class="container pagecontainer offset-0">
+			<!-- 슬라이더 파트 시작  -->
+			<div class="col-md-8 details-slider">
+				<div id="c-carousel">
+				<div id="wrapper">
+				<div id="inner">
+					<div id="caroufredsel_wrapper2">
+						<div id="carousel">
+						<div class="abover" style="width:625px; height:387.5px;">
+						<div class="abbg">
+							<a href="${vo.contentsThumbnail}" class="blogpost-hover" ><span class="glyphicon glyphicon-zoom-in"></span></a>
+						</div>					
+							<img src="${vo.contentsThumbnail}" class="fwimg"/>
 						</div><br/>
-						
-						<span class="lato size22 dark bold">소제목?</span><br/>						
-						<!-- 로그인 체크 -->
-						<c:choose>
-	        				<c:when test = "${empty userSession}">
-								<!-- 스크랩 버튼 없음 -->
-							</c:when>
+						</div>
+					</div>
+					<div id="pager-wrapper">
+						<div id="pager">
+							<img src="${vo.contentsThumbnail}" width="120" height="68" alt=""/>					
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+					<button id="prev_btn2" class="prev2"><img src="/resources/images/spacer.png" alt=""/></button>
+					<button id="next_btn2" class="next2"><img src="/resources/images/spacer.png" alt=""/></button>		
+				</div>
+				</div>
+			</div>
 			
- 							<c:otherwise>		
- 								<!-- 로그인시 스크랩 버튼 추가 -->
-	 							<button id="scrapBttn" value=${scrapCheck } >스크랩</button>
-							</c:otherwise>
-        				</c:choose>
-						
-						<div class="line4"></div>
-						컨텐츠 내용
-						<br/><br/>
-						<br/><br/>
-						<div class="line4"></div>
+			<!-- 오른쪽 파트 시작 -->
+			<div class="col-md-4 detailsright offset-0">
+				<!-- 구글맵 파트 시작 -->
+					<div class="hpadding80" id="map" style="height:333px"></div>
+					<br/>
+
+							<!-- 로그인 체크 -->
+							<c:choose>
+		        				<c:when test = "${empty userSession}">
+									<!-- 스크랩 버튼 없음 -->
+								</c:when>
+				
+	 							<c:otherwise>		
+	 								<!-- 로그인시 스크랩 버튼 추가 -->
+		 							<button class="btn-search4 left" id="scrapBtn" value=${scrapCheck}>스크랩</button>
+								</c:otherwise>
+	        				</c:choose>			
+			</div>
+		</div>
+		
+		<!-- 아래 파트 시작 -->
+		<div class="container pagecontainer offset-0">
+					
 						
 						<div class="col-md-12 pagecontainer2 offset-0">
 							<div class="cstyle10"></div>
@@ -93,20 +92,19 @@
 							</ul>
 							<div class="tab-content4" >
 							
-							<!-- 왜 있지? -->
-							<div id="reviews" class="tab-pane fade active in"></div>
+
 							<!-- 리뷰 리스트 조회 -->
 							<div class="hpadding20">
-							<span class="opensans dark size16 bold">Reviews</span>
-						</div>
+								<span class="opensans dark size16 bold">Reviews</span>
+							</div>
 					
 						<div class="line2"></div>
 						
 						<!-- 리뷰 호출 -->
 						<div class="hpadding20" id="reviewList">
-				
+
 						</div>
-				
+						
 						<!-- 리뷰 페이징 -->
 						<div class="hpadding20">
 							<ul class="pagination right paddingbtm20" id="reviewPaging">
@@ -125,7 +123,6 @@
 						<div class="wh25percent left center" style=" height: 400px;">
 							<ul class="jslidetext2">
 								<li>Username</li>
-								<li>Evaluation</li>
 								<li>Title</li>
 								<li>rating</li>
 								<li style="margin: 120px 0px;">Comment</li>
@@ -142,12 +139,6 @@
 							</script>
 							<div class="padding12 relative wh75percent">
 								<input type="text" class="form-control margtop10" placeholder="">
-								<select class="form-control mySelectBoxClass margtop10">
-									<option selected>Wonderful!</option>
-									<option>Nice</option>
-									<option>Neutral</option>
-									<option>Don't recommend</option>
-								</select>
 								<input type="text" class="form-control margtop10" placeholder="">
 								<div id="collapse1" class="collapse in">
 									<div class="hpadding20">
@@ -203,24 +194,37 @@
 						</div>
 						<div class="wh80percent right"></div>
 					</div>
-				</div>
-				<!-- END OF LEFT IMG -->
+					<!-- END OF LEFT IMG -->
+					<!-- 오른쪽 파트 시작-->
+
 					
-					
-				
-					<!-- END OF IMG RIGHT TEXT -->
 					<div class="clearfix"></div>
 					<br/><br/>
-				</div>
-
-			<div class="clearfix"></div><br/><br/>
-		</div>
-	</div>
+									<!-- 오른쪽 파트 끝 -->
+				<div class="clearfix"></div><br/><br/>
 </div>
 
-<!-- END CONTENT -->
-<!-- Modal -->
+					
 
+
+<!-- END CONTENT -->
+
+<script>
+//구글 맵 불러오기
+function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 14,
+      center: new google.maps.LatLng(48.830808, 2.230123)
+    });
+    var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(48.830808, 2.230123),
+      map: map
+    });	
+}
+
+</script>
+<script async defer
+src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmc4Y1GGbbAKfnxTRfqM3U2vc8E_Fr1AA&callback=initMap"></script>
 <script>
 	$(document).ready(function(){
 		
@@ -229,17 +233,18 @@
 		var contentsID = ${contentsID};
 		var categoryID = ${categoryID};
 		var reviewPage = 1;
-		var scrapbt = $("#scrapBttn");
+		var scrapbt = $("#scrapBtn");
+		var scrapCheck = 0;
 		
 		// 화면에서 등록한 파일 이름 저장
 		var fileNames = new Array;
-		var ranking = 0;
+		var contentsReviewRating = 0;
 		
 		// 리뷰 평점 저장
 		$('input[type="checkbox"]').on("click",function () {
 	        $('input[type="checkbox"]').not(this).prop("checked", false);
-	        ranking = this.value;
-	        alert(ranking);
+	        contentsReviewRating = this.value;
+	        alert(contentsReviewRating);
 	    });
 		
 		// 스크랩 체크
@@ -278,7 +283,7 @@
 		
 		// 리뷰 등록
 		$("#writeReview").on("click", function(){
-			alert(ranking);
+			alert(contentsReviewRating);
 			var contentsReview = $("#reviewDetail").val();
 			
 			$.ajax({
@@ -294,7 +299,7 @@
 					memberID : memberID,
 					contentsReview : contentsReview,
 					reviewPictureName : fileNames,
-					ranking : ranking
+					contentsReviewRating : contentsReviewRating
 				}),
 				success : function(data) {
 						alert(data);
@@ -393,7 +398,6 @@
 				
 				// 컨텐츠의 리뷰 리스트 받아오기
 				$(data.list).each(function() {
-					console.log('1')
 					str += "<div class='col-md-4 offset-0 center' data-contentsReviewID='"+this.contentsReviewID+"'>"
 						+ "		<div class='padding20'>"
 						+ "			<div class='bordertype5'>"
@@ -412,7 +416,7 @@
 						+ "			<span class='opensans size16 dark'>Great experience</span><br/>"
 						+ "			<span class='opensans size13 lgrey'>Posted Jun 02, 2013</span><br/>"
 						+ "			<p data-contentsReviewID='"+this.contentsReviewID+"' class='"+this.contentsReviewID+"'>"+ this.contentsReview + "</p>"
-						+ 			"<div id='getImage'>"+getImage(this.reviewPictureName)+"</div>"
+//						+ " 			<div id='getImage'>"+getImage(this.reviewPictureName)+"</div>" 
 						+ "		</div>"
 						+ "	</div>"
 						+ " <div>"
@@ -441,28 +445,24 @@
 		// 리뷰 아이디를 받아 이미지 생성 
 		function getImage(reviewPictureName){
 			var fileList = new Array;
+			var str = "";
 			fileList = reviewPictureName;
-			var str = "" ;
-			
 			// 받은 파일 이름들로 이미지 추가
 			for(var i=0;i<fileList.length;i++){
 				// 확장자 검사
-		        if(checkImageType(fileList[i])){
-		            // 이미지 파일일 경우 썸네일 생성
-		            str = str + "<li>"
-		                // 원본 파일 링크
-		                + "<a href='/displayFile?fileName="+ getImageLink(fileList[i])+"'>"
-		                // 썸네일 생성
-		                + "<img src='/displayFile?fileName="+fileList[i]+"'/>"
-		                + getOriginalName(fileList[i]) +"</a></li>";
-		        }else{
-		            // 이미지 파일이 아닐경우 다운로드
-		            str = str + "<li><a href='/displayFile?fileName="+fileList[i]+"'>" + getOriginalName(fileList[i])+"</a></li>";
-		                
-		        };
+				if(checkImageType(fileList[i])){
+					// 이미지 파일일 경우 썸네일 생성
+			    	str = str + "<li>"
+			    	// 원본 파일 링크
+			    	+ "<a href='/displayFile?fileName="+ getImageLink(fileList[i])+"'>"
+			    	// 썸네일 생성
+			    	+ "<img src='/displayFile?fileName="+fileList[i]+"'/>"
+			    	+ getOriginalName(fileList[i]) +"</a></li>";
+			   	}else{
+			    	// 이미지 파일이 아닐경우 다운로드
+			        str = str + "<li><a href='/displayFile?fileName="+fileList[i]+"'>" + getOriginalName(fileList[i])+"</a></li>";
+				};	
 			}
-			
-		    console.log(str);
 			return str;
 		}
 		

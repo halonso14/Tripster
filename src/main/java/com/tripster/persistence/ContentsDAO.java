@@ -33,5 +33,6 @@ public interface ContentsDAO {
 	//컨텐츠 스크랩 횟수 수정
 	public void updateScrapCnt(Integer contentsID, int amount) throws Exception;
 
-	//카테고리별 개수 + 검색 + @
+	//컨텐츠 평점
+	public void updateContentsRating(Integer contentsID, double contentsRating) throws Exception;
 }

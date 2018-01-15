@@ -23,8 +23,6 @@ public interface ContentsReviewDAO {
 	
 	//리뷰 대상 컨텐츠의 ID 조회
 	public int getContentsID(Integer contentsReviewID) throws Exception;
-
-	//검색 구현 시 추가
 	
 	// 파일 이름 저장
 	public void registReviewPicture(String fileName) throws Exception;

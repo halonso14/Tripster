@@ -7,23 +7,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <insert id="write">
   insert into
-  	tbl_contents_review (Contents_ID, Member_ID, Contents_Review, Contents_Review_Time, Contents_Review_Ranking)
+  	tbl_Contents_Review (Contents_ID, Member_ID, Contents_Review, Contents_Review_Rating)
   values
-  	(#{contentsID}, #{memberID}, #{contentsReview}, now(), #{ranking})
+  	(#{contentsID}, #{memberID}, #{contentsReview}, #{contentsReviewRating})
   </insert>
   
   <update id="modify">
   update
-  	tbl_contents_review
+  	tbl_Contents_Review
   set
-  	Contents_Review = #{contentsReview}, Contents_Review_Time = now()
+  	Contents_Review = #{contentsReview}
   where
   	Contents_Review_ID = #{contentsReviewID}
   </update>
  
   <delete id="delete">
   delete from
-  	tbl_contents_review
+  	tbl_Contents_Review
   where
   	Contents_Review_ID = #{contentsReviewID}
   </delete>
@@ -33,10 +33,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	Member_ID memberID, 
   	Contents_Review_ID contentsReviewID, 
   	Contents_Review contentsReview, 
-  	Contents_Review_Time contentsReviewTime,
-  	Contents_Review_Ranking ranking
+  	Contents_Review_Rating contentsReviewRating
   from
-  	tbl_contents_review
+  	tbl_Contents_Review
   where
   	Contents_ID = #{contentsID}
   order by Contents_Review_ID desc	
@@ -47,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   select 
   	count(Contents_ID)
   from
-  	tbl_contents_review
+  	tbl_Contents_Review
   where
     Contents_ID = #{contentsID}
   </select>
@@ -56,34 +55,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   select
   	Contents_ID
   from
-  	tbl_contents_review
+  	tbl_Contents_Review
   where
   	Contents_Review_ID = #{contentsReviewID}
   </select>
   
   <insert id="registReviewPicture">
-  insert into tbl_review_attachment 
-  									   (Contents_Review_ID
-  									   ,Review_Picture_Name)
-  								values
-  									  (
-  									   #{reviewID}
-  									  ,#{fileName}
-  									 )
+  insert into tbl_Review_Attachment 
+  		(Contents_Review_ID,Review_Picture_Name)
+  	values
+  		(#{reviewID},#{fileName})
   </insert>
   
   <select id="maxReviewID" resultType="Integer">
   	select 
   			Max(Contents_Review_ID)
   	from 
-  			tbl_contents_review
+  			tbl_Contents_Review
   </select>
   
   <select id="getFileNames" resultType="String">
   select
   		Review_Picture_Name
   from 
-  		tbl_review_attachment
+  		tbl_Review_Attachment
   		
   where Contents_Review_ID = #{reviewID}
   </select>

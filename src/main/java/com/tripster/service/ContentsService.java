@@ -25,6 +25,6 @@ public interface ContentsService {
 	public int getTotalPlaceNum(Criteria cri) throws Exception;
 	
 	//컨텐츠 평점
-//	public void updateContentsRating(Integer contentsRating,Integer contentsID) throws Exception;
+	public void updateContentsRating(Integer contentsID, double contentsRating) throws Exception;
 	
 }

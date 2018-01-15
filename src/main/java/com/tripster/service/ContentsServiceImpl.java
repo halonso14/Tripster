@@ -60,8 +60,8 @@ public class ContentsServiceImpl implements ContentsService {
 	}
 	
 	//컨텐츠 평점
-//	@Override
-//	public void updateContentsRating(Integer contentsRating,Integer contentsID) throws Exception{
-//		dao.updateContentsRating(contentsRating,contentsID);
-//	}
+	@Override
+	public void updateContentsRating(Integer contentsID, double contentsRating) throws Exception{
+		dao.updateContentsRating(contentsID,contentsRating);
+	}
 }
