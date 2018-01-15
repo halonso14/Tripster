@@ -98,9 +98,5 @@ public class EsSearchMapper {
 		}
         return responses;
     }
-    
-
-    
-
 
 }

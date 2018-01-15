@@ -24,6 +24,7 @@ public class ContentsServiceImpl implements ContentsService {
 		//조회수 추가
 		dao.updateViewCnt(contentsID);
 		return dao.getRestaurantDetail(contentsID);
+		
 	}
 	
 	//관광지 상세 정보 조회

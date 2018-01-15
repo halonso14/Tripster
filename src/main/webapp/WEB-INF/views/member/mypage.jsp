@@ -1921,7 +1921,7 @@ $(function() {
 						
 							<ul class="nav nav-tabs" id="myTab">
 								<li onclick="scrapList()" class="active"><a data-toggle="tab" href="#restaurant"><span class="reviews"></span><span class="hidetext">Restaurant</span>&nbsp;</a></li>
-								<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#roomrates"><span class="maps"></span><span class="hidetext">Place</span>&nbsp;</a></li>
+								<li onclick="scrapList()" class=""><a data-toggle="tab" href="#place"><span class="maps"></span><span class="hidetext">Place</span>&nbsp;</a></li>
 								<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#preferences"><span class="preferences"></span><span class="hidetext">Preferences</span>&nbsp;</a></li>
 								<li onclick="loadScript()" class=""><a data-toggle="tab" href="#maps"><span class="maps"></span><span class="hidetext">Maps</span>&nbsp;</a></li>
 								<li onclick="mySelectUpdate(); trigerJslider(); trigerJslider2(); trigerJslider3(); trigerJslider4(); trigerJslider5(); trigerJslider6();" class=""><a data-toggle="tab" href="#reviews"><span class="reviews"></span><span class="hidetext">Reviews</span>&nbsp;</a></li>
@@ -1948,7 +1948,7 @@ $(function() {
 								</div>
 								
 								<!-- TAB 2 -->
-								<div id="roomrates" class="tab-pane fade ">
+								<div id="place" class="tab-pane fade ">
 								    
 								</div>
 								
@@ -1972,6 +1972,7 @@ $(function() {
 								
 								</div>
 								
+								<!-- 맛집 스크랩 리스트 -->
 								<script id="restaurantTemplate" type="text/x-handlebars-template">
 										
 									<div>
@@ -1982,7 +1983,9 @@ $(function() {
 											<a class="dark" href="/contents/1/{{contentsID}}"><b>{{title}}</b></a> /
 											<span class="dark size12"> 뭐 넣을까 </span><br>
 											<span class="opensans green bold size14">맛집</span> <span class="grey">{{category}}</span><br>
+											
 											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
+
 										</div>
 										<div class="col-md-3 offset-0">
 											<button class="close mr20 mt10" value="{{scrapID}}" onclick="scrapDelete(this)">×</button>
@@ -2001,36 +2004,39 @@ $(function() {
 											
 											var str1 = "";
 											var str2 = "";
+											function getData(list){
+												var scrapData = {
+														scrapID : list.scrapID,
+													    category : list.categoryID,
+													    title : list.contentsTitle,
+													    thumbnail : list.contentsPhoto,
+													    contentsID : list.contentsID
+												}
+												return scrapData;
+											}
 											
 											$(data).each(function(i,list){
 												var source = $("#restaurantTemplate").html();
 												var template = Handlebars.compile(source);
-												// 카테고리 구별
+												
 												if(list.categoryID == 1){
 													if(i%2 == 1){
-														var scrapData1 = {
-																  scrapID : list.scrapID,
-															      category : list.categoryID,
-															      title : list.contentsTitle,
-															      thumbnail : list.contentsPhoto,
-															      contentsID : list.contentsID
-															}
-														str1 += template(scrapData1);
+														str1 += template(getData(list));
 													}else{
-														var scrapData2 = {
-																  scrapID : list.scrapID,
-															      category : list.categoryID,
-															      title : list.contentsTitle,
-															      thumbnail : list.contentsPhoto
-															}
-														str2 += template(scrapData2);
-													}	
+														str2 += template(getData(list));
+													}
+												}else{
+													if(i%2 == 1){
+														str1 += template(getData(list));
+													}else{
+														str2 += template(getData(list));
+													}
 												}
 												
 											 });
 											 
-											$("#scrap1").html(str1);   
-											$("#scrap2").html(str2);
+											 $("#scrap1").html(str1);
+											 $("#scrap2").html(str2);
 											
 										});
 										
@@ -2044,7 +2050,7 @@ $(function() {
 											scrapList();
 										})
 									}
-									 
+									
 								</script>
 								
 									

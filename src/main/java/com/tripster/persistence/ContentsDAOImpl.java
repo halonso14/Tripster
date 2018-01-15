@@ -78,12 +78,14 @@ public class ContentsDAOImpl implements ContentsDAO{
 	//컨텐츠 스크랩 개수 갱신
 	@Override
 	public void updateScrapCnt(Integer contentsID, int amount) throws Exception {
+		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		
 		paramMap.put("contentsID", contentsID);
 		paramMap.put("amount", amount);
 		
 		session.update(namespace + ".updateScrapCnt", paramMap);
+		
 	};
 	
 	//컨텐츠 평점
@@ -94,4 +96,5 @@ public class ContentsDAOImpl implements ContentsDAO{
 		map.put("contentsID",contentsID);
 		session.insert(namespace+".updateContentsRating",map);
 	}
+	
 }

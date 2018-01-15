@@ -6,10 +6,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <mapper namespace="scrapMapper">
 
 <!-- db에 스크랩 추가 -->
+<!-- rating
+
+ -->
 <insert id="scrap">
 	insert into tbl_Scrap (
-							Scrap_ID
-						   ,Member_ID
+						   Member_ID
 						   ,Category_ID
 						   ,Contents_ID
 						   ,Contents_Title
@@ -18,12 +20,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						   ,Updated
 						   )
 					values(
-							#{scrapID}
-							,#{memberID} 
-							,#{categoryID}
+							#{memberID}
+							,(select Category_ID
+							  from tbl_Contents where Contents_ID = #{contentsID})
 							,#{contentsID}
-							,#{contentsTitle}
-							,#{contentsPhoto}
+							,(select Contents_Title
+							  from tbl_Contents where Contents_ID = #{contentsID})
+							,"http://cfile26.uf.tistory.com/image/2642053B532A9F7519A004"
+							 <!-- (select Contents_Thumbnail
+							  from tbl_Contents where Contents_ID = #{contentsID}) -->
 							,now()
 							,now()
 							)
