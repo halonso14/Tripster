@@ -152,7 +152,7 @@
 						
 						<div class="itemscontainer offset-1" >
 							<!--####### 컨텐츠 검색결과 : 템플릿 z-cruise-list.html #######-->
-							<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="2">
+							<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="9">
 								<div class="offset-2" >
 									<div class="col-md-4 offset-0" >
 										<div class = "listitem2" >

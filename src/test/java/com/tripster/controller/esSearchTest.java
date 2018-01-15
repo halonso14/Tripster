@@ -51,14 +51,22 @@ public class esSearchTest {
 //		
 //	}
 	
+//	@Test
+//	public void planList() throws Exception{
+//		
+//		SearchCriteria cri = new SearchCriteria();
+//		cri.setKeyword("1");
+//		List<EsPlanVO> list = plandao.getPlanList(cri);
+//		
+//		System.out.println(list.toString());
+//	}
+	
 	@Test
-	public void planList() throws Exception{
-		
+	public void moreTest() throws Exception{
 		SearchCriteria cri = new SearchCriteria();
-		cri.setKeyword("1");
-		List<EsPlanVO> list = plandao.getPlanList(cri);
+		cri.setKeyword("111");
+		System.out.println(service.getTotalSearchNum(cri).get(0));
 		
-		System.out.println(list.toString());
 	}
 
 }

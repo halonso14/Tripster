@@ -103,7 +103,7 @@ public class EsContentsVO{
 		this.contentsDetail = contentsDetail;
 	}
 	public String getContents_keyword() {
-		return this.contents_keyword.replaceFirst("'", "#").replace("'", "").replace(" ", "").replace(",", "#").replace("[", "");
+		return this.contents_keyword.replaceFirst("'", "#").replace("'", "").replace(" ", "").replace(",", "#").replace("[", "").replace("]", "");
 	}
 	public void setContents_keyword(String contents_keyword) {
 		this.contents_keyword = contents_keyword;

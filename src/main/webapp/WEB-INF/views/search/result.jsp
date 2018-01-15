@@ -205,17 +205,19 @@
 								<div class="offset-2" style="padding-top:20px"><!-- <hr class="featurette-divider3"> --></div>
 							</c:forEach>
 							
-							<div style="text-align: right">
-								<a href="/search/result?keyword=${cri.keyword }&go=contents" style="color:blue;padding-right: 20px;">컨텐츠 더보기 </a>
-							</div>
-								
-							<div class="offset-2"><hr class="featurette-divider3"></div>
+							<c:set value="more" var="${ getNum.get(0) } "/>
+							<c:if test="${more>3 }" >
+								<div style="text-align: right">
+										<a href="/search/result?keyword=${cri.keyword }&go=contents" style="color:blue;padding-right: 20px;">컨텐츠 더보기 </a>
+								</div>
+							</c:if>	
+	 						
+	 						<div class="offset-2"><hr class="featurette-divider3"></div>
 						</div>
 						
+						<!--####### 일정 검색결과 : 템플릿 list3.html #######-->
 						
-
-						<!--####### 일정 검색결과 : 템플릿 list3.html #######-->	
-						<div class="plans" style=" height: 400px;display: block;">
+						<div class="col-md-8 offset-0" >
 							<c:forEach items="${planList}" var = "esPlanVO" begin="0" end="2">
 								<div class="col-md-4">
 									<div class="listitem">
@@ -242,10 +244,15 @@
 								</div>
 							</c:forEach>
 							
-							<div class="offset-2"><hr class="featurette-divider2"></div>	
+							<div style="text-align: right">
+								<a href="/search/result?keyword=${cri.keyword }&go=plan" style="color:blue;padding-right: 20px;">일정 더보기 </a>
+							</div>
+							
+							<div class="offset-2"><hr class="featurette-divider3"></div>	
 							
 						</div>
-			
+						
+						
 						<!--####### 유저 검색결과 : 템플릿 list2.html #######-->
 						<div class="members">
 							<c:forEach items="${memberList}" var = "esMemberVO" begin="0" end="2">
@@ -273,6 +280,11 @@
 								</div>
 							</c:forEach>
 							<div class="clearfix"></div>
+							
+							<div style="text-align: right">
+								<a href="/search/result?keyword=${cri.keyword }&go=member" style="color:blue;padding-right: 20px;">멤버 더보기 </a>
+							</div>
+							
 							<div class="offset-2"><hr class="featurette-divider3"></div>	
 						</div>	
 					</div>

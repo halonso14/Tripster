@@ -15,7 +15,7 @@ public interface EsSearchService {
 	// 통합검색결과 리스트 조회 
 	public EsSearchResult getTotalSearchList(SearchCriteria cri) throws Exception;
 	// 통합검색결과 건수 조회 
-	public HashMap<String,String> getTotalSearchNum(SearchCriteria cri) throws Exception;	
+	public List<Integer> getTotalSearchNum(SearchCriteria cri) throws Exception;	
 	// 컨텐츠 페이지 처리
 	public List<EsContentsVO> contentsList(SearchCriteria cri) throws Exception;
 	// 플랜 페이지 처리
