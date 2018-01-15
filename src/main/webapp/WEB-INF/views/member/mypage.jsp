@@ -390,10 +390,10 @@ response.setHeader("Pragma", "no-cache");
 						    <div class="clearfix"></div>
 						    <div class="description">
 					        	<img src="/resources/images/192.jpg" width="100%" />
-					        	<div class="description_title">
-					    			<div class="general_font country_name_font">Austrailia</div>
+					        	<div class="general_font country_name_font">
+					    			<div class="description_title">Austrailia</div>
 					    		</div>
-					    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed Heads is located next to the border with Queensland, adjacent to its "Twin Town" of Coolangatta, which is a suburb of the Gold Coast. It is often referred to as a town where people can change time zones – even celebrate New Year twice within an hour – simply by crossing the street, due to its proximity to the Queensland border, and the fact that New South Wales observes daylight saving whereas Queensland does not.</div>
+					    		<div class="general_text country_or_city_description">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed Heads is located next to the border with Queensland, adjacent to its "Twin Town" of Coolangatta, which is a suburb of the Gold Coast. It is often referred to as a town where people can change time zones – even celebrate New Year twice within an hour – simply by crossing the street, due to its proximity to the Queensland border, and the fact that New South Wales observes daylight saving whereas Queensland does not.</div>
 					    	</div>
 					    	<div class="clearfix"></div>
 					    	
@@ -402,46 +402,67 @@ response.setHeader("Pragma", "no-cache");
 						    	<div class="info_about_country_contents">
 						    		<div class="info_icon">
 						    			<i class="material-icons" style="font-size:48px;color:#42b520">local_atm</i><br>
-						    				환율
+						    				<b>환율</b>
+						    			<div class="info_description">
+						    				<div id="exchange_ymmu"></div>
+						    			</div>
 						    		</div>
 						    	</div>
 						    	<div class="info_about_country_contents">
 						    		<div class="info_icon">
 						    			<i class="material-icons" style="font-size:48px;color:#42b520">flight</i><br>
-						    				평균 비행기표 가격
+						    				<b>평균 비행기표 가격</b>
 						    		</div>
 						    		<div class="info_description">
+						    				<b>이 도시와 가까운 공항</b><br>
+						    				<div id="airport_ymmu">ICN</div>
+						    				<br>
 						    				<b>편도 최저가격</b><br>
-						    				KRW 855,500<br><br>
+						    				<div id="fligh_price_ymmu">KRW 855,500</div>
+						    				<br>
 						    				<b>직항 소요시간</b><br>
-						    				13h 45m<br>	
+						    				<div id="fligh_price_ymmu">13h 45m<br></div>			
 						    		</div>
 						    	</div>
 						    	<div class="info_about_country_contents">
 						    		<div class="info_icon">
 						    			<i class="fa fa-smile-o" style="font-size:48px;color:#42b520"></i><br>
-						    				안전도
+						    				<b>안전도</b>
 						    		</div>
+						    		<div class="info_description">
+						    			<div id="safe_ymmu"></div>
+						    		</div>	
 						    	</div>
 						    	<div class="info_about_country_contents">
 						    		<div class="info_icon">
 						    			<i class="material-icons" style="font-size:48px;color:#42b520">local_dining</i><br>
-						    				빅맥가격
+						    				<b>빅맥 현지 가격</b>
 						    		</div>
+						    		<div class="info_description">
+						    			<div id="bigmac_ymmu">13h 45m<br></div>
+						    		</div>	
+						    		
 						    	</div>
 						    	<div class="info_about_country_contents">
 						    		<div class="info_icon">
 						    			<i class="fa fa-file-word-o" style="font-size:48px;color:#42b520"></i><br>
-						    				국가단어
+						    				<b>국가단어</b>
 						    		</div>
+						    		<div class="info_description">
+						    			<div id="words_ymmu">13h 45m<br></div>
+						    		</div>	
 						    	</div>
 						    	<div class="info_about_country_contents">
 						    		<div class="info_icon">
 						    			<i class="material-icons" style="font-size:48px;color:#42b520">query_builder</i><br>
-						    				시차
+						    				<b>시차</b>
 						    		</div>
+						    		<div class="info_description">
+						    			<div id="time_difference_ymmu">13h 45m<br></div>
+						    		</div>		
 						    	</div>
 						    </div>
+						    
 			    	
 			    			<!--ymmu 이 국가의 맵에 표시되지 않은 도시들 부분보여줌  -->					    	
 					    	<div class="general_font rcm_title_font just_padding_for_subtitle"><h2>이 국가에 관련된 다른 도시들</h2></div>
@@ -1040,7 +1061,7 @@ response.setHeader("Pragma", "no-cache");
 	<!-- ymmu my js-->
 	<!-- pie charts -->
 
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2hKi_ABEp2xZW6gQfjYyPaVA1Kddub6k&callback=initGoogleMap" defer ></script>	
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2hKi_ABEp2xZW6gQfjYyPaVA1Kddub6k" defer ></script>	<!-- &callback=initGoogleMap -->
 
     <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
     <script src="https://www.amcharts.com/lib/3/pie.js"></script>

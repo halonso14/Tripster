@@ -51,7 +51,7 @@ var chartData=[{
 	        "color": "#8A0CCF"
 	}];
 //일정별 성비, 나이 통계 초기데이터.
-var chartDetailData=[	{
+var chartDetailData=[{
     "Ages": '10s',
     "Man": 0,
     "Woman": 0,
@@ -247,7 +247,11 @@ AmCharts.ready( function() {
 $(document).ready(function(){   
     //console.log(window.location.pathname);
 	$('.your-class').slick(getSliderSettings());
+	//통계 데이터
 	ajaxController('/dashboard/stat/1');
+	
+	//추천데이터. 크로스도메인 설정 필요
+	ajaxController('http://127.0.0.1:8000/recommand/1');
     
 });
 
@@ -338,8 +342,70 @@ var ajaxController= function(url){
 				  //chartMap.validateData(); //에러나서 다 막음
 				  $('#numCountries').text(count); //방문국가수 업데이트
             }
-        }
+            else if(url.match("/recommand")){ //추천
+            	
+            	console.log('추천데이터 ajax 데이터부분');
+            	console.log(data);
+            		//구글맵 세팅.
+            	initGoogleMap(data);
+            	chartMap2.dataProvider.areas= [];
+            	for(var i=data.length-1; i>-1;i--){
+            	
+            		if(typeof data[i].iso2 == 'undefined'){
+            			console.log('여기서 끝남:'+i)
+            			break;
+            		} //undefined 나오는 순간 for문 브레이크
+            		else{
+                			chartMap2.dataProvider.areas.push({
+		          			      "id": data[i].iso2,
+		        			      "color": "#8d1cc6"
+		        			 });
+            		}	
+            	}//for
+            	
+            	chartMap2.listeners.push({
+        		    "event": "clickMapObject",
+        		    "method": function(event) {
+        		    	//console.log(event);
+        		    		//이벤트에서 previouslyHovered 에서 나라 ID 찾고 그걸로 밑에 데이터를 채운다
+        		    	//console.log(event.mapObject.id);
+        		    	
+        		    	for(var i=data.length-1; i>-1;i--){
+        	            	
+                    		if(typeof data[i].iso2 == 'undefined'){
+                    			break;
+                    		} //undefined 나오는 순간 for문 브레이크
+                    		else if(data[i].iso2 == event.mapObject.id){
+                    			 $('.description_title').text(data[i].name_han+' '+data[i].name_eng); //지도서 클릭한 나라 이름
+                    			 $('.country_or_city_description').text(data[i].description); //지도서 클릭한 나라 소개
+                    			 $('#exchange_ymmu').html('<br>1'+data[i].money_unit+' = '+ data[i].exchange+'원<br>'+'10'+data[i].money_unit+' = '+ data[i].exchange*10+'원<br>'); //지도서 클릭한 나라 환율
+                    			 $('#safe_ymmu').html(data[i].safe+'<br>'); //지도서 클릭한 나라 환율
+                    			 $('#bigmac_ymmu').html('약 '+data[i].bigmac_price+data[i].money_unit+'<br><br>'+'<b>US달러 가격</b><br>'+data[i].bigmac_price_dallor); //지도서 클릭한 나라 환율
+                    		}	
+                    	}//for
+        		    	
+
+        		    	
+        		        // GMap inited?
+        		        if ( typeof gmap === "undefined" )
+        		          return;
+        		    	// sync position
+        		        gmap.setCenter( {
+        		          lat: chartMap2.zoomLatitude(),
+        		          lng: chartMap2.zoomLongitude()
+        		        } );
+        		        //console.log('zoomlevel:'+chartMap2.zoomLevel());
+        		        
+        		        google.maps.event.trigger(gmap, 'resize'); // 구글맵 갱신.
+        		        
+        		    }
+        		  });
+            	
+            }//else if
+        }//success
+
     }); 
+    
 } //ajaxfunction
 
 //일정-좋아요 테이블 세팅
@@ -501,14 +567,7 @@ var chartMap2 = AmCharts.makeChart( "chartdiv_rcm", {
     "getAreasFromMap": true,
     "areas": [{
 	      "id": "AU",
-	      "color": "#8d1cc6",
-	      "description": "United States is now selected.</br></br>Close this description box to unselect the area.",
-	      "images": [{
-	        "latitude": 40.712784,
-	        "longitude": -74.005941,
-	        "type": "circle",
-	        "label": "New York"
-	      }]
+	      "color": "#8d1cc6"
 	    }]
   },
   "areasSettings": {
@@ -550,10 +609,27 @@ var chartMap2 = AmCharts.makeChart( "chartdiv_rcm", {
 	      }
 	    }
   }, 
-	  
+	/*  
 	  {
 		    "event": "clickMapObject",
 		    "method": function(event) {
+		    	//console.log(event);
+		    		//이벤트에서 previouslyHovered 에서 나라 ID 찾고 그걸로 밑에 데이터를 채운다
+		    	//console.log(event.mapObject.id);
+		    	
+		    	for(var i=data.length-1; i>-1;i--){
+	            	
+            		if(typeof data[i].iso2 == 'undefined'){
+            			break;
+            		} //undefined 나오는 순간 for문 브레이크
+            		else if(data[i].iso2 == event.mapObject.id){
+            			 $('#description_title').text(data[i].name_han+' '+data[i].name_eng); //지도서 클릭한 나라 이름
+            			 $('#country_or_city_description').text(data[i].description); //지도서 클릭한 나라 소개
+            			 
+            		}	
+            	}//for
+		    	
+
 		    	
 		        // GMap inited?
 		        if ( typeof gmap === "undefined" )
@@ -563,33 +639,56 @@ var chartMap2 = AmCharts.makeChart( "chartdiv_rcm", {
 		          lat: chartMap2.zoomLatitude(),
 		          lng: chartMap2.zoomLongitude()
 		        } );
-		        console.log('zoomlevel:'+chartMap2.zoomLevel());
+		        //console.log('zoomlevel:'+chartMap2.zoomLevel());
 		        
-		        /*
-		        console.log('after gmap -> setCenter');
-		        // set zoom level
-		        gmap.setZoom(chartMap2.zoomLevel());
-		        //gmap.setZoom( AmCharts.gBreakLevel );
-		        console.log('gmap.getCenter: '+gmap.getCenter());
-
-		        document.getElementById( "chartdiv_rcm" ).style.visibility = "hidden";
-		        document.getElementById( "gmap" ).style.visibility = "visible";
-		        */
 		        google.maps.event.trigger(gmap, 'resize'); // 구글맵 갱신.
 		        
 		    }
-		  }]
+		  }*/]
 } );
 
 /** Create the Google Map*/
 var gmap;
 
-window.initGoogleMap=function() {
+window.initGoogleMap=function(data) {
   gmap = new google.maps.Map( document.getElementById( 'gmap' ), {
     scrollwheel: true,
     
   } );
+  
+  //추천 도시 데이터 마커. 한 위치당 하나의마커가 필요하므로 for문으로
+  marker_list =[]
+  for(var i=0 ; i<data.length-2; i++){
+	  
+	  (function(i){ //i값을 제대로 넘겨주기 위한 클로저 처리
+		  
+		  var marker = new google.maps.Marker({
+		      //position: {lat: -25.363, lng: 131.044},
+			  position: {lat: data[i].lat, lng: data[i].lng},
+		      map: gmap,
+		      title: data[i].name
+		    });
+		  marker_list.push(marker);
+		  //정보창
+		  var infowindow = new google.maps.InfoWindow({
+			    content: "<div id='contents'><h1 id='firstHeading' class='firstHeading'>"+data[i].name+"</h1></div>"
+			  });
+		  
+		  //마커 클릭하면 정보창 보이게.
+		  marker_list[i].addListener('click', function() {
+			    infowindow.open(gmap, marker_list[i]);
+        			//국가/도시정보 세팅
+            	$('#fligh_price_ymmu').text('KRW '+data[i].flight_price);
+            	$('#exchange_ymmu').text(data[i].exchange);
+            	$('#airport_ymmu').text(data[i].airport);
+            	$('#safe_ymmu').text(data[i].safe);
+            	
+			  });
+	  })(i);
+	  
+  }
 
+  
   gmap.addListener( "zoom_changed", function() {
     /**Switch back to amCharts*/
     if ( gmap.getZoom() < AmCharts.gBreakLevel ) {
