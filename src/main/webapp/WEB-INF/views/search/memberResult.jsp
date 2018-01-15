@@ -75,40 +75,25 @@
 			<!-- LEFT CONTENT: SIDE FILTERS -->
 			<div class="col-md-3 filters offset-0">
 				<ul class="blogcat margleft20 margright20 margtop10">
-					<li onclick="searchTotal()" class="size16">
-						<a href="#">
+					<li class="size16">
+						<a href="result?keyword=${cri.keyword }&go=total" >
 						<span class="hidetext">'${cri.keyword }'검색결과</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("totalNum") }</span></a></li>
-					<li onclick="searchContents()">
-						<a href="#">
+					<li class="">
+						<a href="result?keyword=${cri.keyword }&go=contents">
 						<span class="hidetext">컨텐츠</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("contentsNum") }</span></a></li>
-					<li onclick="searchPlan()" class="">
-						<a href="#">
+					<li class="">
+						<a href="result?keyword=${cri.keyword }&go=plan">
 						<span class="hidetext">일정</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("planNum") }</span></a></li>
-					<li onclick="searchMember()" class="">
-						<a href="#">
+					<li class="">
+						<a href="result?keyword=${cri.keyword }&go=member">
 						<span class="hidetext">회원</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("memberNum") }</span></a></li>
 				</ul>
 			</div>
-			<script>
-				
-				function searchTotal(){
-					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=total";
-				}
-				function searchContents(){
-					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=contents";
-				}
-				function searchPlan(){
-					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=plan";
-				}
-				function searchMember(){
-					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=member";
-				}
-				
-			</script>
+			
 			<!-- RIGHT CONTENT -->
 			<div class="rightcontent col-md-9 offset-0">
 				<div class="tab-content6">
@@ -166,9 +151,8 @@
 						<!-- End of Top FILTERS-->
 						
 						<!--####### 유저 검색결과 : 템플릿 list2.html #######-->
-						<!-- <p class="margleft20"><a>유저 더보기</a> </p> -->	
 						<div class="itemscontainer offset-1" >	
-							<c:forEach items="${memberList}" var = "esMemberVO" begin="0" end="9">
+							<c:forEach items="${memberList}" var = "esMemberVO" begin="0" end="2">
 								<div class="col-md-4" >
 									<!-- CONTAINER-->
 									<div class="carscontainer" style="border:1px solid #e6e6e6">

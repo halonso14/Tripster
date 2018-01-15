@@ -32,13 +32,13 @@ public class EsSearchServiceimpl implements EsSearchService {
 	@Inject
 	private EsMemberDAO memberDao;
 	
-	// 통합검색결과 리스트 조회 
+	// 통합검색결과 리스트 조회   
 	@Override
 	public EsSearchResult getTotalSearchList(SearchCriteria cri) throws Exception{
 		
 		EsSearchResult result = new EsSearchResult();
 		
-		result.contentsList = contentsMapper.getAllDocs(cri);
+		result.contentsList = contentsDao.getContentsList(cri);
 		result.planList = planDao.getPlanList(cri);
 		result.memberList = memberDao.getMemberList(cri);
 		

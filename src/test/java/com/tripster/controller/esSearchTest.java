@@ -13,14 +13,11 @@ import com.tripster.domain.EsContentsVO;
 import com.tripster.domain.SearchCriteria;
 import com.tripster.persistence.EsContentsDAO;
 import com.tripster.service.EsSearchService;
-import com.tripster.elasticsearch.EsSearchMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/**/*.xml" })
 public class esSearchTest {
 	
-	@Inject
-	private EsSearchMapper contentsMapper;	
 	@Inject
 	EsSearchService service;
 	@Inject
@@ -45,7 +42,7 @@ public class esSearchTest {
 		SearchCriteria cri = new SearchCriteria();
 		cri.setKeyword("1");
 		
-		List<EsContentsVO> list = contentsMapper.getAllDocs(cri);
+		List<EsContentsVO> list = dao.getContentsList(cri);
 		
 //		System.out.println(list.get(0).getContents_keyword());
 		System.out.println(list.size());

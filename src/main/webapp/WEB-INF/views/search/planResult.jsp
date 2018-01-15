@@ -76,40 +76,25 @@
 			<!-- LEFT CONTENT: SIDE FILTERS -->
 			<div class="col-md-3 filters offset-0">
 				<ul class="blogcat margleft20 margright20 margtop10">
-					<li onclick="searchTotal()" class="size16">
-						<a href="#">
+					<li class="size16">
+						<a href="result?keyword=${cri.keyword }&go=total" >
 						<span class="hidetext">'${cri.keyword }'검색결과</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("totalNum") }</span></a></li>
-					<li onclick="searchContents()">
-						<a href="#">
+					<li class="">
+						<a href="result?keyword=${cri.keyword }&go=contents">
 						<span class="hidetext">컨텐츠</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("contentsNum") }</span></a></li>
-					<li onclick="searchPlan()" class="">
-						<a href="#">
+					<li class="">
+						<a href="result?keyword=${cri.keyword }&go=plan">
 						<span class="hidetext">일정</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("planNum") }</span></a></li>
-					<li onclick="searchMember()" class="">
-						<a href="#">
+					<li class="">
+						<a href="result?keyword=${cri.keyword }&go=member">
 						<span class="hidetext">회원</span>&nbsp; 
 						<span class="badge indent0">${getNum.get("memberNum") }</span></a></li>
 				</ul>
 			</div>
-			<script>
 			
-				function searchTotal(){
-					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=total";
-				}
-				function searchContents(){
-					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=contents";
-				}
-				function searchPlan(){
-					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=plan";
-				}
-				function searchMember(){
-					self.location = "result?"+ "keyword="+"${cri.keyword }"+"&go=member";
-				}
-				
-			</script>
 			<!-- RIGHT CONTENT -->
 			<div class="rightcontent col-md-9 offset-0">
 				<div class="tab-content6">
@@ -167,34 +152,34 @@
 						<!-- End of Top FILTERS-->
 						
 						<!--####### 일정 검색결과 : 템플릿 list3.html #######-->
-						<!-- <p class="margleft20"><a>일정 더보기</a> </p>	 -->
-						<c:forEach items="${planList}" var = "esPlanVO" begin="0" end="9">
-							<div class="col-md-4">
-								<div class="listitem">
-									<img src="/resources/images/items/item1.jpg" alt="일정사진은 뭘로쓸까">
-									<div class="liover" style="width: 10%; height: 10%; background-color: rgb(255, 153, 0); position: absolute; top: 90px; left: 125.5px; opacity: 0;"></div>
-									<a class="fav-icon" href="#" style="top: 79px; left: -25px;"></a>
-									<a class="book-icon" href="#" style="top: 79px; left: 251px;"></a>
-								</div>
-								<div class="itemlabel2">
-									<div class="labelright">													
-										<img src="/resources/images/user.png" alt="유저프로필" class=" ">
-										<p class="size12 grey margtop20">유저아이디</p><br>
-										<span class="size11 grey">댓글수</span><br>
-										<span class="size11 grey">좋아요수</span><br>
-										<button class="bookbtn mt1">Book</button>		
+						<div class="col-md-8 offset-0" >
+							<c:forEach items="${planList}" var = "esPlanVO" begin="0" end="9">
+									<div class="col-md-4">
+										<div class="listitem">
+											<img src="/resources/images/items/item1.jpg" alt="일정사진은 뭘로쓸까">
+											<div class="liover" style="width: 10%; height: 10%; background-color: rgb(255, 153, 0); position: absolute; top: 90px; left: 125.5px; opacity: 0;"></div>
+											<a class="fav-icon" href="#" style="top: 79px; left: -25px;"></a>
+											<a class="book-icon" href="#" style="top: 79px; left: 251px;"></a>
+										</div>
+										<div class="itemlabel2">
+											<div class="labelright">													
+												<img src="/resources/images/user.png" alt="유저프로필" class=" ">
+												<p class="size12 grey margtop20">유저아이디</p><br>
+												<span class="size11 grey">댓글수</span><br>
+												<span class="size11 grey">좋아요수</span><br>
+												<button class="bookbtn mt1">Book</button>		
+											</div>
+											<div class="labelleft">	
+												<span class="size16"><b>${esPlanVO.plan_title}</b></span><br>		
+												<br>
+												<p class="grey"></p>
+											</div>
+										</div>
+										<div class="clearfix"></div>
 									</div>
-									<div class="labelleft">	
-										<span class="size16"><b>${esPlanVO.planTitle}</b></span><br>		
-										<br>
-										<p class="grey">${esPlanVO.planDetailVO.title}</p>
-									</div>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-						</c:forEach>
-						<div class="clearfix"></div>
-						
+								</c:forEach>
+							<div class="clearfix"></div>
+						</div>
 						<!-- pagination -->
 							<div class="hpadding20">
 								<ul class="pagination right paddingbtm20">

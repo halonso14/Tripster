@@ -1,16 +1,13 @@
 package com.tripster.domain;
 
 import java.util.*;
-import com.fasterxml.jackson.annotation.JsonFilter;
 
-import com.tripster.domain.ContentsReviewVO;
-
-@JsonFilter("EsContentsFilter")
 public class EsContentsVO{
 
 	private int category_id;
 	private int contents_id;
 	private String contents_title;
+	private String category_value_kor;
 	private String contents_location;
 	private String contents_country;
 	private String contents_city;
@@ -21,8 +18,6 @@ public class EsContentsVO{
 	private String contents_thumbnail;
 	private String contents_keyword;
 	private Date created;
-	private HashMap<String,String> contentsDetail;
-	
 	
 	public int getCategory_id() {
 		return category_id;
@@ -41,6 +36,12 @@ public class EsContentsVO{
 	}
 	public void setContents_title(String contents_title) {
 		this.contents_title = contents_title;
+	}
+	public String getCategory_value_kor() {
+		return category_value_kor;
+	}
+	public void setCategory_value_kor(String category_value_kor) {
+		this.category_value_kor = category_value_kor;
 	}
 	public String getContents_location() {
 		return contents_location;
@@ -90,33 +91,26 @@ public class EsContentsVO{
 	public void setContents_thumbnail(String contents_thumbnail) {
 		this.contents_thumbnail = contents_thumbnail;
 	}
+	public String getContents_keyword() {
+		return this.contents_keyword.replaceFirst("'", "#").replace("'", "").replace(" ", "").replace(",", "#").replace("[", "").replace("]", "");
+	}
+	public void setContents_keyword(String contents_keyword) {
+		this.contents_keyword = contents_keyword;
+	}
 	public Date getCreated() {
 		return created;
 	}
 	public void setCreated(Date created) {
 		this.created = created;
 	}
-	public HashMap<String, String> getContentsDetail() {
-		return contentsDetail;
-	}
-	public void setContentsDetail(HashMap<String, String> contentsDetail) {
-		this.contentsDetail = contentsDetail;
-	}
-	public String getContents_keyword() {
-		return this.contents_keyword.replaceFirst("'", "#").replace("'", "").replace(" ", "").replace(",", "#").replace("[", "");
-	}
-	public void setContents_keyword(String contents_keyword) {
-		this.contents_keyword = contents_keyword;
-	}
 	@Override
 	public String toString() {
 		return "EsContentsVO [category_id=" + category_id + ", contents_id=" + contents_id + ", contents_title="
-				+ contents_title + ", contents_location=" + contents_location + ", contents_country=" + contents_country
-				+ ", contents_city=" + contents_city + ", contents_rating=" + contents_rating + ", contents_view_cnt="
-				+ contents_view_cnt + ", contents_review_cnt=" + contents_review_cnt + ", contents_scrap_cnt="
-				+ contents_scrap_cnt + ", contents_thumbnail=" + contents_thumbnail + ", contents_keyword="
-				+ contents_keyword + ", created=" + created + ", contentsDetail=" + contentsDetail + "]";
+				+ contents_title + ", category_value_kor=" + category_value_kor + ", contents_location="
+				+ contents_location + ", contents_country=" + contents_country + ", contents_city=" + contents_city
+				+ ", contents_rating=" + contents_rating + ", contents_view_cnt=" + contents_view_cnt
+				+ ", contents_review_cnt=" + contents_review_cnt + ", contents_scrap_cnt=" + contents_scrap_cnt
+				+ ", contents_thumbnail=" + contents_thumbnail + ", contents_keyword=" + contents_keyword + ", created="
+				+ created + "]";
 	}
-
-	
 }		

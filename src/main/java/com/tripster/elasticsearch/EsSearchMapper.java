@@ -43,39 +43,11 @@ public class EsSearchMapper {
     	SimpleQueryStringBuilder qb = simpleQueryStringQuery(cri.getKeyword());	
     		
         SearchResponse response = client.prepareSearch()
-        		.setIndices(getIndexName()).setTypes("contents").setQuery(qb).get();
+        		.setIndices(getIndexName()).setTypes("contents").setQuery(qb).setSize(500).get();
         
         return response;
     }
-    
-    public List<EsContentsVO> getAllDocs(SearchCriteria cri) throws JsonParseException, JsonMappingException, IOException{
-        int scrollSize = 1000;
-        SimpleQueryStringBuilder qb = simpleQueryStringQuery(cri.getKeyword());	
-        List<EsContentsVO> esData = new ArrayList<EsContentsVO>();
-		ObjectMapper om = new ObjectMapper(); 
-		
-		
-        SearchResponse response = null;
-        int i = 0;
-        while( response == null || response.getHits().hits().length != 0){
-            response = client.prepareSearch()
-            		.setIndices(getIndexName())
-            		.setTypes("contents")
-            		.setQuery(qb)
-            		.setSize(scrollSize)
-            		.setFrom(i * scrollSize)
-            		.get();
-            om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            for(SearchHit hit : response.getHits()){
-	    			String sJson = hit.getSourceAsString();
-	    			EsContentsVO contents = om.readValue(sJson, EsContentsVO.class);
-                esData.add(contents);
-            }
-            i++;
-        }
-        return esData;
-    }
-    
+ 
 	// 일정 검색결과 더보기 리스트 조회
     public SearchResponse planSearch(SearchCriteria cri) throws Exception{
  		
