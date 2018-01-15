@@ -15,7 +15,8 @@ public class PlanVO {
 	private Date planEndDate;// 일정 종료일.
 	public int planEndChk; //일정완료여부.
 	private List<PlanDetailVO> planDetailVO; //planDetail join시 사용.
-	private String memberName;
+	private String memberName; //회원 이름조회.
+	private int planLikeCnt; //좋아요 카운트
 	
 	
 	public int getPlanID() {
@@ -51,8 +52,8 @@ public class PlanVO {
 	public int getPlanEndChk() {
 		return planEndChk;
 	}
-	public void setPlanEndChk(int planDendChk) {
-		this.planEndChk = planDendChk;
+	public void setPlanEndChk(int planEndChk) {
+		this.planEndChk = planEndChk;
 	}
 	public List<PlanDetailVO> getPlanDetailVO() {
 		return planDetailVO;
@@ -60,20 +61,26 @@ public class PlanVO {
 	public void setPlanDetailVO(List<PlanDetailVO> planDetailVO) {
 		this.planDetailVO = planDetailVO;
 	}
-	
 	public String getMemberName() {
 		return memberName;
 	}
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
 	}
-	
+	public int getPlanLikeCnt() {
+		return planLikeCnt;
+	}
+	public void setPlanLikeCnt(int planLikeCnt) {
+		this.planLikeCnt = planLikeCnt;
+	}
 	@Override
 	public String toString() {
 		return "PlanVO [planID=" + planID + ", memberID=" + memberID + ", planTitle=" + planTitle + ", planStartDate="
 				+ planStartDate + ", planEndDate=" + planEndDate + ", planEndChk=" + planEndChk + ", planDetailVO="
-				+ planDetailVO + ", memberName=" + memberName + "]";
+				+ planDetailVO + ", memberName=" + memberName + ", planLikeCnt=" + planLikeCnt + "]";
 	}
-
+	
+	
+	
 	
 }

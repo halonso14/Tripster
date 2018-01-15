@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
    <!-- plan 등록.  -->	
 	<insert id="create">
-		insert  into tbl_Plan (plan_ID, member_ID, plan_Title, plan_StartDate, plan_EndDate, plan_EndChk) values(#{planID},#{memberID}, #{planTitle}, #{planStartDate}, #{planEndDate}, #{planEndChk})
+		insert  into tbl_Plan (plan_ID, member_ID, plan_Title, plan_StartDate, plan_EndDate, plan_EndChk,Plan_Like_Cnt ) values(#{planID},#{memberID}, #{planTitle}, #{planStartDate}, #{planEndDate}, #{planEndChk}, #{planLikeCnt})
 	</insert>
 	
 	<!-- plan 조회. -->

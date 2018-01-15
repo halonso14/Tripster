@@ -84,14 +84,16 @@
 				<div class="w50percent">
 					<div class="wh90percent textleft">
 						<span class="opensans size13"><b>Start date</b></span>
-						<input type="date"  class="form-control mySelectCalendar2" name="planStartDate" id="planStartDate" onmousedown="dateMouseDown()"/>
+						<!-- <input type="date"  class="form-control mySelectCalendar2" name="planStartDate" id="planStartDate" onmousedown="dateMouseDown()"/> -->
+						<input type="text" class="form-control mySelectCalendar2" id="datepicker2" name="startDate" onmousedown="dateMouseDown()"/>
 					</div>
 				</div>
 	
 				<div class="w50percentlast">
 					<div class="wh90percent textleft right">
 						<span class="opensans size13"><b>End date</b></span>
-						<input type="date" class="form-control mySelectCalendar2" id="planEndDate" name="planEndDate" onmousedown="dateMouseDown()"/>
+						<!-- <input type="date" class="form-control mySelectCalendar2 hasDatepicker" id="planEndDate" name="planEndDate" onmousedown="dateMouseDown()"/> -->
+						<input type="text" class="form-control mySelectCalendar2" id="datepicker3"  name="endDate" onmousedown="dateMouseDown()"/>
 					</div>
 				</div>
 				<span class="dateError" id="dateError" style="color: red; font-weight: bold;"></span>
@@ -104,26 +106,29 @@
 	</div>
 	<!-- END OF WHITE SECTION -->	
 	<script>
-  		//modal open			  
+/*   		//modal open			  
     		function planModal(){
     			$('#planModal').modal({backdrop: 'static'});
     			$('#planModal').modal('show');
     		}
-    		
+    		 */
     		
     		//입력 폼에 대한 errorCheck
     		function errorCheck(){
-    			var startDate = $("#planStartDate").val();
-    			var endDate= $("#planEndDate").val();
+    			var startDate = $("#datepicker2").val();
+    			var endDate= $("#datepicker3").val();
     			var errorMessage='';
     			var title = $("#planTitle").val();
+    			console.log(endDate);
     			//title입력 여부?	
-     			if(''!=title){
+     		 if(''!=title){
      				//yes-> startDate && endDate 입력여부?
     					if(startDate && endDate){
     						//yes -> startDate 와 endDate를 date type으로 변환.
 	    					var start = new Date(startDate);
 	    					var end = new Date(endDate);
+	    					console.log(end);
+	    					console.log(start);
 	    					//startDate > endDate ?
 		    				if(startDate > endDate){
 		    					//yes -> errorMessage출력.		
@@ -144,7 +149,7 @@
 	   				errorMessage = '<span>제목을 입력하세요.</span>';
     				$('.titleError').html(errorMessage); 
     			} 
-    		}
+    		} 
     		
     		//errorMessage값 지워주기.
     		function titleMouseDown() {
