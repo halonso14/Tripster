@@ -104,7 +104,7 @@ body {
 <%@include file="/WEB-INF/views/include/header2.jsp"%>
     <!-- ymum my css-->
     <link rel = "stylesheet" type = "text/css" href ="/resources/css/statistics.css">
-    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<!--     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" /> -->
     <!-- ymum my css-->
     
     <!-- Bootstrap -->

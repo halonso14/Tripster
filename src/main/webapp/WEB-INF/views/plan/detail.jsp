@@ -98,6 +98,8 @@ body {
 
 
 </head>
+    <!-- ymum my css-->
+    <link rel = "stylesheet" type = "text/css" href ="/resources/css/statistics.css">
     <!-- Bootstrap -->
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
     

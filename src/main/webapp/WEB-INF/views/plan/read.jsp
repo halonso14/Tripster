@@ -153,6 +153,28 @@
   padding: 0px;
 }
 
+.foo{
+
+    text-align: left;
+    float: none;
+    position: absolute;
+    top: 0px;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    margin: 0px;
+    width: 3992px;
+    height: 407px;
+    z-index: auto;
+}
+
+ .list_carousel2 > .foo5> img {
+      top: 0;
+      left: 0;
+      max-height: 407px;
+      max-width: 720px;
+    } 
+
 </style>
 	
 </head>
@@ -198,9 +220,7 @@
 	<%@include file="/WEB-INF/views/include/header2.jsp"%>
 	<%@include file="/WEB-INF/views/plan/updateModal.jsp" %>
 	<!-- CONTENT -->
-	<div class="container">
-
-		
+	<div class="container" >
 		<div class="container mt25 offset-0">
 			
 			
@@ -291,7 +311,7 @@
 					
 								<c:if test="${planDetailVO.planDetailDate ne date}">
 									<!-- 현재 Detial Date에서 전체 일정 시작 날짜를 빼서 Day 구해줌.  -->
-									<div class="dayCircle"></div><span class="whichDay">Day ${nowDate-startDate+1 }</span>&nbsp&nbsp<span class="lato size22 dark bold" ">${planDetailVO.planDetailDate }</span><br/>
+									<div class="dayCircle"></div><span class="whichDay">Day ${nowDate-startDate+1 }</span>&nbsp&nbsp<span class="lato size22 dark bold">${planDetailVO.planDetailDate }</span><br/>
 									<c:set var = "date" value="${planDetailVO.planDetailDate }"/>
 									<div class="line4"></div>
 								</c:if>
@@ -311,11 +331,11 @@
 								<c:if test="${not empty planDetailVO.memoVO.memoPictureVO.get(0).memoPictureName }">
 									<div class="wrapper2">
 										<div class="list_carousel2">
-											<ul class="foo5" >
+											<ul class="foo5">
 												<c:forEach items="${planDetailVO.memoVO.memoPictureVO }" var="pictureVO">
 													<c:set var="image" value=""/>
 				           					 		<li>
-														<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img  class="img-responsive" src="/displayFile?fileName=${pictureVO.memoPictureName }" style="width: 100%; max-width: 760px; vertical-align: middle; "/></a>
+														<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img  class="img-responsive" src="/displayFile?fileName=${pictureVO.memoPictureName }" style="max-height: 407px;max-width: 950px; width: 950px; height: 407px" /></a>
 													</li>
 												</c:forEach>
 											</ul>
