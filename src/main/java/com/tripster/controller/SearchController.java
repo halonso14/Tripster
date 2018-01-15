@@ -80,5 +80,5 @@ public class SearchController {
 		model.addAttribute("pageMaker",pageMaker);
 		
 	}
-	
+
 }

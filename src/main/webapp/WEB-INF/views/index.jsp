@@ -93,7 +93,7 @@
 
 					<form action="search/result">
 						<div class=" wh95percent center">
-							<input  id="keywordInput" name='keyword' value='${cri.keyword}'type="text" class="form-control inph left" placeholder="ex: New York" ></input>
+							<input  id="keywordInput" name='keyword' value='${cri.keyword}'type="text" class="form-control inph left" placeholder="예: 강남역" ></input>
 							<button id='searchBtn' class="btn btn-default nbtn-search right" type="submit" ><span class="glyphicon glyphicon-search"></span></button>
 						</div>
 					</form>
@@ -263,7 +263,7 @@
 			</div>
 
 			<div>
-			<h2><a href="contents/1/1">언더그라운드</a></h2>
+
 				<br/>
 				<br/>
 				<br/>

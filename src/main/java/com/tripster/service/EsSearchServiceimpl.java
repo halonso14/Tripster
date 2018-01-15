@@ -18,9 +18,13 @@ import com.tripster.persistence.EsContentsDAO;
 import com.tripster.persistence.EsMemberDAO;
 import com.tripster.persistence.EsPlanDAO;
 
+import com.tripster.elasticsearch.EsSearchMapper;
+
 @Service
 public class EsSearchServiceimpl implements EsSearchService {
 	
+	@Inject
+	private EsSearchMapper contentsMapper;
 	@Inject
 	private EsContentsDAO contentsDao;
 	@Inject
@@ -34,7 +38,7 @@ public class EsSearchServiceimpl implements EsSearchService {
 		
 		EsSearchResult result = new EsSearchResult();
 		
-		result.contentsList = contentsDao.getContentsList(cri);
+		result.contentsList = contentsMapper.getAllDocs(cri);
 		result.planList = planDao.getPlanList(cri);
 		result.memberList = memberDao.getMemberList(cri);
 		

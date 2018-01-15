@@ -52,14 +52,7 @@
 	    <div>
 			<a class="homebtn left" href="#"></a>
 			<div class="left">
-				<ul class="bcrumbs">
-					<li>/</li>
-					<li><a href="#">Hotels</a></li>
-					<li>/</li>
-					<li><a href="#">U.S.A.</a></li>
-					<li>/</li>					
-					<li><a href="#" class="active">New York</a></li>					
-				</ul>				
+			<span class="hidetext">'${cri.keyword }'검색결과</span>			
 			</div>
 			<a class="backbtn right" href="#"></a>
 		</div>
@@ -186,7 +179,9 @@
 												<span class="size11 grey">${esContentsVO.contents_review_cnt} Reviews</span><br><br>
 												<span class="green size18"><b>1 </b>Plan</span><br>
 												<span class="size11 grey margbot20">/ ${esContentsVO.contents_scrap_cnt} Scrap</span><br><br>
-											 	<button class="bookbtn mt1" type="submit">Detail</button>		
+											 	<form action="../contents/${esContentsVO.category_id}/${esContentsVO.contents_id}">
+											 		<button id="detailBtn" class="bookbtn mt1" type="submit">Detail</button>		
+									 			</form>
 											</div>
 											<div class="labelleft">			
 												<span class="size16"><b>${esContentsVO.contents_title}</b></span><br>
