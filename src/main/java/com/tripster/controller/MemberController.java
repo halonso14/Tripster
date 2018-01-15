@@ -1,6 +1,8 @@
 package com.tripster.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
@@ -21,8 +23,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 import com.tripster.domain.MemberVO;
+import com.tripster.domain.PlanDetailVO;
+import com.tripster.domain.PlanVO;
 import com.tripster.dto.LoginDTO;
 import com.tripster.service.MemberService;
+import com.tripster.service.MemoService;
+import com.tripster.service.PlanService;
 
 @Controller
 @RequestMapping("/member/*")
@@ -32,6 +38,10 @@ public class MemberController {
 
 	@Inject
 	private MemberService service;
+	@Inject
+	private PlanService planservice;
+	@Inject
+	private MemoService memoservice;
 
 	// 로그인 화면 접근
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -158,7 +168,7 @@ public class MemberController {
 
 	// 마이페이지 조회
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public void mypage2(MemberVO vo, HttpSession session, Model model) throws Exception {
+	public void mypage(MemberVO vo, HttpSession session, Model model) throws Exception {
 
 		Object obj = session.getAttribute("login");
 		MemberVO memVO = (MemberVO) obj;
@@ -248,6 +258,50 @@ public class MemberController {
 		rttr.addFlashAttribute("msg", "delete");
 
 		return "redirect:/";
+	}
+	
+	// 다른 회원 정보 조회 페이지
+	@RequestMapping(value = "/viewMember", method = RequestMethod.GET)
+	public void viewMember(@RequestParam("memberID") int memberID, Model model)throws Exception{
+		
+		List<String> picList = new ArrayList<String>();
+		List<PlanVO> vo = planservice.myPlan(memberID);
+		for(int i=0;i<vo.size();i++) {
+			String picName = "false";
+			//planDetailVO가 한개라도 있을 경우
+			if(vo.get(i).getPlanDetailVO() != null ) {
+				for(int j=0; j<vo.get(i).getPlanDetailVO().size(); j++) {
+					PlanDetailVO pd = vo.get(i).getPlanDetailVO().get(j);
+					if(pd.getMemoVO() != null) {
+						if(pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName() != null) {
+							picList.add( pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName());
+							picName = "true";
+							break;
+						} 
+					}
+				}
+				if(picName.equals("false")) {
+					picList.add("");
+					picName = "true";
+				}
+			}
+			if(picName.equals("false")) picList.add("");
+		}
+		
+//		List<HashMap<PlanVO,String>> planList = new ArrayList<HashMap<PlanVO,String>>();
+//		HashMap<PlanVO,String> map = new HashMap<PlanVO,String>();
+//		
+//		for(int i=0; i<vo.size(); i++) {
+//			for(int j=0; j<vo.size(); j++) {
+//				map.put(vo.get(i), picList.get(i));
+//			}
+//			planList.add(map);
+//		}
+		
+		model.addAttribute("pictureID", picList);
+		model.addAttribute("planVO", vo);
+		model.addAttribute(service.mypage(memberID));
+		
 	}
 
 	// 유저 추천페이지 위한 설문(수정도 됨)페이지 제공

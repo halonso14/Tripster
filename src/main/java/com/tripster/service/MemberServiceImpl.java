@@ -1,6 +1,7 @@
 package com.tripster.service;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -17,6 +18,7 @@ import com.tripster.common.TempKey;
 import com.tripster.domain.MemberVO;
 import com.tripster.dto.LoginDTO;
 import com.tripster.persistence.MemberDAO;
+import com.tripster.persistence.MemoDAO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -25,6 +27,8 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Inject
 	private MemberDAO dao;
+	@Inject
+	private MemoDAO memoDao;
 	@Inject
 	private BCryptPasswordEncoder passwordEncoder;
 	@Inject
@@ -208,6 +212,12 @@ public class MemberServiceImpl implements MemberService {
 	public void dropMember(Integer memberID) throws Exception {
 		
 		dao.deleteMember(memberID);
+	}
+	
+	@Override
+	public List<String> getThumbnail(Integer planDetailID) throws Exception {
+		
+		return memoDao.getAttach(planDetailID);
 	}
 
 }

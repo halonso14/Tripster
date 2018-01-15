@@ -201,7 +201,7 @@
 			<version>4.2</version>
 		</dependency>
 
-		
+
 		<!--스프링시큐리티 web 라이브러리 -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -220,32 +220,39 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>4.1.0.RELEASE</version>
 		</dependency>
-<!-- elasticsearch core -->
+		<!-- elasticsearch core -->
 		<dependency>
-		    <groupId>org.elasticsearch</groupId>
-		    <artifactId>elasticsearch</artifactId>
-		    <version>${elasticsearch.version}</version>
+			<groupId>org.elasticsearch</groupId>
+			<artifactId>elasticsearch</artifactId>
+			<version>${elasticsearch.version}</version>
 		</dependency>
-		
-	 	<!-- elasticsearch java api -->
+
+		<!-- elasticsearch java api -->
 		<dependency>
-		    <groupId>org.elasticsearch.client</groupId>
-		    <artifactId>transport</artifactId>
-		    <version>${elasticsearch.version}</version>
-		</dependency>	
-		
-			<!-- elasticsearch Log4j 2 Logger -->
+			<groupId>org.elasticsearch.client</groupId>
+			<artifactId>transport</artifactId>
+			<version>${elasticsearch.version}</version>
+		</dependency>
+
+		<!-- elasticsearch Log4j 2 Logger -->
 		<dependency>
-		    <groupId>org.apache.logging.log4j</groupId>
-		    <artifactId>log4j-core</artifactId>
-		    <version>${apache.log4j}</version>
-		</dependency> 
-		
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${apache.log4j}</version>
+		</dependency>
+
 		<!-- social-facebook 로그인 -->
 		<dependency>
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-facebook</artifactId>
 			<version>2.0.3.RELEASE</version>
+		</dependency>
+
+		<!-- aws sdk 라이브러리 -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk</artifactId>
+			<version>1.9.2</version>
 		</dependency>
 
 

@@ -1,6 +1,7 @@
 package com.tripster.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.social.facebook.api.User;
 
@@ -36,4 +37,6 @@ public interface MemberService {
 	public void uploadPicture(MemberVO vo) throws Exception;
 	
 	public void dropMember(Integer memberID) throws Exception;
+	
+	public List<String> getThumbnail(Integer planDetailID) throws Exception;
 }

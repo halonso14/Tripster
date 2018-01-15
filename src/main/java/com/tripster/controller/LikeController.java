@@ -25,7 +25,7 @@ public class LikeController {
 	@Inject
 	LikeService service;
 	
-	private static final Logger loger = LoggerFactory.getLogger(ScrapModuleController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ScrapModuleController.class);
 
 	// 좋아요 추가
 	@RequestMapping(value="/like",method=RequestMethod.POST)
