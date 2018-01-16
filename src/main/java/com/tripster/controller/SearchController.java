@@ -31,7 +31,6 @@ public class SearchController {
 					  	,@ModelAttribute("go")String go, Model model) throws Exception{
 		
 		System.out.println("search cri="+cri.toString());
-		
 		model.addAttribute("contentsList",esSearchService.contentsList(cri));
 		model.addAttribute("planList",esSearchService.planList(cri));
 		model.addAttribute("memberList",esSearchService.memberList(cri));
@@ -40,11 +39,11 @@ public class SearchController {
 		// model에 EsRepository의 검색결과 건수를 담아서 SearchPageMaker로 보낸다.
 		SearchPageMaker pageMaker = new SearchPageMaker();
 		pageMaker.setCri(cri);
-		
+
 		model.addAttribute("pageMaker",pageMaker);
 		
 		if(go.equals("contents")) {
-			pageMaker.setTotalCount(esSearchService.getTotalSearchNum(cri).get(3));
+			pageMaker.setTotalCount(Long.parseLong(esSearchService.getTotalSearchNum(cri).get("contentsNum")));
 			return "search/contentsResult";
 		}
 		else if(go.equals("member")) {

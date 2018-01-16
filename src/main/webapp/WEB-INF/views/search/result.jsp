@@ -205,12 +205,13 @@
 								<div class="offset-2" style="padding-top:20px"><!-- <hr class="featurette-divider3"> --></div>
 							</c:forEach>
 							
-							<c:set value="more" var="${ getNum.get(0) } "/>
-							<c:if test="${more>3 }" >
+							<c:set var="more" value="${getNum.contentsNum }" />
+							
+							<c:if test="${more > 3 }" >
 								<div style="text-align: right">
 										<a href="/search/result?keyword=${cri.keyword }&go=contents" style="color:blue;padding-right: 20px;">컨텐츠 더보기 </a>
 								</div>
-							</c:if>	
+							</c:if>
 	 						
 	 						<div class="offset-2"><hr class="featurette-divider3"></div>
 						</div>
@@ -244,9 +245,13 @@
 								</div>
 							</c:forEach>
 							
-							<div style="text-align: right">
-								<a href="/search/result?keyword=${cri.keyword }&go=plan" style="color:blue;padding-right: 20px;">일정 더보기 </a>
-							</div>
+							<c:set var="more" value="${getNum.planNum }" />
+							
+							<c:if test="${more > 3 }" >
+								<div style="text-align: right">
+									<a href="/search/result?keyword=${cri.keyword }&go=plan" style="color:blue;padding-right: 20px;">일정 더보기 </a>
+								</div>
+							</c:if>
 							
 							<div class="offset-2"><hr class="featurette-divider3"></div>	
 							
@@ -281,9 +286,12 @@
 							</c:forEach>
 							<div class="clearfix"></div>
 							
-							<div style="text-align: right">
-								<a href="/search/result?keyword=${cri.keyword }&go=member" style="color:blue;padding-right: 20px;">멤버 더보기 </a>
-							</div>
+							<c:set var="more" value="${getNum.memberNum }" />
+							<c:if test="${more > 3 }" >
+								<div style="text-align: right">
+									<a href="/search/result?keyword=${cri.keyword }&go=member" style="color:blue;padding-right: 20px;">멤버 더보기 </a>
+								</div>
+							</c:if>
 							
 							<div class="offset-2"><hr class="featurette-divider3"></div>	
 						</div>	

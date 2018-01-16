@@ -43,44 +43,26 @@ public class EsSearchServiceimpl implements EsSearchService {
 	}
 	
 	// 통합검색결과 건수 조회 
-//	@Override
-//	public HashMap<String,String> getTotalSearchNum(SearchCriteria cri) throws Exception{
-//		
-//		HashMap<String,String> getNumbers = new HashMap<>();
-//		
-//		long result = 0;
-//		result += contentsDao.getTotalContentsNum(cri);
-//		result += planDao.getTotalPlanNum(cri);
-//		result += memberDao.getTotalMemberNum(cri);
-//		
-//		getNumbers.put("contentsNum", String.valueOf(contentsDao.getTotalContentsNum(cri)));
-//		getNumbers.put("planNum", String.valueOf(planDao.getTotalPlanNum(cri)));
-//		getNumbers.put("memberNum", String.valueOf(memberDao.getTotalMemberNum(cri)));
-//		getNumbers.put("totalNum", String.valueOf(result));
-//		
-//		return getNumbers;
-//		
-//	}
+	@Override
+	public HashMap<String,String> getTotalSearchNum(SearchCriteria cri) throws Exception{
+		
+		HashMap<String,String> getNumbers = new HashMap<>();
+		
+		long result = 0;
+		result += contentsDao.getTotalContentsNum(cri);
+		result += planDao.getTotalPlanNum(cri);
+		result += memberDao.getTotalMemberNum(cri);
+		
+		getNumbers.put("contentsNum", String.valueOf(contentsDao.getTotalContentsNum(cri)));
+		getNumbers.put("planNum", String.valueOf(planDao.getTotalPlanNum(cri)));
+		getNumbers.put("memberNum", String.valueOf(memberDao.getTotalMemberNum(cri)));
+		getNumbers.put("totalNum", String.valueOf(result));
+		
+		return getNumbers;
+		
+	}
 	
-	// 통합검색결과 건수 조회 
-		@Override
-		public List<Integer> getTotalSearchNum(SearchCriteria cri) throws Exception{
-			
-			List<Integer> getNumbers = new ArrayList<>();
-			
-			long result = 0;
-			result += contentsDao.getTotalContentsNum(cri);
-			result += planDao.getTotalPlanNum(cri);
-			result += memberDao.getTotalMemberNum(cri);
-			
-			getNumbers.add((int)contentsDao.getTotalContentsNum(cri));
-			getNumbers.add((int)planDao.getTotalPlanNum(cri));
-			getNumbers.add((int)memberDao.getTotalMemberNum(cri));
-			getNumbers.add((int)result);
-			
-			return getNumbers;
-			
-		}
+
 	
 	// 컨텐츠 페이지 처리
 	@Override
