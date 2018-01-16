@@ -55,14 +55,15 @@ public class ScrapModuleController {
 	
 	// 스크랩 제거 
 	@RequestMapping(value="/scrapDelete/{contentsID}",method=RequestMethod.POST)
-	public ResponseEntity<String> scrapDelete(@PathVariable("contentsID") Integer contentsID) {
+	public ResponseEntity<String> scrapDelete(@PathVariable("contentsID") Integer contentsID,HttpSession session) {
 		
 		ResponseEntity<String> entity = null;
 		
 		try {
-			
+			// session의 회원정보 가져오기
+			MemberVO memberVO = (MemberVO) session.getAttribute("login");
 			// 컨텐츠 스크랩 제거 서비스
-			scrapService.scrapDelete(contentsID);
+			scrapService.scrapDelete(memberVO.getMemberID(),contentsID);
 			loger.info("scrap remove");
 			entity = new ResponseEntity<>("remove",HttpStatus.OK);
 			

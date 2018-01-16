@@ -69,7 +69,6 @@ public class EsSearchServiceimpl implements EsSearchService {
 	public List<EsContentsVO> contentsList(SearchCriteria cri) throws Exception{
 		
 		List<EsContentsVO> contentsList = contentsDao.getContentsList(cri);
-		System.out.println("contentsSize:"+contentsList.size());
 		List<EsContentsVO> result = new ArrayList<>();
 		
 		try {
@@ -90,14 +89,15 @@ public class EsSearchServiceimpl implements EsSearchService {
 		
 		List<EsPlanVO> planList = planDao.getPlanList(cri);
 		List<EsPlanVO> result = new ArrayList<>();
-		if(planList.size() > 10) {
+		
+		try {
 			for(int i=cri.getPageStart();i<cri.getPage()*cri.getPerPageNum();i++) {
 				result.add(planList.get(i));
 			}
-		}else {
-			result = planList;
+		}catch(Exception e) {
+			return result;
 		}
-		System.out.println("contentsList"+result.toString());
+		
 		return result;
 		
 	}
@@ -108,14 +108,15 @@ public class EsSearchServiceimpl implements EsSearchService {
 		
 		List<EsMemberVO> memberList = memberDao.getMemberList(cri);
 		List<EsMemberVO> result = new ArrayList<>();
-		if(memberList.size() > 10) {
+		
+		try {
 			for(int i=cri.getPageStart();i<cri.getPage()*cri.getPerPageNum();i++) {
 				result.add(memberList.get(i));
 			}
-		}else {
-			result = memberList;
+		}catch(Exception e) {
+			return result;
 		}
-		System.out.println("contentsList"+result.toString());
+		
 		return result;
 		
 	}

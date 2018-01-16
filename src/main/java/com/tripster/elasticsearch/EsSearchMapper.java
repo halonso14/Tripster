@@ -54,7 +54,7 @@ public class EsSearchMapper {
     	SimpleQueryStringBuilder qb = simpleQueryStringQuery(cri.getKeyword());	
     		
         SearchResponse response = client.prepareSearch()
-        		.setIndices(getIndexName()).setTypes("plan").setQuery(qb).get();
+        		.setIndices(getIndexName()).setTypes("plan").setQuery(qb).setSize(500).get();
         
         return response;
     }
@@ -65,7 +65,7 @@ public class EsSearchMapper {
     	SimpleQueryStringBuilder qb = simpleQueryStringQuery(cri.getKeyword());	
     		
         SearchResponse response = client.prepareSearch()
-        		.setIndices(getIndexName()).setTypes("member").setQuery(qb).get();
+        		.setIndices(getIndexName()).setTypes("member").setQuery(qb).setSize(500).get();
         
         return response;
     }

@@ -36,19 +36,11 @@ public class ScrapDAOTest {
 //		System.out.println(vo.toString());
 //	}
 	
-	@Test
-	public void scrap() throws Exception{
-		ContentsVO cont = new ContentsVO();
-		ScrapVO vo = new ScrapVO();
-		cont = contentsDao.getRestaurantDetail(1);
-		System.out.println(cont.toString());
-//		vo.setCategoryID(cont.getCategoryID());
-//		vo.setContentsID(cont.getContentsID());
-//		vo.setContentsTitle(cont.getTitle());
-//		vo.setContentsPhoto("photo");
-//		System.out.println(vo.toString());
-//		scrapDao.create(vo);
-	}
+//	@Test
+//	public void scrap() throws Exception{
+//		
+//		scrapDao.create(1,1);
+//	}
 	
 //	@Test
 //	public void scrapCheck() throws Exception{
@@ -64,5 +56,12 @@ public class ScrapDAOTest {
 //		}
 //		
 //	}
+	
+	@Test
+	public void scrapdelete() throws Exception{
+		
+		scrapDao.scrapDelete(41, 11);
+		
+	}
 
 }

@@ -10,7 +10,7 @@ public interface ScrapDAO {
 	public void create(Integer memberID,Integer contentsID) throws Exception;
 	
 	// 스크랩 삭제
-	public void scrapDelete(Integer contentsID) throws Exception;
+	public void scrapDelete(Integer memberID,Integer contentsID) throws Exception;
 	
 	// 스크랩 리스트 조회
 	public List<ScrapVO> listAll(Integer memberID) throws Exception;

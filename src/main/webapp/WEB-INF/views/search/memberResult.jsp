@@ -73,26 +73,8 @@
 		<!-- CONTENTS CONTAINER -->
 		<div class="container pagecontainer offset-0">	
 			<!-- LEFT CONTENT: SIDE FILTERS -->
-			<div class="col-md-3 filters offset-0">
-				<ul class="blogcat margleft20 margright20 margtop10">
-					<li class="size16">
-						<a href="result?keyword=${cri.keyword }&go=total" >
-						<span class="hidetext">'${cri.keyword }'검색결과</span>&nbsp; 
-						<span class="badge indent0">${getNum.get("totalNum") }</span></a></li>
-					<li class="">
-						<a href="result?keyword=${cri.keyword }&go=contents">
-						<span class="hidetext">컨텐츠</span>&nbsp; 
-						<span class="badge indent0">${getNum.get("contentsNum") }</span></a></li>
-					<li class="">
-						<a href="result?keyword=${cri.keyword }&go=plan">
-						<span class="hidetext">일정</span>&nbsp; 
-						<span class="badge indent0">${getNum.get("planNum") }</span></a></li>
-					<li class="">
-						<a href="result?keyword=${cri.keyword }&go=member">
-						<span class="hidetext">회원</span>&nbsp; 
-						<span class="badge indent0">${getNum.get("memberNum") }</span></a></li>
-				</ul>
-			</div>
+			
+			<%@include file="../include/sidefilter.jsp" %>
 			
 			<!-- RIGHT CONTENT -->
 			<div class="rightcontent col-md-9 offset-0">
@@ -164,7 +146,7 @@
 											<div class="col-md-8 offset-0">
 												<img src="/resources/images/user.png" alt="유저프로필"  class="left margright10">
 												<p class="size14 margtop10">
-													<span class="bold">${esMemberVO.memberName}</span><br>
+													<span class="bold"><%-- ${esMemberVO.memberName} --%></span><br>
 													<span class="size12 grey">일정수 / 팔로워수</span>
 												</p>
 												<div class="clearfix"></div>

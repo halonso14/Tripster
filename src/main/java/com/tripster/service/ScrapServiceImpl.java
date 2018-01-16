@@ -25,8 +25,8 @@ public class ScrapServiceImpl implements ScrapService{
 	
 	// 스크랩 삭제
 	@Override
-	public void scrapDelete(Integer contentsID) throws Exception{
-		scrapDao.scrapDelete(contentsID);
+	public void scrapDelete(Integer contentsID,Integer memberID) throws Exception{
+		scrapDao.scrapDelete(contentsID,memberID);
 	}
 	
 	// 스크랩 리스트 조회
@@ -49,9 +49,11 @@ public class ScrapServiceImpl implements ScrapService{
 		// 해당 페이지의 컨텐츠id를 받아 스크랩 조회
 		for(int i=0;i<list.size();i++) {
 			if(contentsID == list.get(i).getContentsID()) {
+				// 스크랩이 있으면 0 반환
 				return 0;
 			}
 		}
+		// 스크랩이 없으면 1반환
 		return 1;
 	}
 

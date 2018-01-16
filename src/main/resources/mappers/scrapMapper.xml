@@ -38,7 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <delete id="scrapDelete">
  
  	delete from tbl_Scrap
-	where Contents_ID = #{contentsID}
+	where Contents_ID = #{contentsID} and Member_ID = #{memberID}
  
  </delete>
 

@@ -41,6 +41,7 @@
 	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.dependClass-0.1.js"></script>
 	<script type="text/javascript" src="/resources/plugins/jslider/js/draggable-0.1.js"></script>
 	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.slider.js"></script>
+	
 	<!-- end -->
   </head>
   <body id="top" class="thebg" >
@@ -54,7 +55,7 @@
 			<div class="left offset-2">
 				
 				<a href="#" class="active">'${cri.keyword }' 검색결과</a>		
-								
+				
 			</div>
 			<a class="backbtn right" href="#"></a>
 		</div>
@@ -67,14 +68,9 @@
 		<!-- CONTENTS CONTAINER -->
 		<div class="container pagecontainer offset-0">	
 			<!-- LEFT CONTENT: SIDE FILTERS -->
-			<div class="col-md-3 filters offset-0">
-				<ul class="list-group offset-2 margtop30 ">
-					<li class="list-group-item"><span class="badge">${getNum.get("totalNum")}</span>통합검색</li>
-					<li class="list-group-item"><span class="badge">${getNum.get("contentsNum")}</span> 컨텐츠</li>
-					<li class="list-group-item"><span class="badge">${getNum.get("planNum")}</span> 일정</li>
-					<li class="list-group-item"><span class="badge">${getNum.get("memberNum")}</span> 회원</li>
-				</ul>			
-			</div>
+			
+			<%@include file="../include/sidefilter.jsp" %>
+			
 			<!-- RIGHT CONTENT -->
 			<div class="rightcontent col-md-9 offset-2">
 			
@@ -132,15 +128,24 @@
 						<div class="itemscontainer" >
 							<div class="offset-2" style="padding:20px ">	
 								<div class=" left"><b>컨텐츠</b></div>
-								<div class=" grey right"><a href="/search/result?keyword=${cri.keyword }&go=contents" style="text-decoration:underline">더보기 〉</a></div>
+								
+								<c:set var="more" value="${getNum.contentsNum }" />
+								<c:if test="${more > 3 }" >
+									<div class=" grey right">
+											<a href="/search/result?keyword=${cri.keyword }&go=contents" 
+											style="text-decoration:underline"> 더보기 〉 </a>
+									</div>
+								</c:if>
+								
 								<div class="clearfix"></div>
 							</div>
-
+							
+							<!-- 컨텐츠 리스트 -->
 							<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="2">	
 								<div class="offset-2" >
 									<div class="col-md-4 offset-0 listitem2" >
 										<a href="/contents/${esContentsVO.category_id }/${esContentsVO.contents_id}">
-											<img src=${esContentsVO.contents_thumbnail} alt="" style="display:block" />
+											<img src=${esContentsVO.contents_thumbnail } alt="" style="display:block" />
 										</a>
 									</div>
 									<div class="col-md-8 offset-0" style="border:1px solid #e6e6e6" >
@@ -152,9 +157,8 @@
 												<span class="margtop20 green size18"><b>0</b></span><span class="green size14"> Plan</span><br>
 												<span class="size11 grey">${esContentsVO.contents_scrap_cnt} Scrap</span><br><br>
 											 	
-											 	<form action="">
-											 		<button id="scrapBtn" class="bookbtn mt1" type="submit">Scrap</button>		
-									 			</form>
+										 		<button class="bookbtn mt1" value="${esContentsVO.contents_id}" check="1" >Scrap</button>		
+									 			
 											</div>
 											<div class="labelleft">			
 												<span class="size18"><a href="/contents/${esContentsVO.category_id }/${esContentsVO.contents_id}">
@@ -181,7 +185,15 @@
 						<div class="plans">
 							<div class="offset-2" style="padding:20px ">	
 								<div class=" left"><b>일정</b></div>
-								<div class=" grey right"><a href="/search/result?keyword=${cri.keyword }&go=plans" style="text-decoration:underline">더보기 〉</a></div>
+								
+								<c:set var="more" value="${getNum.planNum }" />
+								<c:if test="${more > 3 }" >
+									<div class=" grey right">
+											<a href="/search/result?keyword=${cri.keyword }&go=plans" 
+											style="text-decoration:underline"> 더보기 〉 </a>
+									</div>
+								</c:if>
+								
 								<div class="clearfix"></div>
 							</div>	
 					
@@ -216,7 +228,15 @@
 						<div class="members">
 							<div class="offset-2" style="padding:20px ">	
 								<div class=" left"><b>회원</b></div>
-								<div class=" grey right"><a href="/search/result?keyword=${cri.keyword }&go=member" style="text-decoration:underline">더보기 〉</a></div>
+					
+								<c:set var="more" value="${getNum.memberNum }" />
+								<c:if test="${more > 3 }" >
+									<div class=" grey right">
+											<a href="/search/result?keyword=${cri.keyword }&go=member" 
+											style="text-decoration:underline"> 더보기 〉 </a>
+									</div>
+								</c:if>
+							
 							<div class="clearfix"></div>
 							</div>	
 							<c:forEach items="${memberList}" var = "esMemberVO" begin="0" end="2">
@@ -279,6 +299,9 @@
 	<script src="/resources/assets/js/jquery-ui.js"></script>
     <!-- Bootstrap -->	
     <script src="/resources/dist/js/bootstrap.min.js"></script>
+    <!-- Scrap Btn -->
+    <script src="/resources/js/scrap.js"></script>
+    
   </body>
 
 </html>

@@ -30,8 +30,11 @@ public class ScrapDAOImpl implements ScrapDAO {
 	
 	// 스크랩 삭제
 	@Override
-	public void scrapDelete(Integer contentsID) throws Exception{
-		session.delete(namespace+".scrapDelete",contentsID);
+	public void scrapDelete(Integer memberID,Integer contentsID) throws Exception{
+		Map<String,Integer> map = new HashMap<>();
+		map.put("memberID", memberID);
+		map.put("contentsID", contentsID);
+		session.delete(namespace+".scrapDelete",map);
 	}
 	
 	// 스크랩리스트 조회

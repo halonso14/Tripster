@@ -74,26 +74,8 @@
 		<div class="container pagecontainer offset-0">	
 			
 			<!-- LEFT CONTENT: SIDE FILTERS -->
-			<div class="col-md-3 filters offset-0">
-				<ul class="blogcat margleft20 margright20 margtop10">
-					<li class="size16">
-						<a href="result?keyword=${cri.keyword }&go=total" >
-						<span class="hidetext">'${cri.keyword }'검색결과</span>&nbsp; 
-						<span class="badge indent0">${getNum.get("totalNum") }</span></a></li>
-					<li class="">
-						<a href="result?keyword=${cri.keyword }&go=contents">
-						<span class="hidetext">컨텐츠</span>&nbsp; 
-						<span class="badge indent0">${getNum.get("contentsNum") }</span></a></li>
-					<li class="">
-						<a href="result?keyword=${cri.keyword }&go=plan">
-						<span class="hidetext">일정</span>&nbsp; 
-						<span class="badge indent0">${getNum.get("planNum") }</span></a></li>
-					<li class="">
-						<a href="result?keyword=${cri.keyword }&go=member">
-						<span class="hidetext">회원</span>&nbsp; 
-						<span class="badge indent0">${getNum.get("memberNum") }</span></a></li>
-				</ul>
-			</div>
+			
+			<%@include file="../include/sidefilter.jsp" %>
 			
 			<!-- RIGHT CONTENT -->
 			<div class="rightcontent col-md-9 offset-0">
