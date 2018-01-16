@@ -44,15 +44,15 @@ public class SearchController {
 		model.addAttribute("pageMaker",pageMaker);
 		
 		if(go.equals("contents")) {
-			pageMaker.setTotalCount(esSearchService.getTotalSearchNum(cri).get(3));
+			pageMaker.setTotalCount((int)(esSearchService.getTotalSearchNum(cri).get(0)));
 			return "search/contentsResult";
 		}
 		else if(go.equals("member")) {
-			pageMaker.setTotalCount(Long.parseLong(esSearchService.getTotalSearchNum(cri).get("memberNum")));
+			pageMaker.setTotalCount((int)(esSearchService.getTotalSearchNum(cri).get(1)));
 			return "search/memberResult";
 		}
 		else if(go.equals("plan")) {
-			pageMaker.setTotalCount(Long.parseLong(esSearchService.getTotalSearchNum(cri).get("planNum")));
+			pageMaker.setTotalCount((int)(esSearchService.getTotalSearchNum(cri).get(2)));
 			return "search/planResult";
 		}
 		else return "search/result";
@@ -66,8 +66,8 @@ public class SearchController {
 		// 전체 페이지 불러오기
 		EsSearchResult results = esSearchService.getTotalSearchList(cri);
 		
-		System.out.println("contentsResult cri="+cri.toString());
-		System.out.println(results.getContentsList().toString());
+//		System.out.println("contentsResult cri="+cri.toString());
+//		System.out.println(results.getContentsList().toString());
 		
 		model.addAttribute("contentsList",results.getContentsList());
 		model.addAttribute("getNum",esSearchService.getTotalSearchNum(cri));
@@ -75,7 +75,7 @@ public class SearchController {
 		// model에 EsRepository의 검색결과 건수를 담아서 SearchPageMaker로 보낸다.
 		SearchPageMaker pageMaker = new SearchPageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(Long.parseLong(esSearchService.getTotalSearchNum(cri).get("totalNum")));
+		pageMaker.setTotalCount((int)(esSearchService.getTotalSearchNum(cri).get(3)));
 
 		model.addAttribute("pageMaker",pageMaker);
 		

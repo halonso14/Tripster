@@ -47,26 +47,6 @@ public class EsSearchServiceimpl implements EsSearchService {
 	}
 	
 	// 통합검색결과 건수 조회 
-//	@Override
-//	public HashMap<String,String> getTotalSearchNum(SearchCriteria cri) throws Exception{
-//		
-//		HashMap<String,String> getNumbers = new HashMap<>();
-//		
-//		long result = 0;
-//		result += contentsDao.getTotalContentsNum(cri);
-//		result += planDao.getTotalPlanNum(cri);
-//		result += memberDao.getTotalMemberNum(cri);
-//		
-//		getNumbers.put("contentsNum", String.valueOf(contentsDao.getTotalContentsNum(cri)));
-//		getNumbers.put("planNum", String.valueOf(planDao.getTotalPlanNum(cri)));
-//		getNumbers.put("memberNum", String.valueOf(memberDao.getTotalMemberNum(cri)));
-//		getNumbers.put("totalNum", String.valueOf(result));
-//		
-//		return getNumbers;
-//		
-//	}
-	
-	// 통합검색결과 건수 조회 
 		@Override
 		public List<Integer> getTotalSearchNum(SearchCriteria cri) throws Exception{
 			

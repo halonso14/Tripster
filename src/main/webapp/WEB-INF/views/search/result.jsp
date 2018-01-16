@@ -69,10 +69,10 @@
 			<!-- LEFT CONTENT: SIDE FILTERS -->
 			<div class="col-md-3 filters offset-0">
 				<ul class="list-group offset-2 margtop30 ">
-					<li class="list-group-item"><span class="badge">${getNum.get("totalNum")}</span>통합검색</li>
-					<li class="list-group-item"><span class="badge">${getNum.get("contentsNum")}</span> 컨텐츠</li>
-					<li class="list-group-item"><span class="badge">${getNum.get("planNum")}</span> 일정</li>
-					<li class="list-group-item"><span class="badge">${getNum.get("memberNum")}</span> 회원</li>
+					<li class="list-group-item"><span class="badge">${getNum.get(3)}</span>통합검색</li>
+					<li class="list-group-item"><span class="badge">${getNum.get(0)}</span> 컨텐츠</li>
+					<li class="list-group-item"><span class="badge">${getNum.get(1)}</span> 일정</li>
+					<li class="list-group-item"><span class="badge">${getNum.get(2)}</span> 회원</li>
 				</ul>			
 			</div>
 			<!-- RIGHT CONTENT -->
