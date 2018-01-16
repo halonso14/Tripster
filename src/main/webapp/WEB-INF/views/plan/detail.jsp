@@ -168,7 +168,7 @@ body {
 	
 	
 	<div class="container">
-		<div class="modal fade" id="myModal" role="dialog" style="width: 800px;height:700px; margin-bottom: 50px">
+		<div class="modal fade" id="myModal" role="dialog" style="width: 800px;height:700px; margin-bottom: 50px;overflow-y:auto;overflow-x:hidden;">
 		 
 			 <form method="post" id="memoForm">
 				<input type="hidden" name="planID" value=${planVO.planID }>
@@ -204,6 +204,7 @@ body {
 	
 <%@include file="/WEB-INF/views/include/footer.jsp"%>
 
+<!-- 사진 템플릿.  -->
 <script id="template" type="text/x-handlebars-template">
 <li data-src='{{fullName}}'>
 	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="{{imgsrc}}"></span>
@@ -214,7 +215,8 @@ body {
 </li>
 </script>
 
-	<script>
+<!-- file drop관련 스크립트. -->
+<script>
 	var template = Handlebars.compile($("#template").html());
 	
 	$(".fileDrop").on("dragenter dragover", function(event) {
@@ -249,6 +251,7 @@ body {
 	});
 </script>
 
+<!-- full calendar 스크립트. -->
 <script>
 	$(document).ready(function() {
         var sendData = new Object();

@@ -13,7 +13,7 @@ public class PlanVO {
 	private Date planStartDate; //일정 시작일.
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date planEndDate;// 일정 종료일.
-	public int planEndChk; //일정완료여부.
+	public int planEndChk; //일정완료여부.(0:미완료 / 1:완료)
 	private List<PlanDetailVO> planDetailVO; //planDetail join시 사용.
 	private String memberName; //회원 이름조회.
 	private int planLikeCnt; //좋아요 카운트

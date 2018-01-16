@@ -211,17 +211,7 @@ body {
 <%@include file="/WEB-INF/views/include/footer.jsp"%>
 
 
-	<script id="templateAttach" type="text/x-handlebars-template">
-<li data-src='{{fullName}}'>
-  <span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
-  <div class="mailbox-attachment-info">
-   <a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
-   </span>
-  </div>
-</li>                
-</script>
-
-
+<!-- 이미지 템플릿. -->
 <script id="template" type="text/x-handlebars-template">
 <li data-src='{{fullName}}'>
 	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="{{imgsrc}}"></span>
@@ -232,6 +222,7 @@ body {
 </li>
 </script>
 
+<!-- 사진 drop 관련 스트립트.  -->
 <script>
 	var template = Handlebars.compile($("#template").html());
 	
@@ -268,6 +259,7 @@ body {
 </script>
 </body>
 
+<!-- full calendar 관련 스크립트. -->
 <script>
 $(document).ready(function() {
 
