@@ -302,4 +302,44 @@ table{
 	padding-top: 30px;
 }
 
+.content_rcm_plan_thumbnail{
+	width: 90px;
+    height: 90px;
+    display: inline-block;
+    background-color: #ffffff;
+    margin: -50px 110px auto;
+    border-radius: 50px;
+    padding: 2px;
+}
+
+#content_rcm_plan_thumbnail_image{
+	width: 100%;
+    height: 100%;
+    border-radius: 50px;
+}
+
+.content_rcm_plan_writer{
+	font-size: 1.5em;
+    text-align: center;
+}
+
+.content_rcm_plan_name{
+	font-size: 2em;
+    text-align: center;
+    font-weight: bold;
+    margin: 20px 0 0 0;
+}
+
+#content_rcm_plan_thumbnail_bgImage{
+	width: 100%;
+	height: 40%;
+}
+
+.content_rcm_plan_date{
+    text-align: center;
+}
+
+.content_rcm_plan_planEndChk{
+	text-align: center;
+}
 /* myplan and */

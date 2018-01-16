@@ -375,8 +375,8 @@ response.setHeader("Pragma", "no-cache");
 					  <!-- TAB 2 -->					  
 					  <div class="tab-pane" id="bookings">
 						<div class="padding40">
-							<div class="general_font rcm_title_font"><h2>다음 여행지로 이 곳들은 어떠세요?</h2></div>
-						    <div class="general_text">-<span class="lred">${memberVO.memberName}</span>님의 활동을 기반으로 추천해드립니다.</div>
+							<div class="general_font rcm_title_font"><h2>다음 여행지로 이곳들은 어떠세요?</h2></div>
+						    <div class="general_text">-<span class="lred">${memberVO.memberName}</span>님의 활동을 기반으로 추천해드립니다.  만약 처음이라면? <a href="/member/detail" style="color: #8d1cc6">추천 설문 바로가기</a> </div>
 						    <div class="general_text">
 						    	<span class="rectangle" style="background-color: #8d1cc6"></span><span>추천 국가</span>
 						    	<span class="rectangle" style="background-color: #88fd65"></span><span>여행 예정 국가</span>
@@ -389,7 +389,7 @@ response.setHeader("Pragma", "no-cache");
 						    </div>
 						    <div class="clearfix"></div>
 						    <div class="description">
-					        	<img src="/resources/images/192.jpg" width="100%" />
+					        	<img id="country_or_city_title_image" src="/resources/images/AU_main.jpg" width="100%" />
 					        	<div class="general_font country_name_font">
 					    			<div class="description_title">Austrailia</div>
 					    		</div>
@@ -602,64 +602,20 @@ response.setHeader("Pragma", "no-cache");
 					    	<div class="general_font rcm_title_font just_padding_for_subtitle"><h2>이 국가에 관련된 일정 추천</h2></div>
 							<div class="relavtive_rcm">
 					    		  <div class="your-class">
+								    
 								    <div class="contents_rcm">
 								    	<div class="inner_card">
-								    		<img src="/resources/images/Port Macquarie.jpg" width="100%" />
-								    	 	<div class="content_rcm_title">
-					    						<div class="general_font country_name_font">Tweed Heads</div>
+								    		<img id="content_rcm_plan_thumbnail_bgImage" src="/resources/images/profile_bg.jpg" />
+								    	 	<div class="content_rcm_plan_thumbnail">
+					    						<img id="content_rcm_plan_thumbnail_image" src="/resources/images/thumbnail_default3.png" />
 					    					</div>
-								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
+					    					<div class="general_font content_rcm_plan_writer">pandas</div>
+					    					<div class="general_font content_rcm_plan_name">호주 방학 여행</div>
+								    		<div class="content_rcm_plan_date">2018/1/30 ~ 2018/2/30</div>
+								    		<div class="content_rcm_plan_planEndChk">종료된 일정</div>
 								    	</div>
 								    </div>
 
-								    <div class="contents_rcm">
-								    	<div class="inner_card">
-								    		<img src="/resources/images/Port Macquarie.jpg" width="100%" />
-								    		<div class="content_rcm_title">
-					    						<div class="general_font country_name_font">Tweed Heads</div>
-					    					</div>
-								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
-								    	</div>
-								    </div>
-								    <div class="contents_rcm">
-								    <div class="inner_card">
-								    <img src="/resources/images/Port Macquarie.jpg" width="100%" />
-								    	<div class="content_rcm_title">
-					    						<div class="general_font country_name_font">Tweed Heads</div>
-					    					</div>
-								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
-								    	</div>
-									</div>
-								    <div class="contents_rcm">
-								    	<div class="inner_card">
-								    	<img src="/resources/images/Port Macquarie.jpg" width="100%" />
-								    		<div class="content_rcm_title">
-					    						<div class="general_font country_name_font">Tweed Heads</div>
-					    					</div>
-								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
-
-								    	</div>
-								    </div>
-								    <div class="contents_rcm">
-										<div class="inner_card">
-										<img src="/resources/images/Port Macquarie.jpg" width="100%" />
-								    		<div class="content_rcm_title">
-					    						<div class="general_font country_name_font">Tweed Heads</div>
-					    					</div>
-								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
-
-								    	</div>
-								    </div>
-								    <div class="contents_rcm">
-								    	<div class="inner_card">
-								    	<img src="/resources/images/Port Macquarie.jpg" width="100%" />
-								    		<div class="content_rcm_title">
-					    						<div class="general_font country_name_font">Tweed Heads</div>
-					    					</div>
-								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
-
-								    	</div>
-								    </div>
 								  </div>
 					    	</div>
 

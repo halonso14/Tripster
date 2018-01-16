@@ -342,12 +342,14 @@ var ajaxController= function(url){
 				  //chartMap.validateData(); //에러나서 다 막음
 				  $('#numCountries').text(count); //방문국가수 업데이트
             }
-            else if(url.match("/recommand")){ //추천
+            else if(url.match("/recommand")){ //추천페이지 데이터 바인딩
             	
             	console.log('추천데이터 ajax 데이터부분');
             	console.log(data);
             		//구글맵 세팅.
             	initGoogleMap(data);
+            	
+            	    //추천국가 amcharts에 색깔 표시
             	chartMap2.dataProvider.areas= [];
             	for(var i=data.length-1; i>-1;i--){
             	
@@ -363,11 +365,11 @@ var ajaxController= function(url){
             		}	
             	}//for
             	
+            	//amchart에 추천 국가 눌렀을 때 그 나라 데이터 바인딩 되도록 세팅
             	chartMap2.listeners.push({
         		    "event": "clickMapObject",
         		    "method": function(event) {
         		    	//console.log(event);
-        		    		//이벤트에서 previouslyHovered 에서 나라 ID 찾고 그걸로 밑에 데이터를 채운다
         		    	//console.log(event.mapObject.id);
         		    	
         		    	for(var i=data.length-1; i>-1;i--){
@@ -381,6 +383,12 @@ var ajaxController= function(url){
                     			 $('#exchange_ymmu').html('<br>1'+data[i].money_unit+' = '+ data[i].exchange+'원<br>'+'10'+data[i].money_unit+' = '+ data[i].exchange*10+'원<br>'); //지도서 클릭한 나라 환율
                     			 $('#safe_ymmu').html(data[i].safe+'<br>'); //지도서 클릭한 나라 환율
                     			 $('#bigmac_ymmu').html('약 '+data[i].bigmac_price+data[i].money_unit+'<br><br>'+'<b>US달러 가격</b><br>'+data[i].bigmac_price_dallor); //지도서 클릭한 나라 환율
+                    			 $('#country_or_city_title_image').attr('src', '/resources/images/'+data[i].iso2+'_main.jpg');
+                    		
+                    			 	//관련 국가를 다녀가는 일정
+                    			 ajaxController("/rcm/"+data[i].iso2);
+                    		
+                    		
                     		}	
                     	}//for
         		    	
@@ -402,6 +410,22 @@ var ajaxController= function(url){
         		  });
             	
             }//else if
+            else if(url.match("/rcm")){
+            	
+            	console.log("/rcm 들어옴");
+            	//console.log(data.planList[0].planTitle);
+            	var planList = data.planList;
+            	//console.log(planList[0].planTitle);
+				
+            	$('.content_rcm_plan_name').html(planList[0].planTitle);
+            	$('.content_rcm_plan_date').html(planList[0].planStartDate+' ~ '+planList[0].planEndDate);
+            	
+            	var check = '진행중';
+            	if(planList[0].planEndChk == 1) check = '완료됨';
+            	
+            	$('.content_rcm_plan_planEndChk').html(check);
+            	
+            }
         }//success
 
     }); 

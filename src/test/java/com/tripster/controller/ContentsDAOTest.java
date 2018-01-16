@@ -13,6 +13,7 @@ import com.tripster.domain.ContentsReviewVO;
 import com.tripster.domain.Criteria;
 import com.tripster.persistence.ContentsDAO;
 import com.tripster.persistence.ContentsReviewDAO;
+import com.tripster.persistence.RecommandDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/**/*.xml"})
@@ -70,4 +71,13 @@ public class ContentsDAOTest {
 //		dao.updateContentsRating(contentsRating,1);
 //	}
 	
+	
+	@Inject
+	private RecommandDAO recommandDAO;
+	
+	//컨텐츠 상세 정보 검색 / 조회수 갱신 테스트
+	@Test
+	public void testRead() throws Exception {
+		System.out.println(recommandDAO.getPlanList("AU").toString());
+	}
 }
