@@ -15,6 +15,8 @@ public class MailHandler {
     private MimeMessage message;
     private MimeMessageHelper messageHelper;
 
+    
+    
     public MailHandler(JavaMailSender mailSender) throws MessagingException {
         this.mailSender = mailSender;
         message = this.mailSender.createMimeMessage();
