@@ -48,16 +48,18 @@
 
 	<!--####### HEADER #######-->
 	<%@include file="../include/header2.jsp" %>
+	<!-- 로그인 세션  -->
+	<c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
 	<!-- Breadcrumbs -->
 	<div class="container breadcrub">
 	    <div>
 			<a class="homebtn left" href="#"></a>
 			<div class="left offset-2">
 				
-				<a href="#" class="active">'${cri.keyword }' 검색결과</a>		
+				<p style="color: black;font-weight:bold;">'${cri.keyword }' 검색결과</p>		
 				
 			</div>
-			<a class="backbtn right" href="#"></a>
+			
 		</div>
 		<div class="clearfix"></div>
 		<div class="brlines"></div>
@@ -73,201 +75,225 @@
 			
 			<!-- RIGHT CONTENT -->
 			<div class="rightcontent col-md-9 offset-2">
-			
+				
+				<!-- 전체 검색결과 리스트  -->
+				<div class="tab-pane  active" id="totalList">
 					
-					<!-- 전체 검색결과 리스트  -->
-					<div class="tab-pane  active" id="totalList">
-						<!-- Top FILTERS -->
-						<div class="hpadding20">
-							<div class="topsortby">
-								<div class="col-md-4 offset-0">
-										
-										<div class="left mt7"><b>Sort by:</b></div>
-										
-										<div class="right wh70percent">
-											<select class="form-control mySelectBoxClass ">
-											  <option selected>Guest rating</option>
-											  <option>5 stars</option>
-											  <option>4 stars</option>
-											  <option>3 stars</option>
-											  <option>2 stars</option>
-											  <option>1 stars</option>
-											</select>
-										</div>
-		
-								</div>			
-								<div class="col-md-4">
-									<div class="w50percent">
-										<div class="wh90percent">
-											<select class="form-control mySelectBoxClass ">
-											  <option selected>Name</option>
-											  <option>A to Z</option>
-											  <option>Z to A</option>
-											</select>
-										</div>
+					<!-- Top FILTERS -->
+					<div class="hpadding20">
+						<div class="topsortby">
+							<div class="col-md-4 offset-0">
+									
+									<div class="left mt7"><b>Sort by:</b></div>
+									
+									<div class="right wh70percent">
+										<select class="form-control mySelectBoxClass ">
+										  <option selected>Guest rating</option>
+										  <option>5 stars</option>
+										  <option>4 stars</option>
+										  <option>3 stars</option>
+										  <option>2 stars</option>
+										  <option>1 stars</option>
+										</select>
 									</div>
-									<div class="w50percentlast">
-										<div class="wh90percent">
-											<select class="form-control mySelectBoxClass ">
-											  <option selected>Price</option>
-											  <option>Ascending</option>
-											  <option>Descending</option>
-											</select>
-										</div>
-									</div>					
+	
+							</div>			
+							<div class="col-md-4">
+								<div class="w50percent">
+									<div class="wh90percent">
+										<select class="form-control mySelectBoxClass ">
+										  <option selected>Name</option>
+										  <option>A to Z</option>
+										  <option>Z to A</option>
+										</select>
+									</div>
 								</div>
-								<div class="col-md-4 offset-0">
-									<button class="popularbtn left">Most Popular</button>
+								<div class="w50percentlast">
+									<div class="wh90percent">
+										<select class="form-control mySelectBoxClass ">
+										  <option selected>Price</option>
+										  <option>Ascending</option>
+										  <option>Descending</option>
+										</select>
+									</div>
+								</div>					
+							</div>
+							<div class="col-md-4 offset-0">
+								<button class="popularbtn left">Most Popular</button>
 
-								</div>
 							</div>
 						</div>
-						<!-- End of Top FILTERS-->
-						
-						<!-- 컨텐츠 검색결과  -->
-						<div class="itemscontainer" >
-							<div class="offset-2" style="padding:20px ">	
-								<div class=" left"><b>컨텐츠</b></div>
-								
-								<c:set var="more" value="${getNum.contentsNum }" />
-								<c:if test="${more > 3 }" >
-									<div class=" grey right">
-											<a href="/search/result?keyword=${cri.keyword }&go=contents" 
-											style="text-decoration:underline"> 더보기 〉 </a>
-									</div>
-								</c:if>
-								
-								<div class="clearfix"></div>
-							</div>
-							
-							<!-- 컨텐츠 리스트 -->
-							<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="2">	
-								<div class="offset-2" >
-									<div class="col-md-4 offset-0 listitem2" >
-										<a href="/contents/${esContentsVO.category_id }/${esContentsVO.contents_id}">
-											<img src=${esContentsVO.contents_thumbnail } alt="" style="display:block" />
-										</a>
-									</div>
-									<div class="col-md-8 offset-0" style="border:1px solid #e6e6e6" >
-										<div class="itemlabel4" style="height:208px;">
-											<div class="labelright">
-												<span class=" green size18"><b>${esContentsVO.contents_review_cnt}</b></span><span class="green size14"> Review</span><br>
-												<img class="margtop10" src="/resources/images/filter-rating-${esContentsVO.contents_rating}.png" width="60" alt=""><br>
-												<span class="size11 grey ">${esContentsVO.contents_rating} Stars</span><br><br>
-												<span class="margtop20 green size18"><b>0</b></span><span class="green size14"> Plan</span><br>
-												<span class="size11 grey">${esContentsVO.contents_scrap_cnt} Scrap</span><br><br>
-											 	
-										 		<button class="bookbtn mt1" value="${esContentsVO.contents_id}" check="1" >Scrap</button>		
-									 			
-											</div>
-											<div class="labelleft">			
-												<span class="size18"><a href="/contents/${esContentsVO.category_id }/${esContentsVO.contents_id}">
-													<b>${esContentsVO.contents_title}</b></a>
-												</span><br>
-												<span class="margtop10 size12 grey glyphicon glyphicon-map-marker"></span><span class="grey2"> ${esContentsVO.contents_location}</span> 
-												<div class="line4 wh80percent"></div>
-												<span class="opensans size14 grey">
-													Category: ${esContentsVO.category_value_kor}<br>
-													Keyword: ${esContentsVO.contents_keyword }
-												</span>
-											</div>
-											<div class="clearfix"></div>
-										</div>
-									</div>
-								</div>
-								<div class="clearfix"></div>
-								<div class="offset-2" style="padding-top:30px"></div>
-							</c:forEach>
-							<div class="offset-2"><hr></div>
-						</div>
-
-						<!-- 일정 검색결과 -->	
-						<div class="plans">
-							<div class="offset-2" style="padding:20px ">	
-								<div class=" left"><b>일정</b></div>
-								
-								<c:set var="more" value="${getNum.planNum }" />
-								<c:if test="${more > 3 }" >
-									<div class=" grey right">
-											<a href="/search/result?keyword=${cri.keyword }&go=plans" 
-											style="text-decoration:underline"> 더보기 〉 </a>
-									</div>
-								</c:if>
-								
-								<div class="clearfix"></div>
-							</div>	
+					</div>
+					<!-- End of Top FILTERS-->
 					
-							<c:forEach items="${planList}" var = "esPlanVO" begin="0" end="2">
-								<div class="col-md-4">
-									<div class="listitem">
-										<img src="http://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2016/09/countries-drive-from-india-cover2.jpg" >
-									</div>
-									<div class="itemlabel2">
-										<div class="labelright">													
-											<img src="/resources/images/user.png" alt="유저프로필" class=" ">
-											<p class="size12 grey margtop20">${esPlanVO.member_name}</p><br>
-											<span class="size11 grey">댓글수</span><br>
-											<span class="size11 grey">좋아요수</span><br>
-											<button class="bookbtn mt1">좋아요</button>		
-										</div>
-										<div class="labelleft">	
-											<span class="size16"><b>${esPlanVO.plan_title}</b></span><br>		
-											<br>
-											<p class="grey">$</p>
-										</div>
-									</div>
-									<div class="clearfix"></div>
-								</div>
-							</c:forEach>
-							<div class="clearfix"></div>
-							<div class="offset-2" style="padding-top:30px"></div>
-							<div class="offset-2"><hr></div>	
+					<!-- 통합검색결과가 없을경우 -->
+					<c:set var="totalNum" value="${getNum.totalNum }" />
+					<c:if test="${totalNum == 0 }" >
+						<div class="offset-2" style="padding:20px ">
+								<br/>
+								<em style="color:red;">'${cri.keyword }'</em>
+								에 대한 검색 결과가 없습니다.
 						</div>
-						
-						<!-- 회원 검색결과 -->
-						<div class="members">
-							<div class="offset-2" style="padding:20px ">	
-								<div class=" left"><b>회원</b></div>
+					</c:if>
 					
-								<c:set var="more" value="${getNum.memberNum }" />
-								<c:if test="${more > 3 }" >
-									<div class=" grey right">
-											<a href="/search/result?keyword=${cri.keyword }&go=member" 
-											style="text-decoration:underline"> 더보기 〉 </a>
-									</div>
-								</c:if>
+					<!-- 컨텐츠 결과가 있을경우 -->
+					<c:set var="contentsNum" value="${getNum.contentsNum }" />
+					<c:if test="${contentsNum > 0 }" >
+					
+					<!-- 컨텐츠 검색결과  -->
+					<div class="contentsResult" >
+						<div class="offset-2" style="padding:20px ">	
+							<div class=" left"><b>컨텐츠</b></div>
 							
+							<c:if test="${contentsNum > 3 }" >
+								<div class=" grey right">
+										<a href="/search/result?keyword=${cri.keyword }&go=contents" 
+										style="text-decoration:underline"> 더보기 〉 </a>
+								</div>
+							</c:if>
 							<div class="clearfix"></div>
-							</div>	
-							<c:forEach items="${memberList}" var = "esMemberVO" begin="0" end="2">
-								<div class="col-md-4" >
-									<!-- CONTAINER-->
-									<div class="carscontainer" style="border:1px solid #e6e6e6">
-										<div class="center">
-											<a href=""><img src="/resources/updates/update1/img/cars/car04.jpg"/></a>
+						</div>
+					
+						<!-- 컨텐츠 리스트 -->
+						<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="2">	
+							<div class="offset-2" >
+								<div class="col-md-4 offset-0 listitem2" >
+									<a href="/contents/${esContentsVO.category_id }/${esContentsVO.contents_id}">
+										<img src=${esContentsVO.contents_thumbnail } alt="" style="display:block" />
+									</a>
+								</div>
+								<div class="col-md-8 offset-0" style="border:1px solid #e6e6e6" >
+									<div class="itemlabel4" style="height:208px;">
+										<div class="labelright">
+											<span class=" green size18"><b>${esContentsVO.contents_review_cnt}</b></span><span class="green size14"> Review</span><br>
+											<img class="margtop10" src="/resources/images/filter-rating-${esContentsVO.contents_rating}.png" width="60" alt=""><br>
+											<span class="size11 grey ">${esContentsVO.contents_rating} Stars</span><br><br>
+											<span class="margtop20 green size18"><b>0</b></span><span class="green size14"> Plan</span><br>
+											<span class="size11 grey">${esContentsVO.contents_scrap_cnt} Scrap</span><br><br>
+										 	
+									 		<button class="bookbtn mt1" value="${esContentsVO.contents_id}" check="1" session="${empty userSession }" >스크랩</button>		
+								 		
 										</div>
-																
-										<div class="purchasecontainer"  >
-											<div class="offset-2 left bold" style="padding-top:5px">${esMemberVO.member_name}</div>		
-											<div class="offset-2 right"><button class=" bookbtn mt1">팔로우</button></div>	
-											<div class="clearfix"></div>
+										<div class="labelleft">			
+											<span class="size18"><a href="/contents/${esContentsVO.category_id }/${esContentsVO.contents_id}">
+												<b>${esContentsVO.contents_title}</b></a>
+											</span><br>
+											<span class="margtop10 size12 grey glyphicon glyphicon-map-marker"></span><span class="grey2"> ${esContentsVO.contents_location}</span> 
+											<div class="line4 wh80percent"></div>
+											<span class="opensans size14 grey">
+												Category: ${esContentsVO.category_value_kor}<br>
+												Keyword: ${esContentsVO.contents_keyword }
+											</span>
 										</div>
-										<div style="padding-top:20px"></div>
 										<div class="clearfix"></div>
 									</div>
-									<!-- END OF CONTAINER-->
 								</div>
-							</c:forEach>
+							</div>
 							<div class="clearfix"></div>
-							<div class="offset-2" style="padding-top:50px"></div>
-							<div class="offset-2"><hr></div>
-						</div>	
-						
-					</div> <!-- 전체 검색결과 리스트 끝 -->
-	
+							<div class="offset-2" style="padding-top:30px"></div>
+						</c:forEach>
+						<div class="offset-2"><hr></div>
+					</div>
 
-				
+					</c:if>
+					
+					<!-- 일정 결과가 있을경우 -->
+					<c:set var="planNum" value="${getNum.planNum }" />
+					<c:if test="${planNum > 0 }" >
+					
+					<!-- 일정 검색결과 -->	
+					<div class="plans">
+						
+						<div class="offset-2" style="padding:20px ">	
+							<div class=" left"><b>일정</b></div>
+							
+							<c:if test="${planNum > 3 }" >
+								<div class=" grey right">
+										<a href="/search/result?keyword=${cri.keyword }&go=plan" 
+										style="text-decoration:underline"> 더보기 〉 </a>
+								</div>
+							</c:if>
+						<div class="clearfix"></div>
+						</div>
+							
+						<c:forEach items="${planList}" var = "esPlanVO" begin="0" end="2">
+							<div class="col-md-4">
+								<div class="listitem">
+									<img src="http://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2016/09/countries-drive-from-india-cover2.jpg" >
+								</div>
+								<div class="itemlabel2">
+									<div class="labelright">													
+										<img src="/resources/images/user.png" alt="유저프로필" class=" ">
+										<p class="size12 grey margtop20">${esPlanVO.member_name}</p><br>
+										<span class="size11 grey">댓글수</span><br>
+										<span class="size11 grey">좋아요수</span><br>
+										<button class="bookbtn mt1">좋아요</button>		
+									</div>
+									<div class="labelleft">	
+										<span class="size16"><b>${esPlanVO.plan_title}</b></span><br>		
+										<br>
+										<p class="grey">$</p>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</c:forEach>
+						<div class="clearfix"></div>
+						<div class="offset-2" style="padding-top:30px"></div>
+						<div class="offset-2"><hr></div>	
+					</div>
+					
+					</c:if>
+					
+					<!-- 멤버 결과가 있을경우 -->
+					<c:set var="memberNum" value="${getNum.memberNum }" />
+					<c:if test="${memberNum > 0 }" >
+					
+					<!-- 회원 검색결과 -->
+					<div class="members">
+					
+						<div class="offset-2" style="padding:20px ">	
+							<div class=" left"><b>회원</b></div>
+							
+							<c:if test="${memberNum > 3 }" >
+								<div class=" grey right">
+										<a href="/search/result?keyword=${cri.keyword }&go=member" 
+										style="text-decoration:underline"> 더보기 〉 </a>
+								</div>
+							</c:if>
+						<div class="clearfix"></div>
+						</div>
+						
+						<c:forEach items="${memberList}" var = "esMemberVO" begin="0" end="2">
+							<div class="col-md-4" >
+								<!-- CONTAINER-->
+								<div class="carscontainer" style="border:1px solid #e6e6e6">
+									<div class="center">
+										<a href=""><img src="/resources/updates/update1/img/cars/car04.jpg"/></a>
+									</div>
+															
+									<div class="purchasecontainer"  >
+										<div class="offset-2 left bold" style="padding-top:5px">${esMemberVO.member_name}</div>		
+										<div class="offset-2 right"><button class=" bookbtn mt1">팔로우</button></div>	
+										<div class="clearfix"></div>
+									</div>
+									<div style="padding-top:20px"></div>
+									<div class="clearfix"></div>
+								</div>
+								<!-- END OF CONTAINER-->
+							</div>
+						</c:forEach>
+						<div class="clearfix"></div>
+						<div class="offset-2" style="padding-top:50px"></div>
+						<div class="offset-2"><hr></div>
+					</div>	
+					
+					</c:if>
+				</div> 
+				<!-- 전체 검색결과 리스트 끝 -->
+			
 			</div> <!-- END OF RIGHT CONTENT -->
+			
 			
 		</div> <!-- END OF CONTENTS CONTAINER -->
 		
@@ -276,6 +302,9 @@
 	<!-- END OF Container -->
 	
 	<!--####### FOOTER #######-->
+	
+	
+	
 	<%@include file="../include/footer.jsp" %>
 
     <!-- Javascript -->	
@@ -299,9 +328,9 @@
 	<script src="/resources/assets/js/jquery-ui.js"></script>
     <!-- Bootstrap -->	
     <script src="/resources/dist/js/bootstrap.min.js"></script>
-    <!-- Scrap Btn -->
+	<!--  Scrap Btn -->
     <script src="/resources/js/scrap.js"></script>
-    
+
   </body>
 
 </html>

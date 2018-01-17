@@ -5,7 +5,7 @@
 			<a href="result?keyword=${cri.keyword }&go=total" class="list-group-item total" id="total">
 			<span class="hidetext">통합검색</span>&nbsp; 
 			<span class="badge indent0" >${getNum.get("totalNum") }</span></a>
-		
+
 			<a href="result?keyword=${cri.keyword }&go=contents" class="list-group-item contents">
 			<span class="hidetext">컨텐츠</span>&nbsp;
 			<span class="badge indent0">${getNum.get("contentsNum") }</span></a>
@@ -13,7 +13,7 @@
 			<a href="result?keyword=${cri.keyword }&go=plan" class="list-group-item plan" >
 			<span class="hidetext">일정</span>&nbsp; 
 			<span class="badge indent0">${getNum.get("planNum") }</span></a>
-		
+			
 			<a href="result?keyword=${cri.keyword }&go=member" class="list-group-item member" >
 			<span class="hidetext">회원</span>&nbsp; 
 			<span class="badge indent0">${getNum.get("memberNum") }</span></a>
@@ -25,7 +25,6 @@
 		
 		check();
 		
-	
 		function check(){
 			
 			var test = "${go }";
@@ -53,5 +52,7 @@
 			}
 			
 		}
+		
+		
 	</script>
 	

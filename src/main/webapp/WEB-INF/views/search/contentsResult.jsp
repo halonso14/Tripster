@@ -47,21 +47,18 @@
 
 	<!--####### HEADER #######-->
 	<%@include file="../include/header2.jsp" %>
+	<!-- 로그인 세션  -->
+	<c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
 	
 	<div class="container breadcrub">
 	    <div>
 			<a class="homebtn left" href="#"></a>
-			<div class="left">
-				<ul class="bcrumbs">
-					<li>/</li>
-					<li><a href="#">Hotels</a></li>
-					<li>/</li>
-					<li><a href="#">U.S.A.</a></li>
-					<li>/</li>					
-					<li><a href="#" class="active">New York</a></li>					
-				</ul>				
+			<div class="left offset-2">
+				
+				<p style="color: black;font-weight:bold;">'${cri.keyword }' 검색결과</p>		
+				
 			</div>
-			<a class="backbtn right" href="#"></a>
+			
 		</div>
 		<div class="clearfix"></div>
 		<div class="brlines"></div>
@@ -132,61 +129,58 @@
 						</div>
 						<!-- End of Top FILTERS-->
 						
-						<div class="itemscontainer offset-1" >
+						<div class="contents offset-1" >
+						
+							<!-- 검색 결과가 없을경우 -->
+							<c:set var="more" value="${getNum.contentsNum }" />
+							<c:if test="${more == 0 }" >
+								<div class="offset-2" style="padding:20px ">	
+									<br/>
+									<em style="color:red;">'${cri.keyword }'</em>
+									에 대한 검색 결과가 없습니다.
+								</div>	
+							</c:if>
+							
 							<!--####### 컨텐츠 검색결과 : 템플릿 z-cruise-list.html #######-->
-							<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="9">
+							<!-- 컨텐츠 리스트 -->
+							<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="9">	
 								<div class="offset-2" >
-									<div class="col-md-4 offset-0" >
-										<div class = "listitem2" >
-											<a href="/resources/updates/update1/img/activities/act04.jpg" data-footer="A custom footer text" data-title="A random title" data-gallery="multiimages" data-toggle="lightbox">
-											<img src=${esContentsVO.contents_thumbnail } alt="" style="display:block" /></a>
-											<div class="liover"></div>
-											<a class="fav-icon" href="#"></a>
-											<a class="book-icon" href="details.html"></a>
-										</div>	
+									<div class="col-md-4 offset-0 listitem2" >
+										<a href="/contents/${esContentsVO.category_id }/${esContentsVO.contents_id}">
+											<img src=${esContentsVO.contents_thumbnail } alt="" style="display:block" />
+										</a>
 									</div>
 									<div class="col-md-8 offset-0" style="border:1px solid #e6e6e6" >
 										<div class="itemlabel4" style="height:208px;">
 											<div class="labelright">
-												<img src="/resources/images/filter-rating-.png" width="60" alt=""><br><br><br>
-												<img src="/resources/images/user-rating-5.png" width="60" alt=""><br>
-												<span class="size11 grey">${esContentsVO.contents_review_cnt} Reviews</span><br><br>
-												<span class="green size18"><b>1 </b>Plan</span><br>
-												<span class="size11 grey margbot20">/ ${esContentsVO.contents_scrap_cnt} Scrap</span><br><br>
-											 	<button class="bookbtn mt1" type="submit">Detail</button>		
+												<span class=" green size18"><b>${esContentsVO.contents_review_cnt}</b></span><span class="green size14"> Review</span><br>
+												<img class="margtop10" src="/resources/images/filter-rating-${esContentsVO.contents_rating}.png" width="60" alt=""><br>
+												<span class="size11 grey ">${esContentsVO.contents_rating} Stars</span><br><br>
+												<span class="margtop20 green size18"><b>0</b></span><span class="green size14"> Plan</span><br>
+												<span class="size11 grey">${esContentsVO.contents_scrap_cnt} Scrap</span><br><br>
+											 	
+										 		<button class="bookbtn mt1" value="${esContentsVO.contents_id}" check="1" session="${empty userSession }" >스크랩</button>		
+									 		
 											</div>
 											<div class="labelleft">			
-												<span class="size16"><a href="/contents/${esContentsVO.category_id }/${esContentsVO.contents_id }"><b>${esContentsVO.contents_title}</b></a></span><br>
-												<span class="opensans size14 grey">
-													<span class="grey2">Category:
-													<c:set var="category" value="${esContentsVO.category_id }"/>
-													<c:choose>
-														<c:when test="${category == 1 }">맛집</c:when>
-														<c:otherwise>관광지</c:otherwise>
-													</c:choose>
-													</span>
+												<span class="size18"><a href="/contents/${esContentsVO.category_id }/${esContentsVO.contents_id}">
+													<b>${esContentsVO.contents_title}</b></a>
 												</span><br>
+												<span class="margtop10 size12 grey glyphicon glyphicon-map-marker"></span><span class="grey2"> ${esContentsVO.contents_location}</span> 
 												<div class="line4 wh80percent"></div>
-													<p class="grey size14 lh6">
-														<span class="opensans size14 grey2">Location:</span> ${esContentsVO.contents_location }<br>
-													</p>
-												<div class="line4 wh80percent"></div>	
-													<p class="grey size14 lh6">
-														<span class="opensans size14 grey2">Keyword:</span>${esContentsVO.contents_keyword }<br>
-													</p>	
+												<span class="opensans size14 grey">
+													Category: ${esContentsVO.category_value_kor}<br>
+													Keyword: ${esContentsVO.contents_keyword }
+												</span>
 											</div>
-										
-										<div class="clearfix"></div>
-										
-										<div class="clearfix"></div>
-									</div>
+											<div class="clearfix"></div>
+										</div>
 									</div>
 								</div>
 								<div class="clearfix"></div>
-								<div class="offset-2" style="padding-top:20px"><!-- <hr class="featurette-divider3"> --></div>
+								<div class="offset-2" style="padding-top:30px"></div>
 							</c:forEach>
 							
-							<div class="offset-2"><hr class="featurette-divider2" /></div>
 							<br/><br/>
 							<div class="clearfix"></div>
 						
@@ -247,6 +241,8 @@
 	<script src="/resources/assets/js/jquery-ui.js"></script>
     <!-- Bootstrap -->	
     <script src="/resources/dist/js/bootstrap.min.js"></script>
+    <!--  Scrap Btn -->
+    <script src="/resources/js/scrap.js"></script>
   </body>
 
 </html>

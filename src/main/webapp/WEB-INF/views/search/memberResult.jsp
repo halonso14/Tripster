@@ -51,21 +51,16 @@
 	<div class="container breadcrub">
 	    <div>
 			<a class="homebtn left" href="#"></a>
-			<div class="left">
-				<ul class="bcrumbs">
-					<li>/</li>
-					<li><a href="#">Hotels</a></li>
-					<li>/</li>
-					<li><a href="#">U.S.A.</a></li>
-					<li>/</li>					
-					<li><a href="#" class="active">New York</a></li>					
-				</ul>				
+			<div class="left offset-2">
+				
+				<p style="color: black;font-weight:bold;">'${cri.keyword }' 검색결과</p>		
+				
 			</div>
-			<a class="backbtn right" href="#"></a>
+			
 		</div>
 		<div class="clearfix"></div>
 		<div class="brlines"></div>
-	</div>	
+	</div>
 
 
 	<!--####### CONTAINER #######-->
@@ -134,6 +129,17 @@
 						
 						<!--####### 유저 검색결과 : 템플릿 list2.html #######-->
 						<div class="itemscontainer offset-1" >	
+						
+							<!-- 검색 결과가 없을경우 -->
+							<c:set var="more" value="${getNum.memberNum }" />
+							<c:if test="${more == 0 }" >
+								<div class="offset-2" style="padding:20px ">	
+									<br/>
+									<em style="color:red;">'${cri.keyword }'</em>
+									에 대한 검색 결과가 없습니다.
+								</div>	
+							</c:if>
+							
 							<c:forEach items="${memberList}" var = "esMemberVO" begin="0" end="2">
 								<div class="col-md-4" >
 									<!-- CONTAINER-->

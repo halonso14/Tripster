@@ -51,17 +51,12 @@
 	<div class="container breadcrub">
 	    <div>
 			<a class="homebtn left" href="#"></a>
-			<div class="left">
-				<ul class="bcrumbs">
-					<li>/</li>
-					<li><a href="#">Hotels</a></li>
-					<li>/</li>
-					<li><a href="#">U.S.A.</a></li>
-					<li>/</li>					
-					<li><a href="#" class="active">New York</a></li>					
-				</ul>				
+			<div class="left offset-2">
+				
+				<p style="color: black;font-weight:bold;">'${cri.keyword }' 검색결과</p>		
+				
 			</div>
-			<a class="backbtn right" href="#"></a>
+			
 		</div>
 		<div class="clearfix"></div>
 		<div class="brlines"></div>
@@ -133,35 +128,48 @@
 						</div>
 						<!-- End of Top FILTERS-->
 						
-						<!--####### 일정 검색결과 : 템플릿 list3.html #######-->
-						<div class="col-md-8 offset-0" >
-							<c:forEach items="${planList}" var = "esPlanVO" begin="0" end="9">
-									<div class="col-md-4">
-										<div class="listitem">
-											<img src="/resources/images/items/item1.jpg" alt="일정사진은 뭘로쓸까">
-											<div class="liover" style="width: 10%; height: 10%; background-color: rgb(255, 153, 0); position: absolute; top: 90px; left: 125.5px; opacity: 0;"></div>
-											<a class="fav-icon" href="#" style="top: 79px; left: -25px;"></a>
-											<a class="book-icon" href="#" style="top: 79px; left: 251px;"></a>
-										</div>
-										<div class="itemlabel2">
-											<div class="labelright">													
-												<img src="/resources/images/user.png" alt="유저프로필" class=" ">
-												<p class="size12 grey margtop20">유저아이디</p><br>
-												<span class="size11 grey">댓글수</span><br>
-												<span class="size11 grey">좋아요수</span><br>
-												<button class="bookbtn mt1">Book</button>		
-											</div>
-											<div class="labelleft">	
-												<span class="size16"><b>${esPlanVO.plan_title}</b></span><br>		
-												<br>
-												<p class="grey"></p>
-											</div>
-										</div>
-										<div class="clearfix"></div>
+						<!-- 일정 검색결과 -->	
+						<div class="plans">
+						
+							<!-- 검색 결과가 없을경우 -->
+							<c:set var="more" value="${getNum.planNum }" />
+							<c:if test="${more == 0 }" >
+								<div class="offset-2" style="padding:20px ">	
+									<br/>
+									<em style="color:red;">'${cri.keyword }'</em>
+									에 대한 검색 결과가 없습니다.
+								</div>	
+							</c:if>
+								
+							<c:forEach items="${planList}" var = "esPlanVO" begin="0" end="8">
+								<div class="col-md-4">
+									<div class="listitem">
+										<img src="http://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2016/09/countries-drive-from-india-cover2.jpg" >
 									</div>
-								</c:forEach>
+									<div class="itemlabel2">
+										<div class="labelright">													
+											<img src="/resources/images/user.png" alt="유저프로필" class=" ">
+											<p class="size12 grey margtop20">${esPlanVO.member_name}</p><br>
+											<span class="size11 grey">댓글수</span><br>
+											<span class="size11 grey">좋아요수</span><br>
+											<button class="bookbtn mt1">좋아요</button>		
+										</div>
+										<div class="labelleft">	
+											<span class="size16"><b>${esPlanVO.plan_title}</b></span><br>		
+											<br>
+											<p class="grey">$</p>
+										</div>
+									</div>
+									<div class="clearfix"></div>
+									<div class="offset-2" style="padding-top:30px"></div>
+								</div>
+								
+							</c:forEach>
 							<div class="clearfix"></div>
+								
 						</div>
+						
+						
 						<!-- pagination -->
 							<div class="hpadding20">
 								<ul class="pagination right paddingbtm20">

@@ -80,6 +80,7 @@
 	 							<button id="scrapBttn" value=${scrapCheck } >스크랩</button>
 							</c:otherwise>
         				</c:choose>
+        				
 						
 						<div class="line4"></div>
 						컨텐츠 내용
@@ -278,7 +279,7 @@
 		
 		// 리뷰 등록
 		$("#writeReview").on("click", function(){
-			alert(ranking);
+		
 			var contentsReview = $("#reviewDetail").val();
 			
 			$.ajax({
@@ -389,7 +390,7 @@
 		// 리뷰 리스트 함수
 		function getReviewList(reviewPage) {
 			$.getJSON("/contents/review/"+contentsID+"/"+reviewPage, function(data) {
-				alert("review list")
+				
 				var str = "";
 				
 				// 컨텐츠의 리뷰 리스트 받아오기
@@ -428,7 +429,6 @@
 				// reviewList 에 추가
 				$("#reviewList").html(str);
 				
-				alert("review List add");
 				// 초기화 후 업로드박스안의 파일 제거
 				$('.uploadList').html("");
 				// 초기화후 업로드 박스 제거
