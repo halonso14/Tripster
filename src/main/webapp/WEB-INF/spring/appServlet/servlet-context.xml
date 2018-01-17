@@ -50,7 +50,6 @@
 		</interceptor>
 		<interceptor>
 			<mapping path="/member/mypage" />
-			<mapping path="/member/viewMember" />
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
 	</interceptors>
