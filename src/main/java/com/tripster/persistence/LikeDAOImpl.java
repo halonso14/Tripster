@@ -2,13 +2,11 @@ package com.tripster.persistence;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.tripster.domain.FollowVO;
 import com.tripster.domain.LikeVO;
@@ -27,19 +25,9 @@ public class LikeDAOImpl implements LikeDAO{
 	@Override
 	public void like(LikeVO vo) throws Exception{
 		session.insert(namespace+".like",vo);
+		
 	}
 	
-	// 좋아요 카운트 갱신
-	@Override
-	public void updateLike(Integer planID,Integer amount) throws Exception{
-		Map<String, Object> Map = new HashMap<String, Object>();
-		
-		Map.put("planID", planID);
-		Map.put("amount", amount);
-		
-		session.update(namespace + ".updateReviewCnt", Map);
-	}
-
 	// 일정 조회
 	@Override
 	public PlanVO userSchedule(Integer planID) throws Exception{
@@ -48,8 +36,8 @@ public class LikeDAOImpl implements LikeDAO{
 	
 	// 좋아요 삭제
 	@Override
-	public void likeDelete(Integer planID) throws Exception{
-		session.delete(namespace+".likeDelete",planID);
+	public void likeDelete(LikeVO vo) throws Exception{
+		session.delete(namespace+".likeDelete", vo);
 	}
 	
 	// 유저의 좋아요 리스트
@@ -101,7 +89,5 @@ public class LikeDAOImpl implements LikeDAO{
 		return session.selectList(namespace+".userFollowingList",memberID);
 
 	}
-	
-	
 
 }

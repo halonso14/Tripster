@@ -94,6 +94,7 @@ public class PlanController {
 	//plan 조회
 		@RequestMapping(value="/read", method=RequestMethod.GET)
 		public void readPlan(@RequestParam("planID") int planID, ModelMap model) throws Exception{
+			
 			PlanVO plan = planService.readPlan(planID);
 			Date from =plan.getPlanStartDate();
 			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -110,6 +111,7 @@ public class PlanController {
 			model.addAttribute("endDate",endDate);
 			model.addAttribute("plan",plan);
 			model.addAttribute("memberName", memberName);
+			
 		}
 		
 		//plan Title & 전체일정 수정
