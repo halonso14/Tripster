@@ -10,7 +10,9 @@
 <title>Travel Agency - HTML5 Booking template</title>
 
 </head>
+<body>
 <%@include file="/WEB-INF/views/include/header2.jsp"%>
+<c:set var="session" value='<%= session.getAttribute("login")%>'/>
 
 
 <!-- CONTENT -->
@@ -103,8 +105,9 @@
 											</c:otherwise>
 										</c:choose>
 										<div class="liover"></div>
-										<a class="fav-icon" href="#"></a> <a class="book-icon"
-											href="/plan/read?planID=${planVO.planID}"></a>
+										<input type="hidden" id="planID" value=${planVO.planID } />
+										<a id="like" class="fav-icon like" href="javascript:void(0)" value= ${likeChkList[status.index] } ></a>
+										<a class="book-icon" href="/plan/read?planID=${planVO.planID}"></a>
 									</div>
 									<div class="itemlabel" style="text-align: center;">
 										<a href="/plan/read?planID=${planVO.planID}"><b>${planVO.planTitle}</b></a><br />
@@ -126,6 +129,8 @@
 					</c:if>
 
 
+<input type="hidden" id="memberID" value=${session.memberID } />
+<input type="hidden" id="writerID" value=${memberVO.memberID } />
 
 					<!-- End of offset1-->
 
@@ -263,6 +268,7 @@
 
 <!-- Custom functions -->
 <script src="/resources/assets/js/functions.js"></script>
+<script type="text/javascript" src="/resources/js/like.js"></script>
 
 <!-- Custom Select -->
 <script src='/resources/assets/js/jquery.customSelect.js'

@@ -36,8 +36,8 @@ public class LikeServiceImpl implements LikeService{
 	
 	// 좋아요 삭제
 	@Override
-	public void likeDelete(Integer planID) throws Exception{
-		likeDAO.likeDelete(planID);
+	public void likeDelete(LikeVO vo) throws Exception{
+		likeDAO.likeDelete(vo);
 	}
 
 	// 유저의 좋아요 체크

@@ -16,7 +16,7 @@ public interface LikeDAO {
 	public PlanVO userSchedule(Integer planID) throws Exception;
 	
 	// 좋아요 삭제
-	public void likeDelete(Integer planID) throws Exception;
+	public void likeDelete(LikeVO vo) throws Exception;
 	
 	// 유저의 좋아요 리스트
 	public List<LikeVO> likeList(Integer memberID) throws Exception;

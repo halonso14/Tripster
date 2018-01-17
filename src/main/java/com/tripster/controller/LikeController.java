@@ -47,14 +47,14 @@ public class LikeController {
 	}
 	
 	// 좋아요 삭제
-	@RequestMapping(value="/likeDelete/{planID}",method=RequestMethod.POST)
-	public ResponseEntity<String> likeDelete(@PathVariable("planID")Integer planID){
+	@RequestMapping(value="/likeDelete",method=RequestMethod.POST)
+	public ResponseEntity<String> likeDelete(@RequestBody LikeVO vo){
 		
 		ResponseEntity<String> entity = null;
 		
 		try {
 			
-			service.likeDelete(planID);
+			service.likeDelete(vo);
 			entity = new ResponseEntity<>("delete",HttpStatus.OK);
 			
 		}catch(Exception e) {

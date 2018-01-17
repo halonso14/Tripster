@@ -26,8 +26,8 @@ import com.tripster.domain.MemberVO;
 import com.tripster.domain.PlanDetailVO;
 import com.tripster.domain.PlanVO;
 import com.tripster.dto.LoginDTO;
+import com.tripster.service.LikeService;
 import com.tripster.service.MemberService;
-import com.tripster.service.MemoService;
 import com.tripster.service.PlanService;
 
 @Controller
@@ -41,7 +41,7 @@ public class MemberController {
 	@Inject
 	private PlanService planservice;
 	@Inject
-	private MemoService memoservice;
+	private LikeService likeservice;
 
 	// 로그인 화면 접근
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -262,10 +262,12 @@ public class MemberController {
 	
 	// 다른 회원 정보 조회 페이지
 	@RequestMapping(value = "/viewMember", method = RequestMethod.GET)
-	public void viewMember(@RequestParam("memberID") int memberID, Model model)throws Exception{
+	public void viewMember(@RequestParam("memberID") int memberID, HttpSession session, Model model)throws Exception{
 		
 		List<String> picList = new ArrayList<String>();
+		List<Integer> likeChkList = new ArrayList<Integer>();
 		List<PlanVO> vo = planservice.myPlan(memberID);
+		
 		for(int i=0;i<vo.size();i++) {
 			String picName = "false";
 			//planDetailVO가 한개라도 있을 경우
@@ -288,16 +290,19 @@ public class MemberController {
 			if(picName.equals("false")) picList.add("");
 		}
 		
-//		List<HashMap<PlanVO,String>> planList = new ArrayList<HashMap<PlanVO,String>>();
-//		HashMap<PlanVO,String> map = new HashMap<PlanVO,String>();
-//		
-//		for(int i=0; i<vo.size(); i++) {
-//			for(int j=0; j<vo.size(); j++) {
-//				map.put(vo.get(i), picList.get(i));
-//			}
-//			planList.add(map);
-//		}
+		Object obj = session.getAttribute("login");
+		MemberVO memVO = (MemberVO) obj;
 		
+		// 현재 접속중인 회원
+		Integer userID = memVO.getMemberID();
+		
+		for(int i=0;i<vo.size();i++) {
+			likeChkList.add(likeservice.likeCheck(vo.get(i).getPlanID(), userID));
+		}
+		
+		System.out.println("상판때기좀 보자 : "+likeChkList);
+		
+		model.addAttribute("likeChkList", likeChkList);
 		model.addAttribute("pictureID", picList);
 		model.addAttribute("planVO", vo);
 		model.addAttribute(service.mypage(memberID));
