@@ -290,15 +290,9 @@ public class MemberController {
 			if(picName.equals("false")) picList.add("");
 		}
 		
-		Object obj = session.getAttribute("login");
-		MemberVO memVO = (MemberVO) obj;
-		
-		// 현재 접속중인 회원
-		Integer userID = memVO.getMemberID();
-		
-		for(int i=0;i<vo.size();i++) {
-			likeChkList.add(likeservice.likeCheck(vo.get(i).getPlanID(), userID));
-		}
+//		for(int i=0;i<vo.size();i++) {
+//			likeChkList.add(likeservice.likeCheck(vo.get(i).getPlanID(), userID));
+//		}
 		
 		System.out.println("상판때기좀 보자 : "+likeChkList);
 		

@@ -268,7 +268,7 @@
 
 <!-- Custom functions -->
 <script src="/resources/assets/js/functions.js"></script>
-<script type="text/javascript" src="/resources/js/like.js"></script>
+<!-- <script type="text/javascript" src="/resources/js/like.js"></script> -->
 
 <!-- Custom Select -->
 <script src='/resources/assets/js/jquery.customSelect.js'
