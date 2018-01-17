@@ -187,7 +187,7 @@ body {
 							<div>
 								<hr>
 							</div>
-							<ul class="mailbox-attachments clearfix uploadedList"></ul>
+							<ul class="mailbox-attachments clearfix uploadedList" style="list-style:none;"></ul>
 						</div>
 					</div>
 				
@@ -210,7 +210,7 @@ body {
 	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="{{imgsrc}}"></span>
 	<div class="mailbox-attachment-info">
 		<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
-		<a data-src="{{originalName}}" class="btn btn-default btn-xs pull-right delbtn" onclick="removeAttach($(this))">x<a>
+		<a data-src="{{originalName}}" class="btn btn-default btn-xs delbtn" onclick="removeAttach($(this))">x<a>
 	</div>
 </li>
 </script>

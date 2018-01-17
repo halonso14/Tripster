@@ -166,7 +166,7 @@ body {
 	<div class="line4"></div>
 	<form action="/plan/read" type="get">
 		<input type="hidden" name="planID" value=${plan.planID }>
-		<!-- <button class="ui positive right labeled icon button">SAVE</button> -->
+		<!-- <!-- <button class="ui positive right labeled icon button">SAVE</button> --> -->
 		<button class="bluebtn margtop20" id="modify" style="width: 180px;float: right;margin-right: 12%; margin-left: 70%">SAVE</button>
 	</form>
 	
@@ -189,9 +189,9 @@ body {
 							<label for="exampleInputEmail1">File DROP Here</label>
 							<div class="fileDrop"></div>
 							<div>
-								<hr>
+								<!-- <hr> -->
 							</div>
-							<ul class="mailbox-attachments clearfix uploadedList"></ul>
+							<ul class="mailbox-attachments clearfix uploadedList" style="list-style:none;"></ul>
 						</div>
 					</div>
 				
@@ -214,12 +214,15 @@ body {
 <!-- 이미지 템플릿. -->
 <script id="template" type="text/x-handlebars-template">
 <li data-src='{{fullName}}'>
+	<hr>
 	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="{{imgsrc}}"></span>
 	<div class="mailbox-attachment-info">
 		<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
-		<a data-src="{{originalName}}" class="btn btn-default btn-xs pull-right delbtn" onclick="removeAttach($(this))">x<a>
+		<a data-src="{{originalName}}" class="btn btn-default btn-xs delbtn" onclick="removeAttach($(this))">x<a>
 	</div>
+	
 </li>
+
 </script>
 
 <!-- 사진 drop 관련 스트립트.  -->

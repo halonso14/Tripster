@@ -228,9 +228,12 @@
 			<div class="col-md-12 pagecontainer2 offset-0" >
 				<div class="hpadding50c">
 					<div>
-						<div class="lato size30 slim">${plan.planTitle}</div>
+						<div class="lato size30 slim">
+						${plan.planTitle}
+						<a href="#" class="blogpost-hover" style="float: right;position: inherit;"><span class="glyphicon glyphicon-heart"></span></a>
+						</div>
 					
-						<!-- <a href="#" class="blogpost-hover" style="float: right"><span class="glyphicon glyphicon-heart"></span></a> -->
+						
 						
 					</div>
 					<div class="lato size15 grey bold">
@@ -669,5 +672,5 @@
 	};
 	
 </script>
-	<%@include file="/WEB-INF/views/include/footer.jsp"%>
+<%@include file="/WEB-INF/views/include/footer.jsp"%>
 </html>
