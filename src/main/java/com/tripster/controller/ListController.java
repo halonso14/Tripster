@@ -57,6 +57,8 @@ public class ListController {
 		model.addAttribute("followCheck", followCheck);
 		
 		return "plan/memberSchedule";
+		
 	}
+	
 
 }

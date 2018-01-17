@@ -21,15 +21,17 @@
 
 <h2>${plan.planTitle }</h2>
 <button id="like" value=${likeCheck }>좋아요</button>
-<button id="follow" value=${followCheck }>유저 follow</button>
+
+<button id="follow" value="1">유저 follow</button>
+
 
 <script>
 $(document).ready(function(){
 	
-	// 글을 올린 회원
-	var memberID = $('#memberID').val();
+	// 팔로우 당한사람
+	var followID = $('#followID').val();
 	// 접속중인 유저
-	var user = $('#userID').val();
+	var memberID = $('#memberID').val();
 	// 게시글 ID
 	var planID = $('#planID').val();
 	
@@ -99,6 +101,20 @@ $(document).ready(function(){
 			})	
 		}
 	})
+
+	function check(){
+		
+		var planID = $("#planID").val();
+		
+		$.post("likeCheck"+planID,function(data){
+			
+			$("#follow").attr("value",data);
+			
+		})
+		
+	}
+	
+	check();
 	
 })
 </script>

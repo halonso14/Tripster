@@ -36,15 +36,17 @@ public class LikeServiceImpl implements LikeService{
 	
 	// 좋아요 삭제
 	@Override
-	public void likeDelete(Integer planID) throws Exception{
-		likeDAO.likeDelete(planID);
+	public void likeDelete(LikeVO vo) throws Exception{
+		likeDAO.likeDelete(vo);
 	}
 
 	// 유저의 좋아요 체크
 	public Integer likeCheck(Integer planID,Integer memberID) throws Exception{
 		
+		// 회원이 가지고있는 좋아요 리스트 체크
 		List<LikeVO> list = likeDAO.likeList(memberID);
 		
+		// 좋아요할 planID 와 유저가 가지고있는 좋아요한 planID리스트 비교
 		for(int i=0;i<list.size();i++) {
 			if(planID == list.get(i).getPlanID()) {
 				return 0;
@@ -67,12 +69,17 @@ public class LikeServiceImpl implements LikeService{
 	
 	// 유저 팔로우 체크
 	@Override
-	public Integer followCheck(Integer userID,Integer planID) throws Exception{
+	public Integer followCheck(Integer planID,Integer memberID) throws Exception{
 		
-		List<FollowVO> list = likeDAO.memberFollowList(userID);
-		Integer memberID = planDAO.selectPlan(planID).getMemberID();
+		// 접속중인 회원: memberID 이 가지고 있는 팔로우한 회원 리스트
+		List<FollowVO> list = likeDAO.memberFollowList(memberID);
+		
+		// 팔로우할 회원의 ID
+		Integer member = planDAO.selectPlan(planID).getMemberID();
+		
 		for(int i=0;i<list.size();i++) {
-			if(memberID == list.get(i).getFollowID()) {
+			// 팔로우할 회원 ID 와 접속중인 회원이 가지고 있는 팔로우한 회원의 아이디 리스트 비교
+			if(member == list.get(i).getFollowID()) {
 				// 값이 있으면 false...
 				return 0;
 			}

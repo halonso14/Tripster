@@ -14,8 +14,8 @@ public interface LikeService {
 	// 유저의 일정 조회
 	public PlanVO userSchedule(Integer planID) throws Exception;
 	
-	// 유저 삭제
-	public void likeDelete(Integer planID) throws Exception;
+	// 좋아요 삭제
+	public void likeDelete(LikeVO vo) throws Exception;
 	
 	// 유저의 좋아요 체크
 	public Integer likeCheck(Integer planID,Integer memberID) throws Exception;

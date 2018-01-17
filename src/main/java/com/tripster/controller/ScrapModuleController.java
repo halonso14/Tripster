@@ -33,12 +33,12 @@ public class ScrapModuleController {
 	public ResponseEntity<String> scrap(@PathVariable("contentsID") Integer contentsID,HttpSession session) {
 		
 		ResponseEntity<String> entity = null;
-		
+		System.out.println("scrap controller");
 		try {
 			// session의 회원정보 가져오기
 			MemberVO memberVO = (MemberVO) session.getAttribute("login");
 			// id 값을 받아서 스크랩 추가 
-			scrapService.scrap(contentsID,memberVO.getMemberID());
+			scrapService.scrap(memberVO.getMemberID(),contentsID);
 			loger.info("scrap success");
 			entity = new ResponseEntity<>("success",HttpStatus.OK);
 			
@@ -55,14 +55,15 @@ public class ScrapModuleController {
 	
 	// 스크랩 제거 
 	@RequestMapping(value="/scrapDelete/{contentsID}",method=RequestMethod.POST)
-	public ResponseEntity<String> scrapDelete(@PathVariable("contentsID") Integer contentsID) {
+	public ResponseEntity<String> scrapDelete(@PathVariable("contentsID") Integer contentsID,HttpSession session) {
 		
 		ResponseEntity<String> entity = null;
 		
 		try {
-			
+			// session의 회원정보 가져오기
+			MemberVO memberVO = (MemberVO) session.getAttribute("login");
 			// 컨텐츠 스크랩 제거 서비스
-			scrapService.scrapDelete(contentsID);
+			scrapService.scrapDelete(memberVO.getMemberID(),contentsID);
 			loger.info("scrap remove");
 			entity = new ResponseEntity<>("remove",HttpStatus.OK);
 			
@@ -86,8 +87,7 @@ public class ScrapModuleController {
 		try {
 			
 //			loger.info("scrap list");
-			Object obj = session.getAttribute("login");
-			MemberVO memberVO = (MemberVO) obj;
+			MemberVO memberVO = (MemberVO) session.getAttribute("login");
 			// 멤버 id를 받아 리스트를 조회하여 뷰단으로 전송
 			loger.info("scrap list"+scrapService.listAll(memberVO.getMemberID()).toString());
 			entity = new ResponseEntity<>(scrapService.listAll(memberVO.getMemberID()),HttpStatus.OK);
@@ -113,6 +113,7 @@ public class ScrapModuleController {
 			
 			loger.info("scrpalist scrap remove");
 			scrapService.scrapIDRemove(scrapID);
+			
 			entity = new ResponseEntity<>("scrapIDRemove",HttpStatus.OK);
 			
 		}catch(Exception e){
@@ -128,11 +129,13 @@ public class ScrapModuleController {
 	
 	// 스크랩 체크
 	@RequestMapping(value="/scrapCheck/{contentsID}",method=RequestMethod.POST)
-	public ResponseEntity<Integer> scrapCheck(@PathVariable ("contentsID") Integer contentsID){
+	public ResponseEntity<Integer> scrapCheck(@PathVariable ("contentsID") Integer contentsID,HttpSession session){
 		
 		ResponseEntity<Integer> entity = null;
 		// 현재 회원
-		Integer memberID = 2;
+		// session의 회원정보 가져오기
+		MemberVO memberVO = (MemberVO) session.getAttribute("login");
+		Integer memberID = memberVO.getMemberID();
 		
 		try {
 			Integer check = scrapService.scrapCheck(contentsID, memberID);

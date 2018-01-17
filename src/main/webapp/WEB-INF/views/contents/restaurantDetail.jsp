@@ -221,7 +221,6 @@ function initMap() {
       map: map
     });	
 }
-
 </script>
 <script async defer
 src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmc4Y1GGbbAKfnxTRfqM3U2vc8E_Fr1AA&callback=initMap"></script>
@@ -272,7 +271,6 @@ src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmc4Y1GGbbAKfnxTRfqM3U2v
 					});
 				};
 		});
-
 		// 리뷰 리스트 불러오기
 		getReviewList(reviewPage);
 		
@@ -322,7 +320,6 @@ src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmc4Y1GGbbAKfnxTRfqM3U2v
 		
 		// 업로드 버튼을 누른경우 css 적용
 		$('#uploadBtn').on('click',function(){
-
 			$('.uploadList').css({
 	            'width': '100%',
 	            'height': '200px',
@@ -378,7 +375,6 @@ src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmc4Y1GGbbAKfnxTRfqM3U2v
 				}
 			});
 		});
-
 		// 삭제 버튼 누를 경우
 		$('.uploadList').on('click','small',function(event){
 			var that = $(this);
@@ -441,7 +437,6 @@ src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmc4Y1GGbbAKfnxTRfqM3U2v
 				printPaging(data.pageMaker);
 			});
 		}
-
 		// 리뷰 아이디를 받아 이미지 생성 
 		function getImage(reviewPictureName){
 			var fileList = new Array;

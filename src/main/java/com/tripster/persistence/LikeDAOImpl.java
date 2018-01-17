@@ -36,8 +36,8 @@ public class LikeDAOImpl implements LikeDAO{
 	
 	// 좋아요 삭제
 	@Override
-	public void likeDelete(Integer planID) throws Exception{
-		session.delete(namespace+".likeDelete",planID);
+	public void likeDelete(LikeVO vo) throws Exception{
+		session.delete(namespace+".likeDelete", vo);
 	}
 	
 	// 유저의 좋아요 리스트

@@ -1,13 +1,37 @@
 package com.tripster.domain;
 
+import java.util.Date;
+
 public class ScrapVO {
 	
 	private int scrapID;
 	private int memberID;
 	private int categoryID;
+	public int getRating() {
+		return rating;
+	}
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+	public Date getCreated() {
+		return created;
+	}
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+	public Date getUpdated() {
+		return updated;
+	}
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
+
 	private int contentsID;
+	private int rating;
 	private String contentsTitle;
 	private String contentsPhoto;
+	private Date created;
+	private Date updated;
 	
 	public int getScrapID() {
 		return scrapID;
@@ -46,12 +70,13 @@ public class ScrapVO {
 	public void setContentsPhoto(String contentsPhoto) {
 		this.contentsPhoto = contentsPhoto;
 	}
-	
 	@Override
 	public String toString() {
 		return "ScrapVO [scrapID=" + scrapID + ", memberID=" + memberID + ", categoryID=" + categoryID + ", contentsID="
-				+ contentsID + ", contentsTitle=" + contentsTitle + ", contentsPhoto=" + contentsPhoto + "]";
+				+ contentsID + ", rating=" + rating + ", contentsTitle=" + contentsTitle + ", contentsPhoto="
+				+ contentsPhoto + ", created=" + created + ", updated=" + updated + "]";
 	}
+	
 	
 	
 	

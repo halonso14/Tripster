@@ -16,27 +16,17 @@ public class ScrapServiceImpl implements ScrapService{
 	
 	@Inject
 	private ScrapDAO scrapDao;
-	@Inject 
-	private ContentsDAO contentsDao;
 	
 	// 스크랩
 	@Override
-	public void scrap(Integer contentsID,Integer memberID)throws Exception{
-		ContentsVO cont = new ContentsVO();
-		ScrapVO vo = new ScrapVO();
-		cont = contentsDao.getRestaurantDetail(contentsID);
-		vo.setCategoryID(cont.getCategoryID());
-		vo.setContentsID(cont.getContentsID());
-		vo.setContentsTitle(cont.getTitle());
-		vo.setContentsPhoto("photo");
-		vo.setMemberID(memberID);
-		scrapDao.create(vo);
+	public void scrap(Integer memberID,Integer contentsID)throws Exception{
+		scrapDao.create(memberID,contentsID);
 	}
 	
 	// 스크랩 삭제
 	@Override
-	public void scrapDelete(Integer contentsID) throws Exception{
-		scrapDao.scrapDelete(contentsID);
+	public void scrapDelete(Integer contentsID,Integer memberID) throws Exception{
+		scrapDao.scrapDelete(contentsID,memberID);
 	}
 	
 	// 스크랩 리스트 조회
@@ -59,9 +49,11 @@ public class ScrapServiceImpl implements ScrapService{
 		// 해당 페이지의 컨텐츠id를 받아 스크랩 조회
 		for(int i=0;i<list.size();i++) {
 			if(contentsID == list.get(i).getContentsID()) {
+				// 스크랩이 있으면 0 반환
 				return 0;
 			}
 		}
+		// 스크랩이 없으면 1반환
 		return 1;
 	}
 

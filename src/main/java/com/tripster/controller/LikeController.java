@@ -3,6 +3,7 @@ package com.tripster.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,14 +48,14 @@ public class LikeController {
 	}
 	
 	// 좋아요 삭제
-	@RequestMapping(value="/likeDelete/{planID}",method=RequestMethod.POST)
-	public ResponseEntity<String> likeDelete(@PathVariable("planID")Integer planID){
+	@RequestMapping(value="/likeDelete",method=RequestMethod.POST)
+	public ResponseEntity<String> likeDelete(@RequestBody LikeVO vo ){
 		
 		ResponseEntity<String> entity = null;
 		
 		try {
 			
-			service.likeDelete(planID);
+			service.likeDelete(vo);
 			entity = new ResponseEntity<>("delete",HttpStatus.OK);
 			
 		}catch(Exception e) {
@@ -104,7 +105,7 @@ public class LikeController {
 		return entity;
 	}
 	
-	// 유저 좋아요 리스트의 플랜 조회
+	// 유저 좋아요 리스트 조회
 	@RequestMapping(value="/userLikeList/{memberID}")
 	public ResponseEntity<List<PlanVO>> userLikeList(@PathVariable("memberID") Integer memberID){
 		
@@ -153,7 +154,52 @@ public class LikeController {
 		return entity;
 	}
 	
+	// 좋아요 체크
+	@RequestMapping(value="/likeCheck/{planID}",method=RequestMethod.POST)
+	public ResponseEntity<Integer> likeCheck (@PathVariable("planID") Integer planID,HttpSession session) {
+		
+		ResponseEntity<Integer> entity = null;
+		// 접속중인 회원
+		MemberVO memberVO = (MemberVO) session.getAttribute("login"); 
+		Integer memberID = memberVO.getMemberID();
+		
+		try {
+			Integer check = service.likeCheck(planID, memberID);
+			entity = new ResponseEntity<>(check,HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+		
+	}
+	
+	// 팔로우 체크
+	@RequestMapping(value="/followCheck/{planID}",method=RequestMethod.POST)
+	public ResponseEntity<Integer> followCheck (@PathVariable("planID") Integer planID,HttpSession session) {
+		
+		ResponseEntity<Integer> entity = null;
+		
+		// 접속중인 회원 아이디
+		MemberVO memberVO = (MemberVO) session.getAttribute("login"); 
+		Integer memberID = memberVO.getMemberID();
+		
+		try {
+			
+			Integer check = service.followCheck(planID, memberID);
+			entity = new ResponseEntity<>(check,HttpStatus.OK);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			
+		}
+		
+		return entity;
+		
+	}
+	
 }
 	
-
-

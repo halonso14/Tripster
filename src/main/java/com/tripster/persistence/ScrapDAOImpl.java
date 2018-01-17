@@ -21,14 +21,20 @@ public class ScrapDAOImpl implements ScrapDAO {
 	
 	// 스크랩 추가
 	@Override
-	public void create(ScrapVO vo) throws Exception{
-		session.insert(namespace+".scrap",vo);
+	public void create(Integer memberID,Integer contentsID) throws Exception{
+		Map<String,Integer> map = new HashMap<>();
+		map.put("memberID", memberID);
+		map.put("contentsID", contentsID);
+		session.insert(namespace+".scrap",map);
 	}
 	
 	// 스크랩 삭제
 	@Override
-	public void scrapDelete(Integer contentsID) throws Exception{
-		session.delete(namespace+".scrapDelete",contentsID);
+	public void scrapDelete(Integer memberID,Integer contentsID) throws Exception{
+		Map<String,Integer> map = new HashMap<>();
+		map.put("memberID", memberID);
+		map.put("contentsID", contentsID);
+		session.delete(namespace+".scrapDelete",map);
 	}
 	
 	// 스크랩리스트 조회
@@ -42,6 +48,5 @@ public class ScrapDAOImpl implements ScrapDAO {
 	public void scrapIDRemove(Integer contentsID) throws Exception{
 		session.delete(namespace+".scrapIDRemove",contentsID);
 	}
-	
 
 }

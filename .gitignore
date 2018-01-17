@@ -13,3 +13,4 @@ bin
 .springBeans
 EsConfig.java
 application.properties
+${sys/ls.logs}/

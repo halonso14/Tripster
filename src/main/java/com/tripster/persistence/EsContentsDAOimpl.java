@@ -1,5 +1,7 @@
 package com.tripster.persistence;
 
+import static org.elasticsearch.index.query.QueryBuilders.simpleQueryStringQuery;
+
 import java.util.*;
 import javax.inject.Inject;
 
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.index.query.SimpleQueryStringBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 
@@ -47,6 +50,4 @@ public class EsContentsDAOimpl implements EsContentsDAO {
 		long result = response.getHits().getTotalHits();
 		return result;
 	}
-
 }
-
