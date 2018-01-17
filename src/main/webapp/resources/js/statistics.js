@@ -1,3 +1,4 @@
+
 //지도데이터 초기데이터
 var mapData={
 	    "map": "worldLow",
@@ -245,6 +246,8 @@ AmCharts.ready( function() {
 
 //ajax로 화면 데이터세팅
 $(document).ready(function(){   
+	
+	
     //console.log(window.location.pathname);
 	$('.your-class').slick(getSliderSettings());
 	
@@ -252,11 +255,11 @@ $(document).ready(function(){
 	$('.related-plan-list').slick(getSliderSettings());
 	
 	//통계 데이터
-	ajaxController('/dashboard/stat/1');
+	ajaxController('/dashboard/stat/'+ id);
 	
 	//추천데이터. 크로스도메인 설정됨
-	ajaxController('http://127.0.0.1:8000/recommand/1');
-    
+	ajaxController('http://127.0.0.1:8000/recommand/'+ id);
+
 });
 
 
@@ -277,6 +280,7 @@ var getSliderSettings =function () {
 //ymmu ajax-------------------------------------------
 var ajaxController= function(url){
     
+	console.log(url);
     $.ajax({
         method: "GET",
         url: url,
@@ -284,20 +288,32 @@ var ajaxController= function(url){
         dataType: 'json',
         success: function(data){
             
+        	console.log(data);
+        	
             //data for stat page 
             if(url.match("/stat")){
             
             	var dashBrief = data.dashBrief;
-                $('#numPlans').text(dashBrief.numOfPlans);
-                $('#totalDays').text(dashBrief.totalDays);
-                
-                //console.log($('#numPlans').val());
-                //console.log($('#totalDays').val());
-                
-                //plan days info--------------------------------
-                chartData[0].how_many=dashBrief.minPlanDays;
-                chartData[1].how_many=dashBrief.maxPlanDays;
-                chartData[2].how_many=dashBrief.avgDays;
+            	if(dashBrief){
+            		if(dashBrief.numOfPlans)
+                		$('#numPlans').text(dashBrief.numOfPlans);
+                	if(dashBrief.totalDays)
+                    	$('#totalDays').text(dashBrief.totalDays);
+                	
+                    //console.log(url);
+                    //console.log($('#numPlans').val());
+                    //console.log($('#totalDays').val());
+                    
+                    //plan days info--------------------------------
+                	if(dashBrief.totalDays)
+                		chartData[0].how_many=dashBrief.minPlanDays;
+                	if(dashBrief.maxPlanDays)
+                		chartData[1].how_many=dashBrief.maxPlanDays;
+                	if(dashBrief.avgDays)
+                		chartData[2].how_many=dashBrief.avgDays;
+            	}
+            	
+
                 //chart.validateData(); //에러나서 다 막음
                 console.log(chartData[2].how_many);
             	/* DATA OBJECT 출력하기
@@ -348,7 +364,7 @@ var ajaxController= function(url){
 				  $('#numCountries').text(count); //방문국가수 업데이트
             }
             else if(url.match("/recommand")){ //추천페이지 데이터 바인딩
-            	
+
             	console.log('추천데이터 ajax 데이터부분');
             	console.log(data);
             		//구글맵 세팅.
@@ -420,11 +436,14 @@ var ajaxController= function(url){
             	console.log("/rcm 들어옴");
             	var planList = data.planList;
             		
+            		//슬라이드 갱신 필요
+            	$('.related-plan-list').slick('unslick').slick(getSliderSettings());
+            	console.log('슬라이드 갱신');
+            	//$('.related-plan-list').slick(getSliderSettings());
             		//관련일정 slick에 달아줌
             	bindingPlanListToSlick(planList);
             	
             }
-            
         }//success
 
     }); 
@@ -435,6 +454,7 @@ var ajaxController= function(url){
 //추천 국가 관련 일정 slick 슬라이드 세팅
 var bindingPlanListToSlick = function(planList){
 	
+
 	
 	for(var i=0; i<planList.length; i++){
 		
@@ -452,7 +472,7 @@ var bindingPlanListToSlick = function(planList){
     	var check = '진행중';
     	if(planList[i].planEndChk == 1) check = '완료됨';
     	//$('.content_rcm_plan_planEndChk').html(check);
-    	var url = 'http://127.0.0.1:8080/plan/read?PlanID='+planList[i].planID;
+    	var url = 'http://127.0.0.1:8080/plan/read?planID='+planList[i].planID;
     	var card = '<div class="contents_rcm" onclick=goto("'+url+'")>'+
 						'<div class="inner_card">'+
 							'<img id="content_rcm_plan_thumbnail_bgImage" src="/resources/images/profile_bg.jpg" />'+
@@ -466,6 +486,8 @@ var bindingPlanListToSlick = function(planList){
 						'</div>'+
 					'</div>';
     	
+    	
+
     	// Add a slide
     	$('.related-plan-list').slick('slickAdd',card);
     

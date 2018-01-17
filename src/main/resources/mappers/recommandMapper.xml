@@ -17,15 +17,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from
 		(		#1. 특정국가를 가는 일정 추리고
 				select Plan_ID planID, Member_ID memberID, Plan_Title planTitle, Plan_StartDate planStartDate, Plan_EndDate planEndDate, Plan_EndChk planEndChk 
-				from tripster.tbl_Plan
-				where tripster.tbl_Plan.Plan_ID in (
+				from tbl_Plan
+				where tbl_Plan.Plan_ID in (
 				SELECT Plan_ID
-				FROM tripster.tbl_Contents a join tripster.tbl_Plan_Detail b
+				FROM tbl_Contents a join tbl_Plan_Detail b
 		        on a.Contents_ID = b.Contents_ID
 				where a.Contents_Country = #{countryISO2} 
 				group by Plan_ID) 
-		)chosenPlan join tripster.tbl_Member
-		on tripster.tbl_Member.Member_ID = chosenPlan.memberID
+		)chosenPlan join tbl_Member
+		on tbl_Member.Member_ID = chosenPlan.memberID
 
 	]]>
   </select>

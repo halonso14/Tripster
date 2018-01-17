@@ -175,6 +175,8 @@ public class MemberController {
 		vo.setMemberID(memVO.getMemberID());
 
 		model.addAttribute(service.mypage(memVO.getMemberID()));
+		
+		//return memVO.getMemberID();
 	}
 	
 	// 기본정보 변경
