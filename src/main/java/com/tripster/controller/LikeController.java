@@ -3,6 +3,7 @@ package com.tripster.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,17 +26,20 @@ public class LikeController {
 	@Inject
 	LikeService service;
 	
-	private static final Logger logger = LoggerFactory.getLogger(ScrapModuleController.class);
+	private static final Logger loger = LoggerFactory.getLogger(ScrapModuleController.class);
 
 	// 좋아요 추가
-	@RequestMapping(value="/like",method=RequestMethod.POST)
-	public ResponseEntity<String> like(@RequestBody LikeVO vo ){
+	@RequestMapping(value="/like/{planID}",method=RequestMethod.POST)
+	public ResponseEntity<String> like(@PathVariable("planID")Integer planID,HttpSession session ){
 		
 		ResponseEntity<String> entity = null;
 		
 		try {
 			
-			service.like(vo);
+			// 접속중인 회원
+			MemberVO memberVO = (MemberVO) session.getAttribute("login"); 
+			Integer memberID = memberVO.getMemberID();
+			service.like(memberID,planID);
 			entity = new ResponseEntity<>("success",HttpStatus.OK);
 			
 		}catch(Exception e) {
@@ -47,15 +51,18 @@ public class LikeController {
 	}
 	
 	// 좋아요 삭제
-	@RequestMapping(value="/likeDelete",method=RequestMethod.POST)
-	public ResponseEntity<String> likeDelete(@RequestBody LikeVO vo){
+	@RequestMapping(value="/likeDelete/{planID}",method=RequestMethod.POST)
+	public ResponseEntity<String> likeDelete(@PathVariable("planID")Integer planID,HttpSession session ){
 		
 		ResponseEntity<String> entity = null;
 		
 		try {
 			
-			service.likeDelete(vo);
-			entity = new ResponseEntity<>("delete",HttpStatus.OK);
+			// 접속중인 회원
+			MemberVO memberVO = (MemberVO) session.getAttribute("login"); 
+			Integer memberID = memberVO.getMemberID();
+			service.likeDelete(memberID,planID);
+			entity = new ResponseEntity<>("success",HttpStatus.OK);
 			
 		}catch(Exception e) {
 			
@@ -69,14 +76,17 @@ public class LikeController {
 	}
 	
 	// 유저 follow
-	@RequestMapping(value="/memberFollow/{memberID}/{userID}",method=RequestMethod.POST)
-	public ResponseEntity<String> memberFollow(@PathVariable("memberID") Integer memberID,
-												@PathVariable("userID") Integer userID){
+	@RequestMapping(value="/memberFollow/{followID}",method=RequestMethod.POST)
+	public ResponseEntity<String> memberFollow(@PathVariable("followID") Integer followID,HttpSession session){
 		
 		ResponseEntity<String> entity = null;
 		
+		// 접속중인 회원	
+		MemberVO memberVO = (MemberVO) session.getAttribute("login"); 
+		Integer memberID = memberVO.getMemberID();
+		
 		try {
-			service.memberFollow(memberID,userID);
+			service.memberFollow(memberID,followID);
 			entity = new ResponseEntity<>("follow",HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -88,13 +98,16 @@ public class LikeController {
 	}
 	
 	// 유저 follow 삭제
-	@RequestMapping(value="/memberFollowDelete/{memberID}/{userID}",method=RequestMethod.POST)
-	public ResponseEntity<String> memberFollowDelete(@PathVariable("memberID") Integer memberID,@PathVariable("userID") Integer userID){
+	@RequestMapping(value="/memberFollowDelete/{followID}",method=RequestMethod.POST)
+	public ResponseEntity<String> memberFollowDelete(@PathVariable("followID") Integer followID,HttpSession session){
 		
 		ResponseEntity<String> entity = null;
-		
+		// 접속중인 회원	
+		MemberVO memberVO = (MemberVO) session.getAttribute("login"); 
+		Integer memberID = memberVO.getMemberID();
+				
 		try {
-			service.memberFollowDelete(memberID,userID);
+			service.memberFollowDelete(memberID,followID);
 			entity = new ResponseEntity<>("followDelete",HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -104,7 +117,7 @@ public class LikeController {
 		return entity;
 	}
 	
-	// 유저 좋아요 리스트의 플랜 조회
+	// 유저 좋아요 리스트 조회
 	@RequestMapping(value="/userLikeList/{memberID}")
 	public ResponseEntity<List<PlanVO>> userLikeList(@PathVariable("memberID") Integer memberID){
 		
@@ -153,4 +166,52 @@ public class LikeController {
 		return entity;
 	}
 	
+	// 좋아요 체크
+	@RequestMapping(value="/likeCheck/{planID}",method=RequestMethod.POST)
+	public ResponseEntity<Integer> likeCheck (@PathVariable("planID") Integer planID,HttpSession session) {
+		
+		ResponseEntity<Integer> entity = null;
+		// 접속중인 회원
+		MemberVO memberVO = (MemberVO) session.getAttribute("login"); 
+		Integer memberID = memberVO.getMemberID();
+		
+		try {
+			Integer check = service.likeCheck(planID, memberID);
+			entity = new ResponseEntity<>(check,HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+		
+	}
+	
+	// 팔로우 체크
+	@RequestMapping(value="/followCheck/{planID}",method=RequestMethod.POST)
+	public ResponseEntity<Integer> followCheck (@PathVariable("planID") Integer planID,HttpSession session) {
+		
+		ResponseEntity<Integer> entity = null;
+		
+		// 접속중인 회원 아이디
+		MemberVO memberVO = (MemberVO) session.getAttribute("login"); 
+		Integer memberID = memberVO.getMemberID();
+		
+		try {
+			
+			Integer check = service.followCheck(planID, memberID);
+			entity = new ResponseEntity<>(check,HttpStatus.OK);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			
+		}
+		
+		return entity;
+		
+	}
+	
 }
+	

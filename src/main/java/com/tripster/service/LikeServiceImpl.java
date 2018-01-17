@@ -24,8 +24,8 @@ public class LikeServiceImpl implements LikeService{
 	
 	// 좋아요 
 	@Override
-	public void like(LikeVO vo) throws Exception{
-		likeDAO.like(vo);
+	public void like(Integer memberID,Integer planID) throws Exception{
+		likeDAO.like(memberID,planID);
 	}
 	
 	// 유저의 플랜 조회
@@ -36,8 +36,8 @@ public class LikeServiceImpl implements LikeService{
 	
 	// 좋아요 삭제
 	@Override
-	public void likeDelete(LikeVO vo) throws Exception{
-		likeDAO.likeDelete(vo);
+	public void likeDelete(Integer memberID,Integer planID) throws Exception{
+		likeDAO.likeDelete(memberID,planID);
 	}
 
 	// 유저의 좋아요 체크
@@ -55,14 +55,14 @@ public class LikeServiceImpl implements LikeService{
 	
 	// 멤버 팔로우
 	@Override
-	public void memberFollow(Integer memberID,Integer userID) throws Exception{
-		likeDAO.memberFollow(memberID,userID);
+	public void memberFollow(Integer memberID,Integer followID) throws Exception{
+		likeDAO.memberFollow(memberID,followID);
 	}
 	
 	// 멤버 팔로우 삭제
 	@Override
-	public void memberFollowDelete(Integer memberID,Integer userID) throws Exception{
-		likeDAO.memberFollowDelete(memberID,userID);
+	public void memberFollowDelete(Integer memberID,Integer followID) throws Exception{
+		likeDAO.memberFollowDelete(memberID,followID);
 	}
 	
 	// 유저 팔로우 체크
