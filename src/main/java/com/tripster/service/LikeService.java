@@ -9,13 +9,13 @@ import com.tripster.domain.PlanVO;
 public interface LikeService {
 	
 	// 좋아요추가
-	public void like(LikeVO vo) throws Exception;
+	public void like(Integer memberID,Integer planID) throws Exception;
 	
 	// 유저의 일정 조회
 	public PlanVO userSchedule(Integer planID) throws Exception;
 	
 	// 좋아요 삭제
-	public void likeDelete(LikeVO vo) throws Exception;
+	public void likeDelete(Integer memberID,Integer planID) throws Exception;
 	
 	// 유저의 좋아요 체크
 	public Integer likeCheck(Integer planID,Integer memberID) throws Exception;
@@ -24,7 +24,7 @@ public interface LikeService {
 	public void memberFollow(Integer memberID,Integer userID) throws Exception; 
 	
 	// 멤버 팔로우 삭제
-	public void memberFollowDelete(Integer memberID,Integer userID) throws Exception;
+	public void memberFollowDelete(Integer memberID,Integer followID) throws Exception;
 	
 	// 멤버 팔로우 체크
 	public Integer followCheck(Integer userID,Integer memberID) throws Exception;

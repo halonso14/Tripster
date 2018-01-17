@@ -8,13 +8,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 좋아요 -->
   <insert id="like">
   	insert into tbl_Like(
-  						  Like_ID
+  						 
   						 ,Plan_ID
   						 ,Member_ID
   						 )
   					values
   						(
-  						 #{likeID},
+  						 
   						 #{planID},
   						 #{memberID}		
   						)
@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 좋아요 삭제 -->
   <delete id="likeDelete">
   delete from tbl_Like
-  where Plan_ID = #{planID}
+  where Plan_ID = #{planID} and #{memberID}
   
   </delete>
   

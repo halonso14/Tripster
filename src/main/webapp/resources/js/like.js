@@ -1,32 +1,62 @@
 $(document).ready(function(){
 	
-	// 팔로우 당한사람
-	var followID = $('#followID').val();
-	// 접속중인 유저
-	var memberID = $('#memberID').val();
-	// 게시글 ID
-	var planID = $('#planID').val();
-	
-	// 유저 좋아요 기능
-	$('#follow').on('click',function(){
-
-		var followcheck = $('#follow');
-		alert(followcheck.val());
+	// id="like" 인 속성의 value 값을 바꿈
+	function likeCheck(planID,likeBtn){
 		
-		if(followcheck.val() == 1){
+		$.ajax({
+			type : 'post',
+			url : '/likeCheck/'+planID,
+			async: false,
+			success : function(check){
+				alert("좋아요 체크 변경"+check);
+				likeBtn.attr("likeBtnCheck",check);
+			}
+		});
+		
+	}
+	
+	// follow 체크 함수
+	function followCheck(followID,followBtn){
+		
+		$.ajax({
+			type : 'post',
+			url : '/followCheck/'+followID,
+			async: false,
+			success : function(check){
+				alert("팔로우 체크 변경"+check);
+				followBtn.attr("followBtnCheck",check);
+			}
+		});
+		
+	}
+	
+	// 속성 양식: <button class='follow' followID='' followBtnCheck='1' />
+	// 유저 팔로우 ( class="follow" 인 버튼을 누를 경우 )
+	$('.follow').on('click',function(){
+
+		// 팔로우 버튼
+		var followBtn = $(this);
+		// 누른 버튼의 followID 저장  (팔로우 당한사람)
+		var followID = followBtn.attr("followID");
+		// 팔로우 체크
+		followCheck(followID,followBtn);
+		
+		// 체크값이 1인 경우 팔로우 
+		if(followBtn.attr(followBtnCheck) == 1){
 			
 			alert('follow 추가');
-			followcheck.attr('value',0);
+			followBtn.attr('followBtnCheck',0);
 			
-			 $.post('/memberFollow/'+memberID+'/'+user,function(result){
+			 $.post('/memberFollow/'+followID,function(result){
 				alert(result);
-			});
+			 });
 			
 		}else{
 			
 			alert('follow 취소')
-			followcheck.attr('value',1);
-			$.post('/memberFollowDelete/'+memberID+'/'+user,function(result){
+			followBtn.attr('followBtnCheck',1);
+			
+			$.post('/memberFollowDelete/'+followID,function(result){
 				alert(result);
 			});
 
@@ -34,70 +64,39 @@ $(document).ready(function(){
 
 	});
 	
+	// 속성 양식 <button class='like' planID='' likeBtnCheck='1' />
 	// 게시글 좋아요
-	$('#like').on('click',function(){
-	
-		var check = $('#like');
+	$('.like').on('click',function(){
 		
-		// 좋아요 체크 후 추가
-		if(check.val() == 1){
+		// 라이크 버튼
+		var likeBtn = $(this);
+		// 누른 버튼의 planID 저장
+		var planID = likeBtn.attr("planID");
+		// 좋아요 체크
+		likeCheck(planID,likeBtn);
+		
+		// 좋아요 추가
+		if(likeBtn.attr("likeBtnCheck") == 1){
 			
 			alert("좋아요 추가");
 			
 			check.attr('value',0);
 			// 좋아요 추가
-			$.ajax({
-				type : 'POST',
-				url : '/like',
-				headers : {
-					"Content-Type" : "application/json",
-					"X-HTTP-Method-Override" : "POST"
-				},
-				dataType : 'text',
-				data : JSON.stringify({
-					planID : planID,
-					memberID : memberID
-				}),
-				success : function(result) {
-					alert(result);
-				}
+			$.post('/like/'+planID,function(result){
+				alert(result);
 			});
 			
 		}else{
 			
 			alert("좋아요 삭제");
 			check.attr('value',1);
+			
 			// 좋아요 삭제
 			$.post('/likeDelete/'+planID,function(result){
 				alert(result);
-			})	
+			});
+			
 		}
 	})
-
-	// id="like" 인 속성의 value 값을 바꿈
-	function likecheck(){
-		
-		$.post("likeCheck"+planID,function(data){
-			
-			$("#like").attr("value",data);
-			
-		})
-		
-	}
-	
-	// id="follow" 인 속성의 value 값을 바꿈
-	function followcheck(){
-		
-		$.post("followCheck"+planID,function(data){
-			
-			$("#follow").attr("value",data);
-			
-		})
-		
-	}
-	
-	likecheck();
-	
-	followcheck();
 
 })

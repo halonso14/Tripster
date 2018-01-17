@@ -2,6 +2,7 @@ package com.tripster.persistence;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -23,8 +24,12 @@ public class LikeDAOImpl implements LikeDAO{
 	
 	// 좋아요 추가
 	@Override
-	public void like(LikeVO vo) throws Exception{
-		session.insert(namespace+".like",vo);
+	public void like(Integer memberID,Integer planID) throws Exception{
+		
+		Map<String,Integer> map = new HashMap<>();
+		map.put("memberID",memberID);
+		map.put("planID", planID);
+		session.insert(namespace+".like",map);
 		
 	}
 	
@@ -36,8 +41,13 @@ public class LikeDAOImpl implements LikeDAO{
 	
 	// 좋아요 삭제
 	@Override
-	public void likeDelete(LikeVO vo) throws Exception{
-		session.delete(namespace+".likeDelete", vo);
+	public void likeDelete(Integer memberID,Integer planID) throws Exception{
+		
+		Map<String,Integer> map = new HashMap<>();
+		map.put("memberID", memberID);
+		map.put("planID", planID);
+		session.delete(namespace+".likeDelete", map);
+		
 	}
 	
 	// 유저의 좋아요 리스트
@@ -48,21 +58,24 @@ public class LikeDAOImpl implements LikeDAO{
 	
 	// 멤버  팔로우
 	@Override
-	public void memberFollow(Integer memberID,Integer userID) throws Exception{
+	public void memberFollow(Integer memberID,Integer followID) throws Exception{
+		
 		HashMap<String,Integer> map = new HashMap<>();
-		map.put("followID", userID);
+		map.put("followID", followID);
 		map.put("memberID", memberID);
-		System.out.println(map.toString());
 		session.insert(namespace+".memberFollow",map);
+		
 	}
 	
 	// 멤버 팔로우 삭제
 	@Override
-	public void memberFollowDelete(Integer memberID,Integer userID) throws Exception{
+	public void memberFollowDelete(Integer memberID,Integer followID) throws Exception{
+		
 		HashMap<String,Integer> map = new HashMap<>();
 		map.put("memberID", memberID);
-		map.put("followID", userID);
+		map.put("followID", followID);
 		session.delete(namespace+".memberFollowDelete",map);
+		
 	}
 	
 	// 유저의 팔로우 리스트 조회
