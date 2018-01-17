@@ -1,5 +1,6 @@
 package com.tripster.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.tripster.domain.ContentsReviewVO;
 import com.tripster.domain.Criteria;
+import com.tripster.domain.PlanVO;
 import com.tripster.persistence.ContentsDAO;
 import com.tripster.persistence.ContentsReviewDAO;
 import com.tripster.persistence.RecommandDAO;
@@ -78,6 +80,11 @@ public class ContentsDAOTest {
 	//컨텐츠 상세 정보 검색 / 조회수 갱신 테스트
 	@Test
 	public void testRead() throws Exception {
-		System.out.println(recommandDAO.getPlanList("AU").toString());
+		
+		List<PlanVO> planVO = recommandDAO.getPlanList("AU");
+		PlanVO el = planVO.get(0);
+		SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println(dt1.format(el.getPlanStartDate()));
+		//System.out.println(recommandDAO.getPlanList("AU").toString());
 	}
 }

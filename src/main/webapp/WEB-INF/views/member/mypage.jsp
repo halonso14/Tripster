@@ -599,10 +599,10 @@ response.setHeader("Pragma", "no-cache");
 
 
 							<!--ymmu  이 국가에 관련된 일정 추천 부분이다  -->					    	
-					    	<div class="general_font rcm_title_font just_padding_for_subtitle"><h2>이 국가에 관련된 일정 추천</h2></div>
+					    	<div class="general_font rcm_title_font just_padding_for_subtitle"><h2>이 국가에 관련된 일정 참고</h2></div>
 							<div class="relavtive_rcm">
-					    		  <div class="your-class">
-								    
+					    		  <div class="related-plan-list">
+								<!-- 이제 필요가 없어졌어...임시데이터					    
 								    <div class="contents_rcm">
 								    	<div class="inner_card">
 								    		<img id="content_rcm_plan_thumbnail_bgImage" src="/resources/images/profile_bg.jpg" />
@@ -615,7 +615,7 @@ response.setHeader("Pragma", "no-cache");
 								    		<div class="content_rcm_plan_planEndChk">종료된 일정</div>
 								    	</div>
 								    </div>
-
+ 								-->
 								  </div>
 					    	</div>
 

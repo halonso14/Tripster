@@ -25,7 +25,7 @@ public class RecommandServiceImpl implements RecommandService{
 	//맛집 상세 정보 조회
 	@Transactional
 	@Override
-	public List<PlanVO> getPlanList(String countryISO2) throws Exception {
+	public List<RcmPlanVO> getPlanList(String countryISO2) throws Exception {
 		//조회수 추가
 		return dao.getPlanList(countryISO2);
 	}

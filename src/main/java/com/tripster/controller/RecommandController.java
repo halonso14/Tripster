@@ -2,6 +2,7 @@ package com.tripster.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +62,16 @@ public class RecommandController {
 			Map<String, Object> map = new HashMap<String, Object>();
 			
 			// 화면에 전달한 데이터를 받아옴. 대쉬브리프, 대쉬디테일, 대쉬라이크 현재 세 가지
-			List<PlanVO> planList = recommandService.getPlanList(countryISO2);
+			List<RcmPlanVO> planList = recommandService.getPlanList(countryISO2);
+			
+			//플랜 시작,종료 날짜 날짜 포맷 변환해서 변수에 저장해줌
+			for(int i=0; i<planList.size();i++) {
+				RcmPlanVO el = planList.get(i);
+				SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
+				el.setPlanStartDateNewFormat(dt1.format(el.getPlanStartDate()));
+				el.setPlanEndDateNewFormat(dt1.format(el.getPlanEndDate()));
+				
+			}
 			map.put("planList", planList);
 			
 			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);

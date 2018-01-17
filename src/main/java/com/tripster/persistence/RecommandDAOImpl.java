@@ -28,7 +28,7 @@ public class RecommandDAOImpl implements RecommandDAO{
 
 	//대쉬보트 통계에 뿌려줄 데이터2. <일정 별 좋아요 수, >
 	@Override
-	public List<PlanVO> getPlanList(String countryISO2) throws Exception {
+	public List<RcmPlanVO> getPlanList(String countryISO2) throws Exception {
 		//쿼리 결과 반환
 		return session.selectList(namespace + ".getPlanList", countryISO2);
 	}

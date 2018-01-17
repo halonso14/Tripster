@@ -14,7 +14,7 @@ public interface RecommandDAO {
 	
 
 	//유저 일정별 디테일정보
-	public List<PlanVO> getPlanList(String countryISO2) throws Exception;
+	public List<RcmPlanVO> getPlanList(String countryISO2) throws Exception;
 
 
 

@@ -112,9 +112,7 @@ var chartMap2;
 //서버 데이터 관련
 var rcmCountryList;
 
-/**
- * Create the Google Map
- */
+/**Create the Google Map*/
 var gmap;
 
 /**
@@ -125,6 +123,8 @@ AmCharts.amBreakLevelReturn = 2; // used to return from GMap
 AmCharts.gBreakLevel = 4; //이 값보다 작으면 구글맵이 감춰진다.
 
 
+
+//amcharts 세팅함수
 AmCharts.ready( function() {
 	 
 	// 일정일수 통계------------------------------
@@ -247,13 +247,18 @@ AmCharts.ready( function() {
 $(document).ready(function(){   
     //console.log(window.location.pathname);
 	$('.your-class').slick(getSliderSettings());
+	
+	//추천국가 관련일정 슬라이드
+	$('.related-plan-list').slick(getSliderSettings());
+	
 	//통계 데이터
 	ajaxController('/dashboard/stat/1');
 	
-	//추천데이터. 크로스도메인 설정 필요
+	//추천데이터. 크로스도메인 설정됨
 	ajaxController('http://127.0.0.1:8000/recommand/1');
     
 });
+
 
 var getSliderSettings =function () {
 	console.log('getSliderSettings');
@@ -410,27 +415,70 @@ var ajaxController= function(url){
         		  });
             	
             }//else if
-            else if(url.match("/rcm")){
+            else if(url.match("/rcm")){ //
             	
             	console.log("/rcm 들어옴");
-            	//console.log(data.planList[0].planTitle);
             	var planList = data.planList;
-            	//console.log(planList[0].planTitle);
-				
-            	$('.content_rcm_plan_name').html(planList[0].planTitle);
-            	$('.content_rcm_plan_date').html(planList[0].planStartDate+' ~ '+planList[0].planEndDate);
-            	
-            	var check = '진행중';
-            	if(planList[0].planEndChk == 1) check = '완료됨';
-            	
-            	$('.content_rcm_plan_planEndChk').html(check);
+            		
+            		//관련일정 slick에 달아줌
+            	bindingPlanListToSlick(planList);
             	
             }
+            
         }//success
 
     }); 
     
 } //ajaxfunction
+
+
+//추천 국가 관련 일정 slick 슬라이드 세팅
+var bindingPlanListToSlick = function(planList){
+	
+	
+	for(var i=0; i<planList.length; i++){
+		
+		var thumbnailPic = '/resources/images/thumbnail_default3.png';
+
+		//썸네일 이미지가 있다면 설정해준다
+    	if(planList[i].memberPic) //"", null, undefined, 0, NaN은 false로 반환
+    		thumbnailPic = planList[i].memberPic;
+    		
+    		//관련 일정카드에 멤버이름, 일정 타이틀, 일정 시작종료일 세팅 
+    	//$('.content_rcm_plan_writer').html(planList[i].memberName);
+    	//$('.content_rcm_plan_name').html(planList[i].planTitle);
+    	//$('.content_rcm_plan_date').html(planList[i].planStartDateNewFormat+' ~ '+planList[i].planEndDateNewFormat);
+
+    	var check = '진행중';
+    	if(planList[i].planEndChk == 1) check = '완료됨';
+    	//$('.content_rcm_plan_planEndChk').html(check);
+    	var url = 'http://127.0.0.1:8080/plan/read?PlanID='+planList[i].planID;
+    	var card = '<div class="contents_rcm" onclick=goto("'+url+'")>'+
+						'<div class="inner_card">'+
+							'<img id="content_rcm_plan_thumbnail_bgImage" src="/resources/images/profile_bg.jpg" />'+
+							'<div class="content_rcm_plan_thumbnail">'+
+								'<img id="content_rcm_plan_thumbnail_image" src='+ thumbnailPic +' />'+
+							'</div>'+
+							'<div class="general_font content_rcm_plan_writer">'+planList[i].memberName+'</div>'+
+							'<div class="general_font content_rcm_plan_name">'+planList[i].planTitle+'</div>'+
+							'<div class="content_rcm_plan_date">'+planList[i].planStartDateNewFormat+' ~ '+planList[i].planEndDateNewFormat+'</div>'+
+							'<div class="content_rcm_plan_planEndChk">'+check+'</div>'+
+						'</div>'+
+					'</div>';
+    	
+    	// Add a slide
+    	$('.related-plan-list').slick('slickAdd',card);
+    
+    	
+	}//for
+	
+};
+
+var goto = function(url){
+	
+	location.href = url;
+};
+
 
 //일정-좋아요 테이블 세팅
 $(function () {
