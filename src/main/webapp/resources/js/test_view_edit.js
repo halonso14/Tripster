@@ -4,12 +4,16 @@ var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
 var data =[];
 var count = 0;
-
+var memberID= 0;
 $().ready(function(){
     
-    var user_id = /*window.location.protocol + "//" + window.location.host + "/" +*/ (window.location.pathname).split('/')[1];
-        
-    $.get("http://127.0.0.1:8000/research/0"/*+user_id*/, function(data){
+    //var user_id = /*window.location.protocol + "//" + window.location.host + "/" +*/ (window.location.pathname).split('/')[1];
+    
+    //get memberID first before get his/her detail info
+    memberID = $('#memberID').val();
+    console.log('#memberID:'+memberID);
+    
+    $.get("http://127.0.0.1:8000/research/"+memberID, function(data){
         console.log(data);
     });
     
@@ -183,11 +187,11 @@ $(".submit").click(function(){
 
     console.log(JSON.stringify(data));
     alert(JSON.stringify(data));
-    /*
+    
     $.ajax({
-        url: "http://127.0.0.1:8000/research/22/insert",
+        url: "http://127.0.0.1:8000/research/"+memberID+"/insert",
         method:"POST",
-        data: JSON.stringify({user_id:"22", age:"4", gender:"4"}),
+        data: JSON.stringify({user_id:memberID, age:"4", gender:"4"}),
         dataType: 'text/plain',
         crossDomain: true,
         success: function(){
@@ -201,6 +205,6 @@ $(".submit").click(function(){
             alert("done")
         });
 	return false;
-    */
+    
     
 });

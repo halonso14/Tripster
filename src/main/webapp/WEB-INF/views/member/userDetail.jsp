@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+	<!--18/01/08 추가. submit할때 유저ID보내주기 위해서 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,6 +15,8 @@
 
     <!-- multistep form -->
 <form id="msform">
+	<!--18/01/08 추가. submit할때 유저ID보내주기 위해서 -->
+	<input type="hidden" id="memberID" value="${memberID}" />
 	<!-- progressbar -->
 	<ul id="progressbar">
 		<li class="active" >Age</li> <!-- 1 -->

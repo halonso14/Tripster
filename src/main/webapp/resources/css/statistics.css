@@ -98,6 +98,7 @@ table{
 }
 
 
+
 /* pie chart */
 #chartdiv2 {
     width: 100%;
@@ -167,6 +168,178 @@ table{
   right: 0;
 }
 
+#maps {
+  width: 100%;
+  height: 500px;
+  /*border: 1px solid #eee;*/
+  margin: 10px auto;
+  position: relative;
+}
+
+.mapdiv {
+  width: 100%;
+  height: 500px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.description{
+	margin-top: 20px;
+	width: 100%;
+	position: relative;
+	/*padding: 10px auto*/
+	box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+
+.description_title{
+	margin: -85px 36px 85px;
+}
+
+.general_font{
+	font: 300 34px Roboto,HelveticaNeue-Light,HelveticaNeue,sans-serif-light,Arial,sans-serif;
+	font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-variant-east-asian: normal;
+    font-weight: 300;
+    font-stretch: normal;
+    font-size: 34px;
+    line-height: normal;
+    font-family: Roboto, HelveticaNeue-Light, HelveticaNeue, sans-serif-light, Arial, sans-serif;
+}
+.country_name_font{
+
+	color:#ffffff;
+}
+
+.rcm_title_font{
+	color:#5d5d5d;
+}
+.general_text{
+	width: 100%;
+	position: relative;
+	padding: 20px 20px 20px 20px;
+}
+
+.rectangle{
+	display:inline-block;
+	width: 20px;
+	height: 20px;
+	overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.inline_rec{
+	display:inline-block;
+}
+
+.contents_rcm{
+	/*background-color:#00cc00;*/
+	/*width: 318px;*/
+	padding: 3px;
+	border-width: 1px;
+	height:360px;
+}
+
+/* slick 버튼색깔*/
+.slick-prev:before {
+  color: #ffffff;
+  box-shadow: 0 4px 4px rgba(0,0,0,0.3), 0 0 4px rgba(0,0,0,0.2);
+  border-width: 1px;
+  border-radius: 50px;
+  background-color: #A4A4A4;
+}
+.slick-next:before {
+  color: #ffffff;
+  box-shadow: 0 4px 4px rgba(0,0,0,0.3), 0 0 4px rgba(0,0,0,0.2);
+  border-width: 1px;
+  border-radius: 50px;
+  background-color: #A4A4A4;
+}
 
 
+.inner_card{
+	height:350px;
+	box-shadow: 0 4px 4px rgba(0,0,0,0.3), 0 0 4px rgba(0,0,0,0.2);
+	border-width: 1px;
+ 	border-radius: 3px;
+}
+
+.relavtive_rcm{
+	width: 100%;
+	padding: 5px;
+	padding-top: 30px;
+}
+
+.content_rcm_title{
+	margin: -50px 20px auto;
+}
+
+
+.info_about_country_contents{
+	display: inline-block;
+	background-color:#eeeeec;
+	height: 300px;
+	width: 19.2%;
+	padding: 20px;
+	vertical-align: middle;
+}
+
+.info_icon{
+	text-align: center;
+	height: 35%;
+}
+
+.info_description{
+	text-align: center;
+	height: 63%;
+}
+
+.just_padding_for_subtitle{
+	
+	padding-top: 30px;
+}
+
+.content_rcm_plan_thumbnail{
+	width: 90px;
+    height: 90px;
+    display: inline-block;
+    background-color: #ffffff;
+    margin: -50px 110px auto;
+    border-radius: 50px;
+    padding: 2px;
+}
+
+#content_rcm_plan_thumbnail_image{
+	width: 100%;
+    height: 100%;
+    border-radius: 50px;
+}
+
+.content_rcm_plan_writer{
+	font-size: 1.5em;
+    text-align: center;
+}
+
+.content_rcm_plan_name{
+	font-size: 2em;
+    text-align: center;
+    font-weight: bold;
+    margin: 20px 0 0 0;
+}
+
+#content_rcm_plan_thumbnail_bgImage{
+	width: 100%;
+	height: 40%;
+}
+
+.content_rcm_plan_date{
+    text-align: center;
+}
+
+.content_rcm_plan_planEndChk{
+	text-align: center;
+}
 /* myplan and */
