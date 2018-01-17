@@ -21,7 +21,9 @@
 
 <h2>${plan.planTitle }</h2>
 <button id="like" value=${likeCheck }>좋아요</button>
+
 <button id="follow" value="1">유저 follow</button>
+
 
 <script>
 $(document).ready(function(){
