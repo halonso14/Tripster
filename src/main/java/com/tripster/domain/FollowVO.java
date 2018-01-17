@@ -2,7 +2,9 @@ package com.tripster.domain;
 
 public class FollowVO {
 	
+	//팔로우 당한사람
 	private int followID;
+	//팔로우 누른사람
 	private int memberID;
 	
 	public int getFollowID() {

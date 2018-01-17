@@ -1,6 +1,8 @@
 package com.tripster.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
@@ -21,8 +23,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 import com.tripster.domain.MemberVO;
+import com.tripster.domain.PlanDetailVO;
+import com.tripster.domain.PlanVO;
 import com.tripster.dto.LoginDTO;
+import com.tripster.service.LikeService;
 import com.tripster.service.MemberService;
+import com.tripster.service.PlanService;
 
 @Controller
 @RequestMapping("/member/*")
@@ -32,6 +38,10 @@ public class MemberController {
 
 	@Inject
 	private MemberService service;
+	@Inject
+	private PlanService planservice;
+	@Inject
+	private LikeService likeservice;
 
 	// 로그인 화면 접근
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -158,7 +168,7 @@ public class MemberController {
 
 	// 마이페이지 조회
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public void mypage2(MemberVO vo, HttpSession session, Model model) throws Exception {
+	public void mypage(MemberVO vo, HttpSession session, Model model) throws Exception {
 
 		Object obj = session.getAttribute("login");
 		MemberVO memVO = (MemberVO) obj;
@@ -249,25 +259,55 @@ public class MemberController {
 
 		return "redirect:/";
 	}
-
-	//18-01-08(월)에 수정
-	//유저 추천페이지 위한 설문(수정도 됨)페이지 제공
-	// 추천서비스를 위한 유저디테일 페이지로 넘어가면서 멤버아이디도 같이 넘겨준다.
-	// 회원 아이디를 세션으로 받아오는데, memberVo vo 매개변수를 줄 경우 이건 무슨 역할을 하는지 복습할것(12/1/8)
-	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String userDetail(MemberVO vo,HttpSession session, Model model) throws Exception {
+	
+	// 다른 회원 정보 조회 페이지
+	@RequestMapping(value = "/viewMember", method = RequestMethod.GET)
+	public void viewMember(@RequestParam("memberID") int memberID, HttpSession session, Model model)throws Exception{
 		
-		try {
-			Object obj = session.getAttribute("login");
-			vo.setMemberID(((MemberVO)obj).getMemberID());
-			model.addAttribute("memberID", vo.getMemberID());
-		} catch(Exception e) {
-			//오류 발생 시, BAD_REQUEST 상태 입력
-			e.printStackTrace();
+		List<String> picList = new ArrayList<String>();
+		List<Integer> likeChkList = new ArrayList<Integer>();
+		List<PlanVO> vo = planservice.myPlan(memberID);
+		
+		for(int i=0;i<vo.size();i++) {
+			String picName = "false";
+			//planDetailVO가 한개라도 있을 경우
+			if(vo.get(i).getPlanDetailVO() != null ) {
+				for(int j=0; j<vo.get(i).getPlanDetailVO().size(); j++) {
+					PlanDetailVO pd = vo.get(i).getPlanDetailVO().get(j);
+					if(pd.getMemoVO() != null) {
+						if(pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName() != null) {
+							picList.add( pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName());
+							picName = "true";
+							break;
+						} 
+					}
+				}
+				if(picName.equals("false")) {
+					picList.add("");
+					picName = "true";
+				}
+			}
+			if(picName.equals("false")) picList.add("");
 		}
 		
-		return "/member/userDetail";
+//		for(int i=0;i<vo.size();i++) {
+//			likeChkList.add(likeservice.likeCheck(vo.get(i).getPlanID(), userID));
+//		}
+		
+		System.out.println("상판때기좀 보자 : "+likeChkList);
+		
+		model.addAttribute("likeChkList", likeChkList);
+		model.addAttribute("pictureID", picList);
+		model.addAttribute("planVO", vo);
+		model.addAttribute(service.mypage(memberID));
+		
 	}
 
-	
+	// 유저 추천페이지 위한 설문(수정도 됨)페이지 제공
+	@RequestMapping(value = "/register/detail", method = RequestMethod.GET)
+	public String userDetail(MemberVO vo, Model model) throws Exception {
+
+		return "member/userDetail";
+	}
+
 }

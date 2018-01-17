@@ -1,6 +1,7 @@
 package com.tripster.service;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -17,6 +18,7 @@ import com.tripster.common.TempKey;
 import com.tripster.domain.MemberVO;
 import com.tripster.dto.LoginDTO;
 import com.tripster.persistence.MemberDAO;
+import com.tripster.persistence.MemoDAO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -25,6 +27,8 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Inject
 	private MemberDAO dao;
+	@Inject
+	private MemoDAO memoDao;
 	@Inject
 	private BCryptPasswordEncoder passwordEncoder;
 	@Inject
@@ -113,7 +117,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		sendMail.setSubject("Tripster 회원가입 이메일 인증");
 		sendMail.setText(new StringBuffer().append("<h1>메일인증</h1>")
-					.append("<a href='http://localhost:8080/member/emailConfirm?memberEmail=")
+					.append("<a href='http://localhost:10000/member/emailConfirm?memberEmail=")
 					.append(vo.getMemberEmail()).append("&key=").append(key)
 					.append("' target='_blank'>이메일 인증 확인</a>").toString());
 		sendMail.setFrom("projecttripster@gmail.com", "Tripster관리자");
@@ -208,6 +212,12 @@ public class MemberServiceImpl implements MemberService {
 	public void dropMember(Integer memberID) throws Exception {
 		
 		dao.deleteMember(memberID);
+	}
+	
+	@Override
+	public List<String> getThumbnail(Integer planDetailID) throws Exception {
+		
+		return memoDao.getAttach(planDetailID);
 	}
 
 }

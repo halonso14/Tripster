@@ -1,11 +1,7 @@
 package com.tripster.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import javax.inject.Inject;
-import javax.naming.LinkLoopException;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.tripster.domain.MemberVO;
 import com.tripster.service.LikeService;
 import com.tripster.service.ScrapService;
 
@@ -42,10 +39,13 @@ public class ListController {
 	
 	// 다른 회원의 일정 조회
 	@RequestMapping(value="/memberSchedule/{planID}",method=RequestMethod.GET)
-	public String userplanList(@PathVariable("planID")Integer planID,Model model)throws Exception {
+	public String userplanList(@PathVariable("planID")Integer planID, HttpSession session, Model model)throws Exception {
+		
+		Object obj = session.getAttribute("login");
+		MemberVO memVO = (MemberVO) obj;
 		
 		// 현재 접속중인 회원
-		Integer userID = 1;
+		Integer userID = memVO.getMemberID();
 		// 좋아요 체크
 		Integer likeCheck = likeservice.likeCheck(planID, userID);
 		// 팔로우 체크
@@ -57,8 +57,6 @@ public class ListController {
 		model.addAttribute("followCheck", followCheck);
 		
 		return "plan/memberSchedule";
-		
 	}
-	
 
 }
