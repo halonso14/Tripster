@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
-<%@include file="/WEB-INF/views/plan/registerModal.jsp"%>
+<%-- <%@include file="/WEB-INF/views/plan/registerModal.jsp"%> --%>
 <%
 response.setHeader("Cache-Control", "no-store");
 response.setHeader("Expires", "Sat, 01 Jan 1970 22:00:00 GMT");
@@ -42,7 +42,7 @@ response.setHeader("Pragma", "no-cache");
 								<li><a href="member/logout">로그아웃</a></li>
 							</ul>
 								</li>
-								<li><a href="#" onclick="planModal();">일정등록버튼</a></li>
+								<li><a href="/plan/register">일정등록버튼</a></li>
 							</ul>
 						</c:otherwise>
         			

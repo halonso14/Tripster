@@ -98,8 +98,41 @@ body {
 
 
 </head>
+    <!-- ymum my css-->
+    <link rel = "stylesheet" type = "text/css" href ="/resources/css/statistics.css">
+    <!-- Bootstrap -->
+    <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
+    
+    <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
+    <!-- ymmu bootstrap table -->
+    <link href="/resources/bootstrap-table/dist/bootstrap-table.css" rel="stylesheet">
 
-	<%@include file="/WEB-INF/views/include/header2.jsp"%>
+
+	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.js"></script>
+      <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+	
+    <!-- Fonts -->	
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet' type='text/css'>	
+	<!-- Font-Awesome -->
+    <link rel="stylesheet" type="text/css" href="/resources/assets/css/font-awesome.css" media="screen" />
+    <!--[if lt IE 7]><link rel="stylesheet" type="text/css" href="assets/css/font-awesome-ie7.css" media="screen" /><![endif]-->
+	
+	<!-- Animo css-->
+	<link href="/resources/plugins/animo/animate+animo.css" rel="stylesheet" media="screen">
+
+    <!-- Picker -->	
+	<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />	
+	
+<!--     jQuery	 -->	
+    <script src="https://code.jquery.com/jquery-2.0.3.js"></script>
+
+<script src="/resources/dist/js/bootstrap.min.js"></script>
+<%@include file="/WEB-INF/views/include/header2.jsp"%>
 
 <script src='/resources/js/moment.min.js'></script>
 <script src="/resources/js/jquery-ui.min.js"></script>
@@ -135,7 +168,7 @@ body {
 	
 	
 	<div class="container">
-		<div class="modal fade" id="myModal" role="dialog" style="width: 800px;height:700px; margin-bottom: 50px">
+		<div class="modal fade" id="myModal" role="dialog" style="width: 800px;height:700px; margin-bottom: 50px;overflow-y:auto;overflow-x:hidden;">
 		 
 			 <form method="post" id="memoForm">
 				<input type="hidden" name="planID" value=${planVO.planID }>
@@ -154,7 +187,7 @@ body {
 							<div>
 								<hr>
 							</div>
-							<ul class="mailbox-attachments clearfix uploadedList"></ul>
+							<ul class="mailbox-attachments clearfix uploadedList" style="list-style:none;"></ul>
 						</div>
 					</div>
 				
@@ -171,17 +204,19 @@ body {
 	
 <%@include file="/WEB-INF/views/include/footer.jsp"%>
 
+<!-- 사진 템플릿.  -->
 <script id="template" type="text/x-handlebars-template">
 <li data-src='{{fullName}}'>
 	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="{{imgsrc}}"></span>
 	<div class="mailbox-attachment-info">
 		<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
-		<a data-src="{{originalName}}" class="btn btn-default btn-xs pull-right delbtn" onclick="removeAttach($(this))">x<a>
+		<a data-src="{{originalName}}" class="btn btn-default btn-xs delbtn" onclick="removeAttach($(this))">x<a>
 	</div>
 </li>
 </script>
 
-	<script>
+<!-- file drop관련 스크립트. -->
+<script>
 	var template = Handlebars.compile($("#template").html());
 	
 	$(".fileDrop").on("dragenter dragover", function(event) {
@@ -216,6 +251,7 @@ body {
 	});
 </script>
 
+<!-- full calendar 스크립트. -->
 <script>
 	$(document).ready(function() {
         var sendData = new Object();

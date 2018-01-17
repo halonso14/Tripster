@@ -59,14 +59,22 @@ public class PlanController {
 		
 	//plan 등록.
 	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public String registerPOST(PlanVO planVO, RedirectAttributes rttr,HttpSession session)throws Exception{
+	public String registerPOST(PlanVO planVO,@RequestParam("startDate")String startDate,@RequestParam("endDate")String endDate, RedirectAttributes rttr,HttpSession session)throws Exception{
 		//session읽어들이기
 		MemberVO memberVO = (MemberVO)session.getAttribute("login");
 		
-		//planID & planEndChk default값 설정.
-		planVO.setPlanID(0);
+		//startDate
+		System.out.println(startDate+ ","+endDate);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		planVO.setPlanStartDate(sdf.parse(startDate));
+		planVO.setPlanEndDate(sdf.parse(endDate));
+		
+		//planID & planEndChk default값 설정
 		planVO.setPlanEndChk(0);
+		planVO.setPlanLikeCnt(0);
 		planVO.setMemberID(memberVO.getMemberID());
+		
 		
 		//등록 작업 수행.
 		planService.registerPlan(planVO);
@@ -77,14 +85,14 @@ public class PlanController {
 		//plan 등록 폼에서 일정표의 default값으로 시작일정 설정해 주기 위해서 'yyy-MM-dd'와 같은 형식으로 만들어줌.
 		Date from =planVO.getPlanStartDate();
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String startDate = "'"+transFormat.format(from)+"'";
+		String sd= "'"+transFormat.format(from)+"'";
 		
 		from = planVO.getPlanEndDate();
-		String endDate =  "'"+transFormat.format(from)+"'";
+		String ed =  "'"+transFormat.format(from)+"'";
 		
 		//date , planVO값을 파라미터로 넘겨줌.
-		rttr.addFlashAttribute("startDate",startDate);
-		rttr.addFlashAttribute("endDate",endDate);
+		rttr.addFlashAttribute("startDate",sd);
+		rttr.addFlashAttribute("endDate",ed);
 		rttr.addFlashAttribute("planVO", planVO);
 		
 		//새로 고침 시, 다시 db에 insert되는 것을 막기 위해 redirect함.
