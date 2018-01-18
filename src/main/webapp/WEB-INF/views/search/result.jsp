@@ -166,7 +166,12 @@
 									<div class="itemlabel4" style="height:208px;">
 										<div class="labelright">
 											<span class=" green size18"><b>${esContentsVO.contents_review_cnt}</b></span><span class="green size14"> Review</span><br>
-											<img class="margtop10" src="/resources/images/filter-rating-${esContentsVO.contents_rating}.png" width="60" alt=""><br>
+											
+												<div class="progress" style="margin:5px 0 2px 0; height:20px;width:60px ">	
+													<img src="/resources/images/star.png" style="position:relative; top:0;left:0; z-index:2; width:100%"/>										
+	  												<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: ${esContentsVO.contents_rating*20}%; position:relative; top:0;left:0; z-index:1"></div>
+												</div>
+											
 											<span class="size11 grey ">${esContentsVO.contents_rating} Stars</span><br><br>
 											<span class="margtop20 green size18"><b>0</b></span><span class="green size14"> Plan</span><br>
 											<span class="size11 grey">${esContentsVO.contents_scrap_cnt} Scrap</span><br><br>

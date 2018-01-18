@@ -38,7 +38,12 @@ public class EsContentsVO{
 	public void setContents_keyword(String contents_keyword) {
 		this.contents_keyword = contents_keyword;
 	}
-
+	public double getContents_rating() {
+		return contents_rating;
+	}
+	public void setContents_rating(double contents_rating) {
+		this.contents_rating = contents_rating;
+	}
 	public int getCategory_id() {
 		return category_id;
 	}
@@ -69,12 +74,7 @@ public class EsContentsVO{
 	public void setContents_location(String contents_location) {
 		this.contents_location = contents_location;
 	}
-	public double getContents_rating() {
-		return contents_rating;
-	}
-	public void setContents_rating(double contents_rating) {
-		this.contents_rating = contents_rating;
-	}
+
 	public int getContents_view_cnt() {
 		return contents_view_cnt;
 	}
