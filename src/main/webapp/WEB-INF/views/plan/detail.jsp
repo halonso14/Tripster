@@ -133,7 +133,13 @@ body {
 
 <script src="/resources/dist/js/bootstrap.min.js"></script>
 <%@include file="/WEB-INF/views/include/header2.jsp"%>
+<div class="container breadcrub">
+<div>
 
+</div>
+<div class="clearfix"></div>
+<div class="brlines"></div>
+</div>
 <script src='/resources/js/moment.min.js'></script>
 <script src="/resources/js/jquery-ui.min.js"></script>
 <script src='/resources/js/fullcalendar.min.js'></script>

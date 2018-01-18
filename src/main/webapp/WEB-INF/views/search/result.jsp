@@ -171,7 +171,7 @@
 											<span class="margtop20 green size18"><b>0</b></span><span class="green size14"> Plan</span><br>
 											<span class="size11 grey">${esContentsVO.contents_scrap_cnt} Scrap</span><br><br>
 										 	
-									 		<button class="bookbtn mt1" value="${esContentsVO.contents_id}" check="1" session="${empty userSession }" >스크랩</button>		
+									 		<button class="bookbtn mt1 scrap" value="${esContentsVO.contents_id}" check="1" session="${empty userSession }" >스크랩</button>		
 								 		
 										</div>
 										<div class="labelleft">			

@@ -1118,7 +1118,7 @@ response.setHeader("Pragma", "no-cache");
     <script src="/resources/dist/js/bootstrap.min.js"></script>
     <script src="/resources/bootstrap-table/dist/bootstrap-table.js"></script>
 	<!-- put your locale files after bootstrap-table.js -->
-	<script src="/resources/bootstrap-table/dist/locale/bootstrap-table-zh-EN.js"></script>
+	<script src="/resources/bootstrap-table/dist/locale/bootstrap-table-ko-KR.js"></script>
     <!-- ymmu my statistacs.js-->
     <script src="/resources/js/statistics.js" type="text/javascript"></script>
     <!-- 상윤것 script 분리시킴 mypage.js-->

@@ -219,6 +219,13 @@
 	
 	<%@include file="/WEB-INF/views/include/header2.jsp"%>
 	<%@include file="/WEB-INF/views/plan/updateModal.jsp" %>
+	<div class="container breadcrub">
+<div>
+
+</div>
+<div class="clearfix"></div>
+<div class="brlines"></div>
+</div>
 	<!-- CONTENT -->
 	<div class="container" >
 		<div class="container mt25 offset-0">

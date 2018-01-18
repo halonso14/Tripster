@@ -15,24 +15,14 @@
    
    <!-- db연결 설정파일 분리 -->
    <context:property-placeholder location="classpath:/application.properties" />   
-   
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	   	<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="url" value="jdbc:log4jdbc:mysql://127.0.0.1:3306/tripster?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8"></property>    
-		<!-- 올릴 때 수정 필요  bitNarae/1234 -->
-		<property name="username" value="ymmu"></property>
-		<property name="password" value="1111"></property>
-	</bean>	
-	
-   
-   <!-- 원격 db  
+   <!-- 원격 db  -->
    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
    <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
    <property name="url" value="${spring.database.url}"></property>  
    <property name="username" value="${spring.database.username}"></property>
    <property name="password" value="${spring.database.password}"></property>
    </bean>   
-    -->
+
    
    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
     <property name="dataSource" ref="dataSource" />   

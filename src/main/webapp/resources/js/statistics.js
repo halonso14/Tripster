@@ -266,7 +266,7 @@ $(document).ready(function(){
 var getSliderSettings =function () {
 	console.log('getSliderSettings');
     return {
-  	  infinite: true,
+  	  infinite: false,
 	  slidesToShow: 3,
 	  slidesToScroll: 3,
 	  initialSlide:3
@@ -340,21 +340,25 @@ var ajaxController= function(url){
 				console.log(countryList);
 				var key=0;
 				var count=0;
-				while(key < countryList.length) {
+				var size = countryList.length;
+				while(key < size) {
 					var str = '';
 					var i= key;
 					count++;
 					console.log(countryList[i].visitedCountryISO);
 					console.log(countryList[key].visitedCountryISO);
 
-					while(i!=countryList.length && countryList[key].visitedCountryISO == (countryList[i].visitedCountryISO) ){
+					while(i!=size && countryList[key].visitedCountryISO == (countryList[i].visitedCountryISO) ){
 						str += countryList[i].plan_title+"</br>";
 						i++;
 					}
 					//지도에 다녀온 국가 데이터 넣는다
-				      mapData.areas.push({
+				     var color = '#FACC2E'
+					if(countryList[key].plan_endChk==1) color='#33FF7D'
+					
+					  mapData.areas.push({
 				          "id": countryList[key].visitedCountryISO,
-				          "color": "#FACC2E",
+				          "color": color,
 				          "description": "<b>이 국가를 다녀온 일정:</b></br></br>" + str
 				      }); 
 				      key = i;
@@ -437,7 +441,7 @@ var ajaxController= function(url){
             	var planList = data.planList;
             		
             		//슬라이드 갱신 필요
-            	$('.related-plan-list').slick('unslick').slick(getSliderSettings());
+            	$('.related-plan-list').slick('removeSlide',null,null, true);
             	console.log('슬라이드 갱신');
             	//$('.related-plan-list').slick(getSliderSettings());
             		//관련일정 slick에 달아줌
