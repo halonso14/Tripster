@@ -1,7 +1,6 @@
 package com.tripster.domain;
 
 import java.util.*;
-//import org.springframework.format.annotation.DateTimeFormat;
 
 public class EsContentsVO{
 	private int category_id;
@@ -17,13 +16,27 @@ public class EsContentsVO{
 	private String contents_country;
 	private String contents_city;
 	private String contents_thumbnail;
-//	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date created;
-//	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updated;
 	
+//	public List<String> getKeywordList() {
+//		ArrayList<String> result = new ArrayList<String>();
+//		String[] array= this.contents_keyword.replace("'", "").replace(" ", "").replace("[", "").replace("]", "").split(",");
+//		
+//		for (int i = 0; i < array.length; i++)
+//			result.add(array[i]);
+//		
+//		return result;
+//	}
+
 	public String getContents_keyword() {
-		return this.contents_keyword.replaceFirst("'", "#").replace("'", "").replace(" ", "").replace(",", "#").replace("[", "").replace("]", "");
+		String result = this.contents_keyword.replace("'", "").replace(" ", "").replace("[", "").replace("]", "");
+		System.out.println(result);
+		return result;
+	}
+
+	public void setContents_keyword(String contents_keyword) {
+		this.contents_keyword = contents_keyword;
 	}
 
 	public int getCategory_id() {

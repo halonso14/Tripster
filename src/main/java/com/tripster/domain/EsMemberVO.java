@@ -2,19 +2,14 @@ package com.tripster.domain;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 public class EsMemberVO {
 	private int member_id;
 	private String member_name;
 	private String member_email;
 	private String member_sex;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date member_birthday;
 	private String member_picture;
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date created;
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updated;
 	
 	public int getMember_id() {
