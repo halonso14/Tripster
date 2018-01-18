@@ -2,15 +2,20 @@ package com.tripster.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class EsMemberVO {
 	private int member_id;
 	private String member_name;
 	private String member_email;
 	private String member_sex;
-	private String member_birthday;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date member_birthday;
 	private String member_picture;
-	private String created;
-	private String updated;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date created;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date updated;
 	
 	public int getMember_id() {
 		return member_id;
@@ -36,10 +41,10 @@ public class EsMemberVO {
 	public void setMember_sex(String member_sex) {
 		this.member_sex = member_sex;
 	}
-	public String getMember_birthday() {
+	public Date getMember_birthday() {
 		return member_birthday;
 	}
-	public void setMember_birthday(String member_birthday) {
+	public void setMember_birthday(Date member_birthday) {
 		this.member_birthday = member_birthday;
 	}
 	public String getMember_picture() {
@@ -48,16 +53,16 @@ public class EsMemberVO {
 	public void setMember_picture(String member_picture) {
 		this.member_picture = member_picture;
 	}
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
-	public void setCreated(String created) {
+	public void setCreated(Date created) {
 		this.created = created;
 	}
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
-	public void setUpdated(String updated) {
+	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
 	@Override

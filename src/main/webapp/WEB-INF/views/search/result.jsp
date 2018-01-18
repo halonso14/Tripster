@@ -178,12 +178,12 @@
 											<span class="size18"><a href="/contents/${esContentsVO.category_id }/${esContentsVO.contents_id}">
 												<b>${esContentsVO.contents_title}</b></a>
 											</span><br>
-	<%-- 										<span class="margtop10 size12 grey glyphicon glyphicon-map-marker"></span><span class="grey2"> ${esContentsVO.contents_location}</span> 
+											<span class="margtop10 size12 grey glyphicon glyphicon-map-marker"></span><span class="grey2"> ${esContentsVO.contents_location}</span> 
 											<div class="line4 wh80percent"></div>
 											<span class="opensans size14 grey">
 												Category: ${esContentsVO.category_value_kor}<br>
 												Keyword: ${esContentsVO.contents_keyword }
-											</span> --%>
+											</span> 
 										</div>
 										<div class="clearfix"></div>
 									</div>

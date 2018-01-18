@@ -1,6 +1,7 @@
 package com.tripster.domain;
 
 import java.util.*;
+//import org.springframework.format.annotation.DateTimeFormat;
 
 public class EsContentsVO{
 	private int category_id;
@@ -16,8 +17,10 @@ public class EsContentsVO{
 	private String contents_country;
 	private String contents_city;
 	private String contents_thumbnail;
-	private String created;
-	private String updated;
+//	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date created;
+//	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date updated;
 	
 	public String getContents_keyword() {
 		return this.contents_keyword.replaceFirst("'", "#").replace("'", "").replace(" ", "").replace(",", "#").replace("[", "").replace("]", "");
@@ -95,16 +98,16 @@ public class EsContentsVO{
 	public void setContents_thumbnail(String contents_thumbnail) {
 		this.contents_thumbnail = contents_thumbnail;
 	}
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
-	public void setCreated(String created) {
+	public void setCreated(Date created) {
 		this.created = created;
 	}
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
-	public void setUpdated(String updated) {
+	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
 	@Override

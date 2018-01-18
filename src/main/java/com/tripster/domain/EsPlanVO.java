@@ -2,17 +2,23 @@ package com.tripster.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class EsPlanVO {
 	private int plan_id;
 	private int member_id;
 	private String member_picture;
 	private String member_name;
 	private String plan_title;
-	private String plan_startdate;
-	private String plan_enddate;	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date plan_startdate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date plan_enddate;	
 	private int plan_endchk;
 	private int plan_like_cnt;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date created;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updated;
 	
 	public int getPlan_id() {
@@ -45,16 +51,16 @@ public class EsPlanVO {
 	public void setPlan_title(String plan_title) {
 		this.plan_title = plan_title;
 	}
-	public String getPlan_startdate() {
+	public Date getPlan_startdate() {
 		return plan_startdate;
 	}
-	public void setPlan_startdate(String plan_startdate) {
+	public void setPlan_startdate(Date plan_startdate) {
 		this.plan_startdate = plan_startdate;
 	}
-	public String getPlan_enddate() {
+	public Date getPlan_enddate() {
 		return plan_enddate;
 	}
-	public void setPlan_enddate(String plan_enddate) {
+	public void setPlan_enddate(Date plan_enddate) {
 		this.plan_enddate = plan_enddate;
 	}
 	public int getPlan_endchk() {
