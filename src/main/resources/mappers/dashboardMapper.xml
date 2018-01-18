@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				tbl_Plan.Plan_Title as planTitle,
 				TO_DAYS(Plan_EndDate)-to_days(Plan_StartDate) as days
 		from tbl_Member join tbl_Plan
-		on tbl_Member.Member_ID = .tbl_Plan.Member_ID
+		on tbl_Member.Member_ID = tbl_Plan.Member_ID
 		where tbl_Member.Member_ID = #{memberID}
 	    group by tbl_Plan.Plan_ID
 	    ) newTbl

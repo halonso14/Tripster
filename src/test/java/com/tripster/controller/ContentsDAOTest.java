@@ -21,20 +21,20 @@ import com.tripster.persistence.RecommandDAO;
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/**/*.xml"})
 public class ContentsDAOTest {
 
-	@Inject
-	private ContentsDAO dao;
-	@Inject
-	private ContentsReviewDAO reviewdao;
-	
-	Criteria cri = new Criteria();
-	
-	//컨텐츠 상세 정보 검색 / 조회수 갱신 테스트
-	@Test
-	public void testRead() throws Exception {
-		System.out.println(dao.getRestaurantDetail(24));
-		
-		System.out.println();
-	}
+//	@Inject
+//	private ContentsDAO dao;
+//	@Inject
+//	private ContentsReviewDAO reviewdao;
+//	
+//	Criteria cri = new Criteria();
+//	
+//	//컨텐츠 상세 정보 검색 / 조회수 갱신 테스트
+//	@Test
+//	public void testRead() throws Exception {
+//		System.out.println(dao.getRestaurantDetail(24));
+//		
+//		System.out.println();
+//	}
 //	
 //	//컨텐츠 리스트 조회 테스트
 //	@Test
@@ -74,17 +74,17 @@ public class ContentsDAOTest {
 //	}
 	
 	
-	@Inject
-	private RecommandDAO recommandDAO;
-	
+//	@Inject
+//	private RecommandDAO recommandDAO;
+//	
 	//컨텐츠 상세 정보 검색 / 조회수 갱신 테스트
-	@Test
-	public void testRead() throws Exception {
-		
-		List<PlanVO> planVO = recommandDAO.getPlanList("AU");
-		PlanVO el = planVO.get(0);
-		SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println(dt1.format(el.getPlanStartDate()));
-		//System.out.println(recommandDAO.getPlanList("AU").toString());
-	}
+//	@Test
+//	public void testRead() throws Exception {
+//		
+//		List<PlanVO> planVO = recommandDAO.getPlanList("AU");
+//		PlanVO el = planVO.get(0);
+//		SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
+//		System.out.println(dt1.format(el.getPlanStartDate()));
+//		//System.out.println(recommandDAO.getPlanList("AU").toString());
+//	}
 }
