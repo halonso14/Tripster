@@ -140,7 +140,7 @@
 								</div>	
 							</c:if>
 							
-							<c:forEach items="${memberList}" var = "esMemberVO" begin="0" end="2">
+							<c:forEach items="${memberList}" var = "esMemberVO" begin="0" end="9">
 								<div class="col-md-4" >
 									<!-- CONTAINER-->
 									<div class="carscontainer" style="border:1px solid #e6e6e6">
@@ -163,6 +163,7 @@
 									</div>
 									<!-- END OF CONTAINER-->
 								</div>
+								<div class="offset-2" style="padding-top:30px"></div>
 							</c:forEach>
 							<div class="clearfix"></div>
 						</div>

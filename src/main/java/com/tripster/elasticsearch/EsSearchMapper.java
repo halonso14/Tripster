@@ -34,7 +34,7 @@ public class EsSearchMapper {
    
 	// 검색할 DataBase 지정 
     public String getIndexName() {
-        return "test2";
+        return "test";
     }
     
 	// 컨텐츠 검색결과 더보기 리스트 조회
