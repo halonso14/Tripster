@@ -1,7 +1,5 @@
 package com.tripster.controller;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -9,9 +7,9 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.tripster.domain.MemberVO;
 import com.tripster.persistence.LikeDAO;
 import com.tripster.persistence.PlanDAO;
+import com.tripster.service.LikeService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,12 +22,14 @@ public class LikeDAOTest {
 	@Inject
 	PlanDAO planDAO;
 	
+	@Inject
+	LikeService service;
+	
 //	@Test
 //	public void like()throws Exception {
-//		LikeVO vo = new LikeVO();
-//		vo.setMemberID(1);
-//		vo.setPlanID(2);
-//		dao.like(vo);
+//		
+//		System.out.println(service.followCheck(32, 41));
+//		
 //	}
 	
 //	@Test
@@ -82,13 +82,13 @@ public class LikeDAOTest {
 //		System.out.println(planlist.toString());
 //
 //	}
-	
-	@Test
-	public void followList() throws Exception{
-		
-		List<MemberVO> list = dao.userFollowList(1);
-		System.out.println(list.toString());
-		
-	}
+//	
+//	@Test
+//	public void followList() throws Exception{
+//		
+//		List<MemberVO> list = dao.userFollowList(1);
+//		System.out.println(list.toString());
+//		
+//	}
 
 }

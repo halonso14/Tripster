@@ -171,7 +171,7 @@
 											<span class="margtop20 green size18"><b>0</b></span><span class="green size14"> Plan</span><br>
 											<span class="size11 grey">${esContentsVO.contents_scrap_cnt} Scrap</span><br><br>
 										 	
-									 		<button class="bookbtn mt1" value="${esContentsVO.contents_id}" check="1" session="${empty userSession }" >스크랩</button>		
+									 		<button class="bookbtn mt1 scrap" value="${esContentsVO.contents_id}" check="1" session="${empty userSession }" >스크랩</button>		
 								 		
 										</div>
 										<div class="labelleft">			
@@ -182,7 +182,8 @@
 											<div class="line4 wh80percent"></div>
 											<span class="opensans size14 grey">
 												Category: ${esContentsVO.category_value_kor}<br>
-												Keyword: ${esContentsVO.contents_keyword }
+											<span>Keyword: ${esContentsVO.contents_keyword }</span>
+												
 											</span>
 										</div>
 										<div class="clearfix"></div>
@@ -227,7 +228,7 @@
 										<p class="size12 grey margtop20">${esPlanVO.member_name}</p><br>
 										<span class="size11 grey">댓글수</span><br>
 										<span class="size11 grey">좋아요수</span><br>
-										<button class="bookbtn mt1">좋아요</button>		
+										<button class="bookbtn mt1 like" planID=${esPlanVO.plan_id } likeBtnCheck="1" session="${empty userSession }">좋아요</button>		
 									</div>
 									<div class="labelleft">	
 										<span class="size16"><b>${esPlanVO.plan_title}</b></span><br>		
@@ -274,7 +275,7 @@
 															
 									<div class="purchasecontainer"  >
 										<div class="offset-2 left bold" style="padding-top:5px">${esMemberVO.member_name}</div>		
-										<div class="offset-2 right"><button class=" bookbtn mt1">팔로우</button></div>	
+										<div class="offset-2 right"><button class="bookbtn mt1 follow" followID=${esMemberVO.member_id } followBtnCheck="1" session=${empty userSession } >팔로우</button></div>	
 										<div class="clearfix"></div>
 									</div>
 									<div style="padding-top:20px"></div>
@@ -303,7 +304,9 @@
 	
 	<!--####### FOOTER #######-->
 	
-	
+	<script>
+		test();
+	</script>
 	
 	<%@include file="../include/footer.jsp" %>
 
@@ -330,6 +333,8 @@
     <script src="/resources/dist/js/bootstrap.min.js"></script>
 	<!--  Scrap Btn -->
     <script src="/resources/js/scrap.js"></script>
+    <!-- likeBtn & followBtn -->
+    <script src="/resources/js/like.js"></script>
 
   </body>
 

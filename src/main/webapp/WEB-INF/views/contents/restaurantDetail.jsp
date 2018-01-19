@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@include file="../include/header2.jsp" %>
+<%@include file="../include/css.jsp" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -75,7 +75,7 @@
 				
 	 							<c:otherwise>		
 	 								<!-- 로그인시 스크랩 버튼 추가 -->
-		 							<button class="btn-search4 left" id="scrapBtn" value=${scrapCheck}>스크랩</button>
+		 							<button class="btn-search4 left" id="scrapBtn" value=${scrapCheck }>스크랩</button>
 								</c:otherwise>
 	        				</c:choose>			
 			</div>
@@ -412,7 +412,7 @@ src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmc4Y1GGbbAKfnxTRfqM3U2v
 						+ "			<span class='opensans size16 dark'>Great experience</span><br/>"
 						+ "			<span class='opensans size13 lgrey'>Posted Jun 02, 2013</span><br/>"
 						+ "			<p data-contentsReviewID='"+this.contentsReviewID+"' class='"+this.contentsReviewID+"'>"+ this.contentsReview + "</p>"
-//						+ " 			<div id='getImage'>"+getImage(this.reviewPictureName)+"</div>" 
+						+ " 			<div id='getImage'>"+getImage(this.reviewPictureName)+"</div>" 
 						+ "		</div>"
 						+ "	</div>"
 						+ " <div>"
@@ -451,11 +451,11 @@ src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmc4Y1GGbbAKfnxTRfqM3U2v
 			    	// 원본 파일 링크
 			    	+ "<a href='/displayFile?fileName="+ getImageLink(fileList[i])+"'>"
 			    	// 썸네일 생성
-			    	+ "<img src='/displayFile?fileName="+fileList[i]+"'/>"
+			    	+ "<img src='/displayFile?fileName="+fileList[i]+"'/>"+"<br>"
 			    	+ getOriginalName(fileList[i]) +"</a></li>";
 			   	}else{
 			    	// 이미지 파일이 아닐경우 다운로드
-			        str = str + "<li><a href='/displayFile?fileName="+fileList[i]+"'>" + getOriginalName(fileList[i])+"</a></li>";
+			        str = str + "<li><a href='/displayFile?fileName="+fileList[i]+"'>"+ getOriginalName(fileList[i])+"</a></li>";
 				};	
 			}
 			return str;
