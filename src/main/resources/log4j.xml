@@ -10,11 +10,24 @@
 		</layout>
 	</appender>
 	
+	<!-- 로그파일 생성 -->
+ 	<appender name="filelog" class="org.apache.log4j.DailyRollingFileAppender">
+		
+		<!-- 로그 파일 생성위치 value값에 로그파일 저장위치 지정 -->
+		<param name="file" value="c:/logs/spring2.log" />
+		<param name="Append" value="true"/>
+		<param name="DataPattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%t> [%d{yyyy-MM-dd HH:mm:ss}] [%c{1}] [%L] [%p] %m %n"/>
+		</layout>
+		
+	</appender>
+	
 	<!-- Application Loggers -->
 	<logger name="com.Tripster.controller">
 		<level value="info" />
 	</logger>
-	
+
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />
@@ -27,15 +40,16 @@
 	<logger name="org.springframework.context">
 		<level value="info" />
 	</logger>
-
-	<logger name="org.springframework.web">
-		<level value="info" />
+	
+	<logger name="java.sql">
+		<level value="debug"/>
 	</logger>
 
 	<!-- Root Logger -->
 	<root>
 		<priority value="info" />
 		<appender-ref ref="console" />
+		<!-- <appender-ref ref="filelog"/> -->
 	</root>
 	
 </log4j:configuration>

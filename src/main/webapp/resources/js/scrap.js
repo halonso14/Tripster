@@ -18,13 +18,13 @@ function ScrapModuleChk(contentsID,scrapbt){
 }
 
 //스크랩 버튼 클릭시
-$(".bookbtn").on('click',function(){
+$(".scrap").on('click',function(){
 	
 	var scrapbt = $(this);
 	var contentsID = scrapbt.val();
 	
 	// 세션 체크
-	if(scrapbt.attr("session")){
+	if(scrapbt.attr("session") == "true"){
 		
 		alert("로그인 해주세요");
 		

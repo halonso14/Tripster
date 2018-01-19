@@ -30,7 +30,6 @@ public class SearchController {
 	public String search(@ModelAttribute("cri") SearchCriteria cri
 					  	,@ModelAttribute("go") String go, Model model) throws Exception{
 		
-		System.out.println("search cri="+cri.toString());
 		model.addAttribute("contentsList",esSearchService.contentsList(cri));
 		model.addAttribute("planList",esSearchService.planList(cri));
 		model.addAttribute("memberList",esSearchService.memberList(cri));
@@ -58,26 +57,5 @@ public class SearchController {
 		
 	}
 	
-//	// 통합검색 결과리스트 요청
-//	@RequestMapping(value="contentsResult", method = RequestMethod.GET)
-//	public void searchContents(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
-//		
-//		// 전체 페이지 불러오기
-//		EsSearchResult results = esSearchService.getTotalSearchList(cri);
-//		
-//		System.out.println("contentsResult cri="+cri.toString());
-//		System.out.println(results.getContentsList().toString());
-//		
-//		model.addAttribute("contentsList",results.getContentsList());
-//		model.addAttribute("getNum",esSearchService.getTotalSearchNum(cri));
-//		
-//		// model에 EsRepository의 검색결과 건수를 담아서 SearchPageMaker로 보낸다.
-//		SearchPageMaker pageMaker = new SearchPageMaker();
-//		pageMaker.setCri(cri);
-//		pageMaker.setTotalCount(Long.parseLong(esSearchService.getTotalSearchNum(cri).get("totalNum")));
-//
-//		model.addAttribute("pageMaker",pageMaker);
-//		
-//	}
 	
 }

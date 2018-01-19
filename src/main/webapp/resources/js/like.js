@@ -1,5 +1,9 @@
 $(document).ready(function(){
 	
+	function test(){
+		alert("33");
+	}
+	
 	// id="like" 인 속성의 value 값을 바꿈
 	function likeCheck(planID,likeBtn){
 		
@@ -30,41 +34,50 @@ $(document).ready(function(){
 		
 	}
 	
-	// 속성 양식: <button class='follow' followID='' followBtnCheck='1' />
+	// 속성 양식: <button class='follow' followID='' followBtnCheck='1' session='' />
 	// 유저 팔로우 ( class="follow" 인 버튼을 누를 경우 )
 	$('.follow').on('click',function(){
-
+		
 		// 팔로우 버튼
 		var followBtn = $(this);
 		// 누른 버튼의 followID 저장  (팔로우 당한사람)
 		var followID = followBtn.attr("followID");
-		// 팔로우 체크
-		followCheck(followID,followBtn);
 		
-		// 체크값이 1인 경우 팔로우 
-		if(followBtn.attr(followBtnCheck) == 1){
+		// 세션체크
+		if(followBtn.attr("session") == "true"){
 			
-			alert('follow 추가');
-			followBtn.attr('followBtnCheck',0);
-			
-			 $.post('/memberFollow/'+followID,function(result){
-				alert(result);
-			 });
+			alert("로그인 해주세요");
 			
 		}else{
 			
-			alert('follow 취소')
-			followBtn.attr('followBtnCheck',1);
+			// 팔로우 체크
+			followCheck(followID,followBtn);
+			// 체크값이 1인 경우 팔로우 
+			if(followBtn.attr('followBtnCheck') == 1){
+				
+				alert('follow 추가');
+				followBtn.attr('followBtnCheck',0);
+				
+				$.post('/memberFollow/'+followID,function(result){
+					alert(result);
+				});
+				
+			}else{
+				
+				alert('follow 취소')
+				followBtn.attr('followBtnCheck',1);
+				
+				$.post('/memberFollowDelete/'+followID,function(result){
+					alert(result);
+				});
+				
+			}
 			
-			$.post('/memberFollowDelete/'+followID,function(result){
-				alert(result);
-			});
-
 		}
 
 	});
 	
-	// 속성 양식 <button class='like' planID='' likeBtnCheck='1' />
+	// 속성 양식 <button class='like' planID='' likeBtnCheck='1' session='' />
 	// 게시글 좋아요
 	$('.like').on('click',function(){
 		
@@ -72,31 +85,40 @@ $(document).ready(function(){
 		var likeBtn = $(this);
 		// 누른 버튼의 planID 저장
 		var planID = likeBtn.attr("planID");
-		// 좋아요 체크
-		likeCheck(planID,likeBtn);
 		
-		// 좋아요 추가
-		if(likeBtn.attr("likeBtnCheck") == 1){
-			
-			alert("좋아요 추가");
-			
-			check.attr('value',0);
-			// 좋아요 추가
-			$.post('/like/'+planID,function(result){
-				alert(result);
-			});
-			
+		// 세션체크
+		if(likeBtn.attr("session") == "true"){
+			alert("로그인 해주세요");
 		}else{
 			
-			alert("좋아요 삭제");
-			check.attr('value',1);
-			
-			// 좋아요 삭제
-			$.post('/likeDelete/'+planID,function(result){
-				alert(result);
-			});
+			// 좋아요 체크
+			likeCheck(planID,likeBtn);
+			// 좋아요 추가
+			if(likeBtn.attr("likeBtnCheck") == 1){
+				
+				alert("좋아요 추가");
+				
+				likeBtn.attr('likeBtnCheck',0);
+				// 좋아요 추가
+				$.post('/like/'+planID,function(result){
+					alert(result);
+				});
+				
+			}else{
+				
+				alert("좋아요 삭제");
+				likeBtnCheck.attr('likeBtnCheck',1);
+				
+				// 좋아요 삭제
+				$.post('/likeDelete/'+planID,function(result){
+					
+					alert("좋아요 삭제22");
+				});
+				
+			}
 			
 		}
+		
 	})
 
 })

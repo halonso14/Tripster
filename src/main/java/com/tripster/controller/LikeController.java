@@ -58,6 +58,8 @@ public class LikeController {
 		
 		try {
 			
+			System.out.println("좋아요 삭제sf");
+			
 			// 접속중인 회원
 			MemberVO memberVO = (MemberVO) session.getAttribute("login"); 
 			Integer memberID = memberVO.getMemberID();

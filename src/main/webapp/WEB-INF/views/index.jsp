@@ -67,6 +67,7 @@
 	</head>
 	
 	<body id="top">
+		
 		<script>
             var result = '${msg}';
             if(result == 'success'){
@@ -78,6 +79,7 @@
             if(result == 'findPassword'){
             	alert("가입된 이메일로 임시비밀번호가 전송되었습니다.")
             }
+            
         </script>
         
 		<!--####### HEADER #######-->

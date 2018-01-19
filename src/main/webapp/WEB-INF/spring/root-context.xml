@@ -1,39 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-   xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-   xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
-   xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
-      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
-      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
-      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
    
    <context:component-scan base-package="com.tripster.persistence"></context:component-scan>
    <context:component-scan base-package="com.tripster.service"></context:component-scan>
    <context:component-scan base-package="com.tripster.elasticsearch"></context:component-scan>
+   <context:component-scan base-package="com.tripster.aop"></context:component-scan>
+   
+   <aop:config></aop:config>
    
    <!-- db연결 설정파일 분리 -->
-   <context:property-placeholder location="classpath:/application.properties" />   
+   <context:property-placeholder location="classpath:/application.properties" />   	
    
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	   	<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="url" value="jdbc:log4jdbc:mysql://127.0.0.1:3306/tripster?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8"></property>    
-		<!-- 올릴 때 수정 필요  bitNarae/1234 -->
-		<property name="username" value="ymmu"></property>
-		<property name="password" value="1111"></property>
-	</bean>	
-	
-   
-   <!-- 원격 db  
+ 
    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
    <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
    <property name="url" value="${spring.database.url}"></property>  
    <property name="username" value="${spring.database.username}"></property>
    <property name="password" value="${spring.database.password}"></property>
    </bean>   
-    -->
-   
+
+
    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
     <property name="dataSource" ref="dataSource" />   
     <property name="configLocation" value="classpath:/mybatis-config.xml"></property>
@@ -69,6 +65,7 @@
       class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
       <property name="dataSource" ref="dataSource"></property>
    </bean>
+   
    <tx:annotation-driven />
 
    <!-- Facebook 로그인 관련 -->
@@ -89,5 +86,7 @@
       class="org.springframework.social.connect.mem.InMemoryConnectionRepository">
       <constructor-arg ref="connectionFactoryLocator" />
    </bean>
+   
+   <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
    
 </beans>

@@ -67,12 +67,12 @@ public class LikeServiceImpl implements LikeService{
 	
 	// 유저 팔로우 체크
 	@Override
-	public Integer followCheck(Integer userID,Integer planID) throws Exception{
+	public Integer followCheck(Integer planID,Integer memberID) throws Exception{
 		
-		List<FollowVO> list = likeDAO.memberFollowList(userID);
-		Integer memberID = planDAO.selectPlan(planID).getMemberID();
+		List<FollowVO> list = likeDAO.memberFollowList(memberID);
+		Integer member = planDAO.selectPlan(planID).getMemberID();
 		for(int i=0;i<list.size();i++) {
-			if(memberID == list.get(i).getFollowID()) {
+			if(member == list.get(i).getFollowID()) {
 				// 값이 있으면 false...
 				return 0;
 			}
