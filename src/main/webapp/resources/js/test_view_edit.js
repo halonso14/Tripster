@@ -13,10 +13,11 @@ $().ready(function(){
     memberID = $('#memberID').val();
     console.log('#memberID:'+memberID);
     
+    /*
     $.get("http://127.0.0.1:8000/research/"+memberID, function(data){
         console.log(data);
     });
-    
+    */
 });
 
 $("#progressbar li").click(function(){

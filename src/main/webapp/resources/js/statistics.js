@@ -1,19 +1,9 @@
-
-//지도데이터 초기데이터
+//통계-지도데이터 초기데이터
 var mapData={
 	    "map": "worldLow",
-	    "areas": [{
-	      "id": "US",
-	      "color": "#8d1cc6",
-	      "description": "United States is now selected.</br></br>Close this description box to unselect the area."
-	      /*,"images": [{
-	        "latitude": 40.712784,
-	        "longitude": -74.005941,
-	        "type": "circle",
-	        "label": "New York"
-	      }]*/
-	    }]
+	    "areas": []
 	  };
+
 //일정별 통계(detail) 그래프 설정
 var graphConfig = [{
 	    "balloonText": "<b>[[title]]</b><br><span style='font-size:14px'>[[category]]: <b>[[value]]</b></span>",
@@ -35,6 +25,8 @@ var graphConfig = [{
 	    "color": "#000000",
 	    "valueField": "Woman"
 	  }];
+
+
 //일정관련 간단정보(brief) 그래프 초기데이
 var chartData=[{
 	        "plan": "Min",
@@ -51,6 +43,8 @@ var chartData=[{
 	        "how_many": 1,
 	        "color": "#8A0CCF"
 	}];
+
+
 //일정별 성비, 나이 통계 초기데이터.
 var chartDetailData=[{
     "Ages": '10s',
@@ -89,7 +83,7 @@ var detailList;
 var dashBrief;
 var countryList;
 
-//지도데이터 초기데이터
+//추천-지도데이터 초기데이터
 var mapData2={
 	    "map": "worldLow",
 	    "getAreasFromMap": true, //추가
@@ -110,7 +104,7 @@ var mapData2={
 //차트관련
 var chartMap2;
 
-//서버 데이터 관련
+//추천-서버 데이터 관련
 var rcmCountryList;
 
 /**Create the Google Map*/
@@ -122,7 +116,6 @@ var gmap;
 AmCharts.amBreakLevel = 3;
 AmCharts.amBreakLevelReturn = 2; // used to return from GMap
 AmCharts.gBreakLevel = 4; //이 값보다 작으면 구글맵이 감춰진다.
-
 
 
 //amcharts 세팅함수
@@ -458,7 +451,6 @@ var ajaxController= function(url){
 //추천 국가 관련 일정 slick 슬라이드 세팅
 var bindingPlanListToSlick = function(planList){
 	
-
 	
 	for(var i=0; i<planList.length; i++){
 		
@@ -468,11 +460,6 @@ var bindingPlanListToSlick = function(planList){
     	if(planList[i].memberPic) //"", null, undefined, 0, NaN은 false로 반환
     		thumbnailPic = planList[i].memberPic;
     		
-    		//관련 일정카드에 멤버이름, 일정 타이틀, 일정 시작종료일 세팅 
-    	//$('.content_rcm_plan_writer').html(planList[i].memberName);
-    	//$('.content_rcm_plan_name').html(planList[i].planTitle);
-    	//$('.content_rcm_plan_date').html(planList[i].planStartDateNewFormat+' ~ '+planList[i].planEndDateNewFormat);
-
     	var check = '진행중';
     	if(planList[i].planEndChk == 1) check = '완료됨';
     	//$('.content_rcm_plan_planEndChk').html(check);
@@ -489,17 +476,14 @@ var bindingPlanListToSlick = function(planList){
 							'<div class="content_rcm_plan_planEndChk">'+check+'</div>'+
 						'</div>'+
 					'</div>';
-    	
-    	
-
     	// Add a slide
     	$('.related-plan-list').slick('slickAdd',card);
     
-    	
 	}//for
 	
 };
 
+//링크처리 함수
 var goto = function(url){
 	
 	location.href = url;
@@ -573,7 +557,10 @@ $(function () {
 		//console.log(chartDetailData);
 	});
 });
-//일정-좋아요 테이블 안에서 쓰이는 함수
+
+
+
+//일정-좋아요 테이블 안에서 남/여 값 구분해 데이터 바인딩하는 함수
 var saveDate = function(num, key, chartDetailData){
 	if(detailList[key].sex=="남")
 		chartDetailData[num].Man = detailList[key].num;
@@ -706,47 +693,9 @@ var chartMap2 = AmCharts.makeChart( "chartdiv_rcm", {
 		        google.maps.event.trigger(gmap, 'resize'); // 구글맵 갱신.
 	      }
 	    }
-  }, 
-	/*  
-	  {
-		    "event": "clickMapObject",
-		    "method": function(event) {
-		    	//console.log(event);
-		    		//이벤트에서 previouslyHovered 에서 나라 ID 찾고 그걸로 밑에 데이터를 채운다
-		    	//console.log(event.mapObject.id);
-		    	
-		    	for(var i=data.length-1; i>-1;i--){
-	            	
-            		if(typeof data[i].iso2 == 'undefined'){
-            			break;
-            		} //undefined 나오는 순간 for문 브레이크
-            		else if(data[i].iso2 == event.mapObject.id){
-            			 $('#description_title').text(data[i].name_han+' '+data[i].name_eng); //지도서 클릭한 나라 이름
-            			 $('#country_or_city_description').text(data[i].description); //지도서 클릭한 나라 소개
-            			 
-            		}	
-            	}//for
-		    	
-
-		    	
-		        // GMap inited?
-		        if ( typeof gmap === "undefined" )
-		          return;
-		    	// sync position
-		        gmap.setCenter( {
-		          lat: chartMap2.zoomLatitude(),
-		          lng: chartMap2.zoomLongitude()
-		        } );
-		        //console.log('zoomlevel:'+chartMap2.zoomLevel());
-		        
-		        google.maps.event.trigger(gmap, 'resize'); // 구글맵 갱신.
-		        
-		    }
-		  }*/]
+  }]
 } );
 
-/** Create the Google Map*/
-var gmap;
 
 window.initGoogleMap=function(data) {
   gmap = new google.maps.Map( document.getElementById( 'gmap' ), {

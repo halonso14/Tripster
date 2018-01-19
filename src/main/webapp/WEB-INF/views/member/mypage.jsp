@@ -61,6 +61,9 @@ response.setHeader("Pragma", "no-cache");
     <!-- ymmu 통계, 추천 페이지 자바스크립트에서 멤버아이디 받아 ajax로 데이터 받음-->
     <script type="text/javascript">
     	var id = ${memberVO.memberID};
+    	//<c:set value="${memberVO.memberName}" var="memberName"/>
+    	//console.log("<c:out value="${memberVO.memberName}"/>");
+    	//console.log("memberName");
     </script>
     <!-- ymmu 통계, 추천 페이지 자바스크립트에서 멤버아이디 받아 ajax로 데이터 받음-->
 	<div class="navbar-wrapper2 navbar-fixed-top">
