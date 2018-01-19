@@ -170,7 +170,7 @@ public class PlanController {
 		//내가 등록한 plan 전체 조회
 		@RequestMapping(value="/myplan", method=RequestMethod.GET)
 		public void myplan(@RequestParam("memberID") int memberID, ModelMap model) throws Exception {
-			model.addAttribute("myPlanList",planService.myPlan(memberID));
+//			model.addAttribute("myPlanList",planService.myPlan(memberID));
 		}
 		
 //**************************plan Detail 관련 ********************************/

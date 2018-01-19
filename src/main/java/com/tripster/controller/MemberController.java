@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
+import com.tripster.domain.Criteria;
 import com.tripster.domain.MemberVO;
+import com.tripster.domain.PageMaker;
 import com.tripster.domain.PlanDetailVO;
 import com.tripster.domain.PlanVO;
 import com.tripster.dto.LoginDTO;
@@ -264,9 +266,11 @@ public class MemberController {
 	@RequestMapping(value = "/viewMember", method = RequestMethod.GET)
 	public void viewMember(@RequestParam("memberID") int memberID, HttpSession session, Model model)throws Exception{
 		
+		Criteria cri = new Criteria();
 		List<String> picList = new ArrayList<String>();
 		List<Integer> likeChkList = new ArrayList<Integer>();
-		List<PlanVO> vo = planservice.myPlan(memberID);
+		List<Integer> followChkList = new ArrayList<Integer>();
+		List<PlanVO> vo = planservice.myPlan(memberID, cri);
 		
 		for(int i=0;i<vo.size();i++) {
 			String picName = "false";
@@ -290,13 +294,38 @@ public class MemberController {
 			if(picName.equals("false")) picList.add("");
 		}
 		
-//		for(int i=0;i<vo.size();i++) {
-//			likeChkList.add(likeservice.likeCheck(vo.get(i).getPlanID(), userID));
-//		}
 		
-		System.out.println("상판때기좀 보자 : "+likeChkList);
+		Object obj = session.getAttribute("login");
+		//회원 로그인 한 경우 likeChkList, followChkList를 뷰단에 전송
+		try {
+			if(obj != null) {
+				MemberVO memVO = (MemberVO) obj;
+				// 현재 접속중인 회원(memberID 사용중, userID로 대체)
+				Integer userID = memVO.getMemberID();
+				
+				for(int i=0;i<vo.size();i++) {
+					likeChkList.add(likeservice.likeCheck(vo.get(i).getPlanID(), userID));
+				}
+				
+				model.addAttribute("likeChkList", likeChkList);
+				
+				followChkList.add(likeservice.followCheck(userID, memberID));
+				
+				model.addAttribute("followChkList", followChkList);
+				
+			}
+			
+		} catch(Exception e) {
+			
+		}
 		
-		model.addAttribute("likeChkList", likeChkList);
+		cri.setCurPage(1);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setPlanCount(service.planCount(memberID));
+		
+		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("pictureID", picList);
 		model.addAttribute("planVO", vo);
 		model.addAttribute(service.mypage(memberID));

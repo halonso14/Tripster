@@ -847,26 +847,6 @@ response.setHeader("Pragma", "no-cache");
 								    
 								</div>
 								
-								<!-- TAB 3 -->					
-								<div id="preferences" class="tab-pane fade">
-								
-								</div>
-								
-								<!-- TAB 4 -->					
-								<div id="maps" class="tab-pane fade">
-									
-								</div>
-								
-								<!-- TAB 5 -->					
-								<div id="reviews" class="tab-pane fade ">
-								
-								</div>
-								
-								<!-- TAB 6 -->					
-								<div id="thingstodo" class="tab-pane fade">
-								
-								</div>
-								
 								<!-- 맛집 스크랩 리스트 -->
 								<script id="restaurantTemplate" type="text/x-handlebars-template">
 										
@@ -1092,6 +1072,7 @@ response.setHeader("Pragma", "no-cache");
 	<script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="/resources/js/additional-methods.min.js"></script>
 	<script type="text/javascript" src="/resources/js/messages_ko.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
     <!-- ymmu my js-->
     <script type="text/javascript" src="/resources/slick-1.8.0/slick/slick.min.js"></script>
 	<!-- ymmu my js-->

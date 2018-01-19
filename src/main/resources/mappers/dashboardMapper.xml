@@ -10,13 +10,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<![CDATA[
 	select memberID, count(planTitle) as numOfPlans, sum(days) as totalDays, CAST(avg(days) AS signed integer) as avgDays, min(days) as minPlanDays, max(days) as maxPlanDays
 	from
-		(select tripster.tbl_Member.Member_ID as memberID,  
-				tripster.tbl_Plan.Plan_Title as planTitle,
+		(select tbl_Member.Member_ID as memberID,  
+				tbl_Plan.Plan_Title as planTitle,
 				TO_DAYS(Plan_EndDate)-to_days(Plan_StartDate) as days
-		from tripster.tbl_Member join tripster.tbl_Plan
-		on tripster.tbl_Member.Member_ID = tripster.tbl_Plan.Member_ID
-		where tripster.tbl_Member.Member_ID = #{memberID}
-	    group by tripster.tbl_Plan.Plan_ID
+		from tbl_Member join tbl_Plan
+		on tbl_Member.Member_ID = tbl_Plan.Member_ID
+		where tbl_Member.Member_ID = #{memberID}
+	    group by tbl_Plan.Plan_ID
 	    ) newTbl
 	group by newTbl.memberID
 		]]>
@@ -34,11 +34,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	from(
 	
 		#유저1의 "일정들", 각각의 일정에 대해 좋아요누른유저, sex, ages 작업해줌
-		select tripster.tbl_Like.Plan_ID as plan_id,
+		select tbl_Like.Plan_ID as plan_id,
 				Plan_title as plan_title,
 				일정만든유저,
-				tripster.tbl_Like.Member_ID as 일정_좋아요_누른_유저, 
-				tripster.tbl_Member.Member_sex as sex,
+				tbl_Like.Member_ID as 일정_좋아요_누른_유저, 
+				tbl_Member.Member_sex as sex,
 				case #테이블의 원 컬럼을 그대로 쓰는게 아니면 case문 뒤에 뭘 붙이면 안 되는군. 지금은 수식을 쓰니까 변형된 컬럼을 추가하는거라 아무것도 안 써도 됨 
 					when (TO_DAYS(curdate())-to_days(Member_Birthday))/365 >=14 and (TO_DAYS(curdate())-to_days(Member_Birthday))/365 <20  then '10s'
 					when (TO_DAYS(curdate())-to_days(Member_Birthday))/365 >=20 and (TO_DAYS(curdate())-to_days(Member_Birthday))/365 <30  then '20s'
@@ -47,16 +47,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					else 'undefined'
 					END as ages
 			#첫번째 조인에선 like테이블의 일정좋아요 누른 유저의 정보를 얻어온다.
-	    from tripster.tbl_Like join tripster.tbl_Member
-			on tripster.tbl_Like.Member_ID = tripster.tbl_Member.Member_ID
+	    from tbl_Like join tbl_Member
+			on tbl_Like.Member_ID = tbl_Member.Member_ID
 	        #두번째 조인에선 Like테이블의 plan 번호를 기반으로 일정만든유저를 알기 위해 Member_Making_plan 테이블 만들어서 위의 것과 조인. 
 	        #두번째 조인에선 플랜만든 유저의 번호만 추가된다.
-			join(select Plan_ID, Plan_title, tripster.tbl_Plan.Member_ID as 일정만든유저
-				 from tripster.tbl_Plan
-				 where tripster.tbl_Plan.Member_ID = #{memberID}
+			join(select Plan_ID, Plan_title, tbl_Plan.Member_ID as 일정만든유저
+				 from tbl_Plan
+				 where tbl_Plan.Member_ID = #{memberID}
 				)Member_Making_plan
-			on tripster.tbl_Like.Plan_ID = Member_Making_plan.Plan_ID
-		where tripster.tbl_Like.Member_ID = tripster.tbl_Member.Member_ID
+			on tbl_Like.Plan_ID = Member_Making_plan.Plan_ID
+		where tbl_Like.Member_ID = tbl_Member.Member_ID
 	 
 		)newTbl3
 	group by plan_id, ages, sex # 먼저 나온것 순서로 분류된다.
@@ -68,11 +68,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	<![CDATA[
 		#특정한 유저의 플랜만 뽑아서 그 플랜을 좋아요 누른 사람들의 수를 뽑아낸다.
 		select Plan_Title as plan_title, count(UsersPlans.Plan_ID) as num
-		from tripster.tbl_Like join
+		from tbl_Like join
 			(select Plan_ID, Plan_Title
-			from tripster.tbl_Plan
-			where tripster.tbl_Plan.Member_ID = #{memberID})UsersPlans
-		    on tripster.tbl_Like.Plan_ID = UsersPlans.Plan_ID 
+			from tbl_Plan
+			where tbl_Plan.Member_ID = #{memberID})UsersPlans
+		    on tbl_Like.Plan_ID = UsersPlans.Plan_ID 
 		 group by UsersPlans.Plan_ID
  	]]>
   </select>
@@ -83,16 +83,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	#특정멤버의 일정들에서 방문한 국가리스트를 얻어온다
 	select Plan_Title as plan_title, Contents_Country as visitedCountryISO/*, Contents_City*/ 
 	from # 일정에서 특정멤버의 일정목록을 먼저 얻어와서 일정상세테이블과 조인하여 "특정 유저의 일정들의 상세목록"을 가져온다 
-		(tripster.tbl_Plan_Detail join
-			(select Plan_ID, Plan_Title, tripster.tbl_Plan.Member_ID as 일정만든유저
-			 from tripster.tbl_Plan
-			 where tripster.tbl_Plan.Member_ID = #{memberID}
+		(tbl_Plan_Detail join
+			(select Plan_ID, Plan_Title, tbl_Plan.Member_ID as 일정만든유저
+			 from tbl_Plan
+			 where tbl_Plan.Member_ID = #{memberID}
 			)Member_Making_plan
-		on tripster.tbl_Plan_Detail.Plan_ID = Member_Making_plan.Plan_ID
-	    join tripster.tbl_Contents
-		on tripster.tbl_Plan_Detail.Contents_ID = tripster.tbl_Contents.Contents_ID
+		on tbl_Plan_Detail.Plan_ID = Member_Making_plan.Plan_ID
+	    join tbl_Contents
+		on tbl_Plan_Detail.Contents_ID = tbl_Contents.Contents_ID
 	    )
-	#where tripster.tbl_Plan_Detail.Plan_ID =1
+	#where tbl_Plan_Detail.Plan_ID =1
 	group by Contents_Country, Plan_Title
  	]]>
   </select>

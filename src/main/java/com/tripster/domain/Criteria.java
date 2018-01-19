@@ -7,9 +7,12 @@ public class Criteria {
 	//페이지 당 컨텐츠 수
 	private int contentsPerPage;
 	
+	private int planPerPage;
+	
 	public Criteria() {
 		this.curPage = 1;
 		this.contentsPerPage = 5;
+		this.planPerPage = 9;
 	}
 
 	public int getCurPage() {
@@ -37,6 +40,19 @@ public class Criteria {
 		}
 		
 		this.contentsPerPage = contentsPerPage;		
+	}
+	
+	public int getPlanPerPage() {
+		return planPerPage;
+	}
+
+	public void setPlanPerPage(int planPerPage) {
+		//유효성 검사
+		if(planPerPage <= 0 || planPerPage > 100) {
+			this.planPerPage = 20;
+		}
+		
+		this.planPerPage = planPerPage;		
 	}
 	
 	//현재 목록의 시작 번호
