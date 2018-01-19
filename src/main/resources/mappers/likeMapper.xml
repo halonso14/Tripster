@@ -74,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   </delete>
   
   <!-- 유저의  팔로우 리스트 조회 -->
-  <select id="memberFollowList" resultType="com.tripster.domain.FollowVO">
+  <select id="followList" resultType="com.tripster.domain.FollowVO">
   select 
   		Follow_ID followID,
   		Member_ID memberID
@@ -124,7 +124,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		,tbl_Member.Member_Birthday memberBirthday
   		,tbl_Member.Member_Picture memberPicture
   from 
-  		tbl_Member ,tbl_follow
+  		tbl_Member ,tbl_Follow
   where 
   		tbl_Follow.Member_ID = tbl_Member.Member_ID and tbl_Follow.Follow_ID = #{memberID};
   </select>

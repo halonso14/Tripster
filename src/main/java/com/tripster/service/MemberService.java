@@ -39,4 +39,6 @@ public interface MemberService {
 	public void dropMember(Integer memberID) throws Exception;
 	
 	public List<String> getThumbnail(Integer planDetailID) throws Exception;
+	
+	public Integer planCount(Integer memberID) throws Exception;
 }

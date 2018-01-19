@@ -10,12 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tripster.domain.LikeVO;
 import com.tripster.domain.MemberVO;
 import com.tripster.domain.PlanVO;
 import com.tripster.service.LikeService;
@@ -35,7 +33,7 @@ public class LikeController {
 		ResponseEntity<String> entity = null;
 		
 		try {
-			
+
 			// 접속중인 회원
 			MemberVO memberVO = (MemberVO) session.getAttribute("login"); 
 			Integer memberID = memberVO.getMemberID();
@@ -58,13 +56,11 @@ public class LikeController {
 		
 		try {
 			
-			System.out.println("좋아요 삭제sf");
-			
 			// 접속중인 회원
 			MemberVO memberVO = (MemberVO) session.getAttribute("login"); 
 			Integer memberID = memberVO.getMemberID();
 			service.likeDelete(memberID,planID);
-			entity = new ResponseEntity<>("success",HttpStatus.OK);
+			entity = new ResponseEntity<>("delete",HttpStatus.OK);
 			
 		}catch(Exception e) {
 			
@@ -190,8 +186,8 @@ public class LikeController {
 	}
 	
 	// 팔로우 체크
-	@RequestMapping(value="/followCheck/{planID}",method=RequestMethod.POST)
-	public ResponseEntity<Integer> followCheck (@PathVariable("planID") Integer planID,HttpSession session) {
+	@RequestMapping(value="/followCheck/{followID}",method=RequestMethod.POST)
+	public ResponseEntity<Integer> followCheck (@PathVariable("followID") Integer followID,HttpSession session) {
 		
 		ResponseEntity<Integer> entity = null;
 		
@@ -201,7 +197,7 @@ public class LikeController {
 		
 		try {
 			
-			Integer check = service.followCheck(planID, memberID);
+			Integer check = service.followCheck(followID, memberID);
 			entity = new ResponseEntity<>(check,HttpStatus.OK);
 			
 		}catch(Exception e) {
@@ -216,4 +212,3 @@ public class LikeController {
 	}
 	
 }
-	

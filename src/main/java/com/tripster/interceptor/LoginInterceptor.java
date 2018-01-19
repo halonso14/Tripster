@@ -13,8 +13,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.tripster.domain.MemberVO;
-
 public class LoginInterceptor extends HandlerInterceptorAdapter{
 
 	private static final String LOGIN = "login";
@@ -35,10 +33,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		//로그인 정보가 맞을시
 		if(memberVO != null) {
 			System.out.println(memberVO);
-			logger.info("로그인됐다고");
 			session.setAttribute(LOGIN, memberVO);
-			
-			loginLog((MemberVO)memberVO);
 			
 			if(memberVO != null) {
 				logger.info("remember me..");
@@ -77,9 +72,5 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			session.removeAttribute(LOGIN);
 		}
 		return true;
-	}
-	
-	public void loginLog(MemberVO memberVO) {
-		
 	}
 }

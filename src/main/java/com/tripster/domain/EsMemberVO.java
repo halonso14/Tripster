@@ -7,10 +7,11 @@ public class EsMemberVO {
 	private String member_name;
 	private String member_email;
 	private String member_sex;
-	private String member_picture;
 	private Date member_birthday;
+	private String member_picture;
 	private Date created;
 	private Date updated;
+	
 	public int getMember_id() {
 		return member_id;
 	}
@@ -35,17 +36,17 @@ public class EsMemberVO {
 	public void setMember_sex(String member_sex) {
 		this.member_sex = member_sex;
 	}
-	public String getMember_picture() {
-		return member_picture;
-	}
-	public void setMember_picture(String member_picture) {
-		this.member_picture = member_picture;
-	}
 	public Date getMember_birthday() {
 		return member_birthday;
 	}
 	public void setMember_birthday(Date member_birthday) {
 		this.member_birthday = member_birthday;
+	}
+	public String getMember_picture() {
+		return member_picture;
+	}
+	public void setMember_picture(String member_picture) {
+		this.member_picture = member_picture;
 	}
 	public Date getCreated() {
 		return created;
@@ -62,9 +63,7 @@ public class EsMemberVO {
 	@Override
 	public String toString() {
 		return "EsMemberVO [member_id=" + member_id + ", member_name=" + member_name + ", member_email=" + member_email
-				+ ", member_sex=" + member_sex + ", member_picture=" + member_picture + ", member_birthday="
-				+ member_birthday + ", created=" + created + ", updated=" + updated + "]";
+				+ ", member_sex=" + member_sex + ", member_birthday=" + member_birthday + ", member_picture="
+				+ member_picture + ", created=" + created + ", updated=" + updated + "]";
 	}
-	
-	
 }

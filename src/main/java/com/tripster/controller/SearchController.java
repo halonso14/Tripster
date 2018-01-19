@@ -28,7 +28,7 @@ public class SearchController {
 	// 통합검색 결과리스트 요청
 	@RequestMapping(value="result", method = RequestMethod.GET)
 	public String search(@ModelAttribute("cri") SearchCriteria cri
-					  	,@ModelAttribute("go")String go, Model model) throws Exception{
+					  	,@ModelAttribute("go") String go, Model model) throws Exception{
 		
 		model.addAttribute("contentsList",esSearchService.contentsList(cri));
 		model.addAttribute("planList",esSearchService.planList(cri));

@@ -1,0 +1,27 @@
+
+div.searchbox {
+	disp	lay:inline-block;
+}
+
+.searchinnerbox {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 100px%;
+    margin-bottom: 0;
+        cursor: text;
+            letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+}
+.searchbtn {
+	
+}
+
+.userprofile {
+	width:100px!important;
+	height:100px!important;
+	border-round:50px!important;
+}

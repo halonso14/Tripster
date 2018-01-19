@@ -75,8 +75,6 @@ public class FacebookLoginController extends ConnectController {
 			vo = service.oAuthenticationBinding(new MemberVO(), memberProfile);
 			
 			request.setAttribute("login", vo, 1);
-			logger.info("facebook 로그인 처리");
-			logger.info("Facebook 로그인 정보 : " + vo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
