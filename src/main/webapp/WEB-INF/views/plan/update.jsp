@@ -102,6 +102,13 @@ body {
 </head>
 
 <%@include file="/WEB-INF/views/include/header2.jsp"%>
+    <div class="container breadcrub">
+	    <div>
+
+		</div>
+		<div class="clearfix"></div>
+		<div class="brlines"></div>
+	</div>	
     <!-- ymum my css-->
     <link rel = "stylesheet" type = "text/css" href ="/resources/css/statistics.css">
 <!--     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" /> -->

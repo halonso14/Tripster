@@ -34,10 +34,10 @@
 									<a data-toggle="dropdown" class="dropdown-toggle" href="/dashboard/index">
 										<img src="/resources/images/user2.png" alt=""/>&nbsp;${userSession.memberName}<b class="lightcaret mt-2"></b>
 									</a>
-							<ul class="dropdown-menu">
-								<li><a href="/member/mypage">내정보 관리</a></li>
-								<li><a href="/member/logout">로그아웃</a></li>
-							</ul>
+									<ul class="dropdown-menu">
+										<li><a href="/member/mypage">내정보 관리</a></li>
+										<li><a href="/member/logout">로그아웃</a></li>
+									</ul>
 								</li>
 								<li><a href="/plan/register">일정등록버튼</a></li>
 							</ul>
@@ -51,4 +51,3 @@
         </div>
       </div>
     </div>
-	
