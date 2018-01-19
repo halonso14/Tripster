@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tripster.domain.ContentsReviewVO;
 import com.tripster.domain.Criteria;
+import com.tripster.domain.MemberVO;
 import com.tripster.domain.PageMaker;
 import com.tripster.service.ContentsReviewService;
 import com.tripster.service.ContentsService;
@@ -63,10 +65,14 @@ public class ContentsController {
 	}
 
 	//컨텐츠 상세 페이지
-	@RequestMapping(value = "/{categoryID}/{contentsID}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{categoryID}/{contentsID}", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public ModelAndView restaurantDetail(@PathVariable("contentsID") Integer contentsID
 										 ,@PathVariable("categoryID") Integer categoryID
-										 ,@ModelAttribute("cri") Criteria cri ,Model model) throws Exception {
+										 ,@ModelAttribute("cri") Criteria cri , Model model, HttpSession session) throws Exception {
+		
+		MemberVO memberVO = (MemberVO)session.getAttribute("login");
+		model.addAttribute("memberVO",memberVO);
+		
 		if(categoryID == 1) {
 			ModelAndView resultPage = new ModelAndView("contents/restaurantDetail");
 			model.addAttribute("vo",contentsService.getRestaurantDetail(contentsID));

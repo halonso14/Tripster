@@ -7,16 +7,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <insert id="write">
   insert into
-  	tbl_Contents_Review (Contents_ID, Member_ID, Contents_Review, Contents_Review_Rating)
+  	tbl_Contents_Review (Contents_ID, Member_ID, Member_Name, Contents_Review_Title, Contents_Review, Contents_Review_Rating)
   values
-  	(#{contentsID}, #{memberID}, #{contentsReview}, #{contentsReviewRating})
+  	(#{contentsID}, #{memberID}, #{memberName}, #{contentsReviewTitle}, #{contentsReview}, #{contentsReviewRating})
   </insert>
   
   <update id="modify">
   update
   	tbl_Contents_Review
   set
-  	Contents_Review = #{contentsReview}
+  	Contents_ReviewTitle = #{contentsReviewTitle}, Contents_Review = #{contentsReview}
   where
   	Contents_Review_ID = #{contentsReviewID}
   </update>
@@ -30,10 +30,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <select id="getReviewList" resultType="contentsReviewVO">
   select
-  	Member_ID memberID, 
-  	Contents_Review_ID contentsReviewID, 
-  	Contents_Review contentsReview, 
-  	Contents_Review_Rating contentsReviewRating
+  	Member_ID memberID,
+    Member_Name memberName,
+  	Contents_Review_ID contentsReviewID,
+  	Contents_Review_Title contentsReviewTitle,
+  	Contents_Review contentsReview,
+  	Contents_Review_Rating contentsReviewRating,
+  	Updated updatedDate
   from
   	tbl_Contents_Review
   where

@@ -8,28 +8,28 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>title</title>
+	<link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
+	<script src="https://code.jquery.com/jquery-2.0.3.js" charset="UTF-8"></script>
 
 </head>
-<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-<script src="/resources/assets/js/js-blog.js"></script>
 <body>
-	
 	<!-- CONTENT -->
 	<!-- 유저 세션  -->
 	<c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
 	
+	<!-- container -->
 	<div class="container">
-		<div class="container mt25 offset-0">
-			<div class="col-md-12 pagecontainer2 offset-0">
+		<!-- '리스트 페이지' 버튼 -->
+		<div class="container mt25">
+			<button class="btn-search4 right" id="getList">리스트 페이지</button>
+		</div>
+<!--
 				<div class="hpadding50c">
-					<span class="lato size30 dark bold">${vo.title}
-					<button class="btn-search4 right" id="getList">리스트 페이지</button>
 					</span>
 					<p class="aboutarrow"></p>
 				</div>
 				<div class="line3"></div>
-			</div>
-		</div>				
+ -->				
 				
 		<!-- 상단 파트 시작 -->
 		<div class="container pagecontainer offset-0">
@@ -82,15 +82,12 @@
 		</div>
 		
 		<!-- 아래 파트 시작 -->
-		<div class="container pagecontainer offset-0">
-					
-						
-						<div class="col-md-12 pagecontainer2 offset-0">
-							<div class="cstyle10"></div>
-							<ul class="nav nav-tabs" id="myTab">
-								<li class=""><a data-toggle="tab" disabled><span class="hidetext"></span><span class="reviews"></span>Review</a></li>
-							</ul>
-							<div class="tab-content4" >
+		<div class="container col-md-12 pagecontainer offset-0">
+			<div class="cstyle10"></div>
+				<ul class="nav nav-tabs" id="myTab">
+					<li class=""><a data-toggle="tab" disabled><span class="hidetext"></span><span class="reviews"></span>Review</a></li>
+				</ul>
+			<div class="tab-content4" >
 							
 
 							<!-- 리뷰 리스트 조회 -->
@@ -122,13 +119,13 @@
 
 						<div class="wh25percent left center" style=" height: 400px;">
 							<ul class="jslidetext2">
-								<li>Username</li>
 								<li>Title</li>
 								<li>rating</li>
 								<li style="margin: 120px 0px;">Comment</li>
 							</ul>
 						</div>
 						<div class="wh75percent right offset-0">
+						<!-- 
 							<script>
 								//This is a fix for when the slider is used in a hidden div
 										function testTriger(){
@@ -137,9 +134,9 @@
 											}, 500);	
 										}
 							</script>
+							-->
 							<div class="padding12 relative wh75percent">
-								<input type="text" class="form-control margtop10" placeholder="">
-								<input type="text" class="form-control margtop10" placeholder="">
+								<input type="text" class="form-control margtop10" id="reviewTitle" placeholder="리뷰 제목을 입력해주세요">
 								<div id="collapse1" class="collapse in">
 									<div class="hpadding20">
 										<div class="checkbox">
@@ -171,7 +168,7 @@
 									<div class="clearfix"></div>
 								</div>
 								<!-- End of Star ratings -->	
-								<textarea class="form-control margtop10" rows="5" id="reviewDetail"></textarea>
+								<textarea class="form-control margtop10" rows="5" id="reviewDetail" writer=${memberVO.memberName}></textarea>
 										
 								<div class="clearfix"></div>
 								<div id="uploadDiv">
@@ -189,11 +186,8 @@
 							</div>
 						
 						
-						<div class="wh20percent left textleft">
-							<div class="circlewrap2"><img alt="" class="circleimg" src="images/user-avatar.jpg"></div>
-						</div>
-						<div class="wh80percent right"></div>
-					</div>
+
+
 					<!-- END OF LEFT IMG -->
 					<!-- 오른쪽 파트 시작-->
 
@@ -226,9 +220,10 @@ function initMap() {
 <script async defer
 src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmc4Y1GGbbAKfnxTRfqM3U2vc8E_Fr1AA&callback=initMap"></script>
 <script>
+
 	$(document).ready(function(){
-		
-		var memberID = 1;
+		var memberID = ${memberVO.memberID};
+		var memberName = "${memberVO.memberName}";
 		var listPage = ${cri.curPage};
 		var contentsID = ${contentsID};
 		var categoryID = ${categoryID};
@@ -283,7 +278,7 @@ src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmc4Y1GGbbAKfnxTRfqM3U2v
 		
 		// 리뷰 등록
 		$("#writeReview").on("click", function(){
-			alert(contentsReviewRating);
+			var contentsReviewTitle = $("#reviewTitle").val();
 			var contentsReview = $("#reviewDetail").val();
 			
 			$.ajax({
@@ -297,18 +292,20 @@ src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmc4Y1GGbbAKfnxTRfqM3U2v
 				data : JSON.stringify({
 					contentsID : contentsID,
 					memberID : memberID,
+					memberName : memberName,
+					contentsReviewTitle : contentsReviewTitle,
 					contentsReview : contentsReview,
 					reviewPictureName : fileNames,
 					contentsReviewRating : contentsReviewRating
 				}),
 				success : function(data) {
-						alert(data);
 						// 리뷰 등록후 처음 1 페이지로 이동
 						getReviewList(1);
 						
 				}
 			});
 			// 등록 후 리뷰 텍스트 내용 초기화
+			$("#reviewTitle").val("리뷰 제목을 입력해주세요")
 			$("#reviewDetail").val("")
 		});
 		
@@ -396,16 +393,33 @@ src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmc4Y1GGbbAKfnxTRfqM3U2v
 			$.getJSON("/contents/review/"+contentsID+"/"+reviewPage, function(data) {
 				var str = "";
 				
+				//날짜 형태를 02-01와 같은 형태를 위한 함수.
+				Number.prototype.padLeft = function(base,chr){
+				    var  len = (String(base || 10).length - String(this).length)+1;
+				    return len > 0? new Array(len).join(chr || '0')+this : this;
+				}
+				// usage
+				//=> 3..padLeft() => '03'
+				//=> 3..padLeft(100,'-') => '--3' 
+				
 				// 컨텐츠의 리뷰 리스트 받아오기
 				$(data.list).each(function() {
+					
+					var d =new Date(this.updatedDate);
+					console.log(d);
+					var dformat = [d.getFullYear(), (d.getMonth()+1).padLeft(),
+			               d.getDate().padLeft()
+			               ].join('/') +' ' +
+			              [d.getHours().padLeft(),
+			               d.getMinutes().padLeft(),
+			               d.getSeconds().padLeft()].join(':');
 					str += "<div class='col-md-4 offset-0 center' data-contentsReviewID='"+this.contentsReviewID+"'>"
 						+ "		<div class='padding20'>"
 						+ "			<div class='bordertype5'>"
 						+ "				<div class='circlewrap'>"
-						+ "					<img src='/resources/images/user-avatar.jpg' class='circleimg' alt=''/><span>4.5</span>"
+						+ "					<img src='/resources/images/user-avatar.jpg' class='circleimg' alt=''/><span>"+this.contentsReviewRating+"</span>"
 						+ "				</div>"
-						+ "				<span class='dark'>by Sena</span><br/>"
-						+ "				from London, UK<br/>"
+						+ "				<span class='dark'>"+this.memberName+"</span><br/>"
 						+ "				<img src='/resources/images/check.png' alt=''/><br/>"
 						+ "				<span class='green'>Recommended<br/>for Everyone</span>"
 						+ "			</div>"
@@ -413,19 +427,19 @@ src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmc4Y1GGbbAKfnxTRfqM3U2v
 						+ "	</div>"
 						+ "	<div class='col-md-8 offset-0'>"
 						+ "		<div class='padding20'>"
-						+ "			<span class='opensans size16 dark'>Great experience</span><br/>"
-						+ "			<span class='opensans size13 lgrey'>Posted Jun 02, 2013</span><br/>"
+						+ "			<span class='opensans size16 dark'>"+this.contentsReviewTitle+"</span><br/>"
+						+ "			<span class='opensans size13 lgrey'>"+dformat+"</span><br/>"
 						+ "			<p data-contentsReviewID='"+this.contentsReviewID+"' class='"+this.contentsReviewID+"'>"+ this.contentsReview + "</p>"
 //						+ " 			<div id='getImage'>"+getImage(this.reviewPictureName)+"</div>" 
 						+ "		</div>"
 						+ "	</div>"
 						+ " <div>"
-						+ "		<button class='modify' id='"+this.contentsReviewID+"' value='1'>Modify</button>"
-						+ "     <button class='delete' id='"+this.contentsReviewID+"'>delete</button>"
+						+ "		<button class='btn-search4 right modify' id='"+this.contentsReviewID+"'>Modify</button>"
+						+ "     <button class='btn-search4 right delete' id='"+this.contentsReviewID+"'>delete</button>"
 						+ "		<div class='clearfix'></div>"
 						+ "</div>"
 						+ ""
-						+ "<div class='line2'></div>";
+						+ "<div class='line3'></div>";
 				});
 				
 				// reviewList 에 추가
