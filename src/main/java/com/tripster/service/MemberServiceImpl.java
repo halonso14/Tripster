@@ -219,5 +219,10 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memoDao.getAttach(planDetailID);
 	}
+	
+	@Override
+	public Integer planCount(Integer memberID) throws Exception{
+		return dao.planCount(memberID);
+	}
 
 }

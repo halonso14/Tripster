@@ -33,7 +33,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		//로그인 정보가 맞을시
 		if(memberVO != null) {
 			System.out.println(memberVO);
-			logger.info("로그인됐다고");
 			session.setAttribute(LOGIN, memberVO);
 			
 			if(memberVO != null) {

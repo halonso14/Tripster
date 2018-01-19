@@ -58,11 +58,7 @@ response.setHeader("Pragma", "no-cache");
 	
   </head>
   <body id="top" class="thebg" >
-    <!-- ymmu 통계, 추천 페이지 자바스크립트에서 멤버아이디 받아 ajax로 데이터 받음-->
-    <script type="text/javascript">
-    	var id = ${memberVO.memberID};
-    </script>
-    <!-- ymmu 통계, 추천 페이지 자바스크립트에서 멤버아이디 받아 ajax로 데이터 받음-->
+    
 	<div class="navbar-wrapper2 navbar-fixed-top">
       <div class="container">
 		<div class="navbar mtnav">
@@ -306,9 +302,9 @@ response.setHeader("Pragma", "no-cache");
 							<table class="table table-bordered  mt-10">
 							<!-- ymmu data -->
 							<tr class="grey opensans">
-								<td class="center"><span class="size30 slim lh4" id="numPlans">0</span><br/><span class="size12">Plans</span></td>
-								<td class="center"><span class="size30 slim lh4" id="totalDays">0</span><br/><span class="size12">Trip Days</span></td>
-								<td class="center"><span class="size30 slim lh4" id="numCountries">0</span><br/><span class="size12">Countries</span></td>
+								<td class="center"><span class="size30 slim lh4" id="numPlans">1</span><br/><span class="size12">Plans</span></td>
+								<td class="center"><span class="size30 slim lh4" id="totalDays">1</span><br/><span class="size12">Trip Days</span></td>
+								<td class="center"><span class="size30 slim lh4" id="numCountries">1</span><br/><span class="size12">Countries</span></td>
 							</tr>
 							<!-- ymmu data -->
 							</table>
@@ -851,26 +847,6 @@ response.setHeader("Pragma", "no-cache");
 								    
 								</div>
 								
-								<!-- TAB 3 -->					
-								<div id="preferences" class="tab-pane fade">
-								
-								</div>
-								
-								<!-- TAB 4 -->					
-								<div id="maps" class="tab-pane fade">
-									
-								</div>
-								
-								<!-- TAB 5 -->					
-								<div id="reviews" class="tab-pane fade ">
-								
-								</div>
-								
-								<!-- TAB 6 -->					
-								<div id="thingstodo" class="tab-pane fade">
-								
-								</div>
-								
 								<!-- 맛집 스크랩 리스트 -->
 								<script id="restaurantTemplate" type="text/x-handlebars-template">
 										
@@ -1096,6 +1072,7 @@ response.setHeader("Pragma", "no-cache");
 	<script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="/resources/js/additional-methods.min.js"></script>
 	<script type="text/javascript" src="/resources/js/messages_ko.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
     <!-- ymmu my js-->
     <script type="text/javascript" src="/resources/slick-1.8.0/slick/slick.min.js"></script>
 	<!-- ymmu my js-->
@@ -1118,7 +1095,7 @@ response.setHeader("Pragma", "no-cache");
     <script src="/resources/dist/js/bootstrap.min.js"></script>
     <script src="/resources/bootstrap-table/dist/bootstrap-table.js"></script>
 	<!-- put your locale files after bootstrap-table.js -->
-	<script src="/resources/bootstrap-table/dist/locale/bootstrap-table-zh-EN.js"></script>
+	<script src="/resources/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
     <!-- ymmu my statistacs.js-->
     <script src="/resources/js/statistics.js" type="text/javascript"></script>
     <!-- 상윤것 script 분리시킴 mypage.js-->

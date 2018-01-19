@@ -28,7 +28,7 @@ jQuery(function(jQuery) {
 		onComplete: function(value) {
 			console.debug(this);
 		}
-	});			
+	});
 });
 
 
@@ -409,19 +409,24 @@ jQuery(document).ready(function(jQuery){
 			"top":jQueryhlist/2-11+"px",
 			"left":-25+"px",
 		});
+        jQuery('.fav-icon-red').css({
+            "top":jQueryhlist/2-11+"px",
+            "left":-25+"px",
+        });
 		
 		jQuery( ".listitem" )
 			.mouseenter(function() {
 				jQuery(this).find('.liover').stop().animate({ "left":10+"%","top":10+"%","width":80+"%","height":80+"%"  });
 				jQuery(this).find('.book-icon').stop().animate({ "left":jQuerywlist/2+18+"px" });
 				jQuery(this).find('.fav-icon').stop().animate({ "left":jQuerywlist/2-42+"px" },{ duration: 1000, queue: false });
-
+                jQuery(this).find('.fav-icon-red').stop().animate({ "left":jQuerywlist/2-42+"px" },{ duration: 1000, queue: false });
 
 			})
 			.mouseleave(function() {
 				jQuery(this).find('.liover').stop().animate({ "left":jQuerywlist+"px","top":0+"px","width":100+"%","height":100+"%"  });
 				jQuery(this).find('.book-icon').stop().animate({ "left":-25+"px" },{ duration: 1000, queue: false });
 				jQuery(this).find('.fav-icon').stop().animate({ "left":-25+"px" });
+                jQuery(this).find('.fav-icon-red').stop().animate({ "left":-25+"px" });
 			
 			});	
 		
@@ -436,17 +441,3 @@ jQuery(document).ready(function(jQuery){
 
 
 });
-
-				
-
-
-
-
-
-
-
-
-
-
-
-

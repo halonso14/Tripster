@@ -2,6 +2,7 @@ package com.tripster.persistence;
 
 import java.util.List;
 
+import com.tripster.domain.Criteria;
 import com.tripster.domain.PlanVO;
 
 public interface PlanDAO {
@@ -21,7 +22,7 @@ public interface PlanDAO {
 	public int selectLastPlanID()throws Exception;
 	
 	//나의 일정 조회
-	public List<PlanVO> selectMyPlan(int memberID) throws Exception;
+	public List<PlanVO> selectMyPlan(int memberID, Criteria cri) throws Exception;
 	
 	//memberName조회
 	public String selectMemberName(int memberID)throws Exception;

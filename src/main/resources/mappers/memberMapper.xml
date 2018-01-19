@@ -135,4 +135,11 @@
 	where Member_ID = #{memberID}
 	</delete>
 	
+	<!-- 회원이 등록한 plan갯수 카운트 -->
+	<select id="planCount" resultType="int">
+	select count(Plan_ID)
+	from tbl_Plan 
+	where Member_ID = #{memberID}
+	</select>
+	
 </mapper>

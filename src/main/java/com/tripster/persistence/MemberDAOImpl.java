@@ -107,4 +107,9 @@ public class MemberDAOImpl implements MemberDAO {
 	public void deleteMember(Integer memberID) throws Exception {
 		session.selectOne(namespace + ".deleteMember", memberID);
 	}
+	
+	@Override
+	public Integer planCount(Integer memberID) throws Exception {
+		return session.selectOne(namespace + ".planCount", memberID);
+	}
 }

@@ -1,12 +1,15 @@
 package com.tripster.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.tripster.domain.Criteria;
 import com.tripster.domain.PlanVO;
 
 @Repository
@@ -52,8 +55,15 @@ public class PlanDAOImpl implements PlanDAO{
 	
 	//나의 플랜리스트 조회.
 	@Override
-	public List<PlanVO> selectMyPlan(int memberID) throws Exception {
-		return session.selectList(namespace+".myPlan", memberID);
+	public List<PlanVO> selectMyPlan(int memberID, Criteria cri) throws Exception {
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		
+		paramMap.put("memberID", memberID);
+		paramMap.put("cri", cri);
+		
+		
+		return session.selectList(namespace+".myPlan", paramMap);
 	}
 
 	//memberName 조회.

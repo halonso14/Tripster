@@ -2,6 +2,7 @@ package com.tripster.service;
 
 import java.util.List;
 
+import com.tripster.domain.Criteria;
 import com.tripster.domain.PlanVO;
 
 public interface PlanService {
@@ -25,7 +26,7 @@ public interface PlanService {
 	public int readPlanID()throws Exception;
 	
 	//나의 플랜 조회
-	public List<PlanVO> myPlan(int memberID) throws Exception;
+	public List<PlanVO> myPlan(int memberID, Criteria cri) throws Exception;
 	
 	//memberName조회
 	public String memberName(int memberID)throws Exception;

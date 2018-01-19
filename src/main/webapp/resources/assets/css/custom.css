@@ -1735,6 +1735,20 @@ background:url('../../images/fav-book-icons.png') scroll 0 -93px no-repeat;
 position:absolute;
 top:0px;
 }
+.fav-icon-red{
+	width:25px;
+	height:23px;
+	background:url('../../images/fav-book-icons-red.png') scroll 0 -70px no-repeat;
+	position:absolute;
+	top:0px;
+}
+.fav-icon-red:hover{
+	width:25px;
+	height:23px;
+	background:url('../../images/fav-book-icons-red.png') scroll 0 -93px no-repeat;
+	position:absolute;
+	top:0px;
+}
 .book-icon{
 width:25px; 
 height:23px; 
