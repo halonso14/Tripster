@@ -7,7 +7,7 @@
   	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>검색결과 :: Tripster</title>
-	
+	<link href="/resources/update1/css/search.css" rel="stylesheet" media="screen">
     <!-- Bootstrap -->
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
@@ -50,18 +50,9 @@
 	<%@include file="../include/header2.jsp" %>
 	<!-- 로그인 세션  -->
 	<c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
+	
 	<!-- Breadcrumbs -->
 	<div class="container breadcrub">
-	    <div>
-			<a class="homebtn left" href="#"></a>
-			<div class="left offset-2">
-				
-				<p style="color: black;font-weight:bold;">'${cri.keyword }' 검색결과</p>		
-				
-			</div>
-			
-		</div>
-		<div class="clearfix"></div>
 		<div class="brlines"></div>
 	</div><!-- / Breadcrumbs -->
 	
@@ -78,54 +69,15 @@
 				
 				<!-- 전체 검색결과 리스트  -->
 				<div class="tab-pane  active" id="totalList">
-					
-					<!-- Top FILTERS -->
-					<div class="hpadding20">
-						<div class="topsortby">
-							<div class="col-md-4 offset-0">
-									
-									<div class="left mt7"><b>Sort by:</b></div>
-									
-									<div class="right wh70percent">
-										<select class="form-control mySelectBoxClass ">
-										  <option selected>Guest rating</option>
-										  <option>5 stars</option>
-										  <option>4 stars</option>
-										  <option>3 stars</option>
-										  <option>2 stars</option>
-										  <option>1 stars</option>
-										</select>
-									</div>
-	
-							</div>			
-							<div class="col-md-4">
-								<div class="w50percent">
-									<div class="wh90percent">
-										<select class="form-control mySelectBoxClass ">
-										  <option selected>Name</option>
-										  <option>A to Z</option>
-										  <option>Z to A</option>
-										</select>
-									</div>
-								</div>
-								<div class="w50percentlast">
-									<div class="wh90percent">
-										<select class="form-control mySelectBoxClass ">
-										  <option selected>Price</option>
-										  <option>Ascending</option>
-										  <option>Descending</option>
-										</select>
-									</div>
-								</div>					
-							</div>
-							<div class="col-md-4 offset-0">
-								<button class="popularbtn left">Most Popular</button>
 
-							</div>
-						</div>
-					</div>
-					<!-- End of Top FILTERS-->
-					
+		<ul class="list-group offset-2 margtop30">
+				
+			<a href="result?keyword=${cri.keyword }&go=total" class="list-group-item" >
+			<span class="hidetext" style="color: black;font-weight:bold;">'${cri.keyword }' 검색결과</span>&nbsp; 
+			</a>
+		</ul>			
+		
+		<div class="clearfix"></div>
 					<!-- 통합검색결과가 없을경우 -->
 					<c:set var="totalNum" value="${getNum.totalNum }" />
 					<c:if test="${totalNum == 0 }" >
@@ -147,7 +99,7 @@
 							
 							<c:if test="${contentsNum > 3 }" >
 								<div class=" grey right">
-										<a href="/search/result?keyword=${cri.keyword }&go=contents" 
+										<a href="/search/result?keyword=${cri.keyword}&go=contents" 
 										style="text-decoration:underline"> 더보기 〉 </a>
 								</div>
 							</c:if>
@@ -159,7 +111,10 @@
 							<div class="offset-2" >
 								<div class="col-md-4 offset-0 listitem2" >
 									<a href="/contents/${esContentsVO.category_id }/${esContentsVO.contents_id}">
-										<img src=${esContentsVO.contents_thumbnail } alt="" style="display:block" />
+										<c:choose>
+											<c:when test="${esContentsVO.contents_thumbnail==''}" ><img src="${esContentsVO.random_thumbnail}"/></c:when>
+											<c:otherwise ><img src="${esContentsVO.contents_thumbnail}"/></c:otherwise>
+										</c:choose>
 									</a>
 								</div>
 								<div class="col-md-8 offset-0" style="border:1px solid #e6e6e6" >
@@ -167,9 +122,9 @@
 										<div class="labelright">
 											<span class=" green size18"><b>${esContentsVO.contents_review_cnt}</b></span><span class="green size14"> Review</span><br>
 											
-												<div class="progress" style="margin:5px 0 2px 0; height:20px;width:60px ">	
-													<img src="/resources/images/star.png" style="position:relative; top:0;left:0; z-index:2; width:100%"/>										
-	  												<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: ${esContentsVO.contents_rating*20}%; position:relative; top:0;left:0; z-index:1"></div>
+												<div class="progress" style="margin:5px 0 2px 0;">	
+													<!-- <img src="/resources/images/star.png" style="position:relative; top:0;left:0; z-index:2; width:100%"/>	 -->									
+	  												<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: ${esContentsVO.contents_rating*20}%;"></div>
 												</div>
 											
 											<span class="size11 grey ">${esContentsVO.contents_rating} Stars</span><br><br>
@@ -223,44 +178,56 @@
 					<c:if test="${planNum > 0 }" >
 					
 					<!-- 일정 검색결과 -->	
-					<div class="plans">
-						
+					<div class="plans">	
 						<div class="offset-2" style="padding:20px ">	
 							<div class=" left"><b>일정</b></div>
-							
 							<c:if test="${planNum > 3 }" >
 								<div class=" grey right">
-										<a href="/search/result?keyword=${cri.keyword }&go=plan" 
-										style="text-decoration:underline"> 더보기 〉 </a>
+									<a href="/search/result?keyword=${cri.keyword }&go=plan" style="text-decoration:underline"> 더보기 〉 </a>
 								</div>
 							</c:if>
-						<div class="clearfix"></div>
+							<div class="clearfix"></div>
 						</div>
 							
 						<c:forEach items="${planList}" var = "esPlanVO" begin="0" end="2">
-							<div class="col-md-4">
+							<div class="col-md-4" style="margin-bottom:30px">
 								<div class="listitem">
+									<a href="/plan/detail?${esPlanVO.plan_id }">
 									<img src="http://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2016/09/countries-drive-from-india-cover2.jpg" >
+								
+									</a>
+								
+									
 								</div>
 								<div class="itemlabel2">
 									<div class="labelright">													
-										<img src="/resources/images/user.png" alt="유저프로필" class=" ">
+										<%-- <img src="${esPlanVO.member_picture}" > --%>
+										<div class="media">
+										  <div class="media-left media-middle">
+										    <a href="#">
+										      <img class="media-object" src="resources/images/user.png" alt="...">
+										    </a>
+										  </div>
+										</div>
 										<p class="size12 grey margtop20">${esPlanVO.member_name}</p><br>
 										<span class="size11 grey">댓글수</span><br>
-										<span class="size11 grey">좋아요수</span><br>
+										<span class="size11 grey">${esPlanVO.plan_like_cnt} 좋아요수</span><br>
 										<button class="bookbtn mt1">좋아요</button>		
 									</div>
 									<div class="labelleft">	
 										<span class="size16"><b>${esPlanVO.plan_title}</b></span><br>		
 										<br>
-										<p class="grey">$</p>
+										${esPlanVO.plan_startdate}<br>
+										${esPlanVO.plan_enddate}<br>
+										${esPlanVO.plan_endchk}
 									</div>
 								</div>
 								<div class="clearfix"></div>
 							</div>
+				
 						</c:forEach>
 						<div class="clearfix"></div>
-						<div class="offset-2" style="padding-top:30px"></div>
+						
 						<div class="offset-2"><hr></div>	
 					</div>
 					
@@ -286,7 +253,7 @@
 						</div>
 						
 						<c:forEach items="${memberList}" var = "esMemberVO" begin="0" end="2">
-							<div class="col-md-4" >
+							<div class="col-md-4" style="margin-bottom:40px">
 								<!-- CONTAINER-->
 								<div class="carscontainer" style="border:1px solid #e6e6e6">
 									<div class="center">
@@ -305,7 +272,6 @@
 							</div>
 						</c:forEach>
 						<div class="clearfix"></div>
-						<div class="offset-2" style="padding-top:50px"></div>
 						<div class="offset-2"><hr></div>
 					</div>	
 					
