@@ -304,10 +304,6 @@
 	
 	<!--####### FOOTER #######-->
 	
-	<script>
-		test();
-	</script>
-	
 	<%@include file="../include/footer.jsp" %>
 
     <!-- Javascript -->	

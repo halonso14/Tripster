@@ -20,9 +20,9 @@ import com.tripster.domain.MemberVO;
 
 @Component
 @Aspect
-public class Advice {
+public class LoggerAspect {
 	
-	private static final Logger loger = LoggerFactory.getLogger(Advice.class);
+	private static final Logger loger = LoggerFactory.getLogger(LoggerAspect.class);
 	
 //	@Around("execution(* com.tripster.interceptor.LoginInterceptor.loginLog(..))")
 //	public Object Memberlog(ProceedingJoinPoint jp) throws Throwable {

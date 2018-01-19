@@ -14,7 +14,7 @@
    <context:component-scan base-package="com.tripster.persistence"></context:component-scan>
    <context:component-scan base-package="com.tripster.service"></context:component-scan>
    <context:component-scan base-package="com.tripster.elasticsearch"></context:component-scan>
-   <context:component-scan base-package="com.tripster.aop"></context:component-scan>
+   <context:component-scan base-package="com.tripster.aop"> </context:component-scan>
    
    <aop:config></aop:config>
    
@@ -87,6 +87,6 @@
       <constructor-arg ref="connectionFactoryLocator" />
    </bean>
    
-   <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+   <aop:aspectj-autoproxy/>
    
 </beans>
