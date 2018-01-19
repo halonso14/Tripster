@@ -47,10 +47,10 @@ public class LikeServiceImpl implements LikeService{
 		
 		for(int i=0;i<list.size();i++) {
 			if(planID == list.get(i).getPlanID()) {
-				return 0;
+				return 1;
 			}
 		}
-		return 1;
+		return 0;
 	}
 	
 	// 멤버 팔로우
@@ -67,18 +67,23 @@ public class LikeServiceImpl implements LikeService{
 	
 	// 유저 팔로우 체크
 	@Override
-	public Integer followCheck(Integer planID,Integer memberID) throws Exception{
+	public Integer followCheck(Integer memberID,Integer followID) throws Exception{
 		
-		List<FollowVO> list = likeDAO.memberFollowList(memberID);
-		Integer member = planDAO.selectPlan(planID).getMemberID();
+		List<FollowVO> list = likeDAO.followList(memberID);
+		
+		System.out.println("꺄약"+list);
+		
 		for(int i=0;i<list.size();i++) {
-			if(member == list.get(i).getFollowID()) {
-				// 값이 있으면 false...
-				return 0;
+			if(followID == list.get(i).getFollowID()) {
+				return followID;
 			}
 		}
-		// 값이 업으면 true.,,
-		return 1;
+		return 0;
+	}
+	
+	@Override
+	public List<FollowVO> followList(Integer memberID) throws Exception{
+		return likeDAO.followList(memberID);
 	}
 	
 	// 유저 좋아요 리스트의 플랜조회

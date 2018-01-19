@@ -4,6 +4,8 @@ package com.tripster.domain;
 public class PageMaker {
 	//총 게시물 개수
 	private int totalCount;
+	
+	private int planCount;
 	//시작 페이지 번호
 	private int startPage;
 	//마지막 페이지 번호
@@ -29,6 +31,17 @@ public class PageMaker {
 		calcPage();
 	}
 	
+	public int getPlanCount() {
+		return totalCount;
+	}
+
+	public void setPlanCount(int planCount) {
+		this.planCount = planCount;
+		
+		//페이지 정보 계산
+		calcPlan();
+	}
+	
 	//처음,마지막 페이지 번호 계산 및 이전,다음 페이지 버튼 활성화 여부 설정
 	private void calcPage() {
 		endPage = (int) (Math.ceil(cri.getCurPage() / (double) displayPageNum) * displayPageNum);
@@ -45,7 +58,24 @@ public class PageMaker {
 		
 		next = endPage * cri.getContentsPerPage() >= totalCount ? false : true;
 	}
-
+	
+	private void calcPlan() {
+		endPage = (int) (Math.ceil(cri.getCurPage() / (double) displayPageNum) * displayPageNum);
+		startPage = (endPage - displayPageNum) + 1;
+		//마지막 페이지 번호 유효성 검사를 위한 변수
+		int tempEndPage = (int) (Math.ceil(planCount / (double) cri.getPlanPerPage()));
+		
+		//마지막 페이지 번호 최종 결정
+		if(endPage > tempEndPage) {
+			endPage = tempEndPage;
+		}
+		
+		prev = startPage == 1 ? false : true;
+		
+		next = endPage * cri.getPlanPerPage() >= planCount ? false : true;
+	}
+	
+	
 	public int getStartPage() {
 		return startPage;
 	}

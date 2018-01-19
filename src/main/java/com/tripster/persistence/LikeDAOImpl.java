@@ -80,8 +80,8 @@ public class LikeDAOImpl implements LikeDAO{
 	
 	// 유저의 팔로우 리스트 조회
 	@Override
-	public List<FollowVO> memberFollowList(Integer memberID) throws Exception{
-		return session.selectList(namespace+".memberFollowList", memberID);
+	public List<FollowVO> followList(Integer memberID) throws Exception{
+		return session.selectList(namespace+".followList", memberID);
 	}
 	
 	// 유저의 좋아요 리스트의 플랜 조회

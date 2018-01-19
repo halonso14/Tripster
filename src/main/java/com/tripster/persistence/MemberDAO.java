@@ -36,4 +36,6 @@ public interface MemberDAO {
 	public void uploadPicture(MemberVO vo) throws Exception;
 	
 	public void deleteMember(Integer memberID) throws Exception;
+	
+	public Integer planCount(Integer memberID) throws Exception;
 }

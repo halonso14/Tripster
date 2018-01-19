@@ -1,15 +1,13 @@
 package com.tripster.service;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tripster.domain.Criteria;
 import com.tripster.domain.PlanDetailVO;
 import com.tripster.domain.PlanVO;
 import com.tripster.persistence.PlanDAO;
@@ -72,9 +70,9 @@ public class PlanServiceImpl implements PlanService{
 
 	//나의 플랜 조회
 	@Override
-	public List<PlanVO> myPlan(int memberID) throws Exception {
+	public List<PlanVO> myPlan(int memberID, Criteria cri) throws Exception {
 		//member ID로 등록된 plan 전체 조회.
-		List<PlanVO> list = planDAO.selectMyPlan(memberID);
+		List<PlanVO> list = planDAO.selectMyPlan(memberID, cri);
 		
 		//plan에 해당 하는 planDetail 전체 조회 후, PlanVO객체에 담아줌.
 		for( int i=0; i<list.size(); i++) {
