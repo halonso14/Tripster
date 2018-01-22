@@ -36,8 +36,8 @@ $("#progressbar li").click(function(){
     	next_fs = $($(".next").get(index)).parent();
     	current_fs = $($(".next").get(count)).parent();
 
-    	console.log(next_fs);
-    	console.log(current_fs);
+    	//console.log(next_fs);
+    	//console.log(current_fs);
     	
     	if(index==7 || count==7){
             if(count==0)
@@ -80,12 +80,12 @@ $(".next").click(function(){
 	next_fs = $(this).parent().next();
 	
 	
-	console.log(current_fs);
-	console.log(next_fs);
+	//console.log(current_fs);
+	//console.log(next_fs);
 	//activate next step on progressbar using the index of next_fs
 	$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 	
-    console.log(count);
+    //console.log(count);
     // add data to data object
     saveData();
     /*
@@ -260,21 +260,43 @@ $(".submit").click(function(){
 
 var saveData = function(){
 	
-	if(count==2 || count==7){//리스트형  
-        checklist='';
+	if(count==2){//국가와 도시 리스트 
+
+    	val = selected_country_list.toString();
+		console.log('val: '+ val);
+		data[count]= val;
         
-        val=checklist;
-        
-    }else if(count==5 || count==6){//  blog url. textarea
-             
-    }else if(count==11){//  blog url. textarea
+    }else if(count==5){// 0,10두 값만 
+    	
+    	console.log('count=5 안 ');
+    	//user_datil.js 파일에 있는 선택국가리스트를 data에 저장한다
+    		// 기본 /(요 안에)/ -> /\s/ : \s공백찾아라 -> /\s/gi: g는 검색된 모든 결과를 리턴, i는 대소문자 가리지마라
+    		// /(패턴을 집어넣는다)/ 여기 같은 경우 0일 ~ 10일
+    		// (알파벳+숫자+_ 조합)(공백)(알파벳+숫자+_ 조합 아닌애들)(공백)(알파벳+숫자+_ 조합) /(검색된 모든 결과를 리턴하시오(리턴값 리스트임))
+    	//var pattern = /((d+)[일]\s~\s(d+)[일])+((d+)[만원]\s(\~)\s(d+)[만원])+$/;
+    	val = $('.days').find('.tooltip-inner').text().split(" ");
+    	console.log(val[0]+','+val[5]);
+    	result = val[0]+','+val[5];
+    	data[count]= result;
+    	
+    }else if(count==6){// 0,10두 값만 
+    
+    	val = $('.budg').find('.tooltip-inner').text().split(" ");
+    	result = val[0]+','+val[5];
+    	data[count]= result;
+    	
+    	
+    }else if(count==7){//  blog url. textarea
          val= $("#q"+count).val();
         console.log(val);
-    
+        data[count]= val;
+        
     }else{ //라디오박스형
         val = $(':input:radio[name="q'+count+'"]:checked').val();
+        data[count]= val;
     }
-    data[count]= val;
+
+	//데이터로 넘길 값들을 확인해본다. 나주에 막아야지.
     console.log(JSON.stringify(data));
 	
 };

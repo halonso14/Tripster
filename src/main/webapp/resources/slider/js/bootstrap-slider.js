@@ -17,6 +17,7 @@
  * limitations under the License.
  * ========================================================= */
  
+//$==제이쿼리함수를 받아와서 밑의 slider처럼 작업하는게 결국 $('#dd').Slider(...)요런 함수를 만들 수 있게 하는 거 같다.
 !function( $ ) {
 
 	var Slider = function(element, options) {
@@ -67,6 +68,7 @@
 		}
 		//ymmu 추가
 		this.unit = options.unit;
+		
 		this.min = this.element.data('slider-min')||options.min;
 		this.max = this.element.data('slider-max')||options.max;
 		this.step = this.element.data('slider-step')||options.step;
@@ -359,6 +361,7 @@
 		}
 	};
 
+	//jQuery.fn === jQuery.prototype
 	$.fn.slider = function ( option, val ) {
 		return this.each(function () {
 			var $this = $(this),
@@ -373,6 +376,12 @@
 		})
 	};
 
+	/*
+	 * 
+		In jQuery, the "fn" property is just an alias to the "prototype property."
+		The jQuery identifier (or $) is just a constructor function, and all instances created 
+		with it, inherit from the constructor's prototype.
+	 * */
 	$.fn.slider.defaults = {
 		min: 0,
 		max: 10,

@@ -50,7 +50,7 @@ $(document).ready(function(){
 		step:1,
 		range: true,
 		value:[200,300],
-		unit: "만원"
+		unit: " 만원"
 	});
 	
 	$("#how_many_days").slider({
@@ -59,7 +59,7 @@ $(document).ready(function(){
 		step:1,
 		range: true,
 		value:[0,10],
-		unit: "일"
+		unit: " 일"
 	});
 	
 });

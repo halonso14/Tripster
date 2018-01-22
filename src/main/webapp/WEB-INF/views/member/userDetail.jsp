@@ -133,7 +133,7 @@
 		<h2 class="fs-title">여행을 간다면 보통 얼마나 여행지에 머무시나요?</h2>
 		<h3 class="fs-subtitle">3개월 이상이라면 최대치로 두시면 됩니다!</h3>
         <div class="container">
-	        <div class="slider_ymmu">
+	        <div class="slider_ymmu days">
 	       		<input id="how_many_days" type="text"/>
 	       	</div>
 		</div>
@@ -144,7 +144,7 @@
 		<h2 class="fs-title">여행경비는 얼마로 잡으셨나요?</h2>
 		<h3 class="fs-subtitle">여행경비</h3>
         <div class="container">
-	        <div class="slider_ymmu">
+	        <div class="slider_ymmu budg">
 	       		<input id="budget" type="text"/>
 	       	</div>
 		</div>
