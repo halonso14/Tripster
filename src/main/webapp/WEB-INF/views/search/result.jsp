@@ -7,10 +7,11 @@
   	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>검색결과 :: Tripster</title>
-	<link href="/resources/update1/css/search.css" rel="stylesheet" media="screen">
+	
     <!-- Bootstrap -->
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
+    <link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
 	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -55,29 +56,27 @@
 	<div class="container breadcrub">
 		<div class="brlines"></div>
 	</div><!-- / Breadcrumbs -->
-	
-	<!--####### CONTAINER #######-->
+
 	<div class="container">
 		<!-- CONTENTS CONTAINER -->
-		<div class="container pagecontainer offset-0">	
+		<div class="container pagecontainer offset-0" style="background:#f2f2f2">	
 			<!-- LEFT CONTENT: SIDE FILTERS -->
 			
 			<%@include file="../include/sidefilter.jsp" %>
 			
 			<!-- RIGHT CONTENT -->
-			<div class="rightcontent col-md-9 offset-2">
+			<div class="rightcontent col-md-9 offset-2" style="background:#fff">
 				
 				<!-- 전체 검색결과 리스트  -->
 				<div class="tab-pane  active" id="totalList">
 
-		<ul class="list-group offset-2 margtop30">
-				
-			<a href="result?keyword=${cri.keyword }&go=total" class="list-group-item" >
-			<span class="hidetext" style="color: black;font-weight:bold;">'${cri.keyword }' 검색결과</span>&nbsp; 
-			</a>
-		</ul>			
-		
-		<div class="clearfix"></div>
+					<ul class="list-group offset-2 margtop30">
+						<a href="result?keyword=${cri.keyword }&go=total" class="list-group-item" >
+						<span class="hidetext" style="color: black;font-weight:bold;">'${cri.keyword }' 검색결과</span>&nbsp; 
+						</a>
+					</ul>			
+					<div class="offset-2"><hr></div>
+					
 					<!-- 통합검색결과가 없을경우 -->
 					<c:set var="totalNum" value="${getNum.totalNum }" />
 					<c:if test="${totalNum == 0 }" >
@@ -94,6 +93,7 @@
 					
 					<!-- 컨텐츠 검색결과  -->
 					<div class="contentsResult" >
+						
 						<div class="offset-2" style="padding:20px ">	
 							<div class=" left"><b>컨텐츠</b></div>
 							
@@ -111,20 +111,18 @@
 							<div class="offset-2" >
 								<div class="col-md-4 offset-0 listitem2" >
 									<a href="/contents/${esContentsVO.category_id }/${esContentsVO.contents_id}">
-										<c:choose>
-											<c:when test="${esContentsVO.contents_thumbnail==''}" ><img src="${esContentsVO.random_thumbnail}"/></c:when>
-											<c:otherwise ><img src="${esContentsVO.contents_thumbnail}"/></c:otherwise>
-										</c:choose>
+										<img src="${esContentsVO.contents_thumbnail}"/>
 									</a>
 								</div>
 								<div class="col-md-8 offset-0" style="border:1px solid #e6e6e6" >
 									<div class="itemlabel4" style="height:208px;">
 										<div class="labelright">
 											<span class=" green size18"><b>${esContentsVO.contents_review_cnt}</b></span><span class="green size14"> Review</span><br>
-											
-												<div class="progress" style="margin:5px 0 2px 0;">	
-													<!-- <img src="/resources/images/star.png" style="position:relative; top:0;left:0; z-index:2; width:100%"/>	 -->									
-	  												<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: ${esContentsVO.contents_rating*20}%;"></div>
+													
+												<div class="progress-custom" style="position:relative;">	
+													<div style="width:100%; height:100%; background-color:silver"></div>						
+	  												<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: ${esContentsVO.contents_rating*20}%; position:absolute; top:0;"></div>
+													<img src="/resources/images/star.png" style="position:absolute; top:0; width:100%"/>
 												</div>
 											
 											<span class="size11 grey ">${esContentsVO.contents_rating} Stars</span><br><br>
@@ -150,13 +148,13 @@
 											<div class="line4 wh80percent"></div>
 											<span class="opensans size14 grey">
 												
-											<c:forTokens var="keyword" items="${esContentsVO.contents_keyword}" delims=",">
+											<c:forEach var="keyword" items="${esContentsVO.contents_keyword}">
 											
 											     	<span style="display:inline-block; border-radius:15px; border:1px solid #ddd; padding:5px 10px; margin:5px 2px">
 											     		<b># </b> ${keyword}
 										     		</span>
 											     
-											</c:forTokens>
+											</c:forEach>
 
 												
 											</span> 
@@ -179,6 +177,7 @@
 					
 					<!-- 일정 검색결과 -->	
 					<div class="plans">	
+
 						<div class="offset-2" style="padding:20px ">	
 							<div class=" left"><b>일정</b></div>
 							<c:if test="${planNum > 3 }" >
@@ -191,35 +190,29 @@
 							
 						<c:forEach items="${planList}" var = "esPlanVO" begin="0" end="2">
 							<div class="col-md-4" style="margin-bottom:30px">
-								<div class="listitem">
-									<a href="/plan/detail?${esPlanVO.plan_id }">
-									<img src="http://d27k8xmh3cuzik.cloudfront.net/wp-content/uploads/2016/09/countries-drive-from-india-cover2.jpg" >
-								
+								<div class="listitem ">
+									<a href="/plan/read?planID=${esPlanVO.plan_id}">
+										<img src="${esPlanVO.member_picture}" >
 									</a>
-								
-									
 								</div>
 								<div class="itemlabel2">
-									<div class="labelright">													
-										<%-- <img src="${esPlanVO.member_picture}" > --%>
-										<div class="media">
-										  <div class="media-left media-middle">
-										    <a href="#">
-										      <img class="media-object" src="resources/images/user.png" alt="...">
-										    </a>
-										  </div>
-										</div>
-										<p class="size12 grey margtop20">${esPlanVO.member_name}</p><br>
+									<div class="labelright" style="position:relative" >													
+										<p class="member-profile" >
+											<a href="/member/viewMember?memberID=${esPlanVO.member_id }"> 
+												<img src="${esPlanVO.member_picture}" style="height:100%" >
+											</a>
+										</p>
+										<p class="size12 grey ">${esPlanVO.member_name}</p><br>
 										<span class="size11 grey">댓글수</span><br>
 										<span class="size11 grey">${esPlanVO.plan_like_cnt} 좋아요수</span><br>
 										<button class="bookbtn mt1">좋아요</button>		
 									</div>
 									<div class="labelleft">	
 										<span class="size16"><b>${esPlanVO.plan_title}</b></span><br>		
-										<br>
+<%-- 										<br>
 										${esPlanVO.plan_startdate}<br>
 										${esPlanVO.plan_enddate}<br>
-										${esPlanVO.plan_endchk}
+										${esPlanVO.plan_endchk} --%>
 									</div>
 								</div>
 								<div class="clearfix"></div>

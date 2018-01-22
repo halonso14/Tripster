@@ -11,6 +11,7 @@
     <!-- Bootstrap -->
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
+    <link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
 	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -41,6 +42,7 @@
 	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.dependClass-0.1.js"></script>
 	<script type="text/javascript" src="/resources/plugins/jslider/js/draggable-0.1.js"></script>
 	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.slider.js"></script>
+	
 	<!-- end -->
   </head>
   <body id="top" class="thebg" >
@@ -50,111 +52,69 @@
 	<!-- 로그인 세션  -->
 	<c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
 	
+	<!-- Breadcrumbs -->
 	<div class="container breadcrub">
-	    <div>
-			<a class="homebtn left" href="#"></a>
-			<div class="left offset-2">
-				
-				<p style="color: black;font-weight:bold;">'${cri.keyword }' 검색결과</p>		
-				
-			</div>
-			
-		</div>
-		<div class="clearfix"></div>
 		<div class="brlines"></div>
-	</div>	
-
-
-	<!--####### CONTAINER #######-->
+	</div><!-- / Breadcrumbs -->
+	
 	<div class="container">
 		<!-- CONTENTS CONTAINER -->
-		<div class="container pagecontainer offset-0">	
-			
+		<div class="container pagecontainer offset-0" style="background:#f2f2f2">		
 			<!-- LEFT CONTENT: SIDE FILTERS -->
 			
 			<%@include file="../include/sidefilter.jsp" %>
 			
 			<!-- RIGHT CONTENT -->
-			<div class="rightcontent col-md-9 offset-0">
-				<div class="tab-content6">					
-					<!-- 컨텐츠 리스트 -->
-					<div class="contents " id="contentsList">
-						<!-- Top FILTERS -->
-						<div class="hpadding20">
-							<div class="topsortby">
-								<div class="col-md-4 offset-0">
-									
-									<div class="left mt7"><b>Sort by:</b></div>
-									
-									<div class="right wh70percent">
-										<select class="form-control mySelectBoxClass ">
-										  <option selected>Guest rating</option>
-										  <option>5 stars</option>
-										  <option>4 stars</option>
-										  <option>3 stars</option>
-										  <option>2 stars</option>
-										  <option>1 stars</option>
-										</select>
-									</div>
-		
-								</div>			
-								<div class="col-md-4">
-									<div class="w50percent">
-										<div class="wh90percent">
-											<select class="form-control mySelectBoxClass ">
-											  <option selected>Name</option>
-											  <option>A to Z</option>
-											  <option>Z to A</option>
-											</select>
-										</div>
-									</div>
-									<div class="w50percentlast">
-										<div class="wh90percent">
-											<select class="form-control mySelectBoxClass ">
-											  <option selected>Price</option>
-											  <option>Ascending</option>
-											  <option>Descending</option>
-											</select>
-										</div>
-									</div>					
-								</div>
-								<div class="col-md-4 offset-0">
-									<button class="popularbtn left">Most Popular</button>
-									<div class="right">
-										<button class="gridbtn" onClick="window.open('list2.html','_self');">&nbsp;</button>
-										<button class="listbtn active">&nbsp;</button>
-									</div>
-								</div>
+			<div class="rightcontent col-md-9 offset-2" style="background:#fff">
+				
+				<!-- 전체 검색결과 리스트  -->
+				<div class="tab-pane  active" id="totalList">
+
+					<ul class="list-group offset-2 margtop30">	
+						<a href="result?keyword=${cri.keyword }&go=total" class="list-group-item" >
+						<span class="hidetext" style="color: black;font-weight:bold;">'${cri.keyword }' 검색결과</span>&nbsp; 
+						</a>
+					</ul>			
+
+					<div class="contents offset-1" >
+					
+						<!-- 검색 결과가 없을경우 -->
+						<c:set var="more" value="${getNum.contentsNum }" />
+						<c:if test="${more == 0 }" >
+							<div class="offset-2" style="padding:20px ">	
+								<br/>
+								<em style="color:red;">'${cri.keyword }'</em>
+								에 대한 컨텐츠 검색 결과가 없습니다.
+							</div>	
+						</c:if>
+						
+						<!-- 컨텐츠 검색결과  -->
+						<div class="contentsResult" >
+							<div class="offset-2"><hr></div>
+							<div class="offset-2" style="padding:20px ">	
+								<div class=" left"><b>컨텐츠</b></div>
+								<div class="clearfix"></div>
 							</div>
-						</div>
-						<!-- End of Top FILTERS-->
-						
-						<div class="contents offset-1" >
-						
-							<!-- 검색 결과가 없을경우 -->
-							<c:set var="more" value="${getNum.contentsNum }" />
-							<c:if test="${more == 0 }" >
-								<div class="offset-2" style="padding:20px ">	
-									<br/>
-									<em style="color:red;">'${cri.keyword }'</em>
-									에 대한 검색 결과가 없습니다.
-								</div>	
-							</c:if>
-							
-							<!--####### 컨텐츠 검색결과 : 템플릿 z-cruise-list.html #######-->
+													
 							<!-- 컨텐츠 리스트 -->
 							<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="9">	
 								<div class="offset-2" >
 									<div class="col-md-4 offset-0 listitem2" >
 										<a href="/contents/${esContentsVO.category_id }/${esContentsVO.contents_id}">
-											<img src=${esContentsVO.contents_thumbnail } alt="" style="display:block" />
+											<img src="${esContentsVO.contents_thumbnail}"/>
 										</a>
 									</div>
 									<div class="col-md-8 offset-0" style="border:1px solid #e6e6e6" >
 										<div class="itemlabel4" style="height:208px;">
 											<div class="labelright">
 												<span class=" green size18"><b>${esContentsVO.contents_review_cnt}</b></span><span class="green size14"> Review</span><br>
-												<img class="margtop10" src="/resources/images/filter-rating-${esContentsVO.contents_rating}.png" width="60" alt=""><br>
+														
+													<div class="progress-custom" style="position:relative;">	
+														<div style="width:100%; height:100%; background-color:silver"></div>						
+		  												<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: ${esContentsVO.contents_rating*20}%; position:absolute; top:0;"></div>
+														<img src="/resources/images/star.png" style="position:absolute; top:0; width:100%"/>
+													</div>
+												
 												<span class="size11 grey ">${esContentsVO.contents_rating} Stars</span><br><br>
 												<span class="margtop20 green size18"><b>0</b></span><span class="green size14"> Plan</span><br>
 												<span class="size11 grey">${esContentsVO.contents_scrap_cnt} Scrap</span><br><br>
@@ -163,15 +123,31 @@
 									 		
 											</div>
 											<div class="labelleft">			
-												<span class="size18"><a href="/contents/${esContentsVO.category_id }/${esContentsVO.contents_id}">
-													<b>${esContentsVO.contents_title}</b></a>
+												
+												<c:choose>
+													<c:when test="${esContentsVO.category_id == 1 }" > <span class="size14 label label-warning">${esContentsVO.category_value_kor}</span></c:when>
+													<c:when test="${esContentsVO.category_id == 2 }" > <span class="size14 label label-primary">${esContentsVO.category_value_kor}</span></c:when>
+													<c:otherwise> <span class="size14 label label-default"> ${esContentsVO.category_value_kor}</span></c:otherwise>
+												</c:choose>
+												<span class="size18">	
+													<a href="/contents/${esContentsVO.category_id}/${esContentsVO.contents_id}">
+														&nbsp;<b>${esContentsVO.contents_title} </b>
+													</a>
 												</span><br>
-												<span class="margtop10 size12 grey glyphicon glyphicon-map-marker"></span><span class="grey2"> ${esContentsVO.contents_location}</span> 
+												<span class="margtop10 size12 grey glyphicon glyphicon-map-marker"></span><span class="grey size12"> ${esContentsVO.contents_location} </span> 
 												<div class="line4 wh80percent"></div>
 												<span class="opensans size14 grey">
-													Category: ${esContentsVO.category_value_kor}<br>
-													Keyword: ${esContentsVO.contents_keyword }
-												</span>
+													
+												<c:forEach var="keyword" items="${esContentsVO.contents_keyword}">
+												
+												     	<span style="display:inline-block; border-radius:15px; border:1px solid #ddd; padding:5px 10px; margin:5px 2px">
+												     		<b># </b> ${keyword}
+											     		</span>
+												     
+												</c:forEach>
+	
+													
+												</span> 
 											</div>
 											<div class="clearfix"></div>
 										</div>
@@ -180,43 +156,41 @@
 								<div class="clearfix"></div>
 								<div class="offset-2" style="padding-top:30px"></div>
 							</c:forEach>
-							
-							<br/><br/>
-							<div class="clearfix"></div>
-						
-							<!-- pagination -->
-							<div class="hpadding20">
-								<ul class="pagination right paddingbtm20">
-									<c:set value="contents" var="go"/>
-									
-									<c:if test="${pageMaker.prev }">
-										<li><a href="${pageMaker.makeQuery(pageMaker.startPage-1,go) }">&laquo;</a></li>
-									</c:if>
-									
-									<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-										
-										<li id="contentsPage"
-											<c:out value="${pageMaker.cri.page == idx?'class=active':'' }"></c:out>>
-											<a href=${pageMaker.makeQuery(idx,go) } >${idx }</a>
-										</li>
-										
-									</c:forEach>
-									
-									<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
-										<li><a href="${pageMaker.makeQuery(pageMaker.endPage+1,go) }">&raquo;</a></li>
-									</c:if>
-								</ul>
-							</div>
-							
+							<!-- 컨텐츠 리스트 끝 -->	
+							<div class="offset-2"><hr></div>
 						</div>
-					</div>					
-					<!-- 컨텐츠 리스트 끝 -->		
-				</div>	
-			</div>
+						
+						<!-- pagination -->
+						<div class="hpadding20">
+							<ul class="pagination right paddingbtm20">
+								<c:set value="contents" var="go"/>
+								
+								<c:if test="${pageMaker.prev }">
+									<li><a href="${pageMaker.makeQuery(pageMaker.startPage-1,go) }">&laquo;</a></li>
+								</c:if>
+								
+								<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+									
+									<li id="contentsPage"
+										<c:out value="${pageMaker.cri.page == idx?'class=active':'' }"></c:out>>
+										<a href=${pageMaker.makeQuery(idx,go) } >${idx }</a>
+									</li>
+									
+								</c:forEach>
+								
+								<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
+									<li><a href="${pageMaker.makeQuery(pageMaker.endPage+1,go) }">&raquo;</a></li>
+								</c:if>
+							</ul>
+						</div>
+						
+					</div>
+				</div>					
+						
+			</div>	
 		</div>
-		<!-- END OF CONTENTS CONTAINER -->
 	</div>
-	<!-- END OF Container -->
+	<!-- END OF CONTENTS CONTAINER -->
 	
 	<!--####### FOOTER #######-->
 	<%@include file="../include/footer.jsp" %>

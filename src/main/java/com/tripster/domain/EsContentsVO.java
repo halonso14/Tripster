@@ -8,7 +8,7 @@ public class EsContentsVO{
 	private int contents_id;
 	private String contents_title;
 	private String category_value_kor;
-	private String contents_keyword;
+	private List<String> contents_keyword;
 	private String contents_location;
 	private double contents_rating;
 	private int contents_view_cnt;
@@ -17,37 +17,28 @@ public class EsContentsVO{
 	private String contents_country;
 	private String contents_city;
 	private String contents_thumbnail;
-	private String random_thumbnail;
 	private Date created;
 	private Date updated;
 	
-	public String getContents_keyword() {
-		String result = this.contents_keyword.replace("'", "").replace(" ", "").replace("[", "").replace("]", "");
-		return result;
+	public List<String> getContents_keyword() {
+		return this.contents_keyword;
 	}
 	
 	public String getContents_thumbnail() {
 		String result = this.contents_thumbnail.replace(" ", "");
+		Integer thumbnail;
+		if(result.equals("")) {
+			if(this.category_id ==1) {
+				thumbnail = (this.contents_id)%10 +10;
+			}else {
+				thumbnail = (this.contents_id)%10 +20;
+			}
+			result ="/resources/images/contents/"+ String.valueOf(thumbnail) + ".jpg";
+		}
 		return result;
 	}
-	public String getRandom_thumbnail() {
-		List<String> list = new ArrayList<String>();
-		list.add("https://lh5.googleusercontent.com/p/AF1QipOlljc14PiI8Iok9w2GLzp8o_RKdCymCm4-dK82=s815-k-no");
-		list.add("http://post.phinf.naver.net/MjAxNzA2MTRfMjY5/MDAxNDk3NDA3MDY2NTQz.zFOZaP_eUJ-aTT_OPM78i65UmDdmDqlirWUZEYsDdqgg.ANdnD0UIGKJkR7zhu8vGQUr8iFBVjaF9BS-RCtJY0cgg.JPEG/1.JPG?type=w1200");
-		list.add("https://media-cdn.tripadvisor.com/media/photo-s/11/33/a0/5d/caption.jpg");
-		list.add("http://www.rainbowfestival.co.kr/wp-content/uploads/2017/05/585be1aa1600002400bdf2a6-970x658.jpeg");
-		list.add("https://t1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/26Fv/image/7qAJNYkzF8pdQZTEmUX5gG5KLV8.jpg");
-		list.add("http://cfile6.uf.tistory.com/image/194F3C4F513E39F41D2473");
-		list.add("http://cfs14.tistory.com/image/21/tistory/2009/02/09/01/35/498f09c7981c1");
-		list.add("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2rHy0w3rPMVTSvx1rYogDH7qJBpp44cjLODQJrBEL_RaJhqgA");
-		String random = list.get(new Random().nextInt(list.size()));
-		return random;
-	}
 
-	public void setRandom_thumbnail(String random_thumbnail) {
-		this.random_thumbnail = random_thumbnail;
-	}
-	public void setContents_keyword(String contents_keyword) {
+	public void setContents_keyword(List<String> contents_keyword) {
 		this.contents_keyword = contents_keyword;
 	}
 	public double getContents_rating() {
