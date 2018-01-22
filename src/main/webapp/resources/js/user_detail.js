@@ -44,12 +44,22 @@ $(document).ready(function(){
 	//추천데이터. 크로스도메인 설정됨
 	//ajaxController('http://127.0.0.1:8000/recommand/'+ id);
 
-	$("#ex2").slider({
+	$("#budget").slider({
 		min:0,
 		max:1000,
 		step:1,
 		range: true,
-		value:[200,300]
+		value:[200,300],
+		unit: "만원"
+	});
+	
+	$("#how_many_days").slider({
+		min:0,
+		max:100,
+		step:1,
+		range: true,
+		value:[0,10],
+		unit: "일"
 	});
 	
 });

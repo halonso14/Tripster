@@ -65,7 +65,8 @@
 				this.tooltip.addClass('top')[0].style.top = -this.tooltip.outerHeight() - 14 + 'px';
 				break;
 		}
-
+		//ymmu 추가
+		this.unit = options.unit;
 		this.min = this.element.data('slider-min')||options.min;
 		this.max = this.element.data('slider-max')||options.max;
 		this.step = this.element.data('slider-step')||options.step;
@@ -178,10 +179,10 @@
 			}
 			if (this.range) {
 				this.tooltipInner.text(
-					this.formater(this.value[0]) + 
-					'만원  ~  ' + 
-					this.formater(this.value[1]) +
-					'만원'
+					this.formater(this.value[0]) + this.formater(this.unit)+
+					'  ~  ' + 
+					this.formater(this.value[1]) + this.formater(this.unit)
+					
 					
 				//여기 툴팁에 가격 받아와야 함
 				);
@@ -381,6 +382,7 @@
 		selection: 'before',
 		tooltip: 'show',
 		handle: 'round',
+		unit: '',
 		formater: function(value) {
 			return value;
 		}

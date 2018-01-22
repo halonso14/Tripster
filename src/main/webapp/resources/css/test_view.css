@@ -58,6 +58,11 @@ body {
 	color: #2C3E50;
 	font-size: 13px;
 }
+
+#q11{
+	width: 50%;
+}
+
 /*buttons*/
 #msform .action-button {
 	width: 100px;
@@ -98,7 +103,7 @@ body {
 	color: #000000;
 	text-transform: uppercase;
 	font-size: 9px;
-	width: 10%;
+	width: 12.5%;
 	float: left;
 	position: relative;
 }
@@ -147,7 +152,7 @@ label {
     float: inherit;
     clear: none;
     display: block;
-    padding: 2px 8em 0 8em;
+    padding: 2px 2em 0 8em;
 }
 
 #ex2 .slider-selection {
