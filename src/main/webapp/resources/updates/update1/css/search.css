@@ -30,9 +30,6 @@ div.searchbox {
 	height:60px;
 	overflow:hidden;
 	border-radius: 30px;
-/* 	position:absolute;
-	top:-30px;
-	z-index:9999; */
 }
 
 .list-group-item:hover {
@@ -41,6 +38,10 @@ div.searchbox {
 .list-group-item.selected {
 	background-color: red;
 }
-
-
+/* .search-tab-pane {
+	display:none;
+}
+.search-tab-pane.active {
+	display:block;
+} */
 

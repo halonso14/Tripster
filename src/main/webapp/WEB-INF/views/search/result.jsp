@@ -42,252 +42,179 @@
 	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.dependClass-0.1.js"></script>
 	<script type="text/javascript" src="/resources/plugins/jslider/js/draggable-0.1.js"></script>
 	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.slider.js"></script>
-	
-	<!-- end -->
   </head>
   <body id="top" class="thebg" >
 
-	<!--####### HEADER #######-->
+	<!-- HEADER -->
 	<%@include file="../include/header2.jsp" %>
 	<!-- 로그인 세션  -->
 	<c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
 	
 	<!-- Breadcrumbs -->
 	<div class="container breadcrub">
+		<span class="hidetext" style="color: black;font-weight:bold;">'${cri.keyword }' 검색결과</span>
 		<div class="brlines"></div>
 	</div><!-- / Breadcrumbs -->
 
 	<div class="container">
 		<!-- CONTENTS CONTAINER -->
 		<div class="container pagecontainer offset-0" style="background:#f2f2f2">	
-			<!-- LEFT CONTENT: SIDE FILTERS -->
 			
+			<!-- LEFT CONTENT: SIDE FILTERS -->
 			<%@include file="../include/sidefilter.jsp" %>
 			
 			<!-- RIGHT CONTENT -->
 			<div class="rightcontent col-md-9 offset-2" style="background:#fff">
+				<c:set var="getNum" value="${getNum}" />
+				<div class="offset-2"><hr></div>
 				
-				<!-- 전체 검색결과 리스트  -->
-				<div class="tab-pane  active" id="totalList">
-
-					<ul class="list-group offset-2 margtop30">
-						<a href="result?keyword=${cri.keyword }&go=total" class="list-group-item" >
-						<span class="hidetext" style="color: black;font-weight:bold;">'${cri.keyword }' 검색결과</span>&nbsp; 
-						</a>
-					</ul>			
-					<div class="offset-2"><hr></div>
+				<div class="search-tab-pane active" id="totalList">
+				<!-- 통합 검색결과 리스트  -->
 					
-					<!-- 통합검색결과가 없을경우 -->
-					<c:set var="getNum" value="${getNum}" />
 					<c:if test="${getNum.totalNum == 0 }" >
+					<!-- 검색결과가 없을경우 -->
 						<div class="offset-2" style="padding:20px ">
-								<br/>
-								<em style="color:red;">'${cri.keyword }'</em>
-								에 대한 검색 결과가 없습니다.
+							<em style="color:red;">'${cri.keyword }'</em>에 대한 검색 결과가 없습니다.
 						</div>
 					</c:if>
 					
-					<!-- 컨텐츠 결과가 있을경우 -->
 					<c:if test="${getNum.contentsNum > 0 }" >
-					
-					<!-- 컨텐츠 검색결과  -->
-					<div class="contentsResult" >
-						
-						<div class="offset-2" style="padding:20px ">	
-							<div class=" left"><b>컨텐츠</b></div>
-							
-							<c:if test="${getNum.contentsNum > 3 }" >
-								<div class=" grey right">
-										<a href="/search/result?keyword=${cri.keyword}&go=contents" 
-										style="text-decoration:underline"> 더보기 〉 </a>
-								</div>
-							</c:if>
-							<div class="clearfix"></div>
-						</div>
-					
-						<!-- 컨텐츠 리스트 -->
-						<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="2">	
-							<div class="offset-2" >
-								<div class="col-md-4 offset-0 listitem2" >
-									<a href="/contents/${esContentsVO.category_id }/${esContentsVO.contents_id}">
-										<img src="${esContentsVO.contents_thumbnail}"/>
-									</a>
-								</div>
-								<div class="col-md-8 offset-0" style="border:1px solid #e6e6e6" >
-									<div class="itemlabel4" style="height:208px;">
-										<div class="labelright">
-											<span class=" green size18"><b>${esContentsVO.contents_review_cnt}</b></span><span class="green size14"> Review</span><br>
-													
-												<div class="progress-custom" style="position:relative;">	
-													<div style="width:100%; height:100%; background-color:silver"></div>						
-	  												<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: ${esContentsVO.contents_rating*20}%; position:absolute; top:0;"></div>
-													<img src="/resources/images/star.png" style="position:absolute; top:0; width:100%"/>
-												</div>
-											
-											<span class="size11 grey ">${esContentsVO.contents_rating} Stars</span><br><br>
-											<span class="margtop20 green size18"><b>0</b></span><span class="green size14"> Plan</span><br>
-											<span class="size11 grey">${esContentsVO.contents_scrap_cnt} Scrap</span><br><br>
-										 	
-									 		<button class="bookbtn mt1" value="${esContentsVO.contents_id}" check="1" session="${empty userSession }" >스크랩</button>		
-								 		
-										</div>
-										<div class="labelleft">			
-											
-											<c:choose>
-												<c:when test="${esContentsVO.category_id == 1 }" > <span class="size14 label label-warning">${esContentsVO.category_value_kor}</span></c:when>
-												<c:when test="${esContentsVO.category_id == 2 }" > <span class="size14 label label-primary">${esContentsVO.category_value_kor}</span></c:when>
-												<c:otherwise> <span class="size14 label label-default"> ${esContentsVO.category_value_kor}</span></c:otherwise>
-											</c:choose>
-											<span class="size18">	
-												<a href="/contents/${esContentsVO.category_id}/${esContentsVO.contents_id}">
-													&nbsp;<b>${esContentsVO.contents_title} </b>
-												</a>
-											</span><br>
-											<span class="margtop10 size12 grey glyphicon glyphicon-map-marker"></span><span class="grey size12"> ${esContentsVO.contents_location} </span> 
-											<div class="line4 wh80percent"></div>
-											<span class="opensans size14 grey">
-												
-											<c:forEach var="keyword" items="${esContentsVO.contents_keyword}">
-											
-											     	<span style="display:inline-block; border-radius:15px; border:1px solid #ddd; padding:5px 10px; margin:5px 2px">
-											     		<b># </b> ${keyword}
-										     		</span>
-											     
-											</c:forEach>
-
-												
-											</span> 
-										</div>
-										<div class="clearfix"></div>
+					<!--  컨텐츠 결과가 있을경우  -->
+						<!-- 컨텐츠 검색결과 리스트 -->
+						<div class="totalResult contentsResult" >	
+							<div class="offset-2" style="padding:20px ">	
+								<div class=" left"><b>컨텐츠</b></div>	
+									
+								<c:if test="${getNum.contentsNum > 3 }" >
+								<!-- 컨텐츠 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->	
+									<div class=" grey right">
+											<a href="/search/result?keyword=${cri.keyword}&go=contents" style="text-decoration:underline"> 더보기 〉 </a>
 									</div>
-								</div>
-							</div>
-							<div class="clearfix"></div>
-							<div class="offset-2" style="padding-top:30px"></div>
-						</c:forEach>
-						<div class="offset-2"><hr></div>
-					</div>
-
-					</c:if>
-					
-					<!-- 일정 결과가 있을경우 -->
-					<c:set var="planNum" value="${getNum.planNum }" />
-					<c:if test="${planNum > 0 }" >
-					
-					<!-- 일정 검색결과 -->	
-					<div class="plans">	
-
-						<div class="offset-2" style="padding:20px ">	
-							<div class=" left"><b>일정</b></div>
-							<c:if test="${planNum > 3 }" >
-								<div class=" grey right">
-									<a href="/search/result?keyword=${cri.keyword }&go=plan" style="text-decoration:underline"> 더보기 〉 </a>
-								</div>
-							</c:if>
-							<div class="clearfix"></div>
-						</div>
-							
-						<c:forEach items="${planList}" var = "esPlanVO" begin="0" end="2">
-							<div class="col-md-4" style="margin-bottom:30px">
-								<div class="listitem ">
-									<a href="/plan/read?planID=${esPlanVO.plan_id}">
-										<img src="${esPlanVO.member_picture}" >
-									</a>
-								</div>
-								<div class="itemlabel2">
-									<div class="labelright" style="position:relative" >													
-										<p class="member-profile" >
-											<a href="/member/viewMember?memberID=${esPlanVO.member_id }"> 
-												<img src="${esPlanVO.member_picture}" style="height:100%" >
-											</a>
-										</p>
-										<p class="size12 grey ">${esPlanVO.member_name}</p><br>
-										<span class="size11 grey">댓글수</span><br>
-										<span class="size11 grey">${esPlanVO.plan_like_cnt} 좋아요수</span><br>
-										<button class="bookbtn mt1">좋아요</button>		
-									</div>
-									<div class="labelleft">	
-										<span class="size16"><b>${esPlanVO.plan_title}</b></span><br>		
-<%-- 										<br>
-										${esPlanVO.plan_startdate}<br>
-										${esPlanVO.plan_enddate}<br>
-										${esPlanVO.plan_endchk} --%>
-									</div>
-								</div>
+								</c:if>
 								<div class="clearfix"></div>
 							</div>
-				
-						</c:forEach>
-						<div class="clearfix"></div>
-						
-						<div class="offset-2"><hr></div>	
-					</div>
-					
-					</c:if>
-					
-					<!-- 멤버 결과가 있을경우 -->
-					<c:set var="memberNum" value="${getNum.memberNum }" />
-					<c:if test="${memberNum > 0 }" >
-					
-					<!-- 회원 검색결과 -->
-					<div class="members">
-					
-						<div class="offset-2" style="padding:20px ">	
-							<div class=" left"><b>회원</b></div>
-							
-							<c:if test="${memberNum > 3 }" >
-								<div class=" grey right">
-										<a href="/search/result?keyword=${cri.keyword }&go=member" 
-										style="text-decoration:underline"> 더보기 〉 </a>
-								</div>
-							</c:if>
-						<div class="clearfix"></div>
+							<!-- 컨텐츠 리스트 -->
+							<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="2">	
+								<%@include file="contents.jsp" %>	
+							</c:forEach>
+							<div class="offset-2"><hr></div>
 						</div>
-						
-						<c:forEach items="${memberList}" var = "esMemberVO" begin="0" end="2">
-							<div class="col-md-4" style="margin-bottom:40px">
-								<!-- CONTAINER-->
-								<div class="carscontainer" style="border:1px solid #e6e6e6">
-									<div class="center">
-										<a href=""><img src="/resources/updates/update1/img/cars/car04.jpg"/></a>
-									</div>
-															
-									<div class="purchasecontainer"  >
-										<div class="offset-2 left bold" style="padding-top:5px">${esMemberVO.member_name}</div>		
-										<div class="offset-2 right"><button class=" bookbtn mt1">팔로우</button></div>	
-										<div class="clearfix"></div>
-									</div>
-									<div style="padding-top:20px"></div>
-									<div class="clearfix"></div>
-								</div>
-								<!-- END OF CONTAINER-->
-							</div>
-						</c:forEach>
-						<div class="clearfix"></div>
-						<div class="offset-2"><hr></div>
-					</div>	
-					
 					</c:if>
-				</div> 
-				<!-- 전체 검색결과 리스트 끝 -->
-			
-			</div> <!-- END OF RIGHT CONTENT -->
-			
-			
-		</div> <!-- END OF CONTENTS CONTAINER -->
-		
+					
+					<c:if test="${getNum.planNum > 0 }" >
+					<!-- 일정 결과가 있을경우 -->
+						<!-- 일정 검색결과 -->	
+						<div class="plans">	
+							<div class="offset-2" style="padding:20px ">	
+								<div class=" left"><b>일정</b></div>
 
-	</div>
-	<!-- END OF Container -->
+								<c:if test="${getNum.planNum > 3 }" >
+								<!-- 일정 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->
+									<div class=" grey right">
+										<a href="/search/result?keyword=${cri.keyword }&go=plan" 
+										style="text-decoration:underline"> 더보기 〉 </a>
+									</div>
+								</c:if>
+								<div class="clearfix"></div>
+							</div>
+							<!-- 일정 리스트 -->	
+							<c:forEach items="${planList}" var = "esPlanVO" begin="0" end="2">
+								<%@include file="plan.jsp" %>	
+							</c:forEach>
+							<div class="clearfix"></div>
+							<div class="offset-2"><hr></div>	
+						</div>
+					</c:if>
+
+					<c:if test="${getNum.memberNum > 0 }" >
+					<!-- 회원 결과가 있을경우 -->
+						<!-- 회원 검색결과 -->
+						<div class="members">
+							<div class="offset-2" style="padding:20px ">	
+								<div class=" left"><b>회원</b></div>
+								
+								<c:if test="${getNum.memberNum > 3 }" >
+								<!-- 회원 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->
+									<div class=" grey right">
+											<a href="/search/result?keyword=${cri.keyword }&go=member" style="text-decoration:underline"> 더보기 〉 </a>
+									</div>
+								</c:if>
+								<div class="clearfix"></div>
+							</div>
+							<!--회원 리스트 -->
+							<c:forEach items="${memberList}" var = "esMemberVO" begin="0" end="2">
+								<%@include file="member.jsp" %>
+							</c:forEach>
+							<div class="clearfix"></div>
+							<div class="offset-2"><hr></div>
+						</div>	
+					</c:if>
+				
+				</div> <!-- 통합 검색 결과 리스트 끝 -->
+				
+				
+				<div class="search-tab-pane" id="contentsList" >
+				<!-- 컨텐츠 검색 결과 더보기 리스트 -->
+					<c:if test="${getNum.contentsNum == 0 }" >
+					<!-- 검색결과가 없을경우 -->
+						<div class="offset-2" style="padding:20px ">
+							<em style="color:red;">'${cri.keyword }'</em>에 대한 컨텐츠 검색 결과가 없습니다.
+						</div>
+					</c:if>
+					<c:if test="${getNum.contentsNum > 0 }" >
+					<!--  컨텐츠 결과가 있을경우  -->
+						<!-- 컨텐츠 검색결과 리스트 -->
+						<div class="totalResult contentsResult">	
+							<div class="offset-2" style="padding:20px ">	
+								<div class=" left"><b>컨텐츠</b></div>	
+								<div class="clearfix"></div>
+							</div>								
+							<!-- 컨텐츠 리스트 -->
+							<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="9">	
+								<%@include file="contents.jsp" %>	
+							</c:forEach>
+							<div class="offset-2"><hr></div>
+						</div>								
+					</c:if>	
+					<!-- pagination -->
+					<%@include file="pagenation.jsp" %>				
+				</div> <!-- 컨텐츠 검색결과더보기 리스트 끝 -->
+				
+				
+				<div class="search-tab-pane" id="planList" >
+				<!-- 일정 검색 결과 더보기 리스트 -->
+					<c:if test="${getNum.planNum == 0 }" >
+					<!-- 검색결과가 없을경우 -->
+						<div class="offset-2" style="padding:20px ">
+							<em style="color:red;">'${cri.keyword }'</em>에 대한 일정 검색 결과가 없습니다.
+						</div>
+					</c:if>
+					<!-- pagination -->
+					<%@include file="pagenation.jsp" %>									
+				</div> <!-- 일정 검색 결과 더보기 리스트 끝 -->
+				
+				
+				<div class="search-tab-pane" id="memberList" >
+				<!-- 회원 검색 결과 더보기 리스트 -->
+					<c:if test="${getNum.memberNum == 0 }" >
+					<!-- 검색결과가 없을경우 -->
+						<div class="offset-2" style="padding:20px ">
+							<em style="color:red;">'${cri.keyword }'</em>에 대한 회원 검색 결과가 없습니다.
+						</div>
+					</c:if>
+					<!-- pagination -->
+					<%@include file="pagenation.jsp" %>				
+				</div> <!-- 회원 검색 결과 더보기 리스트 끝 -->
+				
+				
+			</div> <!-- END OF RIGHT CONTENT -->
+		</div> <!-- END OF CONTENTS CONTAINER -->
+	</div> <!-- END OF Container -->
 	
-	<!--####### FOOTER #######-->
-	
-	
-	
+	<!-- FOOTER -->
 	<%@include file="../include/footer.jsp" %>
 
     <!-- Javascript -->	
-    
     <script src="/resources/assets/js/js-list4.js"></script>	
     <!-- Custom Select -->
 	<script type='text/javascript' src='/resources/assets/js/jquery.customSelect.js'></script>

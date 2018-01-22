@@ -1,73 +1,93 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-	<!-- FILTERS -->
-	<div class="col-md-3 filters offset-0">
+
+<!-- FILTERS -->
+<div class="col-md-3 filters offset-0">
+				
+	<script>
+
+		function searchTab(evt, target){
+		    var i;
+		    var boxes = document.getElementsByClassName("search-tab-pane");
+		    for (i = 0; i < boxes.length; i++) {  
+			    	if(boxes[i].hasClass('active')){
+			    		boxes[i].className = btns[i].className.replace(" active","");
+			    	}
+	    			
+		    }
+		    var btns = document.getElementsByClassName("list-group-item");
+		    for (i = 0; i < btns.length; i++) {  
+    				btns[i].className = btns[i].className.replace(" selected","");
+		    }
 	
+		    document.getElementById(target).className += " active";
+		    evt.currentTarget.className += " selected";
+		}
+		
+		
+	</script>
+
 									
 	<!-- TOP TIP -->
 	<ul class="list-group offset-2 margtop30">
 			
-		<li class="list-group-item total" id="total">
+		<li class="list-group-item selected" onclick="searchTab(event, 'totalList')" style="">
 		<span class="hidetext">통합검색</span>&nbsp; 
 		<span class="badge indent0" >${getNum.get("totalNum") }</span></li>
 
-		<li class="list-group-item contents" id="contents">
+		<li class="list-group-item" onclick="searchTab(event,'contentsList')">
 		<span class="hidetext">컨텐츠</span>&nbsp;
 		<span class="badge indent0">${getNum.get("contentsNum") }</span></li>
 	
-		<li class="list-group-item plan" id="plan" >
+		<li class="list-group-item" onclick="searchTab(event, 'planList')">
 		<span class="hidetext">일정</span>&nbsp; 
 		<span class="badge indent0">${getNum.get("planNum") }</span></li>
 		
-		<li class="list-group-item member" id="member">
+		<li class="list-group-item" onclick="searchTab(event, 'memberList')">
 		<span class="hidetext">회원</span>&nbsp; 
 		<span class="badge indent0">${getNum.get("memberNum") }</span></li>
 		
 	</ul>	
-<%-- 	<input type="hidden" value="${go}"/>
-	<c:set var="d" value="${go}" />
-	
-	<c:if test="${getNum.get("totalNum") > 0 }" > --%>
-		<div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
-		<div class="line2"></div>
-		
-		<!-- Star ratings -->	
-		<button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse1">
-		  Star rating <span class="collapsearrow"></span>
-		</button>
 
-		<div id="collapse1" class="collapse in">
-			<div class="hpadding20">
-				<div class="checkbox">
-					<label>
-					  <input type="checkbox"><img src="images/filter-rating-5.png" class="imgpos1" alt=""/> 5 Stars
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-					  <input type="checkbox"><img src="images/filter-rating-4.png" class="imgpos1" alt=""/> 4 Stars
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-					  <input type="checkbox"><img src="images/filter-rating-3.png" class="imgpos1" alt=""/> 3 Stars
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-					  <input type="checkbox"><img src="images/filter-rating-2.png" class="imgpos1" alt=""/> 2 Stars
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
-					  <input type="checkbox"><img src="images/filter-rating-1.png" class="imgpos1" alt=""/> 1 Star
-					</label>
-				</div>	
+	
+	<div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
+	<div class="line2"></div>
+	
+	<!-- Star ratings -->	
+	<button type="button" class="collapsebtn" data-toggle="collapse" data-target="#collapse1">
+	  Star rating <span class="collapsearrow"></span>
+	</button>
+
+	<div id="collapse1" class="collapse in">
+		<div class="hpadding20">
+<!-- 			<div class="checkbox">
+				<label>
+				  <input type="checkbox"><img src="images/filter-rating-5.png" class="imgpos1" alt=""/> 5 Stars
+				</label>
 			</div>
-			<div class="clearfix"></div>
+			<div class="checkbox">
+				<label>
+				  <input type="checkbox"><img src="images/filter-rating-4.png" class="imgpos1" alt=""/> 4 Stars
+				</label>
+			</div>
+			<div class="checkbox">
+				<label>
+				  <input type="checkbox"><img src="images/filter-rating-3.png" class="imgpos1" alt=""/> 3 Stars
+				</label>
+			</div>
+			<div class="checkbox">
+				<label>
+				  <input type="checkbox"><img src="images/filter-rating-2.png" class="imgpos1" alt=""/> 2 Stars
+				</label>
+			</div>
+			<div class="checkbox">
+				<label>
+				  <input type="checkbox"><img src="images/filter-rating-1.png" class="imgpos1" alt=""/> 1 Star
+				</label>
+			</div>	 -->
 		</div>
-		<!-- End of Star ratings -->	
+		<div class="clearfix"></div>
+	</div><!-- End of Star ratings -->	
+		
 		
 		<div class="line2"></div>
 		
@@ -216,59 +236,6 @@
 		<div class="clearfix"></div>
 		<br/>
 
-<%-- 	</c:if> --%>
+
 </div>
 	<!-- END OF FILTERS -->
-			
-	<script>
-		
-		check();
-		
-		function check(){
-			
-			$('#total').click(function(){
-				$('.list-group-item').removeClass('selected');
-				$(this).addClass('selected');
-			});
-			$('#contents').click(function(){
-				$('.list-group-item').removeClass('selected');
-				$(this).addClass('selected');
-			});
-			$('#plan').click(function(){
-				$('.list-group-item').removeClass('selected');
-				$(this).addClass('selected');
-			});
-			$('#member').click(function(){
-				$('.list-group-item').removeClass('selected');
-				$(this).addClass('selected');
-			});
-			
-/* 			var test = "${go }";
-			
-			if(test == "total" || test == ""){
-				
-				$("ul a.total").css("color","orange");
-				$("ul a.total").attr("class","list-group-item total bold");
-				
-			}else if(test == "contents"){
-				
-				$("ul a.contents").css("color","orange");
-				$("ul a.contents").attr("class","list-group-item total bold");
-				
-			}else if(test == "plan"){
-				
-				$("ul a.plan").css("color","orange");
-				$("ul a.plan").attr("class","list-group-item total bold");
-				
-			}else{
-				
-				$("ul a.member").css("color","orange");
-				$("ul a.member").attr("class","list-group-item total bold");
-				
-			}
-			 */
-		}
-		
-		
-	</script>
-	
