@@ -8,21 +8,21 @@
 	<!-- TOP TIP -->
 	<ul class="list-group offset-2 margtop30">
 			
-		<a href="result?keyword=${cri.keyword }&go=total" class="list-group-item total" id="total">
+		<li class="list-group-item total" id="total">
 		<span class="hidetext">통합검색</span>&nbsp; 
-		<span class="badge indent0" >${getNum.get("totalNum") }</span></a>
+		<span class="badge indent0" >${getNum.get("totalNum") }</span></li>
 
-		<a href="result?keyword=${cri.keyword }&go=contents" class="list-group-item contents">
+		<li class="list-group-item contents" id="contents">
 		<span class="hidetext">컨텐츠</span>&nbsp;
-		<span class="badge indent0">${getNum.get("contentsNum") }</span></a>
+		<span class="badge indent0">${getNum.get("contentsNum") }</span></li>
 	
-		<a href="result?keyword=${cri.keyword }&go=plan" class="list-group-item plan" >
+		<li class="list-group-item plan" id="plan" >
 		<span class="hidetext">일정</span>&nbsp; 
-		<span class="badge indent0">${getNum.get("planNum") }</span></a>
+		<span class="badge indent0">${getNum.get("planNum") }</span></li>
 		
-		<a href="result?keyword=${cri.keyword }&go=member" class="list-group-item member" >
+		<li class="list-group-item member" id="member">
 		<span class="hidetext">회원</span>&nbsp; 
-		<span class="badge indent0">${getNum.get("memberNum") }</span></a>
+		<span class="badge indent0">${getNum.get("memberNum") }</span></li>
 		
 	</ul>	
 <%-- 	<input type="hidden" value="${go}"/>
@@ -226,7 +226,24 @@
 		
 		function check(){
 			
-			var test = "${go }";
+			$('#total').click(function(){
+				$('.list-group-item').removeClass('selected');
+				$(this).addClass('selected');
+			});
+			$('#contents').click(function(){
+				$('.list-group-item').removeClass('selected');
+				$(this).addClass('selected');
+			});
+			$('#plan').click(function(){
+				$('.list-group-item').removeClass('selected');
+				$(this).addClass('selected');
+			});
+			$('#member').click(function(){
+				$('.list-group-item').removeClass('selected');
+				$(this).addClass('selected');
+			});
+			
+/* 			var test = "${go }";
 			
 			if(test == "total" || test == ""){
 				
@@ -249,7 +266,7 @@
 				$("ul a.member").attr("class","list-group-item total bold");
 				
 			}
-			
+			 */
 		}
 		
 		

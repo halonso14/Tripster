@@ -78,8 +78,8 @@
 					<div class="offset-2"><hr></div>
 					
 					<!-- 통합검색결과가 없을경우 -->
-					<c:set var="totalNum" value="${getNum.totalNum }" />
-					<c:if test="${totalNum == 0 }" >
+					<c:set var="getNum" value="${getNum}" />
+					<c:if test="${getNum.totalNum == 0 }" >
 						<div class="offset-2" style="padding:20px ">
 								<br/>
 								<em style="color:red;">'${cri.keyword }'</em>
@@ -88,8 +88,7 @@
 					</c:if>
 					
 					<!-- 컨텐츠 결과가 있을경우 -->
-					<c:set var="contentsNum" value="${getNum.contentsNum }" />
-					<c:if test="${contentsNum > 0 }" >
+					<c:if test="${getNum.contentsNum > 0 }" >
 					
 					<!-- 컨텐츠 검색결과  -->
 					<div class="contentsResult" >
@@ -97,7 +96,7 @@
 						<div class="offset-2" style="padding:20px ">	
 							<div class=" left"><b>컨텐츠</b></div>
 							
-							<c:if test="${contentsNum > 3 }" >
+							<c:if test="${getNum.contentsNum > 3 }" >
 								<div class=" grey right">
 										<a href="/search/result?keyword=${cri.keyword}&go=contents" 
 										style="text-decoration:underline"> 더보기 〉 </a>
