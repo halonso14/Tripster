@@ -23,7 +23,6 @@
 	</beans:bean>
 
 	<context:component-scan base-package="com.tripster.controller" />
-	<!-- <context:component-scan base-package="com.tripster.aop"></context:component-scan> -->
    
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -58,4 +57,6 @@
 		</interceptor>
 	</interceptors>
 
+	<aop:aspectj-autoproxy/>
+	
 </beans:beans>

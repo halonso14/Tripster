@@ -11,7 +11,7 @@
 
 </head>
 <body>
-<%@include file="/WEB-INF/views/include/header2.jsp"%>
+<%@include file="/WEB-INF/views/include/css.jsp"%>
 <c:set var="session" value='<%= session.getAttribute("login")%>'/>
 
 
