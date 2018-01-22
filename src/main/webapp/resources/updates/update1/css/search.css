@@ -19,6 +19,7 @@ div.searchbox {
 .searchbtn {
 	
 }
+
 .progress-custom {
 	height:15px !important;
 	overflow:hidden;
@@ -40,3 +41,6 @@ div.searchbox {
 .list-group-item.selected {
 	background-color: red;
 }
+
+
+
