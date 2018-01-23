@@ -46,7 +46,7 @@
   <body id="top" class="thebg" >
 
 	<!-- HEADER -->
-	<%@include file="../include/header2.jsp" %>
+	<%@include file="include/header2.jsp" %>
 	<!-- 로그인 세션  -->
 	<c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
 	
@@ -61,14 +61,14 @@
 		<div class="container pagecontainer offset-0" style="background:#f2f2f2">	
 			
 			<!-- LEFT CONTENT: SIDE FILTERS -->
-			<%@include file="../include/sidefilter.jsp" %>
+			<%@include file="include/sidefilter.jsp" %>
 			
 			<!-- RIGHT CONTENT -->
 			<div class="rightcontent col-md-9 offset-2" style="background:#fff">
 				<c:set var="getNum" value="${getNum}" />
 				<div class="offset-2"><hr></div>
 				
-				<div class="search-tab-pane active" id="totalList">
+				<div class="tabcontent" id="totalList">
 				<!-- 통합 검색결과 리스트  -->
 					
 					<c:if test="${getNum.totalNum == 0 }" >
@@ -76,6 +76,7 @@
 						<div class="offset-2" style="padding:20px ">
 							<em style="color:red;">'${cri.keyword }'</em>에 대한 검색 결과가 없습니다.
 						</div>
+						<div class="offset-2"><hr></div>
 					</c:if>
 					
 					<c:if test="${getNum.contentsNum > 0 }" >
@@ -95,7 +96,7 @@
 							</div>
 							<!-- 컨텐츠 리스트 -->
 							<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="2">	
-								<%@include file="contents.jsp" %>	
+								<%@include file="include/search/contents.jsp" %>	
 							</c:forEach>
 							<div class="offset-2"><hr></div>
 						</div>
@@ -119,7 +120,7 @@
 							</div>
 							<!-- 일정 리스트 -->	
 							<c:forEach items="${planList}" var = "esPlanVO" begin="0" end="2">
-								<%@include file="plan.jsp" %>	
+								<%@include file="include/search/plan.jsp" %>	
 							</c:forEach>
 							<div class="clearfix"></div>
 							<div class="offset-2"><hr></div>	
@@ -143,7 +144,7 @@
 							</div>
 							<!--회원 리스트 -->
 							<c:forEach items="${memberList}" var = "esMemberVO" begin="0" end="2">
-								<%@include file="member.jsp" %>
+								<%@include file="include/search/member.jsp" %>
 							</c:forEach>
 							<div class="clearfix"></div>
 							<div class="offset-2"><hr></div>
@@ -153,7 +154,7 @@
 				</div> <!-- 통합 검색 결과 리스트 끝 -->
 				
 				
-				<div class="search-tab-pane" id="contentsList" >
+				<div class="tabcontent" id="contentsList" style="display:none">
 				<!-- 컨텐츠 검색 결과 더보기 리스트 -->
 					<c:if test="${getNum.contentsNum == 0 }" >
 					<!-- 검색결과가 없을경우 -->
@@ -171,17 +172,17 @@
 							</div>								
 							<!-- 컨텐츠 리스트 -->
 							<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="9">	
-								<%@include file="contents.jsp" %>	
+								<%@include file="include/search/contents.jsp" %>	
 							</c:forEach>
 							<div class="offset-2"><hr></div>
 						</div>								
 					</c:if>	
 					<!-- pagination -->
-					<%@include file="pagenation.jsp" %>				
+					<%@include file="include/search/pagenation.jsp" %>				
 				</div> <!-- 컨텐츠 검색결과더보기 리스트 끝 -->
 				
 				
-				<div class="search-tab-pane" id="planList" >
+				<div class="tabcontent" id="planList" style="display:none">
 				<!-- 일정 검색 결과 더보기 리스트 -->
 					<c:if test="${getNum.planNum == 0 }" >
 					<!-- 검색결과가 없을경우 -->
@@ -189,12 +190,18 @@
 							<em style="color:red;">'${cri.keyword }'</em>에 대한 일정 검색 결과가 없습니다.
 						</div>
 					</c:if>
+					<!-- 일정 리스트 -->	
+					<c:forEach items="${planList}" var = "esPlanVO" begin="0" end="2">
+						<%@include file="include/search/plan.jsp" %>	
+					</c:forEach>
+					<div class="clearfix"></div>
+					<div class="offset-2"><hr></div>						
 					<!-- pagination -->
-					<%@include file="pagenation.jsp" %>									
+					<%@include file="include/search/pagenation.jsp" %>									
 				</div> <!-- 일정 검색 결과 더보기 리스트 끝 -->
 				
 				
-				<div class="search-tab-pane" id="memberList" >
+				<div class="tabcontent" id="memberList" style="display:none">
 				<!-- 회원 검색 결과 더보기 리스트 -->
 					<c:if test="${getNum.memberNum == 0 }" >
 					<!-- 검색결과가 없을경우 -->
@@ -202,8 +209,14 @@
 							<em style="color:red;">'${cri.keyword }'</em>에 대한 회원 검색 결과가 없습니다.
 						</div>
 					</c:if>
+					<!--회원 리스트 -->
+					<c:forEach items="${memberList}" var = "esMemberVO" begin="0" end="2">
+						<%@include file="include/search/member.jsp" %>
+					</c:forEach>
+					<div class="clearfix"></div>
+					<div class="offset-2"><hr></div>					
 					<!-- pagination -->
-					<%@include file="pagenation.jsp" %>				
+					<%@include file="include/search/pagenation.jsp" %>				
 				</div> <!-- 회원 검색 결과 더보기 리스트 끝 -->
 				
 				
@@ -212,7 +225,7 @@
 	</div> <!-- END OF Container -->
 	
 	<!-- FOOTER -->
-	<%@include file="../include/footer.jsp" %>
+	<%@include file="include/footer.jsp" %>
 
     <!-- Javascript -->	
     <script src="/resources/assets/js/js-list4.js"></script>	

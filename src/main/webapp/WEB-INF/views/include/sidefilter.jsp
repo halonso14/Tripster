@@ -2,52 +2,50 @@
 
 <!-- FILTERS -->
 <div class="col-md-3 filters offset-0">
-				
-	<script>
-
-		function searchTab(evt, target){
-		    var i;
-		    var boxes = document.getElementsByClassName("search-tab-pane");
-		    for (i = 0; i < boxes.length; i++) {  
-			    	if(boxes[i].hasClass('active')){
-			    		boxes[i].className = btns[i].className.replace(" active","");
-			    	}
-	    			
-		    }
-		    var btns = document.getElementsByClassName("list-group-item");
-		    for (i = 0; i < btns.length; i++) {  
-    				btns[i].className = btns[i].className.replace(" selected","");
-		    }
-	
-		    document.getElementById(target).className += " active";
-		    evt.currentTarget.className += " selected";
-		}
-		
-		
-	</script>
-
 									
 	<!-- TOP TIP -->
-	<ul class="list-group offset-2 margtop30">
-			
-		<li class="list-group-item selected" onclick="searchTab(event, 'totalList')" style="">
-		<span class="hidetext">통합검색</span>&nbsp; 
-		<span class="badge indent0" >${getNum.get("totalNum") }</span></li>
-
-		<li class="list-group-item" onclick="searchTab(event,'contentsList')">
-		<span class="hidetext">컨텐츠</span>&nbsp;
-		<span class="badge indent0">${getNum.get("contentsNum") }</span></li>
+	<div class="offset-2">	
+		<div class="tab">	
+			<button class="tablinks active" onclick="openCity(event,'totalList')">
+				<span class="hidetext">통합검색</span>&nbsp; 
+				<span class="badge indent0" >${getNum.get("totalNum")}</span>
+			</button>
+			<button class="tablinks" onclick="openCity(event,'contentsList')">
+				<span class="hidetext">컨텐츠</span>&nbsp;
+				<span class="badge indent0">${getNum.get("contentsNum")}</span>
+			</button>
+			<button class="tablinks" onclick="openCity(event,'planList')">
+				<span class="hidetext">일정</span>&nbsp; 
+				<span class="badge indent0">${getNum.get("planNum")}</span>
+			</button>
+			<button class="tablinks" onclick="openCity(event,'memberList')">
+				<span class="hidetext">회원</span>&nbsp; 
+				<span class="badge indent0">${getNum.get("memberNum")}</span>
+			</button>
+		</div>	
+	</div>
+	<script>
+		function openCity(evt, cityName) {
+		    // Declare all variables
+		    var i, tabcontent, tablinks;
 	
-		<li class="list-group-item" onclick="searchTab(event, 'planList')">
-		<span class="hidetext">일정</span>&nbsp; 
-		<span class="badge indent0">${getNum.get("planNum") }</span></li>
-		
-		<li class="list-group-item" onclick="searchTab(event, 'memberList')">
-		<span class="hidetext">회원</span>&nbsp; 
-		<span class="badge indent0">${getNum.get("memberNum") }</span></li>
-		
-	</ul>	
-
+		    // Get all elements with class="tabcontent" and hide them
+		    tabcontent = document.getElementsByClassName("tabcontent");
+		    for (i = 0; i < tabcontent.length; i++) {
+		        tabcontent[i].style.display = "none";
+		    }
+	
+		    // Get all elements with class="tablinks" and remove the class "active"
+		    tablinks = document.getElementsByClassName("tablinks");
+		    for (i = 0; i < tablinks.length; i++) {
+		        tablinks[i].className = tablinks[i].className.replace(" active", "");
+		    }
+	
+		    // Show the current tab, and add an "active" class to the link that opened the tab
+		    document.getElementById(cityName).style.display = "block";
+		    evt.currentTarget.className += " active";
+		}
+	</script>
 	
 	<div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
 	<div class="line2"></div>
