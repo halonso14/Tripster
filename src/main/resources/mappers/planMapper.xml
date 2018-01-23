@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 내가 등록한 일정 전체 조회.  -->
 	<select id="myPlan" resultType="planVO">
 		select plan_ID planID, Member_ID memberID, plan_Title planTitle, plan_startDate planStartDate, plan_endDate planEndDate, plan_endChk, plan_like_Cnt from tbl_Plan where member_ID = #{memberID}
-		limit #{cri.startNum}, #{cri.planPerPage}
+		limit #{cri.startPlan}, #{cri.planPerPage}
 	</select>
 	
 	<!-- planChk 업데이트~  -->

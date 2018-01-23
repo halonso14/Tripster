@@ -9,10 +9,59 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Travel Agency - HTML5 Booking template</title>
 
+    <!-- Bootstrap -->
+    <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
+    
+    <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
+    
+    <link href="/resources/assets/css/followBtn.css" rel="stylesheet" media="screen">
+    <!-- ymmu bootstrap table -->
+    <link href="/resources/bootstrap-table/dist/bootstrap-table.css" rel="stylesheet">
+
+
+	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.js"></script>
+      <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+	
+    <!-- Fonts -->	
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet' type='text/css'>	
+	<!-- Font-Awesome -->
+    <link rel="stylesheet" type="text/css" href="/resources/assets/css/font-awesome.css" media="screen" />
+    <!--[if lt IE 7]><link rel="stylesheet" type="text/css" href="assets/css/font-awesome-ie7.css" media="screen" /><![endif]-->
+	
+	<!-- Animo css-->
+	<link href="/resources/plugins/animo/animate+animo.css" rel="stylesheet" media="screen">
+
+    <!-- Picker -->	
+	<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />	
+	
+<!--     jQuery	 -->	
+    <script src="https://code.jquery.com/jquery-2.0.3.js"></script>
+
+<script src="/resources/dist/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-<%@include file="/WEB-INF/views/include/css.jsp"%>
+<%@include file="/WEB-INF/views/include/header2.jsp"%>
 <c:set var="session" value='<%= session.getAttribute("login")%>'/>
+
+	<div class="container breadcrub">
+	    <div>
+			<a class="homebtn left" href="/"></a>
+			<div class="left offset-2">
+				
+				<p style="color: black;font-weight:bold;">회원 정보 조회</p>		
+				
+			</div>
+			
+		</div>
+		<div class="clearfix"></div>
+		<div class="brlines"></div>
+	</div>	
 
 
 <!-- CONTENT -->
@@ -36,6 +85,7 @@
 					<!-- TAB 1 -->
 					<!-- Admin top -->
 					<div class="col-md-4 offset-0">
+					
 						<c:choose>
 							<c:when test="${empty memberVO.memberPicture }">
 								<img src="/resources/images/user.png" alt=""
@@ -48,9 +98,29 @@
 									style="height: 100px; width: 100px;" />
 							</c:otherwise>
 						</c:choose>
-						<p class="size20 grey margtop40">
+						
+						<p class="size20 grey margtop20">
 							<span class="dark">${memberVO.memberName}</span><br />
 						</p>
+						
+
+						<div class="container">
+						
+						<c:set var="followID" value="${memberVO.memberID }"/>
+						
+						<c:forEach items="${followChkList}" var="followChk" varStatus="status">
+							<c:choose>
+								<c:when test='${followChk ne followID}'>
+    								<button class="btn followButton" value="${followID}" rel="6">Follow</button>
+								</c:when>
+								<c:otherwise>
+									<button class="btn followButton following" value="${followID}" rel="6">Following</button>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>	
+						
+						</div>
+						
 						<div class="clearfix"></div>
 					</div>
 					<div class="col-md-4"></div>
@@ -59,7 +129,7 @@
 							<!-- ymmu data -->
 							<tr class="grey opensans">
 								<td class="center" style="width:33%"><span class="size30 slim lh4"
-									id="numPlans">${fn:length(planVO)}</span><br />
+									id="numPlans">${planCount}</span><br />
 								<span class="size12">Plans</span></td>
 								<td class="center" style="width:33%"><span class="size30 slim lh4"
 									id="totalDays">1</span><br />
@@ -89,12 +159,17 @@
 					<br />
 					<div class="clearfix"></div>
 
-					<!-- 작성한 plan이 있을때 화면에 뿌려준다. -->
-					<c:if test="${not empty planVO}">
+					<%-- 작성한 plan이 있을때 화면에 뿌려준다. --%>
+<%-- 					<c:if test="${not empty planVO}">
 						<div class="itemscontainer offset-1">
-							<c:forEach items="${planVO}" var="planVO" varStatus="status">
-								<div class="col-md-4">
+							<c:forEach items="${planVO}" var="planVO" varStatus="status"> --%>
+							
+					<div class="itemscontainer offset-1">
+						<div id=planList>
+						</div>
+<%-- 								<div class="col-md-4">
 									<div class="listitem">
+									
 										<c:choose>
 											<c:when test='${pictureID[status.index] ne "" }'>
 												<img src="/displayFile?fileName=${pictureID[status.index]}"
@@ -104,29 +179,48 @@
 												<img src="" alt="" />
 											</c:otherwise>
 										</c:choose>
+										
 										<div class="liover"></div>
-										<input type="hidden" id="planID" value=${planVO.planID } />
-										<a id="like" class="fav-icon like" href="javascript:void(0)" value= ${likeChkList[status.index] } ></a>
+										
+										<c:choose>
+											<c:when test='${likeChkList[status.index] ne 1 }'>
+												<a id="likeBtn" class="fav-icon like" href="javascript:void(0)" value= ${planVO.planID } likeBtnCheck='0'></a>
+											</c:when>
+											<c:otherwise>
+												<a id="likeBtn" class="fav-icon-red like" href="javascript:void(0)" value= ${planVO.planID } likeBtnCheck='1'></a>
+											</c:otherwise>
+										</c:choose>
+										
 										<a class="book-icon" href="/plan/read?planID=${planVO.planID}"></a>
 									</div>
 									<div class="itemlabel" style="text-align: center;">
 										<a href="/plan/read?planID=${planVO.planID}"><b>${planVO.planTitle}</b></a><br />
 									</div>
 								</div>
-								<!-- plan 3개마다 줄바꿈 -->
+								plan 3개마다 줄바꿈
 								<c:if test="${status.count%3 eq 0}">
 									<div class="clearfix"></div>
 									<div class="offset-2">
 										<hr class="featurette-divider3">
 									</div>
-								</c:if>
-							</c:forEach>
+								</c:if> --%>
+					
+<%-- 							</c:forEach>
 							<div class="clearfix"></div>
 							<div class="offset-2">
 								<hr class="featurette-divider3">
 							</div>
 						</div>
-					</c:if>
+					</c:if> --%>
+					
+						<div class="clearfix"></div>
+							<div class="offset-2">
+								<hr class="featurette-divider3">
+							</div>
+					</div>
+					
+					<ul class="pagination right paddingbtm20">
+					</ul>
 
 
 <input type="hidden" id="memberID" value=${session.memberID } />
@@ -134,19 +228,124 @@
 
 					<!-- End of offset1-->
 
-					<div class="hpadding20">
-
-						<ul class="pagination right paddingbtm20">
-							<li class="disabled"><a href="#">&laquo;</a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#">&raquo;</a></li>
-						</ul>
-
-					</div>
+<script src="/resources/assets/js/js-list.js"></script>
+<script src="/resources/js/like.js"></script>
+<script>
+	
+	var memberID = ${memberVO.memberID};
+	var session = "${session.memberID}";
+	var pictureID = ${pictureID};
+	var likeChkList = '';
+	var array = "${likeChkList}";
+	
+	if(session != ""){
+		likeChkList = JSON.parse(array);
+		console.log(likeChkList);
+	} else{
+		likeChkList = '';
+	}
+	getPageList(1);
+	
+	//plan을 화면에 뿌려준다.
+	function getPageList(page){
+			
+	var str = '';
+		
+		$.getJSON("/member/viewMember/"+memberID+"/"+page, function(data){
+			$(data.list).each(function(index){
+					str += 
+				"<div class='col-md-4'>"
+					+"<div class='listitem'>";
+						
+					if(pictureID[index] != ""){
+						str +=
+							"<img src='/displayFile?fileName="+pictureID[index]+"'alt='' />";
+					} else{
+						str +=
+							"<img src='' alt='' />";
+					}
+						
+					str +=
+						"<div class='liover'></div>";
+							
+					if(likeChkList[index] != 1){
+						str +=
+							"<a id='likeBtn' class='fav-icon like' href='javascript:void(0)' value=" +this.planID+ " likeBtnCheck='0'></a>"
+					} else{
+						str +=
+							"<a id='likeBtn' class='fav-icon-red like' href='javascript:void(0)' value=" +this.planID+ " likeBtnCheck='1'></a>"
+					}
+							
+					str +=
+						"<a class='book-icon' href='/plan/read?planID="+this.planID+"'></a>"
+					+"</div>"
+					+"<div class='itemlabel' style='text-align: center;'>"
+						+"<a href='/plan/read?planID="+this.planID+"'><b>"+this.planTitle+"</b></a><br />"
+					+"</div>"
+				+"</div>";
+					
+					if((index+1)%3 == 0 && index+1 != data.list.length){
+						str +=
+							"<div class='clearfix'></div><div class='offset-2'><hr class='featurette-divider3'></div>";
+					}
+				
+				
+				})
+					
+			$("#planList").html(str);
+			printPaging(data.pageMaker);
+			StartAnime2();
+		})
+	}
+	
+		//page 뿌려주는 함수.
+	function printPaging(pageMaker) {
+		var str = "";
+		if (pageMaker.prev) {
+			str += "<li><a href='" + (pageMaker.startPage - 1)
+					+ "'> << </a></li>";
+		}
+		for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
+			var strClass = pageMaker.cri.curPage == i ? 'class=active' : '';
+			str += "<li "+strClass+"><a href='"+i+"'>" + i + "</a></li>";
+		}
+		if (pageMaker.next) {
+			str += "<li><a href='" + (pageMaker.endPage + 1)
+					+ "'> >> </a></li>";
+		}
+		$('.pagination').html(str);
+	}
+	var replyPage = 1;
+	
+	$(".pagination").on("click", "li a", function(event) {
+		event.preventDefault();
+		replyPage = $(this).attr("href");
+		getPageList(replyPage);
+	});
+	
+</script>					
+							<!-- pagination -->
+<%-- 							<div class="hpadding20">
+								<ul class="pagination right paddingbtm20">
+									
+									<c:if test="${pageMaker.prev }">
+										<li><a href="${pageMaker.startPage-1 }">&laquo;</a></li>
+									</c:if>
+									
+									<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+										
+										<li id="contentsPage"
+											<c:out value="${pageMaker.cri.curPage == idx?'class=active':'' }"></c:out>>
+											<a href="/member/viewMember?memberID=${memberVO.memberID }&&page=${idx }" >${idx }</a>
+										</li>
+										
+									</c:forEach>
+									
+									<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
+										<li><a href="${pageMaker.endPage+1 }">&raquo;</a></li>
+									</c:if>
+								</ul>
+							</div> --%>
 
 					<!-- END OF LIST CONTENT-->
 
@@ -261,14 +460,15 @@
 
 
 <!-- Javascript  -->
-<script src="/resources/assets/js/js-list.js"></script>
+<!-- <script src="/resources/assets/js/js-list.js"></script> -->
 
 <!-- Nicescroll  -->
 <script src="/resources/assets/js/jquery.nicescroll.min.js"></script>
 
 <!-- Custom functions -->
 <script src="/resources/assets/js/functions.js"></script>
-<!-- <script type="text/javascript" src="/resources/js/like.js"></script> -->
+
+<script src="/resources/js/follow.js"></script>
 
 <!-- Custom Select -->
 <script src='/resources/assets/js/jquery.customSelect.js'

@@ -59,6 +59,10 @@ public class Criteria {
 	public int getStartNum() {
 		return (this.curPage - 1) * contentsPerPage;
 	}
+	
+	public int getStartPlan() {
+		return (this.curPage - 1) * planPerPage;
+	}
 
 	@Override
 	public String toString() {
