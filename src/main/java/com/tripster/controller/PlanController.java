@@ -31,6 +31,7 @@ import com.tripster.domain.PageMaker;
 import com.tripster.domain.PlanDetailVO;
 import com.tripster.domain.PlanReplyVO;
 import com.tripster.domain.PlanVO;
+import com.tripster.service.LikeService;
 import com.tripster.service.MemoService;
 import com.tripster.service.PlanDetailService;
 import com.tripster.service.PlanReplyService;
@@ -48,6 +49,8 @@ public class PlanController {
 	private MemoService memoService;
 	@Inject
 	private PlanReplyService planReplyService;
+	@Inject
+	private LikeService likeService;
 	
 	//**************************plan 관련 ********************************/
 	
@@ -101,13 +104,13 @@ public class PlanController {
 	
 	//plan 조회
 		@RequestMapping(value="/read", method=RequestMethod.GET)
-		public void readPlan(@RequestParam("planID") int planID, ModelMap model) throws Exception{
+		public void readPlan(@RequestParam("planID") int planID, HttpSession session, ModelMap model) throws Exception{
 			
 			PlanVO plan = planService.readPlan(planID);
 			Date from =plan.getPlanStartDate();
 			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 			String startDate = "'"+transFormat.format(from)+"'";
-			
+			int likeChk;
 			from = plan.getPlanEndDate();
 			String endDate = "'"+transFormat.format(from)+"'";
 			
@@ -115,6 +118,18 @@ public class PlanController {
 			String memberName = planService.memberName(plan.getMemberID());
 			System.out.println("작성자:"+memberName);
 			
+			MemberVO member = (MemberVO)session.getAttribute("login");
+			try {
+				if(member != null) {
+					likeChk = likeService.likeCheck(planID, member.getMemberID());
+					model.addAttribute("likeChk", likeChk);
+				}
+			} catch(Exception e) {
+				
+			}
+
+			
+
 			model.addAttribute("startDate",startDate);
 			model.addAttribute("endDate",endDate);
 			model.addAttribute("plan",plan);

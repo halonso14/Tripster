@@ -103,9 +103,12 @@ body {
 
 <%@include file="/WEB-INF/views/include/header2.jsp"%>
     <div class="container breadcrub">
-	    <div>
-
-		</div>
+		<a class="homebtn left" href="/"></a>
+			<div class="left offset-2">
+				
+				<p style="color: black;font-weight:bold;">여행 계획 세우기</p>		
+				
+			</div>
 		<div class="clearfix"></div>
 		<div class="brlines"></div>
 	</div>	
@@ -173,7 +176,7 @@ body {
 	<div class="line4"></div>
 	<form action="/plan/read" type="get">
 		<input type="hidden" name="planID" value=${plan.planID }>
-		<!-- <!-- <button class="ui positive right labeled icon button">SAVE</button> --> -->
+		
 		<button class="bluebtn margtop20" id="modify" style="width: 180px;float: right;margin-right: 12%; margin-left: 70%">SAVE</button>
 	</form>
 	
@@ -283,27 +286,8 @@ $(document).ready(function() {
 	var isContents;
 	var obj = [];
 	var planID = ${plan.planID};
-	
-    $('#external-events .fc-event').each(function() {
-    // store data so the calendar knows to render an event upon drop
-    		
-        $(this).data('event', {
-            title: $.trim($("#contentsTitle").text()), // use the element's text as the event title
-            stick:true, // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
-                          // false: 없어짐.
-            color:$(this).data('color')
-        });
-        // make the event draggable using jQuery UI
-        $(this).draggable({
-            zIndex: 999,
-            revert: true,      // will cause the event to go back to its
-            revertDuration: 0,  //  original position after the drag
-            helper : 'clone'
-            
-        });
-    });
 
-    var calendar = $('#calendar').fullCalendar({
+	var calendar = $('#calendar').fullCalendar({
     		
         header: {
             left: 'prev',
@@ -341,7 +325,7 @@ $(document).ready(function() {
                               end:end,
                               allDay:allDay,
                               id:result
-                           }, true);
+                           }, false);
               	  	}
           	  	});
             }
@@ -622,7 +606,7 @@ $(document).ready(function() {
 <!-- 스크랩리스트 템플릿 -->
 <script id="scrapList" type="text/x-handlebars-template">
 
-<div class='fc-event' id={{contentsID}} name={{categoryID}} style="background-color: #f6f8f900; font-size: 14px;">
+<div class='fc-event' id={{contentsID}} name={{categoryID}} data-name="{{contentsTitle}}" style="background-color: #f6f8f900; font-size: 14px;">
                <a href="#"><img alt="" class="left mr20" src="/resources/planImg/noimg.png" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
                <a class="dark" href="#" id="contentsTitle"><b>{{contentsTitle}}</b></a><br>
                <span class="opensans green bold size14">$36-$160</span>
@@ -653,11 +637,12 @@ $.getJSON('/scraplist',function(data){
    
    $('#external-events .fc-event').each(function() {
        // store data so the calendar knows to render an event upon drop
-          
           event.preventDefault();   
+       		var s = $(this).attr("data-name");
+          	
            $(this).data('event', {
-               title: $.trim($("#contentsTitle").text()), // use the element's text as the event title
-               stick:true, // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
+               title: $.trim(s), // use the element's text as the event title
+               stick:false, // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
                              // false: 없어짐.
                color:$(this).data('color')
            });

@@ -180,10 +180,10 @@
 										
 										<c:choose>
 											<c:when test='${likeChkList[status.index] ne 1 }'>
-												<a id="likeBtn" class="fav-icon like" href="javascript:void(0)" value= ${planVO.planID } likeBtnCheck='0'></a>
+												<a id="likeBtn" class="fav-icon like" href="#" onclick="likeClick('${session}',$(this));" value= ${planVO.planID } likeBtnCheck='0'></a>
 											</c:when>
 											<c:otherwise>
-												<a id="likeBtn" class="fav-icon-red like" href="javascript:void(0)" value= ${planVO.planID } likeBtnCheck='1'></a>
+												<a id="likeBtn" class="fav-icon-red like" href="#" onclick="likeClick('${session}',$(this));" value= ${planVO.planID } likeBtnCheck='1'></a>
 											</c:otherwise>
 										</c:choose>
 										

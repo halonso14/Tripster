@@ -1,25 +1,22 @@
-$(document).ready(function(){
+// id="like" 인 속성의 value 값을 바꿈
+function likeCheck(planID,likeBtn){
 	
-	// id="like" 인 속성의 value 값을 바꿈
-	function likeCheck(planID,likeBtn){
-		
-		$.ajax({
-			type : 'post',
-			url : '/likeCheck/'+planID,
-			async: false,
-			success : function(check){
-				likeBtn.attr('likeBtnCheck',check);
-			}
-		});
-		
-	}
+	$.ajax({
+		type : 'post',
+		url : '/likeCheck/'+planID,
+		async: false,
+		success : function(check){
+			likeBtn.attr('likeBtnCheck',check);
+		}
+	});
 	
-	// 속성 양식 <button class='like' value='${planID}' likeBtnCheck='0' />
-	// 게시글 좋아요
-	$('.like').on('click',function(){
-		
+}
+
+function likeClick(session,event){
+	
+	if(session){
 		// 라이크 버튼
-		var likeBtn = $(this);
+		var likeBtn = event;
 		// 누른 버튼의 planID 저장
 		var planID = likeBtn.attr('value');
 		// 좋아요 체크
@@ -52,6 +49,7 @@ $(document).ready(function(){
 			});
 			
 		}
-	})
-
-})
+	}else{
+		alert("로그인 후 이용해주세요.");
+	}
+}

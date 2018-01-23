@@ -134,9 +134,12 @@ body {
 <script src="/resources/dist/js/bootstrap.min.js"></script>
 <%@include file="/WEB-INF/views/include/header2.jsp"%>
 <div class="container breadcrub">
-    <div>
-
-	</div>
+		<a class="homebtn left" href="/"></a>
+			<div class="left offset-2">
+				
+				<p style="color: black;font-weight:bold;">여행 계획 세우기</p>		
+				
+			</div>
 	<div class="clearfix"></div>
 	<div class="brlines"></div>
 </div>	
@@ -269,26 +272,7 @@ body {
 		var d = endDate.getDate();
         var m = endDate.getMonth();
         var y = endDate.getFullYear();
-		
-        $('#external-events .fc-event').each(function() {
-            // store data so the calendar knows to render an event upon drop
-           $(this).data('event', {
-        	   		title: $.trim($("#contentsTitle").text()), // use the element's text as the event title
-                stick:true // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
-                            // false: 없어짐.
-               
-            });"src/main/java/com/tripster/domain/DashBriefVO.java"
-            // make the event draggable using jQuery UI
-            $(this).draggable({
-                zIndex: 999,
-                revert: true,      // will cause the event to go back to its
-                revertDuration: 0,  //  original position after the drag
-                helper : 'clone'
-
-            });
-        });
-
-         var calendar = $('#calendar').fullCalendar({
+        var calendar = $('#calendar').fullCalendar({
              header: {
                  left: 'prev',
                  center: 'title',
@@ -325,7 +309,7 @@ body {
                                  end:end,
                                  allDay:allDay,
                                  id:result
-                              }, true);
+                              }, false);
                  	  	}
              	  	});
                }
@@ -606,11 +590,12 @@ $.getJSON('/scraplist',function(data){
    
    $('#external-events .fc-event').each(function() {
        // store data so the calendar knows to render an event upon drop
-          
           event.preventDefault();   
+       		var s = $(this).attr("data-name");
+          	
            $(this).data('event', {
-               title: $.trim($("#contentsTitle").text()), // use the element's text as the event title
-               stick:true, // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
+               title: $.trim(s), // use the element's text as the event title
+               stick:false, // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
                              // false: 없어짐.
                color:$(this).data('color')
            });

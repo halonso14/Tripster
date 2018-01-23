@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
-
+<c:set var="session" value='<%= session.getAttribute("login")%>'/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
@@ -28,12 +28,12 @@
 .pagination li {
 	list-style: none;
 	float: left;
-	padding: 3px;
+	/* padding: 3px; */
 	/* border: 1px solid blue; */
-	margin: 3px;
+	 /* margin-top: 10px;  */
 }
 .pagination li a {
-	margin: 3px;
+	/* margin: 3px; */
 	text-decoration: none;
 }
 .aboutarrow {
@@ -220,9 +220,12 @@
 	<%@include file="/WEB-INF/views/include/header2.jsp"%>
 	<%@include file="/WEB-INF/views/plan/updateModal.jsp" %>
 	<div class="container breadcrub">
-	    <div>
-
-		</div>
+		<a class="homebtn left" href="/"></a>
+			<div class="left offset-2">
+				
+				<p style="color: black;font-weight:bold;">일정 상세</p>		
+				
+			</div>
 		<div class="clearfix"></div>
 		<div class="brlines"></div>
 	</div>	
@@ -237,14 +240,21 @@
 					<div>
 						<div class="lato size30 slim">
 						${plan.planTitle}
-						<a href=""><span class="glyphicon glyphicon-heart"></span></a>
+						<!-- 좋아요 -->
+							<c:choose>
+								<c:when test='${likeChk ne 1 }'>
+									<span style=" float: right; margin-right: 40px"><a id="likeBtn" class="fav-icon-black like" href="#" onclick="likeClick('${session}',$(this));"  value= ${plan.planID  } likeBtnCheck='0' style="top:30px;"></a></span>
+								</c:when>
+								<c:otherwise>
+									<span style=" float: right; margin-right: 40px"><a id="likeBtn" class="fav-icon-black fav-icon-red like" href="#" onclick="likeClick('${session}',$(this));" value= ${plan.planID } likeBtnCheck='1' style="top:30px;"></a></span>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					
 						
 						
 					</div>
 					<div class="lato size15 grey bold">
-						<c:set var="session" value='<%= session.getAttribute("login")%>'/>
 						<fmt:formatDate var="parseStartDate" value="${plan.planStartDate }" pattern="yyyy-MM-dd"/>
 						<fmt:formatDate var="parseEndDate" value="${plan.planEndDate }" pattern="yyyy-MM-dd"/>
 						
@@ -256,15 +266,16 @@
 									<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 										 ${memberName }<b class="lightcaret mt-2"></b>
 									</a>
+									<!-- 일정 리스트 페이지 링크. -->
 									<c:choose>
 										<c:when test="${session.memberID eq plan.memberID }">
 											<ul class="dropdown-menu">
-												<li><a href="#">나의 일정 리스트</a></li>
+												<li><a href="/member/viewMember?memberID=${plan.memberID }">나의 일정 리스트</a></li>
 											</ul>
 										</c:when>
 										<c:otherwise>
 											<ul class="dropdown-menu">
-												<li><a href="#">회원 일정 리스트</a></li>
+												<li><a href="/member/viewMember?memberID=${plan.memberID }">회원 일정 리스트</a></li>
 											</ul>
 										</c:otherwise>
 									</c:choose>
@@ -422,7 +433,8 @@
 						<!-- <div class="line4"></div> -->
 						<span></span>
 						<br>
-						<ul class="pagination">
+						<br/>
+						<ul class="pagination right paddingbtm20s">
 						</ul>
 						<br/>
 						<br/>
@@ -453,6 +465,7 @@
 	
     <!-- Custom functions -->
     <script src="/resources/assets/js/functions.js"></script>
+    <script src="/resources/js/like.js"></script>
 	
     <!-- Custom Select -->
 	<script type='text/javascript' src='/resources/js/lightbox.js'></script>	
