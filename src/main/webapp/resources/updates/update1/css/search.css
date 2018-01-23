@@ -37,40 +37,52 @@ div.searchbox {
 .tab {
 	margin: 20px 0;
     width: 100%;
+    border: 1px solid #eee;
+    border-radius: 7px;
     border-collapse : collapse;
+   	overflow: hidden;
 }
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
     display: block;
     color: black;
-    padding: 12px 15px;
+    padding: 12px 20px;
     width: 100%;
     background:#fff;
     outline: none;
     text-align: left;
     cursor: pointer;
     transition: 0.3s;
-    border: 1px solid #eee;
+    border:none;
+    border-bottom: 1px solid #e0e0e0;
     border-collapse : collapse;
     position:relative;
 }
-.tab button:nth-child(1) {
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px
-}
 .tab button:nth-child(4) {
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px	
+	border-bottom: none;
 }
 /* Change background color of buttons on hover */
 .tab button:hover {
-    background-color: #ddd;
+    background-color: #eee;
 }
 
 /* Create an active/current "tab button" class */
 .tab button.active {
-    background-color: #ccc;
+    background-color: #fff;
+    font-weight: bold;
+    border-left: 5px solid #ce4844 ;
+    color: #a94442;   
+}
+.tab button span.badge {
+	background-color: #bdbdbd;
+	position:absolute;
+	top:13px;
+	right:20px;
+	
+}
+.tab button span.badge:hover {
+	background-color: #ddd;
 }
 
 /* Style the tab content */

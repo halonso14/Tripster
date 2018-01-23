@@ -4,25 +4,26 @@
 <div class="col-md-3 filters offset-0">
 									
 	<!-- TOP TIP -->
-	<div class="tab offset-2">	
-		<button class="tablinks active" onclick="openCity(event,'totalList')">
-			<span class="hidetext">통합검색</span>&nbsp; 
-			<span class="badge indent0" >${getNum.get("totalNum")}</span>
-		</button>
-		<button class="tablinks" onclick="openCity(event,'contentsList')">
-			<span class="hidetext">컨텐츠</span>&nbsp;
-			<span class="badge indent0">${getNum.get("contentsNum")}</span>
-		</button>
-		<button class="tablinks" onclick="openCity(event,'planList')">
-			<span class="hidetext">일정</span>&nbsp; 
-			<span class="badge indent0">${getNum.get("planNum")}</span>
-		</button>
-		<button class="tablinks" onclick="openCity(event,'memberList')">
-			<span class="hidetext">회원</span>&nbsp; 
-			<span class="badge indent0">${getNum.get("memberNum")}</span>
-		</button>
-	</div>	
-
+	<div class="offset-2">	
+		<div class="tab">	
+			<button class="tablinks active" onclick="openCity(event,'totalList')">
+				<span class="hidetext">통합검색</span>&nbsp; 
+				<span class="badge indent0" >${getNum.get("totalNum")}</span>
+			</button>
+			<button class="tablinks" onclick="openCity(event,'contentsList')">
+				<span class="hidetext">컨텐츠</span>&nbsp;
+				<span class="badge indent0">${getNum.get("contentsNum")}</span>
+			</button>
+			<button class="tablinks" onclick="openCity(event,'planList')">
+				<span class="hidetext">일정</span>&nbsp; 
+				<span class="badge indent0">${getNum.get("planNum")}</span>
+			</button>
+			<button class="tablinks" onclick="openCity(event,'memberList')">
+				<span class="hidetext">회원</span>&nbsp; 
+				<span class="badge indent0">${getNum.get("memberNum")}</span>
+			</button>
+		</div>	
+	</div>
 	<script>
 		function openCity(evt, cityName) {
 		    // Declare all variables
