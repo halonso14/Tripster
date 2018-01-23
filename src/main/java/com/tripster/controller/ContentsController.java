@@ -26,6 +26,7 @@ import com.tripster.domain.MemberVO;
 import com.tripster.domain.PageMaker;
 import com.tripster.service.ContentsReviewService;
 import com.tripster.service.ContentsService;
+import com.tripster.service.ScrapService;
 
 @RestController
 @RequestMapping("/contents/*")
@@ -36,6 +37,8 @@ public class ContentsController {
 	private ContentsService contentsService;
 	@Inject
 	private ContentsReviewService contentsReviewService;
+	@Inject
+	private ScrapService scrapService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
@@ -72,14 +75,16 @@ public class ContentsController {
 		
 		MemberVO memberVO = (MemberVO)session.getAttribute("login");
 		model.addAttribute("memberVO",memberVO);
-		
+		Integer check = scrapService.scrapCheck(contentsID, memberVO.getMemberID());
 		if(categoryID == 1) {
 			ModelAndView resultPage = new ModelAndView("contents/restaurantDetail");
 			model.addAttribute("vo",contentsService.getRestaurantDetail(contentsID));
+			model.addAttribute("check",check);
 			return resultPage;
 		}else {
 			ModelAndView resultPage = new ModelAndView("contents/PlaceDetail");
 			model.addAttribute("vo",contentsService.getPlaceDetail(contentsID));
+			model.addAttribute("check",check);
 			return resultPage;
 		}
 	}

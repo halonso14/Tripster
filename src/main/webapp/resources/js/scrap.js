@@ -13,6 +13,7 @@ function ScrapModuleChk(contentsID,scrapbt){
 	
 }
 
+// <button class="bookbtn mt1 scrap" value="컨텐츠 아이디" check="1" session="${empty userSession }" >스크랩</button>
 //스크랩 버튼 클릭시
 $(".scrap").on('click',function(){
 	
