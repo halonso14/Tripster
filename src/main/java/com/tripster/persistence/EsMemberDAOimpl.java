@@ -12,6 +12,7 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 
 import com.tripster.domain.EsMemberVO;
+import com.tripster.domain.EsSearchResult;
 import com.tripster.domain.SearchCriteria;
 import com.tripster.elasticsearch.EsSearchMapper;
 
@@ -21,13 +22,16 @@ public class EsMemberDAOimpl implements EsMemberDAO {
 	@Inject
 	private EsSearchMapper namespace;
 	
-	// 유저 검색결과 더보기 리스트 조회
-	public List<EsMemberVO> getMemberList(SearchCriteria cri) throws Exception{
+	// 유저 검색결과 리스트 조회
+	@Override
+	public EsSearchResult getMemberList(SearchCriteria cri, Integer size) throws Exception{
 		
-		SearchResponse response = namespace.memberSearch(cri);
+		SearchResponse response = namespace.memberSearch(cri, size);
 		SearchHits hits = response.getHits();
 		
+		EsSearchResult resultset = new EsSearchResult();
 		ArrayList<EsMemberVO> result = new ArrayList<EsMemberVO>();
+		
 		ObjectMapper om = new ObjectMapper(); 
 		om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
@@ -36,12 +40,9 @@ public class EsMemberDAOimpl implements EsMemberDAO {
 	    		EsMemberVO member = om.readValue(sJson, EsMemberVO.class);
 	    		result.add(member);
 		}
-		return result;
+		resultset.setMemberList(result); 
+		resultset.setMemberCnt(hits.getTotalHits()); 		
+		return resultset;
 	}
-	// 유저 검색결과 건수 조회 
-	public long getTotalMemberNum(SearchCriteria cri) throws Exception{
-		SearchResponse response = namespace.memberSearch(cri);
-		long result = response.getHits().getTotalHits();
-		return result;
-	}
+
 }

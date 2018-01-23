@@ -3,7 +3,7 @@ package com.tripster.domain;
 import java.util.*;
 
 public class EsContentsVO{
-	private long result_cnt;
+	
 	private int category_id;
 	private int contents_id;
 	private String contents_title;
@@ -19,6 +19,7 @@ public class EsContentsVO{
 	private String contents_thumbnail;
 	private Date created;
 	private Date updated;
+	
 	
 	public List<String> getContents_keyword() {
 		return this.contents_keyword;
@@ -135,11 +136,5 @@ public class EsContentsVO{
 				+ created + ", updated=" + updated + "]";
 	}
 
-	public long getResult_cnt() {
-		return result_cnt;
-	}
 
-	public void setResult_cnt(long result_cnt) {
-		this.result_cnt = result_cnt;
-	}
 }		

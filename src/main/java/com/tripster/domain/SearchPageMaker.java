@@ -8,7 +8,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class SearchPageMaker { // 페이지 처리용 객체.
 	
-	private int totalCount; // DB에서 계산되는 데이터 (전체 게시글 개수)
+	private long totalCount; // DB에서 계산되는 데이터 (전체 게시글 개수)
 	private int startPage; // 계산을 통해 만들어지는 데이터
 	private int endPage;
 	private boolean prev;
@@ -40,8 +40,8 @@ public class SearchPageMaker { // 페이지 처리용 객체.
 	public long getTotalCount() {
 		return totalCount;
 	}
-	public void setTotalCount(int totalCount) {
-		this.totalCount = (int) totalCount;
+	public void setTotalCount(long totalCount) {
+		this.totalCount = (long) totalCount;
 		calcData();
 	}
 	public int getStartPage() {

@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tripster.domain.EsSearchResult;
 import com.tripster.domain.SearchCriteria;
 import com.tripster.domain.SearchPageMaker;
-import com.tripster.elasticsearch.EsSearchScroll;
 import com.tripster.service.EsSearchService;
 
 @Controller
@@ -24,48 +24,83 @@ public class SearchController {
 	
 	@Inject
 	private EsSearchService esSearchService;
-	@Inject
-	private EsSearchScroll esSearchScroll;
+	
 	
 	// 통합검색 결과리스트 요청
-	@RequestMapping(value="result", method = RequestMethod.GET)
-	public String search(@RequestParam(value="tab", required=false) String tab, 
-			@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
+	@RequestMapping(value="/result", method = RequestMethod.GET)
+	public String search(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
 		
-		// model에 컨텐츠/일정/회원 검색 결과 리스트 담기 
-		model.addAttribute("contentsList",esSearchService.getTotalSearchList(cri).contentsList);
-		model.addAttribute("planList",esSearchService.getTotalSearchList(cri).planList);
-		model.addAttribute("memberList",esSearchService.getTotalSearchList(cri).memberList);
-		model.addAttribute("getNum",esSearchService.getTotalSearchNum(cri));
-		
-		// 컨텐츠/일정/회원 탭마다 pagemaker 별도로 처리필요   
-		SearchPageMaker contentsPageMaker = new SearchPageMaker();
-		SearchPageMaker planPageMaker = new SearchPageMaker();
-		SearchPageMaker memberPageMaker = new SearchPageMaker();
-		
-		contentsPageMaker.setCri(cri);
-		contentsPageMaker.setTotalCount(Integer.parseInt(esSearchService.getTotalSearchNum(cri).get("contentsNum")));
-		planPageMaker.setCri(cri);
-		planPageMaker.setTotalCount(Integer.parseInt(esSearchService.getTotalSearchNum(cri).get("planNum")));
-		memberPageMaker.setCri(cri);	
-		memberPageMaker.setTotalCount(Integer.parseInt(esSearchService.getTotalSearchNum(cri).get("memberNum")));
-		
-		model.addAttribute("contentsPageMaker",contentsPageMaker);
-		model.addAttribute("planPageMaker",planPageMaker);
-		model.addAttribute("memberPageMaker",memberPageMaker);
-		
-		// 페이지 이동시 컨텐츠/일정/회원 탭 위치 알려줄 파라미터값 model에 담기 
-		model.addAttribute("tab",tab);
-		
-		return "result";
+		// model에 통합 검색결과 담기 
+		model.addAttribute("totalList",esSearchService.getTotalSearchList(cri));
+		return "/search/result";
 	}
 	
-	@RequestMapping(value="contents", method = RequestMethod.GET)
-	public String scrollContents(@RequestParam(value="tab", required=false) String tab, 
-			@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
-		String scrollID="" ; 
-		model.addAttribute("contentsList",esSearchScroll.getContentsList(cri,scrollID));
+	
+	// 컨텐츠 검색결과 더보기 요청
+	@RequestMapping(value="/contents", method = RequestMethod.GET)
+	public String searcContents(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
 		
-		return "contents";	
+		// 컨텐츠 검색 결과리스트 변수 선언   
+		EsSearchResult searcContents = esSearchService.getContentsSearchList(cri);
+		// 컨텐츠 리스트 페이징 처리 변수 선언  
+		SearchPageMaker pageMaker = new SearchPageMaker();
+		
+		// pagemaker에 검색어 담기 
+		pageMaker.setCri(cri);
+		// pagemaker에 컨텐츠 검색건수 담기 
+		pageMaker.setTotalCount(searcContents.getContestsCnt());
+		
+		// model에 검색 결과리스트 담기  
+		model.addAttribute("contentsList",searcContents);
+		// model에 pagemaker 담기 
+		model.addAttribute("pageMaker",pageMaker);
+
+		return "/search/contents";
+	}
+	
+	
+	// 일정 검색결과 더보기 요청
+	@RequestMapping(value="/plan", method = RequestMethod.GET)
+	public String searcPlan(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
+		
+		// 일정 검색 결과리스트 변수 선언   
+		EsSearchResult searcPlan = esSearchService.getContentsSearchList(cri);
+		// 일정 리스트 페이징 처리 변수 선언  
+		SearchPageMaker pageMaker = new SearchPageMaker();
+		
+		// pagemaker에 검색어 담기 
+		pageMaker.setCri(cri);
+		// pagemaker에 컨텐츠 검색건수 담기 
+		pageMaker.setTotalCount(searcPlan.getPlanCnt());
+		
+		// model에 검색 결과리스트 담기  
+		model.addAttribute("planList",searcPlan);
+		// model에 pagemaker 담기 
+		model.addAttribute("pageMaker",pageMaker);
+
+		return "/search/plan";
+	}
+
+	
+	// 회원 검색결과 더보기 요청
+	@RequestMapping(value="/member", method = RequestMethod.GET)
+	public String searcMember(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
+		
+		// 일정 검색 결과리스트 변수 선언   
+		EsSearchResult searcMember= esSearchService.getMemberSearchList(cri);
+		// 일정 리스트 페이징 처리 변수 선언  
+		SearchPageMaker pageMaker = new SearchPageMaker();
+		
+		// pagemaker에 검색어 담기 
+		pageMaker.setCri(cri);
+		// pagemaker에 컨텐츠 검색건수 담기 
+		pageMaker.setTotalCount(searcMember.getMemberCnt());
+		
+		// model에 검색 결과리스트 담기  
+		model.addAttribute("memberList",searcMember);
+		// model에 pagemaker 담기 
+		model.addAttribute("pageMaker",pageMaker);
+
+		return "/search/member";
 	}
 }

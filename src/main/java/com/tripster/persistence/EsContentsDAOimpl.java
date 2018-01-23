@@ -1,7 +1,5 @@
 package com.tripster.persistence;
 
-import static org.elasticsearch.index.query.QueryBuilders.simpleQueryStringQuery;
-
 import java.util.*;
 import javax.inject.Inject;
 
@@ -10,11 +8,11 @@ import org.springframework.stereotype.Repository;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.SimpleQueryStringBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 
 import com.tripster.domain.EsContentsVO;
+import com.tripster.domain.EsSearchResult;
 import com.tripster.domain.SearchCriteria;
 import com.tripster.elasticsearch.EsSearchMapper;
 
@@ -24,14 +22,16 @@ public class EsContentsDAOimpl implements EsContentsDAO {
 	@Inject
 	private EsSearchMapper namespace;
     
-	// 컨텐츠 검색결과 더보기 리스트 조회
+	// 컨텐츠 검색결과 리스트 조회
 	@Override
-	public List<EsContentsVO> getContentsList(SearchCriteria cri) throws Exception{
+	public EsSearchResult getContentsList(SearchCriteria cri, Integer size) throws Exception{
 		
-		SearchResponse response = namespace.contentsSearch(cri);
+		SearchResponse response = namespace.contentsSearch(cri,size);
 		SearchHits hits = response.getHits();
 		
+		EsSearchResult resultset = new EsSearchResult();
 		ArrayList<EsContentsVO> result = new ArrayList<EsContentsVO>();
+		
 		ObjectMapper om = new ObjectMapper(); 
 		om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
@@ -40,14 +40,10 @@ public class EsContentsDAOimpl implements EsContentsDAO {
 	    		EsContentsVO contents = om.readValue(sJson, EsContentsVO.class);
 	    		result.add(contents);
 		}
-		return result;
+		resultset.setContentsList(result); 
+		resultset.setContestsCnt(hits.getTotalHits()); 
+		return resultset;
 	}
+
 	
-	// 컨텐츠 검색결과 건수 조회
-	@Override
-	public long getTotalContentsNum(SearchCriteria cri) throws Exception{
-		SearchResponse response = namespace.contentsSearch(cri);
-		long result = response.getHits().getTotalHits();
-		return result;
-	}
 }
