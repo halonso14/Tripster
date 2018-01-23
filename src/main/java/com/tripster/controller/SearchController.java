@@ -29,9 +29,9 @@ public class SearchController {
 	@RequestMapping(value="result", method = RequestMethod.GET)
 	public String search(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
 		
-		model.addAttribute("contentsList",Integer.parseInt(esSearchService.getTotalSearchNum(cri).get("contentsNum")));
-		model.addAttribute("planList",Integer.parseInt(esSearchService.getTotalSearchNum(cri).get("planNum")));
-		model.addAttribute("memberList",Integer.parseInt(esSearchService.getTotalSearchNum(cri).get("memberNum")));
+		model.addAttribute("contentsList",esSearchService.getTotalSearchList(cri).contentsList);
+		model.addAttribute("planList",esSearchService.getTotalSearchList(cri).planList);
+		model.addAttribute("memberList",esSearchService.getTotalSearchList(cri).memberList);
 		model.addAttribute("getNum",esSearchService.getTotalSearchNum(cri));
 		
 		// model에 검색결과 건수를 담아서 SearchPageMaker로 보낸다.
