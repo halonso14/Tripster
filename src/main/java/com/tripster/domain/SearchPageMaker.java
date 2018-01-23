@@ -40,7 +40,7 @@ public class SearchPageMaker { // 페이지 처리용 객체.
 	public long getTotalCount() {
 		return totalCount;
 	}
-	public void setTotalCount(long totalCount) {
+	public void setTotalCount(int totalCount) {
 		this.totalCount = (int) totalCount;
 		calcData();
 	}
@@ -82,18 +82,18 @@ public class SearchPageMaker { // 페이지 처리용 객체.
 	
 	//GET방식으로 페이지 처리가 복잡해짐 -> makeQuery메소드로 처리 
 	//UriComponents :  path나 query에 해당하는 문자열들을 추가해 원하는 URI를 생성해줌.
-	public String makeQuery(int page,String go) {
+	public String makeQuery(int page, String tab) {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+				.queryParam("tab",tab)
 				.queryParam("page", page)
 				.queryParam("perPageNum", cri.getPerPageNum())
-				.queryParam("go", go)
 				.queryParam("keyword", cri.getKeyword()).build();
-		
 		return uriComponents.toUriString();
 	}
 	
-	public String makeSearch(int page) {
+	public String makeSearch(int page, String tab) {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+				.queryParam("tab",tab)
 				.queryParam("page", page)
 				.queryParam("perPageNum", cri.getPerPageNum())
 				.queryParam("keyword", ((SearchCriteria) cri).getKeyword()).build();

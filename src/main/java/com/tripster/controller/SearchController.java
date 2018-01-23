@@ -29,12 +29,12 @@ public class SearchController {
 	@RequestMapping(value="result", method = RequestMethod.GET)
 	public String search(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
 		
-		model.addAttribute("contentsList",esSearchService.contentsList(cri));
-		model.addAttribute("planList",esSearchService.planList(cri));
-		model.addAttribute("memberList",esSearchService.memberList(cri));
+		model.addAttribute("contentsList",Integer.parseInt(esSearchService.getTotalSearchNum(cri).get("contentsNum")));
+		model.addAttribute("planList",Integer.parseInt(esSearchService.getTotalSearchNum(cri).get("planNum")));
+		model.addAttribute("memberList",Integer.parseInt(esSearchService.getTotalSearchNum(cri).get("memberNum")));
 		model.addAttribute("getNum",esSearchService.getTotalSearchNum(cri));
 		
-		// model에 EsRepository의 검색결과 건수를 담아서 SearchPageMaker로 보낸다.
+		// model에 검색결과 건수를 담아서 SearchPageMaker로 보낸다.
 		SearchPageMaker contentsPageMaker = new SearchPageMaker();
 		SearchPageMaker planPageMaker = new SearchPageMaker();
 		SearchPageMaker memberPageMaker = new SearchPageMaker();
@@ -42,11 +42,15 @@ public class SearchController {
 		contentsPageMaker.setCri(cri);
 		planPageMaker.setCri(cri);
 		memberPageMaker.setCri(cri);
+		
+		contentsPageMaker.setTotalCount(Integer.parseInt(esSearchService.getTotalSearchNum(cri).get("contentsNum")));
+		planPageMaker.setTotalCount(Integer.parseInt(esSearchService.getTotalSearchNum(cri).get("planNum")));
+		memberPageMaker.setTotalCount(Integer.parseInt(esSearchService.getTotalSearchNum(cri).get("memberNum")));
 
 		model.addAttribute("contentsPageMaker",contentsPageMaker);
 		model.addAttribute("planPageMaker",planPageMaker);
 		model.addAttribute("memberPageMaker",memberPageMaker);
 		
-		return "search/result";
+		return "result";
 	}
 }
