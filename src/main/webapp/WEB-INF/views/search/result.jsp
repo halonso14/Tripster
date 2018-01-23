@@ -68,7 +68,7 @@
 				<c:set var="getNum" value="${getNum}" />
 				<div class="offset-2"><hr></div>
 				
-				<div class="search-tab-pane active" id="totalList">
+				<div class="tabcontent" id="totalList">
 				<!-- 통합 검색결과 리스트  -->
 					
 					<c:if test="${getNum.totalNum == 0 }" >
@@ -153,7 +153,7 @@
 				</div> <!-- 통합 검색 결과 리스트 끝 -->
 				
 				
-				<div class="search-tab-pane" id="contentsList" >
+				<div class="tabcontent" id="contentsList" style="display:none">
 				<!-- 컨텐츠 검색 결과 더보기 리스트 -->
 					<c:if test="${getNum.contentsNum == 0 }" >
 					<!-- 검색결과가 없을경우 -->
@@ -181,7 +181,7 @@
 				</div> <!-- 컨텐츠 검색결과더보기 리스트 끝 -->
 				
 				
-				<div class="search-tab-pane" id="planList" >
+				<div class="tabcontent" id="planList" style="display:none">
 				<!-- 일정 검색 결과 더보기 리스트 -->
 					<c:if test="${getNum.planNum == 0 }" >
 					<!-- 검색결과가 없을경우 -->
@@ -194,7 +194,7 @@
 				</div> <!-- 일정 검색 결과 더보기 리스트 끝 -->
 				
 				
-				<div class="search-tab-pane" id="memberList" >
+				<div class="search-tab-pane" id="memberList" style="display:none">
 				<!-- 회원 검색 결과 더보기 리스트 -->
 					<c:if test="${getNum.memberNum == 0 }" >
 					<!-- 검색결과가 없을경우 -->

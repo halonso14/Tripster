@@ -32,16 +32,48 @@ div.searchbox {
 	border-radius: 30px;
 }
 
-.list-group-item:hover {
-	background-color: yellow;
-}
-.list-group-item.selected {
-	background-color: red;
-}
-/* .search-tab-pane {
-	display:none;
-}
-.search-tab-pane.active {
-	display:block;
-} */
 
+/* Style the tab */
+.tab {
+	margin: 20px 0;
+    width: 100%;
+    border-collapse : collapse;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    display: block;
+    color: black;
+    padding: 12px 15px;
+    width: 100%;
+    background:#fff;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 1px solid #eee;
+    border-collapse : collapse;
+    position:relative;
+}
+.tab button:nth-child(1) {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px
+}
+.tab button:nth-child(4) {
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px	
+}
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    width: 100%;
+}
