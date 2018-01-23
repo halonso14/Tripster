@@ -6,33 +6,35 @@
 	<!-- TOP TIP -->
 	<div class="offset-2">	
 		<div class="tab">	
-			<button class="tablinks totalList active" onclick="openCity(event,'totalList')">
+			<button class="tablinks totalList active" onclick="more(event,'totalList')">
 				<span class="hidetext">통합검색</span>&nbsp; 
 				<span class="badge indent0" >${getNum.get("totalNum")}</span>
 			</button>
-			<button class="tablinks contentsList" onclick="openCity(event,'contentsList')">
+			<button class="tablinks contentsList" onclick="more(event,'contentsList')">
 				<span class="hidetext">컨텐츠</span>&nbsp;
 				<span class="badge indent0">${getNum.get("contentsNum")}</span>
 			</button>
-			<button class="tablinks planList" onclick="openCity(event,'planList')">
+			<button class="tablinks planList" onclick="more(event,'planList')">
 				<span class="hidetext">일정</span>&nbsp; 
 				<span class="badge indent0">${getNum.get("planNum")}</span>
 			</button>
-			<button class="tablinks memberList" onclick="openCity(event,'memberList')">
+			<button class="tablinks memberList" onclick="more(event,'memberList')">
 				<span class="hidetext">회원</span>&nbsp; 
 				<span class="badge indent0">${getNum.get("memberNum")}</span>
 			</button>
 		</div>	
 	</div>
+
 	<script>
-		function openCity(evt, cityName) {
+	
+		function more(evt, tabName) {
 		    // Declare all variables
 		    var i, tabcontent, tablinks;
 	
 		    // Get all elements with class="tabcontent" and hide them
 		    tabcontent = document.getElementsByClassName("tabcontent");
 		    for (i = 0; i < tabcontent.length; i++) {
-		        tabcontent[i].style.display = "none";
+		    		tabcontent[i].className = tabcontent[i].className.replace(" active", "");
 		    }
 	
 		    // Get all elements with class="tablinks" and remove the class "active"
@@ -42,10 +44,16 @@
 		    }
 	
 		    // Show the current tab, and add an "active" class to the link that opened the tab
-		    document.getElementById(cityName).style.display = "block";
-		    document.getElementsByClassName(cityName)[0].className +=  " active";
+		    document.getElementsByClassName(tabName)[0].className +=  " active";
+		    document.getElementsByClassName(tabName)[1].className +=  " active";
 		}
 	</script>
+		
+	<c:if test="${tab =='contentsList'}"> ${tab} <script> more(event,'contentsList'); </script> </c:if>
+	<c:if test="${tab =='planList'}"> ${tab}<script> more(event,'planList'); </script> </c:if>
+	<c:if test="${tab =='memberList'}"> ${tab}<script> more(event,'memberList'); </script> </c:if>
+	<c:if test="${tab =='totalList'}"> ${tab}<script> more(event,'totalList'); </script> </c:if>
+		
 	
 	<div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
 	<div class="line2"></div>

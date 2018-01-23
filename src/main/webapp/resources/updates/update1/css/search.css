@@ -88,4 +88,8 @@ div.searchbox {
 /* Style the tab content */
 .tabcontent {
     width: 100%;
+    display: none;
+}
+.tabcontent.active {
+	display: block;
 }

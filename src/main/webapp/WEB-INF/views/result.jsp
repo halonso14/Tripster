@@ -68,7 +68,7 @@
 				<c:set var="getNum" value="${getNum}" />
 				<div class="offset-2"><hr></div>
 				
-				<div class="tabcontent" id="totalList">
+				<div class="tabcontent active" id="totalList">
 				<!-- 통합 검색결과 리스트  -->
 					
 					<c:if test="${getNum.totalNum == 0 }" >
@@ -89,15 +89,19 @@
 								<c:if test="${getNum.contentsNum > 3 }" >
 								<!-- 컨텐츠 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->	
 									<div class=" grey right">
-										<button class="" onclick="openCity(event,'contentsList')">더보기</button>
+										<button class="" onclick="more(event,'contentsList')">더보기</button>
 									</div>
 								</c:if>
 								<div class="clearfix"></div>
 							</div>
 							<!-- 컨텐츠 리스트 -->
+							
 							<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="2">	
 								<%@include file="include/search/contents.jsp" %>	
 							</c:forEach>
+							<!--  Scrap Btn -->
+							<script src="/resources/js/scrap.js"></script>
+ 			
 							<div class="offset-2"><hr></div>
 						</div>
 					</c:if>
@@ -112,7 +116,7 @@
 								<c:if test="${getNum.planNum > 3 }" >
 								<!-- 일정 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->
 									<div class=" grey right">
-										<button class="" onclick="openCity(event,'planList')">더보기</button>
+										<button class="" onclick="more(event,'planList')">더보기</button>
 									</div>
 								</c:if>
 								<div class="clearfix"></div>
@@ -136,7 +140,7 @@
 								<c:if test="${getNum.memberNum > 3 }" >
 								<!-- 회원 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->
 									<div class=" grey right">
-										<button class="" onclick="openCity(event,'memberList')">더보기</button>
+										<button class="" onclick="more(event,'memberList')">더보기</button>
 									</div>
 								</c:if>
 								<div class="clearfix"></div>
@@ -153,7 +157,7 @@
 				</div> <!-- 통합 검색 결과 리스트 끝 -->
 				
 				
-				<div class="tabcontent" id="contentsList" style="display:none">
+				<div class="tabcontent" id="contentsList" >
 				<!-- 컨텐츠 검색 결과 더보기 리스트 -->
 					<c:if test="${getNum.contentsNum == 0 }" >
 					<!-- 검색결과가 없을경우 -->
@@ -183,7 +187,7 @@
 								<li><a href="${contentsPageMaker.makeQuery(contentsPageMaker.startPage-1) }">&laquo;</a></li>
 							</c:if>
 							<c:forEach begin="${contentsPageMaker.startPage }" end="${contentsPageMaker.endPage }" var="idx">	
-								<li id="contentsPage" <c:out value="${contentsPageMaker.cri.page == idx?'class=active':'' }"></c:out>>
+								<li id="contentsPage" class="<c:out value="${contentsPageMaker.cri.page == idx?' active':'' }"></c:out>">
 									<a href="${contentsPageMaker.makeQuery(idx,'contentsList')}" >${idx}</a>
 								</li>	
 							</c:forEach>
@@ -195,7 +199,7 @@
 				</div> <!-- 컨텐츠 검색결과더보기 리스트 끝 -->
 				
 				
-				<div class="tabcontent" id="planList" style="display:none">
+				<div class="tabcontent" id="planList">
 				<!-- 일정 검색 결과 더보기 리스트 -->
 					<c:if test="${getNum.planNum == 0 }" >
 					<!-- 검색결과가 없을경우 -->
@@ -213,10 +217,10 @@
 					<div class="hpadding20">
  						<ul class="pagination right paddingbtm20">
 							<c:if test="${planPageMaker.prev }">
-								<li><a href="${planPageMaker.makeQuery(planPageMaker.startPage-1) }">&laquo;</a></li>
+								<li><a href="${planPageMaker.makeQuery(planPageMaker.startPage-1)}">&laquo;</a></li>
 							</c:if>
 							<c:forEach begin="${planPageMaker.startPage }" end="${planPageMaker.endPage }" var="idx">	
-								<li id="contentsPage" <c:out value="${planPageMaker.cri.page == idx?'class=active':'' }"></c:out>>
+								<li id="contentsPage" <c:out value="${planPageMaker.cri.page == idx?'class=active':''}"></c:out>>
 									<a href="${planPageMaker.makeQuery(idx,'planList')}" >${idx}</a>
 								</li>	
 							</c:forEach>
@@ -230,7 +234,7 @@
 				</div> <!-- 일정 검색 결과 더보기 리스트 끝 -->
 				
 				
-				<div class="tabcontent" id="memberList" style="display:none">
+				<div class="tabcontent" id="memberList">
 				<!-- 회원 검색 결과 더보기 리스트 -->
 					<c:if test="${getNum.memberNum == 0 }" >
 					<!-- 검색결과가 없을경우 -->
@@ -291,7 +295,9 @@
     <!-- Bootstrap -->	
     <script src="/resources/dist/js/bootstrap.min.js"></script>
 	<!--  Scrap Btn -->
-    <script src="/resources/js/scrap.js"></script>
+  <script src="/resources/js/scrap.js"></script> 
+	
+
 
   </body>
 

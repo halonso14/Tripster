@@ -1,17 +1,11 @@
 package com.tripster.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.tripster.domain.EsContentsVO;
-import com.tripster.domain.EsMemberVO;
-import com.tripster.domain.EsPlanVO;
+
 import com.tripster.domain.EsSearchResult;
 import com.tripster.domain.SearchCriteria;
 import com.tripster.persistence.EsContentsDAO;
