@@ -47,6 +47,6 @@ public class SearchController {
 		model.addAttribute("planPageMaker",planPageMaker);
 		model.addAttribute("memberPageMaker",memberPageMaker);
 		
-		return "search/result";
+		return "result";
 	}
 }

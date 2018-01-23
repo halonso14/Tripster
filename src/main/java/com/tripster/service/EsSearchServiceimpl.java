@@ -62,8 +62,6 @@ public class EsSearchServiceimpl implements EsSearchService {
 		
 	}
 	
-
-	
 	// 컨텐츠 페이지 처리
 	@Override
 	public List<EsContentsVO> contentsList(SearchCriteria cri) throws Exception{

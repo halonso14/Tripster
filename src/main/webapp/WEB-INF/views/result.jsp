@@ -96,7 +96,7 @@
 							</div>
 							<!-- 컨텐츠 리스트 -->
 							<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="2">	
-								<%@include file="include/search/contents.jsp" %>	
+								<%@include file="include/search/contents.jsp" %>
 							</c:forEach>
 							<div class="offset-2"><hr></div>
 						</div>
@@ -172,7 +172,9 @@
 							</div>								
 							<!-- 컨텐츠 리스트 -->
 							<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="9">	
-								<%@include file="include/search/contents.jsp" %>	
+								
+								<%@include file="include/search/contents.jsp" %>
+								
 							</c:forEach>
 							<div class="offset-2"><hr></div>
 						</div>								
@@ -247,9 +249,7 @@
 	<script src="/resources/assets/js/jquery-ui.js"></script>
     <!-- Bootstrap -->	
     <script src="/resources/dist/js/bootstrap.min.js"></script>
-	<!--  Scrap Btn -->
-    <script src="/resources/js/scrap.js"></script>
-
+	
   </body>
 
 </html>
