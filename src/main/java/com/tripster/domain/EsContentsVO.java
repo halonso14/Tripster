@@ -3,7 +3,7 @@ package com.tripster.domain;
 import java.util.*;
 
 public class EsContentsVO{
-	
+	private long result_cnt;
 	private int category_id;
 	private int contents_id;
 	private String contents_title;
@@ -133,5 +133,13 @@ public class EsContentsVO{
 				+ ", contents_scrap_cnt=" + contents_scrap_cnt + ", contents_country=" + contents_country
 				+ ", contents_city=" + contents_city + ", contents_thumbnail=" + contents_thumbnail + ", created="
 				+ created + ", updated=" + updated + "]";
+	}
+
+	public long getResult_cnt() {
+		return result_cnt;
+	}
+
+	public void setResult_cnt(long result_cnt) {
+		this.result_cnt = result_cnt;
 	}
 }		

@@ -197,8 +197,10 @@
 						</ul> 
 					</div>				
 				</div> <!-- 컨텐츠 검색결과더보기 리스트 끝 -->
-				
-				
+			
+			
+			
+
 				<div class="tabcontent" id="planList">
 				<!-- 일정 검색 결과 더보기 리스트 -->
 					<c:if test="${getNum.planNum == 0 }" >

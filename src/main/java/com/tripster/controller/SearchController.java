@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tripster.domain.SearchCriteria;
 import com.tripster.domain.SearchPageMaker;
+import com.tripster.elasticsearch.EsSearchScroll;
 import com.tripster.service.EsSearchService;
 
 @Controller
@@ -23,6 +24,8 @@ public class SearchController {
 	
 	@Inject
 	private EsSearchService esSearchService;
+	@Inject
+	private EsSearchScroll esSearchScroll;
 	
 	// 통합검색 결과리스트 요청
 	@RequestMapping(value="result", method = RequestMethod.GET)
@@ -57,5 +60,12 @@ public class SearchController {
 		return "result";
 	}
 	
-	
+	@RequestMapping(value="contents", method = RequestMethod.GET)
+	public String scrollContents(@RequestParam(value="tab", required=false) String tab, 
+			@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
+		String scrollID="" ; 
+		model.addAttribute("contentsList",esSearchScroll.getContentsList(cri,scrollID));
+		
+		return "contents";	
+	}
 }
