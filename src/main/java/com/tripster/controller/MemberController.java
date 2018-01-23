@@ -2,7 +2,9 @@ package com.tripster.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
@@ -12,9 +14,12 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -271,6 +276,7 @@ public class MemberController {
 		List<Integer> likeChkList = new ArrayList<Integer>();
 		List<Integer> followChkList = new ArrayList<Integer>();
 		List<PlanVO> vo = planservice.myPlan(memberID, cri);
+		int planCount = service.planCount(memberID);
 		
 		for(int i=0;i<vo.size();i++) {
 			String picName = "false";
@@ -280,14 +286,14 @@ public class MemberController {
 					PlanDetailVO pd = vo.get(i).getPlanDetailVO().get(j);
 					if(pd.getMemoVO() != null) {
 						if(pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName() != null) {
-							picList.add( pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName());
+							picList.add( "'"+ pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName() + "'");
 							picName = "true";
 							break;
 						} 
 					}
 				}
 				if(picName.equals("false")) {
-					picList.add("");
+					picList.add("''");
 					picName = "true";
 				}
 			}
@@ -319,17 +325,42 @@ public class MemberController {
 			
 		}
 		
-		cri.setCurPage(1);
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setPlanCount(service.planCount(memberID));
-		
-		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("planCount", planCount);
 		model.addAttribute("pictureID", picList);
 		model.addAttribute("planVO", vo);
 		model.addAttribute(service.mypage(memberID));
 		
+	}
+	
+	@RequestMapping(value = "/viewMember/{memberID}/{page}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public ResponseEntity<Map<String, Object>> listPage(@PathVariable("memberID") Integer memberID,
+														 @PathVariable("page") Integer page){
+		ResponseEntity<Map<String, Object>> entity = null;
+		
+		try {
+			Criteria cri = new Criteria();
+			cri.setCurPage(page);
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			List<PlanVO> list = planservice.myPlan(memberID, cri);
+			
+			map.put("list", list);
+			
+			int planCount = service.planCount(memberID);
+			pageMaker.setPlanCount(planCount);
+			
+			map.put("pageMaker", pageMaker);
+			
+			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
 	}
 
 	// 유저 추천페이지 위한 설문(수정도 됨)페이지 제공

@@ -129,7 +129,7 @@
 							<!-- ymmu data -->
 							<tr class="grey opensans">
 								<td class="center" style="width:33%"><span class="size30 slim lh4"
-									id="numPlans">${fn:length(planVO)}</span><br />
+									id="numPlans">${planCount}</span><br />
 								<span class="size12">Plans</span></td>
 								<td class="center" style="width:33%"><span class="size30 slim lh4"
 									id="totalDays">1</span><br />
@@ -160,10 +160,14 @@
 					<div class="clearfix"></div>
 
 					<%-- 작성한 plan이 있을때 화면에 뿌려준다. --%>
-					<c:if test="${not empty planVO}">
+<%-- 					<c:if test="${not empty planVO}">
 						<div class="itemscontainer offset-1">
-							<c:forEach items="${planVO}" var="planVO" varStatus="status">
-								<div class="col-md-4">
+							<c:forEach items="${planVO}" var="planVO" varStatus="status"> --%>
+							
+					<div class="itemscontainer offset-1">
+						<div id=planList>
+						</div>
+<%-- 								<div class="col-md-4">
 									<div class="listitem">
 									
 										<c:choose>
@@ -193,29 +197,139 @@
 										<a href="/plan/read?planID=${planVO.planID}"><b>${planVO.planTitle}</b></a><br />
 									</div>
 								</div>
-								<%-- plan 3개마다 줄바꿈 --%>
+								plan 3개마다 줄바꿈
 								<c:if test="${status.count%3 eq 0}">
 									<div class="clearfix"></div>
 									<div class="offset-2">
 										<hr class="featurette-divider3">
 									</div>
-								</c:if>
-							</c:forEach>
+								</c:if> --%>
+					
+<%-- 							</c:forEach>
 							<div class="clearfix"></div>
 							<div class="offset-2">
 								<hr class="featurette-divider3">
 							</div>
 						</div>
-					</c:if>
+					</c:if> --%>
+					
+						<div class="clearfix"></div>
+							<div class="offset-2">
+								<hr class="featurette-divider3">
+							</div>
+					</div>
+					
+					<ul class="pagination right paddingbtm20">
+					</ul>
 
 
 <input type="hidden" id="memberID" value=${session.memberID } />
 <input type="hidden" id="writerID" value=${memberVO.memberID } />
 
 					<!-- End of offset1-->
+
+<script src="/resources/assets/js/js-list.js"></script>
+<script src="/resources/js/like.js"></script>
+<script>
+	
+	var memberID = ${memberVO.memberID};
+	var session = "${session.memberID}";
+	var pictureID = ${pictureID};
+	var likeChkList = '';
+	var array = "${likeChkList}";
+	
+	if(session != ""){
+		likeChkList = JSON.parse(array);
+		console.log(likeChkList);
+	} else{
+		likeChkList = '';
+	}
+
+	getPageList(1);
+	
+	//plan을 화면에 뿌려준다.
+	function getPageList(page){
+			
+	var str = '';
+		
+		$.getJSON("/member/viewMember/"+memberID+"/"+page, function(data){
+			$(data.list).each(function(index){
+					str += 
+				"<div class='col-md-4'>"
+					+"<div class='listitem'>";
+						
+					if(pictureID[index] != ""){
+						str +=
+							"<img src='/displayFile?fileName="+pictureID[index]+"'alt='' />";
+					} else{
+						str +=
+							"<img src='' alt='' />";
+					}
+						
+					str +=
+						"<div class='liover'></div>";
+							
+					if(likeChkList[index] != 1){
+						str +=
+							"<a id='likeBtn' class='fav-icon like' href='javascript:void(0)' value=" +this.planID+ " likeBtnCheck='0'></a>"
+					} else{
+						str +=
+							"<a id='likeBtn' class='fav-icon-red like' href='javascript:void(0)' value=" +this.planID+ " likeBtnCheck='1'></a>"
+					}
+							
+					str +=
+						"<a class='book-icon' href='/plan/read?planID="+this.planID+"'></a>"
+					+"</div>"
+					+"<div class='itemlabel' style='text-align: center;'>"
+						+"<a href='/plan/read?planID="+this.planID+"'><b>"+this.planTitle+"</b></a><br />"
+					+"</div>"
+				+"</div>";
 					
+					if((index+1)%3 == 0 && index+1 != data.list.length){
+						str +=
+							"<div class='clearfix'></div><div class='offset-2'><hr class='featurette-divider3'></div>";
+					}
+				
+				
+				})
+					
+			$("#planList").html(str);
+			printPaging(data.pageMaker);
+			StartAnime2();
+		})
+	}
+
+	
+		//page 뿌려주는 함수.
+	function printPaging(pageMaker) {
+		var str = "";
+		if (pageMaker.prev) {
+			str += "<li><a href='" + (pageMaker.startPage - 1)
+					+ "'> << </a></li>";
+		}
+		for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
+			var strClass = pageMaker.cri.curPage == i ? 'class=active' : '';
+			str += "<li "+strClass+"><a href='"+i+"'>" + i + "</a></li>";
+		}
+		if (pageMaker.next) {
+			str += "<li><a href='" + (pageMaker.endPage + 1)
+					+ "'> >> </a></li>";
+		}
+		$('.pagination').html(str);
+	}
+
+	var replyPage = 1;
+	
+
+	$(".pagination").on("click", "li a", function(event) {
+		event.preventDefault();
+		replyPage = $(this).attr("href");
+		getPageList(replyPage);
+	});
+	
+</script>					
 							<!-- pagination -->
-							<div class="hpadding20">
+<%-- 							<div class="hpadding20">
 								<ul class="pagination right paddingbtm20">
 									
 									<c:if test="${pageMaker.prev }">
@@ -235,7 +349,7 @@
 										<li><a href="${pageMaker.endPage+1 }">&raquo;</a></li>
 									</c:if>
 								</ul>
-							</div>
+							</div> --%>
 
 					<!-- END OF LIST CONTENT-->
 
@@ -350,14 +464,14 @@
 
 
 <!-- Javascript  -->
-<script src="/resources/assets/js/js-list.js"></script>
+<!-- <script src="/resources/assets/js/js-list.js"></script> -->
 
 <!-- Nicescroll  -->
 <script src="/resources/assets/js/jquery.nicescroll.min.js"></script>
 
 <!-- Custom functions -->
 <script src="/resources/assets/js/functions.js"></script>
-<script src="/resources/js/like.js"></script>
+
 <script src="/resources/js/follow.js"></script>
 
 <!-- Custom Select -->
