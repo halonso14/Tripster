@@ -20,9 +20,36 @@
 			<span class="size11 grey ">${esContentsVO.contents_rating} Stars</span><br><br>
 			<span class="margtop20 green size18"><b>0</b></span><span class="green size14"> Plan</span><br>
 			<span class="size11 grey">${esContentsVO.contents_scrap_cnt} Scrap</span><br><br>
+	 		<button class="bookbtn mt1 scrap" value="${esContentsVO.contents_id}" check="1" session="${empty userSession }" >스크랩</button>		
+ 			
+ 			<script>
+ 			
+		 		var contentsID = ${esContentsVO.contents_id};
+		 		var scrapbt = $("button[value="+contentsID+"]");
+		 		
+		 		if(scrapbt.attr("session") == "true"){
+		 			
+		 		}else{
+		 			// 스크랩 체크
+			 		function ScrapModuleChk(contentsID,scrapbt){
+			 			
+			 			$.ajax({
+			 				type : 'post',
+			 				url : '/scrapCheck/'+contentsID,
+			 				async: false,
+			 				success : function(check){
+			 					console.log("check : "+check);
+			 					scrapbt.attr('check',check);
+			 				}
+			 			});
+			 			
+			 		}	
+		 		}
+		 		
+		 		ScrapModuleChk(contentsID,scrapbt);
+		 		
+		 	</script>
 		 	
-	 		<button class="bookbtn mt1" value="${esContentsVO.contents_id}" check="1" session="${empty userSession }" >스크랩</button>		
- 		
 		</div>
 		<div class="labelleft">			
 			
@@ -42,14 +69,13 @@
 				
 			<c:forEach var="keyword" items="${esContentsVO.contents_keyword}">
 			
-			     	<span style="display:inline-block; border-radius:15px; border:1px solid #ddd; padding:5px 10px; margin:5px 2px">
-			     		<b># </b> ${keyword}
-			     		</span>
+		     	<span style="display:inline-block; border-radius:15px; border:1px solid #ddd; padding:5px 10px; margin:5px 2px">
+		     		<b># </b> ${keyword}
+		     	</span>
 				     
-				</c:forEach>
-
-					
-				</span> 
+			</c:forEach>
+	
+			</span> 
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -57,3 +83,6 @@
 </div>
 <div class="clearfix"></div>
 <div class="offset-2" style="padding-top:30px"></div>
+
+<!--  Scrap Btn -->
+<script src="/resources/js/scrap.js"></script>

@@ -1,25 +1,25 @@
+
 // 스크랩 체크
 function ScrapModuleChk(contentsID,scrapbt){
 	
-	alert("scrap Chk:"+contentsID);
-
 	$.ajax({
 		type : 'post',
 		url : '/scrapCheck/'+contentsID,
 		async: false,
 		success : function(check){
-			alert("스크랩 체크 변경"+check);
 			scrapbt.attr('check',check);
 		}
 	});
 	
 }
 
+// <button class="bookbtn mt1 scrap" value="컨텐츠 아이디" check="1" session="${empty userSession }" >스크랩</button>
 //스크랩 버튼 클릭시
 $(".scrap").on('click',function(){
 	
 	var scrapbt = $(this);
 	var contentsID = scrapbt.val();
+	console.log("click");
 	
 	// 세션 체크
 	if(scrapbt.attr("session") == "true"){
@@ -33,18 +33,16 @@ $(".scrap").on('click',function(){
 		
 		if(scrapbt.attr('check') == 1){
 			
-			alert("스크랩 추가"+scrapbt.attr('check'));
 			scrapbt.attr('check',0);
 			$.post("/scrap/"+contentsID,function(data){
-				alert(data);
+				console.log(data);
 			})
 			
 		}else{
 			
-			alert("scrap 제거"+scrapbt.attr('check'));
 			scrapbt.attr('check',1);
 			$.post("/scrapDelete/"+contentsID,function(data){
-				alert(data);
+				console.log(data);
 			})
 			
 		}
