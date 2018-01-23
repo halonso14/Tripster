@@ -58,7 +58,15 @@ response.setHeader("Pragma", "no-cache");
 	
   </head>
   <body id="top" class="thebg" >
-    
+
+    <!-- ymmu 통계, 추천 페이지 자바스크립트에서 멤버아이디 받아 ajax로 데이터 받음-->
+    <script type="text/javascript">
+    	var id = ${memberVO.memberID};
+    	//<c:set value="${memberVO.memberName}" var="memberName"/>
+    	//console.log("<c:out value="${memberVO.memberName}"/>");
+    	//console.log("memberName");
+    </script>
+    <!-- ymmu 통계, 추천 페이지 자바스크립트에서 멤버아이디 받아 ajax로 데이터 받음-->
 	<div class="navbar-wrapper2 navbar-fixed-top">
       <div class="container">
 		<div class="navbar mtnav">
@@ -1095,7 +1103,7 @@ response.setHeader("Pragma", "no-cache");
     <script src="/resources/dist/js/bootstrap.min.js"></script>
     <script src="/resources/bootstrap-table/dist/bootstrap-table.js"></script>
 	<!-- put your locale files after bootstrap-table.js -->
-	<script src="/resources/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
+	<script src="/resources/bootstrap-table/dist/locale/bootstrap-table-ko-KR.js"></script>
     <!-- ymmu my statistacs.js-->
     <script src="/resources/js/statistics.js" type="text/javascript"></script>
     <!-- 상윤것 script 분리시킴 mypage.js-->

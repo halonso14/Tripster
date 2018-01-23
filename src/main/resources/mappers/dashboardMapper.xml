@@ -77,14 +77,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	]]>
   </select>
 
-<!-- 일정별 좋아요 갯수 -->
+<!-- 다녀온 국가과 그 국가를 다녀온 일정들 -->
   <select id="getPlanCountryInfo" resultType="DashCountryVO">
   	<![CDATA[
 	#특정멤버의 일정들에서 방문한 국가리스트를 얻어온다
-	select Plan_Title as plan_title, Contents_Country as visitedCountryISO/*, Contents_City*/ 
+	select Plan_Title as plan_title, Contents_Country as visitedCountryISO, Plan_EndChk as plan_endChk/*, Contents_City*/ 
 	from # 일정에서 특정멤버의 일정목록을 먼저 얻어와서 일정상세테이블과 조인하여 "특정 유저의 일정들의 상세목록"을 가져온다 
 		(tbl_Plan_Detail join
-			(select Plan_ID, Plan_Title, tbl_Plan.Member_ID as 일정만든유저
+			(select Plan_ID, Plan_Title, tbl_Plan.Member_ID as 일정만든유저, Plan_EndChk
 			 from tbl_Plan
 			 where tbl_Plan.Member_ID = #{memberID}
 			)Member_Making_plan
@@ -93,7 +93,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		on tbl_Plan_Detail.Contents_ID = tbl_Contents.Contents_ID
 	    )
 	#where tbl_Plan_Detail.Plan_ID =1
-	group by Contents_Country, Plan_Title
+	group by Contents_Country, Plan_Title, Plan_EndChk
  	]]>
   </select>
 

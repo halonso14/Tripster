@@ -1,5 +1,3 @@
-
-
 // 스크랩 체크
 function ScrapModuleChk(contentsID,scrapbt){
 	
@@ -53,4 +51,3 @@ $(".scrap").on('click',function(){
 		
 	}
 });
-	

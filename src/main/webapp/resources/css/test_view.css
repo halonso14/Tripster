@@ -22,7 +22,7 @@ body {
 }
 /*form styles*/
 #msform {
-	width: 1000px;
+	width: 95%;
 	margin: 50px auto;
 	text-align: center;
 	position: relative;
@@ -35,8 +35,8 @@ body {
 	padding: 20px 30px;
 	
 	box-sizing: border-box;
-	width: 80%;
-	margin: 0 10%;
+	width: 100%;
+	/*margin: 0 10%;*/
 	
 	/*stacking fieldsets above each other*/
 	position: absolute;
@@ -52,12 +52,17 @@ body {
 	border: 1px solid #ccc;
 	border-radius: 3px;
 	margin-bottom: 10px;
-	width: 100%;
+	/*width: 100%;*/
 	box-sizing: border-box;
 	font-family: montserrat;
 	color: #2C3E50;
 	font-size: 13px;
 }
+
+#q11{
+	width: 50%;
+}
+
 /*buttons*/
 #msform .action-button {
 	width: 100px;
@@ -98,7 +103,7 @@ body {
 	color: #000000;
 	text-transform: uppercase;
 	font-size: 9px;
-	width: 8%;
+	width: 12.5%;
 	float: left;
 	position: relative;
 }
@@ -135,6 +140,25 @@ body {
 	background: #27AE60;
 	color: white;
 }
+
+
+.container_radio{
+	display:inline-flex;
+	margin: 5em 0 5em 0;
+}
+
+
+label {
+    float: inherit;
+    clear: none;
+    display: block;
+    padding: 2px 2em 0 8em;
+}
+
+#ex2 .slider-selection {
+	background: #81bfde;
+}
+
 
 /*custom*/
 /*
