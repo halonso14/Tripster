@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tripster.domain.EsSearchResult;
 import com.tripster.domain.SearchCriteria;
@@ -27,7 +26,7 @@ public class SearchController {
 	
 	
 	// 통합검색 결과리스트 요청
-	@RequestMapping(value="/result", method = RequestMethod.GET)
+	@RequestMapping(value="result", method = RequestMethod.GET)
 	public String search(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
 		
 		// model에 통합 검색결과 담기 

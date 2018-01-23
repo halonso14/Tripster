@@ -34,12 +34,12 @@ public class EsSearchServiceimpl implements EsSearchService {
 		
 		// result에 dao실행결과 담기 
 		result.setContentsList(contents.getContentsList());
-		result.setContestsCnt(contents.getContestsCnt());
+		result.setContentsCnt(contents.getContentsCnt());
 		result.setPlanList(plan.getPlanList());
 		result.setPlanCnt(plan.getPlanCnt());
 		result.setMemberList(member.getMemberList());
 		result.setMemberCnt(member.getMemberCnt());	
-		result.setTotalCnt(contents.getContestsCnt()+plan.getPlanCnt()+member.getMemberCnt());
+		result.setTotalCnt(contents.getContentsCnt()+plan.getPlanCnt()+member.getMemberCnt());
 		return result;
 	}
 
@@ -55,7 +55,7 @@ public class EsSearchServiceimpl implements EsSearchService {
 		
 		// result에 dao실행결과 담기 
 		result.setContentsList(contents.getContentsList());
-		result.setContestsCnt(contents.getContestsCnt());
+		result.setContentsCnt(contents.getContentsCnt());
 		return result;
 	}
 

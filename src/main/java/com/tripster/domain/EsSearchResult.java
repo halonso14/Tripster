@@ -6,7 +6,7 @@ import java.util.*;
 public class EsSearchResult {
 	
 	private Long totalCnt;
-	private Long contestsCnt;
+	private Long contentsCnt;
 	private Long planCnt;	
 	private Long memberCnt;
 	private List<EsContentsVO> contentsList;
@@ -19,11 +19,11 @@ public class EsSearchResult {
 	public void setTotalCnt(Long totalCnt) {
 		this.totalCnt = totalCnt;
 	}
-	public Long getContestsCnt() {
-		return contestsCnt;
+	public Long getContentsCnt() {
+		return contentsCnt;
 	}
-	public void setContestsCnt(Long contestsCnt) {
-		this.contestsCnt = contestsCnt;
+	public void setContentsCnt(Long contentsCnt) {
+		this.contentsCnt = contentsCnt;
 	}
 	public Long getPlanCnt() {
 		return planCnt;
@@ -57,7 +57,7 @@ public class EsSearchResult {
 	}
 	@Override
 	public String toString() {
-		return "EsSearchResult [totalCnt=" + totalCnt + ", contestsCnt=" + contestsCnt + ", planCnt=" + planCnt
+		return "EsSearchResult [totalCnt=" + totalCnt + ", contestsCnt=" + contentsCnt + ", planCnt=" + planCnt
 				+ ", memberCnt=" + memberCnt + ", contentsList=" + contentsList + ", planList=" + planList
 				+ ", memberList=" + memberList + "]";
 	}

@@ -65,13 +65,11 @@
 			
 			<!-- RIGHT CONTENT -->
 			<div class="rightcontent col-md-9 offset-2" style="background:#fff">
-				<c:set var="getNum" value="${getNum}" />
 				<div class="offset-2"><hr></div>
 				
 				<div class="" id="">
 				<!-- 통합 검색결과 리스트  -->
-					
-					<c:if test="${totalCnt == 0 }" >
+					<c:if test="${totalList.totalCnt == 0 }" >
 					<!-- 검색결과가 없을경우 -->
 						<div class="offset-2" style="padding:20px ">
 							<em style="color:red;">'${cri.keyword }'</em>에 대한 검색 결과가 없습니다.
@@ -79,30 +77,81 @@
 						<div class="offset-2"><hr></div>
 					</c:if>
 					
-					<c:if test="${totalCnt > 0 }" >
 					<!--  컨텐츠 결과가 있을경우  -->
+					<c:if test="${totalList.contentsCnt > 0 }" >
 						<!-- 컨텐츠 검색결과 리스트 -->
 						<div class="totalResult contentsResult" >	
 							<div class="offset-2" style="padding:20px ">	
 								<div class=" left"><b>컨텐츠</b></div>	
 									
-								<c:if test="${getNum.contentsNum > 3 }" >
+								<c:if test="${totalList.totalCnt > 3 }" >
 								<!-- 컨텐츠 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->	
 									<div class=" grey right">
-											<a href="/search/result?keyword=${cri.keyword}&go=contents" style="text-decoration:underline"> 더보기 〉 </a>
+										<a href="/search/contents?keyword=${cri.keyword}" style="text-decoration:underline"> 더보기 〉 </a>
 									</div>
 								</c:if>
 								<div class="clearfix"></div>
 							</div>
 							<!-- 컨텐츠 리스트 -->
-							<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="2">	
-								<%@include file="contents.jsp" %>	
+							<c:forEach items="${totalList.contentsList}" var = "esContentsVO" begin="0" end="2">	
+								<%@include file="../include/search/contents.jsp" %>	
 							</c:forEach>
 							<div class="offset-2"><hr></div>
 						</div>
 					</c:if>
+					
+					<!-- 일정 결과가 있을경우 -->					
+					<c:if test="${totalList.planCnt > 0 }" >
+						<!-- 일정 검색결과 -->	
+						<div class="plans">	
+							<div class="offset-2" style="padding:20px ">	
+								<div class=" left"><b>일정</b></div>
+
+								<c:if test="${totalList.planCnt > 3 }" >
+								<!-- 일정 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->
+									<div class=" grey right">
+										<a href="/search/plan?keyword=${cri.keyword}" style="text-decoration:underline"> 더보기 〉 </a>
+									</div>
+								</c:if>
+								<div class="clearfix"></div>
+							</div>
+							<!-- 일정 리스트 -->	
+							<c:forEach items="${totalList.planList}" var = "esPlanVO" begin="0" end="2">
+								<%@include file="../include/search/plan.jsp" %>	
+							</c:forEach>
+							<div class="clearfix"></div>
+							<div class="offset-2"><hr></div>	
+						</div>
+					</c:if>
+					
+					<c:if test="${totalList.memberCnt > 0 }" >
+					<!-- 회원 결과가 있을경우 -->
+						<!-- 회원 검색결과 -->
+						<div class="members">
+							<div class="offset-2" style="padding:20px ">	
+								<div class=" left"><b>회원</b></div>
+								
+								<c:if test="${totalList.memberCnt > 3 }" >
+								<!-- 회원 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->
+									<div class=" grey right">
+										<a href="/search/member?keyword=${cri.keyword}" style="text-decoration:underline"> 더보기 〉 </a>
+									</div>
+								</c:if>
+								<div class="clearfix"></div>
+							</div>
+							<!--회원 리스트 -->
+							<c:forEach items="${totalList.memberList}" var = "esMemberVO" begin="0" end="2">
+								<%@include file="../include/search/member.jsp" %>
+							</c:forEach>
+							<div class="clearfix"></div>
+							<div class="offset-2"><hr></div>
+						</div>	
+					</c:if>
+
+
 	
 				</div> <!-- 통합 검색 결과 리스트 끝 -->
+
 			</div> <!-- END OF RIGHT CONTENT -->
 		</div> <!-- END OF CONTENTS CONTAINER -->
 	</div> <!-- END OF Container -->

@@ -41,7 +41,7 @@ public class EsContentsDAOimpl implements EsContentsDAO {
 	    		result.add(contents);
 		}
 		resultset.setContentsList(result); 
-		resultset.setContestsCnt(hits.getTotalHits()); 
+		resultset.setContentsCnt(hits.getTotalHits()); 
 		return resultset;
 	}
 
