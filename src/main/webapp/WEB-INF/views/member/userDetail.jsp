@@ -155,7 +155,7 @@
 		<h2 class="fs-title">여행기록을 남기는 블로그가 있으신가요?</h2>
 		<h3 class="fs-subtitle"> blog url </h3>
         <div class="container">
-           <input type="text" id="q11" name="q11" placeholder="your blog url" />
+           <input type="text" id="q7" name="q7" placeholder="your blog url" />
 		</div>
 		<input type="button" name="previous" class="previous action-button" value="Previous" />
 		<input type="submit" name="submit" class="submit action-button" value="Submit" />
