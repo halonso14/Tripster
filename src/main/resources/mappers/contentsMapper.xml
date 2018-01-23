@@ -25,7 +25,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	,tbl_Contents_Detail.Contents_Lat lat
   	,tbl_Contents_Detail.Contents_Long lng
   from
-  	tbl_Contents NATURAL JOIN tbl_Contents_Detail
+  	tbl_Contents LEFT JOIN tbl_Contents_Detail
+  on
+  	tbl_Contents.Contents_ID = tbl_Contents_Detail.Contents_ID
   where
   	tbl_Contents.Contents_ID = #{contentsID}
   </select>
@@ -50,7 +52,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	,tbl_Contents_Detail.Contents_Lat lat
   	,tbl_Contents_Detail.Contents_Long lng
   from
-  	tbl_Contents NATURAL JOIN tbl_Contents_Detail
+  	tbl_Contents LEFT JOIN tbl_Contents_Detail
+  on
+  	tbl_Contents.Contents_ID = tbl_Contents_Detail.Contents_ID
   where
   	tbl_Contents.Contents_ID = #{contentsID}
   </select>

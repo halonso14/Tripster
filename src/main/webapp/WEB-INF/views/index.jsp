@@ -8,6 +8,10 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Tripster</title>
+		
+		<!-- AM Chart -->
+		<link rel = "stylesheet" type = "text/css" href ="/resources/css/statistics.css">
+		<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
 
 		<!-- Bootstrap -->
 		<link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
@@ -270,12 +274,43 @@
 				<br/>
 				<br/>
 			</div>
+			
+			<div id="chartdiv">
+				<div>hi</div>
+			</div>
+			
 			<!--####### HEADER #######-->
 			<%@include file="include/footer2.jsp" %>
 		</div>
 		<!-- END OF WRAP -->
 
 		<!-- Javascript -->
+		<!-- ymmu my js-->
+		<!-- pie charts -->
+	    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+	    <script src="https://www.amcharts.com/lib/3/pie.js"></script>
+	    <!-- radar -->
+	    <script src="https://www.amcharts.com/lib/3/radar.js"></script>
+	
+	    <!--myplan chart -->
+	    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+	
+	    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+	
+	    <script src="https://www.amcharts.com/lib/3/ammap.js"></script>
+	    <script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+	    <script src="https://www.amcharts.com/lib/3/themes/none.js"></script>
+	    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+	    <!-- Include all compiled plugins (below), or include individual files as needed -->
+	    <script src="/resources/dist/js/bootstrap.min.js"></script>
+	    <script src="/resources/bootstrap-table/dist/bootstrap-table.js"></script>
+		<!-- put your locale files after bootstrap-table.js -->
+		<script src="/resources/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
+	    <!-- ymmu my statistacs.js-->
+	    <script src="/resources/js/statistics.js" type="text/javascript"></script>
+	    <!-- ymmu my js-->
+		
+		
 
 		<!-- This page JS -->
 		<script src="/resources/updates/update1/js/js-new-homepage.js"></script>
