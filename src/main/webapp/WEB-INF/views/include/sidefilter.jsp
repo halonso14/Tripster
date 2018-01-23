@@ -6,19 +6,19 @@
 	<!-- TOP TIP -->
 	<div class="offset-2">	
 		<div class="tab">	
-			<button class="tablinks active" onclick="openCity(event,'totalList')">
+			<button class="tablinks totalList active" onclick="openCity(event,'totalList')">
 				<span class="hidetext">통합검색</span>&nbsp; 
 				<span class="badge indent0" >${getNum.get("totalNum")}</span>
 			</button>
-			<button class="tablinks" onclick="openCity(event,'contentsList')">
+			<button class="tablinks contentsList" onclick="openCity(event,'contentsList')">
 				<span class="hidetext">컨텐츠</span>&nbsp;
 				<span class="badge indent0">${getNum.get("contentsNum")}</span>
 			</button>
-			<button class="tablinks" onclick="openCity(event,'planList')">
+			<button class="tablinks planList" onclick="openCity(event,'planList')">
 				<span class="hidetext">일정</span>&nbsp; 
 				<span class="badge indent0">${getNum.get("planNum")}</span>
 			</button>
-			<button class="tablinks" onclick="openCity(event,'memberList')">
+			<button class="tablinks memberList" onclick="openCity(event,'memberList')">
 				<span class="hidetext">회원</span>&nbsp; 
 				<span class="badge indent0">${getNum.get("memberNum")}</span>
 			</button>
@@ -43,7 +43,7 @@
 	
 		    // Show the current tab, and add an "active" class to the link that opened the tab
 		    document.getElementById(cityName).style.display = "block";
-		    evt.currentTarget.className += " active";
+		    document.getElementsByClassName(cityName)[0].className +=  " active";
 		}
 	</script>
 	

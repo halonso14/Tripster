@@ -61,65 +61,6 @@ public class EsSearchServiceimpl implements EsSearchService {
 		return getNumbers;
 		
 	}
-	
 
-	
-	// 컨텐츠 페이지 처리
-	@Override
-	public List<EsContentsVO> contentsList(SearchCriteria cri) throws Exception{
-		
-		List<EsContentsVO> contentsList = contentsDao.getContentsList(cri);
-		List<EsContentsVO> result = new ArrayList<>();
-		
-		try {
-			for(int i=cri.getPageStart();i<cri.getPage()*cri.getPerPageNum();i++) {
-				result.add(contentsList.get(i));
-			}
-		}catch(Exception e) {
-			return result;
-		}
-		
-		return result;
-		
-	}
-	
-	// 플랜 페이지 처리
-	@Override
-	public List<EsPlanVO> planList(SearchCriteria cri) throws Exception{
-		
-		List<EsPlanVO> planList = planDao.getPlanList(cri);
-		List<EsPlanVO> result = new ArrayList<>();
-		
-		try {
-			for(int i=cri.getPageStart();i<cri.getPage()*cri.getPerPageNum();i++) {
-				result.add(planList.get(i));
-			}
-		}catch(Exception e) {
-			return result;
-		}
-		
-		return result;
-		
-	}
-	
-	// 멤버 페이지 처리
-	@Override
-	public List<EsMemberVO> memberList(SearchCriteria cri) throws Exception{
-		
-		List<EsMemberVO> memberList = memberDao.getMemberList(cri);
-		List<EsMemberVO> result = new ArrayList<>();
-		
-		try {
-			for(int i=cri.getPageStart();i<cri.getPage()*cri.getPerPageNum();i++) {
-				result.add(memberList.get(i));
-			}
-		}catch(Exception e) {
-			return result;
-		}
-		
-		return result;
-		
-	}
-	
 
 }

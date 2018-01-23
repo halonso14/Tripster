@@ -74,7 +74,7 @@
 					<c:if test="${getNum.totalNum == 0 }" >
 					<!-- 검색결과가 없을경우 -->
 						<div class="offset-2" style="padding:20px ">
-							<em style="color:red;">'${cri.keyword }'</em>에 대한 검색 결과가 없습니다.
+							<em>'${cri.keyword }'</em>에 대한 검색 결과가 없습니다.
 						</div>
 						<div class="offset-2"><hr></div>
 					</c:if>
@@ -89,7 +89,7 @@
 								<c:if test="${getNum.contentsNum > 3 }" >
 								<!-- 컨텐츠 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->	
 									<div class=" grey right">
-											<a href="/search/result?keyword=${cri.keyword}&go=contents" style="text-decoration:underline"> 더보기 〉 </a>
+										<button class="" onclick="openCity(event,'contentsList')">더보기</button>
 									</div>
 								</c:if>
 								<div class="clearfix"></div>
@@ -112,8 +112,7 @@
 								<c:if test="${getNum.planNum > 3 }" >
 								<!-- 일정 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->
 									<div class=" grey right">
-										<a href="/search/result?keyword=${cri.keyword }&go=plan" 
-										style="text-decoration:underline"> 더보기 〉 </a>
+										<button class="" onclick="openCity(event,'planList')">더보기</button>
 									</div>
 								</c:if>
 								<div class="clearfix"></div>
@@ -137,7 +136,7 @@
 								<c:if test="${getNum.memberNum > 3 }" >
 								<!-- 회원 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->
 									<div class=" grey right">
-											<a href="/search/result?keyword=${cri.keyword }&go=member" style="text-decoration:underline"> 더보기 〉 </a>
+										<button class="" onclick="openCity(event,'memberList')">더보기</button>
 									</div>
 								</c:if>
 								<div class="clearfix"></div>
@@ -159,7 +158,7 @@
 					<c:if test="${getNum.contentsNum == 0 }" >
 					<!-- 검색결과가 없을경우 -->
 						<div class="offset-2" style="padding:20px ">
-							<em style="color:red;">'${cri.keyword }'</em>에 대한 컨텐츠 검색 결과가 없습니다.
+							<em>'${cri.keyword }'</em>에 대한 컨텐츠 검색 결과가 없습니다.
 						</div>
 					</c:if>
 					<c:if test="${getNum.contentsNum > 0 }" >
@@ -178,7 +177,21 @@
 						</div>								
 					</c:if>	
 					<!-- pagination -->
-					<%@include file="include/search/pagenation.jsp" %>				
+					<div class="hpadding20">
+						<ul class="pagination right paddingbtm20">
+							<c:if test="${contentsPageMaker.prev }">
+								<li><a href="${contentsPageMaker.makeQuery(contentsPageMaker.startPage-1) }">&laquo;</a></li>
+							</c:if>
+							<c:forEach begin="${contentsPageMaker.startPage }" end="${contentsPageMaker.endPage }" var="idx">	
+								<li id="contentsPage" <c:out value="${contentsPageMaker.cri.page == idx?'class=active':'' }"></c:out>>
+									<a href="${contentsPageMaker.makeQuery(idx,'contentsList')}" >${idx}</a>
+								</li>	
+							</c:forEach>
+							<c:if test="${contentsPageMaker.next && contentsPageMaker.endPage > 0 }">
+								<li><a href="${contentsPageMaker.makeQuery(contentsPageMaker.endPage+1,go) }">&raquo;</a></li>
+							</c:if>
+						</ul>
+					</div>				
 				</div> <!-- 컨텐츠 검색결과더보기 리스트 끝 -->
 				
 				
@@ -187,7 +200,7 @@
 					<c:if test="${getNum.planNum == 0 }" >
 					<!-- 검색결과가 없을경우 -->
 						<div class="offset-2" style="padding:20px ">
-							<em style="color:red;">'${cri.keyword }'</em>에 대한 일정 검색 결과가 없습니다.
+							<em>'${cri.keyword }'</em>에 대한 일정 검색 결과가 없습니다.
 						</div>
 					</c:if>
 					<!-- 일정 리스트 -->	
@@ -197,7 +210,23 @@
 					<div class="clearfix"></div>
 					<div class="offset-2"><hr></div>						
 					<!-- pagination -->
-					<%@include file="include/search/pagenation.jsp" %>									
+					<div class="hpadding20">
+						<ul class="pagination right paddingbtm20">
+							<c:if test="${planPageMaker.prev }">
+								<li><a href="${planPageMaker.makeQuery(planPageMaker.startPage-1) }">&laquo;</a></li>
+							</c:if>
+							<c:forEach begin="${planPageMaker.startPage }" end="${planPageMaker.endPage }" var="idx">	
+								<li id="contentsPage" <c:out value="${planPageMaker.cri.page == idx?'class=active':'' }"></c:out>>
+									<a href="${planPageMaker.makeQuery(idx,'planList')}" >${idx}</a>
+								</li>	
+							</c:forEach>
+							<c:if test="${planPageMaker.next && planPageMaker.endPage > 0 }">
+								<li><a href="${planPageMaker.makeQuery(planPageMaker.endPage+1) }">&raquo;</a></li>
+							</c:if>
+	
+							
+						</ul>
+					</div>										
 				</div> <!-- 일정 검색 결과 더보기 리스트 끝 -->
 				
 				
@@ -206,7 +235,7 @@
 					<c:if test="${getNum.memberNum == 0 }" >
 					<!-- 검색결과가 없을경우 -->
 						<div class="offset-2" style="padding:20px ">
-							<em style="color:red;">'${cri.keyword }'</em>에 대한 회원 검색 결과가 없습니다.
+							<em>'${cri.keyword }'</em>에 대한 회원 검색 결과가 없습니다.
 						</div>
 					</c:if>
 					<!--회원 리스트 -->
@@ -216,7 +245,21 @@
 					<div class="clearfix"></div>
 					<div class="offset-2"><hr></div>					
 					<!-- pagination -->
-					<%@include file="include/search/pagenation.jsp" %>				
+					<div class="hpadding20">
+						<ul class="pagination right paddingbtm20">
+							<c:if test="${memberPageMaker.prev }">
+								<li><a href="${memberPageMaker.makeQuery(memberPageMaker.startPage-1) }">&laquo;</a></li>
+							</c:if>
+							<c:forEach begin="${memberPageMaker.startPage }" end="${memberPageMaker.endPage }" var="idx">	
+								<li id="contentsPage" <c:out value="${memberPageMaker.cri.page == idx?'class=active':'' }"></c:out>>
+									<a href=${memberPageMaker.makeQuery(idx,'memberList') } >${idx}</a>
+								</li>	
+							</c:forEach>
+							<c:if test="${memberPageMaker.next && contentsPageMaker.endPage > 0 }">
+								<li><a href="${memberPageMaker.makeQuery(memberPageMaker.endPage+1) }">&raquo;</a></li>
+							</c:if>
+						</ul>
+					</div>					
 				</div> <!-- 회원 검색 결과 더보기 리스트 끝 -->
 				
 				
