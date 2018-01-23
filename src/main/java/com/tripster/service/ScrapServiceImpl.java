@@ -50,11 +50,11 @@ public class ScrapServiceImpl implements ScrapService{
 		for(int i=0;i<list.size();i++) {
 			if(contentsID == list.get(i).getContentsID()) {
 				// 스크랩이 있으면 0 반환
-				return 0;
+				return 1;
 			}
 		}
 		// 스크랩이 없으면 1반환
-		return 1;
+		return 0;
 	}
 
 }

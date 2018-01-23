@@ -170,9 +170,12 @@
 								<div class="clearfix"></div>
 							</div>								
 							<!-- 컨텐츠 리스트 -->
-							<c:forEach items="${contentsList}" var = "esContentsVO" begin="${(cri.page*cri.perPageNum)-contentsPageMaker.displayPageNum}" end="${(cri.page*cri.perPageNum)-1}">	
-								<%@include file="include/search/contents.jsp" %>	
-							</c:forEach>
+							<div>
+								<c:forEach items="${contentsList}" var = "esContentsVO" begin="${(cri.page*cri.perPageNum)-contentsPageMaker.displayPageNum}" end="${(cri.page*cri.perPageNum)-1}">	
+									<%@include file="include/search/contents.jsp" %>	
+								</c:forEach>
+							</div>
+							
 							<div class="offset-2"><hr></div>
 						</div>								
 					</c:if>	
