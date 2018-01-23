@@ -170,7 +170,7 @@
 								<div class="clearfix"></div>
 							</div>								
 							<!-- 컨텐츠 리스트 -->
-							<c:forEach items="${contentsList}" var = "esContentsVO" begin="0" end="9">	
+							<c:forEach items="${contentsList}" var = "esContentsVO" begin="${(cri.page*cri.perPageNum)-contentsPageMaker.displayPageNum}" end="${(cri.page*cri.perPageNum)-1}">	
 								<%@include file="include/search/contents.jsp" %>	
 							</c:forEach>
 							<div class="offset-2"><hr></div>
@@ -178,7 +178,7 @@
 					</c:if>	
 					<!-- pagination -->
 					<div class="hpadding20">
-<%-- 						<ul class="pagination right paddingbtm20">
+						<ul class="pagination right paddingbtm20">
 							<c:if test="${contentsPageMaker.prev }">
 								<li><a href="${contentsPageMaker.makeQuery(contentsPageMaker.startPage-1) }">&laquo;</a></li>
 							</c:if>
@@ -190,7 +190,7 @@
 							<c:if test="${contentsPageMaker.next && contentsPageMaker.endPage > 0 }">
 								<li><a href="${contentsPageMaker.makeQuery(contentsPageMaker.endPage+1,go) }">&raquo;</a></li>
 							</c:if>
-						</ul> --%>
+						</ul> 
 					</div>				
 				</div> <!-- 컨텐츠 검색결과더보기 리스트 끝 -->
 				
@@ -211,7 +211,7 @@
 					<div class="offset-2"><hr></div>						
 					<!-- pagination -->
 					<div class="hpadding20">
-<%-- 						<ul class="pagination right paddingbtm20">
+ 						<ul class="pagination right paddingbtm20">
 							<c:if test="${planPageMaker.prev }">
 								<li><a href="${planPageMaker.makeQuery(planPageMaker.startPage-1) }">&laquo;</a></li>
 							</c:if>
@@ -225,7 +225,7 @@
 							</c:if>
 	
 							
-						</ul> --%>
+						</ul> 
 					</div>										
 				</div> <!-- 일정 검색 결과 더보기 리스트 끝 -->
 				
@@ -246,7 +246,7 @@
 					<div class="offset-2"><hr></div>					
 					<!-- pagination -->
 					<div class="hpadding20">
-<%-- 						<ul class="pagination right paddingbtm20">
+ 						<ul class="pagination right paddingbtm20">
 							<c:if test="${memberPageMaker.prev }">
 								<li><a href="${memberPageMaker.makeQuery(memberPageMaker.startPage-1) }">&laquo;</a></li>
 							</c:if>
@@ -258,7 +258,7 @@
 							<c:if test="${memberPageMaker.next && contentsPageMaker.endPage > 0 }">
 								<li><a href="${memberPageMaker.makeQuery(memberPageMaker.endPage+1) }">&raquo;</a></li>
 							</c:if>
-						</ul> --%>
+						</ul> 
 					</div>					
 				</div> <!-- 회원 검색 결과 더보기 리스트 끝 -->
 				
