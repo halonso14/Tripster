@@ -49,7 +49,7 @@
 	<root>
 		<priority value="info" />
 		<appender-ref ref="console" />
-		<!-- <appender-ref ref="filelog"/> -->
+		<appender-ref ref="filelog"/>
 	</root>
 	
 </log4j:configuration>

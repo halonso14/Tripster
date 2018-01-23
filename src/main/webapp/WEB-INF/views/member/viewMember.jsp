@@ -9,59 +9,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Travel Agency - HTML5 Booking template</title>
 
-    <!-- Bootstrap -->
-    <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
-    
-    <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
-    
-    <link href="/resources/assets/css/followBtn.css" rel="stylesheet" media="screen">
-    <!-- ymmu bootstrap table -->
-    <link href="/resources/bootstrap-table/dist/bootstrap-table.css" rel="stylesheet">
-
-
-	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="assets/js/html5shiv.js"></script>
-      <script src="assets/js/respond.min.js"></script>
-    <![endif]-->
-	
-    <!-- Fonts -->	
-	<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet' type='text/css'>	
-	<!-- Font-Awesome -->
-    <link rel="stylesheet" type="text/css" href="/resources/assets/css/font-awesome.css" media="screen" />
-    <!--[if lt IE 7]><link rel="stylesheet" type="text/css" href="assets/css/font-awesome-ie7.css" media="screen" /><![endif]-->
-	
-	<!-- Animo css-->
-	<link href="/resources/plugins/animo/animate+animo.css" rel="stylesheet" media="screen">
-
-    <!-- Picker -->	
-	<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />	
-	
-<!--     jQuery	 -->	
-    <script src="https://code.jquery.com/jquery-2.0.3.js"></script>
-
-<script src="/resources/dist/js/bootstrap.min.js"></script>
-
 </head>
 <body>
-<%@include file="/WEB-INF/views/include/header2.jsp"%>
+<%@include file="/WEB-INF/views/include/css.jsp"%>
 <c:set var="session" value='<%= session.getAttribute("login")%>'/>
-
-	<div class="container breadcrub">
-	    <div>
-			<a class="homebtn left" href="/"></a>
-			<div class="left offset-2">
-				
-				<p style="color: black;font-weight:bold;">회원 정보 조회</p>		
-				
-			</div>
-			
-		</div>
-		<div class="clearfix"></div>
-		<div class="brlines"></div>
-	</div>	
 
 
 <!-- CONTENT -->
@@ -85,7 +36,6 @@
 					<!-- TAB 1 -->
 					<!-- Admin top -->
 					<div class="col-md-4 offset-0">
-					
 						<c:choose>
 							<c:when test="${empty memberVO.memberPicture }">
 								<img src="/resources/images/user.png" alt=""
@@ -98,29 +48,9 @@
 									style="height: 100px; width: 100px;" />
 							</c:otherwise>
 						</c:choose>
-						
-						<p class="size20 grey margtop20">
+						<p class="size20 grey margtop40">
 							<span class="dark">${memberVO.memberName}</span><br />
 						</p>
-						
-
-						<div class="container">
-						
-						<c:set var="followID" value="${memberVO.memberID }"/>
-						
-						<c:forEach items="${followChkList}" var="followChk" varStatus="status">
-							<c:choose>
-								<c:when test='${followChk ne followID}'>
-    								<button class="btn followButton" value="${followID}" rel="6">Follow</button>
-								</c:when>
-								<c:otherwise>
-									<button class="btn followButton following" value="${followID}" rel="6">Following</button>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>	
-						
-						</div>
-						
 						<div class="clearfix"></div>
 					</div>
 					<div class="col-md-4"></div>
@@ -159,13 +89,12 @@
 					<br />
 					<div class="clearfix"></div>
 
-					<%-- 작성한 plan이 있을때 화면에 뿌려준다. --%>
+					<!-- 작성한 plan이 있을때 화면에 뿌려준다. -->
 					<c:if test="${not empty planVO}">
 						<div class="itemscontainer offset-1">
 							<c:forEach items="${planVO}" var="planVO" varStatus="status">
 								<div class="col-md-4">
 									<div class="listitem">
-									
 										<c:choose>
 											<c:when test='${pictureID[status.index] ne "" }'>
 												<img src="/displayFile?fileName=${pictureID[status.index]}"
@@ -175,25 +104,16 @@
 												<img src="" alt="" />
 											</c:otherwise>
 										</c:choose>
-										
 										<div class="liover"></div>
-										
-										<c:choose>
-											<c:when test='${likeChkList[status.index] ne 1 }'>
-												<a id="likeBtn" class="fav-icon like" href="javascript:void(0)" value= ${planVO.planID } likeBtnCheck='0'></a>
-											</c:when>
-											<c:otherwise>
-												<a id="likeBtn" class="fav-icon-red like" href="javascript:void(0)" value= ${planVO.planID } likeBtnCheck='1'></a>
-											</c:otherwise>
-										</c:choose>
-										
+										<input type="hidden" id="planID" value=${planVO.planID } />
+										<a id="like" class="fav-icon like" href="javascript:void(0)" value= ${likeChkList[status.index] } ></a>
 										<a class="book-icon" href="/plan/read?planID=${planVO.planID}"></a>
 									</div>
 									<div class="itemlabel" style="text-align: center;">
 										<a href="/plan/read?planID=${planVO.planID}"><b>${planVO.planTitle}</b></a><br />
 									</div>
 								</div>
-								<%-- plan 3개마다 줄바꿈 --%>
+								<!-- plan 3개마다 줄바꿈 -->
 								<c:if test="${status.count%3 eq 0}">
 									<div class="clearfix"></div>
 									<div class="offset-2">
@@ -213,29 +133,20 @@
 <input type="hidden" id="writerID" value=${memberVO.memberID } />
 
 					<!-- End of offset1-->
-					
-							<!-- pagination -->
-							<div class="hpadding20">
-								<ul class="pagination right paddingbtm20">
-									
-									<c:if test="${pageMaker.prev }">
-										<li><a href="${pageMaker.startPage-1 }">&laquo;</a></li>
-									</c:if>
-									
-									<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-										
-										<li id="contentsPage"
-											<c:out value="${pageMaker.cri.curPage == idx?'class=active':'' }"></c:out>>
-											<a href="/member/viewMember?memberID=${memberVO.memberID }&&page=${idx }" >${idx }</a>
-										</li>
-										
-									</c:forEach>
-									
-									<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
-										<li><a href="${pageMaker.endPage+1 }">&raquo;</a></li>
-									</c:if>
-								</ul>
-							</div>
+
+					<div class="hpadding20">
+
+						<ul class="pagination right paddingbtm20">
+							<li class="disabled"><a href="#">&laquo;</a></li>
+							<li><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+							<li><a href="#">&raquo;</a></li>
+						</ul>
+
+					</div>
 
 					<!-- END OF LIST CONTENT-->
 
@@ -357,8 +268,7 @@
 
 <!-- Custom functions -->
 <script src="/resources/assets/js/functions.js"></script>
-<script src="/resources/js/like.js"></script>
-<script src="/resources/js/follow.js"></script>
+<!-- <script type="text/javascript" src="/resources/js/like.js"></script> -->
 
 <!-- Custom Select -->
 <script src='/resources/assets/js/jquery.customSelect.js'

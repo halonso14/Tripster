@@ -11,6 +11,7 @@
     <!-- Bootstrap -->
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
+    <link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
 	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -41,104 +42,51 @@
 	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.dependClass-0.1.js"></script>
 	<script type="text/javascript" src="/resources/plugins/jslider/js/draggable-0.1.js"></script>
 	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.slider.js"></script>
+	
 	<!-- end -->
   </head>
   <body id="top" class="thebg" >
 
 	<!--####### HEADER #######-->
 	<%@include file="../include/header2.jsp" %>
+	<!-- 로그인 세션  -->
+	<c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
 	
+	<!-- Breadcrumbs -->
 	<div class="container breadcrub">
-	    <div>
-			<a class="homebtn left" href="#"></a>
-			<div class="left offset-2">
-				
-				<p style="color: black;font-weight:bold;">'${cri.keyword }' 검색결과</p>		
-				
-			</div>
-			
-		</div>
-		<div class="clearfix"></div>
 		<div class="brlines"></div>
-	</div>
-
-
-	<!--####### CONTAINER #######-->
+	</div><!-- / Breadcrumbs -->
+	
 	<div class="container">
 		<!-- CONTENTS CONTAINER -->
-		<div class="container pagecontainer offset-0">	
+		<div class="container pagecontainer offset-0" style="background:#f2f2f2">	
 			<!-- LEFT CONTENT: SIDE FILTERS -->
 			
 			<%@include file="../include/sidefilter.jsp" %>
 			
 			<!-- RIGHT CONTENT -->
-			<div class="rightcontent col-md-9 offset-0">
-				<div class="tab-content6">
-	
-					<!-- 유저 리스트 -->
-					<div class="member " id="userList">
-						<!-- Top FILTERS -->
-						<div class="hpadding20">
-							<div class="topsortby">
-								<div class="col-md-4 offset-0">
-										
-										<div class="left mt7"><b>Sort by:</b></div>
-										
-										<div class="right wh70percent">
-											<select class="form-control mySelectBoxClass ">
-											  <option selected>Guest rating</option>
-											  <option>5 stars</option>
-											  <option>4 stars</option>
-											  <option>3 stars</option>
-											  <option>2 stars</option>
-											  <option>1 stars</option>
-											</select>
-										</div>
-		
-								</div>			
-								<div class="col-md-4">
-									<div class="w50percent">
-										<div class="wh90percent">
-											<select class="form-control mySelectBoxClass ">
-											  <option selected>Name</option>
-											  <option>A to Z</option>
-											  <option>Z to A</option>
-											</select>
-										</div>
-									</div>
-									<div class="w50percentlast">
-										<div class="wh90percent">
-											<select class="form-control mySelectBoxClass ">
-											  <option selected>Price</option>
-											  <option>Ascending</option>
-											  <option>Descending</option>
-											</select>
-										</div>
-									</div>					
-								</div>
-								<div class="col-md-4 offset-0">
-									<button class="popularbtn left">Most Popular</button>
-									<div class="right">
-										<button class="gridbtn" onClick="window.open('list2.html','_self');">&nbsp;</button>
-										<button class="listbtn active">&nbsp;</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- End of Top FILTERS-->
-						
-						<!--####### 유저 검색결과 : 템플릿 list2.html #######-->
-						<div class="itemscontainer offset-1" >	
-						
-							<!-- 검색 결과가 없을경우 -->
-							<c:set var="more" value="${getNum.memberNum }" />
-							<c:if test="${more == 0 }" >
-								<div class="offset-2" style="padding:20px ">	
-									<br/>
-									<em style="color:red;">'${cri.keyword }'</em>
-									에 대한 검색 결과가 없습니다.
-								</div>	
-							</c:if>
+			<div class="rightcontent col-md-9 offset-2" style="background:#fff">
+				
+				<!-- 전체 검색결과 리스트  -->
+				<div class="tab-pane  active" id="totalList">
+
+					<ul class="list-group offset-2 margtop30">	
+						<a href="result?keyword=${cri.keyword }&go=total" class="list-group-item" >
+						<span class="hidetext" style="color: black;font-weight:bold;">'${cri.keyword }' 검색결과</span>&nbsp; 
+						</a>
+					</ul>			
+
+					<div class="contents offset-1" >
+
+						<!-- 검색 결과가 없을경우 -->
+						<c:set var="more" value="${getNum.memberNum }" />
+						<c:if test="${more == 0 }" >
+							<div class="offset-2" style="padding:20px ">	
+								<br/>
+								<em style="color:red;">'${cri.keyword }'</em>
+								에 대한 회원 검색 결과가 없습니다.
+							</div>	
+						</c:if>
 							
 							<c:forEach items="${memberList}" var = "esMemberVO" begin="0" end="9">
 								<div class="col-md-4" >

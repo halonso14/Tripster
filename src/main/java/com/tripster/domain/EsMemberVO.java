@@ -43,6 +43,9 @@ public class EsMemberVO {
 		this.member_birthday = member_birthday;
 	}
 	public String getMember_picture() {
+		if(this.member_picture.equals("")) {
+			this.member_picture = "https://myworldmark.files.wordpress.com/2013/05/road-trip.jpg";
+		}
 		return member_picture;
 	}
 	public void setMember_picture(String member_picture) {

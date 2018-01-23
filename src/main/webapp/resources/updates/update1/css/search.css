@@ -20,8 +20,28 @@ div.searchbox {
 	
 }
 
-.userprofile {
-	width:100px!important;
-	height:100px!important;
-	border-round:50px!important;
+.progress-custom {
+	height:15px !important;
+	overflow:hidden;
+	margin:5px 0 2px 0;
 }
+.member-profile {
+	width:60px;
+	height:60px;
+	overflow:hidden;
+	border-radius: 30px;
+}
+
+.list-group-item:hover {
+	background-color: yellow;
+}
+.list-group-item.selected {
+	background-color: red;
+}
+/* .search-tab-pane {
+	display:none;
+}
+.search-tab-pane.active {
+	display:block;
+} */
+

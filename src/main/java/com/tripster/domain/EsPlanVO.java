@@ -2,13 +2,18 @@ package com.tripster.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class EsPlanVO {
 	private int plan_id;
 	private int member_id;
 	private String member_picture;
 	private String member_name;
+	private String plan_picture;
 	private String plan_title;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date plan_startdate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date plan_enddate;	
 	private int plan_endchk;
 	private int plan_like_cnt;
@@ -28,10 +33,22 @@ public class EsPlanVO {
 		this.member_id = member_id;
 	}
 	public String getMember_picture() {
+		if(this.member_picture.equals("")) {
+			this.member_picture = "https://myworldmark.files.wordpress.com/2013/05/road-trip.jpg";
+		}
 		return member_picture;
 	}
 	public void setMember_picture(String member_picture) {
 		this.member_picture = member_picture;
+	}
+	public String getPlan_picture() {
+		if(this.plan_picture.equals("")) {
+			this.plan_picture = "https://myworldmark.files.wordpress.com/2013/05/road-trip.jpg";
+		}
+		return plan_picture;
+	}
+	public void setPlan_picture(String plan_picture) {
+		this.plan_picture = plan_picture;
 	}
 	public String getMember_name() {
 		return member_name;
@@ -88,4 +105,5 @@ public class EsPlanVO {
 				+ ", plan_enddate=" + plan_enddate + ", plan_endchk=" + plan_endchk + ", plan_like_cnt=" + plan_like_cnt
 				+ ", created=" + created + ", updated=" + updated + "]";
 	}
+
 }
