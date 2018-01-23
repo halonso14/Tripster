@@ -36,21 +36,22 @@ public class SearchController {
 	
 	
 	// 컨텐츠 검색결과 더보기 요청
-	@RequestMapping(value="/contents", method = RequestMethod.GET)
+	@RequestMapping(value="contents", method = RequestMethod.GET)
 	public String searcContents(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
 		
 		// 컨텐츠 검색 결과리스트 변수 선언   
-		EsSearchResult searcContents = esSearchService.getContentsSearchList(cri);
+		EsSearchResult searchContents = esSearchService.getContentsSearchList(cri);
 		// 컨텐츠 리스트 페이징 처리 변수 선언  
 		SearchPageMaker pageMaker = new SearchPageMaker();
 		
 		// pagemaker에 검색어 담기 
 		pageMaker.setCri(cri);
 		// pagemaker에 컨텐츠 검색건수 담기 
-		pageMaker.setTotalCount(searcContents.getContestsCnt());
-		
+		if(searchContents.getContentsCnt() != null) {
+			pageMaker.setTotalCount(searchContents.getContentsCnt());
+		}
 		// model에 검색 결과리스트 담기  
-		model.addAttribute("contentsList",searcContents);
+		model.addAttribute("contentsList",searchContents);
 		// model에 pagemaker 담기 
 		model.addAttribute("pageMaker",pageMaker);
 
@@ -59,7 +60,7 @@ public class SearchController {
 	
 	
 	// 일정 검색결과 더보기 요청
-	@RequestMapping(value="/plan", method = RequestMethod.GET)
+	@RequestMapping(value="plan", method = RequestMethod.GET)
 	public String searcPlan(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
 		
 		// 일정 검색 결과리스트 변수 선언   
@@ -69,8 +70,10 @@ public class SearchController {
 		
 		// pagemaker에 검색어 담기 
 		pageMaker.setCri(cri);
-		// pagemaker에 컨텐츠 검색건수 담기 
-		pageMaker.setTotalCount(searcPlan.getPlanCnt());
+		// pagemaker에 컨텐츠 검색건수 담기
+		if(searcPlan.getPlanCnt() != null) {
+			pageMaker.setTotalCount(searcPlan.getPlanCnt());
+		}
 		
 		// model에 검색 결과리스트 담기  
 		model.addAttribute("planList",searcPlan);
@@ -82,7 +85,7 @@ public class SearchController {
 
 	
 	// 회원 검색결과 더보기 요청
-	@RequestMapping(value="/member", method = RequestMethod.GET)
+	@RequestMapping(value="member", method = RequestMethod.GET)
 	public String searcMember(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
 		
 		// 일정 검색 결과리스트 변수 선언   
@@ -93,8 +96,9 @@ public class SearchController {
 		// pagemaker에 검색어 담기 
 		pageMaker.setCri(cri);
 		// pagemaker에 컨텐츠 검색건수 담기 
-		pageMaker.setTotalCount(searcMember.getMemberCnt());
-		
+		if(searcMember.getMemberCnt() != null) {
+			pageMaker.setTotalCount(searcMember.getMemberCnt());
+		}
 		// model에 검색 결과리스트 담기  
 		model.addAttribute("memberList",searcMember);
 		// model에 pagemaker 담기 
