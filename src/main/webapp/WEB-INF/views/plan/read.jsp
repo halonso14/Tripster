@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
-
+<c:set var="session" value='<%= session.getAttribute("login")%>'/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
@@ -28,12 +28,12 @@
 .pagination li {
 	list-style: none;
 	float: left;
-	padding: 3px;
+	/* padding: 3px; */
 	/* border: 1px solid blue; */
-	margin: 3px;
+	 /* margin-top: 10px;  */
 }
 .pagination li a {
-	margin: 3px;
+	/* margin: 3px; */
 	text-decoration: none;
 }
 .aboutarrow {
@@ -214,6 +214,16 @@
 	
 	<%@include file="/WEB-INF/views/include/header2.jsp"%>
 	<%@include file="/WEB-INF/views/plan/updateModal.jsp" %>
+	<div class="container breadcrub">
+		<a class="homebtn left" href="/"></a>
+			<div class="left offset-2">
+				
+				<p style="color: black;font-weight:bold;">일정 상세</p>		
+				
+			</div>
+		<div class="clearfix"></div>
+		<div class="brlines"></div>
+	</div>	
 	<!-- CONTENT -->
 	<div class="container" >
 		<div class="container mt25 offset-0">
@@ -225,19 +235,48 @@
 					<div>
 						<div class="lato size30 slim">
 						${plan.planTitle}
-						<a href="#" class="blogpost-hover" style="float: right;position: inherit;"><span class="glyphicon glyphicon-heart"></span></a>
+						<!-- 좋아요 -->
+							<c:choose>
+								<c:when test='${likeChk ne 1 }'>
+									<span style=" float: right; margin-right: 40px"><a id="likeBtn" class="fav-icon-black like" href="#" onclick="likeClick('${session}',$(this));"  value= ${plan.planID  } likeBtnCheck='0' style="top:30px;"></a></span>
+								</c:when>
+								<c:otherwise>
+									<span style=" float: right; margin-right: 40px"><a id="likeBtn" class="fav-icon-black fav-icon-red like" href="#" onclick="likeClick('${session}',$(this));" value= ${plan.planID } likeBtnCheck='1' style="top:30px;"></a></span>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					
 						
 						
 					</div>
 					<div class="lato size15 grey bold">
-						
 						<fmt:formatDate var="parseStartDate" value="${plan.planStartDate }" pattern="yyyy-MM-dd"/>
 						<fmt:formatDate var="parseEndDate" value="${plan.planEndDate }" pattern="yyyy-MM-dd"/>
 						
 						<span class="lato size15 grey bold">전체일정 : ${parseStartDate} ~ ${parseEndDate }</span>
-						<span class="member_name">작성자 : ${memberName }</span>
+						<span class="member_name">
+							<ul id="writer" style="list-style:none;">
+								<li class="dropdown">
+									작성자 :
+									<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+										 ${memberName }<b class="lightcaret mt-2"></b>
+									</a>
+									<!-- 일정 리스트 페이지 링크. -->
+									<c:choose>
+										<c:when test="${session.memberID eq plan.memberID }">
+											<ul class="dropdown-menu">
+												<li><a href="/member/viewMember?memberID=${plan.memberID }">나의 일정 리스트</a></li>
+											</ul>
+										</c:when>
+										<c:otherwise>
+											<ul class="dropdown-menu">
+												<li><a href="/member/viewMember?memberID=${plan.memberID }">회원 일정 리스트</a></li>
+											</ul>
+										</c:otherwise>
+									</c:choose>
+								</li>
+							</ul>
+						</span>
 					</div>
 					<p class="aboutarrow"></p>
 				</div>
@@ -291,64 +330,73 @@
 
 							<c:set var = "date" value=""/>
 							<div id="eventWrapper" style="border-left: 1px solid #ccc;padding-left: 20px">
-							<!-- Day 계산 -->
-							<!-- 
-								 fmt:parseDate : String 형을 받아서 하는 format으로 자료형을 Date 형태로 변경 시켜 준다.
-								 fmt:formatDate : Date 형을 받아서 원하는 format으로 날짜 형태를 변경시켜 준다.
-								 planStartDate는 Date형 -> yyyy-mm-dd로 format -> Date형으로 다시 파싱.->일자를 초단위로 파싱.
-							-->
-							<fmt:formatDate var="startPlanDate" value="${plan.planStartDate }" pattern="yyyy-MM-dd"/>
-							<fmt:parseDate var="parseStartDate" value="${startPlanDate }" pattern="yyyy-MM-dd"/>
-							<fmt:parseNumber value="${parseStartDate.time / (1000*60*60*24)}" integerOnly="true" var="startDate"></fmt:parseNumber>
-
+								<!-- Day 계산 -->
+								<!-- 
+									 fmt:parseDate : String 형을 받아서 하는 format으로 자료형을 Date 형태로 변경 시켜 준다.
+									 fmt:formatDate : Date 형을 받아서 원하는 format으로 날짜 형태를 변경시켜 준다.
+									 planStartDate는 Date형 -> yyyy-mm-dd로 format -> Date형으로 다시 파싱.->일자를 초단위로 파싱.
+								-->
+								<fmt:formatDate var="startPlanDate" value="${plan.planStartDate }" pattern="yyyy-MM-dd"/>
+								<fmt:parseDate var="parseStartDate" value="${startPlanDate }" pattern="yyyy-MM-dd"/>
+								<fmt:parseNumber value="${parseStartDate.time / (1000*60*60*24)}" integerOnly="true" var="startDate"></fmt:parseNumber>
+	
+								
+								<c:forEach items="${plan.planDetailVO }" var="planDetailVO">
+									<!-- planDetailDate는 String형 -> yyyy-mm-dd로 Date 형태로 변경.-> 일자를 초단위로 파싱. -->
+									<fmt:parseDate var="nowPlanDate" value="${planDetailVO.planDetailDate }" pattern="yyyy-MM-dd"/>
+									<fmt:parseNumber value="${nowPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="nowDate"></fmt:parseNumber>
+						
+									<c:if test="${planDetailVO.planDetailDate ne date}">
+										<!-- 현재 Detial Date에서 전체 일정 시작 날짜를 빼서 Day 구해줌.  -->
+										<div class="dayCircle"></div><span class="whichDay">Day ${nowDate-startDate+1 }</span>&nbsp&nbsp<span class="lato size22 dark bold">${planDetailVO.planDetailDate }</span><br/>
+										<c:set var = "date" value="${planDetailVO.planDetailDate }"/>
+										<div class="line4"></div>
+									</c:if>
+									<c:set var = "detailStart" value = "${ planDetailVO.planDetailStartTime}"/>
+									<!-- 시:분 까지만 뿌려주기 위해서 초단위 부분은 잘라줌.  -->
+									<c:set var = "formatDetailStart" value = "${fn:substring(detailStart, 0, 5)}" />
+									<div class="dayCircle"></div><span class="lato size18 dark bold">${formatDetailStart}&nbsp</span>
+									<span class="lato size18 blue bold"> 
+									<!-- 만약 contentsID가 존재하면, detail title부분에 contents상세 페이지 링크 연결.  -->
+										<c:choose>
+											<c:when test="${planDetailVO.contentsID eq 0 }">
+												${planDetailVO.title }
+											</c:when>
+											<c:otherwise>
+												<a href="#">${planDetailVO.title }</a>
+											</c:otherwise>
+										</c:choose>
+									</span><br/>
 							
-							<c:forEach items="${plan.planDetailVO }" var="planDetailVO">
-								<!-- planDetailDate는 String형 -> yyyy-mm-dd로 Date 형태로 변경.-> 일자를 초단위로 파싱. -->
-								<fmt:parseDate var="nowPlanDate" value="${planDetailVO.planDetailDate }" pattern="yyyy-MM-dd"/>
-								<fmt:parseNumber value="${nowPlanDate.time / (1000*60*60*24)}" integerOnly="true" var="nowDate"></fmt:parseNumber>
-					
-								<c:if test="${planDetailVO.planDetailDate ne date}">
-									<!-- 현재 Detial Date에서 전체 일정 시작 날짜를 빼서 Day 구해줌.  -->
-									<div class="dayCircle"></div><span class="whichDay">Day ${nowDate-startDate+1 }</span>&nbsp&nbsp<span class="lato size22 dark bold">${planDetailVO.planDetailDate }</span><br/>
-									<c:set var = "date" value="${planDetailVO.planDetailDate }"/>
+									<c:if test="${planDetailVO.memoVO.memoContents ne null }">
+										<div class="memoText">
+											<pre class="plan_pre">${planDetailVO.memoVO.memoContents }</pre>
+										</div>
+									</c:if>
+							
+									<!-- 사진 있을 경우에만 사진 띄워줌. -->
+									<c:if test="${not empty planDetailVO.memoVO.memoPictureVO.get(0).memoPictureName }">
+										<div class="wrapper2">
+											<div class="list_carousel2">
+												<ul class="foo5">
+													<c:forEach items="${planDetailVO.memoVO.memoPictureVO }" var="pictureVO">
+														<c:set var="image" value=""/>
+					           					 		<li>
+															<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img  class="img-responsive" src="/displayFile?fileName=${pictureVO.memoPictureName }" style="max-height: 407px;max-width: 950px; width: 950px; height: 407px" /></a>
+														</li>
+													</c:forEach>
+												</ul>
+											<div class="clearfix"></div>
+											<a id="prev_btn" class="xprev" href=""><img src="/resources/images/spacer.png" alt=""/></a>
+											<a id="next_btn" class="xnext" href=""><img src="/resources/images/spacer.png" alt=""/></a>
+										</div>
+									</div>
 									<div class="line4"></div>
 								</c:if>
-								<c:set var = "detailStart" value = "${ planDetailVO.planDetailStartTime}"/>
-								<!-- 시:분 까지만 뿌려주기 위해서 초단위 부분은 잘라줌.  -->
-								<c:set var = "formatDetailStart" value = "${fn:substring(detailStart, 0, 5)}" />
-								<div class="dayCircle"></div><span class="lato size18 dark bold">${formatDetailStart}&nbsp</span>
-								<span class="lato size18 blue bold"> ${planDetailVO.title }</span><br/>
-						
-								<c:if test="${planDetailVO.memoVO.memoContents ne null }">
-									<div class="memoText">
-										<pre class="plan_pre">${planDetailVO.memoVO.memoContents }</pre>
-									</div>
-								</c:if>
-						
-								<!-- 사진 있을 경우에만 사진 띄워줌. -->
-								<c:if test="${not empty planDetailVO.memoVO.memoPictureVO.get(0).memoPictureName }">
-									<div class="wrapper2">
-										<div class="list_carousel2">
-											<ul class="foo5">
-												<c:forEach items="${planDetailVO.memoVO.memoPictureVO }" var="pictureVO">
-													<c:set var="image" value=""/>
-				           					 		<li>
-														<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img  class="img-responsive" src="/displayFile?fileName=${pictureVO.memoPictureName }" style="max-height: 407px;max-width: 950px; width: 950px; height: 407px" /></a>
-													</li>
-												</c:forEach>
-											</ul>
-										<div class="clearfix"></div>
-										<a id="prev_btn" class="xprev" href=""><img src="/resources/images/spacer.png" alt=""/></a>
-										<a id="next_btn" class="xnext" href=""><img src="/resources/images/spacer.png" alt=""/></a>
-									</div>
-								</div>
-								<div class="line4"></div>
-							</c:if>
-							<!-- <div class="line4"></div> -->
-						</c:forEach> 
+								<!-- <div class="line4"></div> -->
+							</c:forEach> 
 						</div>
 						</br></br>
-						<c:set var="session" value='<%= session.getAttribute("login")%>'/>
 						<c:set var="planWriter" value="${plan.memberID }"/>
 						<c:if test="${session.memberID == planWriter}">
 							<button class="btn-search4 margtop20" id="remove" style="width: 180px; font-size: 14px;">REMOVE</button>
@@ -380,7 +428,8 @@
 						<!-- <div class="line4"></div> -->
 						<span></span>
 						<br>
-						<ul class="pagination">
+						<br/>
+						<ul class="pagination right paddingbtm20s">
 						</ul>
 						<br/>
 						<br/>
@@ -411,6 +460,7 @@
 	
     <!-- Custom functions -->
     <script src="/resources/assets/js/functions.js"></script>
+    <script src="/resources/js/like.js"></script>
 	
     <!-- Custom Select -->
 	<script type='text/javascript' src='/resources/js/lightbox.js'></script>	
