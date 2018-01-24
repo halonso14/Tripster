@@ -718,7 +718,7 @@ window.initGoogleMap=function(data) {
 		  marker_list.push(marker);
 		  //정보창
 		  var infowindow = new google.maps.InfoWindow({
-			    content: "<div id='contents'><h1 id='firstHeading' class='firstHeading'>"+data[i].name+"</h1></div>"
+			    content: "<div id='contents'><h2 id='firstHeading' class='firstHeading'>"+data[i].name+"</h2></div>"
 			  });
 		  
 		  //마커 클릭하면 정보창 보이게.

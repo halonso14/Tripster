@@ -287,20 +287,24 @@ response.setHeader("Pragma", "no-cache");
 
 						  <!-- Admin top -->
 						  <div class="col-md-4 offset-0">
-						  	<c:choose>
-						  		<c:when test="${empty profilePic }">
-									<img src="/resources/images/user.png" alt="" class="left margright20" id="profileImg"/>
-						  		</c:when>
-						  		<c:otherwise>
-						  			<img src="/displayFile?fileName=${profilePic }" alt="" class="left margright20" 
-						  			id="profileImg" style="height : 53px; width: 53px;"/>
-						  		</c:otherwise>
-						  	</c:choose>
-							<p class="pic size12 grey margtop10">
-							안녕하세요 <span class="lred">${memberVO.memberName}님</span><br/>
-							<a href="javascript:void(0)" class="lblue" id="memberPicture">프로필 사진 변경</a>
-							<!-- <input type ="button" class="lblue" id="memberPic" value="프로필 사진 변경"></input> -->
-							</p>
+						  	<div class="profile_thumbnail_container">
+							  	<div class="content_profile_thumbnail">
+								  	<c:choose>
+								  		<c:when test="${empty profilePic }">
+											<img src="/resources/images/thumbnail_default12.png" alt="" class="left margright20" id="profileImg"/>
+								  		</c:when>
+								  		<c:otherwise>
+								  			<img src="/displayFile?fileName=${profilePic }" alt="" class="left margright20" 
+								  			id="profileImg"/>
+								  		</c:otherwise>
+								  	</c:choose>
+							  	</div>
+								<p class="pic size12 grey margtop10 thumbnail_member_name">
+								안녕하세요 <span class="lred">${memberVO.memberName}님</span><br/>
+								<a href="javascript:void(0)" class="lblue" id="memberPicture">프로필 사진 변경</a>
+								<!-- <input type ="button" class="lblue" id="memberPic" value="프로필 사진 변경"></input> -->
+								</p>
+							</div>
 							<div class="clearfix"></div>
 						  </div>
 						  <div class="col-md-4">

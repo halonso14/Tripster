@@ -38,12 +38,9 @@ AmCharts.ready( function() {
 });
 
 
-//ajax로 화면 데이터세팅
+//화면 데이터세팅
 $(document).ready(function(){   
 		
-	//추천데이터. 크로스도메인 설정됨
-	//ajaxController('http://127.0.0.1:8000/recommand/'+ id);
-
 	$("#budget").slider({
 		min:0,
 		max:1000,
@@ -77,83 +74,45 @@ var ajaxController= function(url){
         success: function(data){
             
         	console.log(data);
-        	
-            //data for stat page 
-            if(url.match("/stat")){
+            //구글맵에 도시 인포 뿌려주기
+            if(url.match("/country")){
             
-            	var dashBrief = data.dashBrief;
-            	if(dashBrief){
-            		if(dashBrief.numOfPlans)
-                		$('#numPlans').text(dashBrief.numOfPlans);
-                	if(dashBrief.totalDays)
-                    	$('#totalDays').text(dashBrief.totalDays);
-                	
-                    //console.log(url);
-                    //console.log($('#numPlans').val());
-                    //console.log($('#totalDays').val());
-                    
-                    //plan days info--------------------------------
-                	if(dashBrief.totalDays)
-                		chartData[0].how_many=dashBrief.minPlanDays;
-                	if(dashBrief.maxPlanDays)
-                		chartData[1].how_many=dashBrief.maxPlanDays;
-                	if(dashBrief.avgDays)
-                		chartData[2].how_many=dashBrief.avgDays;
-            	}
+            	//console.log(data);
+            	  //추천 도시 데이터 마커. 한 위치당 하나의마커가 필요하므로 for문으로
+            	  marker_list =[]
+            	  for(var i=0 ; i<data.length-1; i++){
+            		  
+            		  (function(i){ //i값을 제대로 넘겨주기 위한 클로저 처리
+            			  
+            			  var marker = new google.maps.Marker({
+            			      //position: {lat: -25.363, lng: 131.044},
+            				  position: {lat: data[i].fields.lat, lng: data[i].fields.lng},
+            			      map: gmap,
+            			      title: data[i].fields.name
+            			    });
+            			  marker_list.push(marker);
+            			  //정보창
+            			  var infowindow = new google.maps.InfoWindow({
+            				    content: "<div id='contents'><h2 id='firstHeading' class='firstHeading'>"+data[i].fields.name+"</h2></div>"
+            				    			+"<div><input type='button' id='choose"+data[i].pk+"' class='choose action-button' value='선택' />"
+            				    			+"<input type='button' id='cancel"+data[i].pk+"' class='cancel action-button' value='취소' /></div>"
+            				  });
+            			  
+            			  //마커 클릭하면 정보창 보이게.
+            			  marker_list[i].addListener('click', function() {
+            				    infowindow.open(gmap, marker_list[i]);
+            	        			//국가/도시정보 세팅
+            	            	$('#fligh_price_ymmu').text('KRW '+data[i].flight_price);
+            	            	$('#exchange_ymmu').text(data[i].exchange);
+            	            	$('#airport_ymmu').text(data[i].airport);
+            	            	$('#safe_ymmu').text(data[i].safe);
+            	            	
+            				  });
+            		  })(i);
+            		  
+            	  }
             	
 
-                //chart.validateData(); //에러나서 다 막음
-                console.log(chartData[2].how_many);
-            	/* DATA OBJECT 출력하기
-	            	var str = '';
-	            	for(key in data.dashBrief) {
-	            		str += key+"="+data.dashBrief[key]+"\n";
-	            	}
-	            	console.log(str);
-            	*/
-                
-                //data likeList-------------------------
-                likeList = data.likeList;
-                console.log(likeList);
-                makeTable(likeList);
-                
-              //data detailList-------------------------
-                detailList = data.detailList;
-                console.log(detailList);
-                //makeTable(detailList);
-                
-
-				//data countryList-------------------------
-				countryList = data.countryList;
-				console.log(countryList);
-				var key=0;
-				var count=0;
-				var size = countryList.length;
-				while(key < size) {
-					var str = '';
-					var i= key;
-					count++;
-					console.log(countryList[i].visitedCountryISO);
-					console.log(countryList[key].visitedCountryISO);
-
-					while(i!=size && countryList[key].visitedCountryISO == (countryList[i].visitedCountryISO) ){
-						str += countryList[i].plan_title+"</br>";
-						i++;
-					}
-					//지도에 다녀온 국가 데이터 넣는다
-				     var color = '#FACC2E'
-					if(countryList[key].plan_endChk==1) color='#33FF7D'
-					
-					  mapData.areas.push({
-				          "id": countryList[key].visitedCountryISO,
-				          "color": color,
-				          "description": "<b>이 국가를 다녀온 일정:</b></br></br>" + str
-				      }); 
-				      key = i;
-				  }
-				  //console.log(countryList);
-				  //chartMap.validateData(); //에러나서 다 막음
-				  $('#numCountries').text(count); //방문국가수 업데이트
             }
             else if(url.match("/recommand")){ //추천페이지 데이터 바인딩
 
@@ -303,6 +262,10 @@ var chartMap2 = AmCharts.makeChart( "chartdiv_rcm", {
 				      "color": "#D01781"
 				 });
 		    	 */
+		    	//추천데이터. 크로스도메인 설정됨
+		    	ajaxController('http://127.0.0.1:8000/country/'+ event.mapObject.id);
+
+		    	
 	    	}else{
 	    			//이미 저장되어 있으면 삭제
 	    		selected_country_list.splice(index,1);
@@ -432,3 +395,7 @@ function gZoomLevelToAm( level ) {
   return newLevel;
 }
 
+//
+var chosen= function(iso2){
+	
+}

@@ -88,25 +88,6 @@ $(".next").click(function(){
     //console.log(count);
     // add data to data object
     saveData();
-    /*
-     * var val;
-    if(count==3){//  checkbox
-        checklist=[];
-        for(var i=0 ; i<6; i++){
-            if($(':input:checkbox[name="q'+count+i+'"]').is(":checked")){
-                checklist.push( $(':input:checkbox[name="q'+count+i+'"]').val());
-            }
-        }
-        
-        val=checklist;
-        
-    }else{
-        val = $(':input:radio[name="q'+count+'"]:checked').val();
-    }
-    data[count]= val;
-    console.log(JSON.stringify(data));
-    
-     */
     count++;
     
 	//show the next fieldset
@@ -143,28 +124,6 @@ $(".previous").click(function(){
     
     // add data to data object
 	saveData();
-	/*
-    var val;
-    if(count==3){//  checkbox
-        checklist=[];
-        for(var i=0 ; i<6; i++){
-            if($(':input:checkbox[name="q'+count+i+'"]').is(":checked")){
-                checklist.push( $(':input:checkbox[name="q'+count+i+'"]').val());
-            }
-        }
-        
-        val=checklist;
-    }else if(count==11){//  blog url. textarea
-         val= $("#q"+count).val();
-        console.log(val);
-    
-    }else{
-        val = $(':input:radio[name="q'+count+'"]:checked').val();
-    }
-        
-    data[count]= val;
-    console.log(JSON.stringify(data));
-    */
     count--;
     
     //애니메이팅 설정이 프로그래스바 누르는 것과 버튼 누를 때 에러를 일으켜서 막아놓음 
@@ -227,31 +186,38 @@ $(".submit").click(function(){
     $.ajax({
         url: "http://127.0.0.1:8000/research/"+memberID+"/insert",
         method:"POST",
-        data: JSON.stringify({user_id:memberID, age:"4", gender:"4"}),
-        dataType: 'text/plain',
+        //data: JSON.stringify({user_id:memberID, age:"4", gender:"4"}),
+        data: JSON.stringify(data),
+        dataType: 'text',
         crossDomain: true,
-        success: function(){
-            console.log("success");
+        success: function(data){//error함수를 설정했더니 서버에서 보내는 값이 200이어도 계속 error함수로 넘어가서.. 그냥 success 함수로 data 확인하는걸로
+        	console.log(data);
+        	if(data == "saved"){
+        		console.log("success");
+	            	//추천페이지를 안내하는 fieldset을 띄운다
+	        	
+	        	current_fs = $($(".previous").get(count-1)).parent();
+	        	next_fs = current_fs.next(); //그다음 fieldset 얻어옴
+	            console.log(next_fs);
+	            next_fs.show();
+	            current_fs.hide();
+	            
+	            	//설문질문 누르는 것을 막음.
+	            $("#progressbar li").off("click");
 
-        },
-        error:function(){
-            console.log("fail..");
-            
-            	//추천페이지를 안내하는 fieldset을 띄운다
+        	}else{
+        		console.log("서버가 saved 문장을 안 보낸다.");
+        	}
         	
-        	current_fs = $($(".previous").get(count-1)).parent();
-        	next_fs = current_fs.next(); //그다음 fieldset 얻어옴
-            console.log(next_fs);
-            next_fs.show();
-            current_fs.hide();
-            
-            	//설문질문 누르는 것을 막음.
-            $("#progressbar li").off("click");
-        },
-        }).done(function() {
+        }/*,
+        error:function(e){
+            console.log("fail..");
+            console.log("ERROR: ", e);
+        },*/
+        });/*.done(function() {
             $( this ).addClass( "done" );
             alert("done")
-        });
+        })*/
 	return false;
     
     
