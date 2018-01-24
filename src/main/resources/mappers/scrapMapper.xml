@@ -16,8 +16,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						   ,Contents_ID
 						   ,Contents_Title
 						   ,Contents_Thumbnail
-						   ,Created
-						   ,Updated
 						   )
 					values(
 							#{memberID}
@@ -29,8 +27,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							,"http://cfile26.uf.tistory.com/image/2642053B532A9F7519A004"
 							 <!-- (select Contents_Thumbnail
 							  from tbl_Contents where Contents_ID = #{contentsID}) -->
-							,now()
-							,now()
 							)
 </insert>
 
