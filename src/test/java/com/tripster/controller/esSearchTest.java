@@ -36,17 +36,17 @@ public class esSearchTest {
 //		
 //	}
 	
-	@Test
-	public void pageTest() throws Exception{
-		
-		SearchCriteria cri = new SearchCriteria();
-		cri.setKeyword("1");
-		
-		List<EsContentsVO> list = dao.getContentsList(cri);
-		
-//		System.out.println(list.get(0).getContents_keyword());
-		System.out.println(list.size());
-		
-	}
+//	@Test
+//	public void pageTest() throws Exception{
+//		
+//		SearchCriteria cri = new SearchCriteria();
+//		cri.setKeyword("1");
+//		
+//		List<EsContentsVO> list = dao.getContentsList(cri);
+//		
+////		System.out.println(list.get(0).getContents_keyword());
+//		System.out.println(list.size());
+//		
+//	}
 
 }
