@@ -24,8 +24,10 @@ import com.tripster.domain.ContentsReviewVO;
 import com.tripster.domain.Criteria;
 import com.tripster.domain.MemberVO;
 import com.tripster.domain.PageMaker;
+import com.tripster.domain.ScrapVO;
 import com.tripster.service.ContentsReviewService;
 import com.tripster.service.ContentsService;
+import com.tripster.service.ScrapService;
 
 @RestController
 @RequestMapping("/contents/*")
@@ -36,6 +38,8 @@ public class ContentsController {
 	private ContentsService contentsService;
 	@Inject
 	private ContentsReviewService contentsReviewService;
+	@Inject
+	private ScrapService scrapService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 

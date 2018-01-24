@@ -333,7 +333,7 @@
 												<c:forEach items="${planDetailVO.memoVO.memoPictureVO }" var="pictureVO">
 													<c:set var="image" value=""/>
 				           					 		<li>
-														<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img  class="img-responsive" src="/displayFile?fileName=${pictureVO.memoPictureName }" style="max-height: 407px;max-width: 950px; width: 950px; height: 407px" /></a>
+														<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img  class="img-responsive" src="/displayFile?fileName=${pictureVO.memoPictureName}" style="max-height: 407px;max-width: 950px; width: 950px; height: 407px" /></a>
 													</li>
 												</c:forEach>
 											</ul>
