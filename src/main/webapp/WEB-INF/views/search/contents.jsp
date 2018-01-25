@@ -11,8 +11,9 @@
     <!-- Bootstrap -->
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
-    <link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
 	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
+	<link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
+	<link href="/resources/updates/update1/css/style02.css" rel="stylesheet" media="screen">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="assets/js/html5shiv.js"></script>
@@ -50,66 +51,50 @@
 	<!-- 로그인 세션  -->
 	<c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
 	
-	<!-- Breadcrumbs -->
-	<div class="container breadcrub">
-		<span class="hidetext" style="color: black;font-weight:bold;">'${cri.keyword }' 검색결과</span>
-		<div class="brlines"></div>
-	</div><!-- / Breadcrumbs -->
+	<!-- BREADCRUMBS -->
+	<div class="container breadcrub"><div class="brlines"></div></div>
 
 	<div class="container">
-		<!-- CONTENTS CONTAINER -->
 		<div class="container pagecontainer offset-0" style="background:#f2f2f2">	
 			
-			<!-- LEFT CONTENT: SIDE FILTERS -->
+			<!-- LEFT: SIDE FILTERS -->
 			<%@include file="../include/sidefilter.jsp" %>
 			
-			<!-- RIGHT CONTENT -->
+			<!-- RIGHT: CONTENT BOX -->
 			<div class="rightcontent col-md-9 offset-2" style="background:#fff">
-				<div class="offset-2"><hr></div>
-				
-				<div class="" id="">
-				<!-- 컨텐츠 검색 결과 더보기 리스트 -->
-					<c:if test="${contentsList.contentsCnt == 0 }" >
+
+				<c:if test="${totalList.contentsCnt == 0}" >
 					<!-- 검색결과가 없을경우 -->
-						<div class="offset-2" style="padding:20px ">
-							<em>'${cri.keyword }'</em>에 대한 컨텐츠 검색 결과가 없습니다.
-						</div>
-					</c:if>
-					<c:if test="${contentsList.contentsCnt > 0 }" >
-					<!--  컨텐츠 결과가 있을경우  -->
-						<!-- 컨텐츠 검색결과 리스트 -->
-						<div class="totalResult contentsResult">	
-							<div class="offset-2" style="padding:20px ">	
-								<div class=" left"><b>컨텐츠</b></div>	
-								<div class="clearfix"></div>
-							</div>								
-							<!-- 컨텐츠 리스트 -->
-							<c:forEach items="${contentsList.contentsList}" var = "esContentsVO" begin="0" end="9">	
-								<%@include file="../include/search/contents.jsp" %>	
-							</c:forEach>
-							<div class="offset-2"><hr></div>
-						</div>	
-						<!-- pagination -->
-						<div class="hpadding20">
-							<ul class="pagination right paddingbtm20">
-								<c:if test="${pageMaker.prev }">
-									<li><a href="${pageMaker.makeQuery(pageMaker.startPage-1) }">&laquo;</a></li>
-								</c:if>
-								<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">	
-									<li id="contentsPage" <c:out value="${pageMaker.cri.page == idx?'class=active':'' }"></c:out>>
-										<a href="${pageMaker.makeQuery(idx,'contentsList')}" >${idx}</a>
-									</li>	
-								</c:forEach>
-								<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
-									<li><a href="${pageMaker.makeQuery(pageMaker.endPage+1,go) }">&raquo;</a></li>
-								</c:if>
-							</ul> 
-						</div>														
-					</c:if>	
-			
-				</div> <!-- 컨텐츠 검색결과더보기 리스트 끝 -->
+					<span class="searchStatus ">'${cri.keyword}'에 대한 컨텐츠 검색결과가 없습니다.</span>
+				</c:if>	
 				
-				
+				<c:if test="${contentsList.contentsCnt > 0}" >	
+					<!-- 검색결과가 있을경우 -->
+					<span class="searchStatus">'${cri.keyword}' 검색결과</span>	
+										
+					<!-- 컨텐츠 검색결과 리스트 -->
+					<c:forEach items="${contentsList.contentsList}" var = "esContentsVO" begin="${(pageMaker.cri.page-1)*10}" end="${pageMaker.cri.page*10-1}"> 
+						<%@include file="../include/search/contents.jsp" %>	
+					</c:forEach>
+
+					<!-- pagination -->
+					<ul class="pagination right">
+						<c:if test="${pageMaker.prev}">
+							<li><a href="${pageMaker.makeQuery(pageMaker.startPage-1)}">&laquo;</a></li>
+						</c:if>
+						<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">	
+							<li id="contentsPage" <c:out value="${pageMaker.cri.page == idx?'class=active':''}"></c:out>>
+								<a href="${pageMaker.makeQuery(idx)}">${idx}</a>
+							</li>	
+						</c:forEach>
+						<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+							<li><a href="${pageMaker.makeQuery(pageMaker.endPage+1)}">&raquo;</a></li>
+						</c:if>
+					</ul> 
+
+					<div class="clearfix"></div>	
+					<div class="offset-2"><hr></div>													
+				</c:if>
 
 			</div> <!-- END OF RIGHT CONTENT -->
 		</div> <!-- END OF CONTENTS CONTAINER -->
