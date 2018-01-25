@@ -12,7 +12,7 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 
 import com.tripster.domain.EsContentsVO;
-import com.tripster.domain.EsSearchResult;
+import com.tripster.domain.EsSearchResultVO;
 import com.tripster.domain.SearchCriteria;
 import com.tripster.elasticsearch.EsSearchMapper;
 
@@ -24,12 +24,12 @@ public class EsContentsDAOimpl implements EsContentsDAO {
     
 	// 컨텐츠 검색결과 리스트 조회
 	@Override
-	public EsSearchResult getContentsList(SearchCriteria cri, Integer size) throws Exception{
+	public EsSearchResultVO getContentsList(SearchCriteria cri, Integer size) throws Exception{
 		
 		SearchResponse response = namespace.contentsSearch(cri,size);
 		SearchHits hits = response.getHits();
 		
-		EsSearchResult resultset = new EsSearchResult();
+		EsSearchResultVO resultset = new EsSearchResultVO();
 		ArrayList<EsContentsVO> result = new ArrayList<EsContentsVO>();
 		
 		ObjectMapper om = new ObjectMapper(); 
