@@ -24,7 +24,6 @@ import com.tripster.domain.ContentsReviewVO;
 import com.tripster.domain.Criteria;
 import com.tripster.domain.MemberVO;
 import com.tripster.domain.PageMaker;
-import com.tripster.domain.ScrapVO;
 import com.tripster.service.ContentsReviewService;
 import com.tripster.service.ContentsService;
 import com.tripster.service.ScrapService;
@@ -73,13 +72,17 @@ public class ContentsController {
 	public ModelAndView restaurantDetail(@PathVariable("contentsID") Integer contentsID
 										 ,@PathVariable("categoryID") Integer categoryID
 										 ,@ModelAttribute("cri") Criteria cri , Model model, HttpSession session) throws Exception {
-		
-		MemberVO memberVO = (MemberVO)session.getAttribute("login");
-		model.addAttribute("memberVO",memberVO);
+		if(session.getAttribute("login") != null) {
+			MemberVO memberVO = (MemberVO)session.getAttribute("login");
+			model.addAttribute("memberVO",memberVO);
+			Integer scrapCheck = scrapService.scrapCheck(contentsID, memberVO.getMemberID());
+			model.addAttribute("scrapCheck",scrapCheck);
+		}
 		
 		if(categoryID == 1) {
 			ModelAndView resultPage = new ModelAndView("contents/restaurantDetail");
 			model.addAttribute("vo",contentsService.getRestaurantDetail(contentsID));
+			
 			return resultPage;
 		}else {
 			ModelAndView resultPage = new ModelAndView("contents/PlaceDetail");

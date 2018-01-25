@@ -49,12 +49,12 @@ public class ScrapServiceImpl implements ScrapService{
 		// 해당 페이지의 컨텐츠id를 받아 스크랩 조회
 		for(int i=0;i<list.size();i++) {
 			if(contentsID == list.get(i).getContentsID()) {
-				// 스크랩이 있으면 0 반환
-				return 0;
+				// 스크랩이 있으면 contentsID 반환
+				return contentsID;
 			}
 		}
-		// 스크랩이 없으면 1반환
-		return 1;
+		// 스크랩이 없으면 0반환
+		return 0;
 	}
 
 }

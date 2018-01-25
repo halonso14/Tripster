@@ -55,5 +55,7 @@ public class SearchCriteria {
 	public String toString() {
 		return "SearchCriteria [keyword=" + keyword + ", page=" + page + ", perPageNum=" + perPageNum + "]";
 	}
+
+
 	
 }

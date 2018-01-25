@@ -13,7 +13,11 @@
 	<!-- Bootstrap -->
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
-
+    
+    <!-- Button -->
+	<link href="/resources/assets/css/scrapBtn.css" rel="stylesheet" media="screen">
+	<!-- scrap -->
+	<script src="/resources/js/scrapHD.js"></script>
 
 	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -200,8 +204,15 @@
 				<div class="clearfix"></div><br/>
 				
 				<div class="hpadding20">
-					<a href="#" class="add2fav margtop5">Add to favourite</a>
-					<a href="#" class="booknow margtop20 btnmarg">스크랩하기</a>
+							<c:set var='session' value='<%= session.getAttribute("login") %>' />
+							<c:choose>
+								<c:when test='${scrapCheck ne contentsID}'>
+									<button class="btn scrapButton" onmouseover="mouseover(${session.memberID},$(this))" onmouseout="mouseout($(this))" value="${contentsID}" rel="6">스크랩</button>
+								</c:when>
+								<c:otherwise>
+									<button class="btn scrapButton scraped" onmouseover="mouseover(${session.memberID},$(this))" onmouseout="mouseout($(this))" value="${contentsID}" rel="6">스크랩</button>
+								</c:otherwise>
+							</c:choose>
 				</div>
 					
 				</div>
@@ -324,7 +335,7 @@
 					var categoryID = ${categoryID};
 					var reviewPage = 1;
 					
-					var scrapCheck = 0;
+					var scrapCheck = "${scrapCheck}";
 					var fileNames = new Array;
 					var contentsReviewRating = "${contentsReviewRating}";
 					
@@ -698,6 +709,7 @@
 			<script type="text/javascript" src="/resources/assets/js/helper-plugins/jquery.mousewheel.min.js"></script>
 			<script type="text/javascript" src="/resources/assets/js/helper-plugins/jquery.transit.min.js"></script>
 			<script type="text/javascript" src="/resources/assets/js/helper-plugins/jquery.ba-throttle-debounce.min.js"></script>
+			
 		
 		    <!-- Counter -->	
 		    <script src="/resources/assets/js/counter.js"></script>	

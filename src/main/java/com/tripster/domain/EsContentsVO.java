@@ -20,6 +20,7 @@ public class EsContentsVO{
 	private Date created;
 	private Date updated;
 	
+	
 	public List<String> getContents_keyword() {
 		return this.contents_keyword;
 	}
@@ -134,4 +135,6 @@ public class EsContentsVO{
 				+ ", contents_city=" + contents_city + ", contents_thumbnail=" + contents_thumbnail + ", created="
 				+ created + ", updated=" + updated + "]";
 	}
+
+
 }		

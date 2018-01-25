@@ -1,17 +1,9 @@
 package com.tripster.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.tripster.domain.EsContentsVO;
-import com.tripster.domain.EsMemberVO;
-import com.tripster.domain.EsPlanVO;
 import com.tripster.domain.EsSearchResult;
 import com.tripster.domain.SearchCriteria;
 import com.tripster.persistence.EsContentsDAO;
@@ -28,98 +20,75 @@ public class EsSearchServiceimpl implements EsSearchService {
 	@Inject
 	private EsMemberDAO memberDao;
 	
-	// 통합검색결과 리스트 조회 
+	// 통합 검색결과 리스트 조회 
 	@Override
 	public EsSearchResult getTotalSearchList(SearchCriteria cri) throws Exception{
 		
+		// 조회결과 담을 result변수 선언.
 		EsSearchResult result = new EsSearchResult();
 		
-		result.contentsList = contentsDao.getContentsList(cri);
-		result.planList = planDao.getPlanList(cri);
-		result.memberList = memberDao.getMemberList(cri);
+		// 컨텐츠-일정-회원 dao실행결과 변수에 각각 담아두기. 통합검색은 10건씩 조회 
+		EsSearchResult contents = contentsDao.getContentsList(cri,10); 
+		EsSearchResult plan = planDao.getPlanList(cri,10);
+		EsSearchResult member = memberDao.getMemberList(cri,10);
 		
+		// result에 dao실행결과 담기 
+		result.setContentsList(contents.getContentsList());
+		result.setContentsCnt(contents.getContentsCnt());
+		result.setPlanList(plan.getPlanList());
+		result.setPlanCnt(plan.getPlanCnt());
+		result.setMemberList(member.getMemberList());
+		result.setMemberCnt(member.getMemberCnt());	
+		result.setTotalCnt(contents.getContentsCnt()+plan.getPlanCnt()+member.getMemberCnt());
 		return result;
-		
 	}
-	
-	// 통합검색결과 건수 조회 
-	@Override
-	public HashMap<String,String> getTotalSearchNum(SearchCriteria cri) throws Exception{
-		
-		HashMap<String,String> getNumbers = new HashMap<>();
-		
-		long result = 0;
-		result += contentsDao.getTotalContentsNum(cri);
-		result += planDao.getTotalPlanNum(cri);
-		result += memberDao.getTotalMemberNum(cri);
-		
-		getNumbers.put("contentsNum", String.valueOf(contentsDao.getTotalContentsNum(cri)));
-		getNumbers.put("planNum", String.valueOf(planDao.getTotalPlanNum(cri)));
-		getNumbers.put("memberNum", String.valueOf(memberDao.getTotalMemberNum(cri)));
-		getNumbers.put("totalNum", String.valueOf(result));
-		
-		return getNumbers;
-		
-	}
-	
 
 	
-	// 컨텐츠 페이지 처리
-	@Override
-	public List<EsContentsVO> contentsList(SearchCriteria cri) throws Exception{
+	// 컨텐츠 검색결과 더보기 리스트 조회 
+	public EsSearchResult getContentsSearchList(SearchCriteria cri) throws Exception{
 		
-		List<EsContentsVO> contentsList = contentsDao.getContentsList(cri);
-		List<EsContentsVO> result = new ArrayList<>();
+		// 조회결과 담을 result변수 선언.
+		EsSearchResult result = new EsSearchResult();
 		
-		try {
-			for(int i=cri.getPageStart();i<cri.getPage()*cri.getPerPageNum();i++) {
-				result.add(contentsList.get(i));
-			}
-		}catch(Exception e) {
-			return result;
-		}
+		// 컨텐츠 dao실행결과 변수에 담아두기. 상세검색은 500건씩 조회 
+		EsSearchResult contents = contentsDao.getContentsList(cri,500);
 		
+		// result에 dao실행결과 담기 
+		result.setContentsList(contents.getContentsList());
+		result.setContentsCnt(contents.getContentsCnt());
 		return result;
-		
 	}
+
 	
-	// 플랜 페이지 처리
-	@Override
-	public List<EsPlanVO> planList(SearchCriteria cri) throws Exception{
+	// 일정 검색결과 더보기 리스트 조회 
+	public EsSearchResult getPlanSearchList(SearchCriteria cri) throws Exception{
 		
-		List<EsPlanVO> planList = planDao.getPlanList(cri);
-		List<EsPlanVO> result = new ArrayList<>();
+		// 조회결과 담을 result변수 선언.
+		EsSearchResult result = new EsSearchResult();
 		
-		try {
-			for(int i=cri.getPageStart();i<cri.getPage()*cri.getPerPageNum();i++) {
-				result.add(planList.get(i));
-			}
-		}catch(Exception e) {
-			return result;
-		}
+		// 일정 dao실행결과 변수에 담아두기. 상세검색은 500건씩 조회 
+		EsSearchResult plan = planDao.getPlanList(cri,500);
 		
+		// result에 dao실행결과 담기 
+		result.setPlanList(plan.getPlanList());
+		result.setPlanCnt(plan.getPlanCnt());
+		return result;		
+	}
+
+	
+	// 회원 검색결과 더보기 리스트 조회 
+	public EsSearchResult getMemberSearchList(SearchCriteria cri) throws Exception{
+		
+		// 조회결과 담을 result변수 선언.
+		EsSearchResult result = new EsSearchResult();
+		
+		// 회원 dao실행결과 변수에 담아두기. 상세검색은 500건씩 조회 
+		EsSearchResult member = memberDao.getMemberList(cri,500);
+		
+		// result에 dao실행결과 담기 
+		result.setMemberList(member.getMemberList());
+		result.setMemberCnt(member.getMemberCnt());	
 		return result;
-		
 	}
-	
-	// 멤버 페이지 처리
-	@Override
-	public List<EsMemberVO> memberList(SearchCriteria cri) throws Exception{
-		
-		List<EsMemberVO> memberList = memberDao.getMemberList(cri);
-		List<EsMemberVO> result = new ArrayList<>();
-		
-		try {
-			for(int i=cri.getPageStart();i<cri.getPage()*cri.getPerPageNum();i++) {
-				result.add(memberList.get(i));
-			}
-		}catch(Exception e) {
-			return result;
-		}
-		
-		return result;
-		
-	}
-	
 
 }

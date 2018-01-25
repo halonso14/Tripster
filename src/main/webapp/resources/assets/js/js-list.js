@@ -63,7 +63,7 @@ jQuery(window).resize(function() {
 jQuery(document).ready(function() {
 
 	var nice = jQuery("html").niceScroll({
-		
+
 		cursorcolor:"#ccc",
 		//background:"#fff",	
 		cursorborder :"0px solid #fff",			
@@ -75,7 +75,7 @@ jQuery(document).ready(function() {
 		boxzoom:true,
 		autohidemode:false
 	});  
-	
+
 	jQuery(".hotelstab").niceScroll({horizrailenabled:false});
 	jQuery(".flightstab").niceScroll({horizrailenabled:false});
 	jQuery(".vacationstab").niceScroll({horizrailenabled:false});
@@ -85,9 +85,9 @@ jQuery(document).ready(function() {
 	jQuery(".flighthoteltab").niceScroll({horizrailenabled:false});
 	jQuery(".flightcartab").niceScroll({horizrailenabled:false});
 	jQuery(".hotelcartab").niceScroll({horizrailenabled:false});
-	
+
 	jQuery('html').addClass('no-overflow-y');
-	
+
 });
 
 
@@ -100,63 +100,63 @@ function addroom2(){
 	jQuery('.room2').removeClass('none');
 	jQuery('.addroom1').removeClass('block');
 	jQuery('.addroom1').addClass('none');
-	
+
 }
 function removeroom2(){
 	jQuery('.room2').addClass('none');
 	jQuery('.room2').removeClass('block');
-	
+
 	jQuery('.addroom1').removeClass('none');
 	jQuery('.addroom1').addClass('block');
 }
 function addroom3(){
 	jQuery('.room3').addClass('block');
 	jQuery('.room3').removeClass('none');
-	
+
 	jQuery('.addroom2').removeClass('block');
 	jQuery('.addroom2').addClass('none');
 }
 function removeroom3(){
 	jQuery('.room3').addClass('none');
 	jQuery('.room3').removeClass('block');
-	
+
 	jQuery('.addroom2').removeClass('none');
 	jQuery('.addroom2').addClass('block');			
 }
 
-	
 
-	
+
+
 //------------------------------
 //slider parallax effect
 //------------------------------
 jQuery(document).ready(function(jQuery){
-var jQueryscrollTop;
-var jQueryheaderheight;
-var jQueryloggedin = false;
-	
-if(jQueryloggedin == false){
-  jQueryheaderheight = jQuery('.navbar-wrapper2').height() - 20;
-} else {
-  jQueryheaderheight = jQuery('.navbar-wrapper2').height() + 100;
-}
+	var jQueryscrollTop;
+	var jQueryheaderheight;
+	var jQueryloggedin = false;
+
+	if(jQueryloggedin == false){
+		jQueryheaderheight = jQuery('.navbar-wrapper2').height() - 20;
+	} else {
+		jQueryheaderheight = jQuery('.navbar-wrapper2').height() + 100;
+	}
 
 
-jQuery(window).scroll(function(){
-  var jQueryiw = jQuery('body').innerWidth();
-  jQueryscrollTop = jQuery(window).scrollTop();	   
-	  if ( jQueryiw < 992 ) {
-	 
-	  }
-	  else{
-	   jQuery('.navbar-wrapper2').css({'min-height' : 110-(jQueryscrollTop/2) +'px'});
-	  }
-  jQuery('#dajy').css({'top': ((- jQueryscrollTop / 5)+ jQueryheaderheight)  + 'px' });
-  //jQuery(".sboxpurple").css({'opacity' : 1-(jQueryscrollTop/300)});
-  jQuery(".scrolleffect").css({'top': ((- jQueryscrollTop / 5)+ jQueryheaderheight) + 50  + 'px' });
-  jQuery(".tp-leftarrow").css({'left' : 20-(jQueryscrollTop/2) +'px'});
-  jQuery(".tp-rightarrow").css({'right' : 20-(jQueryscrollTop/2) +'px'});
-});
+	jQuery(window).scroll(function(){
+		var jQueryiw = jQuery('body').innerWidth();
+		jQueryscrollTop = jQuery(window).scrollTop();	   
+		if ( jQueryiw < 992 ) {
+
+		}
+		else{
+			jQuery('.navbar-wrapper2').css({'min-height' : 110-(jQueryscrollTop/2) +'px'});
+		}
+		jQuery('#dajy').css({'top': ((- jQueryscrollTop / 5)+ jQueryheaderheight)  + 'px' });
+		//jQuery(".sboxpurple").css({'opacity' : 1-(jQueryscrollTop/300)});
+		jQuery(".scrolleffect").css({'top': ((- jQueryscrollTop / 5)+ jQueryheaderheight) + 50  + 'px' });
+		jQuery(".tp-leftarrow").css({'left' : 20-(jQueryscrollTop/2) +'px'});
+		jQuery(".tp-rightarrow").css({'right' : 20-(jQueryscrollTop/2) +'px'});
+	});
 
 });
 
@@ -167,10 +167,10 @@ jQuery(window).scroll(function(){
 jQuery(document).ready(function(){
 	jQuery('.tip-arrow').css({'bottom':1+'px'});
 	jQuery('.tip-arrow').animate({'bottom':-9+'px'},{ duration: 700, queue: false });	
-	
+
 	jQuery('.bookfilters').css({'margin-top':-40+'px'});
 	jQuery('.bookfilters').animate({'margin-top':0+'px'},{ duration: 1000, queue: false });	
-	
+
 	jQuery('.topsortby').css({'opacity':0});
 	jQuery('.topsortby').animate({'opacity':1},{ duration: 1000, queue: false });	
 
@@ -187,43 +187,43 @@ jQuery(document).ready(function(){
 //------------------------------
 jQuery(window).scroll(function(){            
 	var jQueryiw = jQuery('body').innerWidth();
-	
+
 	if(jQuery(window).scrollTop() != 0){
 		jQuery('.mtnav').stop().animate({top: '0px'}, 500);
 		jQuery('.logo').stop().animate({width: '100px'}, 100);
 	}       
 	else {
-		 if ( jQueryiw < 992 ) {
-		  }
-		  else{
-		   jQuery('.mtnav').stop().animate({top: '30px'}, 500);
-		  }
+		if ( jQueryiw < 992 ) {
+		}
+		else{
+			jQuery('.mtnav').stop().animate({top: '30px'}, 500);
+		}
 
 		jQuery('.logo').stop().animate({width: '120px'}, 100);		
 
 	}
-	
+
 
 	//Social
 	if(jQuery(window).scrollTop() >= 900){
 		jQuery('.social1').stop().animate({top:'0px'}, 100);
-		
+
 		setTimeout(function (){
 			jQuery('.social2').stop().animate({top:'0px'}, 100);
 		}, 100);
-		
+
 		setTimeout(function (){
 			jQuery('.social3').stop().animate({top:'0px'}, 100);
 		}, 200);
-		
+
 		setTimeout(function (){
 			jQuery('.social4').stop().animate({top:'0px'}, 100);
 		}, 300);
-		
+
 		setTimeout(function (){
 			jQuery('.gotop').stop().animate({top:'0px'}, 200);
 		}, 400);				
-		
+
 	}       
 	else {
 		setTimeout(function (){
@@ -236,14 +236,14 @@ jQuery(window).scroll(function(){
 			jQuery('.social3').stop().animate({top:'-120px'}, 100);		
 		}, 200);	
 		setTimeout(function (){
-		jQuery('.social2').stop().animate({top:'-120px'}, 100);		
+			jQuery('.social2').stop().animate({top:'-120px'}, 100);		
 		}, 100);	
 
 		jQuery('.social1').stop().animate({top:'-120px'}, 100);			
 
 	}
-	
-	
+
+
 });	
 
 
@@ -261,9 +261,9 @@ jQuery(document).ready(function(){
 		}, 500);
 	}
 	mySelectUpdate();
-	
+
 	jQuery('.hotelstab2').removeClass('none');
-	
+
 	jQuery( "#optionsRadios1" ).click(function() {
 		jQuery('.hotelstab2').removeClass('none');
 		jQuery('.flightstab2').addClass('none');
@@ -382,11 +382,9 @@ jQuery(document).ready(function(){
 
 
 //------------------------------
-// List Hover Animations
+//List Hover Animations
 //------------------------------
-jQuery(document).ready(function(jQuery){
-	
-
+//jQuery(document).ready(function(jQuery){
 
 	function StartAnime2() {
 		var jQuerywlist = jQuery('.listitem').width();
@@ -409,35 +407,33 @@ jQuery(document).ready(function(jQuery){
 			"top":jQueryhlist/2-11+"px",
 			"left":-25+"px",
 		});
-        jQuery('.fav-icon-red').css({
-            "top":jQueryhlist/2-11+"px",
-            "left":-25+"px",
-        });
-		
-		jQuery( ".listitem" )
-			.mouseenter(function() {
-				jQuery(this).find('.liover').stop().animate({ "left":10+"%","top":10+"%","width":80+"%","height":80+"%"  });
-				jQuery(this).find('.book-icon').stop().animate({ "left":jQuerywlist/2+18+"px" });
-				jQuery(this).find('.fav-icon').stop().animate({ "left":jQuerywlist/2-42+"px" },{ duration: 1000, queue: false });
-                jQuery(this).find('.fav-icon-red').stop().animate({ "left":jQuerywlist/2-42+"px" },{ duration: 1000, queue: false });
+		jQuery('.fav-icon-red').css({
+			"top":jQueryhlist/2-11+"px",
+			"left":-25+"px",
+		});
 
-			})
-			.mouseleave(function() {
-				jQuery(this).find('.liover').stop().animate({ "left":jQuerywlist+"px","top":0+"px","width":100+"%","height":100+"%"  });
-				jQuery(this).find('.book-icon').stop().animate({ "left":-25+"px" },{ duration: 1000, queue: false });
-				jQuery(this).find('.fav-icon').stop().animate({ "left":-25+"px" });
-                jQuery(this).find('.fav-icon-red').stop().animate({ "left":-25+"px" });
-			
-			});	
-		
+		jQuery( ".listitem" )
+		.mouseenter(function() {
+			jQuery(this).find('.liover').stop().animate({ "left":10+"%","top":10+"%","width":80+"%","height":80+"%"  });
+			jQuery(this).find('.book-icon').stop().animate({ "left":jQuerywlist/2+18+"px" });
+			jQuery(this).find('.fav-icon').stop().animate({ "left":jQuerywlist/2-42+"px" },{ duration: 1000, queue: false });
+			jQuery(this).find('.fav-icon-red').stop().animate({ "left":jQuerywlist/2-42+"px" },{ duration: 1000, queue: false });
+
+		})
+		.mouseleave(function() {
+			jQuery(this).find('.liover').stop().animate({ "left":jQuerywlist+"px","top":0+"px","width":100+"%","height":100+"%"  });
+			jQuery(this).find('.book-icon').stop().animate({ "left":-25+"px" },{ duration: 1000, queue: false });
+			jQuery(this).find('.fav-icon').stop().animate({ "left":-25+"px" });
+			jQuery(this).find('.fav-icon-red').stop().animate({ "left":-25+"px" });
+
+		});	
+
 	}
-	
-	StartAnime2();
-	
+
+//	StartAnime2();
+
 	jQuery(window).resize(function() {
 		StartAnime2();					
 	});
-	
 
-
-});
+//});

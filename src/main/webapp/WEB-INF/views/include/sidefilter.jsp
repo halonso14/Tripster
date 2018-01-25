@@ -2,52 +2,58 @@
 
 <!-- FILTERS -->
 <div class="col-md-3 filters offset-0">
-				
-	<script>
-
-		function searchTab(evt, target){
-		    var i;
-		    var boxes = document.getElementsByClassName("search-tab-pane");
-		    for (i = 0; i < boxes.length; i++) {  
-			    	if(boxes[i].hasClass('active')){
-			    		boxes[i].className = btns[i].className.replace(" active","");
-			    	}
-	    			
-		    }
-		    var btns = document.getElementsByClassName("list-group-item");
-		    for (i = 0; i < btns.length; i++) {  
-    				btns[i].className = btns[i].className.replace(" selected","");
-		    }
-	
-		    document.getElementById(target).className += " active";
-		    evt.currentTarget.className += " selected";
-		}
-		
-		
-	</script>
-
 									
 	<!-- TOP TIP -->
-	<ul class="list-group offset-2 margtop30">
-			
-		<li class="list-group-item selected" onclick="searchTab(event, 'totalList')" style="">
-		<span class="hidetext">통합검색</span>&nbsp; 
-		<span class="badge indent0" >${getNum.get("totalNum") }</span></li>
+	<div class="offset-2">	
+		<div class="tab">	
+			<button class="tablinks totalList active" onclick="more(event,'totalList')">
+				<span class="hidetext">통합검색</span>&nbsp; 
+				<span class="badge indent0" >${getNum.get("totalNum")}</span>
+			</button>
+			<button class="tablinks contentsList" onclick="more(event,'contentsList')">
+				<span class="hidetext">컨텐츠</span>&nbsp;
+				<span class="badge indent0">${getNum.get("contentsNum")}</span>
+			</button>
+			<button class="tablinks planList" onclick="more(event,'planList')">
+				<span class="hidetext">일정</span>&nbsp; 
+				<span class="badge indent0">${getNum.get("planNum")}</span>
+			</button>
+			<button class="tablinks memberList" onclick="more(event,'memberList')">
+				<span class="hidetext">회원</span>&nbsp; 
+				<span class="badge indent0">${getNum.get("memberNum")}</span>
+			</button>
+		</div>	
+	</div>
 
-		<li class="list-group-item" onclick="searchTab(event,'contentsList')">
-		<span class="hidetext">컨텐츠</span>&nbsp;
-		<span class="badge indent0">${getNum.get("contentsNum") }</span></li>
+	<script>
 	
-		<li class="list-group-item" onclick="searchTab(event, 'planList')">
-		<span class="hidetext">일정</span>&nbsp; 
-		<span class="badge indent0">${getNum.get("planNum") }</span></li>
+		function more(evt, tabName) {
+		    // Declare all variables
+		    var i, tabcontent, tablinks;
+	
+		    // Get all elements with class="tabcontent" and hide them
+		    tabcontent = document.getElementsByClassName("tabcontent");
+		    for (i = 0; i < tabcontent.length; i++) {
+		    		tabcontent[i].className = tabcontent[i].className.replace(" active", "");
+		    }
+	
+		    // Get all elements with class="tablinks" and remove the class "active"
+		    tablinks = document.getElementsByClassName("tablinks");
+		    for (i = 0; i < tablinks.length; i++) {
+		        tablinks[i].className = tablinks[i].className.replace(" active", "");
+		    }
+	
+		    // Show the current tab, and add an "active" class to the link that opened the tab
+		    document.getElementsByClassName(tabName)[0].className +=  " active";
+		    document.getElementsByClassName(tabName)[1].className +=  " active";
+		}
+	</script>
 		
-		<li class="list-group-item" onclick="searchTab(event, 'memberList')">
-		<span class="hidetext">회원</span>&nbsp; 
-		<span class="badge indent0">${getNum.get("memberNum") }</span></li>
+	<c:if test="${tab =='contentsList'}"> ${tab} <script> more(event,'contentsList'); </script> </c:if>
+	<c:if test="${tab =='planList'}"> ${tab}<script> more(event,'planList'); </script> </c:if>
+	<c:if test="${tab =='memberList'}"> ${tab}<script> more(event,'memberList'); </script> </c:if>
+	<c:if test="${tab =='totalList'}"> ${tab}<script> more(event,'totalList'); </script> </c:if>
 		
-	</ul>	
-
 	
 	<div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
 	<div class="line2"></div>
