@@ -12,7 +12,7 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 
 import com.tripster.domain.EsPlanVO;
-import com.tripster.domain.EsSearchResult;
+import com.tripster.domain.EsSearchResultVO;
 import com.tripster.domain.SearchCriteria;
 import com.tripster.elasticsearch.EsSearchMapper;
 
@@ -24,12 +24,12 @@ public class EsPlanDAOimpl implements EsPlanDAO {
 	
 	// 일정 검색결과 리스트 조회
 	@Override
-	public EsSearchResult getPlanList(SearchCriteria cri, Integer size) throws Exception {
+	public EsSearchResultVO getPlanList(SearchCriteria cri, Integer size) throws Exception {
 		
 		SearchResponse response = namespace.planSearch(cri, size);
 		SearchHits hits = response.getHits();
 		
-		EsSearchResult resultset = new EsSearchResult();
+		EsSearchResultVO resultset = new EsSearchResultVO();
 		ArrayList<EsPlanVO> result = new ArrayList<EsPlanVO>();
 		
 		ObjectMapper om = new ObjectMapper(); 

@@ -40,7 +40,6 @@
 			<span class="opensans size14 grey">
 				
 			<c:forEach var="keyword" items="${esContentsVO.contents_keyword}">
-			
 		     	<span style="display:inline-block; border-radius:15px; border:1px solid #ddd; padding:5px 10px; margin:5px 2px">
 		     		<b># </b> ${keyword}
 		     	</span>

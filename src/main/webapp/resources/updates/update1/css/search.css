@@ -9,8 +9,8 @@ div.searchbox {
     float: left;
     width: 100px%;
     margin-bottom: 0;
-        cursor: text;
-            letter-spacing: normal;
+    cursor: text;
+    letter-spacing: normal;
     word-spacing: normal;
     text-transform: none;
     text-indent: 0px;
@@ -32,13 +32,37 @@ div.searchbox {
 	border-radius: 30px;
 }
 
+.searchTitle {
+	padding:20px 15px 0 15px;
+	font-size:17px;
+}
+
+.searchStatus {
+	display:block;
+	border: 1px solid #e6e6e6;
+	border-radius: 5px;
+	border-collapse : collapse;
+	margin: 20px 15px ;
+    padding: 12px 15px;
+  
+    color: black;
+}
+
+.more {
+	text-decoration:underline
+}
+
+ul.pagination {
+	margin:20px;
+}
+
 
 /* Style the tab */
 .tab {
 	margin: 20px 0;
     width: 100%;
     border: 1px solid #eee;
-    border-radius: 7px;
+    border-radius: 5px;
     border-collapse : collapse;
    	overflow: hidden;
 }

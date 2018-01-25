@@ -2,31 +2,30 @@
 
 <!-- FILTERS -->
 <div class="col-md-3 filters offset-0">
-									
+	<form:form commandName="memberRegisterRequestVO" method="post" action="/search/*">	</form:form>								
 	<!-- TOP TIP -->
 	<div class="offset-2">	
 		<div class="tab">	
-			<button class="tablinks totalList active" onclick="more(event,'totalList')">
-				<span class="hidetext">통합검색</span>&nbsp; 
-				<span class="badge indent0" >${getNum.get("totalNum")}</span>
+			<button type="submit" id="total" onclick="more(event,'totalList')" 
+				class="tablinks <c:out value="${cri.tab == 'total'?'':'active'}"></c:out>" >
+				<span class="hidetext">통합검색</span>&nbsp; <span class="badge indent0" >${cri.result.totalCnt}</span>
 			</button>
-			<button class="tablinks contentsList" onclick="more(event,'contentsList')">
-				<span class="hidetext">컨텐츠</span>&nbsp;
-				<span class="badge indent0">${getNum.get("contentsNum")}</span>
+			<button type="submit" id="contents" onclick="more(event,'contentsList')"
+				class="tablinks <c:out value="${cri.tab == 'contents'?'':'active'}"></c:out>" >
+				<span class="hidetext">컨텐츠</span>&nbsp; <span class="badge indent0">${cri.result.contentsCnt}</span>
 			</button>
-			<button class="tablinks planList" onclick="more(event,'planList')">
-				<span class="hidetext">일정</span>&nbsp; 
-				<span class="badge indent0">${getNum.get("planNum")}</span>
+			<button type="submit" id="plan" onclick="more(event,'planList')"
+				class="tablinks <c:out value="${cri.tab == 'plan'?'':'active'}"></c:out>" >
+				<span class="hidetext">일정</span>&nbsp; <span class="badge indent0">${cri.result.planCnt}</span>
 			</button>
-			<button class="tablinks memberList" onclick="more(event,'memberList')">
-				<span class="hidetext">회원</span>&nbsp; 
-				<span class="badge indent0">${getNum.get("memberNum")}</span>
+			<button type="submit" id="member" onclick="more(event,'memberList')"
+				class="tablinks <c:out value="${cri.tab == 'member'?'':'active'}"></c:out>" >
+				<span class="hidetext">회원</span>&nbsp; <span class="badge indent0">${cri.result.memberCnt}</span>
 			</button>
 		</div>	
 	</div>
 
 	<script>
-	
 		function more(evt, tabName) {
 		    // Declare all variables
 		    var i, tabcontent, tablinks;
@@ -48,12 +47,6 @@
 		    document.getElementsByClassName(tabName)[1].className +=  " active";
 		}
 	</script>
-		
-	<c:if test="${tab =='contentsList'}"> ${tab} <script> more(event,'contentsList'); </script> </c:if>
-	<c:if test="${tab =='planList'}"> ${tab}<script> more(event,'planList'); </script> </c:if>
-	<c:if test="${tab =='memberList'}"> ${tab}<script> more(event,'memberList'); </script> </c:if>
-	<c:if test="${tab =='totalList'}"> ${tab}<script> more(event,'totalList'); </script> </c:if>
-		
 	
 	<div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
 	<div class="line2"></div>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
@@ -11,8 +12,9 @@
     <!-- Bootstrap -->
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
-    <link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
 	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
+	<link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
+	<link href="/resources/updates/update1/css/style02.css" rel="stylesheet" media="screen">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="assets/js/html5shiv.js"></script>
@@ -50,72 +52,109 @@
 	<!-- 로그인 세션  -->
 	<c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
 	
-	<!-- Breadcrumbs -->
-	<div class="container breadcrub">
-		<span class="hidetext" style="color: black;font-weight:bold;">'${cri.keyword }' 검색결과</span>
-		<div class="brlines"></div>
-	</div><!-- / Breadcrumbs -->
+	<!-- BREADCRUMBS -->
+	<div class="container breadcrub"><div class="brlines"></div></div>
 
 	<div class="container">
-		<!-- CONTENTS CONTAINER -->
 		<div class="container pagecontainer offset-0" style="background:#f2f2f2">	
 			
-			<!-- LEFT CONTENT: SIDE FILTERS -->
-			<%@include file="../include/sidefilter.jsp" %>
-			
-			<!-- RIGHT CONTENT -->
+			<!-- LEFT: SIDE FILTERS -->
+			<div class="col-md-3 filters offset-0">
+				<div class="offset-2">	
+					<div class="tab">
+						<form:form commandName="SearchCriteria" method="post" action="totalPost" onsubmit="total()">
+							<input type="hidden" name="keyword" value="${cri.keyword}"/>
+							<input type="hidden" name="totalCnt" value="${totalList.totalCnt}"/>
+							<input type="hidden" name="contentsCnt" value="${totalList.contentsCnt}"/>
+							<input type="hidden" name="planCnt" value="${totalList.planCnt}"/>
+							<input type="hidden" name="memberCnt" value="${totalList.memberCnt}"/>
+
+							<button id="total" name="tab" value ="total" class="tablinks active" type="submit">
+								<span class="hidetext">통합검색</span>&nbsp; <span class="badge indent0" >${totalList.totalCnt}</span>
+							</button>
+							<button id="contents" name="tab" value ="contents" class="tablinks" onclick="contents(this.form)">
+								<span class="hidetext">컨텐츠</span>&nbsp; <span class="badge indent0">${totalList.contentsCnt}</span>
+							</button>
+							<button id="plan" name="tab" value ="plan" class="tablinks" onclick="plan(this.form)">
+								<span class="hidetext">일정</span>&nbsp; <span class="badge indent0">${totalList.planCnt}</span>
+							</button>			
+							<button id="member" name="tab" value ="member" class="tablinks" onclick="member(this.form)">
+								<span class="hidetext">회원</span>&nbsp; <span class="badge indent0">${totalList.memberCnt}</span>
+							</button>
+						</form:form>	
+						<script>
+							function total() { 
+								return true; 
+							} 
+							function contents(frm) { 
+								frm.action='contentsPost'; 
+								frm.submit(); 
+								return true; 
+							} 
+							function plan(frm) { 
+								frm.action='planPost'; 
+								frm.submit(); 
+								return true; 
+							} 
+							function member(frm) { 
+								frm.action='memberPost'; 
+								frm.submit(); 
+								return true; 
+							} 
+						</script>
+					</div>		
+				</div>	
+			</div>
+
+			<!-- RIGHT: CONTENT BOX -->
 			<div class="rightcontent col-md-9 offset-2" style="background:#fff">
-				<div class="offset-2"><hr></div>
-				
-				<div class="" id="">
-				<!-- 통합 검색결과 리스트  -->
-					<c:if test="${totalList.totalCnt == 0 }" >
+			
+				<c:if test="${totalList.totalCnt == 0 }" >
 					<!-- 검색결과가 없을경우 -->
-						<div class="offset-2" style="padding:20px ">
-							<em style="color:red;">'${cri.keyword }'</em>에 대한 검색 결과가 없습니다.
-						</div>
-						<div class="offset-2"><hr></div>
-					</c:if>
-					
-					<!--  컨텐츠 결과가 있을경우  -->
+					<span class="searchStatus "><b>'${cri.keyword }'</b> 에 대한 검색결과가 없습니다.</span>
+				</c:if>
+				
+				<c:if test="${totalList.totalCnt > 0 }" >				
+					<!-- 검색결과가 있을경우 -->
+					<span class="searchStatus"><b>'${cri.keyword }'</b> 검색결과</span>	
+									
+					<!--  컨텐츠 결과가 있을경우 -->
 					<c:if test="${totalList.contentsCnt > 0 }" >
-						<!-- 컨텐츠 검색결과 리스트 -->
-						<div class="totalResult contentsResult" >	
+						<div class="totalResult" >
+							<!-- 컨텐츠 검색결과 타이틀 -->	
 							<div class="offset-2" style="padding:20px ">	
 								<div class=" left"><b>컨텐츠</b></div>	
-									
-								<c:if test="${totalList.totalCnt > 3 }" >
 								<!-- 컨텐츠 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->	
+								<c:if test="${totalList.contentsCnt > 3 }" >
 									<div class=" grey right">
-										<a href="/search/contents?keyword=${cri.keyword}" style="text-decoration:underline"> 더보기 〉 </a>
+										<a href="/search/contents?keyword=${cri.keyword}" class="more"> 더보기 〉 </a>
 									</div>
 								</c:if>
 								<div class="clearfix"></div>
 							</div>
-							<!-- 컨텐츠 리스트 -->
+							<!-- 컨텐츠 검색결과 리스트 -->
 							<c:forEach items="${totalList.contentsList}" var = "esContentsVO" begin="0" end="2">	
 								<%@include file="../include/search/contents.jsp" %>	
 							</c:forEach>
 							<div class="offset-2"><hr></div>
 						</div>
-					</c:if>
+					</c:if>		
 					
 					<!-- 일정 결과가 있을경우 -->					
-					<c:if test="${totalList.planCnt > 0 }" >
-						<!-- 일정 검색결과 -->	
-						<div class="plans">	
+					<c:if test="${totalList.planCnt > 0 }" >	
+						<div class="totalResult">	
+							<!-- 일정 검색결과 타이틀 -->
 							<div class="offset-2" style="padding:20px ">	
 								<div class=" left"><b>일정</b></div>
-
-								<c:if test="${totalList.planCnt > 3 }" >
 								<!-- 일정 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->
+								<c:if test="${totalList.planCnt > 3 }" >
 									<div class=" grey right">
-										<a href="/search/plan?keyword=${cri.keyword}" style="text-decoration:underline"> 더보기 〉 </a>
+										<a href="/search/plan?keyword=${cri.keyword}" class="more"> 더보기 〉 </a>
 									</div>
 								</c:if>
 								<div class="clearfix"></div>
 							</div>
-							<!-- 일정 리스트 -->	
+							<!-- 일정 검색결과 리스트 -->	
 							<c:forEach items="${totalList.planList}" var = "esPlanVO" begin="0" end="2">
 								<%@include file="../include/search/plan.jsp" %>	
 							</c:forEach>
@@ -123,23 +162,22 @@
 							<div class="offset-2"><hr></div>	
 						</div>
 					</c:if>
-					
-					<c:if test="${totalList.memberCnt > 0 }" >
+	
 					<!-- 회원 결과가 있을경우 -->
-						<!-- 회원 검색결과 -->
+					<c:if test="${totalList.memberCnt > 0 }" >
 						<div class="members">
+							<!-- 회원 검색결과 타이틀 -->
 							<div class="offset-2" style="padding:20px ">	
-								<div class=" left"><b>회원</b></div>
-								
-								<c:if test="${totalList.memberCnt > 3 }" >
+								<div class=" left"><b>회원</b></div>	
 								<!-- 회원 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->
+								<c:if test="${totalList.memberCnt > 3 }" >
 									<div class=" grey right">
-										<a href="/search/member?keyword=${cri.keyword}" style="text-decoration:underline"> 더보기 〉 </a>
+										<a href="/search/member?keyword=${cri.keyword}" class="more"> 더보기 〉 </a>
 									</div>
 								</c:if>
 								<div class="clearfix"></div>
 							</div>
-							<!--회원 리스트 -->
+							<!-- 회원 검색결과 리스트 -->
 							<c:forEach items="${totalList.memberList}" var = "esMemberVO" begin="0" end="2">
 								<%@include file="../include/search/member.jsp" %>
 							</c:forEach>
@@ -147,11 +185,8 @@
 							<div class="offset-2"><hr></div>
 						</div>	
 					</c:if>
-
-
-	
-				</div> <!-- 통합 검색 결과 리스트 끝 -->
-
+					
+				</c:if>
 			</div> <!-- END OF RIGHT CONTENT -->
 		</div> <!-- END OF CONTENTS CONTAINER -->
 	</div> <!-- END OF Container -->
