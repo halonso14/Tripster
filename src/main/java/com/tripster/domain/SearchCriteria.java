@@ -4,12 +4,9 @@ import java.util.*;
 import com.tripster.domain.EsSearchResultVO;
 public class SearchCriteria {
 
-	private Long totalCnt;
-	private Long contentsCnt;
-	private Long planCnt;	
-	private Long memberCnt;
 	private int page; //현재 조회하는 페이지의 번호.
 	private int perPageNum; //한 페이지당 출력하는 데이터의 개수.
+	private String cnt;
 	private String keyword; // 조회 키워드.
 	private HashMap<String,String> filter; // 조회 조건 값. 
 	private String tab; // 현재 조회하는 탭 이름(통합,컨텐츠,일정,회원)
@@ -41,36 +38,11 @@ public class SearchCriteria {
 		this.tab = tab;
 	}
 	
-	public Long getTotalCnt() {
-		return totalCnt;
+	public String getCnt() {
+		return cnt;
 	}
-
-	public void setTotalCnt(Long totalCnt) {
-		this.totalCnt = totalCnt;
-	}
-
-	public Long getContentsCnt() {
-		return contentsCnt;
-	}
-
-	public void setContentsCnt(Long contentsCnt) {
-		this.contentsCnt = contentsCnt;
-	}
-
-	public Long getPlanCnt() {
-		return planCnt;
-	}
-
-	public void setPlanCnt(Long planCnt) {
-		this.planCnt = planCnt;
-	}
-
-	public Long getMemberCnt() {
-		return memberCnt;
-	}
-
-	public void setMemberCnt(Long memberCnt) {
-		this.memberCnt = memberCnt;
+	public void setCnt(String cnt) {
+		this.cnt = cnt;
 	}
 
 	public int getPage() {

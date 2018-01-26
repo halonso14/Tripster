@@ -64,12 +64,12 @@
 			<!-- RIGHT: CONTENT BOX -->
 			<div class="rightcontent col-md-9 offset-2" style="background:#fff">
 				<c:if test="${cri.tab == 'contents'}">
-					<c:if test="${cri.contentsCnt == 0}" >
+					<c:if test="${contentsList.contentsCnt == 0}" >
 						<!-- 검색결과가 없을경우 -->
 						<span class="searchStatus ">'${cri.keyword}'에 대한 컨텐츠 검색결과가 없습니다.</span>
 					</c:if>	
 					
-					<c:if test="${cri.contentsCnt > 0}" >	
+					<c:if test="${contentsList.contentsCnt > 0}" >	
 						<!-- 검색결과가 있을경우 -->
 						<span class="searchStatus">'${cri.keyword}' 검색결과</span>	
 											
@@ -84,12 +84,12 @@
 					</c:if>
 				</c:if>
 				<c:if test="${cri.tab == 'plan'}">
-					<c:if test="${cri.planCnt == 0}" >
+					<c:if test="${planList.planCnt == 0}" >
 						<!-- 검색결과가 없을경우 -->
 						<span class="searchStatus ">'${cri.keyword}'에 대한 일정 검색결과가 없습니다.</span>
 					</c:if>	
 					
-					<c:if test="${cri.planCnt > 0}" >	
+					<c:if test="${planList.planCnt > 0}" >	
 						<!-- 검색결과가 있을경우 -->
 						<span class="searchStatus">'${cri.keyword}' 검색결과</span>	
 											
@@ -104,12 +104,12 @@
 					</c:if>
 				</c:if>
 				<c:if test="${cri.tab == 'member'}">
-					<c:if test="${cri.memberCnt == 0}" >
+					<c:if test="${memberList.memberCnt == 0}" >
 						<!-- 검색결과가 없을경우 -->
 						<span class="searchStatus ">'${cri.keyword}'에 대한 회원 검색결과가 없습니다.</span>
 					</c:if>	
 					
-					<c:if test="${cri.memberCnt > 0}" >	
+					<c:if test="${memberList.memberCnt > 0}" >	
 						<!-- 검색결과가 있을경우 -->
 						<span class="searchStatus">'${cri.keyword}' 검색결과</span>	
 											

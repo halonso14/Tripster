@@ -84,10 +84,7 @@ public class SearchPageMaker { // 페이지 처리용 객체.
 	//UriComponents :  path나 query에 해당하는 문자열들을 추가해 원하는 URI를 생성해줌.
 	public String makeQuery(int page) {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance()
-				.queryParam("totalCnt", cri.getTotalCnt())
-				.queryParam("contentsCnt", cri.getContentsCnt())
-				.queryParam("planCnt", cri.getPlanCnt())
-				.queryParam("memberCnt", cri.getMemberCnt())
+				.queryParam("cnt", cri.getCnt())
 				.queryParam("tab", cri.getTab())
 				.queryParam("keyword", cri.getKeyword())
 				.queryParam("page", page).build();

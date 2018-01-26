@@ -38,14 +38,12 @@ public class SearchController {
 		EsSearchResultVO searchTotal = esSearchService.getTotalSearchList(cri);
 		
 		SearchCriteria reCri = new SearchCriteria();
-		
-		reCri.setTotalCnt(searchTotal.getTotalCnt());
-		reCri.setContentsCnt(searchTotal.getContentsCnt());
-		reCri.setPlanCnt(searchTotal.getPlanCnt());
-		reCri.setMemberCnt(searchTotal.getMemberCnt());
-		reCri.setKeyword(cri.getKeyword());
+		String cnt = Long.toString(searchTotal.getTotalCnt())+'-'+Long.toString(searchTotal.getContentsCnt())+'-'
+				+Long.toString(searchTotal.getPlanCnt())+'-'+Long.toString(searchTotal.getMemberCnt());
+		reCri.setCnt(cnt);
 		reCri.setTab("total");
-		
+		reCri.setKeyword(cri.getKeyword());
+
 		// model에 통합 검색결과 담기 
 		model.addAttribute("totalList",searchTotal);
 		model.addAttribute("cri",reCri);	
@@ -60,13 +58,9 @@ public class SearchController {
 		EsSearchResultVO searchContents = esSearchService.getContentsSearchList(cri);
 	
 		SearchCriteria reCri = new SearchCriteria();
-		
-		reCri.setTotalCnt(cri.getTotalCnt());
-		reCri.setContentsCnt(cri.getContentsCnt());
-		reCri.setPlanCnt(cri.getPlanCnt());
-		reCri.setMemberCnt(cri.getMemberCnt());
-		reCri.setKeyword(cri.getKeyword());
+		reCri.setCnt(cri.getCnt());
 		reCri.setTab(cri.getTab());
+		reCri.setKeyword(cri.getKeyword());
 		
 		SearchPageMaker pageMaker = new SearchPageMaker();
 		pageMaker.setCri(cri);
@@ -86,13 +80,9 @@ public class SearchController {
 		EsSearchResultVO searchPlan = esSearchService.getPlanSearchList(cri);
 
 		SearchCriteria reCri = new SearchCriteria();
-		
-		reCri.setTotalCnt(cri.getTotalCnt());
-		reCri.setContentsCnt(cri.getContentsCnt());
-		reCri.setPlanCnt(cri.getPlanCnt());
-		reCri.setMemberCnt(cri.getMemberCnt());
-		reCri.setKeyword(cri.getKeyword());
+		reCri.setCnt(cri.getCnt());
 		reCri.setTab(cri.getTab());
+		reCri.setKeyword(cri.getKeyword());
 		
 		SearchPageMaker pageMaker = new SearchPageMaker();
 		pageMaker.setCri(cri);
@@ -111,13 +101,9 @@ public class SearchController {
 		EsSearchResultVO searchMember= esSearchService.getMemberSearchList(cri);
 
 		SearchCriteria reCri = new SearchCriteria();
-		
-		reCri.setTotalCnt(cri.getTotalCnt());
-		reCri.setContentsCnt(cri.getContentsCnt());
-		reCri.setPlanCnt(cri.getPlanCnt());
-		reCri.setMemberCnt(cri.getMemberCnt());
-		reCri.setKeyword(cri.getKeyword());
+		reCri.setCnt(cri.getCnt());
 		reCri.setTab(cri.getTab());
+		reCri.setKeyword(cri.getKeyword());
 		
 		SearchPageMaker pageMaker = new SearchPageMaker();
 		pageMaker.setCri(cri);
