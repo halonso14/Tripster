@@ -20,8 +20,24 @@
 			<span class="size11 grey ">${esContentsVO.contents_rating} Stars</span><br><br>
 			<span class="margtop20 green size18"><b>0</b></span><span class="green size14"> Plan</span><br>
 			<span class="size11 grey">${esContentsVO.contents_scrap_cnt} Scrap</span><br><br>
-	 		<button class="bookbtn mt1 scrap" value="${esContentsVO.contents_id}" check="1" session="${empty userSession }" >스크랩</button>		
-
+	 		<button class="bookbtn mt1 scrap" value="${esContentsVO.contents_id}" check="${scrapCheckList[status.index]}" session="${empty userSession }" >스크랩</button>		
+			
+			<script>
+			
+			var check = "${scrapCheckList[status.index]}";
+			var contentsID = ${esContentsVO.contents_id};
+			var button = $("button[value="+contentsID+"]");
+			console.log(check);
+				if(check == 0){
+					// 스크랩 한 경우
+					button.css("color","red");
+				}else{
+					// 안한 경우
+					button.css("color","black");
+				}
+				
+			</script>
+			
 		</div>
 		<div class="labelleft">			
 			
@@ -55,31 +71,3 @@
 <div class="clearfix"></div>
 <div class="offset-2" style="padding-top:30px"></div>
 
-<!-- <script>
-
-	var contentsID = ${esContentsVO.contents_id};
-	var scrapbt = $("button[value="+contentsID+"]");
-	
-	if(scrapbt.attr("session") == "true"){
-		
-	}else{
-		// 스크랩 체크
-		function ScrapModuleChk(contentsID,scrapbt){
-			
-			$.ajax({
-				type : 'post',
-				url : '/scrapCheck/'+contentsID,
-				async: true,
-				success : function(check){
-					console.log("check : "+check);
-					scrapbt.attr('check',check);
-				}
-			});
-			
-		}	
-	}
-	
-	ScrapModuleChk(contentsID,scrapbt);
-	
-</script>
-		 	 -->

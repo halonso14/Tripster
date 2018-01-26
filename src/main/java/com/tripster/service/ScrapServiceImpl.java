@@ -1,5 +1,6 @@
 package com.tripster.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -7,7 +8,9 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.tripster.domain.ContentsVO;
+import com.tripster.domain.EsContentsVO;
 import com.tripster.domain.ScrapVO;
+import com.tripster.domain.SearchCriteria;
 import com.tripster.persistence.ContentsDAO;
 import com.tripster.persistence.ScrapDAO;
 
@@ -50,11 +53,26 @@ public class ScrapServiceImpl implements ScrapService{
 		for(int i=0;i<list.size();i++) {
 			if(contentsID == list.get(i).getContentsID()) {
 				// 스크랩이 있으면 0 반환
-				return 1;
+				return 0;
 			}
 		}
 		// 스크랩이 없으면 1반환
-		return 0;
+		return 1;
+	}
+	
+	// 스크랩 체크 리스트
+	@Override
+	public List<Integer> scrapCheckList(Integer memberID,List<EsContentsVO> contentsList,SearchCriteria cri) throws Exception{
+		
+		List<Integer> scrapCheckList = new ArrayList<>();
+		try {
+			for(int i=cri.getPageStart();i<cri.getPerPageNum()*cri.getPage();i++) {
+				scrapCheckList.add(scrapCheck(contentsList.get(i).getContents_id(),memberID));
+			}			
+		}catch(Exception e) {
+			return scrapCheckList;
+		}
+		return scrapCheckList;
 	}
 
 }

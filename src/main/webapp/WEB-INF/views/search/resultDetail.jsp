@@ -74,7 +74,7 @@
 						<span class="searchStatus">'${cri.keyword}' 검색결과</span>	
 											
 						<!-- 컨텐츠 검색결과 리스트 -->
-						<c:forEach items="${contentsList.contentsList}" var = "esContentsVO" begin="${(pageMaker.cri.page-1)*10}" end="${pageMaker.cri.page*10-1}"> 
+						<c:forEach items="${contentsList.contentsList}" var = "esContentsVO" varStatus="status" begin="${(pageMaker.cri.page-1)*10}" end="${pageMaker.cri.page*10-1}"> 
 							<%@include file="../include/search/contents.jsp" %>
 						</c:forEach>	
 						<div class="clearfix"></div>	
@@ -94,7 +94,7 @@
 						<span class="searchStatus">'${cri.keyword}' 검색결과</span>	
 											
 						<!-- 일정 검색결과 리스트 -->
-						<c:forEach items="${planList.planList}" var = "esPlnaVO" begin="${(pageMaker.cri.page-1)*9}" end="${pageMaker.cri.page*9-1}"> 
+						<c:forEach items="${planList.planList}" var = "esPlanVO" varStatus="status" begin="${(pageMaker.cri.page-1)*9}" end="${pageMaker.cri.page*9-1}"> 
 							<%@include file="../include/search/plan.jsp" %>
 						</c:forEach>
 						<div class="clearfix"></div>	
@@ -153,6 +153,9 @@
     <script src="/resources/dist/js/bootstrap.min.js"></script>
 	<!--  Scrap Btn -->
     <script src="/resources/js/scrap.js"></script>
+    <!-- likeBtn -->
+    <script src="/resources/js/like.js"></script>
+
 
   </body>
 
