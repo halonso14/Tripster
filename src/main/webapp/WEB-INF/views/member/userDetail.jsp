@@ -188,7 +188,7 @@
     <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
    
    <!-- custom ymmu -->
-	<script type="text/javascript" src="/resources/js/test_view_edit.js"></script>
+	<script type="text/javascript" src="/resources/js/text_view_edit.js"></script>
     <script type="text/javascript" src="/resources/js/user_detail.js"></script>
 
 </body>

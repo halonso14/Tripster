@@ -319,15 +319,16 @@ table{
 }
 
 .content_rcm_plan_writer{
-	font-size: 1.5em;
+	font-size: 1.3em;
     text-align: center;
 }
 
 .content_rcm_plan_name{
-	font-size: 2em;
+	font-size: 1.5em;
     text-align: center;
     font-weight: bold;
-    margin: 20px 0 0 0;
+    margin: 10px 0 0 0;
+    padding: 10px;
 }
 
 #content_rcm_plan_thumbnail_bgImage{
@@ -368,5 +369,23 @@ table{
 
 .thumbnail_member_name{
 	margin-left: 1em;
+}
+
+.video_rcm_main{
+	width: 100%;
+	height: 500px;
+}
+
+.video_inner_card{
+	width: 317px;
+}
+
+.video_rcm{
+	padding: 3px;
+}
+
+#youtube_thumbnail{
+	width: 317px;
+	height:176px;
 }
 /* myplan and */
