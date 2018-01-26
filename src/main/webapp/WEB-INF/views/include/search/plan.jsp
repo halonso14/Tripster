@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+
 <div class="col-md-4" style="margin-bottom:30px">
 <div class="listitem ">
 	<a href="/plan/read?planID=${esPlanVO.plan_id}">
@@ -16,7 +17,7 @@
 		<p class="size12 grey ">${esPlanVO.member_name}</p><br>
 		<span class="size11 grey">댓글수</span><br>
 		<span class="size11 grey">${esPlanVO.plan_like_cnt} 좋아요수</span><br>
-		<button class="bookbtn mt1">좋아요</button>		
+		<button class="bookbtn mt1" onclick="likeClick('${userSession}',$(this));" likeBtnCheck="${likeList[status.index] }" value="${esPlanVO.plan_id}">좋아요</button>		
 	</div>
 	<div class="labelleft">	
 		<span class="size16"><b>${esPlanVO.plan_title}</b></span><br>		

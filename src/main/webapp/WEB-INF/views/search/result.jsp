@@ -88,7 +88,7 @@
 								<div class="clearfix"></div>
 							</div>
 							<!-- 컨텐츠 검색결과 리스트 -->
-							<c:forEach items="${totalList.contentsList}" var = "esContentsVO" begin="0" end="2">	
+							<c:forEach items="${totalList.contentsList}" var = "esContentsVO" varStatus="status" begin="0" end="2">	
 								<%@include file="../include/search/contents.jsp" %>	
 							</c:forEach>
 							<div class="offset-2"><hr></div>
@@ -110,7 +110,7 @@
 								<div class="clearfix"></div>
 							</div>
 							<!-- 일정 검색결과 리스트 -->	
-							<c:forEach items="${totalList.planList}" var = "esPlanVO" begin="0" end="2">
+							<c:forEach items="${totalList.planList}" var = "esPlanVO" varStatus="status" begin="0" end="2">
 								<%@include file="../include/search/plan.jsp" %>	
 							</c:forEach>
 							<div class="clearfix"></div>
@@ -171,6 +171,8 @@
     <script src="/resources/dist/js/bootstrap.min.js"></script>
 	<!--  Scrap Btn -->
     <script src="/resources/js/scrap.js"></script>
+    <!-- likeBtn -->
+    <script src="/resources/js/like.js"></script>
 
   </body>
 
