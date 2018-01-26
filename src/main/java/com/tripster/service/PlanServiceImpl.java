@@ -81,8 +81,6 @@ public class PlanServiceImpl implements PlanService{
 			list.get(i).setPlanDetailVO(planDetailDAO.selectAllByPlanID(planID));
 		}
 		
-		
-		
 		return list;
 
 	}

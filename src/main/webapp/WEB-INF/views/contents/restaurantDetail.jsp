@@ -19,8 +19,14 @@
 	<!-- scrap -->
 	<script src="/resources/js/scrapHD.js"></script>
 	<!-- review -->
+<<<<<<< HEAD
 	<script src="/resources/js/review.js"></script>
 
+=======
+	<!-- 
+	<script src="/resources/js/review.js"></script>
+ -->
+>>>>>>> 8cf764e90d41fd758f049276ff0e7046763c72a0
 	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
@@ -121,7 +127,6 @@
 									</div>
 								</div>
 							</div>
-
 							<div class="clearfix"></div>
 						</div>
  -->		
@@ -309,8 +314,7 @@
 										<div class='uploadList'></div>
 										<button id="uploadBtn">업로드</button>
 									</div>
-									<button type="submit" class="btn-search4 margtop10"
-										id="writeReview">리뷰 등록</button>
+									<button type="submit" class="btn-search4 margtop10" id="writeReview">리뷰 등록</button>
 
 									<br/><br/>
 								</div>
@@ -339,6 +343,7 @@ $(document).ready(function() {
 	var listPage = ${cri.curPage};
 	var contentsID = "${contentsID}";
 	var categoryID = ${categoryID};
+<<<<<<< HEAD
 	alert(typeof categoryID);
 	var reviewPage = 1;
 	
@@ -347,17 +352,96 @@ $(document).ready(function() {
 	var contentsReviewRating = 0;
 	
 	
+=======
+	var reviewPage = 1;
+	
+	var scrapCheck = "${scrapCheck}";
+	var fileNames = new Array;
+	var contentsReviewRating = 0;
+	
+	function getReviewList(reviewPage) {
+		$.getJSON("/contents/review/"+ contentsID+ "/"+ reviewPage, function(data) {
+			var str = "";
+			//날짜 형태를 02-01와 같은 형태를 위한 함수.
+			Number.prototype.padLeft = function(base, chr) {
+				var len = (String(base || 10).length - String(this).length) + 1;
+				return len > 0 ? new Array(len).join(chr|| '0')+ this: this;
+			}
+			// usage
+			//=> 3..padLeft() => '03'
+			//=> 3..padLeft(100,'-') => '--3' 
+			// 컨텐츠의 리뷰 리스트 받아오기
+			$(data.list).each(function() {
+				var d = new Date(this.updatedDate);
+				var dformat = [d.getFullYear(),(d.getMonth() + 1).padLeft(), ].join('/')+ ' '+ [d.getHours().padLeft(),d.getMinutes().padLeft(),d.getSeconds().padLeft() ].join(':');
+				str += "<div class='col-md-4 offset-0 center' data-contentsReviewID='"+this.contentsReviewID+"'>"
+					+ "		<div class='padding20'>"
+					+ "			<div class='bordertype5'>"
+					+ "				<div class='circlewrap'>"
+					+ "					<img src='/resources/images/user-avatar.jpg' class='circleimg' alt=''/><span>"
+					+ this.contentsReviewRating
+					+ "</span>"
+					+ "				</div>"
+					+ "				<span class='dark'>"
+					+ this.memberName
+					+ "</span><br/>"
+					+ "				<img src='/resources/images/check.png' alt=''/><br/>"
+					+ "				<span class='green'>Recommended<br/>for Everyone</span>"
+					+ "			</div>"
+					+ "		</div>"
+					+ "	</div>"
+					+ "	<div class='col-md-8 offset-0'>"
+					+ "		<div class='padding20'>"
+					+ "			<span class='opensans size16 dark'>"
+					+ this.contentsReviewTitle
+					+ "</span><br/>"
+					+ "			<span class='opensans size13 lgrey'>"
+					+ dformat
+					+ "</span><br/>"
+					+ "			<p data-contentsReviewID='"+this.contentsReviewID+"' class='"+this.contentsReviewID+"'>"
+					+ this.contentsReview
+					+ "</p>"
+					+ " 			<div id='getImage'>"+getImage(this.reviewPictureName)+"</div>" 
+					+ "		</div>"
+					+ "	</div>"
+					+ " <div>"
+					+ "		<button class='btn-search4 right modify' id='"+this.contentsReviewID+"'>Modify</button>"
+					+ "     <button class='btn-search4 right delete' id='"+this.contentsReviewID+"'>delete</button>"
+					+ "		<div class='clearfix'></div>"
+					+ "</div>"
+					+ ""
+					+ "<div class='line3'></div>";
+			});
+			// reviewList 에 추가
+			$("#reviewList").html(str);
+			// 초기화 후 업로드박스안의 파일 제거
+			$('.uploadList').html("");
+			// 초기화후 업로드 박스 제거
+			$('.uploadList').removeAttr('style');
+			// 리뷰 등록시 업로드했던 파일 이름 제거
+			fileNames = new Array;
+			// 페이징 처리
+			printPaging(data.pageMaker);
+		});
+	}
+>>>>>>> 8cf764e90d41fd758f049276ff0e7046763c72a0
 	
 	//리뷰리스트 조회 함수 호출
 	getReviewList(reviewPage, memberID, contentsID);
 	// 리뷰 등록
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8cf764e90d41fd758f049276ff0e7046763c72a0
 	// 리뷰 평점 저장
 	$('input[type="checkbox"]').on("click",function() {
 		$('input[type="checkbox"]').not(this).prop("checked",false);
 			contentsReviewRating = this.value;
 	});
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 8cf764e90d41fd758f049276ff0e7046763c72a0
 	// 페이징 처리
 	function printPaging(pageMaker) {
 		var str = "";
@@ -379,7 +463,10 @@ $(document).ready(function() {
 		}
 		$("#reviewPaging").html(str);
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8cf764e90d41fd758f049276ff0e7046763c72a0
 	// 컨텐츠 리스트 페이지 가기
 	$("#getList").on("click",function() {
 		self.location = "/contents/contentsList/"+ categoryID + "/"+ listPage;
@@ -402,7 +489,11 @@ $(document).ready(function() {
 				memberName : memberName,
 				contentsReviewTitle : contentsReviewTitle,
 				contentsReview : contentsReview,
+<<<<<<< HEAD
 				reviewPictureName : reviewPictureName,
+=======
+				reviewPictureName : fileNames,
+>>>>>>> 8cf764e90d41fd758f049276ff0e7046763c72a0
 				contentsReviewRating : contentsReviewRating
 			}),
 			success : function(data) {}
@@ -449,7 +540,11 @@ $(document).ready(function() {
 		formData.append("file",files);
 		// ajax로 컨트롤러에 데이터 전송
 		$.ajax({
+<<<<<<< HEAD
 			url : "/uploadAjax",
+=======
+			url : "/uploadAjaxReview",
+>>>>>>> 8cf764e90d41fd758f049276ff0e7046763c72a0
 			data : formData,
 			dataType : 'text',
 			processData : false,
@@ -464,14 +559,23 @@ $(document).ready(function() {
 					// 이미지 파일일 경우 썸네일 생성
 					str = "<li>"
 						// 원본 파일 링크
+<<<<<<< HEAD
 						+ "<a href='/displayFile?fileName="+ getImageLink(data)+ "'>"
 						+ "<img src='/displayFile?fileName="+ data+ "'/>"
+=======
+						/* + "<a href='/displayFile?fileName="+ getImageLink(data)+ "'>" */
+						+ "<img src='/displayFile?fileName="+ data+ "&directory=review'/>"
+>>>>>>> 8cf764e90d41fd758f049276ff0e7046763c72a0
 						+ getOriginalName(data)
 						+ "</a>"
 						+ "<small fileName="+data+">X</small></li>";
 				} else {
 					// 이미지 파일이 아닐경우 다운로드
+<<<<<<< HEAD
 					str = "<li><a href='/displayFile?fileName="+ data+ "'>"+ getOriginalName(data)
+=======
+					str = "<li><a href='/displayFile?fileName="+ data+ "&directory=review'>"+ getOriginalName(data)
+>>>>>>> 8cf764e90d41fd758f049276ff0e7046763c72a0
 						+ "</a><small fileName="+data+">X</small></li>";
 				}
 				$('.uploadList').append(str);
@@ -508,11 +612,19 @@ $(document).ready(function() {
 						// 원본 파일 링크
 						+ "<a href='/displayFile?fileName="
 						+ getImageLink(fileList[i])
+<<<<<<< HEAD
 						+ "'>"
 						// 썸네일 생성
 						+ "<img src='/displayFile?fileName="
 						+ fileList[i]
 						+ "'/>"
+=======
+						+ "&directory=review'>"
+						// 썸네일 생성
+						+ "<img src='/displayFile?fileName="
+						+ fileList[i]
+						+ "&directory=review'/>"
+>>>>>>> 8cf764e90d41fd758f049276ff0e7046763c72a0
 						+ getOriginalName(fileList[i])
 						+ "</a></li>";
 			} else {
@@ -520,7 +632,11 @@ $(document).ready(function() {
 				str = str
 						+ "<li><a href='/displayFile?fileName="
 						+ fileList[i]
+<<<<<<< HEAD
 						+ "'>"
+=======
+						+ "&directory=review'>"
+>>>>>>> 8cf764e90d41fd758f049276ff0e7046763c72a0
 						+ getOriginalName(fileList[i])
 						+ "</a></li>";
 			}

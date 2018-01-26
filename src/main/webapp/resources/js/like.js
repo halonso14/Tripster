@@ -26,7 +26,6 @@ function likeClick(session,event){
 		if(likeBtn.attr('likeBtnCheck') == 0){
 			
 			likeBtn.attr('likeBtnCheck',1);
-			console.log("click" + planID);
 			// 좋아요 추가
 			$.post('/like/'+planID,function(result){
 				
