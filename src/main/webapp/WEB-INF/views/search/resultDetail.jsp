@@ -75,8 +75,9 @@
 											
 						<!-- 컨텐츠 검색결과 리스트 -->
 						<c:forEach items="${contentsList.contentsList}" var = "esContentsVO" begin="${(pageMaker.cri.page-1)*10}" end="${pageMaker.cri.page*10-1}"> 
-							<%@include file="../include/search/contents.jsp" %>	
-						</c:forEach>
+							<%@include file="../include/search/contents.jsp" %>
+						</c:forEach>	
+						<div class="clearfix"></div>	
 						<%@include file="../include/search/pagenation.jsp" %>
 						<div class="clearfix"></div>	
 						<div class="offset-2"><hr></div>													
@@ -92,10 +93,11 @@
 						<!-- 검색결과가 있을경우 -->
 						<span class="searchStatus">'${cri.keyword}' 검색결과</span>	
 											
-						<!-- 컨텐츠 검색결과 리스트 -->
+						<!-- 일정 검색결과 리스트 -->
 						<c:forEach items="${planList.planList}" var = "esPlnaVO" begin="${(pageMaker.cri.page-1)*9}" end="${pageMaker.cri.page*9-1}"> 
-							<%@include file="../include/search/plan.jsp" %>	
+							<%@include file="../include/search/plan.jsp" %>
 						</c:forEach>
+						<div class="clearfix"></div>	
 						<%@include file="../include/search/pagenation.jsp" %>
 						<div class="clearfix"></div>	
 						<div class="offset-2"><hr></div>													
@@ -111,10 +113,11 @@
 						<!-- 검색결과가 있을경우 -->
 						<span class="searchStatus">'${cri.keyword}' 검색결과</span>	
 											
-						<!-- 컨텐츠 검색결과 리스트 -->
+						<!-- 회원 검색결과 리스트 -->
 						<c:forEach items="${memberList.memberList}" var = "esMemberVO" begin="${(pageMaker.cri.page-1)*9}" end="${pageMaker.cri.page*9-1}"> 
-							<%@include file="../include/search/member.jsp" %>	
+							<%@include file="../include/search/member.jsp" %>
 						</c:forEach>
+						<div class="clearfix"></div>	
 						<%@include file="../include/search/pagenation.jsp" %>
 						<div class="clearfix"></div>	
 						<div class="offset-2"><hr></div>													

@@ -49,9 +49,6 @@
 		</div>		
 	</div>	
 
-	
-	
-	
 	<div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
 	<div class="line2"></div>
 	
