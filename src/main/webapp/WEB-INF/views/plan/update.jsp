@@ -214,10 +214,10 @@ body {
 <script id="template" type="text/x-handlebars-template">
 <li data-src='{{fullName}}'>
 	<hr>
-	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="{{imgsrc}}"></span>
+	<span class="mailbox-attachment-icon has-img"></span>
 	<div class="mailbox-attachment-info">
-		<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
-		<a data-src="{{originalName}}" class="btn btn-default btn-xs delbtn" onclick="removeAttach($(this))">x<a>
+		<a class="mailbox-attachment-name">{{fileName}}</a>
+		<a data-src="{{fullName}}" class="btn btn-default btn-xs delbtn" onclick="removeAttach($(this))">x<a>
 	</div>
 	
 </li>
@@ -243,7 +243,7 @@ body {
 		formData.append("file", file);
 	
 		$.ajax({
-			url : '/uploadAjax',
+			url : '/uploadAjaxPlan',
 			data : formData,
 			dataType : 'text',
 			processData : false,
@@ -435,7 +435,7 @@ $(document).ready(function() {
              		arr.push($(this).attr("data-src"));
              	});
              	if(arr.length >0 ){
-             		$.post("/deleteAllFiles",{files:arr},function(){
+             		$.post("/deleteAllFiles",{files:arr, directory:"plan"},function(){
              		});
              	}
     			 	$.ajax({
@@ -470,8 +470,8 @@ $(document).ready(function() {
              				$(result.memoVO.memoPictureName).each(function(){
              					var front = this.substr(0,12);
              					var end = this.substr(12);
-             					var fullName = front+"s_"+end;
-             					var fileInfo = getFileInfo(fullName);
+             					var fullName = front+end;
+             					var fileInfo = getFileInfo(this);
              					var html = template(fileInfo);
              					$(".uploadedList").append(html);
              				});
@@ -533,7 +533,7 @@ $(document).ready(function() {
 		        	});
         	
 		        	if(arr.length >0 ){
-		        		$.post("/deleteAllFiles",{files:arr},function(){
+		        		$.post("/deleteAllFiles",{files:arr, directory:"plan"},function(){
 		        		});
 		        		console.log(arr);
 		        	}
@@ -552,7 +552,7 @@ $(document).ready(function() {
 	        	});
 	        	
 	        	if(arr.length >0 ){
-	        		$.post("/deleteAllFiles",{files:arr},function(){
+	        		$.post("/deleteAllFiles",{files:arr, directory:"plan"},function(){
 	        		});
 	        	}
 	        	
@@ -576,7 +576,7 @@ $(document).ready(function() {
     		$.ajax({
     			url: "/deleteFile",
     			type:"post",
-    			data:{fileName:$(event).attr("data-src")},
+    			data:{fileName:$(event).attr("data-src"), directory:"plan"},
     			dataType:"text",
     			success:function(result){
     				that.parent().parent().remove();
@@ -589,7 +589,7 @@ $(document).ready(function() {
 <script id="scrapList" type="text/x-handlebars-template">
 
 <div class='fc-event' id={{contentsID}} name={{categoryID}} data-name="{{contentsTitle}}" style="background-color: #f6f8f900; font-size: 14px;">
-               <a href="#"><img alt="" class="left mr20" src="/resources/planImg/noimg.png" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
+               <a href="#"><img alt="" class="left mr20" src="{{contentsPhoto}}" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
                <a class="dark" href="#" id="contentsTitle"><b>{{contentsTitle}}</b></a><br>
                <span class="opensans green bold size14">$36-$160</span>
             </div>
@@ -608,7 +608,8 @@ $.getJSON('/scraplist',function(data){
       var scrapData = {
             contentsID : list.contentsID,
             categoryID : list.categoryID,
-            contentsTitle : list.contentsTitle
+            contentsTitle : list.contentsTitle,
+            contentsPhoto : list.contentsPhoto
       }
       console.log(scrapData);
       var template = Handlebars.compile(source);
@@ -624,7 +625,7 @@ $.getJSON('/scraplist',function(data){
           	
            $(this).data('event', {
                title: $.trim(s), // use the element's text as the event title
-               stick:false, // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
+               stick: false, // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
                              // false: 없어짐.
                color:$(this).data('color')
            });

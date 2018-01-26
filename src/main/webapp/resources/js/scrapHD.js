@@ -1,4 +1,4 @@
-function mouseover(session, $button){
+function mouseover(memberID, $button){
 	var contentsID = $button.val();
 	//처음 버튼이 아래 버튼인 경우
 	if($button.hasClass('scraped')) {
@@ -7,6 +7,9 @@ function mouseover(session, $button){
 			//초록색 -> 빨간색
 			$button.addClass('unscrap');
 			$button.text('스크랩 취소');
+			$button.on('mouseleave', function() {
+				return 0;
+			});
 			//스크랩 취소
 			$button.on('click', function() {
 				//빨간색 -> 흰색
@@ -17,6 +20,9 @@ function mouseover(session, $button){
 			});
 		} else {
 		//흰색에서 시작(한 번 이상의 클릭이 발생)
+			$button.on('mouseleave', function() {
+				return 0;
+			})
 			$button.on('click', function() {
 				//흰색 -> 초록색
 				$button.addClass('scraped');
@@ -27,8 +33,10 @@ function mouseover(session, $button){
 	} else {
 	//처음 버튼이 아래 버튼인 경우
 		//로그인하지 않은 경우
-		if(session == ""){
-			alert("로그인이 필요한 기능입니다.");
+		if(memberID == ""){
+			$button.on('click', function() {
+				alert("로그인이 필요한 기능입니다.");
+			});
 		} else{
 		//로그인 한 경우
 			//스크랩이 되어 있는 경우(한 번 이상의 클릭이 발생)
@@ -37,6 +45,9 @@ function mouseover(session, $button){
 				//초록색 -> 빨간색
 				$button.addClass('unscrap');
 				$button.text('스크랩 취소');
+				$button.on('mouseleave', function() {
+					return 0;
+				});
 				//스크랩 취소
 				$button.on('click', function() {
 					//빨간색 -> 흰색
@@ -49,6 +60,9 @@ function mouseover(session, $button){
 			//스크랩이 되어 있지 않은 경우	
 			//흰색에서 시작
 				//스크랩하기
+				$button.on('mouseleave', function() {
+					return 0;
+				})
 				$button.on('click', function() {
 					//흰색 -> 초록색
 					$button.addClass('scraped');
