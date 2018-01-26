@@ -2,51 +2,73 @@
 
 <!-- FILTERS -->
 <div class="col-md-3 filters offset-0">
-	<form:form commandName="memberRegisterRequestVO" method="post" action="/search/*">	</form:form>								
+							
 	<!-- TOP TIP -->
 	<div class="offset-2">	
-		<div class="tab">	
-			<button type="submit" id="total" onclick="more(event,'totalList')" 
-				class="tablinks <c:out value="${cri.tab == 'total'?'':'active'}"></c:out>" >
-				<span class="hidetext">통합검색</span>&nbsp; <span class="badge indent0" >${cri.result.totalCnt}</span>
-			</button>
-			<button type="submit" id="contents" onclick="more(event,'contentsList')"
-				class="tablinks <c:out value="${cri.tab == 'contents'?'':'active'}"></c:out>" >
-				<span class="hidetext">컨텐츠</span>&nbsp; <span class="badge indent0">${cri.result.contentsCnt}</span>
-			</button>
-			<button type="submit" id="plan" onclick="more(event,'planList')"
-				class="tablinks <c:out value="${cri.tab == 'plan'?'':'active'}"></c:out>" >
-				<span class="hidetext">일정</span>&nbsp; <span class="badge indent0">${cri.result.planCnt}</span>
-			</button>
-			<button type="submit" id="member" onclick="more(event,'memberList')"
-				class="tablinks <c:out value="${cri.tab == 'member'?'':'active'}"></c:out>" >
-				<span class="hidetext">회원</span>&nbsp; <span class="badge indent0">${cri.result.memberCnt}</span>
-			</button>
-		</div>	
-	</div>
-
+		<div class="tab">
+			<form:form commandName="cri" method="post" action="result">
+				<input type="hidden" name="keyword" value="${cri.keyword}"/>
+				<input type="hidden" name="totalCnt" value="${cri.totalCnt}"/>
+				<input type="hidden" name="contentsCnt" value="${cri.contentsCnt}"/>
+				<input type="hidden" name="planCnt" value="${cri.planCnt}"/>
+				<input type="hidden" name="memberCnt" value="${cri.memberCnt}"/>
+				<button id="total" class="tablinks <c:out value="${cri.tab == 'total'?'':'active'}"></c:out>"
+					name="tab" value ="total" onclick="more(event,'total')" type="submit">
+					<span class="hidetext">통합검색</span>&nbsp; <span class="badge indent0" >${cri.totalCnt}</span>
+				</button>
+			</form:form>	
+			<form:form commandName="searchCriteria" method="post" action="contents">
+				<input type="hidden" name="keyword" value="${cri.keyword}"/>
+				<input type="hidden" name="totalCnt" value="${cri.totalCnt}"/>
+				<input type="hidden" name="contentsCnt" value="${cri.contentsCnt}"/>
+				<input type="hidden" name="planCnt" value="${cri.planCnt}"/>
+				<input type="hidden" name="memberCnt" value="${cri.memberCnt}"/>
+				<button id="contents" class="tablinks <c:out value="${cri.tab == 'contents'?'':'active'}"></c:out>"
+					name="tab" value ="contents" class="tablinks" onclick="more(event,'contents')" type="submit">
+					<span class="hidetext">컨텐츠</span>&nbsp; <span class="badge indent0">${cri.contentsCnt}</span>
+				</button>
+			</form:form>	
+			<form:form commandName="searchCriteria" method="post" action="plan">
+				<input type="hidden" name="keyword" value="${cri.keyword}"/>
+				<input type="hidden" name="totalCnt" value="${cri.totalCnt}"/>
+				<input type="hidden" name="contentsCnt" value="${cri.contentsCnt}"/>
+				<input type="hidden" name="planCnt" value="${cri.planCnt}"/>
+				<input type="hidden" name="memberCnt" value="${cri.memberCnt}"/>
+				<button id="plan" class="tablinks <c:out value="${cri.tab == 'plan'?'':'active'}"></c:out>"
+					name="tab" value ="plan" class="tablinks" onclick="more(event,'plan')" type="submit">
+					<span class="hidetext">일정</span>&nbsp; <span class="badge indent0">${cri.planCnt}</span>
+				</button>			
+			</form:form>	
+			<form:form commandName="searchCriteria" method="post" action="member">
+				<input type="hidden" name="keyword" value="${cri.keyword}"/>
+				<input type="hidden" name="totalCnt" value="${cri.totalCnt}"/>
+				<input type="hidden" name="contentsCnt" value="${cri.contentsCnt}"/>
+				<input type="hidden" name="planCnt" value="${cri.planCnt}"/>
+				<input type="hidden" name="memberCnt" value="${cri.memberCnt}"/>
+				<button id="member" class="tablinks <c:out value="${cri.tab == 'member'?'':'active'}"></c:out>"
+					name="tab" value ="member" class="tablinks" onclick="more(event,'member')" type="submit">
+					<span class="hidetext">회원</span>&nbsp; <span class="badge indent0">${cri.memberCnt}</span>
+				</button>
+			</form:form>	
+		</div>		
+	</div>	
 	<script>
+		more();
 		function more(evt, tabName) {
 		    // Declare all variables
 		    var i, tabcontent, tablinks;
-	
-		    // Get all elements with class="tabcontent" and hide them
-		    tabcontent = document.getElementsByClassName("tabcontent");
-		    for (i = 0; i < tabcontent.length; i++) {
-		    		tabcontent[i].className = tabcontent[i].className.replace(" active", "");
-		    }
 	
 		    // Get all elements with class="tablinks" and remove the class "active"
 		    tablinks = document.getElementsByClassName("tablinks");
 		    for (i = 0; i < tablinks.length; i++) {
 		        tablinks[i].className = tablinks[i].className.replace(" active", "");
 		    }
-	
 		    // Show the current tab, and add an "active" class to the link that opened the tab
-		    document.getElementsByClassName(tabName)[0].className +=  " active";
-		    document.getElementsByClassName(tabName)[1].className +=  " active";
+		    document.getElementByID(tabName)[0].className +=  " active";
 		}
 	</script>
+	
+	
 	
 	<div class="padding20title"><h3 class="opensans dark">Filter by</h3></div>
 	<div class="line2"></div>

@@ -59,52 +59,7 @@
 		<div class="container pagecontainer offset-0" style="background:#f2f2f2">	
 			
 			<!-- LEFT: SIDE FILTERS -->
-			<div class="col-md-3 filters offset-0">
-				<div class="offset-2">	
-					<div class="tab">
-						<form:form commandName="SearchCriteria" method="post" action="totalPost" onsubmit="total()">
-							<input type="hidden" name="keyword" value="${cri.keyword}"/>
-							<input type="hidden" name="totalCnt" value="${totalList.totalCnt}"/>
-							<input type="hidden" name="contentsCnt" value="${totalList.contentsCnt}"/>
-							<input type="hidden" name="planCnt" value="${totalList.planCnt}"/>
-							<input type="hidden" name="memberCnt" value="${totalList.memberCnt}"/>
-
-							<button id="total" name="tab" value ="total" class="tablinks active" type="submit">
-								<span class="hidetext">통합검색</span>&nbsp; <span class="badge indent0" >${totalList.totalCnt}</span>
-							</button>
-							<button id="contents" name="tab" value ="contents" class="tablinks" onclick="contents(this.form)">
-								<span class="hidetext">컨텐츠</span>&nbsp; <span class="badge indent0">${totalList.contentsCnt}</span>
-							</button>
-							<button id="plan" name="tab" value ="plan" class="tablinks" onclick="plan(this.form)">
-								<span class="hidetext">일정</span>&nbsp; <span class="badge indent0">${totalList.planCnt}</span>
-							</button>			
-							<button id="member" name="tab" value ="member" class="tablinks" onclick="member(this.form)">
-								<span class="hidetext">회원</span>&nbsp; <span class="badge indent0">${totalList.memberCnt}</span>
-							</button>
-						</form:form>	
-						<script>
-							function total() { 
-								return true; 
-							} 
-							function contents(frm) { 
-								frm.action='contentsPost'; 
-								frm.submit(); 
-								return true; 
-							} 
-							function plan(frm) { 
-								frm.action='planPost'; 
-								frm.submit(); 
-								return true; 
-							} 
-							function member(frm) { 
-								frm.action='memberPost'; 
-								frm.submit(); 
-								return true; 
-							} 
-						</script>
-					</div>		
-				</div>	
-			</div>
+			<%@include file="../include/search/sidefilter.jsp" %>
 
 			<!-- RIGHT: CONTENT BOX -->
 			<div class="rightcontent col-md-9 offset-2" style="background:#fff">
