@@ -357,8 +357,31 @@ $(document).ready(function() {
 			//=> 3..padLeft(100,'-') => '--3' 
 			// 컨텐츠의 리뷰 리스트 받아오기
 			$(data.list).each(function() {
+				var tmp = "";
+				var name = "";
+				
+				if(memberID == this.memberID) {
+					tmp +=  " <div>"
+						+ "		<button class='btn-search4 right modify' id='"+this.contentsReviewID+"'>Modify</button>"
+						+ "     <button class='btn-search4 right delete' id='"+this.contentsReviewID+"'>delete</button>"
+						+ "		<div class='clearfix'></div>"
+						+ "</div>"
+				}
+				
+				if('${session.memberID}' == '${plan.memberID}') {
+					name = "							<ul class='dropdown-menu'>"
+						+ "									<li><a href='/member/viewMember?memberID=${plan.memberID }'>나의 일정 리스트</a></li>"
+						+ "								</ul>";
+				} else {
+					name = "							<ul class='dropdown-menu'>"
+						+ "									<li><a href='/member/viewMember?memberID=${plan.memberID }'>회원 일정 리스트</a></li>"
+						+ "								</ul>"
+				}
+				
+				
 				var d = new Date(this.updatedDate);
 				var dformat = [d.getFullYear(),(d.getMonth() + 1).padLeft(), ].join('/')+ ' '+ [d.getHours().padLeft(),d.getMinutes().padLeft(),d.getSeconds().padLeft() ].join(':');
+				
 				str += "<div class='col-md-4 offset-0 center' data-contentsReviewID='"+this.contentsReviewID+"'>"
 					+ "		<div class='padding20'>"
 					+ "			<div class='bordertype5'>"
@@ -368,7 +391,16 @@ $(document).ready(function() {
 					+ "</span>"
 					+ "				</div>"
 					+ "				<span class='dark'>"
+//					+ "				<span class='member_name'>"
+					+ "				<ul id='writer' style='list-style:none;'>"
+					+ "					<li class='dropdown'>"
+					+ "						<a data-toggle='dropdown' class='dropdown-toggle' href='#'>"
 					+ this.memberName
+					+ "							 <b class='lightcaret mt-2'></b>"
+					+ "						</a>"
+					+ "					</li>"
+					+ "				</ul>"
+//					+ "				</span>"
 					+ "</span><br/>"
 					+ "				<img src='/resources/images/check.png' alt=''/><br/>"
 					+ "				<span class='green'>Recommended<br/>for Everyone</span>"
@@ -388,14 +420,10 @@ $(document).ready(function() {
 					+ "</p>"
 					+ " 			<div id='getImage'>"+getImage(this.reviewPictureName)+"</div>" 
 					+ "		</div>"
-					+ "	</div>"
-					+ " <div>"
-					+ "		<button class='btn-search4 right modify' id='"+this.contentsReviewID+"'>Modify</button>"
-					+ "     <button class='btn-search4 right delete' id='"+this.contentsReviewID+"'>delete</button>"
-					+ "		<div class='clearfix'></div>"
-					+ "</div>"
-					+ ""
-					+ "<div class='line3'></div>";
+					+ "	</div>";
+					
+				str = str + tmp + "		<div class='clearfix'></div>"
+					+ "<div class='line3'></div>"; 	
 			});
 			// reviewList 에 추가
 			$("#reviewList").html(str);
@@ -446,8 +474,14 @@ $(document).ready(function() {
 	
 	// 리뷰 등록
 	$("#writeReview").on("click",function() {
+		if(memberID == "") {
+			alert("로그인이 필요한 서비스입니다.");
+			return;
+		}
+		
 		var contentsReviewTitle = $("#reviewTitle").val();
 		var contentsReview = $("#reviewDetail").val();
+		
 		$.ajax({
 			type : 'post',
 			url : '/contents/contentsDetail/'+ contentsID,
@@ -464,9 +498,10 @@ $(document).ready(function() {
 				reviewPictureName : fileNames,
 				contentsReviewRating : contentsReviewRating
 			}),
-			success : function(data) {}
+			success : function(data) {
 				// 리뷰 등록후 처음 1 페이지로 이동
-//				getReviewList(1);
+				getReviewList(1, memberID, contentsID);
+			}
 		});
 		// 등록 후 리뷰 텍스트 내용 초기화
 		$("#reviewTitle").val("리뷰 제목을 입력해주세요");
@@ -564,16 +599,11 @@ $(document).ready(function() {
 				// 이미지 파일일 경우 썸네일 생성
 				str = str
 						+ "<li>"
-						// 원본 파일 링크
-						+ "<a href='/displayFile?fileName="
-						+ getImageLink(fileList[i])
-						+ "'>"
 						// 썸네일 생성
 						+ "<img src='/displayFile?fileName="
 						+ fileList[i]
 						+ "'/>"
-						+ getOriginalName(fileList[i])
-						+ "</a></li>";
+						+ "</li>";
 			} else {
 				// 이미지 파일이 아닐경우 다운로드
 				str = str
