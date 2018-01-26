@@ -8,6 +8,7 @@ $(document).ready(function() {
 			async: false,
 			success : function(check){
 				scrapbt.attr('check',check);
+				console.log("scrap Check : "+check);
 			}
 		});
 		
@@ -36,6 +37,8 @@ $(document).ready(function() {
 				scrapbt.attr('check',0);
 				$.post("/scrap/"+contentsID,function(data){
 					console.log(data);
+					// 스크랩 했을때
+					scrapbt.css("color","red");
 				})
 				
 			}else{
@@ -43,6 +46,8 @@ $(document).ready(function() {
 				scrapbt.attr('check',1);
 				$.post("/scrapDelete/"+contentsID,function(data){
 					console.log(data);
+					// 스크랩 안했을때
+					scrapbt.css("color","black");
 				})
 				
 			}
