@@ -45,7 +45,7 @@ function getReviewList(reviewPage, memberID, contentsID) {
 				+ "			<p data-contentsReviewID='"+this.contentsReviewID+"' class='"+this.contentsReviewID+"'>"
 				+ this.contentsReview
 				+ "</p>"
-				//						+ " 			<div id='getImage'>"+getImage(this.reviewPictureName)+"</div>" 
+				+ " 			<div id='getImage'>"+getImage(this.reviewPictureName)+"</div>" 
 				+ "		</div>"
 				+ "	</div>";
 			
@@ -174,4 +174,93 @@ function deleteReview(contentsID, $button) {
 			}
 		});
 	});
+}
+
+//페이징 처리
+function printPaging(pageMaker) {
+	var str = "";
+	if (pageMaker.prev) {
+		str += "<li><a href='"
+				+ (pageMaker.startPage - 1)
+				+ "'> << </a></li>";
+	}
+	for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
+		var strClass = pageMaker.cri.curPage == i ? 'class=active'
+				: '';
+		str += "<li " +strClass+"><a href='"+i+"'>"
+				+ i + "</a></li>";
+	}
+	if (pageMaker.next) {
+		str += "<li><a href='"
+				+ (pageMaker.endPage + 1)
+				+ "'> >> </a></li>";
+	}
+	$("#reviewPaging").html(str);
+}
+
+//리뷰 아이디를 받아 이미지 생성 
+function getImage(reviewPictureName) {
+	var fileList = new Array;
+	var str = "";
+	fileList = reviewPictureName;
+	// 받은 파일 이름들로 이미지 추가
+	for (var i = 0; i < fileList.length; i++) {
+		// 확장자 검사
+		if (checkImageType(fileList[i])) {
+			// 이미지 파일일 경우 썸네일 생성
+			str = str
+					+ "<li>"
+					// 원본 파일 링크
+					+ "<a href='/displayFile?fileName="
+					+ getImageLink(fileList[i])
+					+ "'>"
+					// 썸네일 생성
+					+ "<img src='/displayFile?fileName="
+					+ fileList[i]
+					+ "'/>"
+					+ getOriginalName(fileList[i])
+					+ "</a></li>";
+		} else {
+			// 이미지 파일이 아닐경우 다운로드
+			str = str
+					+ "<li><a href='/displayFile?fileName="
+					+ fileList[i]
+					+ "'>"
+					+ getOriginalName(fileList[i])
+					+ "</a></li>";
+		}
+	}
+	return str;
+}
+
+function getFileNames(data) {
+	fileNames.push(data);
+}
+
+
+
+// 확장자 체크
+function checkImageType(fileName) {
+	var pattern = /jpg$|gif$|png$|jpeg$/i;
+	// 이미지 확장자일 경우 true 리턴
+	return fileName.match(pattern);
+}
+
+// UUID이름 지우기
+function getOriginalName(fileName) {
+	// 이미지 파일인 경우 _가 2번 들어감
+	var idx = fileName.indexOf("_") + 1;
+	var str = fileName.substr(idx);
+	var idx2 = str.indexOf("_") + 1;
+	return str.substr(idx2);
+}
+
+// 이미지 파일 링크 처리
+function getImageLink(fileName) {
+	// /년/월/일 추출
+	var front = fileName.substr(0, 12);
+	// s_ 제거한 원본 이름
+	var end = fileName.substr(14);
+	// 원본이름 리턴
+	return front + end;
 }
