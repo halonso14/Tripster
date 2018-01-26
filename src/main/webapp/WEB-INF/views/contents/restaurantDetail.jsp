@@ -19,8 +19,9 @@
 	<!-- scrap -->
 	<script src="/resources/js/scrapHD.js"></script>
 	<!-- review -->
+	<!-- 
 	<script src="/resources/js/review.js"></script>
-
+ -->
 	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
@@ -309,8 +310,7 @@
 										<div class='uploadList'></div>
 										<button id="uploadBtn">업로드</button>
 									</div>
-									<button type="submit" class="btn-search4 margtop10"
-										id="writeReview">리뷰 등록</button>
+									<button type="submit" class="btn-search4 margtop10" id="writeReview">리뷰 등록</button>
 
 									<br/><br/>
 								</div>
@@ -339,14 +339,78 @@ $(document).ready(function() {
 	var listPage = ${cri.curPage};
 	var contentsID = "${contentsID}";
 	var categoryID = ${categoryID};
-	alert(typeof categoryID);
 	var reviewPage = 1;
 	
 	var scrapCheck = "${scrapCheck}";
-	var reviewPictureName = new Array;
+	var fileNames = new Array;
 	var contentsReviewRating = 0;
 	
-	
+	function getReviewList(reviewPage) {
+		$.getJSON("/contents/review/"+ contentsID+ "/"+ reviewPage, function(data) {
+			var str = "";
+			//날짜 형태를 02-01와 같은 형태를 위한 함수.
+			Number.prototype.padLeft = function(base, chr) {
+				var len = (String(base || 10).length - String(this).length) + 1;
+				return len > 0 ? new Array(len).join(chr|| '0')+ this: this;
+			}
+			// usage
+			//=> 3..padLeft() => '03'
+			//=> 3..padLeft(100,'-') => '--3' 
+			// 컨텐츠의 리뷰 리스트 받아오기
+			$(data.list).each(function() {
+				var d = new Date(this.updatedDate);
+				var dformat = [d.getFullYear(),(d.getMonth() + 1).padLeft(), ].join('/')+ ' '+ [d.getHours().padLeft(),d.getMinutes().padLeft(),d.getSeconds().padLeft() ].join(':');
+				str += "<div class='col-md-4 offset-0 center' data-contentsReviewID='"+this.contentsReviewID+"'>"
+					+ "		<div class='padding20'>"
+					+ "			<div class='bordertype5'>"
+					+ "				<div class='circlewrap'>"
+					+ "					<img src='/resources/images/user-avatar.jpg' class='circleimg' alt=''/><span>"
+					+ this.contentsReviewRating
+					+ "</span>"
+					+ "				</div>"
+					+ "				<span class='dark'>"
+					+ this.memberName
+					+ "</span><br/>"
+					+ "				<img src='/resources/images/check.png' alt=''/><br/>"
+					+ "				<span class='green'>Recommended<br/>for Everyone</span>"
+					+ "			</div>"
+					+ "		</div>"
+					+ "	</div>"
+					+ "	<div class='col-md-8 offset-0'>"
+					+ "		<div class='padding20'>"
+					+ "			<span class='opensans size16 dark'>"
+					+ this.contentsReviewTitle
+					+ "</span><br/>"
+					+ "			<span class='opensans size13 lgrey'>"
+					+ dformat
+					+ "</span><br/>"
+					+ "			<p data-contentsReviewID='"+this.contentsReviewID+"' class='"+this.contentsReviewID+"'>"
+					+ this.contentsReview
+					+ "</p>"
+					+ " 			<div id='getImage'>"+getImage(this.reviewPictureName)+"</div>" 
+					+ "		</div>"
+					+ "	</div>"
+					+ " <div>"
+					+ "		<button class='btn-search4 right modify' id='"+this.contentsReviewID+"'>Modify</button>"
+					+ "     <button class='btn-search4 right delete' id='"+this.contentsReviewID+"'>delete</button>"
+					+ "		<div class='clearfix'></div>"
+					+ "</div>"
+					+ ""
+					+ "<div class='line3'></div>";
+			});
+			// reviewList 에 추가
+			$("#reviewList").html(str);
+			// 초기화 후 업로드박스안의 파일 제거
+			$('.uploadList').html("");
+			// 초기화후 업로드 박스 제거
+			$('.uploadList').removeAttr('style');
+			// 리뷰 등록시 업로드했던 파일 이름 제거
+			fileNames = new Array;
+			// 페이징 처리
+			printPaging(data.pageMaker);
+		});
+	}
+
 	
 	//리뷰리스트 조회 함수 호출
 	getReviewList(reviewPage, memberID, contentsID);
@@ -357,7 +421,6 @@ $(document).ready(function() {
 		$('input[type="checkbox"]').not(this).prop("checked",false);
 			contentsReviewRating = this.value;
 	});
-	
 	// 페이징 처리
 	function printPaging(pageMaker) {
 		var str = "";
@@ -402,7 +465,7 @@ $(document).ready(function() {
 				memberName : memberName,
 				contentsReviewTitle : contentsReviewTitle,
 				contentsReview : contentsReview,
-				reviewPictureName : reviewPictureName,
+				reviewPictureName : fileNames,
 				contentsReviewRating : contentsReviewRating
 			}),
 			success : function(data) {}
@@ -560,6 +623,8 @@ $(document).ready(function() {
 		return front + end;
 	}
 });
+
+
 </script>
 
 			<!-- Javascript -->	
