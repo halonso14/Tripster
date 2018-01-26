@@ -226,9 +226,9 @@ response.setHeader("Pragma", "no-cache");
 				<!-- LEFT MENU -->
 				<div class="col-md-1 offset-0">
 					<!-- Nav tabs -->
-					<ul class="nav profile-tabs">
+					<ul class="nav profile-tabs" id="myTab">
 					  <li class="active">
-						<a href="#profile" data-toggle="tab">
+						<a href="#profile" data-toggle="tab" role="tab">
 						<span class="profile-icon"></span>
 						Statistics
 						</a></li>
@@ -289,10 +289,11 @@ response.setHeader("Pragma", "no-cache");
 						  <div class="col-md-4 offset-0">
 						  	<c:choose>
 						  		<c:when test="${empty profilePic }">
-									<img src="/resources/images/user.png" alt="" class="left margright20" id="profileImg"/>
+									<img src="/resources/images/user.png" alt="" class="left margright20"
+									id="profileImg" style="height : 53px; width: 53px;"/>
 						  		</c:when>
 						  		<c:otherwise>
-						  			<img src="/displayFile?fileName=${profilePic }" alt="" class="left margright20" 
+						  			<img src="/displayFile?fileName=${profilePic }&directory=profile" alt="" class="left margright20" 
 						  			id="profileImg" style="height : 53px; width: 53px;"/>
 						  		</c:otherwise>
 						  	</c:choose>
@@ -1133,7 +1134,19 @@ response.setHeader("Pragma", "no-cache");
     
  -->
 	<!-- ymmu recommand.js--><!-- Google includes -->
- 
+	
+	<!-- 특정 탭으로 연결 -->
+<!--  <script>
+$(window).load(function(){
+    var hash= window.location.hash;
+        if(hash.length > 0 ) {
+            $('a[role="tab"]').parent().removeClass('active');//remove the default active tab
+            $('a[href="'+hash+'"]').parent().addClass('active');
+            $('.tab-pane').removeClass('active');
+            $(hash).addClass('active');
+         }
+  });
+</script> -->
 	
 
 	

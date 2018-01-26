@@ -2,6 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%
+response.setHeader("Cache-Control", "no-store");
+response.setHeader("Expires", "Sat, 01 Jan 1970 22:00:00 GMT");
+response.setHeader("Pragma", "no-cache");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -158,60 +163,12 @@
 					<br />
 					<br />
 					<div class="clearfix"></div>
-
-					<%-- 작성한 plan이 있을때 화면에 뿌려준다. --%>
-<%-- 					<c:if test="${not empty planVO}">
-						<div class="itemscontainer offset-1">
-							<c:forEach items="${planVO}" var="planVO" varStatus="status"> --%>
+					
 							
 					<div class="itemscontainer offset-1">
 						<div id=planList>
 						</div>
-<%-- 								<div class="col-md-4">
-									<div class="listitem">
-									
-										<c:choose>
-											<c:when test='${pictureID[status.index] ne "" }'>
-												<img src="/displayFile?fileName=${pictureID[status.index]}"
-													alt="" />
-											</c:when>
-											<c:otherwise>
-												<img src="" alt="" />
-											</c:otherwise>
-										</c:choose>
-										
-										<div class="liover"></div>
-										
-										<c:choose>
-											<c:when test='${likeChkList[status.index] ne 1 }'>
-												<a id="likeBtn" class="fav-icon like" href="javascript:void(0)" value= ${planVO.planID } likeBtnCheck='0'></a>
-											</c:when>
-											<c:otherwise>
-												<a id="likeBtn" class="fav-icon-red like" href="javascript:void(0)" value= ${planVO.planID } likeBtnCheck='1'></a>
-											</c:otherwise>
-										</c:choose>
-										
-										<a class="book-icon" href="/plan/read?planID=${planVO.planID}"></a>
-									</div>
-									<div class="itemlabel" style="text-align: center;">
-										<a href="/plan/read?planID=${planVO.planID}"><b>${planVO.planTitle}</b></a><br />
-									</div>
-								</div>
-								plan 3개마다 줄바꿈
-								<c:if test="${status.count%3 eq 0}">
-									<div class="clearfix"></div>
-									<div class="offset-2">
-										<hr class="featurette-divider3">
-									</div>
-								</c:if> --%>
-					
-<%-- 							</c:forEach>
-							<div class="clearfix"></div>
-							<div class="offset-2">
-								<hr class="featurette-divider3">
-							</div>
-						</div>
-					</c:if> --%>
+
 					
 						<div class="clearfix"></div>
 							<div class="offset-2">
@@ -236,14 +193,7 @@
 	var session = "${session.memberID}";
 	var pictureID = ${pictureID};
 	var likeChkList = '';
-	var array = "${likeChkList}";
-	
-	if(session != ""){
-		likeChkList = JSON.parse(array);
-		console.log(likeChkList);
-	} else{
-		likeChkList = '';
-	}
+
 	getPageList(1);
 	
 	//plan을 화면에 뿌려준다.
@@ -259,7 +209,7 @@
 						
 					if(pictureID[index] != ""){
 						str +=
-							"<img src='/displayFile?fileName="+pictureID[index]+"'alt='' />";
+							"<img src='/displayFile?fileName="+pictureID[index]+"&directory=plan' alt='' />";
 					} else{
 						str +=
 							"<img src='' alt='' />";
@@ -268,12 +218,12 @@
 					str +=
 						"<div class='liover'></div>";
 							
-					if(likeChkList[index] != 1){
+					if(data.likeChkList[index] != 1){
 						str +=
-							"<a id='likeBtn' class='fav-icon like' href='javascript:void(0)' value=" +this.planID+ " likeBtnCheck='0'></a>"
+							"<a id='likeBtn' class='fav-icon like' href='javascript:void(0)' onclick='likeClick(session,$(this));' value=" +this.planID+ " likeBtnCheck='0'></a>"
 					} else{
 						str +=
-							"<a id='likeBtn' class='fav-icon-red like' href='javascript:void(0)' value=" +this.planID+ " likeBtnCheck='1'></a>"
+							"<a id='likeBtn' class='fav-icon-red like' href='javascript:void(0)' onclick='likeClick(session,$(this));' value=" +this.planID+ " likeBtnCheck='1'></a>"
 					}
 							
 					str +=
@@ -324,28 +274,7 @@
 	});
 	
 </script>					
-							<!-- pagination -->
-<%-- 							<div class="hpadding20">
-								<ul class="pagination right paddingbtm20">
-									
-									<c:if test="${pageMaker.prev }">
-										<li><a href="${pageMaker.startPage-1 }">&laquo;</a></li>
-									</c:if>
-									
-									<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-										
-										<li id="contentsPage"
-											<c:out value="${pageMaker.cri.curPage == idx?'class=active':'' }"></c:out>>
-											<a href="/member/viewMember?memberID=${memberVO.memberID }&&page=${idx }" >${idx }</a>
-										</li>
-										
-									</c:forEach>
-									
-									<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
-										<li><a href="${pageMaker.endPage+1 }">&raquo;</a></li>
-									</c:if>
-								</ul>
-							</div> --%>
+							
 
 					<!-- END OF LIST CONTENT-->
 
@@ -373,8 +302,6 @@
 <!-- END OF CONTENT -->
 
 
-
-
 <!-- FOOTER -->
 
 <div class="footerbgblack">
@@ -383,7 +310,7 @@
 		<div class="col-md-3">
 			<span class="ftitleblack">Let's socialize</span>
 			<div class="scont">
-				<a href="#" class="social1b"><img
+				<a href="/member/mypage/#scrapList" class="social1b"><img
 					src="/resources/images/icon-facebook.png" alt="" /></a> <a href="#"
 					class="social2b"><img src="/resources/images/icon-twitter.png"
 					alt="" /></a> <a href="#" class="social3b"><img
