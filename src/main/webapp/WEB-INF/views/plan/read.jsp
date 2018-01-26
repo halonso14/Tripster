@@ -206,10 +206,10 @@
     <!-- Picker -->	
 	<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />	
 	
-<!--     jQuery	 -->	
+	<!--     jQuery	 -->	
     <script src="https://code.jquery.com/jquery-2.0.3.js"></script>
 
-<!-- bootstrap -->
+	<!-- bootstrap -->
 	<script src="/resources/dist/js/bootstrap.min.js"></script>
 	
 	<%@include file="/WEB-INF/views/include/header2.jsp"%>
