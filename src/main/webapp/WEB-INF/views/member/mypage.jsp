@@ -430,22 +430,22 @@ response.setHeader("Pragma", "no-cache");
 						    	<div class="info_about_country_contents">
 						    		<div class="info_icon">
 						    			<i class="material-icons" style="font-size:48px;color:#42b520">flight</i><br>
-						    				<b>평균 비행기표 가격</b>
+						    				<b>비행기표</b>
 						    		</div>
 						    		<div class="info_description">
-						    				<b>이 도시와 가까운 공항</b><br>
-						    				<div id="airport_ymmu">ICN</div>
+						    				<b style="color: #10A973">이 도시와 가까운 공항</b><br>
+						    				<div id="airport_ymmu"></div>
 						    				<br>
-						    				<b>편도 최저가격</b><br>
-						    				<div id="fligh_price_ymmu">KRW 855,500</div>
+						    				<b style="color: #10A973">편도 최저가격</b><br>
+						    				<div id="fligh_price_ymmu"></div>
 						    				<br>
-						    				<b>직항 소요시간</b><br>
-						    				<div id="fligh_price_ymmu">13h 45m<br></div>			
+						    				<b style="color: #10A973">직항 소요시간</b><br>
+						    				<div id="fligh_price_ymmu"><br></div>			
 						    		</div>
 						    	</div>
 						    	<div class="info_about_country_contents">
 						    		<div class="info_icon">
-						    			<i class="fa fa-smile-o" style="font-size:48px;color:#42b520"></i><br>
+						    			<i class="material-icons safe_icon" style="font-size:48px;color:#42b520">sentiment_very_satisfied</i><br>
 						    				<b>안전도</b>
 						    		</div>
 						    		<div class="info_description">
@@ -458,7 +458,7 @@ response.setHeader("Pragma", "no-cache");
 						    				<b>빅맥 현지 가격</b>
 						    		</div>
 						    		<div class="info_description">
-						    			<div id="bigmac_ymmu">13h 45m<br></div>
+						    			<div id="bigmac_ymmu"><br></div>
 						    		</div>	
 						    		
 						    	</div>
@@ -468,7 +468,7 @@ response.setHeader("Pragma", "no-cache");
 						    				<b>국가단어</b>
 						    		</div>
 						    		<div class="info_description">
-						    			<div id="words_ymmu">13h 45m<br></div>
+						    			<div id="words_ymmu"><br></div>
 						    		</div>	
 						    	</div>
 						    	<div class="info_about_country_contents">
@@ -477,13 +477,32 @@ response.setHeader("Pragma", "no-cache");
 						    				<b>시차</b>
 						    		</div>
 						    		<div class="info_description">
-						    			<div id="time_difference_ymmu">13h 45m<br></div>
+						    			<div id="time_difference_ymmu">-1~2시간<br></div>
+						    		</div>		
+						    	</div>
+						    	<div class="info_about_country_contents">
+						    		<div class="info_icon">
+						    			<i class="material-icons" style="font-size:48px;color:#42b520">directions_bike</i><br>	
+						    				<b>액티비티</b>
+						    		</div>
+						    		<div class="info_description">
+						    			<div id="activity_ymmu"><br></div>
+						    		</div>		
+						    	</div>
+						    	<div class="info_about_country_contents">
+						    		<div class="info_icon">
+						    			<i class="material-icons" style="font-size:48px;color:#42b520">free_breakfast</i><br>	
+						    				<b>음식</b>
+						    		</div>
+						    		<div class="info_description">
+						    			<div id="food_ymmu"><br></div>
 						    		</div>		
 						    	</div>
 						    </div>
 						    
 			    	
 			    			<!--ymmu 이 국가의 맵에 표시되지 않은 도시들 부분보여줌  -->					    	
+					    	<!--
 					    	<div class="general_font rcm_title_font just_padding_for_subtitle"><h2>이 국가에 관련된 다른 도시들</h2></div>
 							<div class="relavtive_rcm">
 					    		  <div class="your-class">
@@ -547,71 +566,22 @@ response.setHeader("Pragma", "no-cache");
 								    </div>
 								  </div>
 					    	</div>
-
-
+								-->
 			    			<!--ymmu 이 국가에 관련된 유튜브 영상 추천 -->					    	
 					    	<div class="general_font rcm_title_font just_padding_for_subtitle"><h2>이 국가에 관련된 유튜브 영상</h2></div>
-							<div class="relavtive_rcm">
-					    		  <div class="your-class">
-								    <div class="contents_rcm">
-								    	<div class="inner_card">
+							<div class="video_rcm_main">
+								<div id="player"></div>
+							</div>
+							<div class="video_rcm_list">
+								    
+								  <!--   
+								    <div class="video_rcm">
+								    	<div class="video_inner_card">
 								    		<img src="/resources/images/Port Macquarie.jpg" width="100%" />
-								    	 	<div class="content_rcm_title">
-					    						<div class="general_font country_name_font">Tweed Heads</div>
-					    					</div>
-								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
 								    	</div>
-								    </div>
+								    </div> 
+								    -->
 
-								    <div class="contents_rcm">
-								    	<div class="inner_card">
-								    		<img src="/resources/images/Port Macquarie.jpg" width="100%" />
-								    		<div class="content_rcm_title">
-					    						<div class="general_font country_name_font">Tweed Heads</div>
-					    					</div>
-								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
-								    	</div>
-								    </div>
-								    <div class="contents_rcm">
-								    <div class="inner_card">
-								    <img src="/resources/images/Port Macquarie.jpg" width="100%" />
-								    	<div class="content_rcm_title">
-					    						<div class="general_font country_name_font">Tweed Heads</div>
-					    					</div>
-								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
-								    	</div>
-									</div>
-								    <div class="contents_rcm">
-								    	<div class="inner_card">
-								    	<img src="/resources/images/Port Macquarie.jpg" width="100%" />
-								    		<div class="content_rcm_title">
-					    						<div class="general_font country_name_font">Tweed Heads</div>
-					    					</div>
-								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
-
-								    	</div>
-								    </div>
-								    <div class="contents_rcm">
-										<div class="inner_card">
-										<img src="/resources/images/Port Macquarie.jpg" width="100%" />
-								    		<div class="content_rcm_title">
-					    						<div class="general_font country_name_font">Tweed Heads</div>
-					    					</div>
-								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
-
-								    	</div>
-								    </div>
-								    <div class="contents_rcm">
-								    	<div class="inner_card">
-								    	<img src="/resources/images/Port Macquarie.jpg" width="100%" />
-								    		<div class="content_rcm_title">
-					    						<div class="general_font country_name_font">Tweed Heads</div>
-					    					</div>
-								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
-
-								    	</div>
-								    </div>
-								  </div>
 					    	</div>
 
 
@@ -620,22 +590,7 @@ response.setHeader("Pragma", "no-cache");
 							<!--ymmu  이 국가에 관련된 일정 추천 부분이다  -->					    	
 					    	<div class="general_font rcm_title_font just_padding_for_subtitle"><h2>이 국가에 관련된 일정 참고</h2></div>
 							<div class="relavtive_rcm">
-					    		  <div class="related-plan-list">
-								<!-- 이제 필요가 없어졌어...임시데이터					    
-								    <div class="contents_rcm">
-								    	<div class="inner_card">
-								    		<img id="content_rcm_plan_thumbnail_bgImage" src="/resources/images/profile_bg.jpg" />
-								    	 	<div class="content_rcm_plan_thumbnail">
-					    						<img id="content_rcm_plan_thumbnail_image" src="/resources/images/thumbnail_default3.png" />
-					    					</div>
-					    					<div class="general_font content_rcm_plan_writer">pandas</div>
-					    					<div class="general_font content_rcm_plan_name">호주 방학 여행</div>
-								    		<div class="content_rcm_plan_date">2018/1/30 ~ 2018/2/30</div>
-								    		<div class="content_rcm_plan_planEndChk">종료된 일정</div>
-								    	</div>
-								    </div>
- 								-->
-								  </div>
+					    		  <div class="related-plan-list"></div>
 					    	</div>
 
 

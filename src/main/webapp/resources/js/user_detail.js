@@ -7,35 +7,22 @@ var gmap;
 //사용자가 선택한 국가들 저장하는 리스트
 var selected_country_list=[];
 
+//사용자가 선택한 도시들 저장하는 리스트
+var selected_city_list=[];
+//그동안 ajax로 받아온 국가리스트 
+var selected_country_list_remember=[];
+//마커리스트
+var  marker_list=[];
+//데이터
+var city_data=[];
+
 /**
  * Setup breaking points between amCharts and Google Maps
  */
-AmCharts.amBreakLevel = 5;
+AmCharts.amBreakLevel = 2;
 AmCharts.amBreakLevelReturn = 2; // used to return from GMap
 AmCharts.gBreakLevel = 5; //이 값보다 작으면 구글맵이 감춰진다.
 
-
-//amcharts 세팅함수
-AmCharts.ready( function() {
-/*	 
-	//map chart---------------------------------
-	chartMap = new AmCharts.AmMap();
-	chartMap.dataProvider = mapData;
-	chartMap.projection = "eckert3";
-	chartMap.areasSettings = {
-							    "autoZoom": true,
-							    "selectedColor": "#CC0000"
-							  };
-	  
-	chartMap.addListener({
-	    "event": "descriptionClosed",
-	    "method": function(ev) {
-	      ev.chart.selectObject();
-	    }
-	  });
-	chartMap.write("chartdiv");
-*/
-});
 
 
 //화면 데이터세팅
@@ -59,6 +46,8 @@ $(document).ready(function(){
 		unit: " 일"
 	});
 	
+	
+
 });
 
 
@@ -73,46 +62,88 @@ var ajaxController= function(url){
         dataType: 'json',
         success: function(data){
             
-        	console.log(data);
+        	//city_data = data;
+        	//console.log(data);
             //구글맵에 도시 인포 뿌려주기
             if(url.match("/country")){
             
-            	//console.log(data);
+            	console.log(data);
             	  //추천 도시 데이터 마커. 한 위치당 하나의마커가 필요하므로 for문으로
-            	  marker_list =[]
-            	  for(var i=0 ; i<data.length-1; i++){
+            	  //marker_list =[] 전역으로 뺐음..
+            		
+            	var marker_list_size = marker_list.length;
+            	console.log(marker_list_size);
+            	  for(var i=0 ; i<data.length; i++){
             		  
             		  (function(i){ //i값을 제대로 넘겨주기 위한 클로저 처리
             			  
             			  var marker = new google.maps.Marker({
-            			      //position: {lat: -25.363, lng: 131.044},
             				  position: {lat: data[i].fields.lat, lng: data[i].fields.lng},
             			      map: gmap,
-            			      title: data[i].fields.name
+            			      title: data[i].fields.name,
+            			      animation: null
             			    });
             			  marker_list.push(marker);
             			  //정보창
             			  var infowindow = new google.maps.InfoWindow({
-            				    content: "<div id='contents'><h2 id='firstHeading' class='firstHeading'>"+data[i].fields.name+"</h2></div>"
-            				    			+"<div><input type='button' id='choose"+data[i].pk+"' class='choose action-button' value='선택' />"
+            				    content: "<div id='infowindow_contents'><h2 id='firstHeading' class='firstHeading'>"+data[i].fields.name+"</h2></div>"
+            				    			+"<div><input type='button' id='choose"+data[i].pk+"' class='choose action-button' value='선택' ) />" //onclick=chosen("+data[i].pk+"
             				    			+"<input type='button' id='cancel"+data[i].pk+"' class='cancel action-button' value='취소' /></div>"
             				  });
             			  
             			  //마커 클릭하면 정보창 보이게.
-            			  marker_list[i].addListener('click', function() {
-            				    infowindow.open(gmap, marker_list[i]);
-            	        			//국가/도시정보 세팅
-            	            	$('#fligh_price_ymmu').text('KRW '+data[i].flight_price);
-            	            	$('#exchange_ymmu').text(data[i].exchange);
-            	            	$('#airport_ymmu').text(data[i].airport);
-            	            	$('#safe_ymmu').text(data[i].safe);
-            	            	
+            			  marker_list[i+marker_list_size].addListener('click', function() {
+            				    infowindow.open(gmap, marker_list[i+marker_list_size]);
+            				  	//console.log(marker_list[i]);
+
+            				  	
+            				  	//info window의 선택버튼눌렀을 경우 city_list에 도시번호 저장한다. 그리고 인포윈도우 닫음
+            				  	$('#choose'+data[i].pk).on('click', function(){
+            				  		
+            				  		console.log('선택버튼 함수 안 ');
+            				  		var index = selected_city_list.indexOf(data[i].pk); 
+		            		    	if(index == -1){
+		            		    		
+		            		    		selected_city_list.push(data[i].pk);
+	            						console.log(selected_city_list);
+	            						toggleBounce(marker_list[i+marker_list_size]); //마커 애니메이션 효과
+	            						
+		            		    	}
+            						$('#choose'+data[i].pk).off(); // 버튼에 연결되어있는 이벤트를 모두 삭제함. 이게 CLICK 함수 안에 설정되어 있는 거라 누를 때마다 연결되는 것 같다.
+            						infowindow.close();
+            							//선택한 도시의 마커색깔 바꿔주기
+            						marker_list[i+marker_list_size].setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+            						
+            					});
+            				  	
+            				  	//info window의 취소버튼 눌렀을 경우 city_list에 도시번호 삭제한다. 그리고 인포윈도우 닫음
+            				  	$('#cancel'+data[i].pk).on('click', function(){
+            						
+            						console.log('취소버튼 함수 안 ');
+            						
+		            		    			//만약 도시가 기록되어 있는데 사용자가 누르면 지워야 한다.
+            						var index = selected_city_list.indexOf(data[i].pk); 
+		            		    	if(index != -1){
+		            		    				//이미 저장되어 있으면 삭제
+		            		    		selected_city_list.splice(index,1);
+	            						toggleBounce(marker_list[i+marker_list_size]); //마커 애니메이션 효과 없앰
+		            		    	}
+            						
+            				  		console.log(selected_city_list);
+
+            						$('#cancel'+data[i].pk).off();
+            						infowindow.close();
+            						marker_list[i+marker_list_size].setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+
+            					});
+            				  	
             				  });
             		  })(i);
             		  
+
             	  }
             	
-
+            	  console.log(marker_list);
             }
             else if(url.match("/recommand")){ //추천페이지 데이터 바인딩
 
@@ -141,44 +172,22 @@ var ajaxController= function(url){
             	chartMap2.listeners.push({
         		    "event": "clickMapObject",
         		    "method": function(event) {
-        		    	console.log(event);
+        		    	//console.log(event);
         		    	//console.log(event.mapObject.id);
         		    	
         		    			//만약iso가 기록되어 있는데 사용자가 누르면 지워야 한다.
         		    			//누르면 추가, 눌렀는데 다시 누르면 제거
         		    	var index = selected_country_list.indexOf(event.mapObject.id); 
+
         		    	if(index == -1)
         		    				//사용자가 선택한 국가iso 저장
             		    	selected_country_list.push(event.mapObject.id);
         		    	else{
         		    				//이미 저장되어 있으면 삭제
         		    		selected_country_list.splice(index,1);
-        		    		mapData2.areas
+        		    		//mapData2.areas
         		    	}
-        		    				
-        		    	/*
-        		    	for(var i=data.length-1; i>-1;i--){
-        	            	
-                    		if(typeof data[i].iso2 == 'undefined'){
-                    			break;
-                    		} //undefined 나오는 순간 for문 브레이크
-                    		else if(data[i].iso2 == event.mapObject.id){
-                    			 $('.description_title').text(data[i].name_han+' '+data[i].name_eng); //지도서 클릭한 나라 이름
-                    			 $('.country_or_city_description').text(data[i].description); //지도서 클릭한 나라 소개
-                    			 $('#exchange_ymmu').html('<br>1'+data[i].money_unit+' = '+ data[i].exchange+'원<br>'+'10'+data[i].money_unit+' = '+ data[i].exchange*10+'원<br>'); //지도서 클릭한 나라 환율
-                    			 $('#safe_ymmu').html(data[i].safe+'<br>'); //지도서 클릭한 나라 환율
-                    			 $('#bigmac_ymmu').html('약 '+data[i].bigmac_price+data[i].money_unit+'<br><br>'+'<b>US달러 가격</b><br>'+data[i].bigmac_price_dallor); //지도서 클릭한 나라 환율
-                    			 $('#country_or_city_title_image').attr('src', '/resources/images/'+data[i].iso2+'_main.jpg');
-                    		
-                    			 	//관련 국가를 다녀가는 일정
-                    			 ajaxController("/rcm/"+data[i].iso2);
-                    		
-                    		
-                    		}	
-                    	}//for
-        		    	*/
-
-        		    	
+     		        
         		        // GMap inited?
         		        if ( typeof gmap === "undefined" )
         		          return;
@@ -195,19 +204,6 @@ var ajaxController= function(url){
         		  });
             	
             }//else if
-            else if(url.match("/rcm")){ //
-            	
-            	console.log("/rcm 들어옴");
-            	var planList = data.planList;
-            		
-            		//슬라이드 갱신 필요
-            	$('.related-plan-list').slick('removeSlide',null,null, true);
-            	console.log('슬라이드 갱신');
-            	//$('.related-plan-list').slick(getSliderSettings());
-            		//관련일정 slick에 달아줌
-            	bindingPlanListToSlick(planList);
-            	
-            }
         }//success
 
     }); 
@@ -237,7 +233,7 @@ var chartMap2 = AmCharts.makeChart( "chartdiv_rcm", {
   },
   "areasSettings": {
     "autoZoom": true,
-    "selectedColor": "#0bff85"
+    "selectedColor": "#0bff85"//초록색
   },
   "zoomControl": {
 	"zoomControlEnabled": true,
@@ -245,39 +241,45 @@ var chartMap2 = AmCharts.makeChart( "chartdiv_rcm", {
     "right": 10
     /*,"zoomFactor":1*/
   },
+  "autoDisplay": true,
   "listeners": [{
 	    "event": "clickMapObject",
 	    "method": function(event) {
 	    	console.log(event);
-    			//만약iso가 기록되어 있는데 사용자가 누르면 지워야 한다.
+	    	
+	    		//그동안 한번도 안 부른 국가이면 AJAX로 데이터 불러온다.
+	    	var index = selected_country_list_remember.indexOf(event.mapObject.id); 
+	    	if(index == -1){
+	    		console.log('selected_country_list_remember');
+	    		console.log(selected_country_list_remember);
+	    		selected_country_list_remember.push(event.mapObject.id);	
+	    			//선택된 국가 도시 데이터 불러오기
+		    	ajaxController('http://127.0.0.1:8000/country/'+ event.mapObject.id); 
+
+	    	}
+	    		
+	    		//만약iso가 기록되어 있는데 사용자가 누르면 지워야 한다.
     			//누르면 추가, 눌렀는데 다시 누르면 제거
 	    	var index = selected_country_list.indexOf(event.mapObject.id); 
 	    	if(index == -1){
-	    				//사용자가 선택한 국가iso 저장
+		    	console.log();		
+	    			//사용자가 선택한 국가iso 저장
 		    	selected_country_list.push(event.mapObject.id);
-		    	event.mapObject.color = "#D01781";
-		    	/*
-		    	chartMap2.dataProvider.areas.push({
-				      "id": event.mapObject.id,
-				      "color": "#D01781"
-				 });
-		    	 */
-		    	//추천데이터. 크로스도메인 설정됨
-		    	ajaxController('http://127.0.0.1:8000/country/'+ event.mapObject.id);
-
+		    	event.mapObject.color = "#D01781";//분홍색
 		    	
 	    	}else{
 	    			//이미 저장되어 있으면 삭제
 	    		selected_country_list.splice(index,1);
-	    		event.mapObject.color = "#67b7dc";
-	    		
 	    	}
+    	
+	    	
+	    	console.log('selected_country_list');	    	
 	    	console.log(selected_country_list);
-	    	chartMap2.validateData();
+	    	//chartMap2.validateData();
 	    }}
   	,{
 	    "event": "zoomCompleted",
-	    "method": function( e ) {
+	    "method": function( event ) {
 	
 	      // GMap inited?
 	      if ( typeof gmap === "undefined" )
@@ -293,19 +295,19 @@ var chartMap2 = AmCharts.makeChart( "chartdiv_rcm", {
 		        console.log('chartMap2 zoomlevel:'+chartMap2.zoomLevel());
 		        // set zoom level
 		        gmap.setZoom( AmCharts.gBreakLevel );
-		        //gmap.setZoom(chartMap2.zoomLevel());
-		        //console.log('gmap.getCenter: '+gmap.getZoom());
+
 		
 		        // switch to Google map
 		        document.getElementById( "chartdiv_rcm" ).style.visibility = "hidden";
 		        document.getElementById( "gmap" ).style.visibility = "visible";
 		        google.maps.event.trigger(gmap, 'resize'); // 구글맵 갱신.
+		        
 	      }
 	    }
   }]
 } );
 
-
+//구글맵 초기화
 window.initGoogleMap=function(data) {
   gmap = new google.maps.Map( document.getElementById( 'gmap' ), {
     scrollwheel: true,
@@ -313,36 +315,7 @@ window.initGoogleMap=function(data) {
   } );
   
 
-  /*
-  //추천 도시 데이터 마커. 한 위치당 하나의마커가 필요하므로 for문으로
-
-  marker_list =[]
-  for(var i=0 ; i<data.length-2; i++){
-	  
-	  (function(i){ //i값을 제대로 넘겨주기 위한 클로저 처리
-		  
-		  var marker = new google.maps.Marker({
-		      //position: {lat: -25.363, lng: 131.044},
-			  position: {lat: data[i].lat, lng: data[i].lng},
-		      map: gmap,
-		      title: data[i].name
-		    });
-		  marker_list.push(marker);
-		  //정보창
-		  var infowindow = new google.maps.InfoWindow({
-			    content: "<div id='contents'><h1 id='firstHeading' class='firstHeading'>"+data[i].name+"</h1></div>"
-			  });
-		  
-		  //마커 클릭하면 정보창 보이게.
-		  marker_list[i].addListener('click', function() {
-			    infowindow.open(gmap, marker_list[i]);
-            	
-			  });
-	  })(i);
-	  
-  }
-*/
-  
+   
   gmap.addListener( "zoom_changed", function() {
     /**Switch back to amCharts*/
     if ( gmap.getZoom() < AmCharts.gBreakLevel ) {
@@ -395,7 +368,14 @@ function gZoomLevelToAm( level ) {
   return newLevel;
 }
 
-//
-var chosen= function(iso2){
+//구글마커 선택했을 시에 애니메이션 효과
+var toggleBounce = function(marker) {
 	
-}
+		console.log(marker.getAnimation());
+	  if (marker.getAnimation() !== null) {
+		  
+		  marker.setAnimation(null);
+	  } else {
+		  marker.setAnimation(google.maps.Animation.BOUNCE);
+	  }
+	}

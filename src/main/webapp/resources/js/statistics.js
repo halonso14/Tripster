@@ -242,11 +242,13 @@ $(document).ready(function(){
 	
 	
     //console.log(window.location.pathname);
-	$('.your-class').slick(getSliderSettings());
-	
+	//$('.your-class').slick(getSliderSettings());
+
 	//추천국가 관련일정 슬라이드
 	$('.related-plan-list').slick(getSliderSettings());
 	
+	//추천국가 관련 유튜브 슬라이드
+	$('.video_rcm_list').slick(getSliderSettings());
 	//통계 데이터
 	ajaxController('/dashboard/stat/'+ id);
 	
@@ -257,7 +259,7 @@ $(document).ready(function(){
 
 
 var getSliderSettings =function () {
-	console.log('getSliderSettings');
+	//console.log('getSliderSettings');
     return {
   	  infinite: false,
 	  slidesToShow: 3,
@@ -281,7 +283,7 @@ var ajaxController= function(url){
         dataType: 'json',
         success: function(data){
             
-        	console.log(data);
+        	//console.log(data);
         	
             //data for stat page 
             if(url.match("/stat")){
@@ -319,18 +321,18 @@ var ajaxController= function(url){
                 
                 //data likeList-------------------------
                 likeList = data.likeList;
-                console.log(likeList);
+                //console.log(likeList);
                 makeTable(likeList);
                 
               //data detailList-------------------------
                 detailList = data.detailList;
-                console.log(detailList);
+                //console.log(detailList);
                 //makeTable(detailList);
                 
 
 				//data countryList-------------------------
 				countryList = data.countryList;
-				console.log(countryList);
+				//console.log(countryList);
 				var key=0;
 				var count=0;
 				var size = countryList.length;
@@ -362,22 +364,29 @@ var ajaxController= function(url){
             }
             else if(url.match("/recommand")){ //추천페이지 데이터 바인딩
 
+            	
+            	
             	console.log('추천데이터 ajax 데이터부분');
             	console.log(data);
             		//구글맵 세팅.
             	initGoogleMap(data);
+            	country_from_data= data[1].country;
+            	country_youtube_from_data = data[2].country_youtube;
             	
-            	    //추천국가 amcharts에 색깔 표시
+            	var country_len = country_from_data.length;
+            	    
+            	//추천국가중에 db에 정보가 없어서 못 가져온 것들이 있다. 이국가들 더미데이터 넣어야 함
+            		//추천국가 amcharts에 색깔 표시
             	chartMap2.dataProvider.areas= [];
-            	for(var i=data.length-1; i>-1;i--){
+            	for(var i=0 ; i< country_len;i++){
             	
-            		if(typeof data[i].iso2 == 'undefined'){
+            		if(typeof country_from_data[i].iso2 == 'undefined'){
             			console.log('여기서 끝남:'+i)
             			break;
             		} //undefined 나오는 순간 for문 브레이크
             		else{
                 			chartMap2.dataProvider.areas.push({
-		          			      "id": data[i].iso2,
+		          			      "id": country_from_data[i].iso2,
 		        			      "color": "#8d1cc6"
 		        			 });
             		}	
@@ -390,21 +399,52 @@ var ajaxController= function(url){
         		    	//console.log(event);
         		    	//console.log(event.mapObject.id);
         		    	
-        		    	for(var i=data.length-1; i>-1;i--){
+        		    	for(var i=0; i< country_len;i++){
         	            	
-                    		if(typeof data[i].iso2 == 'undefined'){
+                    		if(typeof country_from_data[i].iso2 == 'undefined'){
                     			break;
                     		} //undefined 나오는 순간 for문 브레이크
-                    		else if(data[i].iso2 == event.mapObject.id){
-                    			 $('.description_title').text(data[i].name_han+' '+data[i].name_eng); //지도서 클릭한 나라 이름
-                    			 $('.country_or_city_description').text(data[i].description); //지도서 클릭한 나라 소개
-                    			 $('#exchange_ymmu').html('<br>1'+data[i].money_unit+' = '+ data[i].exchange+'원<br>'+'10'+data[i].money_unit+' = '+ data[i].exchange*10+'원<br>'); //지도서 클릭한 나라 환율
-                    			 $('#safe_ymmu').html(data[i].safe+'<br>'); //지도서 클릭한 나라 환율
-                    			 $('#bigmac_ymmu').html('약 '+data[i].bigmac_price+data[i].money_unit+'<br><br>'+'<b>US달러 가격</b><br>'+data[i].bigmac_price_dallor); //지도서 클릭한 나라 환율
-                    			 $('#country_or_city_title_image').attr('src', '/resources/images/'+data[i].iso2+'_main.jpg');
-                    		
+                    		else if(country_from_data[i].iso2 == event.mapObject.id){
+                    			
+                    			 $('.description_title').text(country_from_data[i].name_han+' '+country_from_data[i].name_eng); //지도서 클릭한 나라 이름
+                    			 $('.country_or_city_description').text(country_from_data[i].description); //지도서 클릭한 나라 소개
+                    			 $('#exchange_ymmu').html('<br> 1'+country_from_data[i].money_unit+' = '+ country_from_data[i].exchange+'원<br>'+'10'+country_from_data[i].money_unit+' = '+ country_from_data[i].exchange*10+'원<br>'); //지도서 클릭한 나라 환율
+                    			 $('#bigmac_ymmu').html('약 '+country_from_data[i].bigmac_price +' '+country_from_data[i].money_unit+'<br><br>'+'<b>US달러 가격</b><br>'+country_from_data[i].bigmac_price_dallor+' 달러'); //지도서 클릭한 나라 환율
+                    			 $('#country_or_city_title_image').attr('src', '/resources/images/'+country_from_data[i].iso2+'_main.jpg');
+                             	 $('#activity_ymmu').text(country_from_data[i].activity);
+                            	 $('#food_ymmu').html(country_from_data[i].food);
+                            	 
+                            	 var safe_desc = '';
+                            	 if(country_from_data[i].safe == 3){
+                            		 safe_desc = '안전한 편입니다. 국가에 따라 다르나, 늦은밤 외출을 자제하고, 고가의 소지품을 주의하세요. 외진 곳, 관광객이 많지 않은 곳은 혼자서 다니지 않습니다.';
+                            		 $('.safe_icon').text('sentiment_neutral');
+                            	 }else if(country_from_data[i].safe == 4){
+                            		 safe_desc = '상당히 안전한 편입니다. 하지만 깡패나 소매치기는 어디나 있으니 언제나 소지품을 주의하세요.';
+                            		 $('.safe_icon').text('sentiment_satisfied');
+                            	 }else if(country_from_data[i].safe == 5){
+                            		 safe_desc = '매우 안전한 편입니다. 본인이 제일 위험할 수 있습니다.';
+                            		 $('.safe_icon').text('sentiment_very_satisfied');
+                            	 }
+                            	 
+                            	 $('#safe_ymmu').html(safe_desc+'<br>'); //지도서 클릭한 나라 환율
+                    			 
+                            	 
                     			 	//관련 국가를 다녀가는 일정
-                    			 ajaxController("/rcm/"+data[i].iso2);
+                    			 ajaxController("/rcm/"+country_from_data[i].iso2);
+                    			 
+                    			 
+                         			
+                    			 	//유튜브 슬라이드 갱신 필요
+                             	$('.video_rcm_list').slick('removeSlide',null,null, true);
+                             	console.log('슬라이드 갱신');
+                             	
+                             	(function(i){
+                             			//관련일정 slick에 달아줌
+                             		console.log(country_youtube_from_data[i]);
+                                 	bindingYoutubeListToSlick(country_youtube_from_data[i]);
+                             	})(i);
+                             		
+                             	
                     		
                     		
                     		}	
@@ -424,7 +464,8 @@ var ajaxController= function(url){
         		        
         		        google.maps.event.trigger(gmap, 'resize'); // 구글맵 갱신.
         		        
-        		    }
+        		        
+        		    }//function(event)끝
         		  });
             	
             }//else if
@@ -439,7 +480,6 @@ var ajaxController= function(url){
             	//$('.related-plan-list').slick(getSliderSettings());
             		//관련일정 slick에 달아줌
             	bindingPlanListToSlick(planList);
-            	
             }
         }//success
 
@@ -482,6 +522,10 @@ var bindingPlanListToSlick = function(planList){
 	}//for
 	
 };
+
+
+
+
 
 //링크처리 함수
 var goto = function(url){
@@ -680,12 +724,12 @@ var chartMap2 = AmCharts.makeChart( "chartdiv_rcm", {
 		          lat: chartMap2.zoomLatitude(),
 		          lng: chartMap2.zoomLongitude()
 		        } );
-		        console.log('after gmap -> setCenter');
-		        console.log('chartMap2 zoomlevel:'+chartMap2.zoomLevel());
+		        //console.log('after gmap -> setCenter');
+		        //console.log('chartMap2 zoomlevel:'+chartMap2.zoomLevel());
 		        // set zoom level
 		        gmap.setZoom( AmCharts.gBreakLevel );
 		        //gmap.setZoom(chartMap2.zoomLevel());
-		        console.log('gmap.getCenter: '+gmap.getZoom());
+		        //console.log('gmap.getCenter: '+gmap.getZoom());
 		
 		        // switch to Google map
 		        document.getElementById( "chartdiv_rcm" ).style.visibility = "hidden";
@@ -704,31 +748,47 @@ window.initGoogleMap=function(data) {
   } );
   
   //추천 도시 데이터 마커. 한 위치당 하나의마커가 필요하므로 for문으로
-  marker_list =[]
-  for(var i=0 ; i<data.length-2; i++){
+  marker_list =[];
+  city_from_data= data[0].city;
+  country_from_data= data[1].country;
+
+  for(var i=0 ; i< city_from_data.length; i++){
 	  
 	  (function(i){ //i값을 제대로 넘겨주기 위한 클로저 처리
 		  
 		  var marker = new google.maps.Marker({
 		      //position: {lat: -25.363, lng: 131.044},
-			  position: {lat: data[i].lat, lng: data[i].lng},
+			  position: {lat: city_from_data[i].lat, lng: city_from_data[i].lng},
 		      map: gmap,
-		      title: data[i].name
+		      title: city_from_data[i].name
 		    });
 		  marker_list.push(marker);
 		  //정보창
 		  var infowindow = new google.maps.InfoWindow({
-			    content: "<div id='contents'><h2 id='firstHeading' class='firstHeading'>"+data[i].name+"</h2></div>"
+			    content: "<div id='contents'><h3 id='firstHeading' class='firstHeading'>"+city_from_data[i].name+"</h3></div>"
 			  });
 		  
 		  //마커 클릭하면 정보창 보이게.
 		  marker_list[i].addListener('click', function() {
 			    infowindow.open(gmap, marker_list[i]);
         			//국가/도시정보 세팅
-            	$('#fligh_price_ymmu').text('KRW '+data[i].flight_price);
-            	$('#exchange_ymmu').text(data[i].exchange);
-            	$('#airport_ymmu').text(data[i].airport);
-            	$('#safe_ymmu').text(data[i].safe);
+            	$('#fligh_price_ymmu').text('KRW '+city_from_data[i].flight_price);
+            	$('#airport_ymmu').html('<b>이 도시와 가까운 공항</b><br>'+city_from_data[i].airport+'<br/>');
+            	var safe_desc = '이 도시는 ';
+	           	if(city_from_data[i].safe == 3){
+	           			safe_desc += '안전한 편입니다. 국가에 따라 다르나, 늦은밤 외출을 자제하고, 고가의 소지품을 주의하세요. 외진 곳, 관광객이 많지 않은 곳은 혼자서 다니지 않습니다.';
+	           			$('.safe_icon').text('sentiment_neutral');
+	           	}else if(city_from_data[i].safe == 4){
+	           			safe_desc += '상당히 안전한 편입니다. 하지만 깡패나 소매치기는 어디나 있으니 언제나 소지품을 주의하세요.';
+	           			$('.safe_icon').text('sentiment_satisfied');
+	           	}else if(city_from_data[i].safe == 5){
+	           			safe_desc += '매우 안전한 편입니다. 본인이 제일 위험할 수 있습니다.';
+	           			$('.safe_icon').text('sentiment_very_satisfied');
+	           		}
+           	 
+           	 $('#safe_ymmu').html(safe_desc+'<br>'); //지도서 클릭한 나라 환율
+            	//$('#safe_ymmu').text(city_from_data[i].safe);
+
             	
 			  });
 	  })(i);
@@ -748,7 +808,7 @@ window.initGoogleMap=function(data) {
         center.lat(),
         true
       );
-      console.log('gmap.addListener: '+ center);
+      //console.log('gmap.addListener: '+ center);
       // switch to Google map
       document.getElementById( "chartdiv_rcm" ).style.visibility = "visible";
       document.getElementById( "gmap" ).style.visibility = "hidden";
@@ -789,4 +849,115 @@ function gZoomLevelToAm( level ) {
 }
 
 
+/*유튜브 부분---------------------------------------------------------------------*/
+// 2. This code loads the IFrame Player API code asynchronously.
+var tag = document.createElement('script');
+
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+// 3. This function creates an <iframe> (and YouTube player)
+//    after the API code downloads.
+var player;
+function onYouTubeIframeAPIReady(videoId) {
+
+	
+	var option = {  //첫번째 인자가 비디오가 달릴 div id를 말한다
+	    width: '100%',
+	    height: '100%',
+	    videoId: 'b6hoBp7Hk-A',
+	    playerVars: {
+        	'autoplay': 1
+        },
+	    events: {
+	      'onReady': onPlayerReady,
+	      'onStateChange': onPlayerStateChange
+	    }
+	};
+	
+	if(typeof videoId == 'undefined'){ //맨 처음 딱 추천 화면 떴을 때는 넘겨줄 videoId가 없기 때문에 undefined임
+		
+	    player = new YT.Player('player', option);
+		
+	}else{ //아이프레임에 이미 뭔가 있을 때 국가 누르면
+		
+		//원래 달려있던 아이프레임을 떼어내고 다시 달아줘야 한다.
+		var frame = document.getElementById("player");
+		frame.parentNode.removeChild(frame);
+		var player = document.createElement('div')
+		player.setAttribute('id','player');
+		//console.log(player);
+		$('.video_rcm_main').append(player);
+		//$('#player').attr('autoplay', 1);
+		//------------------------------------------
+		
+		
+		if(videoId.split(" ")[0] == 'first'){ //국가 첫번쨰 동영상엔 first가 붙어 오는데 확인하고 메인자리에 올려준다
+			
+			  option.videoId = videoId.split(" ")[1];
+			  player = new YT.Player('player', option);
+				
+		}else{ //아니면
+			option.videoId = videoId;
+			player = new YT.Player('player', option);
+		}
+		
+	}
+	
+	
+
+  
+  
+};
+
+// 4. The API will call this function when the video player is ready.
+function onPlayerReady(event) {
+	event.target.mute();
+	event.target.playVideo();
+
+}
+
+// 5. The API calls this function when the player's state changes.
+//    The function indicates that when playing a video (state=1),
+//    the player should play for six seconds and then stop.
+var done = false;
+function onPlayerStateChange(event) {
+  if (event.data == YT.PlayerState.PLAYING && !done) {
+    //setTimeout(stopVideo, 6000);
+    done = true;
+  }
+}
+
+function stopVideo(event) {
+	player.stopVideo();
+}
+
+
+//추천 국가 관련 유튜브 slick 슬라이드 세팅
+var bindingYoutubeListToSlick = function(youTubeList){
+	
+	onYouTubeIframeAPIReady('first '+youTubeList[0].id.videoId);
+	for(var i=0; i< youTubeList.length; i++){
+		
+		(function(i){
+				var card = '<div class="video_rcm">'+ 
+				'<div class="video_inner_card'+i+'" id="video_inner_card'+i+'" onclick=onYouTubeIframeAPIReady("'+youTubeList[i].id.videoId+'")>'+
+				'<img id="youtube_thumbnail" src="'+youTubeList[i].snippet.thumbnails.high.url+'" width="100%"  />'
+				'</div>'+
+				'</div>';
+			// Add a slide
+			$('.video_rcm_list').slick('slickAdd',card);
+			
+			//console.log(youTubeList[i][0]);
+			//onYouTubeIframeAPIReady(youTubeList[i].id.videoId);
+		})(i);	
+    	
+		
+    
+	}//for
+	
+	
+	
+};
 
