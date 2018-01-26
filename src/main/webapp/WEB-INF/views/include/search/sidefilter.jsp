@@ -6,67 +6,49 @@
 	<!-- TOP TIP -->
 	<div class="offset-2">	
 		<div class="tab">
-			<form:form commandName="cri" method="post" action="result">
+			<form:form commandName="cri" action="result" method="GET">	
 				<input type="hidden" name="keyword" value="${cri.keyword}"/>
 				<input type="hidden" name="totalCnt" value="${cri.totalCnt}"/>
 				<input type="hidden" name="contentsCnt" value="${cri.contentsCnt}"/>
 				<input type="hidden" name="planCnt" value="${cri.planCnt}"/>
 				<input type="hidden" name="memberCnt" value="${cri.memberCnt}"/>
-				<button id="total" class="tablinks <c:out value="${cri.tab == 'total'?'':'active'}"></c:out>"
-					name="tab" value ="total" onclick="more(event,'total')" type="submit">
+				<button class="tablinks <c:if test="${cri.tab == 'total' }">active</c:if>" name="tab" value ="total" type="submit">
 					<span class="hidetext">통합검색</span>&nbsp; <span class="badge indent0" >${cri.totalCnt}</span>
 				</button>
 			</form:form>	
-			<form:form commandName="searchCriteria" method="post" action="contents">
+			<form:form commandName="cri" action="contents" method="GET">
 				<input type="hidden" name="keyword" value="${cri.keyword}"/>
 				<input type="hidden" name="totalCnt" value="${cri.totalCnt}"/>
 				<input type="hidden" name="contentsCnt" value="${cri.contentsCnt}"/>
 				<input type="hidden" name="planCnt" value="${cri.planCnt}"/>
 				<input type="hidden" name="memberCnt" value="${cri.memberCnt}"/>
-				<button id="contents" class="tablinks <c:out value="${cri.tab == 'contents'?'':'active'}"></c:out>"
-					name="tab" value ="contents" class="tablinks" onclick="more(event,'contents')" type="submit">
+				<button class="tablinks <c:if test="${cri.tab == 'contents' }">active</c:if>" name="tab" value ="contents" type="submit">
 					<span class="hidetext">컨텐츠</span>&nbsp; <span class="badge indent0">${cri.contentsCnt}</span>
 				</button>
 			</form:form>	
-			<form:form commandName="searchCriteria" method="post" action="plan">
+			<form:form commandName="cri" action="plan" method="GET">
 				<input type="hidden" name="keyword" value="${cri.keyword}"/>
 				<input type="hidden" name="totalCnt" value="${cri.totalCnt}"/>
 				<input type="hidden" name="contentsCnt" value="${cri.contentsCnt}"/>
 				<input type="hidden" name="planCnt" value="${cri.planCnt}"/>
 				<input type="hidden" name="memberCnt" value="${cri.memberCnt}"/>
-				<button id="plan" class="tablinks <c:out value="${cri.tab == 'plan'?'':'active'}"></c:out>"
-					name="tab" value ="plan" class="tablinks" onclick="more(event,'plan')" type="submit">
+				<button class="tablinks <c:if test="${cri.tab == 'plan' }">active</c:if>" name="tab" value ="plan" type="submit">
 					<span class="hidetext">일정</span>&nbsp; <span class="badge indent0">${cri.planCnt}</span>
 				</button>			
 			</form:form>	
-			<form:form commandName="searchCriteria" method="post" action="member">
+			<form:form commandName="cri" action="member" method="GET">
 				<input type="hidden" name="keyword" value="${cri.keyword}"/>
 				<input type="hidden" name="totalCnt" value="${cri.totalCnt}"/>
 				<input type="hidden" name="contentsCnt" value="${cri.contentsCnt}"/>
 				<input type="hidden" name="planCnt" value="${cri.planCnt}"/>
 				<input type="hidden" name="memberCnt" value="${cri.memberCnt}"/>
-				<button id="member" class="tablinks <c:out value="${cri.tab == 'member'?'':'active'}"></c:out>"
-					name="tab" value ="member" class="tablinks" onclick="more(event,'member')" type="submit">
+				<button class="tablinks <c:if test="${cri.tab == 'member' }">active</c:if>" name="tab" value ="member" type="submit">
 					<span class="hidetext">회원</span>&nbsp; <span class="badge indent0">${cri.memberCnt}</span>
 				</button>
 			</form:form>	
 		</div>		
 	</div>	
-	<script>
-		more();
-		function more(evt, tabName) {
-		    // Declare all variables
-		    var i, tabcontent, tablinks;
-	
-		    // Get all elements with class="tablinks" and remove the class "active"
-		    tablinks = document.getElementsByClassName("tablinks");
-		    for (i = 0; i < tablinks.length; i++) {
-		        tablinks[i].className = tablinks[i].className.replace(" active", "");
-		    }
-		    // Show the current tab, and add an "active" class to the link that opened the tab
-		    document.getElementByID(tabName)[0].className +=  " active";
-		}
-	</script>
+
 	
 	
 	

@@ -59,90 +59,68 @@
 		<div class="container pagecontainer offset-0" style="background:#f2f2f2">	
 			
 			<!-- LEFT: SIDE FILTERS -->
-			<div class="col-md-3 filters offset-0">
-				<div class="offset-2">	
-					<div class="tab">
-						<form:form commandName="searchCriteria" method="post" action="result">
-							<input type="hidden" name="keyword" value="${cri.keyword}"/>
-							<input type="hidden" name="totalCnt" value="${cri.totalCnt}"/>
-							<input type="hidden" name="contentsCnt" value="${cri.contentsCnt}"/>
-							<input type="hidden" name="planCnt" value="${cri.planCnt}"/>
-							<input type="hidden" name="memberCnt" value="${cri.memberCnt}"/>
-							<button id="total" name="tab" value ="total" class="tablinks " type="submit">
-								<span class="hidetext">통합검색</span>&nbsp; <span class="badge indent0" >${cri.totalCnt}</span>
-							</button>
-						</form:form>	
-						<form:form commandName="searchCriteria" method="post" action="contents">
-							<input type="hidden" name="keyword" value="${cri.keyword}"/>
-							<input type="hidden" name="totalCnt" value="${cri.totalCnt}"/>
-							<input type="hidden" name="contentsCnt" value="${cri.contentsCnt}"/>
-							<input type="hidden" name="planCnt" value="${cri.planCnt}"/>
-							<input type="hidden" name="memberCnt" value="${cri.memberCnt}"/>
-							<button id="contents" name="tab" value ="contents" class="tablinks active" type="submit">
-								<span class="hidetext">컨텐츠</span>&nbsp; <span class="badge indent0">${cri.contentsCnt}</span>
-							</button>
-						</form:form>	
-						<form:form commandName="searchCriteria" method="post" action="plan">
-							<input type="hidden" name="keyword" value="${cri.keyword}"/>
-							<input type="hidden" name="totalCnt" value="${cri.totalCnt}"/>
-							<input type="hidden" name="contentsCnt" value="${cri.contentsCnt}"/>
-							<input type="hidden" name="planCnt" value="${cri.planCnt}"/>
-							<input type="hidden" name="memberCnt" value="${cri.memberCnt}"/>
-							<button id="plan" name="tab" value ="plan" class="tablinks" type="submit">
-								<span class="hidetext">일정</span>&nbsp; <span class="badge indent0">${cri.planCnt}</span>
-							</button>			
-						</form:form>	
-						<form:form commandName="searchCriteria" method="post" action="member">
-							<input type="hidden" name="keyword" value="${cri.keyword}"/>
-							<input type="hidden" name="totalCnt" value="${cri.totalCnt}"/>
-							<input type="hidden" name="contentsCnt" value="${cri.contentsCnt}"/>
-							<input type="hidden" name="planCnt" value="${cri.planCnt}"/>
-							<input type="hidden" name="memberCnt" value="${cri.memberCnt}"/>
-							<button id="member" name="tab" value ="member" class="tablinks" type="submit">
-								<span class="hidetext">회원</span>&nbsp; <span class="badge indent0">${cri.memberCnt}</span>
-							</button>
-						</form:form>	
-
-					</div>		
-				</div>	
-			</div>
+			<%@include file="../include/search/sidefilter.jsp" %>
 			
 			<!-- RIGHT: CONTENT BOX -->
 			<div class="rightcontent col-md-9 offset-2" style="background:#fff">
-
-				<c:if test="${totalList.contentsCnt == 0}" >
-					<!-- 검색결과가 없을경우 -->
-					<span class="searchStatus ">'${cri.keyword}'에 대한 컨텐츠 검색결과가 없습니다.</span>
-				</c:if>	
-				
-				<c:if test="${contentsList.contentsCnt > 0}" >	
-					<!-- 검색결과가 있을경우 -->
-					<span class="searchStatus">'${cri.keyword}' 검색결과</span>	
-										
-					<!-- 컨텐츠 검색결과 리스트 -->
-					<c:forEach items="${contentsList.contentsList}" var = "esContentsVO" begin="${(pageMaker.cri.page-1)*10}" end="${pageMaker.cri.page*10-1}"> 
-						<%@include file="../include/search/contents.jsp" %>	
-					</c:forEach>
-
-					<!-- pagination -->
-					<ul class="pagination right">
-						<c:if test="${pageMaker.prev}">
-							<li><a href="${pageMaker.makeQuery(pageMaker.startPage-1)}">&laquo;</a></li>
-						</c:if>
-						<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">	
-							<li id="contentsPage" <c:out value="${pageMaker.cri.page == idx?'class=active':''}"></c:out>>
-								<a href="${pageMaker.makeQuery(idx)}">${idx}</a>
-							</li>	
+				<c:if test="${cri.tab == 'contents'}">
+					<c:if test="${cri.contentsCnt == 0}" >
+						<!-- 검색결과가 없을경우 -->
+						<span class="searchStatus ">'${cri.keyword}'에 대한 컨텐츠 검색결과가 없습니다.</span>
+					</c:if>	
+					
+					<c:if test="${cri.contentsCnt > 0}" >	
+						<!-- 검색결과가 있을경우 -->
+						<span class="searchStatus">'${cri.keyword}' 검색결과</span>	
+											
+						<!-- 컨텐츠 검색결과 리스트 -->
+						<c:forEach items="${contentsList.contentsList}" var = "esContentsVO" begin="${(pageMaker.cri.page-1)*10}" end="${pageMaker.cri.page*10-1}"> 
+							<%@include file="../include/search/contents.jsp" %>	
 						</c:forEach>
-						<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-							<li><a href="${pageMaker.makeQuery(pageMaker.endPage+1)}">&raquo;</a></li>
-						</c:if>
-					</ul> 
-
-					<div class="clearfix"></div>	
-					<div class="offset-2"><hr></div>													
+						<%@include file="../include/search/pagenation.jsp" %>
+						<div class="clearfix"></div>	
+						<div class="offset-2"><hr></div>													
+					</c:if>
 				</c:if>
-
+				<c:if test="${cri.tab == 'plan'}">
+					<c:if test="${cri.planCnt == 0}" >
+						<!-- 검색결과가 없을경우 -->
+						<span class="searchStatus ">'${cri.keyword}'에 대한 일정 검색결과가 없습니다.</span>
+					</c:if>	
+					
+					<c:if test="${cri.planCnt > 0}" >	
+						<!-- 검색결과가 있을경우 -->
+						<span class="searchStatus">'${cri.keyword}' 검색결과</span>	
+											
+						<!-- 컨텐츠 검색결과 리스트 -->
+						<c:forEach items="${planList.planList}" var = "esPlnaVO" begin="${(pageMaker.cri.page-1)*9}" end="${pageMaker.cri.page*9-1}"> 
+							<%@include file="../include/search/plan.jsp" %>	
+						</c:forEach>
+						<%@include file="../include/search/pagenation.jsp" %>
+						<div class="clearfix"></div>	
+						<div class="offset-2"><hr></div>													
+					</c:if>
+				</c:if>
+				<c:if test="${cri.tab == 'member'}">
+					<c:if test="${cri.memberCnt == 0}" >
+						<!-- 검색결과가 없을경우 -->
+						<span class="searchStatus ">'${cri.keyword}'에 대한 회원 검색결과가 없습니다.</span>
+					</c:if>	
+					
+					<c:if test="${cri.memberCnt > 0}" >	
+						<!-- 검색결과가 있을경우 -->
+						<span class="searchStatus">'${cri.keyword}' 검색결과</span>	
+											
+						<!-- 컨텐츠 검색결과 리스트 -->
+						<c:forEach items="${memberList.memberList}" var = "esMemberVO" begin="${(pageMaker.cri.page-1)*9}" end="${pageMaker.cri.page*9-1}"> 
+							<%@include file="../include/search/member.jsp" %>	
+						</c:forEach>
+						<%@include file="../include/search/pagenation.jsp" %>
+						<div class="clearfix"></div>	
+						<div class="offset-2"><hr></div>													
+					</c:if>
+				</c:if>
+										
 			</div> <!-- END OF RIGHT CONTENT -->
 		</div> <!-- END OF CONTENTS CONTAINER -->
 	</div> <!-- END OF Container -->

@@ -36,42 +36,37 @@ public class SearchController {
 	public String search(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
 		
 		EsSearchResultVO searchTotal = esSearchService.getTotalSearchList(cri);
-		System.out.println(searchTotal.getTotalCnt());
-		System.out.println(cri.getTab());
-		cri.setTotalCnt(searchTotal.getTotalCnt());
-		cri.setContentsCnt(searchTotal.getContentsCnt());
-		cri.setPlanCnt(searchTotal.getPlanCnt());
-		cri.setMemberCnt(searchTotal.getMemberCnt());
-		cri.setTab("total");
+		
+		SearchCriteria reCri = new SearchCriteria();
+		
+		reCri.setTotalCnt(searchTotal.getTotalCnt());
+		reCri.setContentsCnt(searchTotal.getContentsCnt());
+		reCri.setPlanCnt(searchTotal.getPlanCnt());
+		reCri.setMemberCnt(searchTotal.getMemberCnt());
+		reCri.setKeyword(cri.getKeyword());
+		reCri.setTab("total");
 		
 		// model에 통합 검색결과 담기 
 		model.addAttribute("totalList",searchTotal);
-		model.addAttribute("cri",cri);	
+		model.addAttribute("cri",reCri);	
 		
 		return "/search/result";
 	}
-	
-	// 통합 검색결과 탭 POST요청
-	@RequestMapping(value="result", method = RequestMethod.POST)
-	public ModelAndView search(SearchCriteria searchCriteria) throws Exception{
-		
-		ModelAndView view = new ModelAndView();
-		
-		// model&view에 담기
-		view.addObject("cri", searchCriteria);
-		view.addObject("totalList",esSearchService.getTotalSearchList(searchCriteria));
-		view.setViewName("/search/result");
-		
-		return view;
-	}	
-	
-	
 	
 	// 컨텐츠 검색결과 요청
 	@RequestMapping(value="contents", method=RequestMethod.GET)
 	public String searchContents(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
 		
 		EsSearchResultVO searchContents = esSearchService.getContentsSearchList(cri);
+	
+		SearchCriteria reCri = new SearchCriteria();
+		
+		reCri.setTotalCnt(cri.getTotalCnt());
+		reCri.setContentsCnt(cri.getContentsCnt());
+		reCri.setPlanCnt(cri.getPlanCnt());
+		reCri.setMemberCnt(cri.getMemberCnt());
+		reCri.setKeyword(cri.getKeyword());
+		reCri.setTab(cri.getTab());
 		
 		SearchPageMaker pageMaker = new SearchPageMaker();
 		pageMaker.setCri(cri);
@@ -80,38 +75,24 @@ public class SearchController {
 		// model에 검색결과 담기   
 		model.addAttribute("contentsList",searchContents);
 		model.addAttribute("pageMaker",pageMaker);
-
+		model.addAttribute("cri",reCri);	
 		return "/search/resultDetail";
 	}
-	
-	// 컨텐츠 검색결과 탭 POST요청
-	@RequestMapping(value="contents", method = RequestMethod.POST)
-	public ModelAndView searchContentsPost(SearchCriteria searchCriteria) throws Exception{
-		
-		ModelAndView view = new ModelAndView();
-		
-		EsSearchResultVO contentsList = esSearchService.getContentsSearchList(searchCriteria);
-		
-		SearchPageMaker pageMaker = new SearchPageMaker();
-		pageMaker.setCri(searchCriteria);	
-		if(contentsList.getContentsCnt() != null) { pageMaker.setTotalCount(contentsList.getContentsCnt()); }
-		
-		// model&view에 담기 
-		view.addObject("cri", searchCriteria);
-		view.addObject("contentsList", contentsList);
-		view.addObject("pageMaker", pageMaker);
-		view.setViewName("/search/resultDetail");		
-		
-		return view;
-	}		
-	
-	
-	
+
 	// 일정 검색결과 요청
 	@RequestMapping(value="plan", method = RequestMethod.GET)
 	public String searchPlan(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
 		  
 		EsSearchResultVO searchPlan = esSearchService.getPlanSearchList(cri);
+
+		SearchCriteria reCri = new SearchCriteria();
+		
+		reCri.setTotalCnt(cri.getTotalCnt());
+		reCri.setContentsCnt(cri.getContentsCnt());
+		reCri.setPlanCnt(cri.getPlanCnt());
+		reCri.setMemberCnt(cri.getMemberCnt());
+		reCri.setKeyword(cri.getKeyword());
+		reCri.setTab(cri.getTab());
 		
 		SearchPageMaker pageMaker = new SearchPageMaker();
 		pageMaker.setCri(cri);
@@ -123,34 +104,21 @@ public class SearchController {
 		return "/search/resultDetail";
 	}
 	
-	// 일정 검색결과 탭 POST요청
-	@RequestMapping(value="plan", method = RequestMethod.POST)
-	public ModelAndView searcPlanPost(SearchCriteria searchCriteria) throws Exception{
-		
-		ModelAndView view = new ModelAndView();
-
-		EsSearchResultVO planList = esSearchService.getPlanSearchList(searchCriteria);
-
-		SearchPageMaker pageMaker = new SearchPageMaker();
-		pageMaker.setCri(searchCriteria);	
-		if(planList.getPlanCnt() != null) { pageMaker.setTotalCount(planList.getPlanCnt()); }
-		
-		view.addObject("cri", searchCriteria);
-		view.addObject("planList", planList);
-		view.addObject("pageMaker", pageMaker);
-		view.setViewName("/search/resultDetail");	
-		
-		return view;
-	}	
-	
-	
-	
 	// 회원 검색결과 요청
 	@RequestMapping(value="member", method = RequestMethod.GET)
 	public String searchMember(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
 		
 		EsSearchResultVO searchMember= esSearchService.getMemberSearchList(cri);
-	
+
+		SearchCriteria reCri = new SearchCriteria();
+		
+		reCri.setTotalCnt(cri.getTotalCnt());
+		reCri.setContentsCnt(cri.getContentsCnt());
+		reCri.setPlanCnt(cri.getPlanCnt());
+		reCri.setMemberCnt(cri.getMemberCnt());
+		reCri.setKeyword(cri.getKeyword());
+		reCri.setTab(cri.getTab());
+		
 		SearchPageMaker pageMaker = new SearchPageMaker();
 		pageMaker.setCri(cri);
 		if(searchMember.getMemberCnt() != null) { pageMaker.setTotalCount(searchMember.getMemberCnt()); }
@@ -161,24 +129,4 @@ public class SearchController {
 		return "/search/resultDetail";
 	}
 	
-	// 회원 검색결과 탭 POST요청
-	@RequestMapping(value="member", method = RequestMethod.POST)
-	public ModelAndView searcMemberPost(SearchCriteria searchCriteria) throws Exception{
-		
-		ModelAndView view = new ModelAndView();
-		
-		EsSearchResultVO memberList = esSearchService.getMemberSearchList(searchCriteria);
-		
-		SearchPageMaker pageMaker = new SearchPageMaker();
-		pageMaker.setCri(searchCriteria);	
-		if(memberList.getMemberCnt() != null) { pageMaker.setTotalCount(memberList.getMemberCnt()); }		
-		
-		view.addObject("cri", searchCriteria);
-		view.addObject("memberList", memberList);
-		view.addObject("pageMaker", pageMaker);	
-		view.setViewName("/search/resultDetail");
-		
-		return view;
-	}		
-
 }
