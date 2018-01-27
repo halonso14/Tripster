@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="offset-2" >
 <div class="col-md-4 offset-0 listitem2" >
 	<a href="/contents/${esContentsVO.category_id }/${esContentsVO.contents_id}">
@@ -20,23 +22,35 @@
 			<span class="size11 grey ">${esContentsVO.contents_rating} Stars</span><br><br>
 			<span class="margtop20 green size18"><b>0</b></span><span class="green size14"> Plan</span><br>
 			<span class="size11 grey">${esContentsVO.contents_scrap_cnt} Scrap</span><br><br>
-	 		<button class="bookbtn mt1 scrap" value="${esContentsVO.contents_id}" check="${scrapCheckList[status.index]}" session="${empty userSession }" >스크랩</button>		
 			
-			<script>
-			
-			var check = "${scrapCheckList[status.index]}";
-			var contentsID = ${esContentsVO.contents_id};
-			var button = $("button[value="+contentsID+"]");
-			console.log(check);
-				if(check == 0){
-					// 스크랩 한 경우
-					button.css("color","red");
-				}else{
-					// 안한 경우
-					button.css("color","black");
-				}
-				
-			</script>
+
+			<c:choose>
+				<%-- scrapList null값(비회원) 인경우 --%>
+				<c:when test="${empty scrapList}">
+					<button class="scrapBtn" value="${esContentsVO.contents_id}" session="${empty userSession }" >스크랩</button>
+				</c:when>
+				<%-- scrapList(회원) 있을경우 --%>
+				<c:otherwise>
+					<c:set var="doneLoop" value="false"/> 
+					
+					<%-- scrapList에 현재 컨텐츠id가 있는지 for문으로 확인. --%>
+					<c:forEach items="${scrapList}" var = "scrapList" >	
+						<c:if test="${not doneLoop}"> 
+							<%-- scrapList에 해당 id가 있으면 doneLoop값 변경하고 스크랩 on --%>
+							<c:if test="${scrapList == esContentsVO.contents_id}">
+								<c:set var="doneLoop" value="true"/>
+								<button class="scrapBtn-on" value="${esContentsVO.contents_id}" session="${empty userSession }" >스크랩</button>
+							</c:if>			
+						</c:if>
+					</c:forEach>
+					
+					<%-- scrapList에 현재 컨텐츠id가 없을경우 --%>
+					<c:if test="${not doneLoop}"> 
+						<button class="scrapBtn" value="${esContentsVO.contents_id}" session="${empty userSession }" >스크랩</button>
+					</c:if>
+				</c:otherwise>	
+			</c:choose>
+	 				
 			
 		</div>
 		<div class="labelleft">			

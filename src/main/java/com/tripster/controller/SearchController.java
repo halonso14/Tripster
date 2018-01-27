@@ -49,17 +49,11 @@ public class SearchController {
 		
 		// 세션에 있는 회원정보 받아오기
 		MemberVO memberVO = (MemberVO)session.getAttribute("login");
+		
+		// model에 회원의 스크랩, 좋아요 리스트 담기. 
 		if(memberVO != null) {
-			// 스크랩 체크
-			model.addAttribute("scrapCheckList",scrapService.scrapCheckList(memberVO.getMemberID()
-																		   ,esSearchService.getContentsSearchList(cri).getContentsList()
-																		   ,cri));
-			
-			cri.setPerPageNum(9);
-			// 유저 좋아요 체크
-			model.addAttribute("likeList",esSearchService.likeCheck(memberVO.getMemberID()
-																	, esSearchService.getPlanSearchList(cri).getPlanList()
-																	, cri));
+			model.addAttribute("scrapList",scrapService.scrapList(memberVO.getMemberID()));
+			System.out.println(scrapService.scrapList(memberVO.getMemberID()));
 		}
 
 		// model에 통합 검색결과 담기 
@@ -85,13 +79,12 @@ public class SearchController {
 		if(searchContents.getContentsCnt() != null) { pageMaker.setTotalCount(searchContents.getContentsCnt()); }
 		
 		// 세션에 있는 회원정보 받아오기
-				MemberVO memberVO = (MemberVO)session.getAttribute("login");
-				if(memberVO != null) {
-					// 스크랩 체크
-					model.addAttribute("scrapCheckList",scrapService.scrapCheckList(memberVO.getMemberID()
-																				   ,esSearchService.getContentsSearchList(cri).getContentsList()
-																				   ,cri));
-				}
+		MemberVO memberVO = (MemberVO)session.getAttribute("login");
+		
+		// model에 회원의 스크랩 리스트 담기. 
+		if(memberVO != null) {
+			model.addAttribute("scrapList",scrapService.scrapList(memberVO.getMemberID()));
+		}
 		
 		// model에 검색결과 담기   
 		model.addAttribute("contentsList",searchContents);
@@ -118,15 +111,15 @@ public class SearchController {
 		model.addAttribute("planList",searchPlan);
 		model.addAttribute("pageMaker",pageMaker);
 		
-		MemberVO memberVO = (MemberVO)session.getAttribute("login");
-		if(memberVO != null) {
-			System.out.println("cri"+cri.toString());
-			cri.setPerPageNum(9);
-			// 유저 좋아요 체크
-			model.addAttribute("likeList",esSearchService.likeCheck(memberVO.getMemberID()
-																	, esSearchService.getPlanSearchList(cri).getPlanList()
-																	, cri));
-		}
+//		MemberVO memberVO = (MemberVO)session.getAttribute("login");
+//		if(memberVO != null) {
+//			System.out.println("cri"+cri.toString());
+//			cri.setPerPageNum(9);
+//			// 유저 좋아요 체크
+//			model.addAttribute("likeList",esSearchService.likeCheck(memberVO.getMemberID()
+//																	, esSearchService.getPlanSearchList(cri).getPlanList()
+//																	, cri));
+//		}
 
 		return "/search/resultDetail";
 	}
