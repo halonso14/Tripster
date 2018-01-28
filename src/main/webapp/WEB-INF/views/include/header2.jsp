@@ -42,16 +42,14 @@
 							<li><a href="/plan/register">일정등록버튼</a></li>
 						</c:otherwise>
 					</c:choose>	
-					<li>
+					<li><form action="/search/result" >
 						<div class="input-group" style="padding:8px 0; width:200px">
-							<form action="/search/result">
-								<input type="text" class="form-control" placeholder="Search for..." value="${cri.keyword }">
-								<span class="input-group-btn">
-									<button class="btn btn-default" type="button">Go!</button>
-								</span>
-							</form>	
+							<input type="text" class="form-control" placeholder="Search for..." value="${cri.keyword }" >
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button">Go!</button>
+							</span>
 						</div>
-					</li>
+					</form></li>
 
 				</ul>
   				
