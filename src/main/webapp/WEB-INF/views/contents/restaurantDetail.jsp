@@ -216,10 +216,10 @@
 					</c:choose>
 					<c:choose>
 						<c:when test='${scrapCheck ne contentsID}'>
-							<button class="btn scrapButton" onmouseenter="mouseover('${memberID}',$(this))" onmouseleave="mouseout($(this))" value="${contentsID}" rel="6">스크랩</button>
+							<button class="btn scrapButton" onmouseenter="mouseover('${memberID}',$(this))" value="${contentsID}" rel="6">스크랩</button>
 						</c:when>
 						<c:otherwise>
-							<button class="btn scrapButton scraped" onmouseenter="mouseover('${memberID}',$(this))" onmouseleave="mouseout($(this))" value="${contentsID}" rel="6">스크랩</button>
+							<button class="btn scrapButton scraped" onmouseenter="mouseover('${memberID}',$(this))" value="${contentsID}" rel="6">스크랩</button>
 						</c:otherwise>
 					</c:choose>
 				</div>
@@ -441,7 +441,7 @@ $(document).ready(function() {
 
 	
 	//리뷰리스트 조회 함수 호출
-	getReviewList(reviewPage, memberID, contentsID);
+	getReviewList(reviewPage);
 	// 리뷰 등록
 
 	// 리뷰 평점 저장
@@ -469,7 +469,16 @@ $(document).ready(function() {
 					+ "'> >> </a></li>";
 		}
 		$("#reviewPaging").html(str);
+	//	getReviewList(reviewPage, memberID, contentsID);
 	}
+	
+	// 리뷰 페이지 숫자 버튼 눌렀을때
+	$("#reviewPaging").on("click", "a",function(event) {
+		event.preventDefault();
+		var tmp = $(this).attr("href");
+		alert(tmp);
+		getReviewList(tmp);
+	});
 
 	// 컨텐츠 리스트 페이지 가기
 	$("#getList").on("click",function() {
@@ -512,13 +521,6 @@ $(document).ready(function() {
 		$("#reviewDetail").val("");
 	});
 	
-	// 리뷰 페이지 숫자 버튼 눌렀을때
-	$("#reviewPaging").on("click", "a",function(event) {
-		event.preventDefault();
-		var tmp = $(this).attr("href");
-		//getReviewList(tmp);
-	});
-		
 	// 업로드 버튼을 누른경우 css 적용
 	$('#uploadBtn').on('click', function() {
 		$('.uploadList').css({
