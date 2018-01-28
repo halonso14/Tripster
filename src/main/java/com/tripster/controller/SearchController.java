@@ -21,6 +21,7 @@ import com.tripster.domain.MemberVO;
 import com.tripster.domain.SearchCriteria;
 import com.tripster.domain.SearchPageMaker;
 import com.tripster.service.EsSearchService;
+import com.tripster.service.LikeService;
 import com.tripster.service.ScrapService;
 
 @Controller
@@ -33,6 +34,9 @@ public class SearchController {
 	private EsSearchService esSearchService;
 	@Inject
 	private ScrapService scrapService;	
+	@Inject
+	private LikeService likeService;	
+	
 	
 	// 통합 검색결과 요청
 	@RequestMapping(value="result", method = RequestMethod.GET)
@@ -50,12 +54,12 @@ public class SearchController {
 		// 세션에 있는 회원정보 받아오기
 		MemberVO memberVO = (MemberVO)session.getAttribute("login");
 		
-		// model에 회원의 스크랩, 좋아요 리스트 담기. 
+		// model에 회원의 스크랩, 좋아요, 팔로우 리스트 담기. 
 		if(memberVO != null) {
 			model.addAttribute("scrapList",scrapService.scrapList(memberVO.getMemberID()));
-			System.out.println(scrapService.scrapList(memberVO.getMemberID()));
+			model.addAttribute("likeIdList",likeService.likeIdList(memberVO.getMemberID()));
+			model.addAttribute("followIdList",likeService.followIdList(memberVO.getMemberID()));
 		}
-
 		// model에 통합 검색결과 담기 
 		model.addAttribute("totalList",searchTotal);
 		model.addAttribute("cri",reCri);	
@@ -108,25 +112,24 @@ public class SearchController {
 		pageMaker.setCri(cri);
 		if(searchPlan.getPlanCnt() != null) { pageMaker.setTotalCount(searchPlan.getPlanCnt()); }
 		
+		// 세션에 있는 회원정보 받아오기
+		MemberVO memberVO = (MemberVO)session.getAttribute("login");
+		
+		// model에 회원의 좋아요 리스트 담기. 
+		if(memberVO != null) {
+			model.addAttribute("likeIdList",likeService.likeIdList(memberVO.getMemberID()));
+		}
+		// model에 검색결과 담기
 		model.addAttribute("planList",searchPlan);
 		model.addAttribute("pageMaker",pageMaker);
 		
-//		MemberVO memberVO = (MemberVO)session.getAttribute("login");
-//		if(memberVO != null) {
-//			System.out.println("cri"+cri.toString());
-//			cri.setPerPageNum(9);
-//			// 유저 좋아요 체크
-//			model.addAttribute("likeList",esSearchService.likeCheck(memberVO.getMemberID()
-//																	, esSearchService.getPlanSearchList(cri).getPlanList()
-//																	, cri));
-//		}
 
 		return "/search/resultDetail";
 	}
 	
 	// 회원 검색결과 요청
 	@RequestMapping(value="member", method = RequestMethod.GET)
-	public String searchMember(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception{
+	public String searchMember(@ModelAttribute("cri") SearchCriteria cri, Model model,HttpSession session) throws Exception{
 		
 		EsSearchResultVO searchMember= esSearchService.getMemberSearchList(cri);
 
@@ -139,6 +142,14 @@ public class SearchController {
 		pageMaker.setCri(cri);
 		if(searchMember.getMemberCnt() != null) { pageMaker.setTotalCount(searchMember.getMemberCnt()); }
 		
+		// 세션에 있는 회원정보 받아오기
+		MemberVO memberVO = (MemberVO)session.getAttribute("login");
+		
+		// model에 회원의 팔로우 리스트 담기. 
+		if(memberVO != null) {
+			model.addAttribute("followIdList",likeService.followIdList(memberVO.getMemberID()));
+		}
+		// model에 검색결과 담기
 		model.addAttribute("memberList",searchMember);
 		model.addAttribute("pageMaker",pageMaker);
 

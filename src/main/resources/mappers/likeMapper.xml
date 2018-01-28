@@ -97,7 +97,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   limit #{cri.startPlan}, #{cri.planPerPage}
   </select>
   
-  <!-- 유저의 팔로우 리스트 조회 -->
+  <!-- 유저의 팔로우 리스트 조회  -->
   <select id="userFollowList" resultType="com.tripster.domain.MemberVO">
   select 
   		 tbl_Member.Member_ID memberID

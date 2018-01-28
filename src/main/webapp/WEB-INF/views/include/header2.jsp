@@ -20,9 +20,6 @@
 				</button>
 				<a href="/" class="navbar-brand"><img src="/resources/images/logo.png" alt="Travel Agency Logo" class="logo"/></a>
 			  </div>
-			  
-			
-
 			
 			<div class="navbar-collapse collapse" >
 	  			
@@ -45,12 +42,17 @@
 							<li><a href="/plan/register">일정등록버튼</a></li>
 						</c:otherwise>
 					</c:choose>	
-					<li><div class="input-group" style="padding:8px 0; width:200px">
-						<input type="text" class="form-control" placeholder="Search for...">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button">Go!</button>
-						</span></div>
-					</li>	
+					<li>
+						<div class="input-group" style="padding:8px 0; width:200px">
+							<form action="/search/result">
+								<input type="text" class="form-control" placeholder="Search for..." value="${cri.keyword }">
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button">Go!</button>
+								</span>
+							</form>	
+						</div>
+					</li>
+
 				</ul>
   				
 			  </div>
