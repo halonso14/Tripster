@@ -589,7 +589,7 @@ $(document).ready(function() {
 <script id="scrapList" type="text/x-handlebars-template">
 
 <div class='fc-event' id={{contentsID}} name={{categoryID}} data-name="{{contentsTitle}}" style="background-color: #f6f8f900; font-size: 14px;">
-               <a href="#"><img alt="" class="left mr20" src="/resources/planImg/noimg.png" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
+               <a href="#"><img alt="" class="left mr20" src="{{contentsPhoto}}" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
                <a class="dark" href="#" id="contentsTitle"><b>{{contentsTitle}}</b></a><br>
                <span class="opensans green bold size14">$36-$160</span>
             </div>
@@ -608,7 +608,8 @@ $.getJSON('/scraplist',function(data){
       var scrapData = {
             contentsID : list.contentsID,
             categoryID : list.categoryID,
-            contentsTitle : list.contentsTitle
+            contentsTitle : list.contentsTitle,
+            contentsPhoto :list.contentsPhoto
       }
       console.log(scrapData);
       var template = Handlebars.compile(source);

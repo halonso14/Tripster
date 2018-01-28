@@ -9,35 +9,35 @@ import com.tripster.domain.PlanVO;
 public interface LikeService {
 	
 	// 좋아요추가
-	public void like(Integer memberID,Integer planID) throws Exception;
+	public void like(int memberID,int planID) throws Exception;
 	
 	// 유저의 일정 조회
-	public PlanVO userSchedule(Integer planID) throws Exception;
+	public PlanVO userSchedule(int planID) throws Exception;
 	
 	// 좋아요 삭제
-	public void likeDelete(Integer memberID,Integer planID) throws Exception;
+	public void likeDelete(int memberID,int planID) throws Exception;
 	
 	// 유저의 좋아요 체크
-	public Integer likeCheck(Integer planID,Integer memberID) throws Exception;
+	public int likeCheck(int planID,int memberID) throws Exception;
 	
 	// 멤버 팔로우
-	public void memberFollow(Integer memberID,Integer userID) throws Exception; 
+	public void memberFollow(int memberID,int userID) throws Exception; 
 	
 	// 멤버 팔로우 삭제
-	public void memberFollowDelete(Integer memberID,Integer followID) throws Exception;
+	public void memberFollowDelete(int memberID,int followID) throws Exception;
 	
 	// 멤버 팔로우 체크
-	public Integer followCheck(Integer memberID,Integer followID) throws Exception;
+	public int followCheck(int memberID,int followID) throws Exception;
 	
 	// 팔로우 리스트
-	public List<FollowVO> followList(Integer memberID) throws Exception;
+	public List<FollowVO> followList(int memberID) throws Exception;
 	
 	// 유저의 좋아요 리스트의 플랜 리스트
-	public List<PlanVO> userLikeList(Integer memberID) throws Exception;
+	public List<PlanVO> userLikeList(int memberID) throws Exception;
 	
 	// 유저의 팔로우 리스트
-	public List<MemberVO> userFollowList(Integer memberID) throws Exception;
+	public List<MemberVO> userFollowList(int memberID) throws Exception;
 	
 	// 유저의 팔로잉 리스트
-	public List<MemberVO> userFollowingList(Integer memberID) throws Exception;
+	public List<MemberVO> userFollowingList(int memberID) throws Exception;
 }

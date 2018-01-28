@@ -24,24 +24,24 @@ public class LikeServiceImpl implements LikeService{
 	
 	// 좋아요 
 	@Override
-	public void like(Integer memberID,Integer planID) throws Exception{
+	public void like(int memberID,int planID) throws Exception{
 		likeDAO.like(memberID,planID);
 	}
 	
 	// 유저의 플랜 조회
 	@Override
-	public PlanVO userSchedule(Integer planID) throws Exception{
+	public PlanVO userSchedule(int planID) throws Exception{
 		return likeDAO.userSchedule(planID);
 	}
 	
 	// 좋아요 삭제
 	@Override
-	public void likeDelete(Integer memberID,Integer planID) throws Exception{
+	public void likeDelete(int memberID,int planID) throws Exception{
 		likeDAO.likeDelete(memberID,planID);
 	}
 
 	// 유저의 좋아요 체크
-	public Integer likeCheck(Integer planID,Integer memberID) throws Exception{
+	public int likeCheck(int planID,int memberID) throws Exception{
 		
 		List<LikeVO> list = likeDAO.likeList(memberID);
 		
@@ -55,19 +55,19 @@ public class LikeServiceImpl implements LikeService{
 	
 	// 멤버 팔로우
 	@Override
-	public void memberFollow(Integer memberID,Integer followID) throws Exception{
+	public void memberFollow(int memberID,int followID) throws Exception{
 		likeDAO.memberFollow(memberID,followID);
 	}
 	
 	// 멤버 팔로우 삭제
 	@Override
-	public void memberFollowDelete(Integer memberID,Integer followID) throws Exception{
+	public void memberFollowDelete(int memberID,int followID) throws Exception{
 		likeDAO.memberFollowDelete(memberID,followID);
 	}
 	
 	// 유저 팔로우 체크
 	@Override
-	public Integer followCheck(Integer memberID,Integer followID) throws Exception{
+	public int followCheck(int memberID,int followID) throws Exception{
 		
 		List<FollowVO> list = likeDAO.followList(memberID);
 		
@@ -82,25 +82,25 @@ public class LikeServiceImpl implements LikeService{
 	}
 	
 	@Override
-	public List<FollowVO> followList(Integer memberID) throws Exception{
+	public List<FollowVO> followList(int memberID) throws Exception{
 		return likeDAO.followList(memberID);
 	}
 	
 	// 유저 좋아요 리스트의 플랜조회
 	@Override
-	public List<PlanVO> userLikeList(Integer memberID) throws Exception{
+	public List<PlanVO> userLikeList(int memberID) throws Exception{
 		return likeDAO.userLikeList(memberID);
 	}
 	
 	// 유저의 팔로우 리스트
 	@Override
-	public List<MemberVO> userFollowList(Integer memberID) throws Exception{
+	public List<MemberVO> userFollowList(int memberID) throws Exception{
 		return likeDAO.userFollowList(memberID);
 	}
 	
 	// 유저의 팔로잉 리스트
 	@Override
-	public List<MemberVO> userFollowingList(Integer memberID) throws Exception{
+	public List<MemberVO> userFollowingList(int memberID) throws Exception{
 		return likeDAO.userFollowingList(memberID);
 
 	}

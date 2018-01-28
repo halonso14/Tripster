@@ -19,6 +19,7 @@ function likeClick(session,event){
 		var likeBtn = event;
 		// 누른 버튼의 planID 저장
 		var planID = likeBtn.attr('value');
+		console.log(planID);
 		// 좋아요 체크
 		likeCheck(planID,likeBtn);
 		

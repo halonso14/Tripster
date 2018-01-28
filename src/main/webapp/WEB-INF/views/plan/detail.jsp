@@ -298,7 +298,7 @@ body {
                                  end:end,
                                  allDay:allDay,
                                  id:result
-                              }, false);
+                              }, true);
                  	  	}
              	  	});
                }
@@ -545,8 +545,8 @@ body {
 <!-- 스크랩리스트 템플릿 -->
 <script id="scrapList" type="text/x-handlebars-template">
 
-<div class='fc-event' id={{contentsID}} name={{categoryID}} style="background-color: #f6f8f900; font-size: 14px;">
-               <a href="#"><img alt="" class="left mr20" src="/resources/planImg/noimg.png" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
+<div class='fc-event' id={{contentsID}} name={{categoryID}} data-name="{{contentsTitle}}" style="background-color: #f6f8f900; font-size: 14px;">
+               <a href="#"><img alt="" class="left mr20" src="{{contentsPhoto}}" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
                <a class="dark" href="#" id="contentsTitle"><b>{{contentsTitle}}</b></a><br>
                <span class="opensans green bold size14">$36-$160</span>
             </div>
@@ -565,7 +565,8 @@ $.getJSON('/scraplist',function(data){
       var scrapData = {
             contentsID : list.contentsID,
             categoryID : list.categoryID,
-            contentsTitle : list.contentsTitle
+            contentsTitle : list.contentsTitle,
+            contentsPhoto : list.contentsPhoto            
       }
       console.log(scrapData);
       var template = Handlebars.compile(source);
@@ -581,7 +582,7 @@ $.getJSON('/scraplist',function(data){
           	
            $(this).data('event', {
                title: $.trim(s), // use the element's text as the event title
-               stick:false, // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
+               stick:true, // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
                              // false: 없어짐.
                color:$(this).data('color')
            });

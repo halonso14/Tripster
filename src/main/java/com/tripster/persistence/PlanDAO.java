@@ -26,4 +26,7 @@ public interface PlanDAO {
 	
 	//memberName조회
 	public String selectMemberName(int memberID)throws Exception;
+	
+	//endChk 수정
+	public void updateEndChk(int planID, int planEndChk)throws Exception;
 }

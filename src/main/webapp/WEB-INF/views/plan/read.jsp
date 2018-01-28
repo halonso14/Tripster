@@ -4,6 +4,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <c:set var="session" value='<%= session.getAttribute("login")%>'/>
+<%
+response.setHeader("Cache-Control", "no-store");
+response.setHeader("Expires", "Sat, 01 Jan 1970 22:00:00 GMT");
+response.setHeader("Pragma", "no-cache");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
@@ -238,10 +243,10 @@
 						<!-- 좋아요 -->
 							<c:choose>
 								<c:when test='${likeChk ne 1 }'>
-									<span style=" float: right; margin-right: 40px"><a id="likeBtn" class="fav-icon-black like" href="#" onclick="likeClick('${session}',$(this));"  value= ${plan.planID  } likeBtnCheck='0' style="top:30px;"></a></span>
+									<span style=" float: right; margin-right: 40px"><a id="likeBtn" class="fav-icon-black like" href="javascript:void(0)" onclick="likeClick('${session.memberID}',$(this));"  value= ${plan.planID  } likeBtnCheck='0' style="top:30px;"></a></span>
 								</c:when>
 								<c:otherwise>
-									<span style=" float: right; margin-right: 40px"><a id="likeBtn" class="fav-icon-black fav-icon-red like" href="#" onclick="likeClick('${session}',$(this));" value= ${plan.planID } likeBtnCheck='1' style="top:30px;"></a></span>
+									<span style=" float: right; margin-right: 40px"><a id="likeBtn" class="fav-icon-black fav-icon-red like" href="javascript:void(0)" onclick="likeClick('${session.memberID}',$(this));" value= ${plan.planID } likeBtnCheck='1' style="top:30px;"></a></span>
 								</c:otherwise>
 							</c:choose>
 						</div>
@@ -265,7 +270,7 @@
 									<c:choose>
 										<c:when test="${session.memberID eq plan.memberID }">
 											<ul class="dropdown-menu">
-												<li><a href="/member/viewMember?memberID=${plan.memberID }">나의 일정 리스트</a></li>
+												<li><a href="http://localhost:10000/member/mypage?planTab=active">나의 일정 리스트</a></li>
 											</ul>
 										</c:when>
 										<c:otherwise>
@@ -348,6 +353,7 @@
 						
 									<c:if test="${planDetailVO.planDetailDate ne date}">
 										<!-- 현재 Detial Date에서 전체 일정 시작 날짜를 빼서 Day 구해줌.  -->
+										<br/>
 										<div class="dayCircle"></div><span class="whichDay">Day ${nowDate-startDate+1 }</span>&nbsp&nbsp<span class="lato size22 dark bold">${planDetailVO.planDetailDate }</span><br/>
 										<c:set var = "date" value="${planDetailVO.planDetailDate }"/>
 										<div class="line4"></div>
@@ -363,7 +369,7 @@
 												${planDetailVO.title }
 											</c:when>
 											<c:otherwise>
-												<a href="#">${planDetailVO.title }</a>
+												<a href="/contents/${planDetailVO.categoryID }/${planDetailVO.contentsID}" class="bold">${planDetailVO.title }</a>
 											</c:otherwise>
 										</c:choose>
 									</span><br/>

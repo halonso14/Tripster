@@ -72,6 +72,16 @@ public class PlanDAOImpl implements PlanDAO{
 		return session.selectOne(namespace+".memberName",memberID);
 	}
 
+	@Override
+	public void updateEndChk(int planID, int planEndChk) throws Exception {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("planID", planID);
+		map.put("planEndChk", planEndChk);
+		 session.update(namespace+".planChk", map);
+	}
+
+	
 	
 	
 	

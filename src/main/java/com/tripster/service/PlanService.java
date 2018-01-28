@@ -30,4 +30,7 @@ public interface PlanService {
 	
 	//memberName조회
 	public String memberName(int memberID)throws Exception;
+	
+	//plan endChk 수정
+	public void updateEndChk(int planID) throws Exception;
 }

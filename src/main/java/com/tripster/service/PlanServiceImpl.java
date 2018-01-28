@@ -93,5 +93,18 @@ public class PlanServiceImpl implements PlanService{
 		return planDAO.selectMemberName(memberID);
 	}
 
+	@Override
+	public void updateEndChk(int planID) throws Exception {
+		PlanVO vo = planDAO.selectPlan(planID);
+		int planChk;
+		if(vo.getPlanEndChk() == 1) {
+			planChk = 0;
+		}else {
+			planChk = 1;
+		}
+		planDAO.updateEndChk(planID, planChk );
+		
+	}
+
 	
 }

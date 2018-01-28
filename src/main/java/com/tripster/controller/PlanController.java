@@ -121,7 +121,9 @@ public class PlanController {
 			MemberVO member = (MemberVO)session.getAttribute("login");
 			try {
 				if(member != null) {
+					
 					likeChk = likeService.likeCheck(planID, member.getMemberID());
+					System.out.println("planController : "+ likeChk);
 					model.addAttribute("likeChk", likeChk);
 				}
 			} catch(Exception e) {
@@ -174,12 +176,16 @@ public class PlanController {
 		
 		//plan 전체 삭제
 		@RequestMapping(value="/delete", method=RequestMethod.POST)
-		public String deletePlan(@RequestParam int planID)throws Exception{
-			//삭제 작업 수행.
-			planService.removePlan(planID);
-			
+		public String deletePlan(@RequestParam int planID, ModelMap map)throws Exception{
+			try {
+				//삭제 작업 수행.
+				planService.removePlan(planID);
+				map.addAttribute("plan_delete","OK");
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 			//삭제 후, redirect로 홈으로 보냄.
-			 return "redirect:/";
+			 return "redirect:/member/mypage";
 		}
 		
 		//내가 등록한 plan 전체 조회
@@ -188,6 +194,21 @@ public class PlanController {
 //			model.addAttribute("myPlanList",planService.myPlan(memberID));
 		}
 		
+	    //EndChk
+		@RequestMapping(value="/endchk/{planID}", method=RequestMethod.POST)
+		public ResponseEntity<String> endChk(@PathVariable("planID") int planID)throws Exception{
+			ResponseEntity<String> entity = null;
+			
+			try {
+				planService.updateEndChk(planID);
+				entity = new ResponseEntity<>("OK",HttpStatus.OK);
+			}catch(Exception e) {
+				e.printStackTrace();
+				entity = new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			}
+			
+			return entity;
+		}
 //**************************plan Detail 관련 ********************************/
 		
 		
