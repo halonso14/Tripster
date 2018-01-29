@@ -98,7 +98,7 @@ response.setHeader("Pragma", "no-cache");
 									style="height: 100px; width: 100px;" />
 							</c:when>
 							<c:otherwise>
-								<img src="/displayFile?fileName=${memberVO.memberPicture }"
+								<img src="/displayFile?fileName=${memberVO.memberPicture }&directory=profile"
 									alt="" class="left margright20" id="profileImg"
 									style="height: 100px; width: 100px;" />
 							</c:otherwise>
