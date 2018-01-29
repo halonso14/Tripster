@@ -56,6 +56,7 @@ response.setHeader("Pragma", "no-cache");
     <!-- Picker -->	
 	<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />	
 	<script src="https://code.jquery.com/jquery-2.0.3.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <style type="text/css">
 .plane{
 	width: 25px;
@@ -65,8 +66,9 @@ response.setHeader("Pragma", "no-cache");
 }
 
 .liover{
-width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolute; top: 0px; left: 238px; opacity: 0.5
+left: 254px;
 }
+
 </style>
 	
   </head>
@@ -261,7 +263,7 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 						  ScrapList
 						  </a></li>
 					  <li>
-						  <a href="#myPlan" data-toggle="tab" onclick="mySelectUpdate()">
+						  <a href="#plan" data-toggle="tab" onclick="mySelectUpdate()">
 						  <span class="plane"><img src="/resources/images/aeroplane.png" alt=""/></span>								  
 						  My Plan
 						  </a></li>						  
@@ -966,27 +968,48 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 
 		
 					  <!-- END OF TAB 7 -->	
-
-
-					<div class="tab-pane" id="myPlan" style="padding: 20px 50px;">
+					<div class="tab-pane" id="plan" style="padding: 20px 50px;">
 						<div class="padding40 dark">
-							<span class="lblue size18">${memberVO.memberName}</span> <span
-						class="dark size18">님이 등록한 일정</span>
-							<div class="line4"></div>
-							
-							<div class="itemscontainer offset-1">
-								<div id=planList>
-								</div>
-								
-								<div class="clearfix"></div>
-								<div class="offset-2">
-									<hr class="featurette-divider3">
-								</div>
-							</div>
+							<ul class="nav nav-tabs myTab2pos" id="myTab">
+								<li onclick=""class="active"><a data-toggle="tab" href="#myplan"><span class="reviews"></span><span class="hidetext">내가 등록한 일정 목록</span>&nbsp;</a></li>
+								<li onclick="getLikePlanList(1);" class=""><a data-toggle="tab" href="#likePlan"><span class="reviews"></span><span class="hidetext">나의 관심 일정 목록</span>&nbsp;</a></li>
+							</ul>
+							<div class="tab-content6">
+									<!-- TAB 1 -->				
+									<div id="myplan" class="tab-pane fade active in">
+										<span class="lblue size18">${memberVO.memberName}</span> <span
+									class="dark size18">님이 등록한 일정</span>
+										<div class="line4"></div>
+										
+											<div id="planList">
+											</div>
+											
+											<div class="clearfix"></div>
+											<div class="offset-2">
+												<hr class="featurette-divider3">
+											</div>
+											<ul class="pagination right paddingbtm20">
+							   				</ul>
+									</div>
+									
+									<!-- TAB 2  -->
+									<div id="likePlan" class="tab-pane fade ">
+										<span class="lblue size18">${memberVO.memberName}</span> <span
+									class="dark size18">님의 관심 일정</span>
+										<div class="line4"></div>
+										<div id="likePlanList">
+											</div>
+											
+											<div class="clearfix"></div>
+											<div class="offset-2">
+												<hr class="featurette-divider3">
+											</div>
+											<ul class="pagination2 pagination right paddingbtm20">
+							   				</ul>
+									</div>
+							   </div>
+
 					   </div>
-					   
-					   <ul class="pagination right paddingbtm20">
-					   </ul>
 					</div>
 						<!-- Counter  -->
 					<script src="/resources/assets/js/counter.js"></script>
@@ -1004,12 +1027,11 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 					function getPageList(page){
 
 					var str = '';
-						//style='width:254px;'
 						$.getJSON("/member/mypage/"+memberID+"/"+page, function(data){
 							$(data.list).each(function(index){
 									str += 
 								"<div class='col-md-4'>"
-									+"<div class='listitem'>";
+									+"<div class='listitem' style='width:243.7px;'>";
 										
 									if(pictureID[index] != ""){
 										str +=
@@ -1020,7 +1042,7 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 									}
 										
 									str +=
-										"<div class='liover' style='left: 256px;'></div>";
+										"<div class='liover'></div>";
 											
 									if(data.likeChkList[index] != 1){
 										str +=
@@ -1037,14 +1059,12 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 										+"<a href='/plan/read?planID="+this.planID+"'><b>"+this.planTitle+"</b></a><br />"
 									 
 									 if(this.planEndChk != 1){
-										 console.log("0");
-										 console.log(this.planEndChk);
-										 str += "<button class='btn followButton' value='"+this.planID+"' onmouseover='mouseover($(this));' onmouseout='mouseout($(this));'>미완료</button>"
+										 str += "<button class='btn followButton' value='"+this.planID+"' onmouseover='mouseover($(this));'>미완료</button>"
 										+"</div>"
 									+"</div>";
 									 }else{
 										 console.log("1");
-										str += "<button class='btn followButton following' value='"+this.planID+"'  onmouseover='mouseover($(this));' onmouseout='mouseout($(this));'>완료</button>"
+										str += "<button class='btn followButton following' value='"+this.planID+"'  onmouseover='mouseover($(this));'>완료</button>"
 										+"</div>"
 									+"</div>";
 									 }	
@@ -1088,6 +1108,95 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 						replyPage = $(this).attr("href");
 						getPageList(replyPage);
 					});
+					
+					
+					
+					
+					function getLikePlanList(page){
+						var str = '';
+							$.getJSON("/member/mypage/"+memberID+"/"+page, function(data){
+								console.log(data);
+								$(data.likeList).each(function(index){
+										str += 
+									"<div class='col-md-4'>"
+										+"<div class='listitem' style='width:243.7px;'>";
+											
+										if(pictureID[index] != ""){
+											str +=
+												"<img src='/displayFile?fileName="+pictureID[index]+"'alt='' />";
+										} else{
+											str +=
+												"<img src='' alt='' />";
+										}
+											
+										str +=
+											"<div class='liover'></div>";
+												
+										if(data.likePlanList[index] != 1){
+											str +=
+												"<a id='likeBtn' class='fav-icon like' href='javascript:void(0)' onclick='likeClick("+memberID+",$(this));' value=" +this.planID+ " likeBtnCheck='0'></a>"
+										} else{
+											str +=
+												"<a id='likeBtn' class='fav-icon-red like' onclick='likeClick("+memberID+",$(this));' value=" +this.planID+ " likeBtnCheck='1'></a>"
+										}
+												
+										str +=
+											"<a class='book-icon' href='/plan/read?planID="+this.planID+"'></a>"
+										+"</div>"
+										+"<div class='itemlabel' style='text-align: center;'>"
+											+"<a href='/plan/read?planID="+this.planID+"'><b>"+this.planTitle+"</b></a><br /></div></div>"
+										 
+										 /* if(this.planEndChk != 1){
+											 str += "<button class='btn followButton' value='"+this.planID+"' onmouseover='mouseover($(this));'>미완료</button>"
+											+"</div>"
+										+"</div>";
+										 }else{
+											 console.log("1");
+											str += "<button class='btn followButton following' value='"+this.planID+"'  onmouseover='mouseover($(this));'>완료</button>"
+											+"</div>"
+										+"</div>";
+										 }	 */
+										
+										if((index+1)%3 == 0 && index+1 != data.likeList.length){
+											str +=
+												"<div class='clearfix'></div><div class='offset-2'><hr class='featurette-divider3'></div>";
+										}
+									
+									
+									})
+										
+								$("#likePlanList").html(str);
+								printLikePaging(data.pageMaker2);
+								console.log(data.pageMaker2.endPage);
+								StartAnime2();
+							})
+							
+						}
+						
+							//page 뿌려주는 함수.
+						function printLikePaging(pageMaker) {
+							var str = "";
+							if (pageMaker.prev) {
+								str += "<li><a href='" + (pageMaker.startPage - 1)
+										+ "'> << </a></li>";
+							}
+							for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
+								var strClass = pageMaker.cri.curPage == i ? 'class=active' : '';
+								str += "<li "+strClass+"><a href='"+i+"'>" + i + "</a></li>";
+							}
+							if (pageMaker.next) {
+								str += "<li><a href='" + (pageMaker.endPage + 1)
+										+ "'> >> </a></li>";
+							}
+							$('.pagination2').html(str);
+						}
+						var replyPage = 1;
+						
+						$(".pagination2, pagination").on("click", "li a", function(event) {
+							event.preventDefault();
+							replyPage = $(this).attr("href");
+							getLikePlanList(replyPage);
+						});
 					
 					</script>
 					  <!-- END OF TAB 7 -->	
@@ -1278,11 +1387,11 @@ $(window).load(function(){
 			console.log(planDeleteChk);
 		    if(planDeleteChk == "OK"){
 	    			alert("일정이 삭제되었습니다.");
-	    			$('.nav a[href="#myPlan"]').tab('show');
+	    			$('.nav a[href="#plan"]').tab('show');
 	    				
 	    		}
 		    if(planChk =="active"){
-		    		$('.nav a[href="#myPlan"]').tab('show');
+		    		$('.nav a[href="#plan"]').tab('show');
 		    }
 	 });
 

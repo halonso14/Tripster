@@ -38,4 +38,6 @@ public interface MemberDAO {
 	public void deleteMember(Integer memberID) throws Exception;
 	
 	public Integer planCount(Integer memberID) throws Exception;
+	
+	public Integer planLikeCount(Integer memberID) throws Exception;
 }

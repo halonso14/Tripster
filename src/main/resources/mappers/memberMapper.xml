@@ -142,4 +142,12 @@
 	where Member_ID = #{memberID}
 	</select>
 	
+	<select id="planLikeCount" resultType="int">
+	select count(Plan_ID)
+	from 
+  		tbl_Like
+  	where 
+  		tbl_Like.Member_ID = #{memberID} 
+	</select>
+	
 </mapper>
