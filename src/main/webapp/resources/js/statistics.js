@@ -82,7 +82,7 @@ var likeList;
 var detailList;
 var dashBrief;
 var countryList;
-
+var rcm_url = 'http://ec2-13-125-75-105.ap-northeast-2.compute.amazonaws.com:8000/recommand/';
 //추천-지도데이터 초기데이터
 var mapData2={
 	    "map": "worldLow",
@@ -253,7 +253,7 @@ $(document).ready(function(){
 	ajaxController('/dashboard/stat/'+ id);
 	
 	//추천데이터. 크로스도메인 설정됨
-	ajaxController('http://127.0.0.1:8000/recommand/'+ id);
+	ajaxController(rcm_url + id);
 
 });
 
