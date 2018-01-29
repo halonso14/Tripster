@@ -24,7 +24,9 @@ response.setHeader("Pragma", "no-cache");
 	<link rel="stylesheet" type="text/css" href="/resources/slick-1.8.0/slick/slick-theme.css"/>
 	<!--ymmu icon css -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- 충돌때문에 막음 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     -->
     <!-- ymum my css-->
     
     <!-- Bootstrap -->
