@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 import com.tripster.domain.Criteria;
+import com.tripster.domain.FollowVO;
 import com.tripster.domain.MemberVO;
 import com.tripster.domain.PageMaker;
 import com.tripster.domain.PlanDetailVO;
@@ -245,6 +246,7 @@ public class MemberController {
 			map.put("pageMaker", pageMaker);
 			
 			List<Integer> likeChkList = new ArrayList<Integer>();
+			List<FollowVO> followList = new ArrayList<FollowVO>();
 			Object obj = session.getAttribute("login");
 			try {
 				if(obj != null) {
@@ -256,12 +258,16 @@ public class MemberController {
 						likeChkList.add(likeservice.likeCheck(list.get(i).getPlanID(), userID));
 					}
 					
+					followList = likeservice.followList(userID);
+					
 				} else {
 					for(int i=0; i<list.size();i++) {
 						likeChkList.add(0);
 					}
+					
 				}
 				map.put("likeChkList", likeChkList);
+				map.put("followList", followList);
 				
 			} catch(Exception e) {
 				
