@@ -24,7 +24,7 @@ response.setHeader("Pragma", "no-cache");
 	<link rel="stylesheet" type="text/css" href="/resources/slick-1.8.0/slick/slick-theme.css"/>
 	<!--ymmu icon css -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <!-- ymum my css-->
     
     <!-- Bootstrap -->
@@ -620,129 +620,86 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 					  <div class="tab-pane" id="wishlist">
 						<div class="padding40">
 						
-
-							<input type="text" placeholder="Make new category" class="form-control wh80percent left">
-							<button type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-plus"></span>Add new</button>
-
-							<div class="clearfix"></div>
-							<br/>
+							<ul class="nav nav-tabs" id="myTab">
+								<li onclick="" class="active"><a data-toggle="tab" href="#restaurant"><span class="reviews"></span><span class="hidetext">Restaurant</span>&nbsp;</a></li>
+								<li onclick="" class=""><a data-toggle="tab" href="#place"><span class="maps"></span><span class="hidetext">Place</span>&nbsp;</a></li>
+							</ul>			
 							
-							<ul class="blogcat">
-								<li><a href="#">Incredible places</a> <span class="badge indent0">3</span></li>
-								<li><a href="#">My next places</a> <span class="badge indent0">1</span></li>
-								<li><a href="#">Europe</a> <span class="badge indent0">1</span></li>
-							</ul>
+							<div class="line4" ></div>
+							
+							<div class="col-md-12 offset-0" >
+							<div class="tab-content6">
+								<!-- TAB 1 -->				
+								<div id="restaurant" class="tab-pane fade active in">
+								
+					<div class="col-md-4 offset-0" style="background:#efefef">
+						<div class="container">
+						<c:choose>
+							<c:when test="${empty memberVO.memberPicture }">
+								<img src="/resources/images/user.png" alt=""
+									class="left margright20" id="profileImg"
+									style="height: 100px; width: 100px;" />
+							</c:when>
+							<c:otherwise>
+								<img src="/displayFile?fileName=${memberVO.memberPicture }&directory=profile"
+									alt="" class="left margright20" id="profileImg"
+									style="height: 100px; width: 100px;" />
+							</c:otherwise>
+						</c:choose>
 						
-							<br/>
-							<br/>
-							
-							<span class="dark size18">Favourites list</span>
-							<div class="col-md-12 offset-0">
-								<div class="line4"></div>
-								<br/>
-								
-								<div class="col-md-6 offset-0">
-									<div>
-									
-										<div class="col-md-9 offset-0">
-											<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-1.jpg"></a>
-										
-											<a class="dark" href="#"><b>제목</b></a> /
-											<span class="dark size12"> 뭐 넣을까 </span><br>
-											<span class="opensans green bold size14">카테고리</span> <span class="grey">1</span><br>
-											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
-										</div>
-										<div class="col-md-3 offset-0">
-											<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>
-										</div>
-										<div class="clearfix"></div>
-										<div class="line2"></div>
-										
-									</div>
-								
-									<div>
-										<div class="col-md-4 offset-0">
-											<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-2.jpg"></a>
-											<a class="dark" href="#"><b>Hotel Dany</b></a> /
-											<span class="dark size12">Greece - Zakynthos</span><br>
-											<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
-											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
-										</div>
-										<div class="col-md-7">
-											<span class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam faucibus, quam vel interdum lacinia, lacus justo rutrum lorem, in fermentum ligula est a diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-										</div>
-										<div class="col-md-1 offset-0">
-											<button onclick="errorMessage()" type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-heart dark"></span></button>
-										</div>
-										<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>
-										<div class="clearfix"></div>
-										<div class="line6"></div>
-									</div>
-								</div>
-								
-								<div class="col-md-6 offset-0">
-									<div>
-										<div class="col-md-4 offset-0">
-											<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-3.jpg"></a>
-											<a class="dark" href="#"><b>Hotel Dany</b></a> /
-											<span class="dark size12">Greece - Zakynthos</span><br>
-											<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
-											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
-										</div>
-										<div class="col-md-7">
-											<span class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam faucibus, quam vel interdum lacinia, lacus justo rutrum lorem, in fermentum ligula est a diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-										</div>
-										<div class="col-md-1 offset-0">
-											<button onclick="errorMessage()" type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-heart"></span></button>
-										</div>
-										<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>									
-										<div class="clearfix"></div>
-										<div class="line6"></div>
-									</div>
-								
-									<div>
-										<div class="col-md-4 offset-0">
-											<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-1.jpg"></a>
-											<a class="dark" href="#"><b>Hotel Dany</b></a> /
-											<span class="dark size12">Greece - Zakynthos</span><br>
-											<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
-											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
-										</div>
-										<div class="col-md-7">
-											<span class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam faucibus, quam vel interdum lacinia, lacus justo rutrum lorem, in fermentum ligula est a diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-										</div>
-										<div class="col-md-1 offset-0">
-											<button onclick="errorMessage()" type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-heart dark"></span></button>
-										</div>
-										<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>									
-										<div class="clearfix"></div>
-										<div class="line6"></div>
-									</div>
-									
-									<div>
-										<div class="col-md-4 offset-0">
-											<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-2.jpg"></a>
-											<a class="dark" href="#"><b>Hotel Dany</b></a> /
-											<span class="dark size12">Greece - Zakynthos</span><br>
-											<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
-											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
-										</div>
-										<div class="col-md-7">
-											<span class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam faucibus, quam vel interdum lacinia, lacus justo rutrum lorem, in fermentum ligula est a diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-										</div>
-										<div class="col-md-1 offset-0">
-											<button onclick="errorMessage()" type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-heart"></span></button>
-										</div>
-										<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>									
-										<div class="clearfix"></div>
-									</div>
+						<p class="size20 grey margtop20">
+							<span class="dark">${memberVO.memberName}</span><br />
+						</p>
+						
+						
+						
+    								<button class="btn followButton" value="${followID}" rel="6">Follow</button>
+						
+						</div>
+						
+						<div class="clearfix"></div>
+					</div>
 					
-									<div class="line4"></div>
-								
+					<div class="col-md-4 offset-0" style="background:#efefef">
+						<div class="container">
+						<c:choose>
+							<c:when test="${empty memberVO.memberPicture }">
+								<img src="/resources/images/user.png" alt=""
+									class="left margright20" id="profileImg"
+									style="height: 100px; width: 100px;" />
+							</c:when>
+							<c:otherwise>
+								<img src="/displayFile?fileName=${memberVO.memberPicture }&directory=profile"
+									alt="" class="left margright20" id="profileImg"
+									style="height: 100px; width: 100px;" />
+							</c:otherwise>
+						</c:choose>
+						
+						<p class="size20 grey margtop20">
+							<span class="dark">${memberVO.memberName}</span><br />
+						</p>
+						
+    								<button class="btn followButton" value="${followID}" rel="6">Follow</button>
+						
+						</div>
+						
+						<div class="clearfix"></div>
+					</div>
+					
+
+									
 								</div>
 								
-
+								<!-- TAB 2 -->
+								<div id="place" class="tab-pane fade ">
+								    
+								</div>
+								</div>
 							</div>
+							
+
+					
+					
 						</div>
 					  </div>
 					  <!-- END OF TAB 3 -->	
@@ -1013,7 +970,7 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 										
 									if(pictureID[index] != ""){
 										str +=
-											"<img src='/displayFile?fileName="+pictureID[index]+"'alt='' />";
+											"<img src='/displayFile?fileName="+pictureID[index]+"&directory=plan'alt='' />";
 									} else{
 										str +=
 											"<img src='' alt='' />";
@@ -1224,7 +1181,7 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
     <!-- 상윤것 script 분리시킴 mypage.js-->
     <script src="/resources/js/mypage.js" type="text/javascript"></script>
     <!-- 핸들바 라이브러리 -->
-	<script src="https:cdnjs.cloudflare.com/ajax/Libs/handlebars.js/3.0.1/handlebars.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <!--  
     <script src="/resources/js/recommand.js" type="text/javascript"></script>
     

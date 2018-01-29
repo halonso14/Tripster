@@ -3,12 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
-<c:set var="session" value='<%= session.getAttribute("login")%>'/>
 <%
 response.setHeader("Cache-Control", "no-store");
 response.setHeader("Expires", "Sat, 01 Jan 1970 22:00:00 GMT");
 response.setHeader("Pragma", "no-cache");
 %>
+<c:set var="session" value='<%= session.getAttribute("login")%>'/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
@@ -270,7 +270,7 @@ response.setHeader("Pragma", "no-cache");
 									<c:choose>
 										<c:when test="${session.memberID eq plan.memberID }">
 											<ul class="dropdown-menu">
-												<li><a href="http://localhost:10000/member/mypage?planTab=active">나의 일정 리스트</a></li>
+												<li><a href="/member/mypage?planTab=active">나의 일정 리스트</a></li>
 											</ul>
 										</c:when>
 										<c:otherwise>
@@ -353,7 +353,7 @@ response.setHeader("Pragma", "no-cache");
 						
 									<c:if test="${planDetailVO.planDetailDate ne date}">
 										<!-- 현재 Detial Date에서 전체 일정 시작 날짜를 빼서 Day 구해줌.  -->
-										<br/>
+										</br>
 										<div class="dayCircle"></div><span class="whichDay">Day ${nowDate-startDate+1 }</span>&nbsp&nbsp<span class="lato size22 dark bold">${planDetailVO.planDetailDate }</span><br/>
 										<c:set var = "date" value="${planDetailVO.planDetailDate }"/>
 										<div class="line4"></div>
@@ -388,7 +388,8 @@ response.setHeader("Pragma", "no-cache");
 													<c:forEach items="${planDetailVO.memoVO.memoPictureVO }" var="pictureVO">
 														<c:set var="image" value=""/>
 					           					 		<li>
-															<a href="/displayFile?fileName=${pictureVO.memoPictureName }"><img  class="img-responsive" src="/displayFile?fileName=${pictureVO.memoPictureName }" style="max-height: 407px;max-width: 950px; width: 950px; height: 407px" /></a>
+															<img  class="img-responsive" src="/displayFile?fileName=${pictureVO.memoPictureName }&directory=plan"
+																	 style="max-height: 407px;max-width: 950px; width: 950px; height: 407px" />
 														</li>
 													</c:forEach>
 												</ul>
