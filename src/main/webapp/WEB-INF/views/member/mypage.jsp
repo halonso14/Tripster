@@ -24,7 +24,9 @@ response.setHeader("Pragma", "no-cache");
 	<link rel="stylesheet" type="text/css" href="/resources/slick-1.8.0/slick/slick-theme.css"/>
 	<!--ymmu icon css -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- 충돌때문에 막음 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     -->
     <!-- ymum my css-->
     
     <!-- Bootstrap -->
@@ -77,6 +79,7 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
     	//console.log("<c:out value="${memberVO.memberName}"/>");
     	//console.log("memberName");
     </script>
+    <input type="hidden" id="hmem" value="${memberVO.memberID}"/>
     <!-- ymmu 통계, 추천 페이지 자바스크립트에서 멤버아이디 받아 ajax로 데이터 받음-->
 	<div class="navbar-wrapper2 navbar-fixed-top">
       <div class="container">
@@ -416,6 +419,9 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 						    </div>
 						   
 						   <!-- recommand country/city map -->
+						    <div id="div_ajax_load_image">
+						   		<img id="ajax_load_image" src="/resources/images/ajax_loader.gif"/>
+						    </div>
 						    <div id="maps">
 						        <div id="gmap" class="mapdiv" style="visibility: hidden;"></div>
 						        <div id="chartdiv_rcm" class="mapdiv" style="visibility: visible;"></div>
@@ -478,7 +484,7 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 						    	</div>
 						    	<div class="info_about_country_contents">
 						    		<div class="info_icon">
-						    			<i class="fa fa-file-word-o" style="font-size:48px;color:#42b520"></i><br>
+						    			<i class="material-icons" style="font-size:48px;color:#42b520">border_color</i><br>
 						    				<b>국가단어</b>
 						    		</div>
 						    		<div class="info_description">

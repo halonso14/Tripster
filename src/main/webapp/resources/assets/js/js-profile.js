@@ -23,6 +23,7 @@ jQuery(document).ready(function(){
 });
 
 //ymmu 수정할거임
+
 function mySelectUpdate(){
 	setTimeout(function (){
 		$('.mySelectBoxClass').trigger('update');
