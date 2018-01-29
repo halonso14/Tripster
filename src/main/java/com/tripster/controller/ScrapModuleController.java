@@ -42,6 +42,7 @@ public class ScrapModuleController {
 			loger.info("scrap success");
 			entity = new ResponseEntity<>("success",HttpStatus.OK);
 			
+			
 		}catch(Exception e){
 			
 			e.printStackTrace();

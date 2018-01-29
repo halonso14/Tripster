@@ -53,7 +53,8 @@ response.setHeader("Pragma", "no-cache");
 
     <!-- Picker -->	
 	<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />	
-	
+	<!-- 핸들바 라이브러리 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
 	
   </head>
@@ -780,11 +781,7 @@ response.setHeader("Pragma", "no-cache");
 							<ul class="nav nav-tabs" id="myTab">
 								<li onclick="scrapList()" class="active"><a data-toggle="tab" href="#restaurant"><span class="reviews"></span><span class="hidetext">Restaurant</span>&nbsp;</a></li>
 								<li onclick="scrapList()" class=""><a data-toggle="tab" href="#place"><span class="maps"></span><span class="hidetext">Place</span>&nbsp;</a></li>
-								<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#preferences"><span class="preferences"></span><span class="hidetext">Preferences</span>&nbsp;</a></li>
-								<li onclick="loadScript()" class=""><a data-toggle="tab" href="#maps"><span class="maps"></span><span class="hidetext">Maps</span>&nbsp;</a></li>
-								<li onclick="mySelectUpdate(); trigerJslider(); trigerJslider2(); trigerJslider3(); trigerJslider4(); trigerJslider5(); trigerJslider6();" class=""><a data-toggle="tab" href="#reviews"><span class="reviews"></span><span class="hidetext">Reviews</span>&nbsp;</a></li>
-								<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#thingstodo"><span class="thingstodo"></span><span class="hidetext">Things to do</span>&nbsp;</a></li>
-			
+								
 							</ul>			
 							
 							<div class="line4" ></div>
@@ -808,26 +805,6 @@ response.setHeader("Pragma", "no-cache");
 								<!-- TAB 2 -->
 								<div id="place" class="tab-pane fade ">
 								    
-								</div>
-								
-								<!-- TAB 3 -->					
-								<div id="preferences" class="tab-pane fade">
-								
-								</div>
-								
-								<!-- TAB 4 -->					
-								<div id="maps" class="tab-pane fade">
-									
-								</div>
-								
-								<!-- TAB 5 -->					
-								<div id="reviews" class="tab-pane fade ">
-								
-								</div>
-								
-								<!-- TAB 6 -->					
-								<div id="thingstodo" class="tab-pane fade">
-								
 								</div>
 								
 								<!-- 맛집 스크랩 리스트 -->
@@ -878,9 +855,11 @@ response.setHeader("Pragma", "no-cache");
 												var template = Handlebars.compile(source);
 												
 												if(list.categoryID == 1){
-													if(i%2 == 1){
+													if(i%2 == 0){
+														console.log("1"+i);
 														str1 += template(getData(list));
 													}else{
+														console.log("0"+i);
 														str2 += template(getData(list));
 													}
 												}else{
@@ -1082,8 +1061,7 @@ response.setHeader("Pragma", "no-cache");
     <script src="/resources/js/statistics.js" type="text/javascript"></script>
     <!-- 상윤것 script 분리시킴 mypage.js-->
     <script src="/resources/js/mypage.js" type="text/javascript"></script>
-    <!-- 핸들바 라이브러리 -->
-	<script src="https:cdnjs.cloudflare.com/ajax/Libs/handlebars.js/3.0.1/handlebars.js"></script>
+    
 <!--  
     <script src="/resources/js/recommand.js" type="text/javascript"></script>
     
