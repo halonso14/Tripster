@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tripster.domain.Criteria;
 import com.tripster.domain.MemberVO;
 import com.tripster.domain.PlanVO;
 import com.tripster.service.LikeService;
@@ -117,12 +118,12 @@ public class LikeController {
 	
 	// 유저 좋아요 리스트 조회
 	@RequestMapping(value="/userLikeList/{memberID}")
-	public ResponseEntity<List<PlanVO>> userLikeList(@PathVariable("memberID") Integer memberID){
+	public ResponseEntity<List<PlanVO>> userLikeList(@PathVariable("memberID") Integer memberID, Criteria cri){
 		
 		ResponseEntity<List<PlanVO>> entity = null;
 		
 		try {
-			entity = new ResponseEntity<>(service.userLikeList(memberID),HttpStatus.OK);
+			entity = new ResponseEntity<>(service.userLikeList(memberID, cri),HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);

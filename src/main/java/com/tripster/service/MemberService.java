@@ -41,4 +41,6 @@ public interface MemberService {
 	public List<String> getThumbnail(Integer planDetailID) throws Exception;
 	
 	public Integer planCount(Integer memberID) throws Exception;
+	
+	public Integer planLikeCount(Integer memberID) throws Exception;
 }

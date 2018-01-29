@@ -224,5 +224,10 @@ public class MemberServiceImpl implements MemberService {
 	public Integer planCount(Integer memberID) throws Exception{
 		return dao.planCount(memberID);
 	}
+	
+	@Override
+	public Integer planLikeCount(Integer memberID) throws Exception{
+		return dao.planLikeCount(memberID);
+	}
 
 }

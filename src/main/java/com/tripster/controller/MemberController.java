@@ -233,20 +233,29 @@ public class MemberController {
 			cri.setCurPage(page);
 			
 			PageMaker pageMaker = new PageMaker();
+			PageMaker pageMaker2 = new PageMaker();
 			pageMaker.setCri(cri);
+			pageMaker2.setCri(cri);
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			List<PlanVO> list = planservice.myPlan(memberID, cri);
+			List<PlanVO> likeList = likeservice.userLikeList(memberID, cri);
 			
+			map.put("likeList", likeList);
 			map.put("list", list);
 			
 			int planCount = service.planCount(memberID);
 			pageMaker.setPlanCount(planCount);
+			int planLikeCount = service.planLikeCount(memberID);
+			pageMaker2.setPlanCount(planLikeCount);
 			
+			System.out.println("ddd"+likeList.size());
 			map.put("pageMaker", pageMaker);
+			map.put("pageMaker2", pageMaker2);
 			
 			List<Integer> likeChkList = new ArrayList<Integer>();
 			List<FollowVO> followList = new ArrayList<FollowVO>();
+			List<Integer> likePlanList = new ArrayList<Integer>();
 			Object obj = session.getAttribute("login");
 			try {
 				if(obj != null) {
@@ -266,6 +275,12 @@ public class MemberController {
 					}
 					
 				}
+				
+				for(int i=0;i<likeList.size();i++) {
+					likePlanList.add(1);
+				}
+				
+				map.put("likePlanList", likePlanList);
 				map.put("likeChkList", likeChkList);
 				map.put("followList", followList);
 				
