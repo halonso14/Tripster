@@ -26,17 +26,17 @@
 				<button class="scrap" value="${esContentsVO.contents_id}" session="${empty userSession }" check="1" >스크랩</button>
 				
 				<script>
-					var scrapIdList = ${scrapIdList};
 					var scrapbtn = $("button[value="+${esContentsVO.contents_id}+"]");
-					
-					for(var i=0;i<scrapIdList.length;i++){
-						if(scrapbtn.val() == scrapIdList[i]){
-							scrapbtn.attr("check",0);
-							// 스크랩 했을때
-							scrapbtn.css("color","red");
-						}
-					};
-					
+					if(!scrapbtn.attr("session") == false){
+						let scrapIdList = ${scrapIdList};
+						for(let i=0;i<scrapIdList.length;i++){
+							if(scrapbtn.val() == scrapIdList[i]){
+								scrapbtn.attr("check",0);
+								// 스크랩 했을때
+								scrapbtn.css("color","red");
+							}
+						};
+					}
 				</script>
 				 
 		</div>
