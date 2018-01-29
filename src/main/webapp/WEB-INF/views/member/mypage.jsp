@@ -992,7 +992,7 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 									}
 										
 									str +=
-										"<div class='liover' style='left: 564px;'></div>";
+										"<div class='liover' style='left: 256px;'></div>";
 											
 									if(data.likeChkList[index] != 1){
 										str +=
