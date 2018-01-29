@@ -81,6 +81,8 @@ public class PlanServiceImpl implements PlanService{
 			list.get(i).setPlanDetailVO(planDetailDAO.selectAllByPlanID(planID));
 		}
 		
+		
+		
 		return list;
 
 	}
@@ -89,6 +91,19 @@ public class PlanServiceImpl implements PlanService{
 	@Override
 	public String memberName(int memberID) throws Exception {
 		return planDAO.selectMemberName(memberID);
+	}
+
+	@Override
+	public void updateEndChk(int planID) throws Exception {
+		PlanVO vo = planDAO.selectPlan(planID);
+		int planChk;
+		if(vo.getPlanEndChk() == 1) {
+			planChk = 0;
+		}else {
+			planChk = 1;
+		}
+		planDAO.updateEndChk(planID, planChk );
+		
 	}
 
 	

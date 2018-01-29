@@ -30,6 +30,8 @@ response.setHeader("Pragma", "no-cache");
     <!-- Bootstrap -->
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
+    
+    <link href="/resources/assets/css/followBtn.css" rel="stylesheet" media="screen">
     <!-- ymmu bootstrap table -->
     <link href="/resources/bootstrap-table/dist/bootstrap-table.css" rel="stylesheet">
 
@@ -53,8 +55,19 @@ response.setHeader("Pragma", "no-cache");
 
     <!-- Picker -->	
 	<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />	
-	
+	<script src="https://code.jquery.com/jquery-2.0.3.js"></script>
+<style type="text/css">
+.plane{
+	width: 25px;
+    height: 30px;
+    display: block;
+    margin: 0 auto;
+}
 
+.liover{
+width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolute; top: 0px; left: 238px; opacity: 0.5
+}
+</style>
 	
   </head>
   <body id="top" class="thebg" >
@@ -246,6 +259,11 @@ response.setHeader("Pragma", "no-cache");
 						  <a href="#scrapList" data-toggle="tab" onclick="scrapList()">
 						  <span class="history-icon"></span>								  
 						  ScrapList
+						  </a></li>
+					  <li>
+						  <a href="#myPlan" data-toggle="tab" onclick="mySelectUpdate()">
+						  <span class="plane"><img src="/resources/images/aeroplane.png" alt=""/></span>								  
+						  My Plan
 						  </a></li>						  
 					  <li>
 						  <a href="#setProfile" data-toggle="tab" onclick="mySelectUpdate()">
@@ -947,8 +965,132 @@ response.setHeader("Pragma", "no-cache");
 					  </div>
 
 		
-					  <!-- END OF TAB 6 -->	
+					  <!-- END OF TAB 7 -->	
 
+
+					<div class="tab-pane" id="myPlan" style="padding: 20px 50px;">
+						<div class="padding40 dark">
+							<span class="lblue size18">${memberVO.memberName}</span> <span
+						class="dark size18">님이 등록한 일정</span>
+							<div class="line4"></div>
+							
+							<div class="itemscontainer offset-1">
+								<div id=planList>
+								</div>
+								
+								<div class="clearfix"></div>
+								<div class="offset-2">
+									<hr class="featurette-divider3">
+								</div>
+							</div>
+					   </div>
+					   
+					   <ul class="pagination right paddingbtm20">
+					   </ul>
+					</div>
+						<!-- Counter  -->
+					<script src="/resources/assets/js/counter.js"></script>
+					<script src="/resources/assets/js/js-list.js"></script>
+					<script src="/resources/js/like.js"></script>
+					<script>
+					
+					var memberID = ${memberVO.memberID};
+				//	var session = "${session.memberID}";
+					var pictureID = ${pictureID};
+					
+					getPageList(1);
+					
+					//plan을 화면에 뿌려준다.
+					function getPageList(page){
+
+					var str = '';
+						//style='width:254px;'
+						$.getJSON("/member/mypage/"+memberID+"/"+page, function(data){
+							$(data.list).each(function(index){
+									str += 
+								"<div class='col-md-4'>"
+									+"<div class='listitem'>";
+										
+									if(pictureID[index] != ""){
+										str +=
+											"<img src='/displayFile?fileName="+pictureID[index]+"'alt='' />";
+									} else{
+										str +=
+											"<img src='' alt='' />";
+									}
+										
+									str +=
+										"<div class='liover' style='left: 564px;'></div>";
+											
+									if(data.likeChkList[index] != 1){
+										str +=
+											"<a id='likeBtn' class='fav-icon like' href='javascript:void(0)' onclick='likeClick("+memberID+",$(this));' value=" +this.planID+ " likeBtnCheck='0'></a>"
+									} else{
+										str +=
+											"<a id='likeBtn' class='fav-icon-red like' onclick='likeClick("+memberID+",$(this));' value=" +this.planID+ " likeBtnCheck='1'></a>"
+									}
+											
+									str +=
+										"<a class='book-icon' href='/plan/read?planID="+this.planID+"'></a>"
+									+"</div>"
+									+"<div class='itemlabel' style='text-align: center;'>"
+										+"<a href='/plan/read?planID="+this.planID+"'><b>"+this.planTitle+"</b></a><br />"
+									 
+									 if(this.planEndChk != 1){
+										 console.log("0");
+										 console.log(this.planEndChk);
+										 str += "<button class='btn followButton' value='"+this.planID+"' onmouseover='mouseover($(this));' onmouseout='mouseout($(this));'>미완료</button>"
+										+"</div>"
+									+"</div>";
+									 }else{
+										 console.log("1");
+										str += "<button class='btn followButton following' value='"+this.planID+"'  onmouseover='mouseover($(this));' onmouseout='mouseout($(this));'>완료</button>"
+										+"</div>"
+									+"</div>";
+									 }	
+									
+									if((index+1)%3 == 0 && index+1 != data.list.length){
+										str +=
+											"<div class='clearfix'></div><div class='offset-2'><hr class='featurette-divider3'></div>";
+									}
+								
+								
+								})
+									
+							$("#planList").html(str);
+							printPaging(data.pageMaker);
+							StartAnime2();
+						})
+						
+					}
+					
+						//page 뿌려주는 함수.
+					function printPaging(pageMaker) {
+						var str = "";
+						if (pageMaker.prev) {
+							str += "<li><a href='" + (pageMaker.startPage - 1)
+									+ "'> << </a></li>";
+						}
+						for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
+							var strClass = pageMaker.cri.curPage == i ? 'class=active' : '';
+							str += "<li "+strClass+"><a href='"+i+"'>" + i + "</a></li>";
+						}
+						if (pageMaker.next) {
+							str += "<li><a href='" + (pageMaker.endPage + 1)
+									+ "'> >> </a></li>";
+						}
+						$('.pagination').html(str);
+					}
+					var replyPage = 1;
+					
+					$(".pagination").on("click", "li a", function(event) {
+						event.preventDefault();
+						replyPage = $(this).attr("href");
+						getPageList(replyPage);
+					});
+					
+					</script>
+					  <!-- END OF TAB 7 -->	
 					  
 					</div>
 					<!-- End of Tab panes from left menu -->	
@@ -1037,7 +1179,7 @@ response.setHeader("Pragma", "no-cache");
 			
 		</div>	
 	</div>
-	
+
 	<div class="footerbg3black">
 		<div class="container center grey"> 
 		<a href="#">Home</a> | 
@@ -1051,7 +1193,6 @@ response.setHeader("Pragma", "no-cache");
 		</div>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://code.jquery.com/jquery-2.0.3.js"></script>
 	<script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="/resources/js/additional-methods.min.js"></script>
 	<script type="text/javascript" src="/resources/js/messages_ko.min.js"></script>
@@ -1115,6 +1256,8 @@ $(window).load(function(){
     <!-- Custom functions -->
     <script src="/resources/assets/js/functions.js"></script>
 	
+	<script src="/resources/js/endChk.js"></script>
+	
     <!-- Custom Select -->
 	<script src='/resources/assets/js/jquery.customSelect.js' type='text/javascript' ></script>
 	
@@ -1127,8 +1270,22 @@ $(window).load(function(){
     <!-- Picker -->	
     <script src="/resources/assets/js/jquery.easing.js"></script>	
 	
+	<!-- plan 일정 삭제 후 tab이동.  -->
+	<script >
+	 $(document).ready(function(){
+			var planDeleteChk = "<%=request.getParameter("plan_delete")%>";
+			var planChk = "<%=request.getParameter("planTab")%>";
+			console.log(planDeleteChk);
+		    if(planDeleteChk == "OK"){
+	    			alert("일정이 삭제되었습니다.");
+	    			$('.nav a[href="#myPlan"]').tab('show');
+	    				
+	    		}
+		    if(planChk =="active"){
+		    		$('.nav a[href="#myPlan"]').tab('show');
+		    }
+	 });
 
-
-    
+	</script>
   </body>
 </html>
