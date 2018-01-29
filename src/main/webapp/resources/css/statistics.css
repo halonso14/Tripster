@@ -388,4 +388,19 @@ table{
 	width: 317px;
 	height:176px;
 }
+
+
+#div_ajax_load_image{
+	width: 90%;
+    height: 500px;
+    z-index: 100;
+    position: absolute;
+    background-color: rgba( 255, 255, 255, 0.5 );
+}
+
+#ajax_load_image{
+    position: absolute;
+    top: 30%;
+    left: 40%;
+}
 /* myplan and */

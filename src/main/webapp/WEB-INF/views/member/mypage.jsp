@@ -67,6 +67,7 @@ response.setHeader("Pragma", "no-cache");
     	//console.log("<c:out value="${memberVO.memberName}"/>");
     	//console.log("memberName");
     </script>
+    <input type="hidden" id="hmem" value="${memberVO.memberID}"/>
     <!-- ymmu 통계, 추천 페이지 자바스크립트에서 멤버아이디 받아 ajax로 데이터 받음-->
 	<div class="navbar-wrapper2 navbar-fixed-top">
       <div class="container">
@@ -404,6 +405,9 @@ response.setHeader("Pragma", "no-cache");
 						    </div>
 						   
 						   <!-- recommand country/city map -->
+						    <div id="div_ajax_load_image">
+						   		<img id="ajax_load_image" src="/resources/images/ajax_loader.gif"/>
+						    </div>
 						    <div id="maps">
 						        <div id="gmap" class="mapdiv" style="visibility: hidden;"></div>
 						        <div id="chartdiv_rcm" class="mapdiv" style="visibility: visible;"></div>
@@ -466,7 +470,7 @@ response.setHeader("Pragma", "no-cache");
 						    	</div>
 						    	<div class="info_about_country_contents">
 						    		<div class="info_icon">
-						    			<i class="fa fa-file-word-o" style="font-size:48px;color:#42b520"></i><br>
+						    			<i class="material-icons" style="font-size:48px;color:#42b520">border_color</i><br>
 						    				<b>국가단어</b>
 						    		</div>
 						    		<div class="info_description">

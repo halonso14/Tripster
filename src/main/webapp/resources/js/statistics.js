@@ -180,60 +180,6 @@ AmCharts.ready( function() {
 	chartMap.write("chartdiv");
 
 	
-	
-	/*
-	//map chart 추천
-	//map chart 2 for recommand-----
-	chartMap2 = new AmCharts.AmMap();
-	chartMap2.dataProvider = mapData2;
-	chartMap2.projection = "eckert3";
-	chartMap2.areasSettings = {
-							    "autoZoom": true,
-							    "selectedColor": "#CC0000"
-							  };
-	//예제에 있어서 넣긴했는데.
-	chartMap2.zoomControl= {
-							    "bottom": 15,
-							    "right": 15
-							};  
-	
-	
-	
-	chartMap2.addListener({
-	    "event": "zoomCompleted",
-	    "method": function( e ) {  //18/1/8 예제에 포함되어 있어 넣었음.
-	    	 //GMap inited?
-	         
-	        if ( typeof gmap === "undefined" ){
-	        	console.log('dkdd');
-		          return;
-
-	        }
-
-	        if ( chartMap2.zoomLevel() >= AmCharts.amBreakLevel ) {
-	        	console.log('dkdd');
-	          // sync position
-	          gmap.setCenter( {
-	            lat: chartMap2.zoomLatitude(),
-	            lng: chartMap2.zoomLongitude()
-	          } );
-
-	          // set zoom level
-	          gmap.setZoom( AmCharts.gBreakLevel );
-
-	          // switch to Google map
-	          document.getElementById( "chartdiv_rcm" ).style.visibility = "hidden";
-	          document.getElementById( "gmap" ).style.visibility = "visible";
-    	      }
-    	      
-	    }
-	}); //addToListener
-		
-	chartMap2.write("chartdiv_rcm");
-	console.log(AmCharts.zoomLevels);
-	console.log(AmCharts.amBreakLevel);
-	*/
-	
 });
 
 
@@ -310,7 +256,7 @@ var ajaxController= function(url){
             	
 
                 //chart.validateData(); //에러나서 다 막음
-                console.log(chartData[2].how_many);
+                //console.log(chartData[2].how_many);
             	/* DATA OBJECT 출력하기
 	            	var str = '';
 	            	for(key in data.dashBrief) {
@@ -340,8 +286,8 @@ var ajaxController= function(url){
 					var str = '';
 					var i= key;
 					count++;
-					console.log(countryList[i].visitedCountryISO);
-					console.log(countryList[key].visitedCountryISO);
+					//console.log(countryList[i].visitedCountryISO);
+					//console.log(countryList[key].visitedCountryISO);
 
 					while(i!=size && countryList[key].visitedCountryISO == (countryList[i].visitedCountryISO) ){
 						str += countryList[i].plan_title+"</br>";
@@ -367,44 +313,43 @@ var ajaxController= function(url){
             	
             	
             	console.log('추천데이터 ajax 데이터부분');
-            	console.log(data);
+
             		//구글맵 세팅.
             	initGoogleMap(data);
             	country_from_data= data[1].country;
             	country_youtube_from_data = data[2].country_youtube;
             	
             	var country_len = country_from_data.length;
-            	    
-            	//추천국가중에 db에 정보가 없어서 못 가져온 것들이 있다. 이국가들 더미데이터 넣어야 함
+
+            	var promise = new Promise(function(resolve, reject){
+            		
+            		//추천국가중에 db에 정보가 없어서 못 가져온 것들이 있다. 이국가들 더미데이터 넣어야 함
             		//추천국가 amcharts에 색깔 표시
             	chartMap2.dataProvider.areas= [];
+            	rcm_data=[];
             	for(var i=0 ; i< country_len;i++){
-            	
-            		if(typeof country_from_data[i].iso2 == 'undefined'){
-            			console.log('여기서 끝남:'+i)
-            			break;
-            		} //undefined 나오는 순간 for문 브레이크
-            		else{
-                			chartMap2.dataProvider.areas.push({
-		          			      "id": country_from_data[i].iso2,
-		        			      "color": "#8d1cc6"
-		        			 });
-            		}	
+
+            		rcm_data.push({
+          			      "id": country_from_data[i].iso2,
+        			      "color": "#8d1cc6"
+        			 });
+
             	}//for
-            	
+            	//console.log(rcm_data);
+            	chartMap2.dataProvider.areas = rcm_data;
+            	chartMap2.validateData();
             	//amchart에 추천 국가 눌렀을 때 그 나라 데이터 바인딩 되도록 세팅
-            	chartMap2.listeners.push({
+            	
+            	//지도에 나라 클릭하면 이벤트를 걸어줌. 누른 나라의 데이터를 구글맵과 정보탭에 바인딩해준다.
+            	var listeners=[{
         		    "event": "clickMapObject",
         		    "method": function(event) {
         		    	//console.log(event);
         		    	//console.log(event.mapObject.id);
         		    	
         		    	for(var i=0; i< country_len;i++){
-        	            	
-                    		if(typeof country_from_data[i].iso2 == 'undefined'){
-                    			break;
-                    		} //undefined 나오는 순간 for문 브레이크
-                    		else if(country_from_data[i].iso2 == event.mapObject.id){
+
+                    		if(country_from_data[i].iso2 == event.mapObject.id){
                     			
                     			 $('.description_title').html(country_from_data[i].name_han+' '+country_from_data[i].name_eng); //지도서 클릭한 나라 이름
                     			 $('.country_or_city_description').html(country_from_data[i].description); //지도서 클릭한 나라 소개
@@ -436,11 +381,11 @@ var ajaxController= function(url){
                          			
                     			 	//유튜브 슬라이드 갱신 필요
                              	$('.video_rcm_list').slick('removeSlide',null,null, true);
-                             	console.log('슬라이드 갱신');
+                             	//console.log('슬라이드 갱신');
                              	
                              	(function(i){
                              			//관련일정 slick에 달아줌
-                             		console.log(country_youtube_from_data[i]);
+                             		//console.log(country_youtube_from_data[i]);
                                  	bindingYoutubeListToSlick(country_youtube_from_data[i]);
                              	})(i);
                              		
@@ -449,8 +394,6 @@ var ajaxController= function(url){
                     		
                     		}	
                     	}//for
-        		    	
-
         		    	
         		        // GMap inited?
         		        if ( typeof gmap === "undefined" )
@@ -466,7 +409,46 @@ var ajaxController= function(url){
         		        
         		        
         		    }//function(event)끝
-        		  });
+        		  },
+        		  {
+        			    "event": "zoomCompleted",
+        			    "method": function( e ) {
+        			
+        			      // GMap inited?
+        			      if ( typeof gmap === "undefined" )
+        			        return;
+
+        			     if ( chartMap2.zoomLevel() >= AmCharts.amBreakLevel ) {
+        				        // sync position
+        				        gmap.setCenter( {
+        				          lat: chartMap2.zoomLatitude(),
+        				          lng: chartMap2.zoomLongitude()
+        				        } );
+        				        //console.log('after gmap -> setCenter');
+        				        //console.log('chartMap2 zoomlevel:'+chartMap2.zoomLevel());
+        				        // set zoom level
+        				        gmap.setZoom( AmCharts.gBreakLevel );
+        				        //gmap.setZoom(chartMap2.zoomLevel());
+        				        //console.log('gmap.getCenter: '+gmap.getZoom());
+        				
+        				        // switch to Google map
+        				        document.getElementById( "chartdiv_rcm" ).style.visibility = "hidden";
+        				        document.getElementById( "gmap" ).style.visibility = "visible";
+        				        google.maps.event.trigger(gmap, 'resize'); // 구글맵 갱신.
+        			      }
+        			    }
+        		  }];
+            	
+            	chartMap2.listeners = listeners;
+            		
+            		resolve('done');
+            	});
+
+            	promise.then(function(result){
+            		console.log(result);
+            		chartMap2.validateData();
+            		$("#div_ajax_load_image").hide(); //로딩이미지 삭제
+            	});
             	
             }//else if
             else if(url.match("/rcm")){ //
@@ -482,6 +464,17 @@ var ajaxController= function(url){
             	bindingPlanListToSlick(planList);
             }
         }//success
+    	,beforeSend: function(){
+    		
+    		//$('#div_ajax_load_image').html('<img id="ajax_load_image" src="/resources/images/ajax_loader.gif"/>');
+    		
+    		
+    	}
+    	,complete: function(){
+    		
+    		//$("#div_ajax_load_image").hide();
+
+    	}
 
     }); 
     
@@ -541,7 +534,7 @@ $(function () {
 	var $table = $('#table');
 	//일정-좋아요 테이블 행 눌렀을 때 분석데이터 바인딩
 	$table.on('click-row.bs.table', function (field, value, row, $el) {
-		console.log(value);
+		//console.log(value);
 		//
 		$('#likeAnalysis').text("일정 "+ value.plan_title+" 분석");
         
