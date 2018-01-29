@@ -23,41 +23,22 @@
 			<span class="margtop20 green size18"><b>0</b></span><span class="green size14"> Plan</span><br>
 			<span class="size11 grey">${esContentsVO.contents_scrap_cnt} Scrap</span><br><br>
 			
-			
-				<c:choose>
-					<%-- scrapIdList null값(비회원) 인경우 --%>
-					<c:when test="${empty scrapIdList}">
-						<form action="/scrap/${esContentsVO.contents_id}" method="POST">
-							<button class="scrapBtn" value="${esContentsVO.contents_id}" session="${empty userSession }" >스크랩</button>
-						</form>
-					</c:when>
-					<%-- scrapIdList(회원) 있을경우 --%>
-					<c:otherwise>
-						<c:set var="doneLoop" value="false"/> 
-						
-						<%-- scrapIdList에 현재 컨텐츠id가 있는지 for문으로 확인. --%>
-						<c:forEach items="${scrapIdList}" var = "scrapIdList" >	
-							<c:if test="${not doneLoop}"> 
-								<%-- scrapIdList에 해당 id가 있으면 doneLoop값 변경하고 스크랩 on --%>
-								<c:if test="${scrapIdList == esContentsVO.contents_id}">
-									<c:set var="doneLoop" value="true"/>
-									<form action="/scrapDelete/${esContentsVO.contents_id}" method="POST">
-										<button class="scrapBtn-on" value="${esContentsVO.contents_id}" session="${empty userSession }" >스크랩</button>
-									</form>
-								</c:if>			
-							</c:if>
-						</c:forEach>
-						
-						<%-- scrapIdList에 현재 컨텐츠id가 없을경우 --%>
-						<c:if test="${not doneLoop}"> 
-							<form action="/scrap/${esContentsVO.contents_id}" method="POST">
-								<button class="scrapBtn" value="${esContentsVO.contents_id}" session="${empty userSession }" >스크랩</button>
-							</form>
-						</c:if>
-					</c:otherwise>	
-				</c:choose>
-				 				
-			
+				<button class="scrap" value="${esContentsVO.contents_id}" session="${empty userSession }" check="1" >스크랩</button>
+				
+				<script>
+					var scrapIdList = ${scrapIdList};
+					var scrapbtn = $("button[value="+${esContentsVO.contents_id}+"]");
+					
+					for(var i=0;i<scrapIdList.length;i++){
+						if(scrapbtn.val() == scrapIdList[i]){
+							scrapbtn.attr("check",0);
+							// 스크랩 했을때
+							scrapbtn.css("color","red");
+						}
+					};
+					
+				</script>
+				 
 		</div>
 		<div class="labelleft">			
 			
@@ -90,4 +71,5 @@
 </div>
 <div class="clearfix"></div>
 <div class="offset-2" style="padding-top:30px"></div>
+
 
