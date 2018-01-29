@@ -169,8 +169,8 @@
 	<script src="/resources/assets/js/jquery-ui.js"></script>
     <!-- Bootstrap -->	
     <script src="/resources/dist/js/bootstrap.min.js"></script>
-	<!--  Scrap Btn -->
-    <script src="/resources/js/scrap.js"></script>
+	<!-- scrapBtn -->
+	<script src="/resources/js/scrap.js"></script>
     <!-- likeBtn -->
     <script src="/resources/js/like.js"></script>
 
