@@ -99,9 +99,8 @@ public class LikeServiceImpl implements LikeService{
 	}
 
 	@Override
-	public List<FollowVO> followList(int memberID) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<FollowVO> followList(int memberID) throws Exception{
+		return likeDAO.followList(memberID);
 	}
 	
 	//***** searchController에서 사용합니다.*****

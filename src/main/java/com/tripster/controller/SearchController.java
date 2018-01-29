@@ -56,7 +56,7 @@ public class SearchController {
 		
 		// model에 회원의 스크랩, 좋아요, 팔로우 리스트 담기. 
 		if(memberVO != null) {
-			model.addAttribute("scrapList",scrapService.scrapList(memberVO.getMemberID()));
+			model.addAttribute("scrapIdList",scrapService.scrapIdList(memberVO.getMemberID()));
 			model.addAttribute("likeIdList",likeService.likeIdList(memberVO.getMemberID()));
 			model.addAttribute("followIdList",likeService.followIdList(memberVO.getMemberID()));
 		}
@@ -87,7 +87,7 @@ public class SearchController {
 		
 		// model에 회원의 스크랩 리스트 담기. 
 		if(memberVO != null) {
-			model.addAttribute("scrapList",scrapService.scrapList(memberVO.getMemberID()));
+			model.addAttribute("scrapIdList",scrapService.scrapIdList(memberVO.getMemberID()));
 		}
 		
 		// model에 검색결과 담기   

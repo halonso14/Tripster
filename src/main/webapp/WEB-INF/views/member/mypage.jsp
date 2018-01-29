@@ -1082,8 +1082,8 @@ response.setHeader("Pragma", "no-cache");
     <script src="/resources/js/statistics.js" type="text/javascript"></script>
     <!-- 상윤것 script 분리시킴 mypage.js-->
     <script src="/resources/js/mypage.js" type="text/javascript"></script>
-    
-
+    <!-- 핸들바 라이브러리 -->
+	<script src="https:cdnjs.cloudflare.com/ajax/Libs/handlebars.js/3.0.1/handlebars.js"></script>
 <!--  
     <script src="/resources/js/recommand.js" type="text/javascript"></script>
     

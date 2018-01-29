@@ -25,7 +25,8 @@ public interface ScrapService {
 	
 	// 스크랩 체크 리스트
 	public List<Integer> scrapCheckList(Integer memberID,List<EsContentsVO> contentsList,SearchCriteria cri) throws Exception;
-	
+
+	//***** searchController에서 사용합니다.*****	
 	// 스크랩 리스트 
-	public List<Integer> scrapList(Integer memberID) throws Exception;
+	public List<Integer> scrapIdList(Integer memberID) throws Exception;
 }

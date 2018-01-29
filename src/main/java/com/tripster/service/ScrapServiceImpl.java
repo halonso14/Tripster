@@ -75,22 +75,24 @@ public class ScrapServiceImpl implements ScrapService{
 		return scrapCheckList;
 	}
 	
+	
+	//***** searchController에서 사용합니다.*****	
 	// 스크랩 리스트
 	@Override
-	public List<Integer> scrapList(Integer memberID) throws Exception{
+	public List<Integer> scrapIdList(Integer memberID) throws Exception{
 		// 멤버의 스크랩리스트 조회
 		List<ScrapVO> list = scrapDao.listAll(memberID);	
 		
 		// 스크랩한 contentsID 값만 리스트로 담아서 리턴 
-		List<Integer> scrapList = new ArrayList<Integer>();
+		List<Integer> scrapIdList = new ArrayList<Integer>();
 		try {
 			for(int i=0; i<list.size(); i++) {
-				scrapList.add(list.get(i).getContentsID());
+				scrapIdList.add(list.get(i).getContentsID());
 			}
 		}catch(Exception e) {
-			return scrapList;
+			return scrapIdList;
 		}
 		
-		return scrapList;
+		return scrapIdList;
 	}
 }
