@@ -1,17 +1,12 @@
 package com.tripster.util;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.UUID;
 
-import javax.imageio.ImageIO;
-
-import org.imgscalr.Scalr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.FileCopyUtils;
 
 public class UploadFileUtils {
 	
@@ -20,33 +15,62 @@ public class UploadFileUtils {
 	// 파일 업로드 메소드
 	public static String uploadFile(String uploadPath,String originalName,byte[] fileData) throws Exception{
 		
-		// 랜덤 이름 생성
-		UUID uid = UUID.randomUUID();
-		// 저장될 이름 생성
-		String saveName = uid.toString() + "_" + originalName;
-		// 저장될 경로 계산
-		String savePath = calcPath(uploadPath);
-		// 지정된 경로에 지정된 이름으로 파일 객체 생성
-		File target = new File(uploadPath + savePath,saveName);
-		// 원본 복사
-		FileCopyUtils.copy(fileData, target);
-		// 포맷이름
-		String formatName = originalName.substring(originalName.lastIndexOf(".")+1);
-		// 업로드될이름
-		String uploadedFileName = null;
-		// 이미지파일 검사
-		if(MediaUtils.getMediaType(formatName) != null) {
-			// 이미지파일일 경우 썸네일 생성, 썸네일 이름 저장
-			uploadedFileName = makeThumbnail(uploadPath, savePath, saveName);
-			logger.info("uploadedFile Name:"+uploadedFileName);
-		}else {
-			// 이미지파일이 아닐 경우 아이콘 생성, 원본 이름 저장
-			uploadedFileName = makeIcon(uploadPath,savePath,saveName);
-			logger.info("uploadedFile Name:"+uploadedFileName);
-		}
+//		S3Util s3 = new S3Util();
+//		String bucketName = "tripsterimgserver";
+//		// 랜덤 이름 생성
+//		UUID uid = UUID.randomUUID();
+//		// 저장될 이름 생성
+//		String saveName = "/"+uid.toString() + "_" + originalName;
+//		// 저장될 경로 계산
+//		String savePath = calcPath(uploadPath);
+//		// 지정된 경로에 지정된 이름으로 파일 객체 생성
+//		File target = new File(uploadPath + savePath,saveName);
+//		// 원본 복사
+//		FileCopyUtils.copy(fileData, target);
+//		// 포맷이름
+//		String formatName = originalName.substring(originalName.lastIndexOf(".")+1);
+//		// 업로드될이름
+//		String uploadedFileName = null;
+//		// 이미지파일 검사
+//		if(MediaUtils.getMediaType(formatName) != null) {
+//			// 이미지파일일 경우 썸네일 생성, 썸네일 이름 저장
+////			uploadedFileName = makeThumbnail(uploadPath, savePath, saveName);
+//			uploadedFileName = (savePath + saveName).replace(File.separatorChar, '/');
+//			logger.info("uploadedFile Name:"+uploadedFileName);
+//		}else {
+//			// 이미지파일이 아닐 경우 아이콘 생성, 원본 이름 저장
+//			uploadedFileName = makeIcon(uploadPath,savePath,saveName);
+//			logger.info("uploadedFile Name:"+uploadedFileName);
+//		}
+//		
+//		//S3Util의 fileUpload 메서드로 파일 업로드.
+//		s3.fileUpload(bucketName, uploadPath+uploadedFileName, fileData);
+//		// 저장될 파일 이름 리턴
+//		return uploadedFileName;
 		
-		// 저장될 파일 이름 리턴
-		return uploadedFileName;
+		S3Util s3 = new S3Util();
+	      String bucketName = "tripsterimgserver";
+	      //랜덤의 uid 를 만들어준다.
+	      UUID uid = UUID.randomUUID();
+	        
+	      //savedName : 570d570a-7af1-4afe-8ed5-391d660084b7_g.JPG 같은 형식으로 만들어준다.
+	      String savedName = "/"+uid.toString() + "_" + originalName;
+	        
+	      logger.info("업로드 경로 : "+uploadPath);
+	      //\2017\12\27 같은 형태로 저장해준다.
+	      String savedPath = calcPath(uploadPath);
+
+	      String uploadedFileName = null;
+	      
+	      uploadedFileName = (savedPath + savedName).replace(File.separatorChar, '/');
+	      //S3Util 의 fileUpload 메서드로 파일을 업로드한다.
+	      s3.fileUpload(bucketName, uploadPath+uploadedFileName, fileData);
+	      
+	      
+	      logger.info(uploadedFileName);
+//	      s3.fileUpload(bucketName, new File(fileName))
+	      
+	      return uploadedFileName;
 	}
 	
 	// 아이콘 만드는 메소드
@@ -66,7 +90,7 @@ public class UploadFileUtils {
 		// 월
 		String monthPath = yearPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.MONTH)+1);
 		// 날짜
-		String datePath =monthPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.DATE)+1);
+		String datePath =monthPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.DATE));
 		
 		// 각 날짜에 대한 경로를 생성 후 경로 이름으로 폴더 생성
 		makeDir(uploadPath,yearPath,monthPath,datePath);
@@ -96,23 +120,23 @@ public class UploadFileUtils {
 	}
 	
 	// 썸네일 생성 ( 기본경로와 생성될 경로와 파일이름을 받아 생성 )
-	private static String makeThumbnail(String uploadPath,String path,String fileName) throws Exception{
-		
-		// 원본 파일 리딩( 파일이름과 기본 경로를 받아 )
-		BufferedImage sourceImg = ImageIO.read(new File(uploadPath + path,fileName));
-		// 원본파일을 높이가 100px로 고정하여 이미지파일에 원본이미지를 복사
-		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT,100);
-		// s_ 을 붙여 썸네일 이름 생성
-		String thumbnailName = uploadPath + path + File.separator + "s_" + fileName;
-		// 만든 이름으로 썸네일 파일 생성
-		File newFile = new File(thumbnailName);
-		// 포멧 이름 (jpg,png, 등등 )
-		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
-		// 썸네일을 생성하는 부분
-		ImageIO.write(destImg, formatName.toUpperCase(),newFile);
-		// 경로에 \를 /로 치환하여 문자열 리턴
-		return thumbnailName.substring(uploadPath.length()).replace(File.separatorChar, '/');
-		
-	}
+//	private static String makeThumbnail(String uploadPath,String path,String fileName) throws Exception{
+//		
+//		// 원본 파일 리딩( 파일이름과 기본 경로를 받아 )
+//		BufferedImage sourceImg = ImageIO.read(new File(uploadPath + path,fileName));
+//		// 원본파일을 높이가 100px로 고정하여 이미지파일에 원본이미지를 복사
+//		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT,100);
+//		// s_ 을 붙여 썸네일 이름 생성
+//		String thumbnailName = uploadPath + path + File.separator + "s_" + fileName;
+//		// 만든 이름으로 썸네일 파일 생성
+//		File newFile = new File(thumbnailName);
+//		// 포멧 이름 (jpg,png, 등등 )
+//		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+//		// 썸네일을 생성하는 부분
+//		ImageIO.write(destImg, formatName.toUpperCase(),newFile);
+//		// 경로에 \를 /로 치환하여 문자열 리턴
+//		return thumbnailName.substring(uploadPath.length()).replace(File.separatorChar, '/');
+//		
+//	}
 
 }

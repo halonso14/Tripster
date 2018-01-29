@@ -33,7 +33,7 @@
 		<beans:constructor-arg value="/Users/kimnarae/Documents/upload"></beans:constructor-arg>
 	</beans:bean>
 
-	<beans:bean
+	<beans:bean 
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />

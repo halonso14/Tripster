@@ -12,6 +12,7 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 
 import com.tripster.domain.EsPlanVO;
+import com.tripster.domain.EsSearchResultVO;
 import com.tripster.domain.SearchCriteria;
 import com.tripster.elasticsearch.EsSearchMapper;
 
@@ -21,13 +22,16 @@ public class EsPlanDAOimpl implements EsPlanDAO {
 	@Inject
 	private EsSearchMapper namespace;
 	
-	// 일정 검색결과 더보기 리스트 조회
+	// 일정 검색결과 리스트 조회
 	@Override
-	public List<EsPlanVO> getPlanList(SearchCriteria cri) throws Exception{
-		SearchResponse response = namespace.planSearch(cri);
+	public EsSearchResultVO getPlanList(SearchCriteria cri, Integer size) throws Exception {
+		
+		SearchResponse response = namespace.planSearch(cri, size);
 		SearchHits hits = response.getHits();
 		
+		EsSearchResultVO resultset = new EsSearchResultVO();
 		ArrayList<EsPlanVO> result = new ArrayList<EsPlanVO>();
+		
 		ObjectMapper om = new ObjectMapper(); 
 		om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
@@ -36,14 +40,12 @@ public class EsPlanDAOimpl implements EsPlanDAO {
 	    		EsPlanVO plan = om.readValue(sJson, EsPlanVO.class);
 	    		result.add(plan);
 		}
-		return result;
+		
+		resultset.setPlanList(result); 
+		resultset.setPlanCnt(hits.getTotalHits()); 
+		return resultset;
 	}
 	
-	// 일정 검색결과 건수 조회 
-	public long getTotalPlanNum(SearchCriteria cri) throws Exception{
-		SearchResponse response = namespace.planSearch(cri);
-		long result = response.getHits().getTotalHits();
-		return result;
-	}
+
 }
 

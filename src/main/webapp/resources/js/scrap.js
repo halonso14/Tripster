@@ -1,53 +1,57 @@
-// 스크랩 체크
-function ScrapModuleChk(contentsID,scrapbt){
-	
-	alert("scrap Chk:"+contentsID);
+$(document).ready(function() {
+	// 스크랩 체크
+	function ScrapModuleChk(contentsID,scrapbt){
+		
+		$.ajax({
+			type : 'post',
+			url : '/scrapCheck/'+contentsID,
+			async: false,
+			success : function(check){
+				scrapbt.attr('check',check);
+				console.log("scrap Check : "+check);
+			}
+		});
+		
+	}
 
-	$.ajax({
-		type : 'post',
-		url : '/scrapCheck/'+contentsID,
-		async: false,
-		success : function(check){
-			alert("스크랩 체크 변경"+check);
-			scrapbt.attr('check',check);
-		}
-	});
-	
-}
-
-//스크랩 버튼 클릭시
-$(".scrap").on('click',function(){
-	
-	var scrapbt = $(this);
-	var contentsID = scrapbt.val();
-	
-	// 세션 체크
-	if(scrapbt.attr("session") == "true"){
+	// <button class="bookbtn mt1 scrap" value="컨텐츠 아이디" check="1" session="${empty userSession }" >스크랩</button>
+	//스크랩 버튼 클릭시
+	$(".scrap").on('click',function(){
 		
-		alert("로그인 해주세요");
+		var scrapbt = $(this);
+		var contentsID = scrapbt.val();
+		console.log("click");
 		
-	}else{
-		
-		// 스크랩 체크
-		ScrapModuleChk(contentsID,scrapbt);
-		
-		if(scrapbt.attr('check') == 1){
+		// 세션 체크
+		if(scrapbt.attr("session") == "true"){
 			
-			alert("스크랩 추가"+scrapbt.attr('check'));
-			scrapbt.attr('check',0);
-			$.post("/scrap/"+contentsID,function(data){
-				alert(data);
-			})
+			alert("로그인 해주세요");
 			
 		}else{
 			
-			alert("scrap 제거"+scrapbt.attr('check'));
-			scrapbt.attr('check',1);
-			$.post("/scrapDelete/"+contentsID,function(data){
-				alert(data);
-			})
+			// 스크랩 체크
+			ScrapModuleChk(contentsID,scrapbt);
+			
+			if(scrapbt.attr('check') == 1){
+				
+				scrapbt.attr('check',0);
+				$.post("/scrap/"+contentsID,function(data){
+					console.log(data);
+					// 스크랩 했을때
+					scrapbt.css("color","red");
+				})
+				
+			}else{
+				
+				scrapbt.attr('check',1);
+				$.post("/scrapDelete/"+contentsID,function(data){
+					console.log(data);
+					// 스크랩 안했을때
+					scrapbt.css("color","black");
+				})
+				
+			}
 			
 		}
-		
-	}
+	});
 });

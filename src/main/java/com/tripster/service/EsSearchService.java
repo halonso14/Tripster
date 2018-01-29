@@ -1,20 +1,30 @@
 package com.tripster.service;
 
-import java.util.HashMap;
 import java.util.List;
 
-import com.tripster.domain.EsContentsVO;
-import com.tripster.domain.EsMemberVO;
+import com.tripster.domain.Criteria;
 import com.tripster.domain.EsPlanVO;
-import com.tripster.domain.EsSearchResult;
+import com.tripster.domain.EsSearchResultVO;
 import com.tripster.domain.SearchCriteria;
 
 
 public interface EsSearchService {
 
-	// 통합검색결과 리스트 조회 
-	public EsSearchResult getTotalSearchList(SearchCriteria cri) throws Exception;
-	// 통합검색결과 건수 조회 
-	public HashMap<String,String> getTotalSearchNum(SearchCriteria cri) throws Exception;	
+	// 통합 검색결과 리스트 조회 
+	public EsSearchResultVO getTotalSearchList(SearchCriteria cri) throws Exception;
 	
+	// 컨텐츠 검색결과 더보기 리스트 조회 
+	public EsSearchResultVO getContentsSearchList(SearchCriteria cri) throws Exception;
+	
+	// 일정 검색결과 더보기 리스트 조회 
+	public EsSearchResultVO getPlanSearchList(SearchCriteria cri) throws Exception;
+	
+	// 회원 검색결과 더보기 리스트 조회 
+	public EsSearchResultVO getMemberSearchList(SearchCriteria cri) throws Exception;
+
+	// 좋아요 체크 리스트
+	public List<Integer> likeCheck(Integer memberID,List<EsPlanVO> planList,SearchCriteria cri) throws Exception;
+	
+	// 팔로우 리스트
+	public List<Integer> followCheck(Integer followID,Integer memberID,Criteria cri) throws Exception;
 }

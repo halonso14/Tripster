@@ -12,5 +12,6 @@ bin
 *.properties
 .springBeans
 EsConfig.java
+PrivateKey.java
 application.properties
 ${sys/ls.logs}/

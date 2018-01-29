@@ -1,27 +1,24 @@
+/*
+ * 18/1/25 목
+ * 버튼에 들어간 애니메이팅 설정 주석 모두 지움. backup 파일에 살아있다.
+ * */
+
 //jQuery time
 var current_fs, next_fs, previous_fs; //fieldsets
 var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
-var data =[];
+var data =[1,1,"",1,"0,7","20,100","",""];
 var count = 0; //index는 li 안에서만 쓸 수 있기 때문에 범용적으로 쓰기 위해 count 변수를 만들었다. count=다음 fieldset값, count-1: 현재 필드셋 값인듯
 var memberID= 0;
 $().ready(function(){
-    
-    //var user_id = /*window.location.protocol + "//" + window.location.host + "/" +*/ (window.location.pathname).split('/')[1];
     
     //get memberID first before get his/her detail info
     memberID = $('#memberID').val();
     console.log('#memberID:'+memberID);
     
-    /*
-    $.get("http://127.0.0.1:8000/research/"+memberID, function(data){
-        console.log(data);
-    });
-    */
 });
 
 $("#progressbar li").click(function(){
-	
 	
     console.log('index:'+$(this).index()); //ok
     console.log('count:'+count); //ok 다른 질문 누르기 바로 직전 index
@@ -88,53 +85,13 @@ $(".next").click(function(){
     //console.log(count);
     // add data to data object
     saveData();
-    /*
-     * var val;
-    if(count==3){//  checkbox
-        checklist=[];
-        for(var i=0 ; i<6; i++){
-            if($(':input:checkbox[name="q'+count+i+'"]').is(":checked")){
-                checklist.push( $(':input:checkbox[name="q'+count+i+'"]').val());
-            }
-        }
-        
-        val=checklist;
-        
-    }else{
-        val = $(':input:radio[name="q'+count+'"]:checked').val();
-    }
-    data[count]= val;
-    console.log(JSON.stringify(data));
-    
-     */
     count++;
     
 	//show the next fieldset
 	next_fs.show(); 
 	current_fs.hide();
 	//hide the current fieldset with style
-	/*
-	current_fs.animate({opacity: 0}, {
-		step: function(now, mx) {
-			//as the opacity of current_fs reduces to 0 - stored in "now"
-			//1. scale current_fs down to 80%
-			scale = 1 - (1 - now) * 0.2;
-			//2. bring next_fs from the right(50%)
-			left = (now * 50)+"%";
-			//3. increase opacity of next_fs to 1 as it moves in
-			opacity = 1 - now;
-			current_fs.css({'transform': 'scale('+scale+')'});
-			next_fs.css({'left': left, 'opacity': opacity});
-		}, 
-		duration: 800, 
-		complete: function(){
-			current_fs.hide();
-			animating = false;
-		}, 
-		//this comes from the custom easing plugin
-		easing: 'easeInOutBack'
-	});//animate
-    */
+	
     
 });
 
@@ -143,34 +100,8 @@ $(".previous").click(function(){
     
     // add data to data object
 	saveData();
-	/*
-    var val;
-    if(count==3){//  checkbox
-        checklist=[];
-        for(var i=0 ; i<6; i++){
-            if($(':input:checkbox[name="q'+count+i+'"]').is(":checked")){
-                checklist.push( $(':input:checkbox[name="q'+count+i+'"]').val());
-            }
-        }
-        
-        val=checklist;
-    }else if(count==11){//  blog url. textarea
-         val= $("#q"+count).val();
-        console.log(val);
-    
-    }else{
-        val = $(':input:radio[name="q'+count+'"]:checked').val();
-    }
-        
-    data[count]= val;
-    console.log(JSON.stringify(data));
-    */
     count--;
     
-    //애니메이팅 설정이 프로그래스바 누르는 것과 버튼 누를 때 에러를 일으켜서 막아놓음 
-	//if(animating) return false;
-	//animating = true;
-	
 	current_fs = $(this).parent();
 	previous_fs = $(this).parent().prev();
 	
@@ -182,27 +113,7 @@ $(".previous").click(function(){
 	//hide the current fieldset with style
 	current_fs.hide();
 	
-	/*
-	current_fs.animate({opacity: 0}, {
-		step: function(now, mx) {
-			//as the opacity of current_fs reduces to 0 - stored in "now"
-			//1. scale previous_fs from 80% to 100%
-			scale = 0.8 + (1 - now) * 0.2;
-			//2. take current_fs to the right(50%) - from 0%
-			left = ((1-now) * 50)+"%";
-			//3. increase opacity of previous_fs to 1 as it moves in
-			opacity = 1 - now;
-			current_fs.css({'left': left});
-			previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
-		}, 
-		duration: 800, 
-		complete: function(){
-			current_fs.hide();
-			animating = false;
-		}, 
-		//this comes from the custom easing plugin
-		easing: 'easeInOutBack'
-	});*/
+	
 });
 
 $("#done").click(function(){
@@ -227,31 +138,38 @@ $(".submit").click(function(){
     $.ajax({
         url: "http://127.0.0.1:8000/research/"+memberID+"/insert",
         method:"POST",
-        data: JSON.stringify({user_id:memberID, age:"4", gender:"4"}),
-        dataType: 'text/plain',
+        //data: JSON.stringify({user_id:memberID, age:"4", gender:"4"}),
+        data: JSON.stringify(data),
+        dataType: 'text',
         crossDomain: true,
-        success: function(){
-            console.log("success");
+        success: function(data){//error함수를 설정했더니 서버에서 보내는 값이 200이어도 계속 error함수로 넘어가서.. 그냥 success 함수로 data 확인하는걸로
+        	console.log(data);
+        	if(data == "saved"){
+        		console.log("success");
+	            	//추천페이지를 안내하는 fieldset을 띄운다
+	        	
+	        	current_fs = $($(".previous").get(count-1)).parent();
+	        	next_fs = current_fs.next(); //그다음 fieldset 얻어옴
+	            console.log(next_fs);
+	            next_fs.show();
+	            current_fs.hide();
+	            
+	            	//설문질문 누르는 것을 막음.
+	            $("#progressbar li").off("click");
 
-        },
-        error:function(){
-            console.log("fail..");
-            
-            	//추천페이지를 안내하는 fieldset을 띄운다
+        	}else{
+        		console.log("서버가 saved 문장을 안 보낸다.");
+        	}
         	
-        	current_fs = $($(".previous").get(count-1)).parent();
-        	next_fs = current_fs.next(); //그다음 fieldset 얻어옴
-            console.log(next_fs);
-            next_fs.show();
-            current_fs.hide();
-            
-            	//설문질문 누르는 것을 막음.
-            $("#progressbar li").off("click");
-        },
-        }).done(function() {
+        }/*,
+        error:function(e){
+            console.log("fail..");
+            console.log("ERROR: ", e);
+        },*/
+        });/*.done(function() {
             $( this ).addClass( "done" );
             alert("done")
-        });
+        })*/
 	return false;
     
     
@@ -262,9 +180,13 @@ var saveData = function(){
 	
 	if(count==2){//국가와 도시 리스트 
 
-    	val = selected_country_list.toString();
-		console.log('val: '+ val);
-		data[count]= val;
+    	country = selected_country_list.toString();
+		console.log('val: '+ country);
+		city = selected_city_list.toString();
+		console.log('val: '+ city);
+	
+		data[count]= country;
+		data[8]= city; //데이터의 가장 마지막에 넣어주었음
         
     }else if(count==5){// 0,10두 값만 
     	

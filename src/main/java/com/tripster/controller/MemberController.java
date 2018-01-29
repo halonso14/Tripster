@@ -173,108 +173,108 @@ public class MemberController {
 		return "member/logout";
 	}
 
-	   // 마이페이지 조회
-	   @RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	   public void mypage(MemberVO vo, HttpSession session, Model model) throws Exception {
+	// 마이페이지 조회
+	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	public void mypage(MemberVO vo, HttpSession session, Model model) throws Exception {
 
-	      Object obj = session.getAttribute("login");
-	      MemberVO memVO = (MemberVO) obj;
-	      int memberID = memVO.getMemberID();
-	      
-	      Criteria cri = new Criteria();
-	      List<String> picList = new ArrayList<String>();
-	      List<Integer> likeChkList = new ArrayList<Integer>();
-	      List<PlanVO> planVO = planservice.myPlan(memberID, cri);
-	      int planCount = service.planCount(memberID);
-	      
-	      for(int i=0;i<planVO.size();i++) {
-	         String picName = "false";
-	         //planDetailVO가 한개라도 있을 경우
-	         if(planVO.get(i).getPlanDetailVO() != null ) {
-	            for(int j=0; j<planVO.get(i).getPlanDetailVO().size(); j++) {
-	               PlanDetailVO pd = planVO.get(i).getPlanDetailVO().get(j);
-	               if(pd.getMemoVO() != null) {
-	                  if(pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName() != null) {
-	                     picList.add( "'"+ pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName() + "'");
-	                     picName = "true";
-	                     break;
-	                  } 
-	               }
-	            }
-	            if(picName.equals("false")) {
-	               picList.add("''");
-	               picName = "true";
-	            }
-	         }
-	         if(picName.equals("false")) picList.add("");
-	      }
-	      
-	      for(int i=0;i<planVO.size();i++) {
-	         likeChkList.add(likeservice.likeCheck(planVO.get(i).getPlanID(), memberID));
-	      }
-	            
-	      model.addAttribute("likeChkList", likeChkList);
-	            
-	      model.addAttribute("planCount", planCount);
-	      model.addAttribute("pictureID", picList);
-	      model.addAttribute("planVO", planVO);
+		Object obj = session.getAttribute("login");
+		MemberVO memVO = (MemberVO) obj;
+		int memberID = memVO.getMemberID();
+		
+		Criteria cri = new Criteria();
+		List<String> picList = new ArrayList<String>();
+		List<Integer> likeChkList = new ArrayList<Integer>();
+		List<PlanVO> planVO = planservice.myPlan(memberID, cri);
+		int planCount = service.planCount(memberID);
+		
+		for(int i=0;i<planVO.size();i++) {
+			String picName = "false";
+			//planDetailVO가 한개라도 있을 경우
+			if(planVO.get(i).getPlanDetailVO() != null ) {
+				for(int j=0; j<planVO.get(i).getPlanDetailVO().size(); j++) {
+					PlanDetailVO pd = planVO.get(i).getPlanDetailVO().get(j);
+					if(pd.getMemoVO() != null) {
+						if(pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName() != null) {
+							picList.add( "'"+ pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName() + "'");
+							picName = "true";
+							break;
+						} 
+					}
+				}
+				if(picName.equals("false")) {
+					picList.add("''");
+					picName = "true";
+				}
+			}
+			if(picName.equals("false")) picList.add("");
+		}
+		
+		for(int i=0;i<planVO.size();i++) {
+			likeChkList.add(likeservice.likeCheck(planVO.get(i).getPlanID(), memberID));
+		}
+				
+		model.addAttribute("likeChkList", likeChkList);
+				
+		model.addAttribute("planCount", planCount);
+		model.addAttribute("pictureID", picList);
+		model.addAttribute("planVO", planVO);
 
-	      model.addAttribute(service.mypage(memberID));
-	   }
-	   
-	   @RequestMapping(value = "/mypage/{memberID}/{page}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-	   public ResponseEntity<Map<String, Object>> myPlan(@PathVariable("memberID") Integer memberID,
-	                                           @PathVariable("page") Integer page, HttpSession session){
-	      ResponseEntity<Map<String, Object>> entity = null;
-	      
-	      try {
-	         Criteria cri = new Criteria();
-	         cri.setCurPage(page);
-	         
-	         PageMaker pageMaker = new PageMaker();
-	         pageMaker.setCri(cri);
-	         
-	         Map<String, Object> map = new HashMap<String, Object>();
-	         List<PlanVO> list = planservice.myPlan(memberID, cri);
-	         
-	         map.put("list", list);
-	         
-	         int planCount = service.planCount(memberID);
-	         pageMaker.setPlanCount(planCount);
-	         
-	         map.put("pageMaker", pageMaker);
-	         
-	         List<Integer> likeChkList = new ArrayList<Integer>();
-	         Object obj = session.getAttribute("login");
-	         try {
-	            if(obj != null) {
-	               MemberVO memVO = (MemberVO) obj;
-	               // 현재 접속중인 회원(memberID 사용중, userID로 대체)
-	               Integer userID = memVO.getMemberID();
-	               
-	               for(int i=0;i<list.size();i++) {
-	                  likeChkList.add(likeservice.likeCheck(list.get(i).getPlanID(), userID));
-	               }
-	               
-	            } else {
-	               for(int i=0; i<list.size();i++) {
-	                  likeChkList.add(0);
-	               }
-	            }
-	            map.put("likeChkList", likeChkList);
-	            
-	         } catch(Exception e) {
-	            
-	         }
-	         
-	         entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-	         
-	      } catch(Exception e) {
-	         e.printStackTrace();
-	         entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);
-	      }
-	      return entity;
-	   }
+		model.addAttribute(service.mypage(memberID));
+	}
+	
+	@RequestMapping(value = "/mypage/{memberID}/{page}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public ResponseEntity<Map<String, Object>> myPlan(@PathVariable("memberID") Integer memberID,
+														 @PathVariable("page") Integer page, HttpSession session){
+		ResponseEntity<Map<String, Object>> entity = null;
+		
+		try {
+			Criteria cri = new Criteria();
+			cri.setCurPage(page);
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			List<PlanVO> list = planservice.myPlan(memberID, cri);
+			
+			map.put("list", list);
+			
+			int planCount = service.planCount(memberID);
+			pageMaker.setPlanCount(planCount);
+			
+			map.put("pageMaker", pageMaker);
+			
+			List<Integer> likeChkList = new ArrayList<Integer>();
+			Object obj = session.getAttribute("login");
+			try {
+				if(obj != null) {
+					MemberVO memVO = (MemberVO) obj;
+					// 현재 접속중인 회원(memberID 사용중, userID로 대체)
+					Integer userID = memVO.getMemberID();
+					
+					for(int i=0;i<list.size();i++) {
+						likeChkList.add(likeservice.likeCheck(list.get(i).getPlanID(), userID));
+					}
+					
+				} else {
+					for(int i=0; i<list.size();i++) {
+						likeChkList.add(0);
+					}
+				}
+				map.put("likeChkList", likeChkList);
+				
+			} catch(Exception e) {
+				
+			}
+			
+			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 	
 	// 기본정보 변경
 	@RequestMapping(value = "/changeProfile", method = RequestMethod.POST)
@@ -426,7 +426,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/viewMember/{memberID}/{page}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
 	public ResponseEntity<Map<String, Object>> listPage(@PathVariable("memberID") Integer memberID,
-														 @PathVariable("page") Integer page){
+														 @PathVariable("page") Integer page, HttpSession session){
 		ResponseEntity<Map<String, Object>> entity = null;
 		
 		try {
@@ -445,6 +445,29 @@ public class MemberController {
 			pageMaker.setPlanCount(planCount);
 			
 			map.put("pageMaker", pageMaker);
+			
+			List<Integer> likeChkList = new ArrayList<Integer>();
+			Object obj = session.getAttribute("login");
+			try {
+				if(obj != null) {
+					MemberVO memVO = (MemberVO) obj;
+					// 현재 접속중인 회원(memberID 사용중, userID로 대체)
+					Integer userID = memVO.getMemberID();
+					
+					for(int i=0;i<list.size();i++) {
+						likeChkList.add(likeservice.likeCheck(list.get(i).getPlanID(), userID));
+					}
+					
+				} else {
+					for(int i=0; i<list.size();i++) {
+						likeChkList.add(0);
+					}
+				}
+				map.put("likeChkList", likeChkList);
+				
+			} catch(Exception e) {
+				
+			}
 			
 			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 			

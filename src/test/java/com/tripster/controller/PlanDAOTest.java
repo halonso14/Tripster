@@ -60,9 +60,9 @@ public class PlanDAOTest {
 //		System.out.println(planDAO.selectLastPlanID());
 //	}
 
-	@Test
-	public void myPlan()throws Exception{
-		int memberID = 1;
-		System.out.println(planService.myPlan(memberID));
-	}
+//	@Test
+//	public void myPlan()throws Exception{
+//		int memberID = 1;
+//		System.out.println(planService.myPlan(memberID));
+//	}
 }

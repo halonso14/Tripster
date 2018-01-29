@@ -40,4 +40,8 @@ public interface LikeService {
 	
 	// 유저의 팔로잉 리스트
 	public List<MemberVO> userFollowingList(int memberID) throws Exception;
+	
+	//***** searchController에서 사용합니다.*****
+	public List<Integer> followIdList(int memberID) throws Exception;
+	public List<Integer> likeIdList(int memberID) throws Exception;
 }
