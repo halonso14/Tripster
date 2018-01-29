@@ -406,12 +406,12 @@ var ajaxController= function(url){
                     		} //undefined 나오는 순간 for문 브레이크
                     		else if(country_from_data[i].iso2 == event.mapObject.id){
                     			
-                    			 $('.description_title').text(country_from_data[i].name_han+' '+country_from_data[i].name_eng); //지도서 클릭한 나라 이름
-                    			 $('.country_or_city_description').text(country_from_data[i].description); //지도서 클릭한 나라 소개
+                    			 $('.description_title').html(country_from_data[i].name_han+' '+country_from_data[i].name_eng); //지도서 클릭한 나라 이름
+                    			 $('.country_or_city_description').html(country_from_data[i].description); //지도서 클릭한 나라 소개
                     			 $('#exchange_ymmu').html('<br> 1'+country_from_data[i].money_unit+' = '+ country_from_data[i].exchange+'원<br>'+'10'+country_from_data[i].money_unit+' = '+ country_from_data[i].exchange*10+'원<br>'); //지도서 클릭한 나라 환율
                     			 $('#bigmac_ymmu').html('약 '+country_from_data[i].bigmac_price +' '+country_from_data[i].money_unit+'<br><br>'+'<b>US달러 가격</b><br>'+country_from_data[i].bigmac_price_dallor+' 달러'); //지도서 클릭한 나라 환율
                     			 $('#country_or_city_title_image').attr('src', '/resources/images/'+country_from_data[i].iso2+'_main.jpg');
-                             	 $('#activity_ymmu').text(country_from_data[i].activity);
+                             	 $('#activity_ymmu').html(country_from_data[i].activity);
                             	 $('#food_ymmu').html(country_from_data[i].food);
                             	 
                             	 var safe_desc = '';
@@ -772,7 +772,7 @@ window.initGoogleMap=function(data) {
 		  marker_list[i].addListener('click', function() {
 			    infowindow.open(gmap, marker_list[i]);
         			//국가/도시정보 세팅
-            	$('#fligh_price_ymmu').text('KRW '+city_from_data[i].flight_price);
+            	$('#fligh_price_ymmu').html('KRW '+city_from_data[i].flight_price);
             	$('#airport_ymmu').html('<b>이 도시와 가까운 공항</b><br>'+city_from_data[i].airport+'<br/>');
             	var safe_desc = '이 도시는 ';
 	           	if(city_from_data[i].safe == 3){
