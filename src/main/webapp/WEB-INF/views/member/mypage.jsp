@@ -24,7 +24,9 @@ response.setHeader("Pragma", "no-cache");
 	<link rel="stylesheet" type="text/css" href="/resources/slick-1.8.0/slick/slick-theme.css"/>
 	<!--ymmu icon css -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- 충돌때문에 막음 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     -->
     <!-- ymum my css-->
     
     <!-- Bootstrap -->
@@ -63,7 +65,6 @@ response.setHeader("Pragma", "no-cache");
     display: block;
     margin: 0 auto;
 }
-
 .liover{
 width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolute; top: 0px; left: 238px; opacity: 0.5
 }
@@ -78,6 +79,7 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
     	//console.log("<c:out value="${memberVO.memberName}"/>");
     	//console.log("memberName");
     </script>
+    <input type="hidden" id="hmem" value="${memberVO.memberID}"/>
     <!-- ymmu 통계, 추천 페이지 자바스크립트에서 멤버아이디 받아 ajax로 데이터 받음-->
 	<div class="navbar-wrapper2 navbar-fixed-top">
       <div class="container">
@@ -417,6 +419,9 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 						    </div>
 						   
 						   <!-- recommand country/city map -->
+						    <div id="div_ajax_load_image">
+						   		<img id="ajax_load_image" src="/resources/images/ajax_loader.gif"/>
+						    </div>
 						    <div id="maps">
 						        <div id="gmap" class="mapdiv" style="visibility: hidden;"></div>
 						        <div id="chartdiv_rcm" class="mapdiv" style="visibility: visible;"></div>
@@ -479,7 +484,7 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 						    	</div>
 						    	<div class="info_about_country_contents">
 						    		<div class="info_icon">
-						    			<i class="fa fa-file-word-o" style="font-size:48px;color:#42b520"></i><br>
+						    			<i class="material-icons" style="font-size:48px;color:#42b520">border_color</i><br>
 						    				<b>국가단어</b>
 						    		</div>
 						    		<div class="info_description">
@@ -530,7 +535,6 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
 								    	</div>
 								    </div>
-
 								    <div class="contents_rcm">
 								    	<div class="inner_card">
 								    		<img src="/resources/images/Port Macquarie.jpg" width="100%" />
@@ -556,7 +560,6 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 					    						<div class="general_font country_name_font">Tweed Heads</div>
 					    					</div>
 								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
-
 								    	</div>
 								    </div>
 								    <div class="contents_rcm">
@@ -566,7 +569,6 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 					    						<div class="general_font country_name_font">Tweed Heads</div>
 					    					</div>
 								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
-
 								    	</div>
 								    </div>
 								    <div class="contents_rcm">
@@ -576,7 +578,6 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 					    						<div class="general_font country_name_font">Tweed Heads</div>
 					    					</div>
 								    		<div class="general_text">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed </div>
-
 								    	</div>
 								    </div>
 								  </div>
@@ -798,11 +799,7 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 							<ul class="nav nav-tabs" id="myTab">
 								<li onclick="scrapList()" class="active"><a data-toggle="tab" href="#restaurant"><span class="reviews"></span><span class="hidetext">Restaurant</span>&nbsp;</a></li>
 								<li onclick="scrapList()" class=""><a data-toggle="tab" href="#place"><span class="maps"></span><span class="hidetext">Place</span>&nbsp;</a></li>
-								<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#preferences"><span class="preferences"></span><span class="hidetext">Preferences</span>&nbsp;</a></li>
-								<li onclick="loadScript()" class=""><a data-toggle="tab" href="#maps"><span class="maps"></span><span class="hidetext">Maps</span>&nbsp;</a></li>
-								<li onclick="mySelectUpdate(); trigerJslider(); trigerJslider2(); trigerJslider3(); trigerJslider4(); trigerJslider5(); trigerJslider6();" class=""><a data-toggle="tab" href="#reviews"><span class="reviews"></span><span class="hidetext">Reviews</span>&nbsp;</a></li>
-								<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#thingstodo"><span class="thingstodo"></span><span class="hidetext">Things to do</span>&nbsp;</a></li>
-			
+								
 							</ul>			
 							
 							<div class="line4" ></div>
@@ -826,26 +823,6 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 								<!-- TAB 2 -->
 								<div id="place" class="tab-pane fade ">
 								    
-								</div>
-								
-								<!-- TAB 3 -->					
-								<div id="preferences" class="tab-pane fade">
-								
-								</div>
-								
-								<!-- TAB 4 -->					
-								<div id="maps" class="tab-pane fade">
-									
-								</div>
-								
-								<!-- TAB 5 -->					
-								<div id="reviews" class="tab-pane fade ">
-								
-								</div>
-								
-								<!-- TAB 6 -->					
-								<div id="thingstodo" class="tab-pane fade">
-								
 								</div>
 								
 								<!-- 맛집 스크랩 리스트 -->
@@ -896,9 +873,11 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 												var template = Handlebars.compile(source);
 												
 												if(list.categoryID == 1){
-													if(i%2 == 1){
+													if(i%2 == 0){
+														console.log("1"+i);
 														str1 += template(getData(list));
 													}else{
+														console.log("0"+i);
 														str2 += template(getData(list));
 													}
 												}else{
@@ -1002,7 +981,6 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 					
 					//plan을 화면에 뿌려준다.
 					function getPageList(page){
-
 					var str = '';
 						//style='width:254px;'
 						$.getJSON("/member/mypage/"+memberID+"/"+page, function(data){
@@ -1020,7 +998,7 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
 									}
 										
 									str +=
-										"<div class='liover' style='left: 564px;'></div>";
+										"<div class='liover' style='left: 256px;'></div>";
 											
 									if(data.likeChkList[index] != 1){
 										str +=
@@ -1224,7 +1202,7 @@ width: 100%; height: 100%; background-color: rgb(255, 153, 0); position: absolut
     <!-- 상윤것 script 분리시킴 mypage.js-->
     <script src="/resources/js/mypage.js" type="text/javascript"></script>
     <!-- 핸들바 라이브러리 -->
-	<script src="https:cdnjs.cloudflare.com/ajax/Libs/handlebars.js/3.0.1/handlebars.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <!--  
     <script src="/resources/js/recommand.js" type="text/javascript"></script>
     
@@ -1285,7 +1263,6 @@ $(window).load(function(){
 		    		$('.nav a[href="#myPlan"]').tab('show');
 		    }
 	 });
-
 	</script>
   </body>
 </html>

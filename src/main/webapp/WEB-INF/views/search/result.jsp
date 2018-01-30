@@ -82,7 +82,15 @@
 								<!-- 컨텐츠 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->	
 								<c:if test="${totalList.contentsCnt > 3 }" >
 									<div class=" grey right">
-										<a href="/search/contents?keyword=${cri.keyword}" class="more"> 더보기 〉 </a>
+										
+										<form:form commandName="cri" action="contents" method="GET">
+											<input type="hidden" name="keyword" value="${cri.keyword}"/>
+											<input type="hidden" name="cnt" value="${cri.cnt}"/>
+											<button class="tablinks <c:if test="${cri.tab == 'contents' }">active</c:if>" name="tab" value ="contents" type="submit">
+												<span class="hidetext">더보기 〉</span>
+											</button>
+											
+										</form:form>
 									</div>
 								</c:if>
 								<div class="clearfix"></div>
@@ -104,7 +112,17 @@
 								<!-- 일정 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->
 								<c:if test="${totalList.planCnt > 3 }" >
 									<div class=" grey right">
-										<a href="/search/plan?keyword=${cri.keyword}" class="more"> 더보기 〉 </a>
+									
+										<%-- <a href="/search/plan?keyword=${cri.keyword}" class="more"> 더보기 〉 </a> --%>
+										
+										<form:form commandName="cri" action="plan" method="GET">
+											<input type="hidden" name="keyword" value="${cri.keyword}"/>
+											<input type="hidden" name="cnt" value="${cri.cnt}"/>
+											<button class="tablinks <c:if test="${cri.tab == 'plan' }">active</c:if>" name="tab" value ="plan" type="submit">
+												<span class="hidetext">더보기</span>
+											</button>			
+										</form:form>
+										
 									</div>
 								</c:if>
 								<div class="clearfix"></div>
@@ -127,7 +145,15 @@
 								<!-- 회원 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->
 								<c:if test="${totalList.memberCnt > 3 }" >
 									<div class=" grey right">
-										<a href="/search/member?keyword=${cri.keyword}" class="more"> 더보기 〉 </a>
+									
+										<form:form commandName="cri" action="member" method="GET">
+											<input type="hidden" name="keyword" value="${cri.keyword}"/>
+											<input type="hidden" name="cnt" value="${cri.cnt}"/>
+											<button class="tablinks <c:if test="${cri.tab == 'member' }">active</c:if>" name="tab" value ="member" type="submit">
+												<span class="hidetext">더보기</span>
+											</button>
+										</form:form>
+										
 									</div>
 								</c:if>
 								<div class="clearfix"></div>
@@ -169,8 +195,8 @@
 	<script src="/resources/assets/js/jquery-ui.js"></script>
     <!-- Bootstrap -->	
     <script src="/resources/dist/js/bootstrap.min.js"></script>
-	<!--  Scrap Btn -->
-    <script src="/resources/js/scrap.js"></script>
+	<!-- scrapBtn -->
+	<script src="/resources/js/scrap.js"></script>
     <!-- likeBtn -->
     <script src="/resources/js/like.js"></script>
 

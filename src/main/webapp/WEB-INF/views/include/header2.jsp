@@ -44,7 +44,7 @@
 					</c:choose>	
 					<li><form action="/search/result" >
 						<div class="input-group" style="padding:8px 0; width:200px">
-							<input  id="keywordInput" name='keyword' type="text"  class="form-control" placeholder="Search for..." value="${cri.keyword }" >
+							<input  id="keywordInput" name='keyword' type="text" class="form-control" placeholder="${cri.keyword }" value="${cri.keyword }" style="width:140px;"></input>
 							<span class="input-group-btn">
 								<button class="btn btn-default" type="submit">Go!</button>
 							</span>

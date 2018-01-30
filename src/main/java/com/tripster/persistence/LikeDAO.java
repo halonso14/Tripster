@@ -2,6 +2,7 @@ package com.tripster.persistence;
 
 import java.util.List;
 
+import com.tripster.domain.Criteria;
 import com.tripster.domain.FollowVO;
 import com.tripster.domain.LikeVO;
 import com.tripster.domain.MemberVO;
@@ -31,7 +32,7 @@ public interface LikeDAO {
 	public List<FollowVO> followList(Integer memberID) throws Exception;
 	
 	// 유저의 좋아요 리스트의 플랜 조회
-	public List<PlanVO> userLikeList(Integer memberID) throws Exception;
+	public List<PlanVO> userLikeList(Integer memberID, Criteria cri) throws Exception;
 	
 	// 유저의 팔로우 리스트 조회
 	public List<MemberVO> userFollowList(Integer memberID) throws Exception;

@@ -112,4 +112,9 @@ public class MemberDAOImpl implements MemberDAO {
 	public Integer planCount(Integer memberID) throws Exception {
 		return session.selectOne(namespace + ".planCount", memberID);
 	}
+	
+	@Override
+	public Integer planLikeCount(Integer memberID) throws Exception{
+		return session.selectOne(namespace+".planLikeCount", memberID);
+	}
 }

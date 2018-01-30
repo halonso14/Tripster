@@ -1,11 +1,13 @@
 package com.tripster.service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.tripster.domain.Criteria;
 import com.tripster.domain.FollowVO;
 import com.tripster.domain.LikeVO;
 import com.tripster.domain.MemberVO;
@@ -81,8 +83,8 @@ public class LikeServiceImpl implements LikeService{
 	
 	// 유저 좋아요 리스트의 플랜조회
 	@Override
-	public List<PlanVO> userLikeList(int memberID) throws Exception{
-		return likeDAO.userLikeList(memberID);
+	public List<PlanVO> userLikeList(int memberID, Criteria cri) throws Exception{
+		return likeDAO.userLikeList(memberID, cri);
 	}
 		
 	// 유저의 팔로우 리스트
