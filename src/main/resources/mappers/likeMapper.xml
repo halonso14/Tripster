@@ -93,7 +93,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   from 
   		tbl_Like,tbl_Plan
   where 
-  		tbl_Like.Plan_ID = tbl_Plan.Plan_ID and tbl_Like.Member_ID = #{memberID} 
+  		tbl_Like.Plan_ID = tbl_Plan.Plan_ID and tbl_Like.Member_ID = #{memberID}
+  
+  order by Like_ID desc 
+  
   limit #{cri.startPlan}, #{cri.planPerPage}
   </select>
   
@@ -102,16 +105,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   select 
   		 tbl_Member.Member_ID memberID
   		,tbl_Member.Member_Name memberName
-  		,tbl_Member.Member_Email memberEmail
-  		,tbl_Member.Member_Password memberPassword
-  		,tbl_Member.Member_Birthday memberBirthday
   		,tbl_Member.Member_Picture memberPicture
   from 
   		tbl_Follow,tbl_Member
   
   where 
-  		tbl_Follow.follow_ID = tbl_Member.Member_ID and tbl_Follow.Member_ID=#{memberID};
-  	
+  		tbl_Follow.follow_ID = tbl_Member.Member_ID and tbl_Follow.Member_ID=#{memberID}
+  
   </select>
   
   <!-- 유저의 팔로잉 리스트 조회 -->
@@ -119,12 +119,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   select 
   		 tbl_Member.Member_ID memberID
   		,tbl_Member.Member_Name memberName
-  		,tbl_Member.Member_Email memberEmail
-  		,tbl_Member.Member_Password memberPassword
-  		,tbl_Member.Member_Birthday memberBirthday
   		,tbl_Member.Member_Picture memberPicture
   from 
-  		tbl_Member ,tbl_Follow
+  		tbl_Member,tbl_Follow
   where 
   		tbl_Follow.Member_ID = tbl_Member.Member_ID and tbl_Follow.Follow_ID = #{memberID};
   </select>

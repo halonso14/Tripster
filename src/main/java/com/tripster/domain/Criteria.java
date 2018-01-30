@@ -9,10 +9,13 @@ public class Criteria extends SearchCriteria{
 	
 	private int planPerPage;
 	
+	private int followPerPage;
+	
 	public Criteria() {
 		this.curPage = 1;
 		this.contentsPerPage = 5;
 		this.planPerPage = 9;
+		this.followPerPage = 10;
 	}
 
 	public int getCurPage() {
@@ -53,6 +56,19 @@ public class Criteria extends SearchCriteria{
 		}
 		
 		this.planPerPage = planPerPage;		
+	}
+	
+	public int getFollowPerPage() {
+		return followPerPage;
+	}
+
+	public void setFollowPerPage(int followPerPage) {
+		//유효성 검사
+		if(followPerPage <= 0 || followPerPage > 100) {
+			this.followPerPage = 20;
+		}
+		
+		this.followPerPage = followPerPage;		
 	}
 	
 	//현재 목록의 시작 번호

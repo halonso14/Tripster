@@ -35,9 +35,9 @@ public interface LikeDAO {
 	public List<PlanVO> userLikeList(Integer memberID, Criteria cri) throws Exception;
 	
 	// 유저의 팔로우 리스트 조회
-	public List<MemberVO> userFollowList(Integer memberID) throws Exception;
+	public List<MemberVO> userFollowList(Integer memberID, Criteria cri) throws Exception;
 	
 	// 유저의 팔로잉 리스트 조회
-	public List<MemberVO> userFollowingList(Integer memberID) throws Exception;
+	public List<MemberVO> userFollowingList(Integer memberID, Criteria cri) throws Exception;
 
 }
