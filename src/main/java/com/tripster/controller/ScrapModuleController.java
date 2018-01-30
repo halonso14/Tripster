@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tripster.domain.MemberVO;
 import com.tripster.domain.ScrapVO;
+import com.tripster.service.ContentsService;
 import com.tripster.service.ScrapService;
 
 // 기능 구현 controller
@@ -25,28 +26,31 @@ public class ScrapModuleController {
 	
 	@Inject
 	private ScrapService scrapService;
+	@Inject
+	private ContentsService contentsService;
 	
 	private static final Logger loger = LoggerFactory.getLogger(ScrapModuleController.class);
 
 	// 스크랩 추가 
 	@RequestMapping(value="/scrap/{contentsID}",method=RequestMethod.POST)
-	public ResponseEntity<String> scrap(@PathVariable("contentsID") Integer contentsID,HttpSession session) {
+	public ResponseEntity<Integer> scrap(@PathVariable("contentsID") Integer contentsID,HttpSession session) {
 		
-		ResponseEntity<String> entity = null;
+		ResponseEntity<Integer> entity = null;
 		System.out.println("scrap controller");
 		try {
 			// session의 회원정보 가져오기
 			MemberVO memberVO = (MemberVO) session.getAttribute("login");
 			// id 값을 받아서 스크랩 추가 
 			scrapService.scrap(memberVO.getMemberID(),contentsID);
+			
 			loger.info("scrap success");
-			entity = new ResponseEntity<>("success",HttpStatus.OK);
+			entity = new ResponseEntity<>(contentsService.getScrapCnt(contentsID),HttpStatus.OK);
 			
 			
 		}catch(Exception e){
 			
 			e.printStackTrace();
-			entity = new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			
 		}
 		
@@ -56,9 +60,9 @@ public class ScrapModuleController {
 	
 	// 스크랩 제거 
 	@RequestMapping(value="/scrapDelete/{contentsID}",method=RequestMethod.POST)
-	public ResponseEntity<String> scrapDelete(@PathVariable("contentsID") Integer contentsID,HttpSession session) {
+	public ResponseEntity<Integer> scrapDelete(@PathVariable("contentsID") Integer contentsID,HttpSession session) {
 		
-		ResponseEntity<String> entity = null;
+		ResponseEntity<Integer> entity = null;
 		
 		try {
 			// session의 회원정보 가져오기
@@ -66,12 +70,12 @@ public class ScrapModuleController {
 			// 컨텐츠 스크랩 제거 서비스
 			scrapService.scrapDelete(memberVO.getMemberID(),contentsID);
 			loger.info("scrap remove");
-			entity = new ResponseEntity<>("remove",HttpStatus.OK);
+			entity = new ResponseEntity<>(contentsService.getScrapCnt(contentsID),HttpStatus.OK);
 			
 		}catch(Exception e){
 			
 			e.printStackTrace();
-			entity = new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			
 		}
 		

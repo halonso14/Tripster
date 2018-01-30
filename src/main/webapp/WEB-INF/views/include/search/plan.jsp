@@ -20,7 +20,7 @@
 		<p class="size12 grey ">${esPlanVO.member_name}</p><br>
 		<span class="size11 grey">댓글수</span><br>
 		<span class="size11 grey">${esPlanVO.plan_like_cnt} 좋아요수</span><br>
-		<button class="btn likeButton" onmouseenter="mouseover('${userSession.memberID }',$(this))" value="${esPlanVO.plan_id}" style="width:75px;">좋아요</button>		
+		<button class="btn likeButton" onmouseenter="likemouseover('${userSession.memberID }',$(this))" value="${esPlanVO.plan_id}" style="width:75px;">좋아요</button>		
 		
 		<script>
 			var likebtn = $("button[value="+${esPlanVO.plan_id}+"]");

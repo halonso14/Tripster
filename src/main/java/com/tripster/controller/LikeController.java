@@ -140,7 +140,7 @@ public class LikeController {
 		ResponseEntity<List<MemberVO>> entity = null;
 		
 		try {
-			entity = new ResponseEntity<>(service.userFollowList(memberID),HttpStatus.OK);
+			// entity = new ResponseEntity<>(service.userFollowList(memberID),HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -156,7 +156,7 @@ public class LikeController {
 		ResponseEntity<List<MemberVO>> entity = null;
 		
 		try {
-			entity = new ResponseEntity<>(service.userFollowingList(memberID),HttpStatus.OK);
+			// entity = new ResponseEntity<>(service.userFollowingList(memberID),HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);

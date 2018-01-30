@@ -27,4 +27,7 @@ public interface ContentsService {
 	//컨텐츠 평점
 	public void updateContentsRating(Integer contentsID, double contentsRating) throws Exception;
 	
+	//컨텐츠 스크랩카운트 조회
+	public Integer getScrapCnt(Integer contentsID) throws Exception;
+	
 }

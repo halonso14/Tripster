@@ -164,4 +164,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	Contents_ID = #{contentsID}
   </update>
   
+  <!-- 컨텐츠 스크랩 카운트 조회 -->
+  <select id="getScrapCnt" resultType="Integer">
+  select
+  	Contents_Scrap_Cnt
+  from
+  	tbl_Contents
+  where Contents_ID = #{contentsID}
+  </select>
+  
 </mapper>

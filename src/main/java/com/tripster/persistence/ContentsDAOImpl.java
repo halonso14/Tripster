@@ -93,5 +93,11 @@ public class ContentsDAOImpl implements ContentsDAO{
 		map.put("contentsID",(double)contentsID);
 		map.put("contentsRating", contentsRating);
 		session.insert(namespace+".updateContentsRating",map);
-	}	
+	}
+	
+	//컨텐츠 스크랩 카운트 조회
+	@Override
+	public Integer getScrapCnt(Integer contentsID)throws Exception{
+		return session.selectOne(namespace+".getScrapCnt",contentsID);
+	}
 }

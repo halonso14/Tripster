@@ -1,7 +1,5 @@
 package com.tripster.controller;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -11,10 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.tripster.domain.ContentsVO;
-import com.tripster.domain.ScrapVO;
 import com.tripster.persistence.ContentsDAO;
 import com.tripster.persistence.ScrapDAO;
+import com.tripster.service.ScrapService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/**/*.xml" })
@@ -25,6 +22,8 @@ public class ScrapDAOTest {
 	private ContentsDAO contentsDao;
 	@Inject
 	private ScrapDAO scrapDao;
+	@Inject
+	private ScrapService service;
 	
 	private static Logger loger = LoggerFactory.getLogger(ScrapDAOTest.class);
 	
@@ -60,8 +59,10 @@ public class ScrapDAOTest {
 	@Test
 	public void scrapdelete() throws Exception{
 		
-		scrapDao.scrapDelete(41, 11);
-		
+		//service.scrap(41, 1);
+		service.scrapDelete(1, 41);
+		//scrapDao.scrapDelete(41, 5034);
+		//scrapDao.create(41, 1);
 	}
 
 }

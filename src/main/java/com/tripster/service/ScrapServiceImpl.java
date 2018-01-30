@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tripster.domain.ContentsVO;
 import com.tripster.domain.EsContentsVO;
@@ -19,17 +20,24 @@ public class ScrapServiceImpl implements ScrapService{
 	
 	@Inject
 	private ScrapDAO scrapDao;
+	@Inject
+	private ContentsDAO contentsDao;
 	
 	// 스크랩
+	@Transactional
 	@Override
 	public void scrap(Integer memberID,Integer contentsID)throws Exception{
+		contentsDao.updateScrapCnt(contentsID, 1);
 		scrapDao.create(memberID,contentsID);
 	}
 	
 	// 스크랩 삭제
+	@Transactional
 	@Override
-	public void scrapDelete(Integer contentsID,Integer memberID) throws Exception{
-		scrapDao.scrapDelete(contentsID,memberID);
+	public void scrapDelete(Integer memberID,Integer contentsID) throws Exception{
+		
+		contentsDao.updateScrapCnt(contentsID, -1);
+		scrapDao.scrapDelete(memberID,contentsID);
 	}
 	
 	// 스크랩 리스트 조회
