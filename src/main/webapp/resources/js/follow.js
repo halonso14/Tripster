@@ -1,19 +1,5 @@
 // The rel attribute is the userID you would want to follow
 $(document).ready(function() {
-	// follow 체크 함수
-	function followCheck(followID, $button) {
-
-		$.ajax({
-			type : 'post',
-			url : '/followCheck/' + followID,
-			async : false,
-			success : function(check) {
-				alert("팔로우 체크 변경" + check);
-				followBtn.attr('followBtnCheck', check);
-			}
-		});
-
-	}
 
 	$('button.followButton').on('click', function(e) {
 		e.preventDefault();
@@ -23,21 +9,17 @@ $(document).ready(function() {
 		
 		if ($button.hasClass('following')) {
 
-			$.post('/memberFollowDelete/' + followID, function(result) {
-				alert(result);
-			});
+			$.post('/memberFollowDelete/' + followID);
 
 			$button.removeClass('following');
 			$button.removeClass('unfollow');
-			$button.text('Follow');
+			$button.text('팔로우');
 		} else {
 
-			$.post('/memberFollow/' + followID, function(result) {
-				alert(result);
-			});
+			$.post('/memberFollow/' + followID);
 
 			$button.addClass('following');
-			$button.text('Following');
+			$button.text('팔로잉');
 		}
 	});
 
@@ -45,12 +27,12 @@ $(document).ready(function() {
 		$button = $(this);
 		if ($button.hasClass('following')) {
 			$button.addClass('unfollow');
-			$button.text('Unfollow');
+			$button.text('팔로우 취소');
 		}
 	}, function() {
 		if ($button.hasClass('following')) {
 			$button.removeClass('unfollow');
-			$button.text('Following');
+			$button.text('팔로잉');
 		}
 	});
 });

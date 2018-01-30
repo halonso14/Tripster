@@ -563,10 +563,10 @@ left: 254px;
 										
 									if(this.memberID != data.followChkList[index]){
 										str +=
-											"<button class='btn followButton' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>Follow</button>"
+											"<button class='btn followButton' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>팔로우</button>"
 									} else{
 										str +=
-											"<button class='btn followButton following' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>Following</button>"
+											"<button class='btn followButton following' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>팔로잉</button>"
 									}
 									
 									str += "</div><div class='clearfix'></div></div>";
@@ -635,10 +635,10 @@ left: 254px;
 											
 										if(this.memberID != data.followingChkList[index]){
 											str +=
-												"<button class='btn followButton' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>Follow</button>"
+												"<button class='btn followButton' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>팔로우</button>"
 										} else{
 											str +=
-												"<button class='btn followButton following' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>Following</button>"
+												"<button class='btn followButton following' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>팔로잉</button>"
 										}
 											
 										str += "</div><div class='clearfix'></div></div>";

@@ -116,10 +116,10 @@ response.setHeader("Pragma", "no-cache");
 						<c:forEach items="${followChkList}" var="followChk" varStatus="status">
 							<c:choose>
 								<c:when test='${followChk ne followID}'>
-    								<button class="btn followButton" value="${followID}" rel="6">Follow</button>
+    								<button class="btn followButton" value="${followID}" rel="6">팔로우</button>
 								</c:when>
 								<c:otherwise>
-									<button class="btn followButton following" value="${followID}" rel="6">Following</button>
+									<button class="btn followButton following" value="${followID}" rel="6">팔로잉</button>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>	

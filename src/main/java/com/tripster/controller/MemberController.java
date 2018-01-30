@@ -531,6 +531,26 @@ public class MemberController {
 		model.addAttribute("followCount", followCount);
 		model.addAttribute("followingCount", followingCount);
 		
+		List<Integer> followChkList = new ArrayList<Integer>();
+		
+		Object obj = session.getAttribute("login");
+		//회원 로그인 한 경우 likeChkList, followChkList를 뷰단에 전송
+		try {
+			if(obj != null) {
+				MemberVO memVO = (MemberVO) obj;
+				// 현재 접속중인 회원(memberID 사용중, userID로 대체)
+				Integer userID = memVO.getMemberID();
+				
+				followChkList.add(likeservice.followCheck(userID, memberID));
+				
+				model.addAttribute("followChkList", followChkList);
+				
+			}
+			
+		} catch(Exception e) {
+			
+		}
+		
 		model.addAttribute(service.mypage(memberID));
 		
 	}
