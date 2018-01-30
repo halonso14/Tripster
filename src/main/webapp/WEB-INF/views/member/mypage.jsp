@@ -13,7 +13,7 @@ response.setHeader("Pragma", "no-cache");
   	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>Travel Agency - HTML5 Booking template</title>
+	<title>Tripster - 마이페이지</title>
 	
     <!-- ymum my css-->
     <link rel = "stylesheet" type = "text/css" href ="/resources/css/statistics.css">
@@ -543,12 +543,11 @@ left: 254px;
 					//FollowList를 화면에 뿌려준다.
 					function getFollowList(page){
 					var str = '';
-						$.getJSON("/member/mypage/"+memberID+"/"+page, function(data){
+						$.getJSON("/member/follow/"+memberID+"/"+page, function(data){
 							console.log(data);
 							$(data.followList).each(function(index){
 									str += 
-								"<div class='col-md-6 offset-0'>"
-									;
+								"<div class='col-md-6 offset-0'>";
 										
 									if(this.memberPicture != null){
 										str +=
@@ -564,15 +563,15 @@ left: 254px;
 										
 									if(this.memberID != data.followChkList[index]){
 										str +=
-											"<button class='btn followButton' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>Follow</button>"
+											"<button class='btn followButton' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>팔로우</button>"
 									} else{
 										str +=
-											"<button class='btn followButton following' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>Following</button>"
+											"<button class='btn followButton following' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>팔로잉</button>"
 									}
 									
 									str += "</div><div class='clearfix'></div></div>";
 									 
-									if((index+1)%2 == 0 && index+1 != this.length){
+									if((index+1)%2 == 0 && index+1 != data.followList.length){
 										str +=
 											"<div class='clearfix'></div><div class='offset-2'><hr class='featurette-divider3'></div>";
 									}
@@ -616,7 +615,7 @@ left: 254px;
 					
 					function getFollowingList(page){
 						var str = '';
-							$.getJSON("/member/mypage/"+memberID+"/"+page, function(data){
+							$.getJSON("/member/following/"+memberID+"/"+page, function(data){
 								$(data.followingList).each(function(index){
 										str += 
 									"<div class='col-md-6 offset-0'>"
@@ -636,15 +635,15 @@ left: 254px;
 											
 										if(this.memberID != data.followingChkList[index]){
 											str +=
-												"<button class='btn followButton' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>Follow</button>"
+												"<button class='btn followButton' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>팔로우</button>"
 										} else{
 											str +=
-												"<button class='btn followButton following' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>Following</button>"
+												"<button class='btn followButton following' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>팔로잉</button>"
 										}
 											
 										str += "</div><div class='clearfix'></div></div>";
 										 
-										if((index+1)%2 == 0 && index+1 != this.length){
+										if((index+1)%2 == 0 && index+1 != data.followingList.length){
 											str +=
 												"<div class='clearfix'></div><div class='offset-2'><hr class='featurette-divider3'></div>";
 										}
@@ -715,3 +714,539 @@ left: 254px;
 							<button type="button" class="btn-search5" id="dropBtn" style="float:right" >회원 탈퇴</button>
 							
 							<br/>
+							<br/>
+							<br/>
+							
+						</form>
+						
+						<form id="dropForm" action="dropMember" method="post" style="display:none">
+								<button type="submit" id="delMember">회원 탈퇴</button>
+						</form>	
+							
+						</div>
+					  </div>
+
+					  <!-- END OF TAB 4 -->	
+					  
+					  <!-- TAB 5 -->					  
+					  <div class="tab-pane" id="scrapList">
+				
+						<div class="scrapList padding40">
+						
+							<ul class="nav nav-tabs" id="myTab">
+								<li onclick="scrapList()" class="active"><a data-toggle="tab" href="#restaurant"><span class="reviews"></span><span class="hidetext">Restaurant</span>&nbsp;</a></li>
+								<li onclick="scrapList()" class=""><a data-toggle="tab" href="#place"><span class="maps"></span><span class="hidetext">Place</span>&nbsp;</a></li>
+								<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#preferences"><span class="preferences"></span><span class="hidetext">Preferences</span>&nbsp;</a></li>
+								<li onclick="loadScript()" class=""><a data-toggle="tab" href="#maps"><span class="maps"></span><span class="hidetext">Maps</span>&nbsp;</a></li>
+								<li onclick="mySelectUpdate(); trigerJslider(); trigerJslider2(); trigerJslider3(); trigerJslider4(); trigerJslider5(); trigerJslider6();" class=""><a data-toggle="tab" href="#reviews"><span class="reviews"></span><span class="hidetext">Reviews</span>&nbsp;</a></li>
+								<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#thingstodo"><span class="thingstodo"></span><span class="hidetext">Things to do</span>&nbsp;</a></li>
+			
+							</ul>			
+							
+							<div class="line4" ></div>
+							
+							<div class="col-md-12 offset-0" >
+							
+								<!-- TAB 1 -->				
+								<div id="restaurant" class="tab-pane fade active in">
+								
+									<div class="col-md-5 offset-0" id="scrap1">
+									</div>		
+									
+									<div class="col-md-2 offset-0">
+									</div>
+									
+									<div class="col-md-5 offset-0" id="scrap2">
+									</div>
+									
+								</div>
+								
+								<!-- TAB 2 -->
+								<div id="place" class="tab-pane fade ">
+								    
+								</div>
+								
+								<!-- TAB 3 -->					
+								<div id="preferences" class="tab-pane fade">
+								
+								</div>
+								
+								<!-- TAB 4 -->					
+								<div id="maps" class="tab-pane fade">
+									
+								</div>
+								
+								<!-- TAB 5 -->					
+								<div id="reviews" class="tab-pane fade ">
+								
+								</div>
+								
+								<!-- TAB 6 -->					
+								<div id="thingstodo" class="tab-pane fade">
+								
+								</div>
+								
+								<!-- 맛집 스크랩 리스트 -->
+								<script id="restaurantTemplate" type="text/x-handlebars-template">
+										
+									<div>
+										<div class="col-md-9 offset-0">
+											<input type="hidden" id="scrapID" value="{{scrapID}}">
+											<img alt="" class="left mr20" src="{{thumbnail}}" style="width:100px;,height:auto;">
+											
+											<a class="dark" href="/contents/1/{{contentsID}}"><b>{{title}}</b></a> /
+											<span class="dark size12"> 뭐 넣을까 </span><br>
+											<span class="opensans green bold size14">맛집</span> <span class="grey">{{category}}</span><br>
+											
+											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
+
+										</div>
+										<div class="col-md-3 offset-0">
+											<button class="close mr20 mt10" value="{{scrapID}}" onclick="scrapDelete(this)">×</button>
+										</div>
+										<div class="clearfix"></div>
+										<div class="line2"></div>
+									</div>
+
+								</script>	
+								<script>
+								
+									// 스크랩 리스트 불러오기
+									function scrapList(){
+										
+										$.getJSON('/scraplist',function(data){
+											
+											var str1 = "";
+											var str2 = "";
+											function getData(list){
+												var scrapData = {
+														scrapID : list.scrapID,
+													    category : list.categoryID,
+													    title : list.contentsTitle,
+													    thumbnail : list.contentsPhoto,
+													    contentsID : list.contentsID
+												}
+												return scrapData;
+											}
+											
+											$(data).each(function(i,list){
+												var source = $("#restaurantTemplate").html();
+												var template = Handlebars.compile(source);
+												
+												if(list.categoryID == 1){
+													if(i%2 == 1){
+														str1 += template(getData(list));
+													}else{
+														str2 += template(getData(list));
+													}
+												}else{
+													if(i%2 == 1){
+														str1 += template(getData(list));
+													}else{
+														str2 += template(getData(list));
+													}
+												}
+												
+											 });
+											 
+											 $("#scrap1").html(str1);
+											 $("#scrap2").html(str2);
+											
+										});
+										
+									}
+									
+									// 스크랩 삭제
+									function scrapDelete(data){
+										var scrapID = data.value;
+										$.post("/scrapIDremove/"+scrapID,function(data){
+											alert(data);
+											scrapList();
+										})
+									}
+									
+								</script>
+								
+									
+							</div>
+						</div>
+
+					  </div>
+					  <!-- END OF TAB 5 -->	
+					  
+					  <!-- TAB 6 -->
+					  <div class="tab-pane" id="password">
+						<div class="padding40">
+						
+					  	<form id="chkPassword" action="changePassword" method="post">					  
+							<span class="dark size18">비밀번호 변경</span>
+							<div class="line4"></div>
+							
+							<br/>
+							기존 비밀번호<br/>
+							<input type="password" class="form-control " name="curMemberPassword" id="curMemberPassword" placeholder="기존 비밀번호">
+							<br/>
+							새 비밀번호<br/>
+							<input type="password" class="form-control " name="memberPassword" id="memberPassword" placeholder="새 비밀번호">
+							<br/>
+							새 비밀번호 확인<br/>
+							<input type="password" class="form-control " name="memberPasswordChk" id="memberPasswordChk" placeholder="새 비밀번호 확인">
+							<br/>
+							<button type="submit" class="btn-search5">비밀번호 변경</button>
+							
+							<br/>
+							<br/>
+							<br/>
+							
+					  	</form>
+						</div>
+					  </div>
+
+		
+					  <!-- END OF TAB 7 -->	
+					<div class="tab-pane" id="plan" style="padding: 20px 50px;">
+						<div class="padding40 dark">
+							<ul class="nav nav-tabs myTab2pos" id="myTab">
+								<li onclick=""class="active"><a data-toggle="tab" href="#myplan"><span class="reviews"></span><span class="hidetext">내가 등록한 일정 목록</span>&nbsp;</a></li>
+								<li onclick="getLikePlanList(1);" class=""><a data-toggle="tab" href="#likePlan"><span class="reviews"></span><span class="hidetext">나의 관심 일정 목록</span>&nbsp;</a></li>
+							</ul>
+							<div class="tab-content6">
+									<!-- TAB 1 -->				
+									<div id="myplan" class="tab-pane fade active in">
+										<span class="lblue size18">${memberVO.memberName}</span> <span
+									class="dark size18">님이 등록한 일정</span>
+										<div class="line4"></div>
+										
+											<div id="planList">
+											</div>
+											
+											<div class="clearfix"></div>
+											<div class="offset-2">
+												<hr class="featurette-divider3">
+											</div>
+											<ul class="pagination right paddingbtm20" id="pagination1">
+							   				</ul>
+									</div>
+									
+									<!-- TAB 2  -->
+									<div id="likePlan" class="tab-pane fade ">
+										<span class="lblue size18">${memberVO.memberName}</span> <span
+									class="dark size18">님의 관심 일정</span>
+										<div class="line4"></div>
+										<div id="likePlanList">
+											</div>
+											
+											<div class="clearfix"></div>
+											<div class="offset-2">
+												<hr class="featurette-divider3">
+											</div>
+											<ul class="pagination right paddingbtm20" id="pagination2">
+							   				</ul>
+									</div>
+							   </div>
+
+					   </div>
+					</div>
+						<!-- Counter  -->
+					<script src="/resources/assets/js/counter.js"></script>
+					<script src="/resources/assets/js/js-list.js"></script>
+					<script src="/resources/js/like.js"></script>
+					<script>
+					
+					var memberID = ${memberVO.memberID};
+					
+					getPageList(1);
+					
+					//plan을 화면에 뿌려준다.
+					function getPageList(page){
+					var str = '';
+						$.getJSON("/member/myplan/"+memberID+"/"+page, function(data){
+							$(data.list).each(function(index){
+									str += 
+								"<div class='col-md-4'>"
+									+"<div class='listitem' style='width:243.7px;'>";
+										
+									if(this.pictureName != ""){
+										str +=
+											"<img src='/displayFile?fileName="+this.pictureName+"&directory=plan'alt='' />";
+									} else{
+										str +=
+											"<img src='' alt='' />";
+									}
+										
+									str +=
+										"<div class='liover'></div>";
+											
+									if(data.likeChkList[index] != 1){
+										str +=
+											"<a id='likeBtn' class='fav-icon like' href='javascript:void(0)' onclick='likeClick("+memberID+",$(this));' value=" +this.planID+ " likeBtnCheck='0'></a>"
+									} else{
+										str +=
+											"<a id='likeBtn' class='fav-icon-red like' onclick='likeClick("+memberID+",$(this));' value=" +this.planID+ " likeBtnCheck='1'></a>"
+									}
+											
+									str +=
+										"<a class='book-icon' href='/plan/read?planID="+this.planID+"'></a>"
+									+"</div>"
+									+"<div class='itemlabel' style='text-align: center;'>"
+										+"<a href='/plan/read?planID="+this.planID+"'><b>"+this.planTitle+"</b></a><br />"
+									 
+									 if(this.planEndChk != 1){
+										 str += "<button class='btn followButton' value='"+this.planID+"' onmouseover='mouseover($(this));'>미완료</button>"
+										+"</div>"
+									+"</div>";
+									 }else{
+										str += "<button class='btn followButton following' value='"+this.planID+"'  onmouseover='mouseover($(this));'>완료</button>"
+										+"</div>"
+									+"</div>";
+									 }	
+									
+									if((index+1)%3 == 0 && index+1 != data.list.length){
+										str +=
+											"<div class='clearfix'></div><div class='offset-2'><hr class='featurette-divider3'></div>";
+									}
+								
+								
+								})
+									
+							$("#planList").html(str);
+							printPaging(data.pageMaker);
+							StartAnime2();
+						})
+						
+					}
+					
+						//page 뿌려주는 함수.
+					function printPaging(pageMaker) {
+						var str = "";
+						if (pageMaker.prev) {
+							str += "<li><a href='" + (pageMaker.startPage - 1)
+									+ "'> << </a></li>";
+						}
+						for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
+							var strClass = pageMaker.cri.curPage == i ? 'class=active' : '';
+							str += "<li "+strClass+"><a href='"+i+"'>" + i + "</a></li>";
+						}
+						if (pageMaker.next) {
+							str += "<li><a href='" + (pageMaker.endPage + 1)
+									+ "'> >> </a></li>";
+						}
+						$('#pagination1').html(str);
+					}
+					var replyPage = 1;
+					
+					$("#pagination1").on("click", "li a", function(event) {
+						event.preventDefault();
+						replyPage = $(this).attr("href");
+						getPageList(replyPage);
+					});
+					
+					
+					
+					
+					function getLikePlanList(page){
+						var str = '';
+							$.getJSON("/member/likeplan/"+memberID+"/"+page, function(data){
+								$(data.likeList).each(function(index){
+										str += 
+									"<div class='col-md-4'>"
+										+"<div class='listitem' style='width:243.7px;'>";
+											
+										if(this.pictureName != ""){
+											str +=
+												"<img src='/displayFile?fileName="+this.pictureName+"&directory=plan'alt='' />";
+										} else{
+											str +=
+												"<img src='' alt='' />";
+										}
+											
+										str +=
+											"<div class='liover'></div>";
+												
+										if(data.likePlanList[index] != 1){
+											str +=
+												"<a id='likeBtn' class='fav-icon like' href='javascript:void(0)' onclick='likeClick("+memberID+",$(this));' value=" +this.planID+ " likeBtnCheck='0'></a>"
+										} else{
+											str +=
+												"<a id='likeBtn' class='fav-icon-red like' onclick='likeClick("+memberID+",$(this));' value=" +this.planID+ " likeBtnCheck='1'></a>"
+										}
+												
+										str +=
+											"<a class='book-icon' href='/plan/read?planID="+this.planID+"'></a>"
+										+"</div>"
+										+"<div class='itemlabel' style='text-align: center;'>"
+											+"<a href='/plan/read?planID="+this.planID+"'><b>"+this.planTitle+"</b></a><br /></div></div>"
+										 
+										 /* if(this.planEndChk != 1){
+											 str += "<button class='btn followButton' value='"+this.planID+"' onmouseover='mouseover($(this));'>미완료</button>"
+											+"</div>"
+										+"</div>";
+										 }else{
+											 console.log("1");
+											str += "<button class='btn followButton following' value='"+this.planID+"'  onmouseover='mouseover($(this));'>완료</button>"
+											+"</div>"
+										+"</div>";
+										 }	 */
+										
+										if((index+1)%3 == 0 && index+1 != data.likeList.length){
+											str +=
+												"<div class='clearfix'></div><div class='offset-2'><hr class='featurette-divider3'></div>";
+										}
+									
+									
+									})
+										
+								$("#likePlanList").html(str);
+								printLikePaging(data.pageMaker2);
+								StartAnime2();
+							})
+							
+						}
+						
+							//page 뿌려주는 함수.
+						function printLikePaging(pageMaker) {
+							var str = "";
+							if (pageMaker.prev) {
+								str += "<li><a href='" + (pageMaker.startPage - 1)
+										+ "'> << </a></li>";
+							}
+							for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
+								var strClass = pageMaker.cri.curPage == i ? 'class=active' : '';
+								str += "<li "+strClass+"><a href='"+i+"'>" + i + "</a></li>";
+							}
+							if (pageMaker.next) {
+								str += "<li><a href='" + (pageMaker.endPage + 1)
+										+ "'> >> </a></li>";
+							}
+							$('#pagination2').html(str);
+						}
+						var replyPage = 1;
+						
+						$("#pagination2").on("click", "li a", function(event) {
+							event.preventDefault();
+							replyPage = $(this).attr("href");
+							getLikePlanList(replyPage);
+						});
+					
+					</script>
+					  <!-- END OF TAB 7 -->	
+					  
+					</div>
+					<!-- End of Tab panes from left menu -->	
+					
+				</div>
+				<!-- END OF RIGHT CPNTENT -->
+			
+			<div class="clearfix"></div><br/><br/>
+			</div>
+			<!-- END CONTENT -->			
+			
+
+			
+		</div>
+		
+		
+	</div>
+	<!-- END OF CONTENT -->
+	
+	<%@include file="/WEB-INF/views/include/footer.jsp" %>
+	
+	
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="/resources/js/additional-methods.min.js"></script>
+	<script type="text/javascript" src="/resources/js/messages_ko.min.js"></script>
+    <!-- ymmu my js-->
+    <script type="text/javascript" src="/resources/slick-1.8.0/slick/slick.min.js"></script>
+	<!-- ymmu my js-->
+	<!-- pie charts -->
+
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2hKi_ABEp2xZW6gQfjYyPaVA1Kddub6k" defer ></script>	<!-- &callback=initGoogleMap -->
+
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="https://www.amcharts.com/lib/3/pie.js"></script>
+    <!-- radar -->
+    <script src="https://www.amcharts.com/lib/3/radar.js"></script>
+    <!--myplan chart -->
+    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+    <script src="https://www.amcharts.com/lib/3/ammap.js"></script>
+    <script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+    <script src="https://www.amcharts.com/lib/3/themes/none.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/resources/dist/js/bootstrap.min.js"></script>
+    <script src="/resources/bootstrap-table/dist/bootstrap-table.js"></script>
+	<!-- put your locale files after bootstrap-table.js -->
+	<script src="/resources/bootstrap-table/dist/locale/bootstrap-table-ko-KR.js"></script>
+    <!-- ymmu my statistacs.js-->
+    <script src="/resources/js/statistics.js" type="text/javascript"></script>
+    <!-- 상윤것 script 분리시킴 mypage.js-->
+    <script src="/resources/js/mypage.js" type="text/javascript"></script>
+    <!-- 핸들바 라이브러리 -->
+	<script src="https:cdnjs.cloudflare.com/ajax/Libs/handlebars.js/3.0.1/handlebars.js"></script>
+<!--  
+    <script src="/resources/js/recommand.js" type="text/javascript"></script>
+    
+ -->
+	<!-- ymmu recommand.js--><!-- Google includes -->
+	
+	<!-- 특정 탭으로 연결 -->
+<!--  <script>
+$(window).load(function(){
+    var hash= window.location.hash;
+        if(hash.length > 0 ) {
+            $('a[role="tab"]').parent().removeClass('active');//remove the default active tab
+            $('a[href="'+hash+'"]').parent().addClass('active');
+            $('.tab-pane').removeClass('active');
+            $(hash).addClass('active');
+         }
+  });
+</script> -->
+	
+
+	
+	
+	<!-- Javascript  -->
+	<script src="/resources/assets/js/js-profile.js"></script>
+	
+    <!-- Nicescroll  -->	
+	<script src="/resources/assets/js/jquery.nicescroll.min.js"></script>
+	
+    <!-- Custom functions -->
+    <script src="/resources/assets/js/functions.js"></script>
+	
+	<script src="/resources/js/endChk.js"></script>
+	<script src="/resources/js/followChk.js"></script>
+	
+    <!-- Custom Select -->
+	<script src='/resources/assets/js/jquery.customSelect.js' type='text/javascript' ></script>
+	
+	<!-- Load Animo -->
+	<script src="/resources/plugins/animo/animo.js"></script>
+
+    <!-- Picker -->	
+	<script src="/resources/assets/js/jquery-ui.js"></script>	
+
+    <!-- Picker -->	
+    <script src="/resources/assets/js/jquery.easing.js"></script>	
+	
+	<!-- plan 일정 삭제 후 tab이동.  -->
+	<script >
+	 $(document).ready(function(){
+			var planDeleteChk = "<%=request.getParameter("plan_delete")%>";
+			var planChk = "<%=request.getParameter("planTab")%>";
+			console.log(planDeleteChk);
+		    if(planDeleteChk == "OK"){
+	    			alert("일정이 삭제되었습니다.");
+	    			$('.nav a[href="#plan"]').tab('show');
+	    				
+	    		}
+		    if(planChk =="active"){
+		    		$('.nav a[href="#plan"]').tab('show');
+		    }
+	 });
+	</script>
+  </body>
+</html>

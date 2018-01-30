@@ -5,8 +5,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,8 +23,6 @@ public class LikeController {
 	@Inject
 	LikeService service;
 	
-	private static final Logger loger = LoggerFactory.getLogger(ScrapModuleController.class);
-
 	// 좋아요 추가
 	@RequestMapping(value="/like/{planID}",method=RequestMethod.POST)
 	public ResponseEntity<String> like(@PathVariable("planID")Integer planID,HttpSession session ){
@@ -135,12 +131,12 @@ public class LikeController {
 	
 	// 유저의 팔로우 리스트 조회
 	@RequestMapping(value="/userFollowList/{memberID}")
-	public ResponseEntity<List<MemberVO>> userFollowList(@PathVariable("memberID") Integer memberID){
+	public ResponseEntity<List<MemberVO>> userFollowList(@PathVariable("memberID") Integer memberID, Criteria cri){
 		
 		ResponseEntity<List<MemberVO>> entity = null;
 		
 		try {
-			entity = new ResponseEntity<>(service.userFollowList(memberID),HttpStatus.OK);
+			entity = new ResponseEntity<>(service.userFollowList(memberID, cri),HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -151,65 +147,18 @@ public class LikeController {
 	
 	// 유저의 팔로잉 리스트 조회
 	@RequestMapping(value="/userFollowingList/{memberID}")
-	public ResponseEntity<List<MemberVO>> userFollowingList(@PathVariable("memberID") Integer memberID){
+	public ResponseEntity<List<MemberVO>> userFollowingList(@PathVariable("memberID") Integer memberID, Criteria cri){
 		
 		ResponseEntity<List<MemberVO>> entity = null;
 		
 		try {
-			entity = new ResponseEntity<>(service.userFollowingList(memberID),HttpStatus.OK);
+			entity = new ResponseEntity<>(service.userFollowingList(memberID, cri),HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
 		return entity;
-	}
-	
-	// 좋아요 체크
-	@RequestMapping(value="/likeCheck/{planID}",method=RequestMethod.POST)
-	public ResponseEntity<Integer> likeCheck (@PathVariable("planID") Integer planID,HttpSession session) {
-		
-		ResponseEntity<Integer> entity = null;
-		// 접속중인 회원
-		MemberVO memberVO = (MemberVO) session.getAttribute("login"); 
-		Integer memberID = memberVO.getMemberID();
-		
-		try {
-			Integer check = service.likeCheck(planID, memberID);
-			entity = new ResponseEntity<>(check,HttpStatus.OK);
-		}catch(Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		
-		return entity;
-		
-	}
-	
-	// 팔로우 체크
-	@RequestMapping(value="/followCheck/{followID}",method=RequestMethod.POST)
-	public ResponseEntity<Integer> followCheck (@PathVariable("followID") Integer followID,HttpSession session) {
-		
-		ResponseEntity<Integer> entity = null;
-		
-		// 접속중인 회원 아이디
-		MemberVO memberVO = (MemberVO) session.getAttribute("login"); 
-		Integer memberID = memberVO.getMemberID();
-		
-		try {
-			
-			Integer check = service.followCheck(followID, memberID);
-			entity = new ResponseEntity<>(check,HttpStatus.OK);
-			
-		}catch(Exception e) {
-			
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			
-		}
-		
-		return entity;
-		
 	}
 	
 }
