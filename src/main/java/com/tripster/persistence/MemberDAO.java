@@ -40,4 +40,8 @@ public interface MemberDAO {
 	public Integer planCount(Integer memberID) throws Exception;
 	
 	public Integer planLikeCount(Integer memberID) throws Exception;
+	
+	public Integer followCount(Integer memberID) throws Exception;
+	
+	public Integer followingCount(Integer memberID) throws Exception;
 }

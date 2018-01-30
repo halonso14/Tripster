@@ -28,7 +28,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 import com.tripster.domain.Criteria;
-import com.tripster.domain.FollowVO;
 import com.tripster.domain.MemberVO;
 import com.tripster.domain.PageMaker;
 import com.tripster.domain.PlanDetailVO;
@@ -234,8 +233,12 @@ public class MemberController {
 			
 			PageMaker pageMaker = new PageMaker();
 			PageMaker pageMaker2 = new PageMaker();
+			PageMaker pageMaker3 = new PageMaker();
+			PageMaker pageMaker4 = new PageMaker();
 			pageMaker.setCri(cri);
 			pageMaker2.setCri(cri);
+			pageMaker3.setCri(cri);
+			pageMaker4.setCri(cri);
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			List<PlanVO> list = planservice.myPlan(memberID, cri);
@@ -248,14 +251,21 @@ public class MemberController {
 			pageMaker.setPlanCount(planCount);
 			int planLikeCount = service.planLikeCount(memberID);
 			pageMaker2.setPlanCount(planLikeCount);
+			int followCount = service.followCount(memberID);
+			pageMaker3.setFollowCount(followCount);
+			int followingCount = service.followingCount(memberID);
+			pageMaker4.setFollowCount(followingCount);
 			
-			System.out.println("ddd"+likeList.size());
 			map.put("pageMaker", pageMaker);
 			map.put("pageMaker2", pageMaker2);
+			map.put("pageMaker3", pageMaker3);
+			map.put("pageMaker4", pageMaker4);
 			
 			List<Integer> likeChkList = new ArrayList<Integer>();
-			List<FollowVO> followList = new ArrayList<FollowVO>();
 			List<Integer> likePlanList = new ArrayList<Integer>();
+			List<MemberVO> followList = new ArrayList<MemberVO>();
+			List<MemberVO> followingList = new ArrayList<MemberVO>();
+			
 			Object obj = session.getAttribute("login");
 			try {
 				if(obj != null) {
@@ -267,7 +277,8 @@ public class MemberController {
 						likeChkList.add(likeservice.likeCheck(list.get(i).getPlanID(), userID));
 					}
 					
-					followList = likeservice.followList(userID);
+					followList = likeservice.userFollowList(userID, cri);
+					followingList = likeservice.userFollowingList(userID, cri);
 					
 				} else {
 					for(int i=0; i<list.size();i++) {
@@ -283,6 +294,7 @@ public class MemberController {
 				map.put("likePlanList", likePlanList);
 				map.put("likeChkList", likeChkList);
 				map.put("followList", followList);
+				map.put("followingList", followingList);
 				
 			} catch(Exception e) {
 				

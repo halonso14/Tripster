@@ -229,5 +229,15 @@ public class MemberServiceImpl implements MemberService {
 	public Integer planLikeCount(Integer memberID) throws Exception{
 		return dao.planLikeCount(memberID);
 	}
+	
+	@Override
+	public Integer followCount(Integer memberID) throws Exception{
+		return dao.followCount(memberID);
+	}
+	
+	@Override
+	public Integer followingCount(Integer memberID) throws Exception{
+		return dao.followingCount(memberID);
+	}
 
 }

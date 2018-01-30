@@ -142,12 +142,27 @@
 	where Member_ID = #{memberID}
 	</select>
 	
+	<!-- 회원이 좋아요 한 plan갯수 카운트 -->
 	<select id="planLikeCount" resultType="int">
 	select count(Plan_ID)
 	from 
   		tbl_Like
   	where 
   		tbl_Like.Member_ID = #{memberID} 
+	</select>
+	
+	<!-- 회원이 팔로우 한 회원 수 카운트 -->
+	<select id = "followCount" resultType = "int">
+	select count(Member_ID)
+	from tbl_Follow
+	where tbl_Follow.Member_ID = #{memberID}
+	</select>
+	
+	<!-- 회원을 팔로우 한 회원 수 카운트 -->
+	<select id = "followingCount" resultType ="int">
+	select count(Member_ID)
+	from tbl_Follow
+	where tbl_Follow.Follow_ID = #{memberID}
 	</select>
 	
 </mapper>

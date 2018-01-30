@@ -99,14 +99,26 @@ public class LikeDAOImpl implements LikeDAO {
 
 	// 유저의 팔로우 리스트 조회
 	@Override
-	public List<MemberVO> userFollowList(Integer memberID) throws Exception {
-		return session.selectList(namespace + ".userFollowList", memberID);
+	public List<MemberVO> userFollowList(Integer memberID, Criteria cri) throws Exception {
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		
+		paramMap.put("memberID", memberID);
+		paramMap.put("cri", cri);
+		
+		return session.selectList(namespace + ".userFollowList", paramMap);
 	}
 
 	// 유저의 팔로잉 리스트 조회
 	@Override
-	public List<MemberVO> userFollowingList(Integer memberID) throws Exception {
-		return session.selectList(namespace + ".userFollowingList", memberID);
+	public List<MemberVO> userFollowingList(Integer memberID, Criteria cri) throws Exception {
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		
+		paramMap.put("memberID", memberID);
+		paramMap.put("cri", cri);
+		
+		return session.selectList(namespace + ".userFollowingList", paramMap);
 
 	}
 
