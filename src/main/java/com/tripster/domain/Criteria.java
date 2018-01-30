@@ -1,7 +1,7 @@
 package com.tripster.domain;
 
 //페이지에 표시되는 컨텐츠 리스트 관리 클래스
-public class Criteria {
+public class Criteria extends SearchCriteria{
 	//현재 페이지 번호
 	private int curPage;
 	//페이지 당 컨텐츠 수

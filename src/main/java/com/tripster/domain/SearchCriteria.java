@@ -1,8 +1,7 @@
 package com.tripster.domain;
 
 import java.util.*;
-import com.tripster.domain.EsSearchResultVO;
-public class SearchCriteria {
+public class SearchCriteria{
 
 	private int page; //현재 조회하는 페이지의 번호.
 	private int perPageNum; //한 페이지당 출력하는 데이터의 개수.
