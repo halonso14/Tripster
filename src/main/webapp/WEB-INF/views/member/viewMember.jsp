@@ -137,10 +137,10 @@ response.setHeader("Pragma", "no-cache");
 									id="numPlans">${planCount}</span><br />
 								<span class="size12">Plans</span></td>
 								<td class="center" style="width:33%"><span class="size30 slim lh4"
-									id="totalDays">1</span><br />
+									id="totalDays">${followCount}</span><br />
 								<span class="size12">Followers</span></td>
 								<td class="center" style="width:33%"><span class="size30 slim lh4"
-									id="numCountries">1</span><br />
+									id="numCountries">${followingCount}</span><br />
 								<span class="size12">Follows</span></td>
 							</tr>
 							<!-- ymmu data -->
@@ -191,7 +191,6 @@ response.setHeader("Pragma", "no-cache");
 	
 	var memberID = ${memberVO.memberID};
 	var session = "${session.memberID}";
-	var pictureID = ${pictureID};
 	var likeChkList = '';
 
 	getPageList(1);
@@ -207,9 +206,9 @@ response.setHeader("Pragma", "no-cache");
 				"<div class='col-md-4'>"
 					+"<div class='listitem'>";
 						
-					if(pictureID[index] != ""){
+					if(this.pictureName != ""){
 						str +=
-							"<img src='/displayFile?fileName="+pictureID[index]+"&directory=plan' alt='' />";
+							"<img src='/displayFile?fileName="+this.pictureName+"&directory=plan' alt='' />";
 					} else{
 						str +=
 							"<img src='' alt='' />";

@@ -184,8 +184,8 @@ public class MemberController {
 		model.addAttribute(service.mypage(memberID));
 	}
 	
-	@RequestMapping(value = "/mypage/{memberID}/{page}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-	public ResponseEntity<Map<String, Object>> myPlan(@PathVariable("memberID") Integer memberID,
+	@RequestMapping(value = "/myplan/{memberID}/{page}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public ResponseEntity<Map<String, Object>> myplan(@PathVariable("memberID") Integer memberID,
 														 @PathVariable("page") Integer page, HttpSession session){
 		ResponseEntity<Map<String, Object>> entity = null;
 		
@@ -194,17 +194,10 @@ public class MemberController {
 			cri.setCurPage(page);
 			
 			PageMaker pageMaker = new PageMaker();
-			PageMaker pageMaker2 = new PageMaker();
-			PageMaker pageMaker3 = new PageMaker();
-			PageMaker pageMaker4 = new PageMaker();
 			pageMaker.setCri(cri);
-			pageMaker2.setCri(cri);
-			pageMaker3.setCri(cri);
-			pageMaker4.setCri(cri);
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			List<PlanVO> list = planservice.myPlan(memberID, cri);
-			List<PlanVO> likeList = likeservice.userLikeList(memberID, cri);
 			
 			//내가 작성한 plan 사진
 			for(int i=0;i<list.size();i++) {
@@ -229,6 +222,64 @@ public class MemberController {
 				if(picName.equals("false")) list.get(i).setPictureName("");
 			}
 			
+
+			map.put("list", list);
+			
+			int planCount = service.planCount(memberID);
+			pageMaker.setPlanCount(planCount);
+	
+			map.put("pageMaker", pageMaker);
+			
+			List<Integer> likeChkList = new ArrayList<Integer>();
+			
+			Object obj = session.getAttribute("login");
+			try {
+				if(obj != null) {
+					MemberVO memVO = (MemberVO) obj;
+					// 현재 접속중인 회원(memberID 사용중, userID로 대체)
+					Integer userID = memVO.getMemberID();
+					
+					for(int i=0;i<list.size();i++) {
+						likeChkList.add(likeservice.likeCheck(list.get(i).getPlanID(), userID));
+					}
+					
+				} else {
+					for(int i=0; i<list.size();i++) {
+						likeChkList.add(0);
+					}
+					
+				}
+				
+				map.put("likeChkList", likeChkList);
+				
+			} catch(Exception e) {
+				
+			}
+			
+			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value = "/likeplan/{memberID}/{page}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public ResponseEntity<Map<String, Object>> likeplan(@PathVariable("memberID") Integer memberID,
+														 @PathVariable("page") Integer page, HttpSession session){
+		ResponseEntity<Map<String, Object>> entity = null;
+		
+		try {
+			Criteria cri = new Criteria();
+			cri.setCurPage(page);
+			
+			PageMaker pageMaker2 = new PageMaker();
+			pageMaker2.setCri(cri);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			List<PlanVO> likeList = likeservice.userLikeList(memberID, cri);
+			
 			//내가 좋아요 누른 plan 사진
 			for(int i=0;i<likeList.size();i++) {
 				String picName = "false";
@@ -252,28 +303,55 @@ public class MemberController {
 				if(picName.equals("false")) likeList.get(i).setPictureName("");
 			}
 			map.put("likeList", likeList);
-			map.put("list", list);
 			
-			int planCount = service.planCount(memberID);
-			pageMaker.setPlanCount(planCount);
 			int planLikeCount = service.planLikeCount(memberID);
 			pageMaker2.setPlanCount(planLikeCount);
+			
+			map.put("pageMaker2", pageMaker2);
+			
+			List<Integer> likePlanList = new ArrayList<Integer>();
+			
+			try {
+				for(int i=0;i<likeList.size();i++) {
+					likePlanList.add(1);
+				}
+				
+				map.put("likePlanList", likePlanList);
+				
+			} catch(Exception e) {
+				
+			}
+			
+			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value = "/follow/{memberID}/{page}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public ResponseEntity<Map<String, Object>> follow(@PathVariable("memberID") Integer memberID,
+														 @PathVariable("page") Integer page, HttpSession session){
+		ResponseEntity<Map<String, Object>> entity = null;
+		
+		try {
+			Criteria cri = new Criteria();
+			cri.setCurPage(page);
+			
+			PageMaker pageMaker3 = new PageMaker();
+			pageMaker3.setCri(cri);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+
 			int followCount = service.followCount(memberID);
 			pageMaker3.setFollowCount(followCount);
-			int followingCount = service.followingCount(memberID);
-			pageMaker4.setFollowCount(followingCount);
 			
-			map.put("pageMaker", pageMaker);
-			map.put("pageMaker2", pageMaker2);
 			map.put("pageMaker3", pageMaker3);
-			map.put("pageMaker4", pageMaker4);
 			
-			List<Integer> likeChkList = new ArrayList<Integer>();
-			List<Integer> likePlanList = new ArrayList<Integer>();
 			List<Integer> followChkList = new ArrayList<Integer>();
-			List<Integer> followingChkList = new ArrayList<Integer>();
 			List<MemberVO> followList = new ArrayList<MemberVO>();
-			List<MemberVO> followingList = new ArrayList<MemberVO>();
 			
 			Object obj = session.getAttribute("login");
 			try {
@@ -283,44 +361,66 @@ public class MemberController {
 					Integer userID = memVO.getMemberID();
 					
 					followList = likeservice.userFollowList(userID, cri);
-					followingList = likeservice.userFollowingList(userID, cri);
-					
-					for(int i=0;i<list.size();i++) {
-						likeChkList.add(likeservice.likeCheck(list.get(i).getPlanID(), userID));
-					}
 					
 					for(int i=0;i<followList.size();i++) {
 						followChkList.add(likeservice.followCheck(userID, followList.get(i).getMemberID()));
 					}
+				}
+				
+				map.put("followChkList", followChkList);
+				map.put("followList", followList);
+				
+			} catch(Exception e) {
+				
+			}
+			
+			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value = "/following/{memberID}/{page}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public ResponseEntity<Map<String, Object>> following(@PathVariable("memberID") Integer memberID,
+														 @PathVariable("page") Integer page, HttpSession session){
+		ResponseEntity<Map<String, Object>> entity = null;
+		
+		try {
+			Criteria cri = new Criteria();
+			cri.setCurPage(page);
+			
+			PageMaker pageMaker4 = new PageMaker();
+			pageMaker4.setCri(cri);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+
+			int followingCount = service.followingCount(memberID);
+			pageMaker4.setFollowCount(followingCount);
+			
+			map.put("pageMaker4", pageMaker4);
+			
+			List<Integer> followingChkList = new ArrayList<Integer>();
+			List<MemberVO> followingList = new ArrayList<MemberVO>();
+			
+			Object obj = session.getAttribute("login");
+			try {
+				if(obj != null) {
+					MemberVO memVO = (MemberVO) obj;
+					// 현재 접속중인 회원(memberID 사용중, userID로 대체)
+					Integer userID = memVO.getMemberID();
+					
+					followingList = likeservice.userFollowingList(userID, cri);
 					
 					for(int i=0;i<followingList.size();i++) {
 						followingChkList.add(likeservice.followCheck(userID, followingList.get(i).getMemberID()));
 					}
 					
-				} else {
-					for(int i=0; i<list.size();i++) {
-						likeChkList.add(0);
-					}
-					
-//					for(int i=0; i<followList.size();i++) {
-//						followChkList.add(0);
-//					}
-//					
-//					for(int i=0; i<followingList.size();i++) {
-//						followingChkList.add(0);
-//					}
-					
 				}
 				
-				for(int i=0;i<likeList.size();i++) {
-					likePlanList.add(1);
-				}
-				
-				map.put("likePlanList", likePlanList);
-				map.put("likeChkList", likeChkList);
-				map.put("followChkList", followChkList);
 				map.put("followingChkList", followingChkList);
-				map.put("followList", followList);
 				map.put("followingList", followingList);
 				
 			} catch(Exception e) {
@@ -423,63 +523,14 @@ public class MemberController {
 	@RequestMapping(value = "/viewMember", method = RequestMethod.GET)
 	public void viewMember(@RequestParam("memberID") int memberID, HttpSession session, Model model)throws Exception{
 		
-		Criteria cri = new Criteria();
-		List<String> picList = new ArrayList<String>();
-		List<Integer> likeChkList = new ArrayList<Integer>();
-		List<Integer> followChkList = new ArrayList<Integer>();
-		List<PlanVO> vo = planservice.myPlan(memberID, cri);
 		int planCount = service.planCount(memberID);
-		
-		for(int i=0;i<vo.size();i++) {
-			String picName = "false";
-			//planDetailVO가 한개라도 있을 경우
-			if(vo.get(i).getPlanDetailVO() != null ) {
-				for(int j=0; j<vo.get(i).getPlanDetailVO().size(); j++) {
-					PlanDetailVO pd = vo.get(i).getPlanDetailVO().get(j);
-					if(pd.getMemoVO() != null) {
-						if(pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName() != null) {
-							picList.add( "'"+ pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName() + "'");
-							picName = "true";
-							break;
-						} 
-					}
-				}
-				if(picName.equals("false")) {
-					picList.add("''");
-					picName = "true";
-				}
-			}
-			if(picName.equals("false")) picList.add("");
-		}
-		
-		
-		Object obj = session.getAttribute("login");
-		//회원 로그인 한 경우 likeChkList, followChkList를 뷰단에 전송
-		try {
-			if(obj != null) {
-				MemberVO memVO = (MemberVO) obj;
-				// 현재 접속중인 회원(memberID 사용중, userID로 대체)
-				Integer userID = memVO.getMemberID();
-				
-				for(int i=0;i<vo.size();i++) {
-					likeChkList.add(likeservice.likeCheck(vo.get(i).getPlanID(), userID));
-				}
-				
-				model.addAttribute("likeChkList", likeChkList);
-				
-				followChkList.add(likeservice.followCheck(userID, memberID));
-				
-				model.addAttribute("followChkList", followChkList);
-				
-			}
-			
-		} catch(Exception e) {
-			
-		}
-		
+		int followCount = service.followCount(memberID);
+		int followingCount = service.followingCount(memberID);
+
 		model.addAttribute("planCount", planCount);
-		model.addAttribute("pictureID", picList);
-		model.addAttribute("planVO", vo);
+		model.addAttribute("followCount", followCount);
+		model.addAttribute("followingCount", followingCount);
+		
 		model.addAttribute(service.mypage(memberID));
 		
 	}
@@ -499,14 +550,39 @@ public class MemberController {
 			Map<String, Object> map = new HashMap<String, Object>();
 			List<PlanVO> list = planservice.myPlan(memberID, cri);
 			
+			//내가 작성한 plan 사진
+			for(int i=0;i<list.size();i++) {
+				String picName = "false";
+				//planDetailVO가 한개라도 있을 경우
+				if(list.get(i).getPlanDetailVO() != null ) {
+					for(int j=0; j<list.get(i).getPlanDetailVO().size(); j++) {
+						PlanDetailVO pd = list.get(i).getPlanDetailVO().get(j);
+						if(pd.getMemoVO() != null) {
+							if(pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName() != null) {
+								list.get(i).setPictureName(pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName());
+								picName = "true";
+								break;
+							} 
+						}
+					}
+					if(picName.equals("false")) {
+						list.get(i).setPictureName("");
+						picName = "true";
+					}
+				}
+				if(picName.equals("false")) list.get(i).setPictureName("");
+			}
+			
+
 			map.put("list", list);
 			
 			int planCount = service.planCount(memberID);
 			pageMaker.setPlanCount(planCount);
-			
+
 			map.put("pageMaker", pageMaker);
 			
 			List<Integer> likeChkList = new ArrayList<Integer>();
+			
 			Object obj = session.getAttribute("login");
 			try {
 				if(obj != null) {
@@ -522,7 +598,9 @@ public class MemberController {
 					for(int i=0; i<list.size();i++) {
 						likeChkList.add(0);
 					}
+					
 				}
+				
 				map.put("likeChkList", likeChkList);
 				
 			} catch(Exception e) {
