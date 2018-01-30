@@ -39,7 +39,7 @@
 									<li><a href="/member/logout">로그아웃</a></li>
 								</ul>
 `							</li>
-							<li><a href="/plan/register">일정등록버튼</a></li>
+							<li><a href="/plan/register">일정등록</a></li>
 						</c:otherwise>
 					</c:choose>	
 					<li><form action="/search/result" >

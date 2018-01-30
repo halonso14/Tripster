@@ -137,7 +137,7 @@ left: 254px;
 					  <li>
 						  <a href="#plan" data-toggle="tab" onclick="mySelectUpdate()">
 						  <span class="plane"><img src="/resources/images/aeroplane.png" alt=""/></span>								  
-						  My Plan
+						  Plan
 						  </a></li>						  
 					  <li>
 						  <a href="#setProfile" data-toggle="tab" onclick="mySelectUpdate()">
