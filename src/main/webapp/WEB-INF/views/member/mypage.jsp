@@ -263,7 +263,7 @@ left: 254px;
 					  <li>
 						  <a href="#plan" data-toggle="tab" onclick="mySelectUpdate()">
 						  <span class="plane"><img src="/resources/images/aeroplane.png" alt=""/></span>								  
-						  My Plan
+						  Plan
 						  </a></li>						  
 					  <li>
 						  <a href="#setProfile" data-toggle="tab" onclick="mySelectUpdate()">
@@ -634,7 +634,7 @@ left: 254px;
 											<div class="offset-2">
 												<hr class="featurette-divider3">
 											</div>
-											<ul class="pagination3 pagination right paddingbtm20">
+											<ul class="pagination3 pagination right paddingbtm20" id="pagination3">
 							   				</ul>
 									</div>
 									
@@ -651,7 +651,7 @@ left: 254px;
 											<div class="offset-2">
 												<hr class="featurette-divider3">
 											</div>
-											<ul class="pagination4 pagination right paddingbtm20">
+											<ul class="pagination4 pagination right paddingbtm20" id="pagination4">
 							   				</ul>
 									</div>
 							   </div>
@@ -697,7 +697,6 @@ left: 254px;
 								
 								
 								})
-									
 							$("#followList").html(str);
 							printFollowPaging(data.pageMaker3);
 						})
@@ -719,11 +718,11 @@ left: 254px;
 							str += "<li><a href='" + (pageMaker.endPage + 1)
 									+ "'> >> </a></li>";
 						}
-						$('.pagination3').html(str);
+						$('#pagination3').html(str);
 					}
 					var replyPage = 1;
 					
-					$(".pagination3, pagination").on("click", "li a", function(event) {
+					$("#pagination3").on("click", "li a", function(event) {
 						event.preventDefault();
 						replyPage = $(this).attr("href");
 						getFollowList(replyPage);
@@ -783,11 +782,11 @@ left: 254px;
 								str += "<li><a href='" + (pageMaker.endPage + 1)
 										+ "'> >> </a></li>";
 							}
-							$('.pagination4').html(str);
+							$('#pagination4').html(str);
 						}
 						var replyPage = 1;
 						
-						$(".pagination4, pagination").on("click", "li a", function(event) {
+						$("#pagination4").on("click", "li a", function(event) {
 							event.preventDefault();
 							replyPage = $(this).attr("href");
 							getFollowingList(replyPage);
@@ -1035,7 +1034,7 @@ left: 254px;
 											<div class="offset-2">
 												<hr class="featurette-divider3">
 											</div>
-											<ul class="pagination right paddingbtm20">
+											<ul class="pagination right paddingbtm20" id="pagination1">
 							   				</ul>
 									</div>
 									
@@ -1051,7 +1050,7 @@ left: 254px;
 											<div class="offset-2">
 												<hr class="featurette-divider3">
 											</div>
-											<ul class="pagination2 pagination right paddingbtm20">
+											<ul class=" pagination right paddingbtm20" id="pagination2">
 							   				</ul>
 									</div>
 							   </div>
@@ -1144,11 +1143,11 @@ left: 254px;
 							str += "<li><a href='" + (pageMaker.endPage + 1)
 									+ "'> >> </a></li>";
 						}
-						$('.pagination').html(str);
+						$('#pagination1').html(str);
 					}
 					var replyPage = 1;
 					
-					$(".pagination").on("click", "li a", function(event) {
+					$("#pagination1").on("click", "li a", function(event) {
 						event.preventDefault();
 						replyPage = $(this).attr("href");
 						getPageList(replyPage);
@@ -1231,11 +1230,11 @@ left: 254px;
 								str += "<li><a href='" + (pageMaker.endPage + 1)
 										+ "'> >> </a></li>";
 							}
-							$('.pagination2').html(str);
+							$('#pagination2').html(str);
 						}
 						var replyPage = 1;
 						
-						$(".pagination2, pagination").on("click", "li a", function(event) {
+						$("#pagination2").on("click", "li a", function(event) {
 							event.preventDefault();
 							replyPage = $(this).attr("href");
 							getLikePlanList(replyPage);

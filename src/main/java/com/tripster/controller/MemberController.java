@@ -231,40 +231,76 @@ public class MemberController {
 			Criteria cri = new Criteria();
 			cri.setCurPage(page);
 			
-			PageMaker pageMaker = new PageMaker();
-			PageMaker pageMaker2 = new PageMaker();
 			PageMaker pageMaker3 = new PageMaker();
 			PageMaker pageMaker4 = new PageMaker();
-			pageMaker.setCri(cri);
-			pageMaker2.setCri(cri);
 			pageMaker3.setCri(cri);
 			pageMaker4.setCri(cri);
 			
 			Map<String, Object> map = new HashMap<String, Object>();
-			List<PlanVO> list = planservice.myPlan(memberID, cri);
-			List<PlanVO> likeList = likeservice.userLikeList(memberID, cri);
 			
-			map.put("likeList", likeList);
-			map.put("list", list);
 			
-			int planCount = service.planCount(memberID);
-			pageMaker.setPlanCount(planCount);
-			int planLikeCount = service.planLikeCount(memberID);
-			pageMaker2.setPlanCount(planLikeCount);
 			int followCount = service.followCount(memberID);
 			pageMaker3.setFollowCount(followCount);
 			int followingCount = service.followingCount(memberID);
 			pageMaker4.setFollowCount(followingCount);
 			
-			map.put("pageMaker", pageMaker);
-			map.put("pageMaker2", pageMaker2);
 			map.put("pageMaker3", pageMaker3);
 			map.put("pageMaker4", pageMaker4);
 			
-			List<Integer> likeChkList = new ArrayList<Integer>();
-			List<Integer> likePlanList = new ArrayList<Integer>();
 			List<MemberVO> followList = new ArrayList<MemberVO>();
 			List<MemberVO> followingList = new ArrayList<MemberVO>();
+			
+			Object obj = session.getAttribute("login");
+			try {
+				if(obj != null) {
+					MemberVO memVO = (MemberVO) obj;
+					// 현재 접속중인 회원(memberID 사용중, userID로 대체)
+					Integer userID = memVO.getMemberID();
+					
+					followList = likeservice.userFollowList(userID, cri);
+					followingList = likeservice.userFollowingList(userID, cri);
+					
+				} 
+				
+				map.put("followList", followList);
+				map.put("followingList", followingList);
+				
+			} catch(Exception e) {
+				
+			}
+			
+			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value = "/myplan/{memberID}/{page}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public ResponseEntity<Map<String, Object>> myplan(@PathVariable("memberID") Integer memberID,
+														 @PathVariable("page") Integer page, HttpSession session){
+		ResponseEntity<Map<String, Object>> entity = null;
+		
+		try {
+			Criteria cri = new Criteria();
+			cri.setCurPage(page);
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			List<PlanVO> list = planservice.myPlan(memberID, cri);
+			
+			map.put("list", list);
+			
+			int planCount = service.planCount(memberID);
+			pageMaker.setPlanCount(planCount);
+			
+			map.put("pageMaker", pageMaker);
+			
+			List<Integer> likeChkList = new ArrayList<Integer>();
 			
 			Object obj = session.getAttribute("login");
 			try {
@@ -276,10 +312,6 @@ public class MemberController {
 					for(int i=0;i<list.size();i++) {
 						likeChkList.add(likeservice.likeCheck(list.get(i).getPlanID(), userID));
 					}
-					
-					followList = likeservice.userFollowList(userID, cri);
-					followingList = likeservice.userFollowingList(userID, cri);
-					
 				} else {
 					for(int i=0; i<list.size();i++) {
 						likeChkList.add(0);
@@ -287,20 +319,53 @@ public class MemberController {
 					
 				}
 				
-				for(int i=0;i<likeList.size();i++) {
-					likePlanList.add(1);
-				}
-				
-				map.put("likePlanList", likePlanList);
 				map.put("likeChkList", likeChkList);
-				map.put("followList", followList);
-				map.put("followingList", followingList);
 				
 			} catch(Exception e) {
 				
 			}
 			
 			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="/likeplan/{memberID}/{page}", method =RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>>likePlan(@PathVariable("memberID") Integer memberID,
+			 @PathVariable("page") Integer page, HttpSession session){
+		
+		ResponseEntity<Map<String, Object>> entity = null;
+		try {
+			Criteria cri = new Criteria();
+			cri.setCurPage(page);
+			
+			PageMaker pageMaker2 = new PageMaker();
+			pageMaker2.setCri(cri);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			List<PlanVO> likeList = likeservice.userLikeList(memberID, cri);
+			
+			map.put("likeList", likeList);
+			
+			int planLikeCount = service.planLikeCount(memberID);
+			pageMaker2.setPlanCount(planLikeCount);
+			
+			map.put("pageMaker2", pageMaker2);
+			
+			List<Integer> likePlanList = new ArrayList<Integer>();
+			
+			Object obj = session.getAttribute("login");
+				
+				for(int i=0;i<likeList.size();i++) {
+					likePlanList.add(1);
+				}
+				
+				map.put("likePlanList", likePlanList);
+				entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 			
 		} catch(Exception e) {
 			e.printStackTrace();
