@@ -180,44 +180,6 @@ public class MemberController {
 		Object obj = session.getAttribute("login");
 		MemberVO memVO = (MemberVO) obj;
 		int memberID = memVO.getMemberID();
-		
-		Criteria cri = new Criteria();
-		List<String> picList = new ArrayList<String>();
-		List<Integer> likeChkList = new ArrayList<Integer>();
-		List<PlanVO> planVO = planservice.myPlan(memberID, cri);
-		int planCount = service.planCount(memberID);
-		
-		for(int i=0;i<planVO.size();i++) {
-			String picName = "false";
-			//planDetailVO가 한개라도 있을 경우
-			if(planVO.get(i).getPlanDetailVO() != null ) {
-				for(int j=0; j<planVO.get(i).getPlanDetailVO().size(); j++) {
-					PlanDetailVO pd = planVO.get(i).getPlanDetailVO().get(j);
-					if(pd.getMemoVO() != null) {
-						if(pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName() != null) {
-							picList.add( "'"+ pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName() + "'");
-							picName = "true";
-							break;
-						} 
-					}
-				}
-				if(picName.equals("false")) {
-					picList.add("''");
-					picName = "true";
-				}
-			}
-			if(picName.equals("false")) picList.add("");
-		}
-		
-		for(int i=0;i<planVO.size();i++) {
-			likeChkList.add(likeservice.likeCheck(planVO.get(i).getPlanID(), memberID));
-		}
-				
-		model.addAttribute("likeChkList", likeChkList);
-				
-		model.addAttribute("planCount", planCount);
-		model.addAttribute("pictureID", picList);
-		model.addAttribute("planVO", planVO);
 
 		model.addAttribute(service.mypage(memberID));
 	}
@@ -244,6 +206,51 @@ public class MemberController {
 			List<PlanVO> list = planservice.myPlan(memberID, cri);
 			List<PlanVO> likeList = likeservice.userLikeList(memberID, cri);
 			
+			//내가 작성한 plan 사진
+			for(int i=0;i<list.size();i++) {
+				String picName = "false";
+				//planDetailVO가 한개라도 있을 경우
+				if(list.get(i).getPlanDetailVO() != null ) {
+					for(int j=0; j<list.get(i).getPlanDetailVO().size(); j++) {
+						PlanDetailVO pd = list.get(i).getPlanDetailVO().get(j);
+						if(pd.getMemoVO() != null) {
+							if(pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName() != null) {
+								list.get(i).setPictureName(pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName());
+								picName = "true";
+								break;
+							} 
+						}
+					}
+					if(picName.equals("false")) {
+						list.get(i).setPictureName("");
+						picName = "true";
+					}
+				}
+				if(picName.equals("false")) list.get(i).setPictureName("");
+			}
+			
+			//내가 좋아요 누른 plan 사진
+			for(int i=0;i<likeList.size();i++) {
+				String picName = "false";
+				//planDetailVO가 한개라도 있을 경우
+				if(likeList.get(i).getPlanDetailVO() != null ) {
+					for(int j=0; j<likeList.get(i).getPlanDetailVO().size(); j++) {
+						PlanDetailVO pd = likeList.get(i).getPlanDetailVO().get(j);
+						if(pd.getMemoVO() != null) {
+							if(pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName() != null) {
+								likeList.get(i).setPictureName(pd.getMemoVO().getMemoPictureVO().get(0).getMemoPictureName());
+								picName = "true";
+								break;
+							} 
+						}
+					}
+					if(picName.equals("false")) {
+						likeList.get(i).setPictureName("");
+						picName = "true";
+					}
+				}
+				if(picName.equals("false")) likeList.get(i).setPictureName("");
+			}
 			map.put("likeList", likeList);
 			map.put("list", list);
 			
@@ -263,6 +270,8 @@ public class MemberController {
 			
 			List<Integer> likeChkList = new ArrayList<Integer>();
 			List<Integer> likePlanList = new ArrayList<Integer>();
+			List<Integer> followChkList = new ArrayList<Integer>();
+			List<Integer> followingChkList = new ArrayList<Integer>();
 			List<MemberVO> followList = new ArrayList<MemberVO>();
 			List<MemberVO> followingList = new ArrayList<MemberVO>();
 			
@@ -273,17 +282,33 @@ public class MemberController {
 					// 현재 접속중인 회원(memberID 사용중, userID로 대체)
 					Integer userID = memVO.getMemberID();
 					
+					followList = likeservice.userFollowList(userID, cri);
+					followingList = likeservice.userFollowingList(userID, cri);
+					
 					for(int i=0;i<list.size();i++) {
 						likeChkList.add(likeservice.likeCheck(list.get(i).getPlanID(), userID));
 					}
 					
-					followList = likeservice.userFollowList(userID, cri);
-					followingList = likeservice.userFollowingList(userID, cri);
+					for(int i=0;i<followList.size();i++) {
+						followChkList.add(likeservice.followCheck(userID, followList.get(i).getMemberID()));
+					}
+					
+					for(int i=0;i<followingList.size();i++) {
+						followingChkList.add(likeservice.followCheck(userID, followingList.get(i).getMemberID()));
+					}
 					
 				} else {
 					for(int i=0; i<list.size();i++) {
 						likeChkList.add(0);
 					}
+					
+//					for(int i=0; i<followList.size();i++) {
+//						followChkList.add(0);
+//					}
+//					
+//					for(int i=0; i<followingList.size();i++) {
+//						followingChkList.add(0);
+//					}
 					
 				}
 				
@@ -293,6 +318,8 @@ public class MemberController {
 				
 				map.put("likePlanList", likePlanList);
 				map.put("likeChkList", likeChkList);
+				map.put("followChkList", followChkList);
+				map.put("followingChkList", followingChkList);
 				map.put("followList", followList);
 				map.put("followingList", followingList);
 				

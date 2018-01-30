@@ -97,7 +97,7 @@
 							
 				<span class="lato size48 slim white ">Where do you want to go?</span><br/>
 				
-					<form action="result">
+					<form action="/search/result">
 						<div class=" wh95percent center">
 							<input  id="keywordInput" name='keyword' type="text" class="form-control inph left" placeholder="예: 강남역" ></input>
 							<button id='searchBtn' class="btn btn-default nbtn-search right" type="submit" ><span class="glyphicon glyphicon-search"></span></button>

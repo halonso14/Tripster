@@ -8,6 +8,7 @@ response.setHeader("Expires", "Sat, 01 Jan 1970 22:00:00 GMT");
 response.setHeader("Pragma", "no-cache");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
   	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -79,136 +80,9 @@ left: 254px;
     	//console.log("memberName");
     </script>
     <!-- ymmu 통계, 추천 페이지 자바스크립트에서 멤버아이디 받아 ajax로 데이터 받음-->
-	<div class="navbar-wrapper2 navbar-fixed-top">
-      <div class="container">
-		<div class="navbar mtnav">
+    
+    <%@include file="/WEB-INF/views/include/header2.jsp" %>
 
-			<div class="container offset-3">
-			  <!-- Navigation-->
-			  <div class="navbar-header">
-				<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
-				  <span class="icon-bar"></span>
-				  <span class="icon-bar"></span>
-				  <span class="icon-bar"></span>
-				</button>
-				<a href="/" class="navbar-brand"><img src="/resources/images/logo.png" alt="Travel Agency Logo" class="logo"/></a>
-			  </div>
-			  <div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-right">
-				  <li class="dropdown active">
-					<a data-toggle="dropdown" class="dropdown-toggle" href="index.html">Home <span class="badge indent0">1</span><b class="lightcaret mt-2"></b></a>
-					<ul class="dropdown-menu posright-0">
-					  <li>
-							<div class="row dropwidth01">
-								<ul class="droplist col-md-4">
-								  <li class="dropdown-header">Homepages</li>	
-								  <li><a href="index.html">Home 1 minimal</a></li>
-								  <li><a href="index2.html">Home 2 offers</a></li>
-								  <li><a href="index3.html">Home 3 full search</a></li>
-								  <li><a href="index4.html">Home 4 presentation</a></li>
-								  <li><a href="index5.html">Home 5 footer2</a></li>
-								  <li><a href="index6.html">Home 6 full</a></li>
-								  <li><a href="index7.html">Home 7 </a></li>
-								  <li><a href="z-new-homepage.html">New Homepage</a> <span class="green">new</span></li>									  
-								</ul>
-								<ul class="droplist col-md-4">
-								  <li class="dropdown-header">Intro pages</li>
-								  <li><a href="intro.html">Intro 1</a></li>
-								  <li><a href="intro2.html">Intro 2 - slides</a> <span class="glyphicon glyphicon-star lblue"></span></li>
-								  <li><a href="intro3.html">Intro 3 - slides2</a> <span class="glyphicon glyphicon-star lblue"></span></li>
-								</ul>
-								<ul class="droplist col-md-4">
-								  <li class="dropdown-header">Colors</li>
-								  <li><a href="../blue/index.html">Blue</a></li>
-								  <li><a href="../green/index.html">Green</a></li>
-								  <li><a href="../orange/index.html">Orange</a></li>
-								  <li><a href="../cyan/index.html">Cyan</a></li>
-								  <li></li>
-								  <li class="inactive size10 lgrey caps"><span class="glyphicon glyphicon-star "></span> Popular pages</li>								  
-								</ul>
-							</div>
-					  </li>
-					</ul>
-				  </li>
-				  <li class="dropdown">
-					<a data-toggle="dropdown" class="dropdown-toggle" href="#">Pages <span class="badge indent0">14</span><b class="lightcaret mt-2"></b></a>
-					<ul class="dropdown-menu posright-0">
-					  <li>
-							<div class="row dropwidth01">
-								<ul class="droplist col-md-4">
-								  <li class="dropdown-header">Inner pages</li>	
-								  <li><a href="list.html">List page 1</a></li>
-								  <li><a href="list2.html">List page 2</a></li>
-								  <li><a href="list3.html">List page 3</a></li>
-								  <li><a href="list4.html">List page 4</a></li>
-								  <li><a href="details.html">Details page</a></li>
-								  <li><a href="payment.html">Payment</a></li>
-								  <li><a href="blog.html">Blog page</a></li>
-								  <li><a href="blog-details.html">Blog details</a></li>	
-								  <li><a href="about.html">About</a></li>								  
-								  <li><a href="contact.html">Contact</a></li>
-								  <li><a href="profile.html">User Profile</a>  <span class="glyphicon glyphicon-star lblue"></span></li>
-								  <li><a href="login.html">Login</a></li>
-								  <li><a href="dashboard/index.html">Dashboard</a>  <span class="glyphicon glyphicon-star lblue"></span></li>								  
-
-						  
-								</ul>	
-								<ul class="droplist col-md-4">
-								  <li class="dropdown-header">Update - <span class="green">14 New Pages</span></li>	
-								  <li><a href="z-new-homepage.html">New Homepage</a>  <span class="glyphicon glyphicon-star lblue"></span></li>
-								  <li><a href="z-flights-list.html">Flights list</a>  <span class="glyphicon glyphicon-star lblue"></span></li>
-								  <li><a href="z-flights-payment.html">Flights payment</a></li>
-								  <li><a href="z-cruise-list.html">Cruise list</a></li>
-								  <li><a href="z-cruise-payment.html">Cruise payment</a></li>
-								  <li><a href="z-rentacar-list.html">Rent a car list</a></li>
-								  <li><a href="z-rentacar-details.html">Rent a car details</a></li>
-								  <li><a href="z-rentacar-payment.html">Rent a car payment</a></li>
-								  <li><a href="z-transfers-list.html">Transfers list</a></li>
-								  <li><a href="z-transfers-payment.html">Transfers payment</a></li>
-								  <li><a href="z-activities-list.html">Activities list</a></li>
-								  <li><a href="z-activities-details.html">Activities details</a></li>
-								  <li><a href="z-activities-payment.html">Activities payment</a></li>
-								  <li><a href="z-wearesearching.html">Loading page</a></li>
-								</ul>								
-								<ul class="droplist col-md-4">
-								  <li class="dropdown-header">Bootstrap Shortcodes</li>	
-								  <li ><a href="http://getbootstrap.com/components/" target="_blank">Components</a></li>								  
-								  <li ><a href="http://getbootstrap.com/javascript/" target="_blank">Javascript</a></li>								  
-								  <li ><a href="http://getbootstrap.com/css/" target="_blank">Css</a></li>	
-								  <li class="dropdown-header">Comming next</li>	
-								  <li class="inactive"><a href="#">More Home pages</a></li>
-								  <li class="inactive"><a href="#">Elements</a></li>
-								  <li class="inactive"><a href="#">...</a></li>
-								  <li></li>								  
-								  <li class="inactive size10 lgrey caps"><span class="glyphicon glyphicon-star "></span> Popular pages</li>
-								</ul>									
-							</div>
-					  </li>
-					</ul>
-				  </li>
-				  <li><a href="#">Hotels</a></li>
-				  <li><a href="#">Flights</a></li>
-				  <li><a href="#">Vacations</a></li>
-				  <li><a href="#">Cars</a></li>			  
-				  <li><a href="#">Cruises</a></li>			  
-				  <li><a href="#">Last minute</a></li>			  
-				  <li><a href="#">Early booking</a></li>			  
-				  <li class="dropdown">
-					<a data-toggle="dropdown" class="dropdown-toggle" href="#">Deals<b class="lightcaret mt-2"></b></a>
-					<ul class="dropdown-menu">
-					  <li class="dropdown-header">Aligned Right Dropdown</li>	
-					  <li><a href="#">Sample Link 1</a></li>
-					  <li><a href="#">Sample Link 2</a></li>
-					</ul>
-				  </li>		
-				</ul>
-			  </div>
-			  <!-- /Navigation-->			  
-			</div>
-		
-        </div>
-      </div>
-    </div>
 	
 	<div class="container breadcrub">
 	    <div>
@@ -634,7 +508,7 @@ left: 254px;
 											<div class="offset-2">
 												<hr class="featurette-divider3">
 											</div>
-											<ul class="pagination3 pagination right paddingbtm20">
+											<ul class="pagination right paddingbtm20" id="pagination3">
 							   				</ul>
 									</div>
 									
@@ -651,7 +525,7 @@ left: 254px;
 											<div class="offset-2">
 												<hr class="featurette-divider3">
 											</div>
-											<ul class="pagination4 pagination right paddingbtm20">
+											<ul class="pagination right paddingbtm20" id="pagination4">
 							   				</ul>
 									</div>
 							   </div>
@@ -686,9 +560,17 @@ left: 254px;
 										
 									str +=
 										"<p class='size20 grey margtop20'><span class='dark'><a href='/member/viewMember?memberID="+this.memberID+"'>"+this.memberName+"</a></span><br /></p>"
-										+"<div class='container'>"
-											+"<button class='btn followButton' value='"+this.memberID+"' rel='6'>Follow</button>"
-										+"</div><div class='clearfix'></div></div>";
+										+"<div class='container'>";
+										
+									if(this.memberID != data.followChkList[index]){
+										str +=
+											"<button class='btn followButton' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>Follow</button>"
+									} else{
+										str +=
+											"<button class='btn followButton following' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>Following</button>"
+									}
+									
+									str += "</div><div class='clearfix'></div></div>";
 									 
 									if((index+1)%2 == 0 && index+1 != this.length){
 										str +=
@@ -719,11 +601,11 @@ left: 254px;
 							str += "<li><a href='" + (pageMaker.endPage + 1)
 									+ "'> >> </a></li>";
 						}
-						$('.pagination3').html(str);
+						$('#pagination3').html(str);
 					}
 					var replyPage = 1;
 					
-					$(".pagination3, pagination").on("click", "li a", function(event) {
+					$("#pagination3").on("click", "li a", function(event) {
 						event.preventDefault();
 						replyPage = $(this).attr("href");
 						getFollowList(replyPage);
@@ -751,8 +633,16 @@ left: 254px;
 										str +=
 											"<p class='size20 grey margtop20'><span class='dark'><a href='/member/viewMember?memberID="+this.memberID+"'>"+this.memberName+"</a></span><br /></p>"
 											+"<div class='container'>"
-												+"<button class='btn followButton' value='"+this.memberID+"' rel='6'>Follow</button>"
-											+"</div><div class='clearfix'></div></div>";
+											
+										if(this.memberID != data.followingChkList[index]){
+											str +=
+												"<button class='btn followButton' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>Follow</button>"
+										} else{
+											str +=
+												"<button class='btn followButton following' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>Following</button>"
+										}
+											
+										str += "</div><div class='clearfix'></div></div>";
 										 
 										if((index+1)%2 == 0 && index+1 != this.length){
 											str +=
@@ -783,11 +673,11 @@ left: 254px;
 								str += "<li><a href='" + (pageMaker.endPage + 1)
 										+ "'> >> </a></li>";
 							}
-							$('.pagination4').html(str);
+							$('#pagination4').html(str);
 						}
 						var replyPage = 1;
 						
-						$(".pagination4, pagination").on("click", "li a", function(event) {
+						$("#pagination4").on("click", "li a", function(event) {
 							event.preventDefault();
 							replyPage = $(this).attr("href");
 							getFollowingList(replyPage);
@@ -1035,7 +925,7 @@ left: 254px;
 											<div class="offset-2">
 												<hr class="featurette-divider3">
 											</div>
-											<ul class="pagination right paddingbtm20">
+											<ul class="pagination right paddingbtm20" id="pagination1">
 							   				</ul>
 									</div>
 									
@@ -1051,7 +941,7 @@ left: 254px;
 											<div class="offset-2">
 												<hr class="featurette-divider3">
 											</div>
-											<ul class="pagination2 pagination right paddingbtm20">
+											<ul class="pagination right paddingbtm20" id="pagination2">
 							   				</ul>
 									</div>
 							   </div>
@@ -1065,8 +955,6 @@ left: 254px;
 					<script>
 					
 					var memberID = ${memberVO.memberID};
-				//	var session = "${session.memberID}";
-					var pictureID = ${pictureID};
 					
 					getPageList(1);
 					
@@ -1079,9 +967,9 @@ left: 254px;
 								"<div class='col-md-4'>"
 									+"<div class='listitem' style='width:243.7px;'>";
 										
-									if(pictureID[index] != ""){
+									if(this.pictureName != ""){
 										str +=
-											"<img src='/displayFile?fileName="+pictureID[index]+"&directory=plan'alt='' />";
+											"<img src='/displayFile?fileName="+this.pictureName+"&directory=plan'alt='' />";
 									} else{
 										str +=
 											"<img src='' alt='' />";
@@ -1144,11 +1032,11 @@ left: 254px;
 							str += "<li><a href='" + (pageMaker.endPage + 1)
 									+ "'> >> </a></li>";
 						}
-						$('.pagination').html(str);
+						$('#pagination1').html(str);
 					}
 					var replyPage = 1;
 					
-					$(".pagination").on("click", "li a", function(event) {
+					$("#pagination1").on("click", "li a", function(event) {
 						event.preventDefault();
 						replyPage = $(this).attr("href");
 						getPageList(replyPage);
@@ -1165,9 +1053,9 @@ left: 254px;
 									"<div class='col-md-4'>"
 										+"<div class='listitem' style='width:243.7px;'>";
 											
-										if(pictureID[index] != ""){
+										if(this.pictureName != ""){
 											str +=
-												"<img src='/displayFile?fileName="+pictureID[index]+"&directory=plan'alt='' />";
+												"<img src='/displayFile?fileName="+this.pictureName+"&directory=plan'alt='' />";
 										} else{
 											str +=
 												"<img src='' alt='' />";
@@ -1231,11 +1119,11 @@ left: 254px;
 								str += "<li><a href='" + (pageMaker.endPage + 1)
 										+ "'> >> </a></li>";
 							}
-							$('.pagination2').html(str);
+							$('#pagination2').html(str);
 						}
 						var replyPage = 1;
 						
-						$(".pagination2, pagination").on("click", "li a", function(event) {
+						$("#pagination2").on("click", "li a", function(event) {
 							event.preventDefault();
 							replyPage = $(this).attr("href");
 							getLikePlanList(replyPage);
@@ -1262,88 +1150,10 @@ left: 254px;
 	</div>
 	<!-- END OF CONTENT -->
 	
+	<%@include file="/WEB-INF/views/include/footer.jsp" %>
+	
+	
 
-	
-	
-	<!-- FOOTER -->
-	
-	<div class="footerbgblack">
-		<div class="container">		
-			
-			<div class="col-md-3">
-				<span class="ftitleblack">Let's socialize</span>
-				<div class="scont">
-					<a href="#" class="social1b"><img src="/resources/images/icon-facebook.png" alt=""/></a>
-					<a href="#" class="social2b"><img src="/resources/images/icon-twitter.png" alt=""/></a>
-					<a href="#" class="social3b"><img src="/resources/images/icon-gplus.png" alt=""/></a>
-					<a href="#" class="social4b"><img src="/resources/images/icon-youtube.png" alt=""/></a>
-					<br/><br/><br/>
-					<a href="#"><img src="/resources/images/logosmal2.png" alt="" /></a><br/>
-					<span class="grey2">&copy; 2013  |  <a href="#">Privacy Policy</a><br/>
-					All Rights Reserved </span>
-					<br/><br/>
-					
-				</div>
-			</div>
-			<!-- End of column 1-->
-			
-			<div class="col-md-3">
-				<span class="ftitleblack">Travel Specialists</span>
-				<br/><br/>
-				<ul class="footerlistblack">
-					<li><a href="#">Golf Vacations</a></li>
-					<li><a href="#">Ski & Snowboarding</a></li>
-					<li><a href="#">Disney Parks Vacations</a></li>
-					<li><a href="#">Disneyland Vacations</a></li>
-					<li><a href="#">Disney World Vacations</a></li>
-					<li><a href="#">Vacations As Advertised</a></li>
-				</ul>
-			</div>
-			<!-- End of column 2-->		
-			
-			<div class="col-md-3">
-				<span class="ftitleblack">Travel Specialists</span>
-				<br/><br/>
-				<ul class="footerlistblack">
-					<li><a href="#">Weddings</a></li>
-					<li><a href="#">Accessible Travel</a></li>
-					<li><a href="#">Disney Parks</a></li>
-					<li><a href="#">Cruises</a></li>
-					<li><a href="#">Round the World</a></li>
-					<li><a href="#">First Class Flights</a></li>
-				</ul>				
-			</div>
-			<!-- End of column 3-->		
-			
-			<div class="col-md-3 grey">
-				<span class="ftitleblack">Newsletter</span>
-				<div class="relative">
-					<input type="email" class="form-control fccustom2black" id="exampleInputEmail1" placeholder="Enter email">
-					<button type="submit" class="btn btn-default btncustom">Submit<img src="/resources/images/arrow.png" alt=""/></button>
-				</div>
-				<br/><br/>
-				<span class="ftitleblack">Customer support</span><br/>
-				<span class="pnr">1-866-599-6674</span><br/>
-				<span class="grey2">office@travel.com</span>
-			</div>			
-			<!-- End of column 4-->			
-		
-			
-		</div>	
-	</div>
-
-	<div class="footerbg3black">
-		<div class="container center grey"> 
-		<a href="#">Home</a> | 
-		<a href="#">About</a> | 
-		<a href="#">Last minute</a> | 
-		<a href="#">Early booking</a> | 
-		<a href="#">Special offers</a> | 
-		<a href="#">Blog</a> | 
-		<a href="#">Contact</a>
-		<a href="#top" class="gotop scroll"><img src="/resources/images/spacer.png" alt=""/></a>
-		</div>
-	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="/resources/js/additional-methods.min.js"></script>
@@ -1409,6 +1219,7 @@ $(window).load(function(){
     <script src="/resources/assets/js/functions.js"></script>
 	
 	<script src="/resources/js/endChk.js"></script>
+	<script src="/resources/js/followChk.js"></script>
 	
     <!-- Custom Select -->
 	<script src='/resources/assets/js/jquery.customSelect.js' type='text/javascript' ></script>

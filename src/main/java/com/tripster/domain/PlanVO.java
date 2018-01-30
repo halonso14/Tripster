@@ -17,6 +17,7 @@ public class PlanVO {
 	private List<PlanDetailVO> planDetailVO; //planDetail join시 사용.
 	private String memberName; //회원 이름조회.
 	private int planLikeCnt; //좋아요 카운트
+	private String pictureName;
 	
 	
 	public int getPlanID() {
@@ -73,14 +74,18 @@ public class PlanVO {
 	public void setPlanLikeCnt(int planLikeCnt) {
 		this.planLikeCnt = planLikeCnt;
 	}
+	public String getPictureName() {
+		return pictureName;
+	}
+	public void setPictureName(String pictureName) {
+		this.pictureName = pictureName;
+	}
 	@Override
 	public String toString() {
 		return "PlanVO [planID=" + planID + ", memberID=" + memberID + ", planTitle=" + planTitle + ", planStartDate="
 				+ planStartDate + ", planEndDate=" + planEndDate + ", planEndChk=" + planEndChk + ", planDetailVO="
-				+ planDetailVO + ", memberName=" + memberName + ", planLikeCnt=" + planLikeCnt + "]";
+				+ planDetailVO + ", memberName=" + memberName + ", planLikeCnt=" + planLikeCnt + ", pictureName="
+				+ pictureName + "]";
 	}
-	
-	
-	
 	
 }
