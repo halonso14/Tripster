@@ -64,9 +64,9 @@ public class EsPlanDAOimpl implements EsPlanDAO {
 	
 	// 일정등록
 	@Override
-	public void insertPlan(PlanVO vo) throws Exception {
-//
-//		EsPlanVO esvo = new EsPlanVO();
+	public void insertEsPlan(PlanVO vo) throws Exception {
+
+		EsPlanVO esvo = new EsPlanVO();
 //		esvo.setMember_id(vo.getMemberID());
 //
 //		esvo.setCreated(vo.getCreated());

@@ -26,7 +26,7 @@ public class PlanDAOImpl implements PlanDAO{
 	public void insertPlan(PlanVO vo)throws Exception {
 		session.insert(namespace+".create", vo);
 	}
-
+	
 	//plan 수정.
 	@Override
 	public void updatePlan( PlanVO planVO)throws Exception {
