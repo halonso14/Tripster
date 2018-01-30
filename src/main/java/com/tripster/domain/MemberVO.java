@@ -17,6 +17,9 @@ public class MemberVO {
 	private String sessionKey;
 	private String memberAuthKey;
 	private String snsID;
+	// elasticsearch에 회원정보 넣을때 생성일/수정일 컬럼필요해서 추가
+	private Date created;
+	private Date updated;
 	
 	public int getMemberID() {
 		return memberID;
@@ -79,6 +82,18 @@ public class MemberVO {
 		this.snsID = snsID;
 	}
 	
+	public Date getCreated() {
+		return created;
+	}
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+	public Date getUpdated() {
+		return updated;
+	}
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
 	@Override
 	public String toString() {
 		return "MemberVO [memberID=" + memberID + ", memberEmail=" + memberEmail + ", memberPassword=" + memberPassword

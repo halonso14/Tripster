@@ -17,6 +17,7 @@ import com.tripster.common.MailHandler;
 import com.tripster.common.TempKey;
 import com.tripster.domain.MemberVO;
 import com.tripster.dto.LoginDTO;
+import com.tripster.persistence.EsMemberDAO;
 import com.tripster.persistence.MemberDAO;
 import com.tripster.persistence.MemoDAO;
 
@@ -33,7 +34,10 @@ public class MemberServiceImpl implements MemberService {
 	private BCryptPasswordEncoder passwordEncoder;
 	@Inject
 	private JavaMailSender mailSender;
-
+	@Inject  
+	private EsMemberDAO esMemberDao;
+	
+	
 	@Override
 	public MemberVO login(LoginDTO dto) throws Exception {
 
@@ -108,6 +112,10 @@ public class MemberServiceImpl implements MemberService {
 		logger.info("암호화된 비밀번호 : " + vo.getMemberPassword());
 		
 		dao.insertMember(vo);
+		// 회원등록 엘라스틱서치 데이터 트랜젝션처리 
+		System.out.println("dididid");
+		System.out.println(dao.select(vo.getMemberEmail()).getMemberID());
+		esMemberDao.insertEsMember(dao.select(vo.getMemberEmail()));
 		
 		String key = new TempKey().getKey(40, false);
 		
@@ -203,15 +211,20 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 	
+	@Transactional
 	@Override
 	public void uploadPicture(MemberVO vo) throws Exception {
 		dao.uploadPicture(vo);
+		// 회원사진등록 엘라스틱서치 데이터 트랜젝션처리 
+		esMemberDao.updateEsMember(vo);
 	}
-	
+
+	@Transactional
 	@Override
 	public void dropMember(Integer memberID) throws Exception {
-		
 		dao.deleteMember(memberID);
+		// 회원탈퇴 엘라스틱서치 데이터 트랜젝션처리 
+		esMemberDao.deleteEsMember(Integer.toString(memberID));
 	}
 	
 	@Override
