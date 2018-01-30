@@ -20,17 +20,16 @@
 		<p class="size12 grey ">${esPlanVO.member_name}</p><br>
 		<span class="size11 grey">댓글수</span><br>
 		<span class="size11 grey">${esPlanVO.plan_like_cnt} 좋아요수</span><br>
-		<button class="bookbtn mt1 " onclick="likeClick('${userSession}',$(this));" likeBtnCheck="1" value="${esPlanVO.plan_id}">좋아요</button>		
+		<button class="btn likeButton" onmouseenter="mouseover('${userSession.memberID }',$(this))" value="${esPlanVO.plan_id}" style="width:75px;">좋아요</button>		
 		
 		<script>
 			var likebtn = $("button[value="+${esPlanVO.plan_id}+"]");
-			if(!likebtn.attr("session") == false){
-				let likeIdList = ${likeIdList};
+			var session = ${empty userSession };
+			if(session != true){
+				let likeIdList = ${likeIdList };
 				for(let i=0;i<likeIdList.length;i++){
 					if(likebtn.val() == likeIdList[i]){
-						likebtn.attr("check",0);
-						// 좋아요 했을떄
-						likebtn.css("color","red");
+						likebtn.addClass("like");
 					};
 				};
 			};

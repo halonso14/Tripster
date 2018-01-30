@@ -23,18 +23,17 @@
 			<span class="margtop20 green size18"><b>0</b></span><span class="green size14"> Plan</span><br>
 			<span class="size11 grey">${esContentsVO.contents_scrap_cnt} Scrap</span><br><br>
 			
-				<button class="scrap" value="${esContentsVO.contents_id}" session="${empty userSession }" check="1" >스크랩</button>
+				<button class="btn scrapButton " value="${esContentsVO.contents_id}" onmouseenter="mouseover('${userSession }',$(this))" rel="6" style="width:80px;">스크랩</button>
 				
 				<script>
 					var scrapbtn = $("button[value="+${esContentsVO.contents_id}+"]");
-					if(!scrapbtn.attr("session") == false){
-						let scrapIdList = ${scrapIdList};
+					var session = ${empty userSession };
+					if(session != true){
+						let scrapIdList = ${scrapIdList };
 						for(let i=0;i<scrapIdList.length;i++){
 							if(scrapbtn.val() == scrapIdList[i]){
-								scrapbtn.attr("check",0);
-								// 스크랩 했을때
-								scrapbtn.css("color","red");
-							}
+								scrapbtn.addClass("scraped");
+							};
 						};
 					};
 				</script>

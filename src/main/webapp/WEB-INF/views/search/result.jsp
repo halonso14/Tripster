@@ -37,6 +37,12 @@
 	<link rel="stylesheet" href="/resources/plugins/jslider/css/jslider.round.css" type="text/css">	
     <!-- jQuery -->	
     <script src="/resources/assets/js/jquery.v2.0.3.js"></script>
+    <!-- scrapbtn css -->
+	<link href="/resources/assets/css/scrapBtn.css" rel="stylesheet" media="screen">
+	<!-- followbtn css -->
+	<link href="/resources/assets/css/followBtn.css" rel="stylesheet" media="screen">
+	<!-- likebtn css -->
+	<link href="/resources/assets/css/searchLikeBtn.css" rel="stylesheet" media="screen">
 	<!-- bin/jquery.slider.min.js -->
 	<script type="text/javascript" src="/resources/plugins/jslider/js/jshashtable-2.1_src.js"></script>
 	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.numberformatter-1.2.3.js"></script>
@@ -196,9 +202,9 @@
     <!-- Bootstrap -->	
     <script src="/resources/dist/js/bootstrap.min.js"></script>
 	<!-- scrapBtn -->
-	<script src="/resources/js/scrap.js"></script>
+	<script src="/resources/js/scrapHD.js"></script>
     <!-- likeBtn -->
-    <script src="/resources/js/like.js"></script>
+    <script src="/resources/js/searchLike.js"></script>
     <!-- followBtn -->
     <script src="/resources/js/follow.js"></script>
 

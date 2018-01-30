@@ -11,20 +11,20 @@
 		</div>
 								
 		<div class="purchasecontainer"  >
-			<div class="offset-2 left bold" style="padding-top:5px">${esMemberVO.member_name}</div>		
+			<div class="offset-2 left bold" style="margin-left: 10px;padding-top:5px;">${esMemberVO.member_name}</div>		
 			
-			<button class="followButton" value="${esMemberVO.member_id}" session="${empty userSession }" check="1">팔로우</button>	
+			<button class="btn followButton" value="${esMemberVO.member_id}" check="1" rel="6" style="width:80px;float:right; margin-right:20px;">Follow</button>	
 			
 			<script>
-				var followbtn = $("button[value="+${esMemberVO.member_id}+"]");
-				if(!followbtn.attr("session") == false){
-					let followIdList = ${followIdList};
+				var followBtn = $("button[value="+${esMemberVO.member_id}+"]");
+				var session = ${empty userSession };
+				if(session != true){
+					let followIdList = ${followIdList };
+					console.log(followIdList);
 					for(let i=0;i<followIdList.length;i++){
-						if(followbtn.val() == followIdList[i]){
-							followbtn.attr("check",0);
-							// 스크랩 했을때
-							followbtn.css("color","red");
-						}
+						if(followBtn.val() == followIdList[i]){
+							followBtn.addClass("following");
+						};
 					};
 				};
 			</script>

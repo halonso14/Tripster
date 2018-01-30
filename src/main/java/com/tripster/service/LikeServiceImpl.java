@@ -113,7 +113,7 @@ public class LikeServiceImpl implements LikeService{
 		List<Integer> likeIdList = new ArrayList<Integer>();
 		try {
 			for(int i=0; i<list.size(); i++) {
-				likeIdList.add(list.get(i).getMemberID());
+				likeIdList.add(list.get(i).getPlanID());
 			}
 		}catch(Exception e) {
 			return likeIdList;
@@ -128,7 +128,7 @@ public class LikeServiceImpl implements LikeService{
 		List<Integer> followIdList = new ArrayList<Integer>();
 		try {
 			for(int i=0; i<list.size(); i++) {
-				followIdList.add(list.get(i).getMemberID());
+				followIdList.add(list.get(i).getFollowID());
 			}
 		}catch(Exception e) {
 			return followIdList;
