@@ -113,8 +113,6 @@ public class MemberServiceImpl implements MemberService {
 		
 		dao.insertMember(vo);
 		// 회원등록 엘라스틱서치 데이터 트랜젝션처리 
-		System.out.println("dididid");
-		System.out.println(dao.select(vo.getMemberEmail()).getMemberID());
 		esMemberDao.insertEsMember(dao.select(vo.getMemberEmail()));
 		
 		String key = new TempKey().getKey(40, false);
