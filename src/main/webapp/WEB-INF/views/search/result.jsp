@@ -96,7 +96,7 @@
 								<div class="clearfix"></div>
 							</div>
 							<!-- 컨텐츠 검색결과 리스트 -->
-							<c:forEach items="${totalList.contentsList}" var = "esContentsVO" varStatus="status" begin="0" end="2">	
+							<c:forEach items="${totalList.contentsList}" var = "esContentsVO" begin="0" end="2">	
 								<%@include file="../include/search/contents.jsp" %>	
 							</c:forEach>
 							<div class="offset-2"><hr></div>
@@ -128,11 +128,11 @@
 								<div class="clearfix"></div>
 							</div>
 							<!-- 일정 검색결과 리스트 -->	
-							<c:forEach items="${totalList.planList}" var = "esPlanVO" varStatus="status" begin="0" end="2">
+							<c:forEach items="${totalList.planList}" var = "esPlanVO" begin="0" end="2">
 								<%@include file="../include/search/plan.jsp" %>	
 							</c:forEach>
 							<div class="clearfix"></div>
-							<div class="offset-2"><hr></div>	
+							<div class="offset-2"><hr></div>
 						</div>
 					</c:if>
 	
@@ -141,7 +141,7 @@
 						<div class="members">
 							<!-- 회원 검색결과 타이틀 -->
 							<div class="offset-2" style="padding:20px ">	
-								<div class=" left"><b>회원</b></div>	
+								<div class=" left"><b>회원</b></div>
 								<!-- 회원 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->
 								<c:if test="${totalList.memberCnt > 3 }" >
 									<div class=" grey right">
@@ -199,6 +199,8 @@
 	<script src="/resources/js/scrap.js"></script>
     <!-- likeBtn -->
     <script src="/resources/js/like.js"></script>
+    <!-- followBtn -->
+    <script src="/resources/js/follow.js"></script>
 
   </body>
 

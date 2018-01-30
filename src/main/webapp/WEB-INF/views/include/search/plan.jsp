@@ -20,38 +20,22 @@
 		<p class="size12 grey ">${esPlanVO.member_name}</p><br>
 		<span class="size11 grey">댓글수</span><br>
 		<span class="size11 grey">${esPlanVO.plan_like_cnt} 좋아요수</span><br>
-		<button class="bookbtn mt1" onclick="likeClick('${userSession}',$(this));" likeBtnCheck="${likeList[status.index] }" value="${esPlanVO.plan_id}">좋아요</button>		
+		<button class="bookbtn mt1 " onclick="likeClick('${userSession}',$(this));" likeBtnCheck="1" value="${esPlanVO.plan_id}">좋아요</button>		
 		
-			<c:choose>
-				<%-- followIdList null값(비회원) 인경우 --%>
-				<c:when test="${empty likeIdList}">
-					<button class="scrapBtn" value="${esPlanVO.plan_id}" session="${empty userSession }" >좋아요</button>
-				</c:when>
-				<%-- followIdList(회원) 있을경우 --%>
-				<c:otherwise>
-					<c:set var="doneLoop" value="false"/> 
-					
-					<%-- followIdList에 현재 유저id가 있는지 for문으로 확인. --%>
-					<c:forEach items="${likeIdList}" var = "likeIdList" >	
-						<c:if test="${not doneLoop}"> 
-							<%-- scrapList에 해당 id가 있으면 doneLoop값 변경하고 스크랩 on --%>
-							<c:if test="${likeIdList == esMemberVO.member_id}">
-								<c:set var="doneLoop" value="true"/>
-								<button class="scrapBtn-on" value="$${esPlanVO.plan_id}" session="${empty userSession }" >좋아요</button>
-							</c:if>			
-						</c:if>
-					</c:forEach>
-					
-					<%-- followIdList에 현재 유저id가 없을경우 --%>
-					<c:if test="${not doneLoop}"> 
-						<button class="scrapBtn" value="${esPlanVO.plan_id}" session="${empty userSession }" >좋아요</button>
-					</c:if>
-				</c:otherwise>	
-			</c:choose>			
-		
-		
-		
-		
+		<script>
+			var likebtn = $("button[value="+${esPlanVO.plan_id}+"]");
+			if(!likebtn.attr("session") == false){
+				let likeIdList = ${likeIdList};
+				for(let i=0;i<likeIdList.length;i++){
+					if(likebtn.val() == likeIdList[i]){
+						likebtn.attr("check",0);
+						// 좋아요 했을떄
+						likebtn.css("color","red");
+					};
+				};
+			};
+		</script>
+			
 	</div>
 	<div class="labelleft">	
 		<span class="size16"><b>${esPlanVO.plan_title}</b></span><br>		

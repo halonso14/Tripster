@@ -60,6 +60,7 @@ public class SearchController {
 			model.addAttribute("likeIdList",likeService.likeIdList(memberVO.getMemberID()));
 			model.addAttribute("followIdList",likeService.followIdList(memberVO.getMemberID()));
 		}
+		
 		// model에 통합 검색결과 담기 
 		model.addAttribute("totalList",searchTotal);
 		model.addAttribute("cri",reCri);	
@@ -70,9 +71,9 @@ public class SearchController {
 	// 컨텐츠 검색결과 요청
 	@RequestMapping(value="contents", method=RequestMethod.GET)
 	public String searchContents(@ModelAttribute("cri") SearchCriteria cri, Model model,HttpSession session) throws Exception{
-		
+			
 		EsSearchResultVO searchContents = esSearchService.getContentsSearchList(cri);
-	
+		
 		SearchCriteria reCri = new SearchCriteria();
 		reCri.setCnt(cri.getCnt());
 		reCri.setTab(cri.getTab());

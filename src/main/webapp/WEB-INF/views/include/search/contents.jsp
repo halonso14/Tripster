@@ -36,7 +36,7 @@
 								scrapbtn.css("color","red");
 							}
 						};
-					}
+					};
 				</script>
 				 
 		</div>
