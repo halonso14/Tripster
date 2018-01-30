@@ -14,6 +14,7 @@ import com.tripster.domain.MemberVO;
 import com.tripster.domain.PlanVO;
 import com.tripster.persistence.LikeDAO;
 import com.tripster.persistence.PlanDAO;
+import com.tripster.persistence.PlanDetailDAO;
 
 @Service
 public class LikeServiceImpl implements LikeService{
@@ -23,6 +24,9 @@ public class LikeServiceImpl implements LikeService{
 	
 	@Inject
 	PlanDAO planDAO;
+	
+	@Inject
+	PlanDetailDAO planDetailDAO;
 	
 	// 좋아요 
 	@Override
@@ -84,7 +88,17 @@ public class LikeServiceImpl implements LikeService{
 	// 유저 좋아요 리스트의 플랜조회
 	@Override
 	public List<PlanVO> userLikeList(int memberID, Criteria cri) throws Exception{
-		return likeDAO.userLikeList(memberID, cri);
+		
+		List<PlanVO> list = new ArrayList<>();
+		list = likeDAO.userLikeList(memberID, cri);
+		
+		for( int i=0; i<list.size(); i++) {
+			int planID = list.get(i).getPlanID();
+			
+			list.get(i).setPlanDetailVO(planDetailDAO.selectAllByPlanID(planID));
+		}
+		
+		return list;
 	}
 		
 	// 유저의 팔로우 리스트
@@ -115,7 +129,7 @@ public class LikeServiceImpl implements LikeService{
 		List<Integer> likeIdList = new ArrayList<Integer>();
 		try {
 			for(int i=0; i<list.size(); i++) {
-				likeIdList.add(list.get(i).getMemberID());
+				likeIdList.add(list.get(i).getPlanID());
 			}
 		}catch(Exception e) {
 			return likeIdList;
@@ -130,7 +144,7 @@ public class LikeServiceImpl implements LikeService{
 		List<Integer> followIdList = new ArrayList<Integer>();
 		try {
 			for(int i=0; i<list.size(); i++) {
-				followIdList.add(list.get(i).getMemberID());
+				followIdList.add(list.get(i).getFollowID());
 			}
 		}catch(Exception e) {
 			return followIdList;
