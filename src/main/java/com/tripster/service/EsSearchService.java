@@ -22,9 +22,4 @@ public interface EsSearchService {
 	// 회원 검색결과 더보기 리스트 조회 
 	public EsSearchResultVO getMemberSearchList(SearchCriteria cri) throws Exception;
 
-	// 좋아요 체크 리스트
-	public List<Integer> likeCheck(Integer memberID,List<EsPlanVO> planList,SearchCriteria cri) throws Exception;
-	
-	// 팔로우 리스트
-	public List<Integer> followCheck(Integer followID,Integer memberID,Criteria cri) throws Exception;
 }

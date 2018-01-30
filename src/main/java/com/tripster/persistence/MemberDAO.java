@@ -29,6 +29,8 @@ public interface MemberDAO {
 
 	public MemberVO mypage(Integer memberID) throws Exception;
 	
+	public MemberVO select(String memberEmail) throws Exception;
+	
 	public MemberVO changeProfile(MemberVO vo) throws Exception;
 	
 	public MemberVO changePassword(MemberVO vo) throws Exception;

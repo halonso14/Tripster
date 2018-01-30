@@ -99,6 +99,20 @@
 	where Member_ID = #{memberID}
 	</select>
 	
+	<!-- 회원 정보 조회: elasticsearch에 회원정보 추가 -->
+	<select id="select" resultType = "MemberVO">
+	select Member_ID memberID
+		  ,Member_Email memberEmail
+		  ,Member_Name memberName
+		  ,Member_Sex memberSex
+		  ,Member_Birthday memberBirthday
+		  ,Member_Picture memberPicture
+		  ,Created created
+		  ,Updated updated
+	from tbl_Member
+	where Member_Email = #{memberEmail}
+	</select>	
+	
 	<!-- 프로필사진 업로드 -->
 	<update id="uploadPicture">
 	update tbl_Member

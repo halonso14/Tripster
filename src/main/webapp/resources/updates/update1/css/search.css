@@ -16,10 +16,16 @@ div.searchbox {
     text-indent: 0px;
     text-shadow: none;
 }
-.searchbtn {
+
+input#keywordInput{
+	color:#000;
+	border: 1px solid #ccc;
+	border-right: none;
+	border-collapse : collapse;
 	
 }
-
+button.searchbtn {
+}
 .progress-custom {
 	height:15px !important;
 	overflow:hidden;
@@ -43,15 +49,16 @@ div.searchbox {
 	border-radius: 5px;
 	border-collapse : collapse;
 	margin: 20px 15px ;
-    padding: 12px 15px;
-  
+    padding: 12px 15px; 
     color: black;
 }
 .resultList {
 
 }
 .more {
-	text-decoration:underline
+	text-decoration:underline;
+	background: #fff;
+	border:none;
 }
 
 ul.pagination {

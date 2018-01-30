@@ -89,6 +89,11 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	
 	@Override
+	public MemberVO select(String memberEmail) throws Exception {
+		return session.selectOne(namespace + ".select", memberEmail);
+	}
+	
+	@Override
 	public MemberVO changeProfile(MemberVO vo) throws Exception {
 		return session.selectOne(namespace + ".changeProfile", vo);
 	}
