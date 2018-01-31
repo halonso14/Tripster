@@ -32,6 +32,7 @@ import com.tripster.domain.PlanDetailVO;
 import com.tripster.domain.PlanReplyVO;
 import com.tripster.domain.PlanVO;
 import com.tripster.service.LikeService;
+import com.tripster.service.MemberService;
 import com.tripster.service.MemoService;
 import com.tripster.service.PlanDetailService;
 import com.tripster.service.PlanReplyService;
@@ -51,6 +52,8 @@ public class PlanController {
 	private PlanReplyService planReplyService;
 	@Inject
 	private LikeService likeService;
+	@Inject
+	private MemberService memberService;
 	
 	//**************************plan 관련 ********************************/
 	
@@ -423,6 +426,9 @@ public class PlanController {
 			Map<String, Object> map = new HashMap<String, Object>();
 			List<PlanReplyVO> list = planReplyService.read(planID, cri);
 			
+			for(int i=0; i<list.size();i++) {
+				list.get(i).setMemberPicture(memberService.mypage(list.get(i).getMemberID()).getMemberPicture());
+			}
 			map.put("reply", list);
 			
 			int replyCount = planReplyService.count(planID);

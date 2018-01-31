@@ -9,88 +9,59 @@ public class PlanReplyVO {
 	private String memberName;
 	private String planReplyContents;
 	private Date planReplyTime;
-	
-	
+	private String memberPicture;
 	
 	public int getPlanReplyID() {
 		return planReplyID;
 	}
-
-
-
 	public void setPlanReplyID(int planReplyID) {
 		this.planReplyID = planReplyID;
 	}
-
-
-
 	public int getPlanID() {
 		return planID;
 	}
-
-
-
 	public void setPlanID(int planID) {
 		this.planID = planID;
 	}
-
-
-
 	public int getMemberID() {
 		return memberID;
 	}
-
-
-
 	public void setMemberID(int memberID) {
 		this.memberID = memberID;
 	}
-
-
-
 	public String getMemberName() {
 		return memberName;
 	}
-
-
-
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
 	}
-
-
-
 	public String getPlanReplyContents() {
 		return planReplyContents;
 	}
-
-
-
 	public void setPlanReplyContents(String planReplyContents) {
 		this.planReplyContents = planReplyContents;
 	}
-
-
-
 	public Date getPlanReplyTime() {
 		return planReplyTime;
 	}
-
-
-
 	public void setPlanReplyTime(Date planReplyTime) {
 		this.planReplyTime = planReplyTime;
 	}
-
-
-
+	public String getMemberPicture() {
+		return memberPicture;
+	}
+	public void setMemberPicture(String memberPicture) {
+		this.memberPicture = memberPicture;
+	}
 	@Override
 	public String toString() {
 		return "PlanReplyVO [planReplyID=" + planReplyID + ", planID=" + planID + ", memberID=" + memberID
 				+ ", memberName=" + memberName + ", planReplyContents=" + planReplyContents + ", planReplyTime="
-				+ planReplyTime + "]";
+				+ planReplyTime + ", memberPicture=" + memberPicture + "]";
 	}
-
+	
+	
+	
 
 	
 }
