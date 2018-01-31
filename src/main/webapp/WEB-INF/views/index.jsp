@@ -217,63 +217,6 @@
 		<!-- WRAP -->
 		<div class="wrap cst03 bgfix " >
 		
-			<div class="container lnews">
-				Latest news
-			</div>
-
-			<div class="masonry">
-				<div class="item wt2 ht2">
-					<div class="msbox2"><a href="#"><img src="/resources/updates/update1/img/pic01.jpg" class="fhimg2 left" alt=""></a></div>
-				</div>
-				<div class="item ht2">
-					<div class="msbox2">
-						<a href="#"><img src="/resources/updates/update1/img/pic02.jpg" class="fhimg" alt=""></a>
-						<p class="msctext padding20">
-							<span class="newstitle"><a href="#">The Experts in African Safari Travel</a></span><br/><br/>
-							Sed auctor erat sit amet lorem venenatis, in feugiat nisl fermentum. Nam luctus adipiscing dapibus. Nunc leo felis, ornare non commodo a, elementum a risus.
-						</p>
-					</div>
-				</div>
-				<div class="item ">
-					<div class="msbox"><a href="#"><img src="/resources/updates/update1/img/pic03.jpg" class="fhimg" alt=""></a></div>
-				</div>
-				<div class="item ht2">
-					<div class="msbox2"><a href="#"><img src="/resources/updates/update1/img/pic04.jpg" class="fhimg" alt=""></a>
-						<p class="msctext padding20">
-							<span class="newstitle"><a href="#">Velassaru Beach Resort Island Paradise - Maldives</a></span>
-							<span class="glyphicon glyphicon-star lblue"></span>
-							<span class="glyphicon glyphicon-star lblue"></span>
-							<span class="glyphicon glyphicon-star lblue"></span>
-							<span class="glyphicon glyphicon-star lblue"></span>
-							<span class="glyphicon glyphicon-star lblue"></span>
-							<br/><br/>
-							Sed auctor erat sit amet lorem venenatis, in feugiat nisl fermentum. Nam luctus adipiscing dapibus. Nunc leo felis, ornare non commodo a, elementum a risus.
-						</p>
-					</div>
-				</div>
-				<div class="item wt2">
-					<div class="msbox">
-						<div class="w50percent msctext padding20 left">
-							<span class="newstitle"><a href="#">Aquaventure Waterpark and The Lost Chambers Aquarium</a></span><br/><br/>
-							Sed auctor erat sit amet lorem venenatis, in feugiat nisl fermentum. Nam luctus adipiscing dapibus. Nunc leo felis, ornare non commodo a.
-						</div>
-						<div class="w50percentlast right">
-							<a href="#"><img src="/resources/updates/update1/img/pic06.jpg" class="fwimg " alt=""></a>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="msbox"><a href="#"><img src="/resources/updates/update1/img/pic05.jpg" class="fhimg" alt=""></a></div>
-				</div>
-
-			</div>
-
-			<div>
-
-				<br/>
-				<br/>
-				<br/>
-			</div>
 			<!--####### HEADER #######-->
 			<%@include file="include/footer2.jsp" %>
 		</div>
