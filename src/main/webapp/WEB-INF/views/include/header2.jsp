@@ -3,6 +3,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<style>
+a.navbar-brand  {
+	float:left;
+	padding: 15px;
+}
+</style>
+
 <c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
 <%-- <%@include file="/WEB-INF/views/plan/registerModal.jsp"%> --%>
  <body id="top" class="thebg" >

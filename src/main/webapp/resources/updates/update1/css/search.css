@@ -24,7 +24,10 @@ input#keywordInput{
 	border-collapse : collapse;
 	
 }
-button.searchbtn {
+span button.searchbtn {
+	border: 1px solid #ccc;
+	height:34px;
+	box-shadow: none;
 }
 .progress-custom {
 	height:15px !important;
@@ -60,7 +63,17 @@ button.searchbtn {
 	background: #fff;
 	border:none;
 }
-
+.contentTitle {
+	text-decoration:none;
+	background: #fff;
+	border:none;
+}
+.contentTitle:hover {
+	text-decoration:underline;
+	background: #fff;
+	border:none;
+	color:red;
+}
 ul.pagination {
 	margin:20px;
 }

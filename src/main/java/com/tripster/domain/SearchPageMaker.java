@@ -91,6 +91,15 @@ public class SearchPageMaker { // 페이지 처리용 객체.
 		return uriComponents.toUriString();
 	}
 	
+	public String makeQuery() {
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+				.queryParam("cnt", cri.getCnt())
+				.queryParam("tab", cri.getTab())
+				.queryParam("keyword", cri.getKeyword())
+				.queryParam("page", cri.getPage()).build();
+		return uriComponents.toUriString();
+	}	
+	
 	public String makeSearch(int page) {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance()
 				.queryParam("page", page)
