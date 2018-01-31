@@ -1,81 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@include file="/WEB-INF/views/include/header2.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<html style="overflow-x: hidden;">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- HEADER -->
+	<%@include file="../include/header3.jsp" %>
 
-	<title>title</title>
-	
-	<!-- Bootstrap -->
-    <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
-    
-    <!-- Button -->
-	<link href="/resources/assets/css/scrapBtn.css" rel="stylesheet" media="screen">
-	<!-- scrap -->
-	<script src="/resources/js/scrapHD.js"></script>
-	<!-- review -->
-	<!-- 
-	<script src="/resources/js/review.js"></script>
- -->
-	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-
-    <!-- Fonts -->	
-	<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet' type='text/css'>	
-	<!-- Font-Awesome -->
-    <link rel="stylesheet" type="text/css" href="/resources/assets/css/font-awesome.css" media="screen" />
-	
-    <!-- REVOLUTION BANNER CSS SETTINGS -->
-    <link rel="stylesheet" type="text/css" href="/resources/css/fullscreen.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="/resources/rs-plugin/css/settings.css" media="screen" />
-	
-    <!-- Picker UI-->	
-	<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />	
-	
-	<!-- bin/jquery.slider.min.css -->
-	<link rel="stylesheet" href="/resources/plugins/jslider/css/jslider.css" type="text/css">
-	<link rel="stylesheet" href="/resources/plugins/jslider/css/jslider.round-blue.css" type="text/css">
-	
-    <!-- jQuery-->	
-    <script src="/resources/assets/js/jquery.v2.0.3.js"></script>
-	<script src="/resources/assets/js/jquery-ui.js"></script>	
-	
-	<!-- bin/jquery.slider.min.js -->
-	<script type="text/javascript" src="/resources/plugins/jslider/js/jshashtable-2.1_src.js"></script>
-	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.numberformatter-1.2.3.js"></script>
-	<script type="text/javascript" src="/resources/plugins/jslider/js/tmpl.js"></script>
-	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.dependClass-0.1.js"></script>
-	<script type="text/javascript" src="/resources/plugins/jslider/js/draggable-0.1.js"></script>
-	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.slider.js"></script>
-	<!-- end -->
-    
-
-	<style type="text/css">
-	html {
-		overflow-x: hidden;
-	}
-	</style>
-
-<body id="top" class="thebg" >
-	<div class="container breadcrub">
-		<a class="homebtn left" href="/"></a>
-			<div class="left offset-2">
-				
-				<p style="color: black;font-weight:bold;"></p>		
-				
-			</div>
-		<div class="clearfix"></div>
-		<div class="brlines"></div>
-	</div>
-	<!-- CONTENT -->
-	<!-- 유저 세션  -->
-	<c:set var="userSession" value='<%=session.getAttribute("login")%>' />
 
 	<!-- container -->
 	<div class="container">

@@ -47,9 +47,10 @@
 				<c:otherwise> <span class="size14 label label-default"> ${esContentsVO.category_value_kor}</span></c:otherwise>
 			</c:choose>
 			<span class="size18">	
-				<a href="/contents/${esContentsVO.category_id}/${esContentsVO.contents_id}">
+				<a href="/contents/${esContentsVO.category_id}/${esContentsVO.contents_id}${pageMaker.makeQuery()}">
 					&nbsp;<b>${esContentsVO.contents_title} </b>
 				</a>
+
 			</span><br>
 			<span class="margtop10 size12 grey glyphicon glyphicon-map-marker"></span><span class="grey size12"> ${esContentsVO.contents_location} </span> 
 			<div class="line4 wh80percent"></div>

@@ -51,6 +51,9 @@ public class SearchController {
 		reCri.setTab("total");
 		reCri.setKeyword(cri.getKeyword());
 		
+		SearchPageMaker pageMaker = new SearchPageMaker();
+		pageMaker.setCri(cri);
+		
 		// 세션에 있는 회원정보 받아오기
 		MemberVO memberVO = (MemberVO)session.getAttribute("login");
 		
@@ -63,6 +66,7 @@ public class SearchController {
 		
 		// model에 통합 검색결과 담기 
 		model.addAttribute("totalList",searchTotal);
+		model.addAttribute("pageMaker",pageMaker);
 		model.addAttribute("cri",reCri);	
 		
 		return "/search/result";
