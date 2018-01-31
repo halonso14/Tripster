@@ -7,7 +7,8 @@
 	<!-- CONTAINER-->
 	<div class="carscontainer" style="border:1px solid #e6e6e6">
 		<div class="center">
-			<a href=""><img src="/resources/updates/update1/img/cars/car04.jpg"/></a>
+
+			<a href=""><img src="${esMemberVO.member_picture}"/></a>
 		</div>
 								
 		<div class="purchasecontainer"  >

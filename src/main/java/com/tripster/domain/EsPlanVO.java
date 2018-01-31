@@ -9,7 +9,7 @@ public class EsPlanVO {
 	private int member_id;
 	private String member_picture;
 	private String member_name;
-	private String plan_picture;
+	private String memo_picture_name;
 	private String plan_title;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date plan_startdate;
@@ -41,14 +41,14 @@ public class EsPlanVO {
 	public void setMember_picture(String member_picture) {
 		this.member_picture = member_picture;
 	}
-	public String getPlan_picture() {
-		if(this.plan_picture.equals("")) {
-			this.plan_picture = "https://myworldmark.files.wordpress.com/2013/05/road-trip.jpg";
+	public String getMemo_picture_name() {
+		if(this.memo_picture_name.equals("")) {
+			this.memo_picture_name = "https://myworldmark.files.wordpress.com/2013/05/road-trip.jpg";
 		}
-		return plan_picture;
+		return memo_picture_name;
 	}
-	public void setPlan_picture(String plan_picture) {
-		this.plan_picture = plan_picture;
+	public void setMemo_picture_name(String memo_picture_name) {
+		this.memo_picture_name = memo_picture_name;
 	}
 	public String getMember_name() {
 		return member_name;
