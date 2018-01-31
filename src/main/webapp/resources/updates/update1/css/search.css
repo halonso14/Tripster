@@ -1,4 +1,24 @@
+.scrapBtn {
+	border: 2px solid #ebebeb;
+	padding: 5px 15px;
+	background: #fff;
+	color: #999;
+	border-radius: 4px;
+	transition:.2s;
+	position: relative;
+	top:1px;	
+}
 
+.scrapBtn-on{
+	border: 2px solid #ebebeb;
+	padding: 5px 15px;
+	background: red;
+	color: #999;
+	border-radius: 4px;
+	transition:.2s;
+	position: relative;
+	top:1px;	
+}
 div.searchbox {
 	disp	lay:inline-block;
 }
