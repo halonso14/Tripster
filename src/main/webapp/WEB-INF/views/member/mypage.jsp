@@ -128,12 +128,12 @@ left: 254px;
 					  <li>
 						  <a href="#myfollowList" data-toggle="tab" onclick="mySelectUpdate()">
 						  <span class="wishlist-icon"></span>							  
-						  Followlist
+						  Follow
 						  </a></li>
 					  <li>
 						  <a href="#scrapList" data-toggle="tab" onclick="scrapList()">
 						  <span class="history-icon"></span>								  
-						  ScrapList
+						  Scrap
 						  </a></li>
 					  <li>
 						  <a href="#plan" data-toggle="tab" onclick="mySelectUpdate()">
