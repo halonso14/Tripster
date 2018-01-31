@@ -19,7 +19,7 @@ import com.tripster.persistence.PlanDetailDAO;
 public class PlanServiceImpl implements PlanService{
 
 	@Inject
-	private PlanDAO planDAO;
+	private  PlanDAO planDAO;
 	@Inject
 	private PlanDetailDAO planDetailDAO;
 	@Inject  
@@ -30,9 +30,8 @@ public class PlanServiceImpl implements PlanService{
 	@Override
 	public void registerPlan(PlanVO vo) throws Exception {
 		planDAO.insertPlan(vo);
-		//신규등록 일정아이디 조회
 		// 일정등록 엘라스틱서치 데이터 트랜젝션처리 
-		esPlanDao.insertEsPlan(planDAO.selectPlan(planDAO.selectLastPlanID()));
+		//esPlanDao.insertEsMember(dao.select(vo.getMemberEmail()));
 	}
 
 	//플랜 수정.
@@ -74,6 +73,7 @@ public class PlanServiceImpl implements PlanService{
 	public int readPlanID() throws Exception {
 		return planDAO.selectLastPlanID();
 	}
+	
 
 	//나의 플랜 조회
 	@Override

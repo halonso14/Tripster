@@ -64,4 +64,10 @@ public class ContentsServiceImpl implements ContentsService {
 	public void updateContentsRating(Integer contentsID, double contentsRating) throws Exception{
 		dao.updateContentsRating(contentsID,contentsRating);
 	}
+	
+	// 컨텐츠 스크랩카운트 조회
+	@Override
+	public Integer getScrapCnt(Integer contentsID) throws Exception{
+		return dao.getScrapCnt(contentsID);
+	}
 }

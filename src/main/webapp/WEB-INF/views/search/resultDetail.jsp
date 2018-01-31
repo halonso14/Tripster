@@ -158,7 +158,7 @@
     <!-- Bootstrap -->	
     <script src="/resources/dist/js/bootstrap.min.js"></script>
 	<!-- scrapBtn -->
-	<script src="/resources/js/scrapHD.js"></script>
+	<script src="/resources/js/searchScrap.js"></script>
     <!-- likeBtn -->
     <script src="/resources/js/searchLike.js"></script>
     <!-- followBtn -->

@@ -7,7 +7,7 @@ function mouseover(memberID, $button){
 		});
 	} else {
 		if ($button.hasClass('scraped')) {
-				console.log("scrap");
+				
 				$button.addClass('unscrap');
 				$button.text('스크랩 취소');
 				$button.unbind('mouseleave').bind('mouseleave', function() {
@@ -19,14 +19,22 @@ function mouseover(memberID, $button){
 					$button.removeClass('unscrap');
 					$button.removeClass('scraped');
 					$button.text('스크랩');
-					$.post("/scrapDelete/"+contentsID);
+					$.post("/scrapDelete/"+contentsID,function(scrapCnt){
+						console.log(scrapCnt);
+						$("#"+contentsID).html(scrapCnt);
+						alert("스크랩 취소");
+					});
 				});
 			} else{
 				$button.unbind('click').bind('mouseleave', function() {
 				});
 				$button.unbind('click').bind('click', function() {
-					console.log("scrap");
-					$.post("/scrap/"+contentsID);
+					
+					$.post("/scrap/"+contentsID,function(scrapCnt){
+						console.log(scrapCnt);
+						$("#"+contentsID).html(scrapCnt);
+						alert("스크랩");
+					});
 					$button.addClass('scraped');
 					$button.text('스크랩');
 				});
