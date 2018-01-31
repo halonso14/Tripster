@@ -32,6 +32,7 @@ response.setHeader("Pragma", "no-cache");
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
     
+    <link href="/resources/assets/css/endChk.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/followBtn.css" rel="stylesheet" media="screen">
     <!-- ymmu bootstrap table -->
     <link href="/resources/bootstrap-table/dist/bootstrap-table.css" rel="stylesheet">
@@ -992,11 +993,11 @@ left: 254px;
 										+"<a href='/plan/read?planID="+this.planID+"'><b>"+this.planTitle+"</b></a><br />"
 									 
 									 if(this.planEndChk != 1){
-										 str += "<button class='btn followButton' value='"+this.planID+"' onmouseover='mouseover($(this));'>미완료</button>"
+										 str += "<button class='btn endchkButton' value='"+this.planID+"' onmouseover='mouseover($(this));'>미완료</button>"
 										+"</div>"
 									+"</div>";
 									 }else{
-										str += "<button class='btn followButton following' value='"+this.planID+"'  onmouseover='mouseover($(this));'>완료</button>"
+										str += "<button class='btn endchkButton complete' value='"+this.planID+"'  onmouseover='mouseover($(this));'>완료</button>"
 										+"</div>"
 									+"</div>";
 									 }	

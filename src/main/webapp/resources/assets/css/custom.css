@@ -1677,7 +1677,7 @@ background:url('../../images/back-icon.png') #222 no-repeat  scroll -16px -31px;
 .bookfilters{ position:relative; font-size:12px; padding-bottom:60px; padding-top:20px;}
 .topsortby{ padding-top:30px; padding-bottom:69px; border-bottom:1px solid #e6e6e6;}
 
-.itemlabel{background:#f2f2f2; width:100%; height:50px; padding:10px 15px; font-family:"Open Sans"; font-size:13px; line-height:15px;}
+.itemlabel{background:#f2f2f2; width:100%; height:100%; padding:10px 15px; font-family:"Open Sans"; font-size:13px; line-height:15px;}
 
 .listitem{background:#efefef; width:100%; overflow:hidden; position:relative;}
 .listitem img{ height:100%; -webkit-transition:.3s;-moz-transition:.3s;transition:.3s}

@@ -14,7 +14,7 @@
 				<a href="#" class="social4b"><img src="/resources/images/icon-youtube.png" alt=""/></a>
 				<br/><br/><br/>
 				<a href="#"><img src="/resources/images/logosmal2.png" alt="" /></a><br/>
-				<span class="grey2">&copy; 2013  |  <a href="#">Privacy Policy</a><br/>
+				<span class="grey2">&copy; 2018  |  <a href="#">Tripster</a><br/>
 				All Rights Reserved </span>
 				<br/><br/>
 				
