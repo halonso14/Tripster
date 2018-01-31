@@ -421,7 +421,7 @@ response.setHeader("Pragma", "no-cache");
 						
 						<div class="line4"></div>
 						<!-- <input type="hidden" name="memberID" value=1 id="newReplyWriter"> -->
-						<textarea class="form-control" rows="3" name="planReplyContents" id="newReplyText" ></textarea>
+						<textarea class="form-control" rows="3" name="planReplyContents" id="newReplyText" onmousedown="replyTextMouseDown();"></textarea>
 						<span class="errorMessage" style="color: red; font-weight: bold;"></span><br/>
 						<button onclick="errorMessage()" type="submit" class="btn-search5" id="replyAddBtn">Post <span class="glyphicon glyphicon-arrow-down"></span></button>
 						<br/><br/><br/>
@@ -650,6 +650,9 @@ response.setHeader("Pragma", "no-cache");
 		}
 	}
 	
+	function replyTextMouseDown() {
+	    $(".errorMessage").empty();
+	}
 	//댓글 등록.
 	function addReply(){
 		var replytext = $("#newReplyText").val();
