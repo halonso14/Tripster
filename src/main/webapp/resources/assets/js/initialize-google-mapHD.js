@@ -1,4 +1,4 @@
-	function loadScript() {
+function loadScript() {
 	    setTimeout(function (){
 		  $('#map-canvas').css({'display':'block'});
 		  var script = document.createElement('script');
