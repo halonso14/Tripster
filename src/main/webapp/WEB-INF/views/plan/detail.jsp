@@ -96,7 +96,8 @@ body {
     <!-- ymmu bootstrap table -->
     <link href="/resources/bootstrap-table/dist/bootstrap-table.css" rel="stylesheet">
 
-
+	<link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
+	<link href="/resources/updates/update1/css/style02.css" rel="stylesheet" media="screen">
 	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

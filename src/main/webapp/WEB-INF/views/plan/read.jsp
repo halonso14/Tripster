@@ -185,7 +185,8 @@ response.setHeader("Pragma", "no-cache");
     
     <!-- Bootstrap -->
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
-    
+	<link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
+	<link href="/resources/updates/update1/css/style02.css" rel="stylesheet" media="screen">   
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
     <!-- ymmu bootstrap table -->
     <link href="/resources/bootstrap-table/dist/bootstrap-table.css" rel="stylesheet">
