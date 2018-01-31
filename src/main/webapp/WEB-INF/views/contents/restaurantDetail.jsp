@@ -232,7 +232,7 @@
 					<div class="cstyle10"></div>
 						<ul class="nav nav-tabs" id="myTab">
 							<li onclick="mySelectUpdate()" class="active"><a data-toggle="tab" href="#reviews"><span class="thingstodo"></span><span class="hidetext">Reviews</span>&nbsp;</a></li>
-							<li onclick="loadScript()" class=""><a data-toggle="tab" href="#maps"><span class="maps"></span><span class="hidetext">Maps</span></a></li>
+							<li onclick="loadScript('${vo.lat}','${vo.lng}')" class=""><a data-toggle="tab" href="#maps"><span class="maps"></span><span class="hidetext">Maps</span></a></li>
 						</ul>
 					<div class="tab-content4">
 						<!-- TAB1 -->
@@ -331,6 +331,10 @@
 				</div>
 			</div>
 		</div>
+
+	<!-- FOOTER -->
+	<%@include file="../include/footer.jsp" %>		
+
 <script>
 $(document).ready(function() {
 	var memberID = "${memberVO.memberID}";
@@ -509,13 +513,68 @@ $(document).ready(function() {
 			}),
 			success : function(data) {
 				// 리뷰 등록후 처음 1 페이지로 이동
-				getReviewList(1, memberID, contentsID);
+				getReviewList(1);
 			}
 		});
 		// 등록 후 리뷰 텍스트 내용 초기화
 		$("#reviewTitle").val("리뷰 제목을 입력해주세요");
 		$("#reviewDetail").val("");
 	});
+	
+	// 리뷰 수정
+	$('#reviewList').on('click','.modify',function() {
+		// 리뷰 아이디
+		alert("aa");
+		var contentsReviewID = $(this).attr('id');
+		if (this.value == 1) {
+			// 수정 텍스트 출력
+			$(this).attr('value', 0);
+			var str = "<textarea id='textarea' cols=" + 30 + "rows=" + 10 + "></textarea>";
+			$('.'+ contentsReviewID).html(str);
+		} else {
+			// 수정 내용 저장
+			var modify = $('#textarea').val();
+			$(this).attr('value', 1);
+			// 수정 내용 전달
+			$.ajax({
+				type : 'put',
+				url : '/contents/contentsDetail/'+ contentsID+ '/'+ contentsReviewID,
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "PUT",
+				},
+				dataType : 'text',
+				data : JSON.stringify({
+					contentsID : contentsID,
+					memberID : memberID,
+					contentsReview : modify
+				}),
+				success : function(result) {
+						// 리뷰 등록후 처음 1 페이지로 이동
+						getReviewList(1);;
+				}
+			});
+		}
+	})
+	
+	// 리뷰 삭제
+	$('#reviewList').on('click','.delete',function() {
+		// 리뷰 아이디
+		var contentsReviewID = $(this).attr('id');
+		$.ajax({
+			type : 'delete',
+			url : '/contents/contentsDetail/'+ contentsID+ '/'+ contentsReviewID,
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "DELETE",
+			},
+			dataType : 'text',
+			success : function(result) {
+				// 리뷰 등록후 처음 1 페이지로 이동
+				getReviewList(1);;
+			}
+		});
+	})
 	
 	// 업로드 버튼을 누른경우 css 적용
 	$('#uploadBtn').on('click', function() {
@@ -545,7 +604,7 @@ $(document).ready(function() {
 		formData.append("file",files);
 		// ajax로 컨트롤러에 데이터 전송
 		$.ajax({
-			url : "/uploadAjax",
+			url : "/uploadAjaxReview",
 			data : formData,
 			dataType : 'text',
 			processData : false,
@@ -560,14 +619,14 @@ $(document).ready(function() {
 					// 이미지 파일일 경우 썸네일 생성
 					str = "<li>"
 						// 원본 파일 링크
-						+ "<a href='/displayFile?fileName="+ getImageLink(data)+ "'>"
-						+ "<img src='/displayFile?fileName="+ data+ "'/>"
+						+ "<img src='/displayFile?fileName="+ data
+								+ "&directory=review' style='width:160px;'/>"
 						+ getOriginalName(data)
 						+ "</a>"
 						+ "<small fileName="+data+">X</small></li>";
 				} else {
 					// 이미지 파일이 아닐경우 다운로드
-					str = "<li><a href='/displayFile?fileName="+ data+ "'>"+ getOriginalName(data)
+					str = "<li><a href='/displayFile?fileName="+ data+ "&directory=review'>"+ getOriginalName(data)
 						+ "</a><small fileName="+data+">X</small></li>";
 				}
 				$('.uploadList').append(str);
@@ -604,14 +663,14 @@ $(document).ready(function() {
 						// 썸네일 생성
 						+ "<img src='/displayFile?fileName="
 						+ fileList[i]
-						+ "'/>"
+						+ "&directory=review' style='width:640px;'/>"
 						+ "</li>";
 			} else {
 				// 이미지 파일이 아닐경우 다운로드
 				str = str
 						+ "<li><a href='/displayFile?fileName="
 						+ fileList[i]
-						+ "'>"
+						+ "&directory=review'>"
 						+ getOriginalName(fileList[i])
 						+ "</a></li>";
 			}
@@ -651,13 +710,120 @@ $(document).ready(function() {
 		return front + end;
 	}
 });
+//구글 맵 호출
+function initialize() {
+	var Lat = '${vo.lat}';
+	var Lng = '${vo.lng}';
+	var latM = Math.round(Lat * 1000000) / 1000000;
+	var lngM = Math.round(Lng * 1000000) / 1000000;
+	
+	var title = '${vo.title}';
+	  // Create an array of styles.
+	var styles = [
+		{
+			featureType: 'road.highway',
+			elementType: 'all',
+			stylers: [
+				{ hue: '#e5e5e5' },
+				{ saturation: -100 },
+				{ lightness: 72 },
+				{ visibility: 'simplified' }
+			]
+		},{
+			featureType: 'water',
+			elementType: 'all',
+			stylers: [
+				{ hue: '#30a5dc' },
+				{ saturation: 47 },
+				{ lightness: -31 },
+				{ visibility: 'simplified' }
+			]
+		},{
+			featureType: 'road',
+			elementType: 'all',
+			stylers: [
+				{ hue: '#cccccc' },
+				{ saturation: -100 },
+				{ lightness: 44 },
+				{ visibility: 'on' }
+			]
+		},{
+			featureType: 'landscape',
+			elementType: 'all',
+			stylers: [
+				{ hue: '#ffffff' },
+				{ saturation: -100 },
+				{ lightness: 100 },
+				{ visibility: 'on' }
+			]
+		},{
+			featureType: 'poi.park',
+			elementType: 'all',
+			stylers: [
+				{ hue: '#d2df9f' },
+				{ saturation: 12 },
+				{ lightness: -4 },
+				{ visibility: 'on' }
+			]
+		},{
+			featureType: 'road.arterial',
+			elementType: 'all',
+			stylers: [
+				{ hue: '#e5e5e5' },
+				{ saturation: -100 },
+				{ lightness: 56 },
+				{ visibility: 'on' }
+			]
+		},{
+			featureType: 'administrative.locality',
+			elementType: 'all',
+			stylers: [
+				{ hue: '#000000' },
+				{ saturation: 0 },
+				{ lightness: 0 },
+				{ visibility: 'on' }
+			]
+		}
+	];
+	
+	var myLatlng = new google.maps.LatLng(latM, lngM);
+	// Create a new StyledMapType object, passing it the array of styles,
+	// as well as the name to be displayed on the map type control.
+	var styledMap = new google.maps.StyledMapType(styles,
+		{name: "Styled Map"});
+	
+	
+	// Create a map object, and include the MapTypeId to add
+	// to the map type control.
+	var mapOptions = {
+		zoom: 15,
+		center: myLatlng,
+		mapTypeControlOptions: {
+		  mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+		}
+	};
+	
+	var map = new google.maps.Map(document.getElementById('map-canvas'),
+		mapOptions);
+		
+	var marker = new google.maps.Marker({
+		  position: myLatlng,
+		  map: map,
+		  title: title
+	});
+	
+	
+	//Associate the styled map with the MapTypeId and set it to display.
+	map.mapTypes.set('map_style', styledMap);
+	map.setMapTypeId('map_style');
+	}
 </script>
 
 			<!-- Javascript -->	
 			<script src="/resources/assets/js/js-details.js"></script>
 			
 			<!-- Googlemap -->	
-			<script src="/resources/assets/js/initialize-google-map.js"></script>
+			<script src="/resources/assets/js/initialize-google-mapHD.js"></script>
 
 			<!-- Nicescroll  -->	
 			<script src="/resources/assets/js/jquery.nicescroll.min.hd.js"></script>

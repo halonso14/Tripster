@@ -127,12 +127,12 @@ left: 254px;
 					  <li>
 						  <a href="#myfollowList" data-toggle="tab" onclick="mySelectUpdate()">
 						  <span class="wishlist-icon"></span>							  
-						  Followlist
+						  Follow
 						  </a></li>
 					  <li>
 						  <a href="#scrapList" data-toggle="tab" onclick="scrapList()">
 						  <span class="history-icon"></span>								  
-						  ScrapList
+						  Scrap
 						  </a></li>
 					  <li>
 						  <a href="#plan" data-toggle="tab" onclick="mySelectUpdate()">
@@ -1235,7 +1235,7 @@ $(window).load(function(){
 	<!-- plan 일정 삭제 후 tab이동.  -->
 	<script >
 	 $(document).ready(function(){
-			var planDeleteChk = "<%=request.getParameter("plan_delete")%>";
+			var planDeleteChk = "${plan_delete}";
 			var planChk = "<%=request.getParameter("planTab")%>";
 			console.log(planDeleteChk);
 		    if(planDeleteChk == "OK"){

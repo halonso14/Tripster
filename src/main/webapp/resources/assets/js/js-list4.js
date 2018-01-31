@@ -205,7 +205,7 @@ jQuery(window).scroll(function(){
 	
 
 	//Social
-	if(jQuery(window).scrollTop() >= 900){
+	if(jQuery(window).scrollTop() >= 0){
 		jQuery('.social1').stop().animate({top:'0px'}, 100);
 		
 		setTimeout(function (){

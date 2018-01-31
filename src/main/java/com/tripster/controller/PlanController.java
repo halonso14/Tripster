@@ -176,11 +176,11 @@ public class PlanController {
 		
 		//plan 전체 삭제
 		@RequestMapping(value="/delete", method=RequestMethod.POST)
-		public String deletePlan(@RequestParam int planID, ModelMap map)throws Exception{
+		public String deletePlan(@RequestParam int planID, RedirectAttributes rttr)throws Exception{
 			try {
 				//삭제 작업 수행.
 				planService.removePlan(planID);
-				map.addAttribute("plan_delete","OK");
+				rttr.addFlashAttribute("plan_delete","OK");
 			}catch (Exception e) {
 				e.printStackTrace();
 			}

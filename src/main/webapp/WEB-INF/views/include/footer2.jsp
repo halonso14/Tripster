@@ -10,7 +10,7 @@
 				<a href="#" class="social3"><img src="/resources/images/icon-gplus.png" alt=""/></a>
 				<a href="#" class="social4"><img src="/resources/images/icon-youtube.png" alt=""/></a>
 				<br/><br/>
-				Copyright &copy; 2018 <a href="#">Tripster</a> All rights reserved. <a href="http://titanicthemes.com">TitanicThemes.com</a>
+				Copyright &copy; 2018 <a href="#">Tripster</a> All rights reserved.
 				<br/><br/>
 				<a href="#top" id="gotop2" class="gotop"><img src="/resources/images/spacer.png" alt=""/></a>
 			</div>

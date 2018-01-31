@@ -137,10 +137,10 @@ response.setHeader("Pragma", "no-cache");
 									id="numPlans">${planCount}</span><br />
 								<span class="size12">Plans</span></td>
 								<td class="center" style="width:33%"><span class="size30 slim lh4"
-									id="totalDays">${followCount}</span><br />
+									id="totalDays">${followingCount}</span><br />
 								<span class="size12">Followers</span></td>
 								<td class="center" style="width:33%"><span class="size30 slim lh4"
-									id="numCountries">${followingCount}</span><br />
+									id="numCountries">${followCount}</span><br />
 								<span class="size12">Follows</span></td>
 							</tr>
 							<!-- ymmu data -->
