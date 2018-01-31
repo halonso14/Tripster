@@ -394,8 +394,8 @@ response.setHeader("Pragma", "no-cache");
 													</c:forEach>
 												</ul>
 											<div class="clearfix"></div>
-											<a id="prev_btn" class="xprev" href=""><img src="/resources/images/spacer.png" alt=""/></a>
-											<a id="next_btn" class="xnext" href=""><img src="/resources/images/spacer.png" alt=""/></a>
+											<a id="prev_btn" class="xprev"><img src="/resources/images/spacer.png" alt=""/></a>
+											<a id="next_btn" class="xnext" ><img src="/resources/images/spacer.png" alt=""/></a>
 										</div>
 									</div>
 									<div class="line4"></div>
@@ -421,7 +421,7 @@ response.setHeader("Pragma", "no-cache");
 						
 						<div class="line4"></div>
 						<!-- <input type="hidden" name="memberID" value=1 id="newReplyWriter"> -->
-						<textarea class="form-control" rows="3" name="planReplyContents" id="newReplyText" ></textarea>
+						<textarea class="form-control" rows="3" name="planReplyContents" id="newReplyText" onmousedown="replyTextMouseDown();"></textarea>
 						<span class="errorMessage" style="color: red; font-weight: bold;"></span><br/>
 						<button onclick="errorMessage()" type="submit" class="btn-search5" id="replyAddBtn">Post <span class="glyphicon glyphicon-arrow-down"></span></button>
 						<br/><br/><br/>
@@ -541,7 +541,7 @@ response.setHeader("Pragma", "no-cache");
 				</c:otherwise>
 			</c:choose>
 			
-			
+			//댓글 출력.
 			$(data.reply).each(function(){
 				//댓글 작성 시간을 '2017/12/28 15:55:55'와 같은 형태로 파싱.
 				var d =new Date( this.planReplyTime),dformat = [d.getFullYear(), (d.getMonth()+1).padLeft(),
@@ -551,11 +551,19 @@ response.setHeader("Pragma", "no-cache");
 		               d.getMinutes().padLeft(),
 		               d.getSeconds().padLeft()].join(':');
 				
-			
-				str+= "<br><div class='wh20percent left textleft'><div class='circlewrap2'><img alt='' class='circleimg' src='/resources/images/user-avatar.jpg'></div></div>"
-				+'<div class="wh80percent right "><span class="lblue bold">'
+				
+				str+= "<br><div class='wh20percent left textleft'><div class='circlewrap2'>";
+				
+				// 멤버프로필 사진 출력부분.
+				if(this.memberPicture == ''){
+					str+="<img alt='' class='circleimg' src='/resources/images/user-avatar.jpg'>";
+				}else{
+					str+="<img alt='' class='circleimg' src='/displayFile?fileName="+this.memberPicture+"&directory=profile' style='height : 53px; width: 53px;'>";
+				}
+				
+				str+='</div></div><div class="wh80percent right "><span class="lblue bold"><a href="/member/viewMember?memberID='+this.memberID+'">'
 				+this.memberName
-				+'</span>&nbsp&nbsp<span class="grey size12">'
+				+'</a></span>&nbsp&nbsp<span class="grey size12">'
 				+dformat
 				+'</span><br/>'
 				+'<span class="replyspan" data-rno="'
@@ -571,7 +579,6 @@ response.setHeader("Pragma", "no-cache");
 						str+='</br><span class="grey size12"><input type="button" class="btn-search4 planReplyBtn" id="replyDelBtn" value="Remove" onclick="replyRemove($(this))">&nbsp</span><span class="grey size12"><input type="button" input type="button" class="planModifyBtn"  value="Modify" onclick="modifyForm($(this))"></span>'
 					} 
 				}
-				
 				str+='</span></div><div class="clearfix"></div><div class="line4">';
 			});
 			
@@ -643,6 +650,9 @@ response.setHeader("Pragma", "no-cache");
 		}
 	}
 	
+	function replyTextMouseDown() {
+	    $(".errorMessage").empty();
+	}
 	//댓글 등록.
 	function addReply(){
 		var replytext = $("#newReplyText").val();
