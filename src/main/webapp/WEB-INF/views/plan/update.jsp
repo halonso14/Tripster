@@ -9,8 +9,7 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" type="text/css" media="screen" /> -->
 <!-- <link href='/resources/css/fullcalendar.print.css' rel='stylesheet' media='print' /> -->
-	<link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
-	<link href="/resources/updates/update1/css/style02.css" rel="stylesheet" media="screen">
+
 <style>
 body {
 	margin-top: 40px;
@@ -90,7 +89,13 @@ body {
 
 
 </head>
-
+<script>
+	var result ="${result}";
+	if(result == "false"){
+		alert("잘못된 접근 경로입니다.");
+		history.go(-1);
+	}
+</script>
 <%@include file="/WEB-INF/views/include/header2.jsp"%>
     <div class="container breadcrub">
 		<a class="homebtn left" href="/"></a>
@@ -260,6 +265,7 @@ body {
 		});
 	});
 </script>
+
 </body>
 
 <!-- full calendar 관련 스크립트. -->

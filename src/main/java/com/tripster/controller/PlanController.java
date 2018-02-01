@@ -153,21 +153,27 @@ public class PlanController {
 		
 		//plan Detail 수정
 		@RequestMapping(value="/update", method=RequestMethod.GET)
-		public void updatePlanGET(@RequestParam("planID") int planID, ModelMap model)throws Exception{
+		public void updatePlanGET(@RequestParam("planID") int planID, ModelMap model, HttpSession session)throws Exception{
+			MemberVO memberVO  = (MemberVO)session.getAttribute("login");
+			
 			PlanVO  vo = planService.readOnlyPlan(planID);
-		
-			//plan 수정 폼에서 default date를 지정해주기 위해서.
-			Date from =vo.getPlanStartDate();
-			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-			String startDate = "'"+transFormat.format(from)+"'";
-			
-			from = vo.getPlanEndDate();
-			String endDate = "'"+transFormat.format(from)+"'";
-			
 
-			model.addAttribute("plan",vo);
-			model.addAttribute("startDate",startDate);
-			model.addAttribute("endDate",endDate);
+			if(memberVO.getMemberID() == vo.getMemberID()) {
+				//plan 수정 폼에서 default date를 지정해주기 위해서.
+				Date from =vo.getPlanStartDate();
+				SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String startDate = "'"+transFormat.format(from)+"'";
+				
+				from = vo.getPlanEndDate();
+				String endDate = "'"+transFormat.format(from)+"'";
+				
+	
+				model.addAttribute("plan",vo);
+				model.addAttribute("startDate",startDate);
+				model.addAttribute("endDate",endDate);
+			}else {
+				model.addAttribute("result",false);
+			}
 		}
 		
 		// plan 수정 폼에서 detailVO 조회.
@@ -179,11 +185,11 @@ public class PlanController {
 		
 		//plan 전체 삭제
 		@RequestMapping(value="/delete", method=RequestMethod.POST)
-		public String deletePlan(@RequestParam int planID, ModelMap map)throws Exception{
+		public String deletePlan(@RequestParam int planID, RedirectAttributes rttr)throws Exception{
 			try {
 				//삭제 작업 수행.
 				planService.removePlan(planID);
-				map.addAttribute("plan_delete","OK");
+				rttr.addFlashAttribute("plan_delete","OK");
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
