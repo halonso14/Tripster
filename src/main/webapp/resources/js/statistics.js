@@ -30,17 +30,17 @@ var graphConfig = [{
 //일정관련 간단정보(brief) 그래프 초기데이
 var chartData=[{
 	        "plan": "Min",
-	        "how_many":1,
+	        "how_many":0,
 	        "color": "#00c3ff"
 	    }, 
 	    {
 	        "plan": "Max",
-	        "how_many": 1,
+	        "how_many": 0,
 	        "color": "#2A0CD0"
 	    }, 
 	    {
 	        "plan": "Avg",
-	        "how_many": 1,
+	        "how_many": 0,
 	        "color": "#8A0CCF"
 	}];
 
@@ -201,6 +201,8 @@ $(document).ready(function(){
 	//추천데이터. 크로스도메인 설정됨
 	ajaxController(rcm_url + id);
 
+	//추천정보강 없습니다 숨기기
+	$("#ajax_load_text").hide();
 });
 
 
@@ -313,142 +315,150 @@ var ajaxController= function(url){
             	
             	
             	console.log('추천데이터 ajax 데이터부분');
-
+            	console.log(data[0].result);
+            	
+            	if(data[0].result =='no data'){
+            		$("#ajax_load_image").hide();
+            		$("#ajax_load_text").show();
+            	}else{
+            		$("#ajax_load_text").hide();
             		//구글맵 세팅.
-            	initGoogleMap(data);
-            	country_from_data= data[1].country;
-            	country_youtube_from_data = data[2].country_youtube;
-            	
-            	var country_len = country_from_data.length;
+                	initGoogleMap(data);
+                	country_from_data= data[1].country;
+                	country_youtube_from_data = data[2].country_youtube;
+                	
+                	var country_len = country_from_data.length;
 
-            	var promise = new Promise(function(resolve, reject){
+                	var promise = new Promise(function(resolve, reject){
+                		
+                		//추천국가중에 db에 정보가 없어서 못 가져온 것들이 있다. 이국가들 더미데이터 넣어야 함
+                		//추천국가 amcharts에 색깔 표시
+                	chartMap2.dataProvider.areas= [];
+                	rcm_data=[];
+                	for(var i=0 ; i< country_len;i++){
+
+                		rcm_data.push({
+              			      "id": country_from_data[i].iso2,
+            			      "color": "#8d1cc6"
+            			 });
+
+                	}//for
+                	//console.log(rcm_data);
+                	chartMap2.dataProvider.areas = rcm_data;
+                	chartMap2.validateData();
+                	//amchart에 추천 국가 눌렀을 때 그 나라 데이터 바인딩 되도록 세팅
+                	
+                	//지도에 나라 클릭하면 이벤트를 걸어줌. 누른 나라의 데이터를 구글맵과 정보탭에 바인딩해준다.
+                	var listeners=[{
+            		    "event": "clickMapObject",
+            		    "method": function(event) {
+            		    	//console.log(event);
+            		    	//console.log(event.mapObject.id);
+            		    	
+            		    	for(var i=0; i< country_len;i++){
+
+                        		if(country_from_data[i].iso2 == event.mapObject.id){
+                        			
+                        			 $('.description_title').html(country_from_data[i].name_han+' '+country_from_data[i].name_eng); //지도서 클릭한 나라 이름
+                        			 $('.country_or_city_description').html(country_from_data[i].description); //지도서 클릭한 나라 소개
+                        			 $('#exchange_ymmu').html('<br> 1'+country_from_data[i].money_unit+' = '+ country_from_data[i].exchange+'원<br>'+'10'+country_from_data[i].money_unit+' = '+ country_from_data[i].exchange*10+'원<br>'); //지도서 클릭한 나라 환율
+                        			 $('#bigmac_ymmu').html('약 '+country_from_data[i].bigmac_price +' '+country_from_data[i].money_unit+'<br><br>'+'<b>US달러 가격</b><br>'+country_from_data[i].bigmac_price_dallor+' 달러'); //지도서 클릭한 나라 환율
+                        			 $('#country_or_city_title_image').attr('src', '/resources/images/'+country_from_data[i].iso2+'_main.jpg');
+                                 	 $('#activity_ymmu').html(country_from_data[i].activity);
+                                	 $('#food_ymmu').html(country_from_data[i].food);
+                                	 
+                                	 var safe_desc = '';
+                                	 if(country_from_data[i].safe == 3){
+                                		 safe_desc = '안전한 편입니다. 국가에 따라 다르나, 늦은밤 외출을 자제하고, 고가의 소지품을 주의하세요. 외진 곳, 관광객이 많지 않은 곳은 혼자서 다니지 않습니다.';
+                                		 $('.safe_icon').text('sentiment_neutral');
+                                	 }else if(country_from_data[i].safe == 4){
+                                		 safe_desc = '상당히 안전한 편입니다. 하지만 깡패나 소매치기는 어디나 있으니 언제나 소지품을 주의하세요.';
+                                		 $('.safe_icon').text('sentiment_satisfied');
+                                	 }else if(country_from_data[i].safe == 5){
+                                		 safe_desc = '매우 안전한 편입니다. 본인이 제일 위험할 수 있습니다.';
+                                		 $('.safe_icon').text('sentiment_very_satisfied');
+                                	 }
+                                	 
+                                	 $('#safe_ymmu').html(safe_desc+'<br>'); //지도서 클릭한 나라 환율
+                        			 
+                                	 
+                        			 	//관련 국가를 다녀가는 일정
+                        			 ajaxController("/rcm/"+country_from_data[i].iso2);
+                        			 
+                        			 
+                             			
+                        			 	//유튜브 슬라이드 갱신 필요
+                                 	$('.video_rcm_list').slick('removeSlide',null,null, true);
+                                 	//console.log('슬라이드 갱신');
+                                 	
+                                 	(function(i){
+                                 			//관련일정 slick에 달아줌
+                                 		//console.log(country_youtube_from_data[i]);
+                                     	bindingYoutubeListToSlick(country_youtube_from_data[i]);
+                                 	})(i);
+                                 		
+                                 	
+                        		
+                        		
+                        		}	
+                        	}//for
+            		    	
+            		        // GMap inited?
+            		        if ( typeof gmap === "undefined" )
+            		          return;
+            		    	// sync position
+            		        gmap.setCenter( {
+            		          lat: chartMap2.zoomLatitude(),
+            		          lng: chartMap2.zoomLongitude()
+            		        } );
+            		        //console.log('zoomlevel:'+chartMap2.zoomLevel());
+            		        
+            		        google.maps.event.trigger(gmap, 'resize'); // 구글맵 갱신.
+            		        
+            		        
+            		    }//function(event)끝
+            		  },
+            		  {
+            			    "event": "zoomCompleted",
+            			    "method": function( e ) {
+            			
+            			      // GMap inited?
+            			      if ( typeof gmap === "undefined" )
+            			        return;
+
+            			     if ( chartMap2.zoomLevel() >= AmCharts.amBreakLevel ) {
+            				        // sync position
+            				        gmap.setCenter( {
+            				          lat: chartMap2.zoomLatitude(),
+            				          lng: chartMap2.zoomLongitude()
+            				        } );
+            				        //console.log('after gmap -> setCenter');
+            				        //console.log('chartMap2 zoomlevel:'+chartMap2.zoomLevel());
+            				        // set zoom level
+            				        gmap.setZoom( AmCharts.gBreakLevel );
+            				        //gmap.setZoom(chartMap2.zoomLevel());
+            				        //console.log('gmap.getCenter: '+gmap.getZoom());
+            				
+            				        // switch to Google map
+            				        document.getElementById( "chartdiv_rcm" ).style.visibility = "hidden";
+            				        document.getElementById( "gmap" ).style.visibility = "visible";
+            				        google.maps.event.trigger(gmap, 'resize'); // 구글맵 갱신.
+            			      }
+            			    }
+            		  }];
+                	
+                	chartMap2.listeners = listeners;
+                		
+                		resolve('done');
+                	});
+
+                	promise.then(function(result){
+                		console.log(result);
+                		chartMap2.validateData();
+                		$("#div_ajax_load_image").hide(); //로딩이미지 삭제
+                	});
+            	}
             		
-            		//추천국가중에 db에 정보가 없어서 못 가져온 것들이 있다. 이국가들 더미데이터 넣어야 함
-            		//추천국가 amcharts에 색깔 표시
-            	chartMap2.dataProvider.areas= [];
-            	rcm_data=[];
-            	for(var i=0 ; i< country_len;i++){
-
-            		rcm_data.push({
-          			      "id": country_from_data[i].iso2,
-        			      "color": "#8d1cc6"
-        			 });
-
-            	}//for
-            	//console.log(rcm_data);
-            	chartMap2.dataProvider.areas = rcm_data;
-            	chartMap2.validateData();
-            	//amchart에 추천 국가 눌렀을 때 그 나라 데이터 바인딩 되도록 세팅
-            	
-            	//지도에 나라 클릭하면 이벤트를 걸어줌. 누른 나라의 데이터를 구글맵과 정보탭에 바인딩해준다.
-            	var listeners=[{
-        		    "event": "clickMapObject",
-        		    "method": function(event) {
-        		    	//console.log(event);
-        		    	//console.log(event.mapObject.id);
-        		    	
-        		    	for(var i=0; i< country_len;i++){
-
-                    		if(country_from_data[i].iso2 == event.mapObject.id){
-                    			
-                    			 $('.description_title').html(country_from_data[i].name_han+' '+country_from_data[i].name_eng); //지도서 클릭한 나라 이름
-                    			 $('.country_or_city_description').html(country_from_data[i].description); //지도서 클릭한 나라 소개
-                    			 $('#exchange_ymmu').html('<br> 1'+country_from_data[i].money_unit+' = '+ country_from_data[i].exchange+'원<br>'+'10'+country_from_data[i].money_unit+' = '+ country_from_data[i].exchange*10+'원<br>'); //지도서 클릭한 나라 환율
-                    			 $('#bigmac_ymmu').html('약 '+country_from_data[i].bigmac_price +' '+country_from_data[i].money_unit+'<br><br>'+'<b>US달러 가격</b><br>'+country_from_data[i].bigmac_price_dallor+' 달러'); //지도서 클릭한 나라 환율
-                    			 $('#country_or_city_title_image').attr('src', '/resources/images/'+country_from_data[i].iso2+'_main.jpg');
-                             	 $('#activity_ymmu').html(country_from_data[i].activity);
-                            	 $('#food_ymmu').html(country_from_data[i].food);
-                            	 
-                            	 var safe_desc = '';
-                            	 if(country_from_data[i].safe == 3){
-                            		 safe_desc = '안전한 편입니다. 국가에 따라 다르나, 늦은밤 외출을 자제하고, 고가의 소지품을 주의하세요. 외진 곳, 관광객이 많지 않은 곳은 혼자서 다니지 않습니다.';
-                            		 $('.safe_icon').text('sentiment_neutral');
-                            	 }else if(country_from_data[i].safe == 4){
-                            		 safe_desc = '상당히 안전한 편입니다. 하지만 깡패나 소매치기는 어디나 있으니 언제나 소지품을 주의하세요.';
-                            		 $('.safe_icon').text('sentiment_satisfied');
-                            	 }else if(country_from_data[i].safe == 5){
-                            		 safe_desc = '매우 안전한 편입니다. 본인이 제일 위험할 수 있습니다.';
-                            		 $('.safe_icon').text('sentiment_very_satisfied');
-                            	 }
-                            	 
-                            	 $('#safe_ymmu').html(safe_desc+'<br>'); //지도서 클릭한 나라 환율
-                    			 
-                            	 
-                    			 	//관련 국가를 다녀가는 일정
-                    			 ajaxController("/rcm/"+country_from_data[i].iso2);
-                    			 
-                    			 
-                         			
-                    			 	//유튜브 슬라이드 갱신 필요
-                             	$('.video_rcm_list').slick('removeSlide',null,null, true);
-                             	//console.log('슬라이드 갱신');
-                             	
-                             	(function(i){
-                             			//관련일정 slick에 달아줌
-                             		//console.log(country_youtube_from_data[i]);
-                                 	bindingYoutubeListToSlick(country_youtube_from_data[i]);
-                             	})(i);
-                             		
-                             	
-                    		
-                    		
-                    		}	
-                    	}//for
-        		    	
-        		        // GMap inited?
-        		        if ( typeof gmap === "undefined" )
-        		          return;
-        		    	// sync position
-        		        gmap.setCenter( {
-        		          lat: chartMap2.zoomLatitude(),
-        		          lng: chartMap2.zoomLongitude()
-        		        } );
-        		        //console.log('zoomlevel:'+chartMap2.zoomLevel());
-        		        
-        		        google.maps.event.trigger(gmap, 'resize'); // 구글맵 갱신.
-        		        
-        		        
-        		    }//function(event)끝
-        		  },
-        		  {
-        			    "event": "zoomCompleted",
-        			    "method": function( e ) {
-        			
-        			      // GMap inited?
-        			      if ( typeof gmap === "undefined" )
-        			        return;
-
-        			     if ( chartMap2.zoomLevel() >= AmCharts.amBreakLevel ) {
-        				        // sync position
-        				        gmap.setCenter( {
-        				          lat: chartMap2.zoomLatitude(),
-        				          lng: chartMap2.zoomLongitude()
-        				        } );
-        				        //console.log('after gmap -> setCenter');
-        				        //console.log('chartMap2 zoomlevel:'+chartMap2.zoomLevel());
-        				        // set zoom level
-        				        gmap.setZoom( AmCharts.gBreakLevel );
-        				        //gmap.setZoom(chartMap2.zoomLevel());
-        				        //console.log('gmap.getCenter: '+gmap.getZoom());
-        				
-        				        // switch to Google map
-        				        document.getElementById( "chartdiv_rcm" ).style.visibility = "hidden";
-        				        document.getElementById( "gmap" ).style.visibility = "visible";
-        				        google.maps.event.trigger(gmap, 'resize'); // 구글맵 갱신.
-        			      }
-        			    }
-        		  }];
-            	
-            	chartMap2.listeners = listeners;
-            		
-            		resolve('done');
-            	});
-
-            	promise.then(function(result){
-            		console.log(result);
-            		chartMap2.validateData();
-            		$("#div_ajax_load_image").hide(); //로딩이미지 삭제
-            	});
             	
             }//else if
             else if(url.match("/rcm")){ //
@@ -496,7 +506,7 @@ var bindingPlanListToSlick = function(planList){
     	var check = '진행중';
     	if(planList[i].planEndChk == 1) check = '완료됨';
     	//$('.content_rcm_plan_planEndChk').html(check);
-    	var url = 'http://127.0.0.1:8080/plan/read?planID='+planList[i].planID;
+    	var url = '/plan/read?planID='+planList[i].planID;
     	var card = '<div class="contents_rcm" onclick=goto("'+url+'")>'+
 						'<div class="inner_card">'+
 							'<img id="content_rcm_plan_thumbnail_bgImage" src="/resources/images/profile_bg.jpg" />'+
@@ -687,10 +697,7 @@ var chartMap2 = AmCharts.makeChart( "chartdiv_rcm", {
   "dataProvider": {
     "map": "worldLow",
     "getAreasFromMap": true,
-    "areas": [{
-	      "id": "AU",
-	      "color": "#8d1cc6"
-	    }]
+    "areas": []
   },
   "areasSettings": {
     "autoZoom": true,
@@ -859,7 +866,7 @@ function onYouTubeIframeAPIReady(videoId) {
 	var option = {  //첫번째 인자가 비디오가 달릴 div id를 말한다
 	    width: '100%',
 	    height: '100%',
-	    videoId: 'b6hoBp7Hk-A',
+	    videoId: 'RcmrbNRK-jY',
 	    playerVars: {
         	'autoplay': 1
         },
@@ -950,7 +957,7 @@ var bindingYoutubeListToSlick = function(youTubeList){
     
 	}//for
 	
-	
+	au
 	
 };
 

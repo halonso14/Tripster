@@ -407,6 +407,7 @@ response.setHeader("Pragma", "no-cache");
 						   <!-- recommand country/city map -->
 						    <div id="div_ajax_load_image">
 						   		<img id="ajax_load_image" src="/resources/images/ajax_loader.gif"/>
+						   		<div id="ajax_load_text">추천을 위한 데이터가 부족합니다. 추천설문을 해주세요~ (~ ^^)~</div>
 						    </div>
 						    <div id="maps">
 						        <div id="gmap" class="mapdiv" style="visibility: hidden;"></div>
@@ -414,9 +415,9 @@ response.setHeader("Pragma", "no-cache");
 						    </div>
 						    <div class="clearfix"></div>
 						    <div class="description">
-					        	<img id="country_or_city_title_image" src="/resources/images/AU_main.jpg" width="100%" />
+					        	<img id="country_or_city_title_image" src="/resources/images/slide1.jpg" width="100%" />
 					        	<div class="general_font country_name_font">
-					    			<div class="description_title">Austrailia</div>
+					    			<div class="description_title">다음 여정을 위한 도시들을 찾아보세요!</div>
 					    		</div>
 					    		<div class="general_text country_or_city_description">Tweed Heads is a city in New South Wales. It is located on the Tweed River in north-eastern New South Wales, Australia, in Tweed Shire. Tweed Heads is located next to the border with Queensland, adjacent to its "Twin Town" of Coolangatta, which is a suburb of the Gold Coast. It is often referred to as a town where people can change time zones – even celebrate New Year twice within an hour – simply by crossing the street, due to its proximity to the Queensland border, and the fact that New South Wales observes daylight saving whereas Queensland does not.</div>
 					    	</div>

@@ -403,4 +403,12 @@ table{
     top: 30%;
     left: 40%;
 }
+
+#ajax_load_text{
+    position: absolute;
+	top: 50%;
+    left: 30%;
+}
+
+
 /* myplan and */
