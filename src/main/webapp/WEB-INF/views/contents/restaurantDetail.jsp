@@ -367,7 +367,7 @@ $(document).ready(function() {
 				var name = "";
 				
 				if(memberID == this.memberID) {
-					tmp +=  " <div>"
+					tmp +=  " <div style='margin-bottom: 10px;'>"
 						+ "		<button class='btn-search4 right modify' id='"+this.contentsReviewID+"' value=1>Modify</button>"
 						+ "     <button class='btn-search4 right delete' id='"+this.contentsReviewID+"' value=1>delete</button>"
 						+ "		<div class='clearfix'></div>"
@@ -392,8 +392,8 @@ $(document).ready(function() {
 					+ "		<div class='padding20'>"
 					+ "			<div class='bordertype5'>"
 					+ "				<div class='circlewrap'>"
-					+ "					<img src='/resources/images/user-avatar.jpg' class='circleimg' alt=''/><span>"
-					+ this.contentsReviewRating
+					+ "					<img src='/displayFile?fileName="+ this.memberPictureName+ "&directory=profile' style='width: 52px;height:  52px;' class='circleimg' alt=''/><span>"
+					+ this.contentsReviewRating 
 					+ "</span>"
 					+ "				</div>"
 					+ "				<span class='dark'>"
@@ -407,9 +407,6 @@ $(document).ready(function() {
 					+ "					</li>"
 					+ "				</ul>"
 //					+ "				</span>"
-					+ "</span><br/>"
-					+ "				<img src='/resources/images/check.png' alt=''/><br/>"
-					+ "				<span class='green'>Recommended<br/>for Everyone</span>"
 					+ "			</div>"
 					+ "		</div>"
 					+ "	</div>"
@@ -537,7 +534,7 @@ $(document).ready(function() {
 	// 리뷰 수정
 	$('#reviewList').on('click','.modify',function() {
 		// 리뷰 아이디
-		alert("aa");
+		alert("리뷰 수정");
 		var contentsReviewID = $(this).attr('id');
 		if (this.value == 1) {
 			// 수정 텍스트 출력
@@ -553,33 +550,40 @@ $(document).ready(function() {
 			// 수정 내용 저장
 			var titleModify = $('#textarea1').val();
 			var modify = $('#textarea2').val();
-			$(this).attr('value', 1);
-			// 수정 내용 전달
-			$.ajax({
-				type : 'put',
-				url : '/contents/contentsDetail/'+ contentsID+ '/'+ contentsReviewID,
-				headers : {
-					"Content-Type" : "application/json",
-					"X-HTTP-Method-Override" : "PUT",
-				},
-				dataType : 'text',
-				data : JSON.stringify({
-					contentsID : contentsID,
-					memberID : memberID,
-					contentsReview : modify,
-					contentsReviewTitle : titleModify
-				}),
-				success : function(result) {
-						// 리뷰 등록후 처음 1 페이지로 이동
-						getReviewList(1);;
-				}
-			});
+			if(titleModify == ""){
+				alert("제목을 입력해주세요");
+			}else if(modify == ""){
+				alert("제목을 입력해주세요");
+			}else{
+				$(this).attr('value', 1);
+				// 수정 내용 전달
+				$.ajax({
+					type : 'put',
+					url : '/contents/contentsDetail/'+ contentsID+ '/'+ contentsReviewID,
+					headers : {
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override" : "PUT",
+					},
+					dataType : 'text',
+					data : JSON.stringify({
+						contentsID : contentsID,
+						memberID : memberID,
+						contentsReview : modify,
+						contentsReviewTitle : titleModify
+					}),
+					success : function(result) {
+							// 리뷰 등록후 처음 1 페이지로 이동
+							getReviewList(1);;
+					}
+				});
+			}
+			
 		}
 	})
 	
 	// 리뷰 삭제
 	$('#reviewList').on('click','.delete',function() {
-		alert("click");
+		
 		// 리뷰 아이디
 		var contentsReviewID = $(this).attr('id');
 		$.ajax({
@@ -591,6 +595,7 @@ $(document).ready(function() {
 			},
 			dataType : 'text',
 			success : function(result) {
+				alert("삭제되었습니다");
 				// 리뷰 등록후 처음 1 페이지로 이동
 				getReviewList(1);;
 			}
@@ -606,7 +611,8 @@ $(document).ready(function() {
 		$('.uploadList').css({
 			'width' : '100%',
 			'height' : '200px',
-			'border' : '1px dotted blue'
+			'border' : '1px dotted blue',
+			'overflow' : 'scroll'
 		});
 	});
 	
