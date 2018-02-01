@@ -52,7 +52,11 @@
 			<beans:ref bean="loginInterceptor" />
 		</interceptor>
 		<interceptor>
-			<mapping path="/member/mypage" />
+			<mapping path="/member/mypage"/>
+			<mapping path="/member/detail"/>
+			<mapping path="/plan/detail"/>
+			<mapping path="/plan/update"/>
+			<mapping path="/plan/register"/>
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
 	</interceptors>
