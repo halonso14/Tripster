@@ -75,8 +75,8 @@ public class ContentsController {
 		if(session.getAttribute("login") != null) {
 			MemberVO memberVO = (MemberVO)session.getAttribute("login");
 			model.addAttribute("memberVO",memberVO);
-			Integer scrapCheck = scrapService.scrapCheck(contentsID, memberVO.getMemberID());
-			model.addAttribute("scrapCheck",scrapCheck);
+			List<Integer> scrapList = scrapService.scrapIdList(memberVO.getMemberID());
+			model.addAttribute("scrapList",scrapList);
 		}
 		
 		if(categoryID == 1) {

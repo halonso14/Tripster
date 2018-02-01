@@ -207,22 +207,23 @@
 				</div>
 				<div class="clearfix"></div><br/>
 				<div class="hpadding20">
-					<c:choose>
-						<c:when test="${not empty memberVO}">
-							<c:set var='memberID' value='${memberVO.memberID}' />
-						</c:when>
-						<c:otherwise>
-							<c:set var='memberID' value='' />
-						</c:otherwise>	
-					</c:choose>
-					<c:choose>
-						<c:when test='${scrapCheck ne contentsID}'>
-							<button class="btn scrapButton" onmouseenter="mouseover('${memberID}',$(this))" value="${contentsID}" rel="6">스크랩</button>
-						</c:when>
-						<c:otherwise>
-							<button class="btn scrapButton scraped" onmouseenter="mouseover('${memberID}',$(this))" value="${contentsID}" rel="6">스크랩</button>
-						</c:otherwise>
-					</c:choose>
+				<c:if test="${userSession.memberID != null}">
+					
+					<button class="btn scrapButton" onmouseenter="mouseover('${userSession.memberID}',$(this))" value="${vo.contentsID}" rel="6">스크랩</button>
+				
+					<script>
+					console.log("??");
+					scrapButton = $(".scrapButton");
+						let scrapIdList = ${scrapList };
+						
+						for(let i=0;i<scrapIdList.length;i++){
+							if(scrapButton.val() == scrapIdList[i]){
+								scrapButton.addClass("scraped");
+							};
+						};
+					</script>
+				</c:if>
+				
 				</div>
 					
 				</div>
@@ -347,7 +348,9 @@ $(document).ready(function() {
 	var reviewPage = 1;
 	
 	var scrapCheck = "${scrapCheck}";
+	
 	var fileNames = new Array;
+	
 	var contentsReviewRating = 0;
 	
 	function getReviewList(reviewPage) {
@@ -368,8 +371,8 @@ $(document).ready(function() {
 				
 				if(memberID == this.memberID) {
 					tmp +=  " <div>"
-						+ "		<button class='btn-search4 right modify' id='"+this.contentsReviewID+"'>Modify</button>"
-						+ "     <button class='btn-search4 right delete' id='"+this.contentsReviewID+"'>delete</button>"
+						+ "		<button class='btn-search4 right modify' id='"+this.contentsReviewID+"' value=1>Modify</button>"
+						+ "     <button class='btn-search4 right delete' id='"+this.contentsReviewID+"' value=1>delete</button>"
 						+ "		<div class='clearfix'></div>"
 						+ "</div>"
 				}
@@ -415,7 +418,7 @@ $(document).ready(function() {
 					+ "	</div>"
 					+ "	<div class='col-md-8 offset-0'>"
 					+ "		<div class='padding20'>"
-					+ "			<span class='opensans size16 dark'>"
+					+ "			<span class='opensans size16 dark' contentsReviewID='"+this.contentsReviewID+"'>"
 					+ this.contentsReviewTitle
 					+ "</span><br/>"
 					+ "			<span class='opensans size13 lgrey'>"
@@ -489,38 +492,49 @@ $(document).ready(function() {
 	
 	// 리뷰 등록
 	$("#writeReview").on("click",function() {
-		if(memberID == "") {
-			alert("로그인이 필요한 서비스입니다.");
-			return;
-		}
 		
 		var contentsReviewTitle = $("#reviewTitle").val();
 		var contentsReview = $("#reviewDetail").val();
 		
-		$.ajax({
-			type : 'post',
-			url : '/contents/contentsDetail/'+ contentsID,
-			headers : {
-				"Content-Type" : "application/json",
-				"X-HTTP-Method-Override" : "POST"},
-			dataType : 'text',
-			data : JSON.stringify({
-				contentsID : contentsID,
-				memberID : memberID,
-				memberName : memberName,
-				contentsReviewTitle : contentsReviewTitle,
-				contentsReview : contentsReview,
-				reviewPictureName : fileNames,
-				contentsReviewRating : contentsReviewRating
-			}),
-			success : function(data) {
-				// 리뷰 등록후 처음 1 페이지로 이동
-				getReviewList(1);
-			}
-		});
-		// 등록 후 리뷰 텍스트 내용 초기화
-		$("#reviewTitle").val("리뷰 제목을 입력해주세요");
-		$("#reviewDetail").val("");
+		if(memberID == "") {
+			alert("로그인이 필요한 서비스입니다.");
+			
+		}else if(contentsReviewTitle == ""){
+			alert("제목을 입력해 주세요");
+			
+		}else if(contentsReview == ""){
+			alert("내용을 입력해 주세요");
+		}else if(contentsReviewRating == 0){
+			alert("평점을 입력해 주세요")
+		}else{
+			
+			$.ajax({
+				type : 'post',
+				url : '/contents/contentsDetail/'+ contentsID,
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "POST"},
+				dataType : 'text',
+				data : JSON.stringify({
+					contentsID : contentsID,
+					memberID : memberID,
+					memberName : memberName,
+					contentsReviewTitle : contentsReviewTitle,
+					contentsReview : contentsReview,
+					reviewPictureName : fileNames,
+					contentsReviewRating : contentsReviewRating
+				}),
+				success : function(data) {
+					// 리뷰 등록후 처음 1 페이지로 이동
+					getReviewList(1);
+				}
+			});
+			// 등록 후 리뷰 텍스트 내용 초기화
+			$("#reviewTitle").val("리뷰 제목을 입력해주세요");
+			$("#reviewDetail").val("");
+			
+		}
+		
 	});
 	
 	// 리뷰 수정
@@ -531,11 +545,17 @@ $(document).ready(function() {
 		if (this.value == 1) {
 			// 수정 텍스트 출력
 			$(this).attr('value', 0);
-			var str = "<textarea id='textarea' cols=" + 30 + "rows=" + 10 + "></textarea>";
-			$('.'+ contentsReviewID).html(str);
+			// 제목
+			var str1 = "<textarea id='textarea1' cols='20' rows='1' ></textarea>";
+			$("span[contentsReviewID="+contentsReviewID+"]").html(str1);
+			// 내용 수정
+			var str2 = "<textarea id='textarea2' cols=" + 30 + "rows=" + 10 + "></textarea>";
+			$('.'+ contentsReviewID).html(str2);
+			
 		} else {
 			// 수정 내용 저장
-			var modify = $('#textarea').val();
+			var titleModify = $('#textarea1').val();
+			var modify = $('#textarea2').val();
 			$(this).attr('value', 1);
 			// 수정 내용 전달
 			$.ajax({
@@ -549,7 +569,8 @@ $(document).ready(function() {
 				data : JSON.stringify({
 					contentsID : contentsID,
 					memberID : memberID,
-					contentsReview : modify
+					contentsReview : modify,
+					contentsReviewTitle : titleModify
 				}),
 				success : function(result) {
 						// 리뷰 등록후 처음 1 페이지로 이동
@@ -580,6 +601,10 @@ $(document).ready(function() {
 	
 	// 업로드 버튼을 누른경우 css 적용
 	$('#uploadBtn').on('click', function() {
+		if(memberID == ""){
+			alert("로그인 후 이용해 주세요");
+			return ;
+		}
 		$('.uploadList').css({
 			'width' : '100%',
 			'height' : '200px',
@@ -594,7 +619,7 @@ $(document).ready(function() {
 	
 	// 파일을 박스안에 놓을때 	
 	$('.uploadList').on("drop",function(event) {
-		console.log('put file');
+		
 		event.preventDefault();
 		// 박스안에 놓인 파일 가져오기
 		var file = event.originalEvent.dataTransfer.files;
