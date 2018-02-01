@@ -7,7 +7,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-	<title>Tripster</title>
+	<title>Tripster :: ${vo.title}</title>
 	
 	<!-- Bootstrap -->
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
@@ -61,25 +61,32 @@
 	}
 	</style>
 
-<body id="top" class="thebg" >
-	<!-- 로그인 세션  -->
-	<c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
-	<!-- HEADER -->
-	<%@include file="../include/header2.jsp" %>
-	<!-- BREADCRUMBS -->
-	<div class="container breadcrub"><div class="brlines"></div></div>
-	
-	<!-- container -->
-	<div class="container">
-		<!-- '리스트 페이지' 버튼 -->
-		<button class="btn-search4 right" id="getList">리스트 페이지</button>
+	<body id="top" class="thebg" >
+		<!-- 로그인 세션  -->
+		<c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
+		<!-- HEADER -->
+		<%@include file="../include/header2.jsp" %>
+		<!-- BREADCRUMBS -->
+		<div class="container breadcrub"><div class="brlines"></div></div>
+		
+		<!-- container -->
+		<div class="container">
+			<!-- '리스트 페이지' 버튼 -->
+			<c:choose>
+				<c:when test="${cri.tab=='total'}">
+					<a href="/search/result?cnt=${cri.cnt}&tab=${cri.tab}&page=${cri.page}&keyword=${cri.keyword}">목록보기</a>
+				</c:when>	
+				<c:otherwise>
+					<a href="/search/${cri.tab}?cnt=${cri.cnt}&tab=${cri.tab}&page=${cri.page}&keyword=${cri.keyword}">목록보기</a>
+				</c:otherwise>	
+			</c:choose>
 
 			<div class="container pagecontainer offset-0">
 				<!-- 슬라이더 파트 시작  -->
 				<div class="col-md-8 details-slider">
 					<div id="c-carousel">
-						<div class="wrapper2">
-							<div class="list_carousel2">
+						<div class="wrapper2">${cri.tab}
+							<div class="list_carousel2">${pageMaker.makeQuery()}
 								<ul class="foo5">
 									<c:if test="${not empty vo.contentsThumbnail}">
 										<c:set var="image" value=""/>
