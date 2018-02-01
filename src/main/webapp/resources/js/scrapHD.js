@@ -27,7 +27,7 @@ function mouseover(memberID, $button){
 			$button.unbind('click').bind('mouseleave', function() {
 			});
 			$button.unbind('click').bind('click', function() {
-				$.post("/scrapDelete/"+contentsID);
+				$.post("/scrap/"+contentsID);
 				$button.addClass('scraped');
 				$button.text('스크랩');
 			});

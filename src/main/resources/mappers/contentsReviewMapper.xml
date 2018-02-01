@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   update
   	tbl_Contents_Review
   set
-  	Contents_ReviewTitle = #{contentsReviewTitle}, Contents_Review = #{contentsReview}
+  	Contents_Review_Title = #{contentsReviewTitle}, Contents_Review = #{contentsReview}
   where
   	Contents_Review_ID = #{contentsReviewID}
   </update>
