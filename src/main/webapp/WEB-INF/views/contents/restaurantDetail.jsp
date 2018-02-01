@@ -1,20 +1,92 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-	<!-- HEADER -->
-	<%@include file="../include/header3.jsp" %>
+<html style="overflow-x: hidden;">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+	<title>Tripster :: ${vo.title}</title>
+	
+	<!-- Bootstrap -->
+    <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
+ 	<link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">   
+    <!-- Button -->
+	<link href="/resources/assets/css/scrapBtn.css" rel="stylesheet" media="screen">
+	<!-- scrap -->
+	<script src="/resources/js/scrapHD.js"></script>
+	<!-- review -->
+	<!-- 
+	<script src="/resources/js/review.js"></script>
+ -->
+	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
-	<!-- container -->
-	<div class="container">
-		<!-- '리스트 페이지' 버튼 -->
-		<button class="btn-search4 right" id="getList">리스트 페이지</button>
+    <!-- Fonts -->	
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet' type='text/css'>	
+	<!-- Font-Awesome -->
+    <link rel="stylesheet" type="text/css" href="/resources/assets/css/font-awesome.css" media="screen" />
+	
+    <!-- REVOLUTION BANNER CSS SETTINGS -->
+    <link rel="stylesheet" type="text/css" href="/resources/css/fullscreen.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="/resources/rs-plugin/css/settings.css" media="screen" />
+	
+    <!-- Picker UI-->	
+	<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />	
+	
+	<!-- bin/jquery.slider.min.css -->
+	<link rel="stylesheet" href="/resources/plugins/jslider/css/jslider.css" type="text/css">
+	<link rel="stylesheet" href="/resources/plugins/jslider/css/jslider.round-blue.css" type="text/css">
+	
+    <!-- jQuery-->	
+    <script src="/resources/assets/js/jquery.v2.0.3.js"></script>
+	<script src="/resources/assets/js/jquery-ui.js"></script>	
+	
+	<!-- bin/jquery.slider.min.js -->
+	<script type="text/javascript" src="/resources/plugins/jslider/js/jshashtable-2.1_src.js"></script>
+	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.numberformatter-1.2.3.js"></script>
+	<script type="text/javascript" src="/resources/plugins/jslider/js/tmpl.js"></script>
+	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.dependClass-0.1.js"></script>
+	<script type="text/javascript" src="/resources/plugins/jslider/js/draggable-0.1.js"></script>
+	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.slider.js"></script>
+	<!-- end -->
+    
+
+	<style type="text/css">
+	html {
+		overflow-x: hidden;
+	}
+	</style>
+
+	<body id="top" class="thebg" >
+		<!-- 로그인 세션  -->
+		<c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
+		<!-- HEADER -->
+		<%@include file="../include/header2.jsp" %>
+		<!-- BREADCRUMBS -->
+		<div class="container breadcrub"><div class="brlines"></div></div>
+		
+		<!-- container -->
+		<div class="container">
+			<!-- '리스트 페이지' 버튼 -->
+			<c:choose>
+				<c:when test="${cri.tab=='total'}">
+					<a href="/search/result?cnt=${cri.cnt}&tab=${cri.tab}&page=${cri.page}&keyword=${cri.keyword}">목록보기</a>
+				</c:when>	
+				<c:otherwise>
+					<a href="/search/${cri.tab}?cnt=${cri.cnt}&tab=${cri.tab}&page=${cri.page}&keyword=${cri.keyword}">목록보기</a>
+				</c:otherwise>	
+			</c:choose>
 
 			<div class="container pagecontainer offset-0">
 				<!-- 슬라이더 파트 시작  -->
 				<div class="col-md-8 details-slider">
 					<div id="c-carousel">
-						<div class="wrapper2">
-							<div class="list_carousel2">
+						<div class="wrapper2">${cri.tab}
+							<div class="list_carousel2">${pageMaker.makeQuery()}
 								<ul class="foo5">
 									<c:if test="${not empty vo.contentsThumbnail}">
 										<c:set var="image" value=""/>

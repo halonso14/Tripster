@@ -185,7 +185,8 @@ response.setHeader("Pragma", "no-cache");
     
     <!-- Bootstrap -->
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
-    
+	<link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
+	<link href="/resources/updates/update1/css/style02.css" rel="stylesheet" media="screen">   
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
     <!-- ymmu bootstrap table -->
     <link href="/resources/bootstrap-table/dist/bootstrap-table.css" rel="stylesheet">
@@ -555,7 +556,7 @@ response.setHeader("Pragma", "no-cache");
 				str+= "<br><div class='wh20percent left textleft'><div class='circlewrap2'>";
 				
 				// 멤버프로필 사진 출력부분.
-				if(this.memberPicture == null){
+				if(this.memberPicture == ''){
 					str+="<img alt='' class='circleimg' src='/resources/images/user-avatar.jpg'>";
 				}else{
 					str+="<img alt='' class='circleimg' src='/displayFile?fileName="+this.memberPicture+"&directory=profile' style='height : 53px; width: 53px;'>";

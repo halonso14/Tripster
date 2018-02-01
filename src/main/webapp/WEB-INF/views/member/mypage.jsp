@@ -14,7 +14,7 @@ response.setHeader("Pragma", "no-cache");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<title>Tripster - 마이페이지</title>
-	
+
     <!-- ymum my css-->
     <link rel = "stylesheet" type = "text/css" href ="/resources/css/statistics.css">
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
@@ -31,6 +31,7 @@ response.setHeader("Pragma", "no-cache");
     <!-- Bootstrap -->
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
+    	<link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
     
     <link href="/resources/assets/css/endChk.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/followBtn.css" rel="stylesheet" media="screen">

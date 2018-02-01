@@ -9,7 +9,8 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" type="text/css" media="screen" /> -->
 <!-- <link href='/resources/css/fullcalendar.print.css' rel='stylesheet' media='print' /> -->
-
+	<link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
+	<link href="/resources/updates/update1/css/style02.css" rel="stylesheet" media="screen">
 <style>
 body {
 	margin-top: 40px;

@@ -7,7 +7,7 @@
 <div class="col-md-4" style="margin-bottom:30px">
 <div class="listitem ">
 	<a href="/plan/read?planID=${esPlanVO.plan_id}">
-		<img src="${esPlanVO.member_picture}" >
+		<img src="${esPlanVO.memo_picture_name}" >
 	</a>
 </div>
 <div class="itemlabel2">
