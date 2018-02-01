@@ -4,23 +4,28 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
-<div class="col-md-4" style="margin-bottom:30px">
-<div class="listitem ">
-	<a href="/plan/read?planID=${esPlanVO.plan_id}">
-		<img src="${esPlanVO.memo_picture_name}" >
-	</a>
-</div>
-<div class="itemlabel2">
-	<div class="labelright" style="position:relative" >													
-		<p class="member-profile" >
-			<a href="/member/viewMember?memberID=${esPlanVO.member_id }"> 
-				<img src="${esPlanVO.member_picture}" style="height:100%" >
-			</a>
-		</p>
-		<p class="size12 grey ">${esPlanVO.member_name}</p><br>
-		<span class="size11 grey">댓글수</span><br>
-		<span class="size11 grey">${esPlanVO.plan_like_cnt} 좋아요수</span><br>
-		<button class="btn likeButton" onmouseenter="likemouseover('${userSession.memberID }',$(this))" value="${esPlanVO.plan_id}" style="width:75px;">좋아요</button>		
+<div class="col-md-4 planList">
+	<div class="listitem ">
+		<a href="/plan/read?planID=${esPlanVO.plan_id}"><img src="${esPlanVO.memo_picture_name}" ></a>
+	</div>
+
+	<div class="itemlabel2 ">
+	
+		<div class="profile">
+			<a href="/member/viewMember?memberID=${esPlanVO.member_id }" class="member-profile" style="background-image: url('${esPlanVO.member_picture}');"></a>				
+			<span>
+				<p class="profile-name"><b>${esPlanVO.member_name}</b></p>
+				<p class="plan-status">댓글 0 / 좋아요 ${esPlanVO.plan_like_cnt} </p>
+			</span>
+			<div class="clearfix"></div>
+		</div>
+		<div class="plan-detail">
+			<a class="plan-title"><b>${esPlanVO.plan_title}</b></a>
+			<p>스크랩 컨텐츠제목 <br> 스크랩 컨텐츠제목 </p>
+			<hr style="margin:3px 0;padding:0; color:#ddd">
+			<button class="btn likeButton" onmouseenter="likemouseover('${userSession.memberID }',$(this))" value="${esPlanVO.plan_id}">좋아요</button>	
+		</div>
+	
 		
 		<script>
 			var likebtn = $("button[value="+${esPlanVO.plan_id}+"]");
@@ -34,15 +39,6 @@
 				};
 			};
 		</script>
-			
-	</div>
-	<div class="labelleft">	
-		<span class="size16"><b>${esPlanVO.plan_title}</b></span><br>		
-<%-- 										<br>
-										${esPlanVO.plan_startdate}<br>
-										${esPlanVO.plan_enddate}<br>
-										${esPlanVO.plan_endchk} --%>
-		</div>
 	</div>
 	<div class="clearfix"></div>
 </div>

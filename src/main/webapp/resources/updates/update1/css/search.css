@@ -54,12 +54,6 @@ span button.searchbtn {
 	overflow:hidden;
 	margin:5px 0 2px 0;
 }
-.member-profile {
-	width:60px;
-	height:60px;
-	overflow:hidden;
-	border-radius: 30px;
-}
 
 .searchTitle {
 	padding:20px 15px 0 15px;
@@ -158,4 +152,65 @@ ul.pagination {
 }
 .tabcontent.active {
 	display: block;
+}
+
+/*plan list*/
+.planList{
+	margin-bottom:30px; 
+}
+.profile {
+
+	width:90%;
+	padding:10px 0 0 15px;
+}
+.member-profile {
+	display:inline-block;
+	float:left;
+	width:40px;
+	height:40px;
+	border-radius: 30px;
+	background-color:#fff;
+	background-size: cover;
+}
+
+div.profile span {
+	float:left;
+	margin-left:20px;
+}
+ p.profile-name {
+	font-size:14px;
+	margin-top:5px;
+	margin-bottom:4px;
+
+}
+.plan-status{
+	font-size:12px;
+
+}
+.plan-title{
+	display:block;
+	font-size:18px;
+	color:#000;
+	margin-bottom:15px;
+}
+.plan-title:hover{
+	color:orange;
+	text-decoration:underline;
+	cursor:pointer;
+
+}
+div.plan-detail{
+	width:100%;
+	padding:10px 20px;	
+	height:100px;
+
+}
+div.planList button.likeButton {
+	width:100%;
+	padding-top:5px;
+	margin:auto;
+}
+
+div.purchasecontainer {
+	margin-top:10px;
 }

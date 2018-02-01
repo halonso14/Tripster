@@ -6,15 +6,13 @@
 <div class="col-md-4" style="margin-bottom:40px">
 	<!-- CONTAINER-->
 	<div class="carscontainer" style="border:1px solid #e6e6e6">
-		<div class="center">
-
-			<a href=""><img src="${esMemberVO.member_picture}"/></a>
-		</div>
-								
+		<div class="listitem ">
+			<a href="/member/viewMember?memberID=${esMemberVO.member_id }"><img src="${esMemberVO.member_picture}" ></a>
+		</div>						
 		<div class="purchasecontainer"  >
 			<div class="offset-2 left bold" style="margin-left: 10px;padding-top:5px;">${esMemberVO.member_name}</div>		
 			
-			<button class="btn followButton" value="${esMemberVO.member_id}" check="1" rel="6" style="width:80px;float:right; margin-right:20px;">Follow</button>	
+			<button class="btn followButton" value="${esMemberVO.member_id}" check="1" rel="6" style="width:80px;float:right; margin-right:20px;">팔로우</button>	
 			
 			<script>
 				var followBtn = $("button[value="+${esMemberVO.member_id}+"]");
@@ -24,7 +22,7 @@
 					console.log(followIdList);
 					for(let i=0;i<followIdList.length;i++){
 						if(followBtn.val() == followIdList[i]){
-							followBtn.addClass("following");
+							followBtn.addClass("팔로잉취소");
 						};
 					};
 				};
