@@ -73,9 +73,12 @@
 		<div class="container">
 			<!-- '리스트 페이지' 버튼 -->
 			<c:choose>
+				<c:when test="${cri.keyword==null}">
+					<a href= "javascript:history.go(-1);">목록보기</a>
+				</c:when>
 				<c:when test="${cri.tab=='total'}">
 					<a href="/search/result?cnt=${cri.cnt}&tab=${cri.tab}&page=${cri.page}&keyword=${cri.keyword}">목록보기</a>
-				</c:when>	
+				</c:when>
 				<c:otherwise>
 					<a href="/search/${cri.tab}?cnt=${cri.cnt}&tab=${cri.tab}&page=${cri.page}&keyword=${cri.keyword}">목록보기</a>
 				</c:otherwise>	
