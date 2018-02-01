@@ -555,7 +555,7 @@ response.setHeader("Pragma", "no-cache");
 				str+= "<br><div class='wh20percent left textleft'><div class='circlewrap2'>";
 				
 				// 멤버프로필 사진 출력부분.
-				if(this.memberPicture == ''){
+				if(this.memberPicture == null){
 					str+="<img alt='' class='circleimg' src='/resources/images/user-avatar.jpg'>";
 				}else{
 					str+="<img alt='' class='circleimg' src='/displayFile?fileName="+this.memberPicture+"&directory=profile' style='height : 53px; width: 53px;'>";
