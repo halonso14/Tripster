@@ -267,7 +267,7 @@
 								<ul class="jslidetext2">
 									<li>Title</li>
 									<li>rating</li>
-									<li>Comment</li>
+									<li style="margin-top: 115px;">Comment</li>
 								</ul>
 							</div>
 							<div class="wh75percent right offset-0">
@@ -579,6 +579,7 @@ $(document).ready(function() {
 	
 	// 리뷰 삭제
 	$('#reviewList').on('click','.delete',function() {
+		alert("click");
 		// 리뷰 아이디
 		var contentsReviewID = $(this).attr('id');
 		$.ajax({
@@ -659,17 +660,14 @@ $(document).ready(function() {
 	});
 	
 	// 삭제 버튼 누를 경우
-	$('.uploadList').on(
-			'click',
-			'small',
-			function(event) {
-				var that = $(this);
-				// 파일 이름 저장
-				var filename = that.attr('fileName');
-				// 포스트 방식으로 데이터 전달
-				$.post('deleteFile', {fileName : filename}, function(result) {
-					that.parent("li").remove();
-				});
+	$('.uploadList').on('click','small',function(event) {
+			var that = $(this);
+			// 파일 이름 저장
+			var filename = that.attr('fileName');
+			// 포스트 방식으로 데이터 전달
+			$.post('/deleteFile', {fileName : filename,directory : "review"}, function(result) {
+				that.parent("li").remove();
+			});
 	});
 	
 	// 리뷰 아이디를 받아 이미지 생성 
