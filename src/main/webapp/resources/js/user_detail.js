@@ -16,6 +16,7 @@ var  marker_list=[];
 //데이터
 var city_data=[];
 
+var rcm_url = 'http://ec2-13-125-75-105.ap-northeast-2.compute.amazonaws.com:8000/';
 /**
  * Setup breaking points between amCharts and Google Maps
  */
@@ -254,7 +255,7 @@ var chartMap2 = AmCharts.makeChart( "chartdiv_rcm", {
 	    		console.log(selected_country_list_remember);
 	    		selected_country_list_remember.push(event.mapObject.id);	
 	    			//선택된 국가 도시 데이터 불러오기
-		    	ajaxController('http://127.0.0.1:8000/country/'+ event.mapObject.id); 
+		    	ajaxController(rcm_url+'country/'+ event.mapObject.id); 
 
 	    	}
 	    		

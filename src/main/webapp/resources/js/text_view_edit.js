@@ -10,6 +10,8 @@ var animating; //flag to prevent quick multi-click glitches
 var data =[1,1,"",1,"0,7","20,100","",""];
 var count = 0; //index는 li 안에서만 쓸 수 있기 때문에 범용적으로 쓰기 위해 count 변수를 만들었다. count=다음 fieldset값, count-1: 현재 필드셋 값인듯
 var memberID= 0;
+var rcm_url = 'http://ec2-13-125-75-105.ap-northeast-2.compute.amazonaws.com:8000/';
+
 $().ready(function(){
     
     //get memberID first before get his/her detail info
@@ -120,7 +122,7 @@ $("#done").click(function(){
 
 	console.log('done 함수 안쪽');
 	//location.href = "http://127.0.0.1:8080/member/mypage";
-	window.location.replace("http://127.0.0.1:8080/member/mypage");
+	window.location.replace("/member/mypage");
 });
 
 $(".submit").click(function(){
@@ -136,7 +138,7 @@ $(".submit").click(function(){
     alert(JSON.stringify(data));
     
     $.ajax({
-        url: "http://127.0.0.1:8000/research/"+memberID+"/insert",
+        url: rcm_url+"research/"+memberID+"/insert",
         method:"POST",
         //data: JSON.stringify({user_id:memberID, age:"4", gender:"4"}),
         data: JSON.stringify(data),
