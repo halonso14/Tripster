@@ -200,6 +200,7 @@ public class UploadController {
 		MediaType mType = MediaUtils.getMediaType(formatName);
 		
 		String inputDirectory = null;
+		
 		if(directory.equals("plan")) {
 			inputDirectory = "tripster/plan";
 		} else if(directory.equals("review")) {

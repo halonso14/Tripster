@@ -9,8 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tripster.domain.ContentsReviewVO;
 import com.tripster.domain.Criteria;
+import com.tripster.domain.MemberVO;
 import com.tripster.persistence.ContentsDAO;
 import com.tripster.persistence.ContentsReviewDAO;
+import com.tripster.persistence.MemberDAO;
 
 @Service
 public class ContentsReviewServiceImpl implements ContentsReviewService {
@@ -20,6 +22,9 @@ public class ContentsReviewServiceImpl implements ContentsReviewService {
 	
 	@Inject 
 	private ContentsDAO contentsDao;
+	
+	@Inject
+	private MemberDAO memberDao;
 
 	@Transactional
 	@Override
@@ -57,9 +62,12 @@ public class ContentsReviewServiceImpl implements ContentsReviewService {
 		for(int i=0;i<list.size();i++) {
 			// 리뷰리스트에 있는 리뷰의 첨부파일리스트 이름 저장
 			List<String> str = dao.getFileNames(list.get(i).getContentsReviewID());
+			MemberVO memberVO = memberDao.mypage(list.get(i).getMemberID());
 			// 첨부파일 리스트 이름을 각 리뷰객체에 저장
 			list.get(i).setReviewPictureName(str);
+			list.get(i).setMemberPictureName(memberVO.getMemberPicture());
 		}
+		
 		return list;
 	}
 

@@ -24,12 +24,20 @@ public class ContentsReviewVO {
 	private double contentsReviewRating;
 	//리뷰 사진
 	private List<String> reviewPictureName;
+	//회원 사진
+	private String memberPictureName;
 	//리뷰 작성/수정 일자
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedDate;
 	
 	public Integer getMemberID() {
 		return memberID;
+	}
+	public String getMemberPictureName() {
+		return memberPictureName;
+	}
+	public void setMemberPictureName(String memberPictureName) {
+		this.memberPictureName = memberPictureName;
 	}
 	public void setMemberID(Integer memberID) {
 		this.memberID = memberID;
@@ -87,6 +95,7 @@ public class ContentsReviewVO {
 		return "ContentsReviewVO [memberID=" + memberID + ", memberName=" + memberName + ", contentsID=" + contentsID
 				+ ", contentsReviewID=" + contentsReviewID + ", contentsReviewTitle=" + contentsReviewTitle
 				+ ", contentsReview=" + contentsReview + ", contentsReviewRating=" + contentsReviewRating
-				+ ", reviewPictureName=" + reviewPictureName + ", updatedDate=" + updatedDate + "]";
+				+ ", reviewPictureName=" + reviewPictureName + ", memberPictureName=" + memberPictureName
+				+ ", updatedDate=" + updatedDate + "]";
 	}
 }
