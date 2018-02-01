@@ -49,6 +49,19 @@ response.setHeader("Pragma", "no-cache");
 
 <script src="/resources/dist/js/bootstrap.min.js"></script>
 
+<style>
+#profileImg{
+	width: 100%;
+    height: 100%;
+    display: inline-block;
+    background-color: #ffffff;
+    /*margin: -50px 110px auto;*/
+    border-radius: 50px;
+    padding: 2px;
+}
+
+</style>
+
 </head>
 <body>
 <%@include file="/WEB-INF/views/include/header2.jsp"%>
