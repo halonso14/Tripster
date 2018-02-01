@@ -368,6 +368,8 @@ $(document).ready(function() {
 			$(data.list).each(function() {
 				var tmp = "";
 				var name = "";
+				// 회원 사진
+				var profile = "<img src='/displayFile?fileName="+ this.memberPictureName+ "&directory='profile' style='width: 52px;height:  52px;' class='circleimg' alt=''/>";
 				
 				if(memberID == this.memberID) {
 					tmp +=  " <div style='margin-bottom: 10px;'>"
@@ -379,12 +381,17 @@ $(document).ready(function() {
 				
 				if('${session.memberID}' == '${plan.memberID}') {
 					name = "							<ul class='dropdown-menu'>"
-						+ "									<li><a href='/member/viewMember?memberID=${plan.memberID }'>나의 일정 리스트</a></li>"
+						+ "									<li><a href='/member/viewMember?memberID="+this.memberID+"'>나의 일정 리스트</a></li>"
 						+ "								</ul>";
 				} else {
 					name = "							<ul class='dropdown-menu'>"
-						+ "									<li><a href='/member/viewMember?memberID=${plan.memberID }'>회원 일정 리스트</a></li>"
-						+ "								</ul>"
+						+ "									<li><a href='/member/viewMember?memberID="+this.memberID+"'>회원 일정 리스트</a></li>"
+						+ "								</ul>";
+				}
+				
+				// 회원 사진이 없는 경우 기본 이미지 설정
+				if(this.memberPictureName == null){
+					profile = "<img src='/resources/images/user-avatar.jpg' class='circleimg' alt=''/>";
 				}
 				
 				
@@ -395,16 +402,15 @@ $(document).ready(function() {
 					+ "		<div class='padding20'>"
 					+ "			<div class='bordertype5'>"
 					+ "				<div class='circlewrap'>"
-					+ "					<img src='/displayFile?fileName="+ this.memberPictureName+ "&directory=profile' style='width: 52px;height:  52px;' class='circleimg' alt=''/><span>"
-					+ this.contentsReviewRating 
-					+ "</span>"
+					+ profile
+					+ "<span>"+this.contentsReviewRating + "</span>"
 					+ "				</div>"
 					+ "				<span class='dark'>"
 //					+ "				<span class='member_name'>"
 					+ "				<ul id='writer' style='list-style:none;'>"
 					+ "					<li class='dropdown'>"
 					+ "						<a data-toggle='dropdown' class='dropdown-toggle' href='#'>"
-					+ this.memberName
+					+ this.memberName+name
 					+ "							 <b class='lightcaret mt-2'></b>"
 					+ "						</a>"
 					+ "					</li>"
@@ -537,7 +543,7 @@ $(document).ready(function() {
 	// 리뷰 수정
 	$('#reviewList').on('click','.modify',function() {
 		// 리뷰 아이디
-		alert("리뷰 수정");
+		
 		var contentsReviewID = $(this).attr('id');
 		if (this.value == 1) {
 			// 수정 텍스트 출력
@@ -556,9 +562,10 @@ $(document).ready(function() {
 			if(titleModify == ""){
 				alert("제목을 입력해주세요");
 			}else if(modify == ""){
-				alert("제목을 입력해주세요");
+				alert("내용을 입력해주세요");
 			}else{
 				$(this).attr('value', 1);
+				alert("리뷰 수정");
 				// 수정 내용 전달
 				$.ajax({
 					type : 'put',
@@ -694,7 +701,7 @@ $(document).ready(function() {
 						// 썸네일 생성
 						+ "<img src='/displayFile?fileName="
 						+ fileList[i]
-						+ "&directory=review' style='width:640px;'/>"
+						+ "&directory=review' style='width:320px;'/>"
 						+ "</li>";
 			} else {
 				// 이미지 파일이 아닐경우 다운로드
