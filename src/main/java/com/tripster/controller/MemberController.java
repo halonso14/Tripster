@@ -636,11 +636,24 @@ public class MemberController {
 		return entity;
 	}
 
-	// 유저 추천페이지 위한 설문(수정도 됨)페이지 제공
+	//18-01-08(월)에 수정
+	//유저 추천페이지 위한 설문(수정도 됨)페이지 제공
+	// 추천서비스를 위한 유저디테일 페이지로 넘어가면서 멤버아이디도 같이 넘겨준다.
+	// 회원 아이디를 세션으로 받아오는데, memberVo vo 매개변수를 줄 경우 이건 무슨 역할을 하는지 복습할것(12/1/8)
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String userDetail(MemberVO vo, Model model) throws Exception {
-
-		return "member/userDetail";
+	public String userDetail(MemberVO vo,HttpSession session, Model model) throws Exception {
+		
+		try {
+			Object obj = session.getAttribute("login");
+			vo = (MemberVO)obj;
+			model.addAttribute("member", vo);
+			
+		} catch(Exception e) {
+			//오류 발생 시, BAD_REQUEST 상태 입력
+			e.printStackTrace();
+		}
+		
+		return "/member/userDetail";
 	}
 
 }
