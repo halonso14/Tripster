@@ -1236,7 +1236,7 @@ $(window).load(function(){
 	<!-- plan 일정 삭제 후 tab이동.  -->
 	<script >
 	 $(document).ready(function(){
-			var planDeleteChk = "<%=request.getParameter("plan_delete")%>";
+			var planDeleteChk = "${plan_delete}";
 			var planChk = "<%=request.getParameter("planTab")%>";
 			console.log(planDeleteChk);
 		    if(planDeleteChk == "OK"){

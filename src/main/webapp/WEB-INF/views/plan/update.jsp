@@ -89,7 +89,13 @@ body {
 
 
 </head>
-
+<script>
+	var result ="${result}";
+	if(result == "false"){
+		alert("잘못된 접근 경로입니다.");
+		history.go(-1);
+	}
+</script>
 <%@include file="/WEB-INF/views/include/header2.jsp"%>
     <div class="container breadcrub">
 		<a class="homebtn left" href="/"></a>
@@ -259,6 +265,7 @@ body {
 		});
 	});
 </script>
+
 </body>
 
 <!-- full calendar 관련 스크립트. -->
