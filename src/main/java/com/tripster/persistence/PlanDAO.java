@@ -29,4 +29,7 @@ public interface PlanDAO {
 	
 	//endChk 수정
 	public void updateEndChk(int planID, int planEndChk)throws Exception;
+	
+	//plan thumbnail로 쓰일 사진주소가져오기 (es용)
+	public String selectthumbnail(int planID)throws Exception;
 }

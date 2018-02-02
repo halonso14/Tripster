@@ -81,7 +81,10 @@ public class PlanDAOImpl implements PlanDAO{
 		 session.update(namespace+".planChk", map);
 	}
 
-	
+	//plan thumbnail로 쓰일 사진주소가져오기 (es용)
+	public String selectthumbnail(int planID)throws Exception{
+		return session.selectOne(namespace+".thumbnail",planID);
+	}
 	
 	
 	
