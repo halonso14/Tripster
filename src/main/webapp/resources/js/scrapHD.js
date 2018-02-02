@@ -21,13 +21,21 @@ function mouseover(memberID, $button){
 				$button.removeClass('unscrap');
 				$button.removeClass('scraped');
 				$button.text('스크랩');
-				$.post("/scrapDelete/"+contentsID);
+				$.post("/scrapDelete/"+contentsID,function(data){
+					$("ui[id=scrapCnt]").html(data);
+					console.log(data);
+					alert("스크랩 취소");
+				});
 			});
 		} else{
 			$button.unbind('click').bind('mouseleave', function() {
 			});
 			$button.unbind('click').bind('click', function() {
-				$.post("/scrap/"+contentsID);
+				$.post("/scrap/"+contentsID,function(data){
+					$("ui[id=scrapCnt]").html(data);
+					console.log(data);
+					alert("스크랩 완료");
+				});
 				$button.addClass('scraped');
 				$button.text('스크랩');
 			});
