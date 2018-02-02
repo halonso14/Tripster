@@ -9,6 +9,7 @@
 
 	<title>Tripster :: ${vo.title}</title>
 	
+	
 	<!-- Bootstrap -->
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
@@ -203,7 +204,7 @@
 				</div>
 				<div class="col-md-6 bordertype3">
 					<img src="/resources/images/user-rating-4.png" alt=""/><br/>
-					${vo.contentsScrapCnt} scraps
+					<ui id="scrapCnt">${vo.contentsScrapCnt}</ui> scraps
 				</div>
 				<div class="clearfix"></div><br/>
 				<div class="hpadding20">
