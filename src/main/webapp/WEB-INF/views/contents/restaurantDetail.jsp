@@ -212,7 +212,6 @@
 					<button class="btn scrapButton" onmouseenter="mouseover('${userSession.memberID}',$(this))" value="${vo.contentsID}" rel="6">스크랩</button>
 				
 					<script>
-					console.log("??");
 					scrapButton = $(".scrapButton");
 						let scrapIdList = ${scrapList };
 						
@@ -309,8 +308,9 @@
 
 									<div class="clearfix"></div>
 									<div id="uploadDiv">
-										<div class='uploadList'></div>
-										<button id="uploadBtn">업로드</button>
+										
+							            <input type="file" name="upload"/>
+									        
 									</div>
 									<button type="submit" class="btn-search4 margtop10" id="writeReview">리뷰 등록</button>
 
@@ -511,6 +511,32 @@ $(document).ready(function() {
 			alert("평점을 입력해 주세요")
 		}else{
 			
+			var formData = new FormData();
+			var file = $("input[name=upload]")[0].files;
+			// 가져온 파일을 저장
+			var files = file[0];
+			
+			formData.append("file",files);
+			
+			// 파일 이름 생성 및 이미지생성 ajax
+			$.ajax({
+				url : "/uploadAjaxReview",
+				data : formData,
+				dataType : 'text',
+				processData : false,
+				contentType : false,
+				async: false,
+				type : 'post',
+				// 데이터를 보낸 후 
+				success : function(data) {
+					
+					var str = "";
+					getFileNames(data);
+					
+				}
+			});
+			
+			// 리뷰 등록 ajax
 			$.ajax({
 				type : 'post',
 				url : '/contents/contentsDetail/'+ contentsID,
@@ -626,66 +652,6 @@ $(document).ready(function() {
 		});
 	});
 	
-	// 파일을 끌어올때 
-	$('.uploadList').on("dragenter dragover",function(event) {
-		event.preventDefault();
-	});
-	
-	// 파일을 박스안에 놓을때 	
-	$('.uploadList').on("drop",function(event) {
-		
-		event.preventDefault();
-		// 박스안에 놓인 파일 가져오기
-		var file = event.originalEvent.dataTransfer.files;
-		// 가져온 파일을 저장
-		var files = file[0];
-		// formDate 객체 생성
-		var formData = new FormData();
-		// formData 객체에 파일 데이터 저장
-		formData.append("file",files);
-		// ajax로 컨트롤러에 데이터 전송
-		$.ajax({
-			url : "/uploadAjaxReview",
-			data : formData,
-			dataType : 'text',
-			processData : false,
-			contentType : false,
-			type : 'post',
-			// 데이터를 보낸 후 
-			success : function(data) {
-				var str = "";
-				getFileNames(data);
-				// 생성된 파일의 이름 포맷 검사
-				if (checkImageType(data)) {
-					// 이미지 파일일 경우 썸네일 생성
-					str = "<li>"
-						// 원본 파일 링크
-						+ "<img src='/displayFile?fileName="+ data
-								+ "&directory=review' style='width:160px;'/>"
-						+ getOriginalName(data)
-						+ "</a>"
-						+ "<small fileName="+data+">X</small></li>";
-				} else {
-					// 이미지 파일이 아닐경우 다운로드
-					str = "<li><a href='/displayFile?fileName="+ data+ "&directory=review'>"+ getOriginalName(data)
-						+ "</a><small fileName="+data+">X</small></li>";
-				}
-				$('.uploadList').append(str);
-			}
-		});
-	});
-	
-	// 삭제 버튼 누를 경우
-	$('.uploadList').on('click','small',function(event) {
-			var that = $(this);
-			// 파일 이름 저장
-			var filename = that.attr('fileName');
-			// 포스트 방식으로 데이터 전달
-			$.post('/deleteFile', {fileName : filename,directory : "review"}, function(result) {
-				that.parent("li").remove();
-			});
-	});
-	
 	// 리뷰 아이디를 받아 이미지 생성 
 	function getImage(reviewPictureName) {
 		var fileList = new Array;
@@ -717,7 +683,9 @@ $(document).ready(function() {
 	}
 	
 	function getFileNames(data) {
+	
 		fileNames.push(data);
+
 	}
 	
 	
@@ -854,7 +822,7 @@ function initialize() {
 	//Associate the styled map with the MapTypeId and set it to display.
 	map.mapTypes.set('map_style', styledMap);
 	map.setMapTypeId('map_style');
-	}
+	};
 </script>
 
 			<!-- Javascript -->	
