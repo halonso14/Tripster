@@ -119,7 +119,6 @@
     			var endDate= $("#datepicker3").val();
     			var errorMessage='';
     			var title = $("#planTitle").val();
-    			console.log(endDate);
     			//title입력 여부?	
      		 if(''!=title){
      				//yes-> startDate && endDate 입력여부?
@@ -127,8 +126,6 @@
     						//yes -> startDate 와 endDate를 date type으로 변환.
 	    					var start = new Date(startDate);
 	    					var end = new Date(endDate);
-	    					console.log(end);
-	    					console.log(start);
 	    					//startDate > endDate ?
 		    				if(startDate > endDate){
 		    					//yes -> errorMessage출력.		

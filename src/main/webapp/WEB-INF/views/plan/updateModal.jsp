@@ -80,7 +80,6 @@
     			var endDate= $("#updateEndDate").val();
     			var errorMessage='';
     			var title = $("#updateTitle").val();
-    			console.log(startDate +","+ endDate);
     			//title입력 여부?	
      			if(''!= title){
      				//yes-> startDate && endDate 입력여부?
