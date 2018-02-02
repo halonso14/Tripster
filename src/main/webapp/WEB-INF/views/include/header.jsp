@@ -27,7 +27,7 @@ response.setHeader("Pragma", "no-cache");
         				<c:when test = "${empty userSession}">
 						<ul id="nonmember" class="nav nav2 navlight navbar-nav navbar-right">
 							<li><a href="member/register">회원가입</a></li>
-							<li><a href="member/login">로그인</a></li>
+							<li><a href="member/login">&nbsp;&nbsp;로그인&nbsp;&nbsp;</a></li>
 						</ul>
 					</c:when>
 			
