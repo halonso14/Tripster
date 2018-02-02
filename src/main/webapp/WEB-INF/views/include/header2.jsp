@@ -6,6 +6,7 @@
 
 <c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
 <%-- <%@include file="/WEB-INF/views/plan/registerModal.jsp"%> --%>
+
  <body id="top" class="thebg" >
 	<div class="navbar-wrapper2 navbar-fixed-top">
       <div class="container">
@@ -33,7 +34,7 @@
 							<li><a class="header-profile-box">
 								<c:choose>
 									<c:when test="${userSession.memberPicture==null}">
-										<img class="header-profile" src="/displayFile?fileName=${userSession.memberPicture}&directory=profile" />
+										<img class="header-profile" src="/resources/images/user.png" />
 									</c:when>
 									<c:otherwise>
 										<img class="header-profile" src="/displayFile?fileName=${userSession.memberPicture}&directory=profile" />
@@ -46,8 +47,8 @@
 									<span>${userSession.memberName}&nbsp;<b class="lightcaret mt-2"></b></span>
 								</a>
 								<ul class="dropdown-menu">
-									<li><a href="member/mypage">마이페이지</a></li>
-									<li><a href="member/logout">로그아웃</a></li>
+									<li><a href="/member/mypage">마이페이지</a></li>
+									<li><a href="/member/logout">로그아웃</a></li>
 								</ul>
 							</li>
 							<li>

@@ -387,7 +387,6 @@ response.setHeader("Pragma", "no-cache");
 											<div class="list_carousel2">
 												<ul class="foo5">
 													<c:forEach items="${planDetailVO.memoVO.memoPictureVO }" var="pictureVO">
-														<c:set var="image" value=""/>
 					           					 		<li style="text-align: center;">
 						           					 		<div style="width:100%;margin:0 auto;text-align: center; display:block;">
 																<img src="/displayFile?fileName=${pictureVO.memoPictureName }&directory=plan"

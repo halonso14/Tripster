@@ -26,8 +26,8 @@ response.setHeader("Pragma", "no-cache");
         			<c:choose>
         				<c:when test = "${empty userSession}">
 						<ul id="nonmember" class="nav nav2 navlight navbar-nav navbar-right">
-							<li><a href="member/register">회원가입</a></li>
-							<li><a href="member/login">로그인</a></li>
+							<li><a href="/member/register">회원가입</a></li>
+							<li><a href="/member/login">로그인</a></li>
 						</ul>
 					</c:when>
 			
@@ -36,7 +36,7 @@ response.setHeader("Pragma", "no-cache");
 							<li><a class="header-profile-box">
 								<c:choose>
 									<c:when test="${userSession.memberPicture==null}">
-										<img class="header-profile" src="/displayFile?fileName=${userSession.memberPicture}&directory=profile" />
+										<img class="header-profile" src="/resources/images/user.png" />
 									</c:when>
 									<c:otherwise>
 										<img class="header-profile" src="/displayFile?fileName=${userSession.memberPicture}&directory=profile" />
@@ -48,8 +48,8 @@ response.setHeader("Pragma", "no-cache");
 									<span>${userSession.memberName}&nbsp;&nbsp;<b class="lightcaret mt-2"></b></span>
 								</a>
 								<ul class="dropdown-menu">
-									<li><a href="member/mypage">마이페이지</a></li>
-									<li><a href="member/logout">로그아웃</a></li>
+									<li><a href="/member/mypage">마이페이지</a></li>
+									<li><a href="/member/logout">로그아웃</a></li>
 								</ul>
 							</li>
 							<li id="planRegister">
