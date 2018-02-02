@@ -972,6 +972,8 @@ left: 254px;
 					function getPageList(page){
 					var str = '';
 						$.getJSON("/member/myplan/"+memberID+"/"+page, function(data){
+							var random = Math.floor(Math.random() * 10) + 1;
+							
 							$(data.list).each(function(index){
 									str += 
 								"<div class='col-md-4'>"
@@ -982,7 +984,7 @@ left: 254px;
 											"<img src='/displayFile?fileName="+this.pictureName+"&directory=plan'alt='' />";
 									} else{
 										str +=
-											"<img src='' alt='' />";
+											"<img src='/resources/images/plan/"+random+".jpg' alt='' />";
 									}
 										
 									str +=
