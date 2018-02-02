@@ -27,7 +27,7 @@
 	  				<c:choose>
 						<c:when test = "${empty userSession}">
 							<li><a href="/member/register">회원가입</a></li>
-							<li><a href="/member/login">로그인</a></li>
+							<li><a href="/member/login">&nbsp;&nbsp;로그인&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
 						</c:when>
 						<c:otherwise>		
 							<li>

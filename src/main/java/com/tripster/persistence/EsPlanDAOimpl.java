@@ -64,10 +64,10 @@ public class EsPlanDAOimpl implements EsPlanDAO {
 	
 	// 일정등록
 	@Override
-	public void insertEsPlan(PlanVO vo) throws Exception {
+	public void insertEsPlan(PlanVO vo, int planID) throws Exception {
 
 		EsPlanVO esvo = new EsPlanVO();
-		esvo.setPlan_id(vo.getPlanID());
+		esvo.setPlan_id(planID);
 		esvo.setPlan_title(vo.getPlanTitle());
 		esvo.setMember_id(vo.getMemberID());
 		esvo.setMember_name(vo.getMemberName());
@@ -75,6 +75,7 @@ public class EsPlanDAOimpl implements EsPlanDAO {
 		esvo.setPlan_enddate(vo.getPlanEndDate());
 		esvo.setPlan_like_cnt(vo.getPlanLikeCnt());
 		esvo.setPlan_startdate(vo.getPlanStartDate());
+		//회원사진 여기에 있으면 회원사진 업데이트 되었을때 일정에 반영 안되니까.. es맵핑부터 수정되야함.
 		esvo.setMember_picture("");
 		esvo.setMemo_picture_name(vo.getPictureName());
 

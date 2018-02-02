@@ -8,5 +8,5 @@ public interface EsPlanDAO {
 	// 일정 검색결과 리스트 조회
 	public EsSearchResultVO getPlanList(SearchCriteria cri, Integer size) throws Exception;
 	// 일정등록
-	public void insertEsPlan(PlanVO vo) throws Exception;
+	public void insertEsPlan(PlanVO vo, int planID) throws Exception;
 }
