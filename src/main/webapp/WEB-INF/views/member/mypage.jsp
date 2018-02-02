@@ -8,12 +8,13 @@ response.setHeader("Expires", "Sat, 01 Jan 1970 22:00:00 GMT");
 response.setHeader("Pragma", "no-cache");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
   	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>Travel Agency - HTML5 Booking template</title>
-	
+	<title>Tripster - 마이페이지</title>
+
     <!-- ymum my css-->
     <link rel = "stylesheet" type = "text/css" href ="/resources/css/statistics.css">
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
@@ -24,14 +25,16 @@ response.setHeader("Pragma", "no-cache");
 	<link rel="stylesheet" type="text/css" href="/resources/slick-1.8.0/slick/slick-theme.css"/>
 	<!--ymmu icon css -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<!-- 충돌때문에 막음 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-     -->
     <!-- ymum my css-->
     
     <!-- Bootstrap -->
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
+    	<link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
+    
+    <link href="/resources/assets/css/endChk.css" rel="stylesheet" media="screen">
+    <link href="/resources/assets/css/followBtn.css" rel="stylesheet" media="screen">
     <!-- ymmu bootstrap table -->
     <link href="/resources/bootstrap-table/dist/bootstrap-table.css" rel="stylesheet">
 
@@ -55,8 +58,19 @@ response.setHeader("Pragma", "no-cache");
 
     <!-- Picker -->	
 	<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />	
-	
-
+	<script src="https://code.jquery.com/jquery-2.0.3.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<style type="text/css">
+.plane{
+	width: 25px;
+    height: 30px;
+    display: block;
+    margin: 0 auto;
+}
+.liover{
+left: 254px;
+}
+</style>
 	
   </head>
   <body id="top" class="thebg" >
@@ -67,138 +81,10 @@ response.setHeader("Pragma", "no-cache");
     	//console.log("<c:out value="${memberVO.memberName}"/>");
     	//console.log("memberName");
     </script>
-    <input type="hidden" id="hmem" value="${memberVO.memberID}"/>
     <!-- ymmu 통계, 추천 페이지 자바스크립트에서 멤버아이디 받아 ajax로 데이터 받음-->
-	<div class="navbar-wrapper2 navbar-fixed-top">
-      <div class="container">
-		<div class="navbar mtnav">
+    
+    <%@include file="/WEB-INF/views/include/header2.jsp" %>
 
-			<div class="container offset-3">
-			  <!-- Navigation-->
-			  <div class="navbar-header">
-				<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
-				  <span class="icon-bar"></span>
-				  <span class="icon-bar"></span>
-				  <span class="icon-bar"></span>
-				</button>
-				<a href="/" class="navbar-brand"><img src="/resources/images/logo.png" alt="Travel Agency Logo" class="logo"/></a>
-			  </div>
-			  <div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-right">
-				  <li class="dropdown active">
-					<a data-toggle="dropdown" class="dropdown-toggle" href="index.html">Home <span class="badge indent0">1</span><b class="lightcaret mt-2"></b></a>
-					<ul class="dropdown-menu posright-0">
-					  <li>
-							<div class="row dropwidth01">
-								<ul class="droplist col-md-4">
-								  <li class="dropdown-header">Homepages</li>	
-								  <li><a href="index.html">Home 1 minimal</a></li>
-								  <li><a href="index2.html">Home 2 offers</a></li>
-								  <li><a href="index3.html">Home 3 full search</a></li>
-								  <li><a href="index4.html">Home 4 presentation</a></li>
-								  <li><a href="index5.html">Home 5 footer2</a></li>
-								  <li><a href="index6.html">Home 6 full</a></li>
-								  <li><a href="index7.html">Home 7 </a></li>
-								  <li><a href="z-new-homepage.html">New Homepage</a> <span class="green">new</span></li>									  
-								</ul>
-								<ul class="droplist col-md-4">
-								  <li class="dropdown-header">Intro pages</li>
-								  <li><a href="intro.html">Intro 1</a></li>
-								  <li><a href="intro2.html">Intro 2 - slides</a> <span class="glyphicon glyphicon-star lblue"></span></li>
-								  <li><a href="intro3.html">Intro 3 - slides2</a> <span class="glyphicon glyphicon-star lblue"></span></li>
-								</ul>
-								<ul class="droplist col-md-4">
-								  <li class="dropdown-header">Colors</li>
-								  <li><a href="../blue/index.html">Blue</a></li>
-								  <li><a href="../green/index.html">Green</a></li>
-								  <li><a href="../orange/index.html">Orange</a></li>
-								  <li><a href="../cyan/index.html">Cyan</a></li>
-								  <li></li>
-								  <li class="inactive size10 lgrey caps"><span class="glyphicon glyphicon-star "></span> Popular pages</li>								  
-								</ul>
-							</div>
-					  </li>
-					</ul>
-				  </li>
-				  <li class="dropdown">
-					<a data-toggle="dropdown" class="dropdown-toggle" href="#">Pages <span class="badge indent0">14</span><b class="lightcaret mt-2"></b></a>
-					<ul class="dropdown-menu posright-0">
-					  <li>
-							<div class="row dropwidth01">
-								<ul class="droplist col-md-4">
-								  <li class="dropdown-header">Inner pages</li>	
-								  <li><a href="list.html">List page 1</a></li>
-								  <li><a href="list2.html">List page 2</a></li>
-								  <li><a href="list3.html">List page 3</a></li>
-								  <li><a href="list4.html">List page 4</a></li>
-								  <li><a href="details.html">Details page</a></li>
-								  <li><a href="payment.html">Payment</a></li>
-								  <li><a href="blog.html">Blog page</a></li>
-								  <li><a href="blog-details.html">Blog details</a></li>	
-								  <li><a href="about.html">About</a></li>								  
-								  <li><a href="contact.html">Contact</a></li>
-								  <li><a href="profile.html">User Profile</a>  <span class="glyphicon glyphicon-star lblue"></span></li>
-								  <li><a href="login.html">Login</a></li>
-								  <li><a href="dashboard/index.html">Dashboard</a>  <span class="glyphicon glyphicon-star lblue"></span></li>								  
-
-						  
-								</ul>	
-								<ul class="droplist col-md-4">
-								  <li class="dropdown-header">Update - <span class="green">14 New Pages</span></li>	
-								  <li><a href="z-new-homepage.html">New Homepage</a>  <span class="glyphicon glyphicon-star lblue"></span></li>
-								  <li><a href="z-flights-list.html">Flights list</a>  <span class="glyphicon glyphicon-star lblue"></span></li>
-								  <li><a href="z-flights-payment.html">Flights payment</a></li>
-								  <li><a href="z-cruise-list.html">Cruise list</a></li>
-								  <li><a href="z-cruise-payment.html">Cruise payment</a></li>
-								  <li><a href="z-rentacar-list.html">Rent a car list</a></li>
-								  <li><a href="z-rentacar-details.html">Rent a car details</a></li>
-								  <li><a href="z-rentacar-payment.html">Rent a car payment</a></li>
-								  <li><a href="z-transfers-list.html">Transfers list</a></li>
-								  <li><a href="z-transfers-payment.html">Transfers payment</a></li>
-								  <li><a href="z-activities-list.html">Activities list</a></li>
-								  <li><a href="z-activities-details.html">Activities details</a></li>
-								  <li><a href="z-activities-payment.html">Activities payment</a></li>
-								  <li><a href="z-wearesearching.html">Loading page</a></li>
-								</ul>								
-								<ul class="droplist col-md-4">
-								  <li class="dropdown-header">Bootstrap Shortcodes</li>	
-								  <li ><a href="http://getbootstrap.com/components/" target="_blank">Components</a></li>								  
-								  <li ><a href="http://getbootstrap.com/javascript/" target="_blank">Javascript</a></li>								  
-								  <li ><a href="http://getbootstrap.com/css/" target="_blank">Css</a></li>	
-								  <li class="dropdown-header">Comming next</li>	
-								  <li class="inactive"><a href="#">More Home pages</a></li>
-								  <li class="inactive"><a href="#">Elements</a></li>
-								  <li class="inactive"><a href="#">...</a></li>
-								  <li></li>								  
-								  <li class="inactive size10 lgrey caps"><span class="glyphicon glyphicon-star "></span> Popular pages</li>
-								</ul>									
-							</div>
-					  </li>
-					</ul>
-				  </li>
-				  <li><a href="#">Hotels</a></li>
-				  <li><a href="#">Flights</a></li>
-				  <li><a href="#">Vacations</a></li>
-				  <li><a href="#">Cars</a></li>			  
-				  <li><a href="#">Cruises</a></li>			  
-				  <li><a href="#">Last minute</a></li>			  
-				  <li><a href="#">Early booking</a></li>			  
-				  <li class="dropdown">
-					<a data-toggle="dropdown" class="dropdown-toggle" href="#">Deals<b class="lightcaret mt-2"></b></a>
-					<ul class="dropdown-menu">
-					  <li class="dropdown-header">Aligned Right Dropdown</li>	
-					  <li><a href="#">Sample Link 1</a></li>
-					  <li><a href="#">Sample Link 2</a></li>
-					</ul>
-				  </li>		
-				</ul>
-			  </div>
-			  <!-- /Navigation-->			  
-			</div>
-		
-        </div>
-      </div>
-    </div>
 	
 	<div class="container breadcrub">
 	    <div>
@@ -229,9 +115,9 @@ response.setHeader("Pragma", "no-cache");
 				<!-- LEFT MENU -->
 				<div class="col-md-1 offset-0">
 					<!-- Nav tabs -->
-					<ul class="nav profile-tabs">
+					<ul class="nav profile-tabs" id="myTab">
 					  <li class="active">
-						<a href="#profile" data-toggle="tab">
+						<a href="#profile" data-toggle="tab" role="tab">
 						<span class="profile-icon"></span>
 						Statistics
 						</a></li>
@@ -241,14 +127,19 @@ response.setHeader("Pragma", "no-cache");
 						  Recommand
 						  </a></li>
 					  <li>
-						  <a href="#wishlist" data-toggle="tab" onclick="mySelectUpdate()">
+						  <a href="#myfollowList" data-toggle="tab" onclick="mySelectUpdate()">
 						  <span class="wishlist-icon"></span>							  
-						  Wishlist
+						  Follow
 						  </a></li>
 					  <li>
 						  <a href="#scrapList" data-toggle="tab" onclick="scrapList()">
 						  <span class="history-icon"></span>								  
-						  ScrapList
+						  Scrap
+						  </a></li>
+					  <li>
+						  <a href="#plan" data-toggle="tab" onclick="mySelectUpdate()">
+						  <span class="plane"><img src="/resources/images/aeroplane.png" alt=""/></span>								  
+						  Plan
 						  </a></li>						  
 					  <li>
 						  <a href="#setProfile" data-toggle="tab" onclick="mySelectUpdate()">
@@ -290,24 +181,21 @@ response.setHeader("Pragma", "no-cache");
 
 						  <!-- Admin top -->
 						  <div class="col-md-4 offset-0">
-						  	<div class="profile_thumbnail_container">
-							  	<div class="content_profile_thumbnail">
-								  	<c:choose>
-								  		<c:when test="${empty profilePic }">
-											<img src="/resources/images/thumbnail_default12.png" alt="" class="left margright20" id="profileImg"/>
-								  		</c:when>
-								  		<c:otherwise>
-								  			<img src="/displayFile?fileName=${profilePic }" alt="" class="left margright20" 
-								  			id="profileImg"/>
-								  		</c:otherwise>
-								  	</c:choose>
-							  	</div>
-								<p class="pic size12 grey margtop10 thumbnail_member_name">
-								안녕하세요 <span class="lred">${memberVO.memberName}님</span><br/>
-								<a href="javascript:void(0)" class="lblue" id="memberPicture">프로필 사진 변경</a>
-								<!-- <input type ="button" class="lblue" id="memberPic" value="프로필 사진 변경"></input> -->
-								</p>
-							</div>
+						  	<c:choose>
+						  		<c:when test="${empty profilePic }">
+									<img src="/resources/images/user.png" alt="" class="left margright20"
+									id="profileImg" style="height : 53px; width: 53px;"/>
+						  		</c:when>
+						  		<c:otherwise>
+						  			<img src="/displayFile?fileName=${profilePic }&directory=profile" alt="" class="left margright20" 
+						  			id="profileImg" style="height : 53px; width: 53px;"/>
+						  		</c:otherwise>
+						  	</c:choose>
+							<p class="pic size12 grey margtop10">
+							안녕하세요 <span class="lred">${memberVO.memberName}님</span><br/>
+							<a href="javascript:void(0)" class="lblue" id="memberPicture">프로필 사진 변경</a>
+							<!-- <input type ="button" class="lblue" id="memberPic" value="프로필 사진 변경"></input> -->
+							</p>
 							<div class="clearfix"></div>
 						  </div>
 						  <div class="col-md-4">
@@ -403,15 +291,17 @@ response.setHeader("Pragma", "no-cache");
 							<div class="general_font rcm_title_font"><h2>다음 여행지로 이곳들은 어떠세요?</h2></div>
 						    <div class="general_text">-<span class="lred">${memberVO.memberName}</span>님의 활동을 기반으로 추천해드립니다.  만약 처음이라면? <a href="/member/detail" style="color: #8d1cc6">추천 설문 바로가기</a> </div>
 						    <div class="general_text">
-						    	<span class="rectangle" style="background-color: #8d1cc6"></span><span>추천 도시의 국가</span>
-						    	<!--  <span class="rectangle" style="background-color: #88fd65"></span><span>여행 예정 국가</span> -->
+						    	<span class="rectangle" style="background-color: #8d1cc6"></span><span>추천 국가</span>
+						    	<span class="rectangle" style="background-color: #88fd65"></span><span>여행 예정 국가</span>
 						    </div>
 						   
 						   <!-- recommand country/city map -->
+
 						    <div id="div_ajax_load_image">
 						   		<img id="ajax_load_image" src="/resources/images/ajax_loader.gif"/>
 						   		<div id="ajax_load_text">추천을 위한 데이터가 부족합니다. 추천설문을 해주세요~ (~ ^^)~</div>
 						    </div>
+
 						    <div id="maps">
 						        <div id="gmap" class="mapdiv" style="visibility: hidden;"></div>
 						        <div id="chartdiv_rcm" class="mapdiv" style="visibility: visible;"></div>
@@ -474,7 +364,7 @@ response.setHeader("Pragma", "no-cache");
 						    	</div>
 						    	<div class="info_about_country_contents">
 						    		<div class="info_icon">
-						    			<i class="material-icons" style="font-size:48px;color:#42b520">border_color</i><br>
+						    			<i class="fa fa-file-word-o" style="font-size:48px;color:#42b520"></i><br>
 						    				<b>국가단어</b>
 						    		</div>
 						    		<div class="info_description">
@@ -605,137 +495,204 @@ response.setHeader("Pragma", "no-cache");
 						</div>
 
 					  </div>
-					  <!-- END OF TAB 2 -->	
+					  <!-- END OF TAB 2 -->
 					  
-					  <!-- TAB 3 -->					  
-					  <div class="tab-pane" id="wishlist">
-						<div class="padding40">
-						
-
-							<input type="text" placeholder="Make new category" class="form-control wh80percent left">
-							<button type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-plus"></span>Add new</button>
-
-							<div class="clearfix"></div>
-							<br/>
-							
-							<ul class="blogcat">
-								<li><a href="#">Incredible places</a> <span class="badge indent0">3</span></li>
-								<li><a href="#">My next places</a> <span class="badge indent0">1</span></li>
-								<li><a href="#">Europe</a> <span class="badge indent0">1</span></li>
+					  	
+					<!-- TAB 3 -->  
+					<div class="tab-pane" id="myfollowList" style="padding: 20px 50px;">
+						<div class="padding40 dark">
+							<ul class="nav nav-tabs myTab2pos" id="myTab">
+								<li onclick=""class="active"><a data-toggle="tab" href="#follow"><span class="reviews"></span><span class="hidetext">내가 팔로우한 회원</span>&nbsp;</a></li>
+								<li onclick="getFollowingList(1);" class=""><a data-toggle="tab" href="#following"><span class="reviews"></span><span class="hidetext">나를 팔로우한 회원</span>&nbsp;</a></li>
 							</ul>
-						
-							<br/>
-							<br/>
-							
-							<span class="dark size18">Favourites list</span>
-							<div class="col-md-12 offset-0">
-								<div class="line4"></div>
-								<br/>
-								
-								<div class="col-md-6 offset-0">
-									<div>
-									
-										<div class="col-md-9 offset-0">
-											<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-1.jpg"></a>
+							<div class="tab-content6">
+									<!-- TAB 1 -->				
+									<div id="follow" class="tab-pane fade active in">
+										<span class="lblue size18">${memberVO.memberName}</span> <span
+									class="dark size18">님이 팔로우한 회원</span>
+										<div class="line4"></div>
 										
-											<a class="dark" href="#"><b>제목</b></a> /
-											<span class="dark size12"> 뭐 넣을까 </span><br>
-											<span class="opensans green bold size14">카테고리</span> <span class="grey">1</span><br>
-											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
-										</div>
-										<div class="col-md-3 offset-0">
-											<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>
-										</div>
-										<div class="clearfix"></div>
-										<div class="line2"></div>
-										
-									</div>
-								
-									<div>
-										<div class="col-md-4 offset-0">
-											<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-2.jpg"></a>
-											<a class="dark" href="#"><b>Hotel Dany</b></a> /
-											<span class="dark size12">Greece - Zakynthos</span><br>
-											<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
-											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
-										</div>
-										<div class="col-md-7">
-											<span class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam faucibus, quam vel interdum lacinia, lacus justo rutrum lorem, in fermentum ligula est a diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-										</div>
-										<div class="col-md-1 offset-0">
-											<button onclick="errorMessage()" type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-heart dark"></span></button>
-										</div>
-										<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>
-										<div class="clearfix"></div>
-										<div class="line6"></div>
-									</div>
-								</div>
-								
-								<div class="col-md-6 offset-0">
-									<div>
-										<div class="col-md-4 offset-0">
-											<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-3.jpg"></a>
-											<a class="dark" href="#"><b>Hotel Dany</b></a> /
-											<span class="dark size12">Greece - Zakynthos</span><br>
-											<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
-											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
-										</div>
-										<div class="col-md-7">
-											<span class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam faucibus, quam vel interdum lacinia, lacus justo rutrum lorem, in fermentum ligula est a diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-										</div>
-										<div class="col-md-1 offset-0">
-											<button onclick="errorMessage()" type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-heart"></span></button>
-										</div>
-										<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>									
-										<div class="clearfix"></div>
-										<div class="line6"></div>
-									</div>
-								
-									<div>
-										<div class="col-md-4 offset-0">
-											<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-1.jpg"></a>
-											<a class="dark" href="#"><b>Hotel Dany</b></a> /
-											<span class="dark size12">Greece - Zakynthos</span><br>
-											<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
-											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
-										</div>
-										<div class="col-md-7">
-											<span class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam faucibus, quam vel interdum lacinia, lacus justo rutrum lorem, in fermentum ligula est a diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-										</div>
-										<div class="col-md-1 offset-0">
-											<button onclick="errorMessage()" type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-heart dark"></span></button>
-										</div>
-										<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>									
-										<div class="clearfix"></div>
-										<div class="line6"></div>
+											<div id="followList">
+											</div>
+											
+											<div class="clearfix"></div>
+											<div class="offset-2">
+												<hr class="featurette-divider3">
+											</div>
+											<ul class="pagination right paddingbtm20" id="pagination3">
+							   				</ul>
 									</div>
 									
-									<div>
-										<div class="col-md-4 offset-0">
-											<a href="#"><img alt="" class="left mr20" src="/resources/images/smallthumb-2.jpg"></a>
-											<a class="dark" href="#"><b>Hotel Dany</b></a> /
-											<span class="dark size12">Greece - Zakynthos</span><br>
-											<span class="opensans green bold size14">$36-$160</span> <span class="grey">avg/night</span><br>
-											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
-										</div>
-										<div class="col-md-7">
-											<span class="grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam faucibus, quam vel interdum lacinia, lacus justo rutrum lorem, in fermentum ligula est a diam. Nam aliquet arcu est, a malesuada odio laoreet non.</span>
-										</div>
-										<div class="col-md-1 offset-0">
-											<button onclick="errorMessage()" type="submit" class="btn-search5 right"><span class="glyphicon glyphicon-heart"></span></button>
-										</div>
-										<button aria-hidden="true" data-dismiss="alert" class="close mr20 mt10" type="button">×</button>									
-										<div class="clearfix"></div>
+									<!-- TAB 2  -->
+									<div id="following" class="tab-pane fade ">
+										<span class="lblue size18">${memberVO.memberName}</span> <span
+									class="dark size18">님을 팔로우한 회원</span>
+										<div class="line4"></div>
+										
+										<div id="followingList">
+											</div>
+											
+											<div class="clearfix"></div>
+											<div class="offset-2">
+												<hr class="featurette-divider3">
+											</div>
+											<ul class="pagination right paddingbtm20" id="pagination4">
+							   				</ul>
 									</div>
-					
-									<div class="line4"></div>
-								
-								</div>
-								
+							   </div>
 
-							</div>
-						</div>
-					  </div>
+					   </div>
+					</div>
+					
+					<script src="/resources/js/follow.js"></script>
+					<script>
+					
+					var memberID = ${memberVO.memberID};
+					
+					getFollowList(1);
+					
+					//FollowList를 화면에 뿌려준다.
+					function getFollowList(page){
+					var str = '';
+						$.getJSON("/member/follow/"+memberID+"/"+page, function(data){
+							$(data.followList).each(function(index){
+									str += 
+								"<div class='col-md-6 offset-0'>";
+										
+									if(this.memberPicture != null){
+										str +=
+											"<img src='/displayFile?fileName="+this.memberPicture+"&directory=profile'	alt='' class='left margright20' id='profileImg'	style='height: 100px; width: 100px;' />";
+									} else{
+										str +=
+											"<img src='/resources/images/user.png' alt='' class='left margright20' id='profileImg' style='height: 100px; width: 100px;' />";
+									}
+										
+									str +=
+										"<p class='size20 grey margtop20'><span class='dark'><a href='/member/viewMember?memberID="+this.memberID+"'>"+this.memberName+"</a></span><br /></p>"
+										+"<div class='container'>";
+										
+									if(this.memberID != data.followChkList[index]){
+										str +=
+											"<button class='btn followButton' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>팔로우</button>"
+									} else{
+										str +=
+											"<button class='btn followButton following' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>팔로잉</button>"
+									}
+									
+									str += "</div><div class='clearfix'></div></div>";
+									 
+									if((index+1)%2 == 0 && index+1 != data.followList.length){
+										str +=
+											"<div class='clearfix'></div><div class='offset-2'><hr class='featurette-divider3'></div>";
+									}
+								
+								
+								})
+									
+							$("#followList").html(str);
+							printFollowPaging(data.pageMaker3);
+						})
+						
+					}
+					
+						//page 뿌려주는 함수.
+					function printFollowPaging(pageMaker) {
+						var str = "";
+						if (pageMaker.prev) {
+							str += "<li><a href='" + (pageMaker.startPage - 1)
+									+ "'> << </a></li>";
+						}
+						for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
+							var strClass = pageMaker.cri.curPage == i ? 'class=active' : '';
+							str += "<li "+strClass+"><a href='"+i+"'>" + i + "</a></li>";
+						}
+						if (pageMaker.next) {
+							str += "<li><a href='" + (pageMaker.endPage + 1)
+									+ "'> >> </a></li>";
+						}
+						$('#pagination3').html(str);
+					}
+					var replyPage = 1;
+					
+					$("#pagination3").on("click", "li a", function(event) {
+						event.preventDefault();
+						replyPage = $(this).attr("href");
+						getFollowList(replyPage);
+					});
+					
+					
+					
+					
+					function getFollowingList(page){
+						var str = '';
+							$.getJSON("/member/following/"+memberID+"/"+page, function(data){
+								$(data.followingList).each(function(index){
+										str += 
+									"<div class='col-md-6 offset-0'>"
+										;
+											
+										if(this.memberPicture != null){
+											str +=
+												"<img src='/displayFile?fileName="+this.memberPicture+"&directory=profile'	alt='' class='left margright20' id='profileImg'	style='height: 100px; width: 100px;' />";
+										} else{
+											str +=
+												"<img src='/resources/images/user.png' alt='' class='left margright20' id='profileImg' style='height: 100px; width: 100px;' />";
+										}
+											
+										str +=
+											"<p class='size20 grey margtop20'><span class='dark'><a href='/member/viewMember?memberID="+this.memberID+"'>"+this.memberName+"</a></span><br /></p>"
+											+"<div class='container'>"
+											
+										if(this.memberID != data.followingChkList[index]){
+											str +=
+												"<button class='btn followButton' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>팔로우</button>"
+										} else{
+											str +=
+												"<button class='btn followButton following' value='"+this.memberID+"' onmouseover='followover($(this));' rel='6'>팔로잉</button>"
+										}
+											
+										str += "</div><div class='clearfix'></div></div>";
+										 
+										if((index+1)%2 == 0 && index+1 != data.followingList.length){
+											str +=
+												"<div class='clearfix'></div><div class='offset-2'><hr class='featurette-divider3'></div>";
+										}
+									
+									
+									})
+										
+								$("#followingList").html(str);
+								printFollowingPaging(data.pageMaker4);
+							})
+							
+						}
+						
+							//page 뿌려주는 함수.
+						function printFollowingPaging(pageMaker) {
+							var str = "";
+							if (pageMaker.prev) {
+								str += "<li><a href='" + (pageMaker.startPage - 1)
+										+ "'> << </a></li>";
+							}
+							for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
+								var strClass = pageMaker.cri.curPage == i ? 'class=active' : '';
+								str += "<li "+strClass+"><a href='"+i+"'>" + i + "</a></li>";
+							}
+							if (pageMaker.next) {
+								str += "<li><a href='" + (pageMaker.endPage + 1)
+										+ "'> >> </a></li>";
+							}
+							$('#pagination4').html(str);
+						}
+						var replyPage = 1;
+						
+						$("#pagination4").on("click", "li a", function(event) {
+							event.preventDefault();
+							replyPage = $(this).attr("href");
+							getFollowingList(replyPage);
+						});
+					
+					</script>
 					  <!-- END OF TAB 3 -->	
 					  
 					  <!-- TAB 4 -->					  
@@ -956,8 +913,223 @@ response.setHeader("Pragma", "no-cache");
 					  </div>
 
 		
-					  <!-- END OF TAB 6 -->	
+					  <!-- END OF TAB 7 -->	
+					<div class="tab-pane" id="plan" style="padding: 20px 50px;">
+						<div class="padding40 dark">
+							<ul class="nav nav-tabs myTab2pos" id="myTab">
+								<li onclick=""class="active"><a data-toggle="tab" href="#myplan"><span class="reviews"></span><span class="hidetext">내가 등록한 일정 목록</span>&nbsp;</a></li>
+								<li onclick="getLikePlanList(1);" class=""><a data-toggle="tab" href="#likePlan"><span class="reviews"></span><span class="hidetext">나의 관심 일정 목록</span>&nbsp;</a></li>
+							</ul>
+							<div class="tab-content6">
+									<!-- TAB 1 -->				
+									<div id="myplan" class="tab-pane fade active in">
+										<span class="lblue size18">${memberVO.memberName}</span> <span
+									class="dark size18">님이 등록한 일정</span>
+										<div class="line4"></div>
+										
+											<div id="planList">
+											</div>
+											
+											<div class="clearfix"></div>
+											<div class="offset-2">
+												<hr class="featurette-divider3">
+											</div>
+											<ul class="pagination right paddingbtm20" id="pagination1">
+							   				</ul>
+									</div>
+									
+									<!-- TAB 2  -->
+									<div id="likePlan" class="tab-pane fade ">
+										<span class="lblue size18">${memberVO.memberName}</span> <span
+									class="dark size18">님의 관심 일정</span>
+										<div class="line4"></div>
+										<div id="likePlanList">
+											</div>
+											
+											<div class="clearfix"></div>
+											<div class="offset-2">
+												<hr class="featurette-divider3">
+											</div>
+											<ul class="pagination right paddingbtm20" id="pagination2">
+							   				</ul>
+									</div>
+							   </div>
 
+					   </div>
+					</div>
+						<!-- Counter  -->
+					<script src="/resources/assets/js/counter.js"></script>
+					<script src="/resources/assets/js/js-list.js"></script>
+					<script src="/resources/js/like.js"></script>
+					<script>
+					
+					var memberID = ${memberVO.memberID};
+					
+					getPageList(1);
+					
+					//plan을 화면에 뿌려준다.
+					function getPageList(page){
+					var str = '';
+						$.getJSON("/member/myplan/"+memberID+"/"+page, function(data){
+							var random = Math.floor(Math.random() * 10) + 1;
+							
+							$(data.list).each(function(index){
+									str += 
+								"<div class='col-md-4'>"
+									+"<div class='listitem' style='width:243.7px;'>";
+										
+									if(this.pictureName != ""){
+										str +=
+											"<img src='/displayFile?fileName="+this.pictureName+"&directory=plan'alt='' />";
+									} else{
+										str +=
+											"<img src='/resources/images/plan/"+random+".jpg' alt='' />";
+									}
+										
+									str +=
+										"<div class='liover'></div>";
+											
+									if(data.likeChkList[index] != 1){
+										str +=
+											"<a id='likeBtn' class='fav-icon like' href='javascript:void(0)' onclick='likeClick("+memberID+",$(this));' value=" +this.planID+ " likeBtnCheck='0'></a>"
+									} else{
+										str +=
+											"<a id='likeBtn' class='fav-icon-red like' onclick='likeClick("+memberID+",$(this));' value=" +this.planID+ " likeBtnCheck='1'></a>"
+									}
+											
+									str +=
+										"<a class='book-icon' href='/plan/read?planID="+this.planID+"'></a>"
+									+"</div>"
+									+"<div class='itemlabel' style='text-align: center;'>"
+										+"<a href='/plan/read?planID="+this.planID+"'><b>"+this.planTitle+"</b></a><br />"
+									 
+									 if(this.planEndChk != 1){
+										 str += "<button class='btn endchkButton' value='"+this.planID+"' onmouseover='mouseover($(this));'>미완료</button>"
+										+"</div>"
+									+"</div>";
+									 }else{
+										str += "<button class='btn endchkButton complete' value='"+this.planID+"'  onmouseover='mouseover($(this));'>완료</button>"
+										+"</div>"
+									+"</div>";
+									 }	
+									
+									if((index+1)%3 == 0 && index+1 != data.list.length){
+										str +=
+											"<div class='clearfix'></div><div class='offset-2'><hr class='featurette-divider3'></div>";
+									}
+								
+								
+								})
+									
+							$("#planList").html(str);
+							printPaging(data.pageMaker);
+							StartAnime2();
+						})
+						
+					}
+					
+						//page 뿌려주는 함수.
+					function printPaging(pageMaker) {
+						var str = "";
+						if (pageMaker.prev) {
+							str += "<li><a href='" + (pageMaker.startPage - 1)
+									+ "'> << </a></li>";
+						}
+						for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
+							var strClass = pageMaker.cri.curPage == i ? 'class=active' : '';
+							str += "<li "+strClass+"><a href='"+i+"'>" + i + "</a></li>";
+						}
+						if (pageMaker.next) {
+							str += "<li><a href='" + (pageMaker.endPage + 1)
+									+ "'> >> </a></li>";
+						}
+						$('#pagination1').html(str);
+					}
+					var replyPage = 1;
+					
+					$("#pagination1").on("click", "li a", function(event) {
+						event.preventDefault();
+						replyPage = $(this).attr("href");
+						getPageList(replyPage);
+					});
+					
+					
+					
+					
+					function getLikePlanList(page){
+						var str = '';
+							$.getJSON("/member/likeplan/"+memberID+"/"+page, function(data){
+								$(data.likeList).each(function(index){
+										str += 
+									"<div class='col-md-4'>"
+										+"<div class='listitem' style='width:243.7px;'>";
+											
+										if(this.pictureName != ""){
+											str +=
+												"<img src='/displayFile?fileName="+this.pictureName+"&directory=plan'alt='' />";
+										} else{
+											str +=
+												"<img src='' alt='' />";
+										}
+											
+										str +=
+											"<div class='liover'></div>";
+												
+										if(data.likePlanList[index] != 1){
+											str +=
+												"<a id='likeBtn' class='fav-icon like' href='javascript:void(0)' onclick='likeClick("+memberID+",$(this));' value=" +this.planID+ " likeBtnCheck='0'></a>"
+										} else{
+											str +=
+												"<a id='likeBtn' class='fav-icon-red like' onclick='likeClick("+memberID+",$(this));' value=" +this.planID+ " likeBtnCheck='1'></a>"
+										}
+												
+										str +=
+											"<a class='book-icon' href='/plan/read?planID="+this.planID+"'></a>"
+										+"</div>"
+										+"<div class='itemlabel' style='text-align: center;'>"
+											+"<a href='/plan/read?planID="+this.planID+"'><b>"+this.planTitle+"</b></a><br /></div></div>"
+										if((index+1)%3 == 0 && index+1 != data.likeList.length){
+											str +=
+												"<div class='clearfix'></div><div class='offset-2'><hr class='featurette-divider3'></div>";
+										}
+									
+									
+									})
+										
+								$("#likePlanList").html(str);
+								printLikePaging(data.pageMaker2);
+								StartAnime2();
+							})
+							
+						}
+						
+							//page 뿌려주는 함수.
+						function printLikePaging(pageMaker) {
+							var str = "";
+							if (pageMaker.prev) {
+								str += "<li><a href='" + (pageMaker.startPage - 1)
+										+ "'> << </a></li>";
+							}
+							for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
+								var strClass = pageMaker.cri.curPage == i ? 'class=active' : '';
+								str += "<li "+strClass+"><a href='"+i+"'>" + i + "</a></li>";
+							}
+							if (pageMaker.next) {
+								str += "<li><a href='" + (pageMaker.endPage + 1)
+										+ "'> >> </a></li>";
+							}
+							$('#pagination2').html(str);
+						}
+						var replyPage = 1;
+						
+						$("#pagination2").on("click", "li a", function(event) {
+							event.preventDefault();
+							replyPage = $(this).attr("href");
+							getLikePlanList(replyPage);
+						});
+					
+					</script>
+					  <!-- END OF TAB 7 -->	
 					  
 					</div>
 					<!-- End of Tab panes from left menu -->	
@@ -977,90 +1149,11 @@ response.setHeader("Pragma", "no-cache");
 	</div>
 	<!-- END OF CONTENT -->
 	
+	<%@include file="/WEB-INF/views/include/footer.jsp" %>
+	
+	
 
-	
-	
-	<!-- FOOTER -->
-	
-	<div class="footerbgblack">
-		<div class="container">		
-			
-			<div class="col-md-3">
-				<span class="ftitleblack">Let's socialize</span>
-				<div class="scont">
-					<a href="#" class="social1b"><img src="/resources/images/icon-facebook.png" alt=""/></a>
-					<a href="#" class="social2b"><img src="/resources/images/icon-twitter.png" alt=""/></a>
-					<a href="#" class="social3b"><img src="/resources/images/icon-gplus.png" alt=""/></a>
-					<a href="#" class="social4b"><img src="/resources/images/icon-youtube.png" alt=""/></a>
-					<br/><br/><br/>
-					<a href="#"><img src="/resources/images/logosmal2.png" alt="" /></a><br/>
-					<span class="grey2">&copy; 2013  |  <a href="#">Privacy Policy</a><br/>
-					All Rights Reserved </span>
-					<br/><br/>
-					
-				</div>
-			</div>
-			<!-- End of column 1-->
-			
-			<div class="col-md-3">
-				<span class="ftitleblack">Travel Specialists</span>
-				<br/><br/>
-				<ul class="footerlistblack">
-					<li><a href="#">Golf Vacations</a></li>
-					<li><a href="#">Ski & Snowboarding</a></li>
-					<li><a href="#">Disney Parks Vacations</a></li>
-					<li><a href="#">Disneyland Vacations</a></li>
-					<li><a href="#">Disney World Vacations</a></li>
-					<li><a href="#">Vacations As Advertised</a></li>
-				</ul>
-			</div>
-			<!-- End of column 2-->		
-			
-			<div class="col-md-3">
-				<span class="ftitleblack">Travel Specialists</span>
-				<br/><br/>
-				<ul class="footerlistblack">
-					<li><a href="#">Weddings</a></li>
-					<li><a href="#">Accessible Travel</a></li>
-					<li><a href="#">Disney Parks</a></li>
-					<li><a href="#">Cruises</a></li>
-					<li><a href="#">Round the World</a></li>
-					<li><a href="#">First Class Flights</a></li>
-				</ul>				
-			</div>
-			<!-- End of column 3-->		
-			
-			<div class="col-md-3 grey">
-				<span class="ftitleblack">Newsletter</span>
-				<div class="relative">
-					<input type="email" class="form-control fccustom2black" id="exampleInputEmail1" placeholder="Enter email">
-					<button type="submit" class="btn btn-default btncustom">Submit<img src="/resources/images/arrow.png" alt=""/></button>
-				</div>
-				<br/><br/>
-				<span class="ftitleblack">Customer support</span><br/>
-				<span class="pnr">1-866-599-6674</span><br/>
-				<span class="grey2">office@travel.com</span>
-			</div>			
-			<!-- End of column 4-->			
-		
-			
-		</div>	
-	</div>
-	
-	<div class="footerbg3black">
-		<div class="container center grey"> 
-		<a href="#">Home</a> | 
-		<a href="#">About</a> | 
-		<a href="#">Last minute</a> | 
-		<a href="#">Early booking</a> | 
-		<a href="#">Special offers</a> | 
-		<a href="#">Blog</a> | 
-		<a href="#">Contact</a>
-		<a href="#top" class="gotop scroll"><img src="/resources/images/spacer.png" alt=""/></a>
-		</div>
-	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://code.jquery.com/jquery-2.0.3.js"></script>
 	<script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="/resources/js/additional-methods.min.js"></script>
 	<script type="text/javascript" src="/resources/js/messages_ko.min.js"></script>
@@ -1091,14 +1184,26 @@ response.setHeader("Pragma", "no-cache");
     <script src="/resources/js/statistics.js" type="text/javascript"></script>
     <!-- 상윤것 script 분리시킴 mypage.js-->
     <script src="/resources/js/mypage.js" type="text/javascript"></script>
-    
-
+    <!-- 핸들바 라이브러리 -->
+	<script src="https:cdnjs.cloudflare.com/ajax/Libs/handlebars.js/3.0.1/handlebars.js"></script>
 <!--  
     <script src="/resources/js/recommand.js" type="text/javascript"></script>
     
  -->
 	<!-- ymmu recommand.js--><!-- Google includes -->
- 
+	
+	<!-- 특정 탭으로 연결 -->
+<!--  <script>
+$(window).load(function(){
+    var hash= window.location.hash;
+        if(hash.length > 0 ) {
+            $('a[role="tab"]').parent().removeClass('active');//remove the default active tab
+            $('a[href="'+hash+'"]').parent().addClass('active');
+            $('.tab-pane').removeClass('active');
+            $(hash).addClass('active');
+         }
+  });
+</script> -->
 	
 
 	
@@ -1112,6 +1217,9 @@ response.setHeader("Pragma", "no-cache");
     <!-- Custom functions -->
     <script src="/resources/assets/js/functions.js"></script>
 	
+	<script src="/resources/js/endChk.js"></script>
+	<script src="/resources/js/followChk.js"></script>
+	
     <!-- Custom Select -->
 	<script src='/resources/assets/js/jquery.customSelect.js' type='text/javascript' ></script>
 	
@@ -1124,8 +1232,20 @@ response.setHeader("Pragma", "no-cache");
     <!-- Picker -->	
     <script src="/resources/assets/js/jquery.easing.js"></script>	
 	
-
-
-    
+	<!-- plan 일정 삭제 후 tab이동.  -->
+	<script >
+	 $(document).ready(function(){
+			var planDeleteChk = "${plan_delete}";
+			var planChk = "<%=request.getParameter("planTab")%>";
+		    if(planDeleteChk == "OK"){
+	    			alert("일정이 삭제되었습니다.");
+	    			$('.nav a[href="#plan"]').tab('show');
+	    				
+	    		}
+		    if(planChk =="active"){
+		    		$('.nav a[href="#plan"]').tab('show');
+		    }
+	 });
+	</script>
   </body>
 </html>
