@@ -97,6 +97,8 @@ public class SearchController {
 		// model에 회원의 스크랩 리스트 담기. 
 		if(memberVO != null) {
 			model.addAttribute("scrapIdList",scrapService.scrapIdList(memberVO.getMemberID()));
+		}else {
+			model.addAttribute("scrapIdList","not");
 		}
 		
 		// model에 검색결과 담기   
@@ -127,6 +129,8 @@ public class SearchController {
 		// model에 회원의 좋아요 리스트 담기. 
 		if(memberVO != null) {
 			model.addAttribute("likeIdList",likeService.likeIdList(memberVO.getMemberID()));
+		}else {
+			model.addAttribute("likeIdList","not");
 		}
 		// model에 검색결과 담기
 		model.addAttribute("planList",searchPlan);
@@ -157,6 +161,8 @@ public class SearchController {
 		// model에 회원의 팔로우 리스트 담기. 
 		if(memberVO != null) {
 			model.addAttribute("followIdList",likeService.followIdList(memberVO.getMemberID()));
+		}else {
+			model.addAttribute("followIdList","not");
 		}
 		// model에 검색결과 담기
 		model.addAttribute("memberList",searchMember);
