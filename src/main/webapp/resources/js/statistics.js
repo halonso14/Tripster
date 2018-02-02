@@ -553,7 +553,7 @@ var bindingPlanListToSlick = function(planList){
 						'<div class="inner_card">'+
 							'<img id="content_rcm_plan_thumbnail_bgImage" src="/resources/images/profile_bg.jpg" />'+
 							'<div class="content_rcm_plan_thumbnail">'+
-								'<img id="content_rcm_plan_thumbnail_image" src='+ thumbnailPic +' />'+
+							'<img id="content_rcm_plan_thumbnail_image" src=/displayFile?fileName='+ thumbnailPic +'&directory=profile />'+
 							'</div>'+
 							'<div class="general_font content_rcm_plan_writer">'+planList[i].memberName+'</div>'+
 							'<div class="general_font content_rcm_plan_name">'+planList[i].planTitle+'</div>'+
