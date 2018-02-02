@@ -12,7 +12,7 @@
 		<div class="purchasecontainer"  >
 			<div class="offset-2 left bold" style="margin-left: 10px;padding-top:5px;">${esMemberVO.member_name}</div>		
 			
-			<button class="btn followButton" value="${esMemberVO.member_id}" check="1" rel="6" style="width:80px;float:right; margin-right:20px;">팔로우</button>	
+			<button class="btn followButton" value="${esMemberVO.member_id}" onmouseenter="mouseover('${userSession.memberID }',$(this))" rel="6" style="width:80px;float:right; margin-right:20px;">팔로우</button>	
 			
 			<script>
 				var followBtn = $("button[value="+${esMemberVO.member_id}+"]");

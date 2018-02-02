@@ -1,9 +1,12 @@
 function mouseover(memberID, $button){
+	
 	var contentsID = $button.val();
 	//로그인을 하지 않은 경우
 	if(memberID == ""){
-		$button.on('click', function() {
+		$button.unbind('click').bind('click', function() {
+			
 			alert("로그인이 필요한 기능입니다.");
+			
 		});
 	} else {
 		if ($button.hasClass('scraped')) {

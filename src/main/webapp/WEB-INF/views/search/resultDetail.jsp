@@ -81,6 +81,7 @@
 						<c:forEach items="${contentsList.contentsList}" var = "esContentsVO" varStatus="status" begin="${(pageMaker.cri.page-1)*10}" end="${pageMaker.cri.page*10-1}"> 
 							<%@include file="../include/search/contents.jsp" %>
 						</c:forEach>	
+						
 						<div class="clearfix"></div>	
 						<%@include file="../include/search/pagenation.jsp" %>
 						<div class="clearfix"></div>	
@@ -160,7 +161,7 @@
     <!-- likeBtn -->
     <script src="/resources/js/searchLike.js"></script>
     <!-- followBtn -->
-    <script src="/resources/js/follow.js"></script>
+    <script src="/resources/js/searchFollow.js"></script>
 
 
   </body>
