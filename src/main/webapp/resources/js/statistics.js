@@ -137,8 +137,8 @@ AmCharts.ready( function() {
 	//console.log(graph);
 	chart.addGraph(graph);
 	chart.write( "chartdiv4" );
-	console.log('차트만드는 안쪽');
-	console.log(typeof(graph));
+	//console.log('차트만드는 안쪽');
+	//console.log(typeof(graph));
 	/*
 	var str = '';
 	for(key in graph) {
@@ -160,7 +160,7 @@ AmCharts.ready( function() {
 	chartDetail.addGraph(graph3);
 	
 	chartDetail.write( "chartdiv5" );
-	console.log('차트만드는 안쪽2');
+	//console.log('차트만드는 안쪽2');
 	
 	//map chart---------------------------------
 	chartMap = new AmCharts.AmMap();
@@ -223,7 +223,7 @@ var getSliderSettings =function () {
 //ymmu ajax-------------------------------------------
 var ajaxController= function(url){
     
-	console.log(url);
+	//console.log(url);
     $.ajax({
         method: "GET",
         url: url,
@@ -553,7 +553,7 @@ var bindingPlanListToSlick = function(planList){
 						'<div class="inner_card">'+
 							'<img id="content_rcm_plan_thumbnail_bgImage" src="/resources/images/profile_bg.jpg" />'+
 							'<div class="content_rcm_plan_thumbnail">'+
-								'<img id="content_rcm_plan_thumbnail_image" src='+ thumbnailPic +' />'+
+								'<img id="content_rcm_plan_thumbnail_image" src=/displayFile?fileName='+ thumbnailPic +'&directory=profile />'+
 							'</div>'+
 							'<div class="general_font content_rcm_plan_writer">'+planList[i].memberName+'</div>'+
 							'<div class="general_font content_rcm_plan_name">'+planList[i].planTitle+'</div>'+
@@ -977,13 +977,8 @@ var bindingYoutubeListToSlick = function(youTubeList){
 			//console.log(youTubeList[i][0]);
 			//onYouTubeIframeAPIReady(youTubeList[i].id.videoId);
 		})(i);	
-    	
-		
     
 	}//for
-	
-	au
-	
 };
 
 
