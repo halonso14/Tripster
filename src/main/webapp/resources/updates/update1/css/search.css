@@ -214,3 +214,36 @@ div.planList div.itemlabel2 {
 div.purchasecontainer {
 	margin-top:10px;
 }
+
+ul>li>a.header-profile-box{
+  position: relative;
+  width: 35px;
+  height: 35px;
+  overflow: hidden;
+  border-radius: 30px;
+  border:1px solid #666;
+  margin:5px 0;
+}
+.header-profile{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+}
+
+#member > #planRegister > a{
+	background:#fff;
+	background-color: rgba( 255, 255,255, 0.2);
+	border:1px solid #fff;
+	border-bottom:1px solid #fff!important;
+	border-radius: 5px;
+	padding:9px 20px;
+	margin:5px 10px;
+}
+#member > #planRegister > a:hover{
+	background-color: rgba( 255, 255,255, 0);
+}

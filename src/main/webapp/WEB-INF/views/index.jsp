@@ -16,7 +16,7 @@
 		<!-- Bootstrap -->
 		<link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
 		<link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
-
+		<link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
 		<!-- Updates -->
 		<link href="/resources/updates/update1/css/style01.css" rel="stylesheet" media="screen">
 	

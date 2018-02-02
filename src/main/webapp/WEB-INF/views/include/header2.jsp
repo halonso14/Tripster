@@ -22,36 +22,49 @@
 				<a href="/" class="navbar-brand"><img src="/resources/images/logo.png" alt="Travel Agency Logo" class="logo"/></a>
 			  </div>
 			
-			<div class="navbar-collapse collapse" >
-	  			
+			<div class="navbar-collapse collapse" >	
   				<ul  class="nav nav2 navlight navbar-nav navbar-right" >
 	  				<c:choose>
 						<c:when test = "${empty userSession}">
 							<li><a href="/member/register">회원가입</a></li>
 							<li><a href="/member/login">로그인</a></li>
 						</c:when>
-						<c:otherwise>
-							<li class="dropdown"> 
-								<a data-toggle="dropdown" class="dropdown-toggle" href="/dashboard/index">
-									<img src="/resources/images/user2.png" alt=""/>&nbsp;${userSession.memberName}<b class="lightcaret mt-2"></b> 
+						<c:otherwise>		
+							<li><a class="header-profile-box">
+								<c:choose>
+									<c:when test="${userSession.memberPicture==null}">
+										<img class="header-profile" src="/displayFile?fileName=${userSession.memberPicture}&directory=profile" />
+									</c:when>
+									<c:otherwise>
+										<img class="header-profile" src="/displayFile?fileName=${userSession.memberPicture}&directory=profile" />
+									</c:otherwise>
+								</c:choose>	
+							</a>	</li>
+							<li class="dropdown">
+				
+								<a data-toggle="dropdown" class="dropdown-toggle" href="dashboard/index">	
+									<span>${userSession.memberName}&nbsp;<b class="lightcaret mt-2"></b></span>
 								</a>
 								<ul class="dropdown-menu">
-									<li><a href="/member/mypage">내정보 관리</a></li>
-									<li><a href="/member/logout">로그아웃</a></li>
+									<li><a href="member/mypage">마이페이지</a></li>
+									<li><a href="member/logout">로그아웃</a></li>
 								</ul>
 							</li>
-							<li><a href="/plan/register">일정등록버튼</a></li>
+							<li>
+								<a href="/plan/register">&nbsp;&nbsp;일정등록&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+							</li>
 						</c:otherwise>
-					</c:choose>	
-					<li><form action="/search/result" >
-						<div class="input-group" style="padding:8px 0; width:200px">
-							<input  id="keywordInput" name='keyword' type="text" class="form-control" placeholder="${cri.keyword }" value="${cri.keyword }" ></input>
-							<span class="input-group-btn">
-								<button class="btn btn-default searchbtn" type="submit">Go!</button>
-							</span>
-						</div>
-					</form></li>
-
+					</c:choose>
+					<li>
+						<form action="/search/result" >
+							<div class="input-group" style="padding:8px 0; width:200px">
+								<input  id="keywordInput" name='keyword' type="text" class="form-control" placeholder="${cri.keyword }" value="${cri.keyword }" ></input>
+								<span class="input-group-btn">
+									<button class="btn btn-default searchbtn" type="submit">Go!</button>
+								</span>
+							</div>
+						</form>
+					</li>
 				</ul>
   				
 			  </div>

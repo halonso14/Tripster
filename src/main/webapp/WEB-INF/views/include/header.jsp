@@ -25,26 +25,38 @@ response.setHeader("Pragma", "no-cache");
 			        
         			<c:choose>
         				<c:when test = "${empty userSession}">
-							<ul id="nonmember" class="nav nav2 navlight navbar-nav navbar-right">
-								<li><a href="member/register">회원가입</a></li>
-								<li><a href="member/login">로그인</a></li>
-							</ul>
-						</c:when>
+						<ul id="nonmember" class="nav nav2 navlight navbar-nav navbar-right">
+							<li><a href="member/register">회원가입</a></li>
+							<li><a href="member/login">로그인</a></li>
+						</ul>
+					</c:when>
 			
- 						<c:otherwise>		
- 							<ul id="member" class="nav nav2 navlight navbar-nav navbar-right">
-								<li class="dropdown">
-									<a data-toggle="dropdown" class="dropdown-toggle" href="dashboard/index">
-										<img src="/resources/images/user2.png" alt=""/>&nbsp;${userSession.memberName}<b class="lightcaret mt-2"></b>
-									</a>
-							<ul class="dropdown-menu">
-								<li><a href="member/mypage">내정보 관리</a></li>
-								<li><a href="member/logout">로그아웃</a></li>
-							</ul>
-								</li>
-								<li><a href="/plan/register">일정등록</a></li>
-							</ul>
-						</c:otherwise>
+					<c:otherwise>		
+						<ul id="member" class="nav nav2 navlight navbar-nav navbar-right">
+							<li><a class="header-profile-box">
+								<c:choose>
+									<c:when test="${userSession.memberPicture==null}">
+										<img class="header-profile" src="/displayFile?fileName=${userSession.memberPicture}&directory=profile" />
+									</c:when>
+									<c:otherwise>
+										<img class="header-profile" src="/displayFile?fileName=${userSession.memberPicture}&directory=profile" />
+									</c:otherwise>
+								</c:choose>	
+							</a>	</li>
+							<li class="dropdown">
+								<a data-toggle="dropdown" class="dropdown-toggle" href="dashboard/index">	
+									<span>${userSession.memberName}&nbsp;&nbsp;<b class="lightcaret mt-2"></b></span>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a href="member/mypage">마이페이지</a></li>
+									<li><a href="member/logout">로그아웃</a></li>
+								</ul>
+							</li>
+							<li id="planRegister">
+								<a href="/plan/register">일정등록</a>
+							</li>
+						</ul>
+					</c:otherwise>
         			
         			</c:choose>	
 				</div>
