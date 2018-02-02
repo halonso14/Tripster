@@ -291,8 +291,8 @@ left: 254px;
 							<div class="general_font rcm_title_font"><h2>다음 여행지로 이곳들은 어떠세요?</h2></div>
 						    <div class="general_text">-<span class="lred">${memberVO.memberName}</span>님의 활동을 기반으로 추천해드립니다.  만약 처음이라면? <a href="/member/detail" style="color: #8d1cc6">추천 설문 바로가기</a> </div>
 						    <div class="general_text">
-						    	<span class="rectangle" style="background-color: #8d1cc6"></span><span>추천 국가</span>
-						    	<span class="rectangle" style="background-color: #88fd65"></span><span>여행 예정 국가</span>
+						    	<span class="rectangle" style="background-color: #8d1cc6"></span><span>추천 도시의 국가</span>
+						    	<!--  <span class="rectangle" style="background-color: #88fd65"></span><span>여행 예정 국가</span> -->
 						    </div>
 						   
 						   <!-- recommand country/city map -->
@@ -1185,7 +1185,7 @@ left: 254px;
     <!-- 상윤것 script 분리시킴 mypage.js-->
     <script src="/resources/js/mypage.js" type="text/javascript"></script>
     <!-- 핸들바 라이브러리 -->
-	<script src="https:cdnjs.cloudflare.com/ajax/Libs/handlebars.js/3.0.1/handlebars.js"></script>
+	<script src="https:cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <!--  
     <script src="/resources/js/recommand.js" type="text/javascript"></script>
     
@@ -1232,6 +1232,8 @@ $(window).load(function(){
     <!-- Picker -->	
     <script src="/resources/assets/js/jquery.easing.js"></script>	
 	
+	<!-- 진호 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 	<!-- plan 일정 삭제 후 tab이동.  -->
 	<script >
 	 $(document).ready(function(){

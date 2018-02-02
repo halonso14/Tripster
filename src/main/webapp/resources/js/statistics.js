@@ -312,9 +312,7 @@ var ajaxController= function(url){
             }
             else if(url.match("/recommand")){ //추천페이지 데이터 바인딩
 
-            	
-            	
-            	console.log('추천데이터 ajax 데이터부분');
+            	//console.log('추천데이터 ajax 데이터부분');
             	console.log(data[0].result);
             	
             	if(data[0].result =='no data'){
@@ -355,7 +353,7 @@ var ajaxController= function(url){
         		    	//console.log(event.mapObject.id);
         		    	
         		    	for(var i=0; i< country_len;i++){
-        		    		console.log('for문 안');
+        		    		//console.log('for문 안');
                     		if(country_from_data[i].iso2 == event.mapObject.id){
                     			
                     			 $('.description_title').html(country_from_data[i].name_han+' '+country_from_data[i].name_eng); //지도서 클릭한 나라 이름
@@ -419,83 +417,12 @@ var ajaxController= function(url){
                 	);
                 	
                 	chartMap2.validateData();
-                	/*
-                	chartMap2.listeners[1]={
-            		    "event": "clickMapObject",
-            		    "method": function(event) {
-            		    	//console.log(event);
-            		    	//console.log(event.mapObject.id);
-            		    	
-            		    	for(var i=0; i< country_len;i++){
-            		    		console.log('for문 안');
-                        		if(country_from_data[i].iso2 == event.mapObject.id){
-                        			
-                        			 $('.description_title').html(country_from_data[i].name_han+' '+country_from_data[i].name_eng); //지도서 클릭한 나라 이름
-                        			 $('.country_or_city_description').html(country_from_data[i].description); //지도서 클릭한 나라 소개
-                        			 $('#exchange_ymmu').html('<br> 1'+country_from_data[i].money_unit+' = '+ country_from_data[i].exchange+'원<br>'+'10'+country_from_data[i].money_unit+' = '+ country_from_data[i].exchange*10+'원<br>'); //지도서 클릭한 나라 환율
-                        			 $('#bigmac_ymmu').html('약 '+country_from_data[i].bigmac_price +' '+country_from_data[i].money_unit+'<br><br>'+'<b>US달러 가격</b><br>'+country_from_data[i].bigmac_price_dallor+' 달러'); //지도서 클릭한 나라 환율
-                        			 $('#country_or_city_title_image').attr('src', '/resources/images/'+country_from_data[i].iso2+'_main.jpg');
-                                 	 $('#activity_ymmu').html(country_from_data[i].activity);
-                                	 $('#food_ymmu').html(country_from_data[i].food);
-                                	 
-                                	 var safe_desc = '';
-                                	 if(country_from_data[i].safe == 3){
-                                		 safe_desc = '안전한 편입니다. 국가에 따라 다르나, 늦은밤 외출을 자제하고, 고가의 소지품을 주의하세요. 외진 곳, 관광객이 많지 않은 곳은 혼자서 다니지 않습니다.';
-                                		 $('.safe_icon').text('sentiment_neutral');
-                                	 }else if(country_from_data[i].safe == 4){
-                                		 safe_desc = '상당히 안전한 편입니다. 하지만 깡패나 소매치기는 어디나 있으니 언제나 소지품을 주의하세요.';
-                                		 $('.safe_icon').text('sentiment_satisfied');
-                                	 }else if(country_from_data[i].safe == 5){
-                                		 safe_desc = '매우 안전한 편입니다. 본인이 제일 위험할 수 있습니다.';
-                                		 $('.safe_icon').text('sentiment_very_satisfied');
-                                	 }
-                                	 
-                                	 $('#safe_ymmu').html(safe_desc+'<br>'); //지도서 클릭한 나라 환율
-                        			 
-                                	 
-                        			 	//관련 국가를 다녀가는 일정
-                        			 ajaxController("/rcm/"+country_from_data[i].iso2);
-                        			 
-                        			 
-                             			
-                        			 	//유튜브 슬라이드 갱신 필요
-                                 	$('.video_rcm_list').slick('removeSlide',null,null, true);
-                                 	//console.log('슬라이드 갱신');
-                                 	
-                                 	(function(i){
-                                 			//관련일정 slick에 달아줌
-                                 		//console.log(country_youtube_from_data[i]);
-                                     	bindingYoutubeListToSlick(country_youtube_from_data[i]);
-                                 	})(i);
-                                 		
-                                 	
-                        		
-                        		
-                        		}	
-                        	}//for
-            		    	
-            		        // GMap inited?
-            		        if ( typeof gmap === "undefined" )
-            		          return;
-            		    	// sync position
-            		        gmap.setCenter( {
-            		          lat: chartMap2.zoomLatitude(),
-            		          lng: chartMap2.zoomLongitude()
-            		        } );
-            		        //console.log('zoomlevel:'+chartMap2.zoomLevel());
-            		        
-            		        google.maps.event.trigger(gmap, 'resize'); // 구글맵 갱신.
-            		        
-            		        chartMap2.validateData();
-            		    }//function(event)끝
-            		  };
-                	*/
                 		
                 		resolve('done');
                 	});
 
                 	promise.then(function(result){
-                		console.log(result);
+                		//console.log(result);
                 		chartMap2.validateData();
                 		$("#div_ajax_load_image").hide(); //로딩이미지 삭제
                 	});
@@ -505,12 +432,12 @@ var ajaxController= function(url){
             }//else if
             else if(url.match("/rcm")){ //
             	
-            	console.log("/rcm 들어옴");
+            	//console.log("/rcm 들어옴");
             	var planList = data.planList;
             		
             		//슬라이드 갱신 필요
             	$('.related-plan-list').slick('removeSlide',null,null, true);
-            	console.log('슬라이드 갱신');
+            	//console.log('슬라이드 갱신');
             	//$('.related-plan-list').slick(getSliderSettings());
             		//관련일정 slick에 달아줌
             	bindingPlanListToSlick(planList);
@@ -553,7 +480,7 @@ var bindingPlanListToSlick = function(planList){
 						'<div class="inner_card">'+
 							'<img id="content_rcm_plan_thumbnail_bgImage" src="/resources/images/profile_bg.jpg" />'+
 							'<div class="content_rcm_plan_thumbnail">'+
-								'<img id="content_rcm_plan_thumbnail_image" src=/displayFile?fileName='+ thumbnailPic +'&directory=profile />'+
+							'<img id="content_rcm_plan_thumbnail_image" src=/displayFile?fileName='+ thumbnailPic +'&directory=profile />'+
 							'</div>'+
 							'<div class="general_font content_rcm_plan_writer">'+planList[i].memberName+'</div>'+
 							'<div class="general_font content_rcm_plan_name">'+planList[i].planTitle+'</div>'+
@@ -595,7 +522,7 @@ $(function () {
 
 		(function(chartDetailData){
 			
-			console.log('전: '+chartDetailData);
+			//console.log('전: '+chartDetailData);
 			var limit = 0; // 필요한 데이터는 총 나이대별로 2개씩 최대 8개이므로 타이틀일치로 최대 8번을 돌면 for문을 멈춘다
 			for(key in detailList){
 				if(limit>8) break;
@@ -662,7 +589,7 @@ var saveDate = function(num, key, chartDetailData){
 //일정-좋아요 테이블 생성 함수---------------------
 var makeTable = function(list){
     
-	console.log('makeTable 안쪽');
+	//console.log('makeTable 안쪽');
 	 $('#table').bootstrapTable({
 	    columns: [{
 	        field: 'plan_title',
@@ -706,6 +633,7 @@ var chart2 = AmCharts.makeChart( "chartdiv2", {
   "depth3D": 10,
   "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
   "angle": 15,
+
 } );
 */
 
@@ -979,3 +907,6 @@ var bindingYoutubeListToSlick = function(youTubeList){
     
 	}//for
 };
+
+
+
