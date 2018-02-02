@@ -110,3 +110,17 @@
 2018-01-30 18:16:07 [main] INFO  PluginsService:178 - loaded plugin [org.elasticsearch.script.mustache.MustachePlugin]
 2018-01-30 18:16:07 [main] INFO  PluginsService:178 - loaded plugin [org.elasticsearch.transport.Netty3Plugin]
 2018-01-30 18:16:07 [main] INFO  PluginsService:178 - loaded plugin [org.elasticsearch.transport.Netty4Plugin]
+2018-02-02 17:06:04 [main] INFO  PluginsService:175 - no modules loaded
+2018-02-02 17:06:04 [main] INFO  PluginsService:178 - loaded plugin [org.elasticsearch.index.reindex.ReindexPlugin]
+2018-02-02 17:06:04 [main] INFO  PluginsService:178 - loaded plugin [org.elasticsearch.join.ParentJoinPlugin]
+2018-02-02 17:06:04 [main] INFO  PluginsService:178 - loaded plugin [org.elasticsearch.percolator.PercolatorPlugin]
+2018-02-02 17:06:04 [main] INFO  PluginsService:178 - loaded plugin [org.elasticsearch.script.mustache.MustachePlugin]
+2018-02-02 17:06:04 [main] INFO  PluginsService:178 - loaded plugin [org.elasticsearch.transport.Netty3Plugin]
+2018-02-02 17:06:04 [main] INFO  PluginsService:178 - loaded plugin [org.elasticsearch.transport.Netty4Plugin]
+2018-02-02 17:07:05 [main] INFO  PluginsService:175 - no modules loaded
+2018-02-02 17:07:05 [main] INFO  PluginsService:178 - loaded plugin [org.elasticsearch.index.reindex.ReindexPlugin]
+2018-02-02 17:07:05 [main] INFO  PluginsService:178 - loaded plugin [org.elasticsearch.join.ParentJoinPlugin]
+2018-02-02 17:07:05 [main] INFO  PluginsService:178 - loaded plugin [org.elasticsearch.percolator.PercolatorPlugin]
+2018-02-02 17:07:05 [main] INFO  PluginsService:178 - loaded plugin [org.elasticsearch.script.mustache.MustachePlugin]
+2018-02-02 17:07:05 [main] INFO  PluginsService:178 - loaded plugin [org.elasticsearch.transport.Netty3Plugin]
+2018-02-02 17:07:05 [main] INFO  PluginsService:178 - loaded plugin [org.elasticsearch.transport.Netty4Plugin]

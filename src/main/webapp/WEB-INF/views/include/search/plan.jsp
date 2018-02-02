@@ -28,6 +28,7 @@
 	
 		
 		<script>
+		
 			var likebtn = $("button[value="+${esPlanVO.plan_id}+"]");
 			var session = ${empty userSession };
 			if(session != true){
@@ -38,6 +39,7 @@
 					};
 				};
 			};
+			
 		</script>
 	</div>
 	<div class="clearfix"></div>
