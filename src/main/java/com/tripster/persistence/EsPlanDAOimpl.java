@@ -67,17 +67,16 @@ public class EsPlanDAOimpl implements EsPlanDAO {
 	public void insertEsPlan(PlanVO vo) throws Exception {
 
 		EsPlanVO esvo = new EsPlanVO();
-		esvo.setPlan_id(plan_id);
-		esvo.setPlan_title(plan_title);
-		esvo.setMember_id(member_id);
-		esvo.setMember_name(member_name);
-		esvo.setMember_picture(member_picture);
-		esvo.setMemo_picture_name(memo_picture_name);
-		esvo.setPlan_endchk(plan_endchk);
-		esvo.setPlan_enddate(plan_enddate);
-		esvo.setPlan_like_cnt(plan_like_cnt);
-		esvo.setPlan_startdate(plan_startdate);
-
+		esvo.setPlan_id(vo.getPlanID());
+		esvo.setPlan_title(vo.getPlanTitle());
+		esvo.setMember_id(vo.getMemberID());
+		esvo.setMember_name(vo.getMemberName());
+		esvo.setPlan_endchk(vo.getPlanEndChk());
+		esvo.setPlan_enddate(vo.getPlanEndDate());
+		esvo.setPlan_like_cnt(vo.getPlanLikeCnt());
+		esvo.setPlan_startdate(vo.getPlanStartDate());
+		esvo.setMember_picture("");
+		esvo.setMemo_picture_name(vo.getPictureName());
 
 		
 //		IndexRequest indexRequest = new IndexRequest("member", "member", Integer.toString(vo.getMemberID()));
