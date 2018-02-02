@@ -31,7 +31,7 @@ public class PlanServiceImpl implements PlanService{
 	public void registerPlan(PlanVO vo) throws Exception {
 		planDAO.insertPlan(vo);
 		// 일정등록 엘라스틱서치 데이터 트랜젝션처리 
-		//esPlanDao.insertEsMember(dao.select(vo.getMemberEmail()));
+		esPlanDao.insertEsPlan(planDAO.selectPlan(planDAO.selectLastPlanID()));
 	}
 
 	//플랜 수정.
@@ -87,11 +87,7 @@ public class PlanServiceImpl implements PlanService{
 			
 			list.get(i).setPlanDetailVO(planDetailDAO.selectAllByPlanID(planID));
 		}
-		
-		
-		
 		return list;
-
 	}
 
 	//memberName조회
