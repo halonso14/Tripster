@@ -24,16 +24,19 @@
 		</div>
 	
 		<script>
+		
 			var likebtn = $("button[value="+${esPlanVO.plan_id}+"]");
 			var session = ${empty userSession };
+			var likeIdList = "";
 			if(session != true){
-				let likeIdList = ${likeIdList };
+				likeIdList = ${likeIdList };
 				for(let i=0;i<likeIdList.length;i++){
 					if(likebtn.val() == likeIdList[i]){
 						likebtn.addClass("like");
 					};
 				};
 			};
+			
 		</script>
 	</div>
 	<div class="clearfix"></div>

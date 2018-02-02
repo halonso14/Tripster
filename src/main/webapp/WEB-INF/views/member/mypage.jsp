@@ -763,8 +763,6 @@ left: 254px;
 									<div class="col-md-5 offset-0" id="scrap1">
 									</div>		
 									
-									<div class="col-md-2 offset-0">
-									</div>
 									
 									<div class="col-md-5 offset-0" id="scrap2">
 									</div>
@@ -844,7 +842,7 @@ left: 254px;
 												var template = Handlebars.compile(source);
 												
 												if(list.categoryID == 1){
-													if(i%2 == 1){
+													if(i%2 == 0){
 														str1 += template(getData(list));
 													}else{
 														str2 += template(getData(list));
