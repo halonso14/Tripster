@@ -220,9 +220,9 @@ body {
 <script id="template" type="text/x-handlebars-template">
 <li data-src='{{fullName}}'>
 	<hr>
-	<span class="mailbox-attachment-icon has-img"></span>
+	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="{{imgsrc}}" style="width:100px;"></span>
 	<div class="mailbox-attachment-info">
-		<a class="mailbox-attachment-name">{{fileName}}</a>
+		<span class="mailbox-attachment-name">{{fileName}}</span>
 		<a data-src="{{fullName}}" class="btn btn-default btn-xs delbtn" onclick="removeAttach($(this))">x<a>
 	</div>
 	

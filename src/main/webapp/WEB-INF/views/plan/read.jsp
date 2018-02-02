@@ -388,9 +388,11 @@ response.setHeader("Pragma", "no-cache");
 												<ul class="foo5">
 													<c:forEach items="${planDetailVO.memoVO.memoPictureVO }" var="pictureVO">
 														<c:set var="image" value=""/>
-					           					 		<li>
-															<img  class="img-responsive" src="/displayFile?fileName=${pictureVO.memoPictureName }&directory=plan"
-																	 style="max-height: 407px;max-width: 950px; width: 950px; height: 407px" />
+					           					 		<li style="text-align: center;">
+						           					 		<div style="width:100%;margin:0 auto;text-align: center; display:block;">
+																<img src="/displayFile?fileName=${pictureVO.memoPictureName }&directory=plan"
+																		 style="max-height: 407px;max-width: 950px;width:auto; height: 407px" />
+															</div>
 														</li>
 													</c:forEach>
 												</ul>
