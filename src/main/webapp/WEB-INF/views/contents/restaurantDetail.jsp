@@ -571,14 +571,16 @@ $(document).ready(function() {
 		// 리뷰 아이디
 		
 		var contentsReviewID = $(this).attr('id');
+		var modifyTitle = $("span[contentsreviewid="+contentsReviewID+"]").text();
+		var modifyContents = $("p[data-contentsreviewid="+contentsReviewID+"]").text();
 		if (this.value == 1) {
 			// 수정 텍스트 출력
 			$(this).attr('value', 0);
 			// 제목
-			var str1 = "<textarea id='textarea1' cols='20' rows='1' ></textarea>";
+			var str1 = "<textarea id='textarea1' cols='20' rows='1' >"+modifyTitle+"</textarea>";
 			$("span[contentsReviewID="+contentsReviewID+"]").html(str1);
 			// 내용 수정
-			var str2 = "<textarea id='textarea2' cols=" + 30 + "rows=" + 10 + "></textarea>";
+			var str2 = "<textarea id='textarea2' cols=" + 30 + "rows=" + 10 + ">"+modifyContents+"</textarea>";
 			$('.'+ contentsReviewID).html(str2);
 			
 		} else {
