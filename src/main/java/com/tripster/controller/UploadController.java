@@ -86,7 +86,7 @@ public class UploadController {
 	@RequestMapping(value = "/uploadAjaxReview", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public ResponseEntity<String> uploadAjaxReiew(MultipartFile file) throws Exception {
 		logger.info("originalName:" + file.getOriginalFilename());
-		
+		System.out.println("name: " + file );
 		String uploadPath = "tripster/review";
 
 		return new ResponseEntity<>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()),
