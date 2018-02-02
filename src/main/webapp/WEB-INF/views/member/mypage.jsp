@@ -1232,8 +1232,6 @@ $(window).load(function(){
     <!-- Picker -->	
     <script src="/resources/assets/js/jquery.easing.js"></script>	
 	
-	<!-- 진호 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 	<!-- plan 일정 삭제 후 tab이동.  -->
 	<script >
 	 $(document).ready(function(){
