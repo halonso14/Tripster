@@ -62,6 +62,10 @@ public class SearchController {
 			model.addAttribute("scrapIdList",scrapService.scrapIdList(memberVO.getMemberID()));
 			model.addAttribute("likeIdList",likeService.likeIdList(memberVO.getMemberID()));
 			model.addAttribute("followIdList",likeService.followIdList(memberVO.getMemberID()));
+		}else {
+			model.addAttribute("scrapIdList","not");
+			model.addAttribute("likeIdList","not");
+			model.addAttribute("followIdList","not");
 		}
 		
 		// model에 통합 검색결과 담기 

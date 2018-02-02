@@ -17,8 +17,9 @@
 			<script>
 				var followBtn = $("button[value="+${esMemberVO.member_id}+"]");
 				var session = ${empty userSession };
+				var followIdList ="";
 				if(session != true){
-					let followIdList = ${followIdList };
+					followIdList = ${followIdList };
 					console.log(followIdList);
 					for(let i=0;i<followIdList.length;i++){
 						if(followBtn.val() == followIdList[i]){

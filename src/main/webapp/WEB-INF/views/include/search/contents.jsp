@@ -28,8 +28,9 @@
 				<script>
 					var scrapbtn = $("button[value="+${esContentsVO.contents_id}+"]");
 					var session = ${empty userSession };
+					var scrapIdList ="";
 					if(session != true){
-						let scrapIdList = ${scrapIdList };
+						scrapIdList = ${scrapIdList };
 						for(let i=0;i<scrapIdList.length;i++){
 							if(scrapbtn.val() == scrapIdList[i]){
 								scrapbtn.addClass("scraped");
