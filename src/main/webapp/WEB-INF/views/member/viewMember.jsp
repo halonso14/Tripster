@@ -16,7 +16,7 @@ response.setHeader("Pragma", "no-cache");
 
     <!-- Bootstrap -->
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
-    
+    <link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
     
     <link href="/resources/assets/css/followBtn.css" rel="stylesheet" media="screen">
