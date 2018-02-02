@@ -292,7 +292,7 @@ left: 254px;
 						    <div class="general_text">-<span class="lred">${memberVO.memberName}</span>님의 활동을 기반으로 추천해드립니다.  만약 처음이라면? <a href="/member/detail" style="color: #8d1cc6">추천 설문 바로가기</a> </div>
 						    <div class="general_text">
 						    	<span class="rectangle" style="background-color: #8d1cc6"></span><span>추천 국가</span>
-						    	<span class="rectangle" style="background-color: #88fd65"></span><span>여행 예정 국가</span>
+						    	<!--  <span class="rectangle" style="background-color: #88fd65"></span><span>여행 예정 국가</span>-->
 						    </div>
 						   
 						   <!-- recommand country/city map -->
