@@ -36,6 +36,7 @@ hr {
     border-width: 1px;
 } 
 
+
 hr.vertical {
     height:100%; 
     width:0;
@@ -46,7 +47,7 @@ hr.vertical {
 .wrapper_custom{
     border: 1px solid #ccc;
     border-radius: 1px;
-    width: 32%;
+    width: 48.7%; /* 하나를 날려버리고 2개로 줄임. 나중에 시간나면 늘려야지*/
     margin: 5px 5px 5px 5px;
     position: relative;
     /*padding-bottom: 50%;*/

@@ -227,10 +227,13 @@ left: 254px;
                                 <div class="stat_label">Trip Days</div>
                                 <div id="chartdiv4"></div>	
                             </div>
+                            
+                            <!-- 
                             <div class="wrapper_custom">
                                 <div class="stat_label">Main Keywords</div>
                                 <div id="chartdiv2"></div>		
-                            </div>   
+                            </div>
+                             -->   
                         <!--will use it later    
                             <div class="wrapper_custom">
                                 <div>My plan?</div>
