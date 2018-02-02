@@ -34,7 +34,9 @@ public class EsPlanVO {
 	}
 	public String getMember_picture() {
 		if(this.member_picture.equals("")) {
-			this.member_picture = "https://myworldmark.files.wordpress.com/2013/05/road-trip.jpg";
+			this.member_picture = "https://www.bigmouthvoices.com/profile_picture/large/default-profile_picture.jpg";
+		}else {
+			this.member_picture ="/displayFile?fileName="+this.member_picture+"&directory=profile";
 		}
 		return member_picture;
 	}
@@ -43,7 +45,11 @@ public class EsPlanVO {
 	}
 	public String getMemo_picture_name() {
 		if(this.memo_picture_name.equals("")) {
-			this.memo_picture_name = "https://myworldmark.files.wordpress.com/2013/05/road-trip.jpg";
+			int num = (int)(Math.random()*11)+1;
+			this.memo_picture_name = "/resources/images/plan/"+num +".jpg";
+
+		}else {
+			this.memo_picture_name ="/displayFile?fileName="+this.memo_picture_name+"&directory=plan";
 		}
 		return memo_picture_name;
 	}

@@ -158,40 +158,43 @@ ul.pagination {
 .planList{
 	margin-bottom:30px; 
 }
+.planList div.listitem{
+	position: relative;
+}
 .profile {
-
-	width:90%;
-	padding:10px 0 0 15px;
+	background-color: #000;
+	background-color: rgba( 0, 0, 0, 0.3 );
+	position:absolute;
+	width:100%;
+	bottom:0;
 }
 .member-profile {
 	display:inline-block;
 	float:left;
-	width:40px;
-	height:40px;
+	width:30px;
+	height:30px;
 	border-radius: 30px;
 	background-color:#fff;
 	background-size: cover;
+	margin:10px 20px;
 }
 
-div.profile span {
-	float:left;
-	margin-left:20px;
-}
- p.profile-name {
+.profile-name {
 	font-size:14px;
-	margin-top:5px;
-	margin-bottom:4px;
-
+	color:#fff;
+	line-height: 3.5;
 }
 .plan-status{
 	font-size:12px;
-
+	margin:0 20px;
+	float:left;
+	line-height: 2.5;
 }
 .plan-title{
 	display:block;
 	font-size:18px;
 	color:#000;
-	margin-bottom:15px;
+	margin:20px;
 }
 .plan-title:hover{
 	color:orange;
@@ -199,18 +202,15 @@ div.profile span {
 	cursor:pointer;
 
 }
-div.plan-detail{
-	width:100%;
-	padding:10px 20px;	
-	height:100px;
-
-}
 div.planList button.likeButton {
-	width:100%;
+	width:40%;
 	padding-top:5px;
-	margin:auto;
+	margin-right:20px;
+	float:right;
 }
-
+div.planList div.itemlabel2 {
+	height:100px;
+}
 div.purchasecontainer {
 	margin-top:10px;
 }

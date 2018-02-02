@@ -112,10 +112,10 @@
 								<!-- 일정 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->
 								<c:if test="${totalList.planCnt > 3 }" >
 									<div class=" grey right">
-										<form:form commandName="cri" action="contents" method="GET">
+										<form:form commandName="cri" action="plan" method="GET">
 											<input type="hidden" name="keyword" value="${cri.keyword}"/>
 											<input type="hidden" name="cnt" value="${cri.cnt}"/>
-											<button class="more" name="tab" value ="contents" type="submit"> 더보기 〉 </button>
+											<button class="more" name="tab" value ="plan" type="submit"> 더보기 〉 </button>
 										</form:form>
 									</div>
 								</c:if>
@@ -139,10 +139,10 @@
 								<!-- 회원 검색결과 갯수가 3개 이상일 경우 더보기 버튼 노출 -->
 								<c:if test="${totalList.memberCnt > 3 }" >
 									<div class=" grey right">
-										<form:form commandName="cri" action="contents" method="GET">
+										<form:form commandName="cri" action="member" method="GET">
 											<input type="hidden" name="keyword" value="${cri.keyword}"/>
 											<input type="hidden" name="cnt" value="${cri.cnt}"/>
-											<button class="more" name="tab" value ="contents" type="submit"> 더보기 〉 </button>
+											<button class="more" name="tab" value ="member" type="submit"> 더보기 〉 </button>
 										</form:form>
 									</div>
 								</c:if>

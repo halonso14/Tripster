@@ -6,27 +6,23 @@
 
 <div class="col-md-4 planList">
 	<div class="listitem ">
+		<div class="profile">
+			<a  class="member-profile" href="/member/viewMember?memberID=${esPlanVO.member_id }" style="background-image: url('${esPlanVO.member_picture}');"></a>				
+			<span class="profile-name">${esPlanVO.member_name}</span>
+			<div class="clearfix"></div>
+		</div>
 		<a href="/plan/read?planID=${esPlanVO.plan_id}"><img src="${esPlanVO.memo_picture_name}" ></a>
 	</div>
 
 	<div class="itemlabel2 ">
 	
-		<div class="profile">
-			<a href="/member/viewMember?memberID=${esPlanVO.member_id }" class="member-profile" style="background-image: url('${esPlanVO.member_picture}');"></a>				
-			<span>
-				<p class="profile-name"><b>${esPlanVO.member_name}</b></p>
-				<p class="plan-status">댓글 0 / 좋아요 ${esPlanVO.plan_like_cnt} </p>
-			</span>
+		<a class="plan-title"><b>${esPlanVO.plan_title}</b></a>
+		<div>
+			<span class="plan-status">댓글 0 / 좋아요 ${esPlanVO.plan_like_cnt} </span>			
+			<button class="btn likeButton" onmouseenter="likemouseover('${userSession.memberID }',$(this))" value="${esPlanVO.plan_id}">좋아요</button>
 			<div class="clearfix"></div>
 		</div>
-		<div class="plan-detail">
-			<a class="plan-title"><b>${esPlanVO.plan_title}</b></a>
-			<p>스크랩 컨텐츠제목 <br> 스크랩 컨텐츠제목 </p>
-			<hr style="margin:3px 0;padding:0; color:#ddd">
-			<button class="btn likeButton" onmouseenter="likemouseover('${userSession.memberID }',$(this))" value="${esPlanVO.plan_id}">좋아요</button>	
-		</div>
 	
-		
 		<script>
 			var likebtn = $("button[value="+${esPlanVO.plan_id}+"]");
 			var session = ${empty userSession };
