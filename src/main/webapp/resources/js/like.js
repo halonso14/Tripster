@@ -19,7 +19,6 @@ function likeClick(session,event){
 		var likeBtn = event;
 		// 누른 버튼의 planID 저장
 		var planID = likeBtn.attr('value');
-		console.log(planID);
 		// 좋아요 체크
 		likeCheck(planID,likeBtn);
 		
@@ -33,7 +32,6 @@ function likeClick(session,event){
 				likeBtn.removeClass('fav-icon like');
 				likeBtn.addClass('fav-icon-red like');
 				
-				alert("좋아요 추가");
 			});
 			
 		}else{
@@ -46,7 +44,6 @@ function likeClick(session,event){
 				likeBtn.removeClass('fav-icon-red like');
 				likeBtn.addClass('fav-icon like');
 				
-				alert("좋아요 삭제");
 			});
 			
 		}

@@ -22,6 +22,7 @@ public class ContentsReviewDAOImpl implements ContentsReviewDAO{
 	
 	@Override
 	public void write(ContentsReviewVO vo) throws Exception {
+		
 		session.insert(namespace + ".write", vo);
 	}
 	

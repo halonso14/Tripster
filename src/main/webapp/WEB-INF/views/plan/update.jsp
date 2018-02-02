@@ -6,6 +6,7 @@
 <head>
 <meta charset='utf-8' />
 <link href='/resources/css/fullcalendar.min.css' rel='stylesheet' />
+<link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" type="text/css" media="screen" /> -->
 <!-- <link href='/resources/css/fullcalendar.print.css' rel='stylesheet' media='print' /> -->
@@ -346,7 +347,6 @@ $(document).ready(function() {
                           $.each(data, function (index, item) {
                     		var startT= item.planDetailDate+"T"+item.planDetailStartTime;
                     		var endT = item.planDetailDate+"T"+item.planDetailEndTime;
-                          	console.log(item.title);
                               events.push({
                                   title: item.title,
                                   start: startT,
@@ -378,7 +378,6 @@ $(document).ready(function() {
           	sendData.planDetailStartTime = event.start.format();
          	
           	var jsonData = JSON.stringify(sendData);
-          	console.log(jsonData);
             $.ajax({
           	 	dataType:"text",
           	  	type:"POST",
@@ -460,7 +459,6 @@ $(document).ready(function() {
              //메모
              element.find(".memo").click(function(){   
              		eventID= event.id;
-             		console.log(eventID);
              		$.ajax({
              			url:"/plan/memo/"+eventID,
              			type:"POST",
@@ -469,7 +467,6 @@ $(document).ready(function() {
              			contentType:"application/json; charset=UTF-8",
              			success:function(result){
              				isContents = result.memoVO.memoContents;
-             				console.log(isContents);
              				$('textarea').val(isContents);
              				$('.uploadedList').empty();
              				//받아온 사진 있으면 조회해서 uploadedList에 뿌려줌.
@@ -483,7 +480,6 @@ $(document).ready(function() {
              					$(".uploadedList").append(html);
              				});
              				
-             				console.log(result);
              				$('#myModal').modal('show');
                           $('#myModal').modal({backdrop: 'static'});
              			}
@@ -534,15 +530,12 @@ $(document).ready(function() {
       		if(isContents == null){
 	        		//첨부파일이 있는 경우.
 		        	$(".uploadedList li").each(function(index){
-		        		console.log($(this));
-		        		console.log($(this).attr("data-src"));
 		        		arr.push($(this).attr("data-src"));
 		        	});
         	
 		        	if(arr.length >0 ){
 		        		$.post("/deleteAllFiles",{files:arr, directory:"plan"},function(){
 		        		});
-		        		console.log(arr);
 		        	}
       		}
       		$('.uploadedList').empty(); 
@@ -578,7 +571,6 @@ $(document).ready(function() {
      });
      //이미지 삭제 버튼.
      function removeAttach(event){
-    		console.log(event);
      	var that= event;
     		$.ajax({
     			url: "/deleteFile",
@@ -610,7 +602,6 @@ $.getJSON('/scraplist',function(data){
    var str = "";
    
    $(data).each(function(i,list){
-      console.log(list);
       var source = $("#scrapList").html();
       var scrapData = {
             contentsID : list.contentsID,
@@ -618,7 +609,6 @@ $.getJSON('/scraplist',function(data){
             contentsTitle : list.contentsTitle,
             contentsPhoto : list.contentsPhoto
       }
-      console.log(scrapData);
       var template = Handlebars.compile(source);
       str += template(scrapData);
    });

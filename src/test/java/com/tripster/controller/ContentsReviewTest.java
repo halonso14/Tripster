@@ -1,8 +1,5 @@
 package com.tripster.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -11,9 +8,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.tripster.domain.ContentsReviewVO;
-import com.tripster.domain.Criteria;
 import com.tripster.persistence.ContentsDAO;
 import com.tripster.persistence.ContentsReviewDAO;
+import com.tripster.service.ContentsReviewService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
@@ -24,6 +21,8 @@ public class ContentsReviewTest {
 	ContentsReviewDAO dao;
 	@Inject
 	ContentsDAO contentsDAO;
+	@Inject
+	ContentsReviewService service;
 
 //	@Test
 //	public void registTest() throws Exception {
@@ -59,21 +58,16 @@ public class ContentsReviewTest {
 	@Test
 	public void reviewList() throws Exception{
 		
-		Criteria cri = new Criteria();
-		cri.setCurPage(1);
-		List<ContentsReviewVO> list = dao.getReviewList(1, cri);
+		ContentsReviewVO vo = new ContentsReviewVO();
+		vo.setContentsID(1);
+		vo.setContentsReviewTitle("tt");
+		vo.setContentsReview("sdf");
+		vo.setMemberID(68);
 		
-		for(int i=0;i<list.size();i++) {
-			
-			List<String> str = dao.getFileNames(list.get(i).getContentsReviewID());
-			System.out.println(str.toString());
-			System.out.println("i"+i);
-			System.out.println(list.get(i).getContentsReviewID());
-			list.get(i).setReviewPictureName(str);
-			
-		}
+		service.writeReview(vo);
 		
-		System.out.println(list.toString());
+		System.out.println(contentsDAO.getRestaurantDetail(1).getContentsReviewCnt());
+		
 		
 		
 	}

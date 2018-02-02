@@ -33,16 +33,16 @@ response.setHeader("Pragma", "no-cache");
 			
 					<c:otherwise>		
 						<ul id="member" class="nav nav2 navlight navbar-nav navbar-right">
-							<li><a class="header-profile-box">
+							<li>
 								<c:choose>
 									<c:when test="${userSession.memberPicture==null}">
-										<img class="header-profile" src="/displayFile?fileName=${userSession.memberPicture}&directory=profile" />
+										<a class="header-profile-box" style="background-image:url('https://www.iweek.org.za/wp-content/uploads/2015/09/no-profile-photo1-300x200.jpg')"></a>
 									</c:when>
 									<c:otherwise>
-										<img class="header-profile" src="/displayFile?fileName=${userSession.memberPicture}&directory=profile" />
+										<a class="header-profile-box" style="background-image:url('/displayFile?fileName=${userSession.memberPicture}&directory=profile')"></a>
 									</c:otherwise>
 								</c:choose>	
-							</a>	</li>
+							</li>
 							<li class="dropdown">
 								<a data-toggle="dropdown" class="dropdown-toggle" href="dashboard/index">	
 									<span>${userSession.memberName}&nbsp;&nbsp;<b class="lightcaret mt-2"></b></span>

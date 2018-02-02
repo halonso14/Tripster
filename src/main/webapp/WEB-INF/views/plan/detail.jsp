@@ -328,7 +328,6 @@ body {
              	sendData.title = event.title;
              	sendData.planDetailStartTime = event.start.format();
              	var jsonData = JSON.stringify(sendData);
-             	console.log(jsonData);
                 $.ajax({
              	 	dataType:"text",
              	  	type:"POST",
@@ -415,7 +414,6 @@ body {
                  			contentType:"application/json; charset=UTF-8",
                  			success:function(result){
                  				isContents = result.memoVO.memoContents;
-                 				console.log(isContents);
                  				$('textarea').val(isContents);
                  				
                  				$('.uploadedList').empty();
@@ -458,8 +456,6 @@ body {
 					});
           	 	formdata.append(str);
           	 	
-				console.log(formdata);
-	          	console.log(formdata.get(0));
 	          	var fd = new FormData(formdata.get(0));
 	           	 $.ajax({
 	                 url: url,
@@ -512,15 +508,12 @@ body {
         		if(isContents == null){
 	            	//첨부파일이 있는 경우.
 	            	$(".uploadedList li").each(function(index){
-	            		console.log($(this));
-	            		console.log($(this).attr("data-src"));
 	            		arr.push($(this).attr("data-src"));
 	            	});
 	            	
 	            	if(arr.length >0 ){
 	            		$.post("/deleteAllFiles",{files:arr, directory:"plan"},function(){
 	            		});
-	            		console.log(arr);
 	            	}
         		}
         		$('#myModal').modal('hide');
@@ -531,7 +524,6 @@ body {
         
 	 //이미지 삭제 버튼.
 	 function removeAttach(event){
-	 		console.log(event);
 	  		var that= event;
 	 		$.ajax({
 	 			url: "/deleteFile",
@@ -563,7 +555,6 @@ $.getJSON('/scraplist',function(data){
    var str = "";
    
    $(data).each(function(i,list){
-      console.log(list);
       var source = $("#scrapList").html();
       var scrapData = {
             contentsID : list.contentsID,
@@ -571,7 +562,6 @@ $.getJSON('/scraplist',function(data){
             contentsTitle : list.contentsTitle,
             contentsPhoto : list.contentsPhoto
       }
-      console.log(scrapData);
       var template = Handlebars.compile(source);
       str += template(scrapData);
    });

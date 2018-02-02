@@ -61,6 +61,7 @@ public class MemberServiceImpl implements MemberService {
 		return dao.login(dto);
 	}
 	
+	@Transactional
 	@Override
 	public MemberVO oAuthenticationBinding(MemberVO vo, User facebookUser)throws Exception{
 		
@@ -86,6 +87,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		if(dao.facebookLogin(vo.getSnsID()) == null) {
 			dao.insertMember(vo);
+			esMemberDao.insertEsMember(dao.select(vo.getMemberEmail()));
 		}
 		
 		System.out.println(vo.toString());
