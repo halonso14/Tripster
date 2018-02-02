@@ -555,7 +555,6 @@ left: 254px;
 					function getFollowList(page){
 					var str = '';
 						$.getJSON("/member/follow/"+memberID+"/"+page, function(data){
-							console.log(data);
 							$(data.followList).each(function(index){
 									str += 
 								"<div class='col-md-6 offset-0'>";
@@ -1066,18 +1065,6 @@ left: 254px;
 										+"</div>"
 										+"<div class='itemlabel' style='text-align: center;'>"
 											+"<a href='/plan/read?planID="+this.planID+"'><b>"+this.planTitle+"</b></a><br /></div></div>"
-										 
-										 /* if(this.planEndChk != 1){
-											 str += "<button class='btn followButton' value='"+this.planID+"' onmouseover='mouseover($(this));'>미완료</button>"
-											+"</div>"
-										+"</div>";
-										 }else{
-											 console.log("1");
-											str += "<button class='btn followButton following' value='"+this.planID+"'  onmouseover='mouseover($(this));'>완료</button>"
-											+"</div>"
-										+"</div>";
-										 }	 */
-										
 										if((index+1)%3 == 0 && index+1 != data.likeList.length){
 											str +=
 												"<div class='clearfix'></div><div class='offset-2'><hr class='featurette-divider3'></div>";
@@ -1227,7 +1214,6 @@ $(window).load(function(){
 	 $(document).ready(function(){
 			var planDeleteChk = "${plan_delete}";
 			var planChk = "<%=request.getParameter("planTab")%>";
-			console.log(planDeleteChk);
 		    if(planDeleteChk == "OK"){
 	    			alert("일정이 삭제되었습니다.");
 	    			$('.nav a[href="#plan"]').tab('show');
