@@ -27,8 +27,7 @@ public class EsSearchServiceimpl implements EsSearchService {
 	private EsPlanDAO planDao;
 	@Inject
 	private EsMemberDAO memberDao;
-	@Inject
-	private LikeDAO likeDAO;
+	
 	
 	// 통합 검색결과 리스트 조회 
 	@Override

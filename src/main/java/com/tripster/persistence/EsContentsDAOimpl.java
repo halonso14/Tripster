@@ -21,6 +21,8 @@ public class EsContentsDAOimpl implements EsContentsDAO {
 	
 	@Inject
 	private EsSearchMapper namespace;
+	@Inject
+	private ContentsDAO dao;
     
 	// 컨텐츠 검색결과 리스트 조회
 	@Override
@@ -34,13 +36,17 @@ public class EsContentsDAOimpl implements EsContentsDAO {
 		
 		ObjectMapper om = new ObjectMapper(); 
 		om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		int index = 0;
 		
 		for(SearchHit hit : hits) {
 	    		String sJson = hit.getSourceAsString();
 	    		EsContentsVO contents = om.readValue(sJson, EsContentsVO.class);
 	    		result.add(contents);
+	    		int contents_review_cnt = dao.getRestaurantDetail(result.get(index).getContents_id()).getContentsReviewCnt();
+	    		result.get(index).setContents_review_cnt(contents_review_cnt);
+	    		index++;
 		}
-		resultset.setContentsList(result); 
+		resultset.setContentsList(result);
 		resultset.setContentsCnt(hits.getTotalHits()); 
 		return resultset;
 	}

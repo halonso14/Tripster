@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.tripster.domain.EsContentsVO;
+import com.tripster.domain.EsSearchResultVO;
 import com.tripster.domain.MemberVO;
 import com.tripster.domain.SearchCriteria;
 import com.tripster.persistence.EsContentsDAO;
@@ -52,10 +53,12 @@ public class esSearchTest {
 	
 	@Test
 	public void test() throws Exception{
-		MemberVO vo = new MemberVO();
-		if(vo.getMemberEmail()==null) {
-		System.out.println(vo.toString());
-		}
+		
+		SearchCriteria cri = new SearchCriteria();
+		cri.setKeyword("강남");
+		EsSearchResultVO searchContents = service.getContentsSearchList(cri);
+		System.out.println(searchContents.getContentsList().get(0).toString());
+		
 	}
 
 }

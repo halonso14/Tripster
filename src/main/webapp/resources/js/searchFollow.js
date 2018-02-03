@@ -1,4 +1,4 @@
-function mouseover(memberID, $button){
+function followmouseover(memberID, $button){
 	
 	var contentsID = $button.val();
 	//로그인을 하지 않은 경우
