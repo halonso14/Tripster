@@ -1,5 +1,7 @@
 package com.tripster.controller;
 
+import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 import com.tripster.domain.ContentsReviewVO;
 import com.tripster.domain.Criteria;
@@ -42,53 +49,68 @@ public class ContentsController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
-	//컨텐츠 리스트 페이지
-	@RequestMapping(value = "contentsList/{categoryID}/{curPage}", method = RequestMethod.GET)
-	public ModelAndView restaurantList(@PathVariable int curPage
-									   ,@PathVariable int categoryID
-									   ,@ModelAttribute("cri") Criteria cri, Model model) throws Exception {		
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		if(categoryID == 1) {
-			model.addAttribute("list",contentsService.getRestaurantList(cri));
-			model.addAttribute("categoryID",categoryID);
-			pageMaker.setTotalCount(contentsService.getTotalRestaurantNum(cri));
-			model.addAttribute("pageMaker", pageMaker);
-			ModelAndView resultPage = new ModelAndView("contents/restaurantList");
-			return resultPage;
-		}else {
-			model.addAttribute("list",contentsService.getPlaceList(cri));
-			pageMaker.setTotalCount(contentsService.getTotalPlaceNum(cri));
-			model.addAttribute("pageMaker", pageMaker);
-			ModelAndView resultPage = new ModelAndView("contents/placeList");
-			return resultPage;
-		}
-
-	}
-
 	//컨텐츠 상세 페이지
 	@RequestMapping(value = "/{categoryID}/{contentsID}", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public ModelAndView restaurantDetail(@PathVariable("contentsID") Integer contentsID
 										 ,@PathVariable("categoryID") Integer categoryID
 										 ,@ModelAttribute("cri") Criteria cri , Model model, HttpSession session) throws Exception {
-		if(session.getAttribute("login") != null) {
-			MemberVO memberVO = (MemberVO)session.getAttribute("login");
-			model.addAttribute("memberVO",memberVO);
-			List<Integer> scrapList = scrapService.scrapIdList(memberVO.getMemberID());
-			model.addAttribute("scrapList",scrapList);
+		try {
+			if(session.getAttribute("login") != null) {
+				MemberVO memberVO = (MemberVO)session.getAttribute("login");
+				model.addAttribute("memberVO",memberVO);
+				List<Integer> scrapList = scrapService.scrapIdList(memberVO.getMemberID());
+				model.addAttribute("scrapList",scrapList);
+			}
+			
+			ObjectMapper mapper = new ObjectMapper();
+			
+			
+			
+			if(categoryID == 1) {
+				ModelAndView resultPage = new ModelAndView("contents/restaurantDetail");
+				model.addAttribute("vo",contentsService.getRestaurantDetail(contentsID));
+				
+				String rawData = contentsService.getRestaurantDetail(contentsID).getContents();
+				String data = rawData.replaceAll("'", "\"");
+				Collection<Map<String,Object>> readValues = new ObjectMapper().readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
+				Object[] dataList = readValues.toArray();
+				Map<String,String> contentsURL = (Map<String,String>)dataList[0];
+				model.addAttribute("contentsURL",contentsURL.get("url"));
+				Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
+				model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
+				Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
+				List<Object> reviewList = (List<Object>)outer.get("review");
+				model.addAttribute("reviewList",reviewList);
+				
+				return resultPage;
+			}else {
+				ModelAndView resultPage = new ModelAndView("contents/PlaceDetail");
+				model.addAttribute("vo",contentsService.getPlaceDetail(contentsID));
+				
+				String rawData = contentsService.getRestaurantDetail(contentsID).getContents();
+				String data = rawData.replaceAll("'", "\"");
+				Collection<Map<String,Object>> readValues = new ObjectMapper().readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
+				Object[] dataList = readValues.toArray();
+				Map<String,String> contentsURL = (Map<String,String>)dataList[0];
+				model.addAttribute("contentsURL",contentsURL.get("url"));
+				Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
+				model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
+				Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
+				List<Object> reviewList = (List<Object>)outer.get("review");
+				model.addAttribute("reviewList",reviewList);
+				return resultPage;
+			}
+			
+			
+		}catch (JsonGenerationException e) { 
+			e.printStackTrace(); 
+		}catch (JsonMappingException e) { 
+			e.printStackTrace(); 
+		}catch (IOException e) { 
+			e.printStackTrace(); 
 		}
 		
-		if(categoryID == 1) {
-			ModelAndView resultPage = new ModelAndView("contents/restaurantDetail");
-			model.addAttribute("vo",contentsService.getRestaurantDetail(contentsID));
-			
-			return resultPage;
-		}else {
-			ModelAndView resultPage = new ModelAndView("contents/PlaceDetail");
-			model.addAttribute("vo",contentsService.getPlaceDetail(contentsID));
-			return resultPage;
-		}
+		return new ModelAndView("/");
 	}
 	
 	//리뷰 리스트 페이지, 컨텐츠 상세 페이지 내부에서 조회
@@ -210,4 +232,28 @@ public class ContentsController {
 		
 		return entity;
 	}
+	
+//	//컨텐츠 리스트 페이지
+//	@RequestMapping(value = "contentsList/{categoryID}/{curPage}", method = RequestMethod.GET)
+//	public ModelAndView restaurantList(@PathVariable int curPage
+//									   ,@PathVariable int categoryID
+//									   ,@ModelAttribute("cri") Criteria cri, Model model) throws Exception {		
+//		
+//		PageMaker pageMaker = new PageMaker();
+//		pageMaker.setCri(cri);
+//		if(categoryID == 1) {
+//			model.addAttribute("list",contentsService.getRestaurantList(cri));
+//			model.addAttribute("categoryID",categoryID);
+//			pageMaker.setTotalCount(contentsService.getTotalRestaurantNum(cri));
+//			model.addAttribute("pageMaker", pageMaker);
+//			ModelAndView resultPage = new ModelAndView("contents/restaurantList");
+//			return resultPage;
+//		}else {
+//			model.addAttribute("list",contentsService.getPlaceList(cri));
+//			pageMaker.setTotalCount(contentsService.getTotalPlaceNum(cri));
+//			model.addAttribute("pageMaker", pageMaker);
+//			ModelAndView resultPage = new ModelAndView("contents/placeList");
+//			return resultPage;
+//		}
+//	}
 }
