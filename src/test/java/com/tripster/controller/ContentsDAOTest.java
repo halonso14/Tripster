@@ -1,7 +1,10 @@
 package com.tripster.controller;
 
-import java.text.SimpleDateFormat;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -10,12 +13,13 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.tripster.domain.ContentsReviewVO;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tripster.domain.Criteria;
-import com.tripster.domain.PlanVO;
 import com.tripster.persistence.ContentsDAO;
 import com.tripster.persistence.ContentsReviewDAO;
-import com.tripster.persistence.RecommandDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/**/*.xml"})
@@ -32,8 +36,38 @@ public class ContentsDAOTest {
 	@Test
 	public void testRead() throws Exception {
 		
-		System.out.println(dao.getScrapCnt(1));
+		try {
+			
+			ObjectMapper mapper = new ObjectMapper(); 
+			ArrayList<Object> list;
+			Map<String, Object> map; 
+			String data = dao.getRestaurantDetail(60000).getContents();
+			String json = "[{\"name\": \"Test order1\",\"detail\": \"ahk ks\"},{\"name\": \"Test order2\",\"detail\": \"Fisteku\"}]";
 		
+			Collection<Map<String,String>> readValues = new ObjectMapper().readValue(json, new TypeReference<Collection<Map<String,String>>>(){});
+//			map = mapper.readValue(json, new TypeReference<Map<String,Object>>(){});
+			
+			System.out.println(readValues.toString());
+			
+			}catch (JsonGenerationException e) { 
+				e.printStackTrace(); 
+			}catch (JsonMappingException e) { 
+				e.printStackTrace(); 
+			}catch (IOException e) { 
+				e.printStackTrace(); 
+			}
+		
+//			
+//			String data = dao.getRestaurantDetail(60000).getContents();
+//			String json = data.replace("[", "").replace("]", "").replaceAll("\"", "\"");
+//			//String[] jsonArray = json.split(",");
+////			System.out.println(json.indexOf(","));
+//			System.out.println(json.substring(0,json.indexOf(",")));
+//			String json2 = json.substring(json.indexOf(",")+2);
+////			System.out.println(json2);
+//			System.out.println(json2.substring(0, json2.indexOf(",")));
+//			System.out.println(json2.substring(json2.indexOf(",")+2));
+			
 	}
 //	
 //	//컨텐츠 리스트 조회 테스트

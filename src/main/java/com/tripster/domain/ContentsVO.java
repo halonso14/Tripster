@@ -33,6 +33,8 @@ public class ContentsVO {
 	private String lat;
 	//컨텐츠 위치 경도
 	private String lng;
+	//컨텐츠 내용
+	private String contents;
 	public Integer getContentsID() {
 		return contentsID;
 	}
@@ -103,7 +105,7 @@ public class ContentsVO {
 	public String getContentsThumbnail() {
 		return contentsThumbnail;
 	}
-	public void setTumb(String contentsThumbnail) {
+	public void setContentsThumbnail(String contentsThumbnail) {
 		this.contentsThumbnail = contentsThumbnail;
 	}
 	public String getTime() {
@@ -130,12 +132,22 @@ public class ContentsVO {
 	public void setLng(String lng) {
 		this.lng = lng;
 	}
+	public String getContents() {
+		return contents;
+	}
+	public void setContents(String contents) {
+		this.contents = contents;
+	}
+	
 	@Override
 	public String toString() {
 		return "ContentsVO [contentsID=" + contentsID + ", categoryID=" + categoryID + ", title=" + title + ", keyword="
 				+ keyword + ", location=" + location + ", country=" + country + ", city=" + city + ", rating=" + rating
 				+ ", contentsViewCnt=" + contentsViewCnt + ", contentsReviewCnt=" + contentsReviewCnt
-				+ ", contentsScrapCnt=" + contentsScrapCnt + ", contentsThumbnail=" + contentsThumbnail + ", time=" + time + ", tel=" + tel
-				+ ", lat=" + lat + ", lng=" + lng + "]";
+				+ ", contentsScrapCnt=" + contentsScrapCnt + ", contentsThumbnail=" + contentsThumbnail + ", time="
+				+ time + ", tel=" + tel + ", lat=" + lat + ", lng=" + lng + ", contents=" + contents + "]";
 	}
+	
+	
+	
 }

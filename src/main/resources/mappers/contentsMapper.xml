@@ -24,6 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	,tbl_Contents_Detail.Contents_Tel tel
   	,tbl_Contents_Detail.Contents_Lat lat
   	,tbl_Contents_Detail.Contents_Long lng
+  	,tbl_Contents_Detail.Contents_Contents contents
   from
   	tbl_Contents LEFT JOIN tbl_Contents_Detail
   on
