@@ -38,4 +38,7 @@ public interface ContentsDAO {
 	
 	//컨텐츠 스크랩카운트 조회
 	public Integer getScrapCnt(Integer contentsID)throws Exception;
+	
+	//컨텐츠를 일정에 넣은 횟수 조회
+	public Integer getContentsPlan(Integer contentsID) throws Exception;
 }

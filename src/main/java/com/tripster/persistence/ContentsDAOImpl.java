@@ -100,4 +100,10 @@ public class ContentsDAOImpl implements ContentsDAO{
 	public Integer getScrapCnt(Integer contentsID)throws Exception{
 		return session.selectOne(namespace+".getScrapCnt",contentsID);
 	}
+	
+	//컨텐츠를 일정에 넣은 횟수 조회 ( 검색 서비스에서 사용 )
+	public Integer getContentsPlan(Integer contentsID) throws Exception{
+		return session.selectOne(namespace+".getContentsPlan",contentsID);
+	}
+
 }
