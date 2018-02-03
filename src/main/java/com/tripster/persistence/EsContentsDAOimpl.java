@@ -42,9 +42,9 @@ public class EsContentsDAOimpl implements EsContentsDAO {
 	    		String sJson = hit.getSourceAsString();
 	    		EsContentsVO contents = om.readValue(sJson, EsContentsVO.class);
 	    		result.add(contents);
-	    		int contents_review_cnt = dao.getRestaurantDetail(result.get(index).getContents_id()).getContentsReviewCnt();
-	    		result.get(index).setContents_review_cnt(contents_review_cnt);
-	    		index++;
+//	    		int contents_review_cnt = dao.getRestaurantDetail(result.get(index).getContents_id()).getContentsReviewCnt();
+//	    		result.get(index).setContents_review_cnt(contents_review_cnt);
+//	    		index++;
 		}
 		resultset.setContentsList(result);
 		resultset.setContentsCnt(hits.getTotalHits()); 
