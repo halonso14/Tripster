@@ -1,7 +1,9 @@
 package com.tripster.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -15,8 +17,6 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.MapType;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.tripster.domain.Criteria;
 import com.tripster.persistence.ContentsDAO;
 import com.tripster.persistence.ContentsReviewDAO;
@@ -38,16 +38,16 @@ public class ContentsDAOTest {
 		
 		try {
 			
-			ObjectMapper mapper = new ObjectMapper();
+			ObjectMapper mapper = new ObjectMapper(); 
+			ArrayList<Object> list;
+			Map<String, Object> map; 
 			String data = dao.getRestaurantDetail(60000).getContents();
-			String json = data.replace("[", "").replace("]", "").replaceAll("'", "\"");
-			String json2 = json.substring(json.indexOf(",")+2);
-			String convert = json2.substring(json2.indexOf(",")+2);
-			Map<String, Object> map = new HashMap<String, Object>(); 
-			// convert JSON string to Map 
-			map = mapper.readValue(convert, new TypeReference<Map<String, String>>(){}); 
-			System.out.println(map);
-
+			String json = "[{'name': 'Test order1','detail': 'ahk ks'},{'name': 'Test order2','detail': 'Fisteku'}]";
+		
+			Collection<List<Map<String,String>>> readValues = new ObjectMapper().readValue(json, new TypeReference<List<Collection<List<Map<String,String>>>>>(){});
+//			map = mapper.readValue(json, new TypeReference<Map<String,Object>>(){});
+			
+			System.out.println(readValues.toString());
 			
 			}catch (JsonGenerationException e) { 
 				e.printStackTrace(); 
@@ -57,16 +57,16 @@ public class ContentsDAOTest {
 				e.printStackTrace(); 
 			}
 		
-			
-			String data = dao.getRestaurantDetail(60000).getContents();
-			String json = data.replace("[", "").replace("]", "").replaceAll("'", "\"");
-			//String[] jsonArray = json.split(",");
-//			System.out.println(json.indexOf(","));
-			System.out.println(json.substring(0,json.indexOf(",")));
-			String json2 = json.substring(json.indexOf(",")+2);
-//			System.out.println(json2);
-			System.out.println(json2.substring(0, json2.indexOf(",")));
-			System.out.println(json2.substring(json2.indexOf(",")+2));
+//			
+//			String data = dao.getRestaurantDetail(60000).getContents();
+//			String json = data.replace("[", "").replace("]", "").replaceAll("'", "\"");
+//			//String[] jsonArray = json.split(",");
+////			System.out.println(json.indexOf(","));
+//			System.out.println(json.substring(0,json.indexOf(",")));
+//			String json2 = json.substring(json.indexOf(",")+2);
+////			System.out.println(json2);
+//			System.out.println(json2.substring(0, json2.indexOf(",")));
+//			System.out.println(json2.substring(json2.indexOf(",")+2));
 			
 	}
 //	
