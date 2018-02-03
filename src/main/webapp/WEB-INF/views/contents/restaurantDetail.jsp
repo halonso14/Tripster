@@ -174,7 +174,9 @@
 						<!-- TAB1 -->
 						<div id="detail" class="tab-pane fade active in" data->
 						 
-						 여기에 contents 데이터 쭈려
+						 	<div>${contentsURL}</div>
+						 	<div>${contentsHomePage}</div>
+						 	<div>${reviewList}</div>
 						
 						</div>
 						

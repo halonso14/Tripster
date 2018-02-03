@@ -1,7 +1,6 @@
 package com.tripster.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -13,10 +12,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.tripster.domain.Criteria;
 import com.tripster.persistence.ContentsDAO;
 import com.tripster.persistence.ContentsReviewDAO;
@@ -38,17 +37,18 @@ public class ContentsDAOTest {
 		
 		try {
 			
-			ObjectMapper mapper = new ObjectMapper(); 
-			ArrayList<Object> list;
-			Map<String, Object> map; 
-			String data = dao.getRestaurantDetail(60000).getContents();
-			String json = "[{\"name\": \"Test order1\",\"detail\": \"ahk ks\"},{\"name\": \"Test order2\",\"detail\": \"Fisteku\"}]";
-		
-			Collection<Map<String,String>> readValues = new ObjectMapper().readValue(json, new TypeReference<Collection<Map<String,String>>>(){});
-//			map = mapper.readValue(json, new TypeReference<Map<String,Object>>(){});
+			ObjectMapper mapper = new ObjectMapper();
+			String rawData = dao.getRestaurantDetail(60000).getContents();
+			String data = rawData.replaceAll("'", "\"");
+			Collection<Map<String,Object>> readValues = new ObjectMapper().readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
+			Object[] dataList = readValues.toArray();
+			Map<String,String> contentsURL = (Map<String,String>)dataList[0];
+			Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
+			Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
+			List<Object> reviewList = (List<Object>)outer.get("review");
 			
-			System.out.println(readValues.toString());
-			
+			System.out.println(data.toString());
+			System.out.println(reviewList.toString());
 			}catch (JsonGenerationException e) { 
 				e.printStackTrace(); 
 			}catch (JsonMappingException e) { 
@@ -56,18 +56,6 @@ public class ContentsDAOTest {
 			}catch (IOException e) { 
 				e.printStackTrace(); 
 			}
-		
-//			
-//			String data = dao.getRestaurantDetail(60000).getContents();
-//			String json = data.replace("[", "").replace("]", "").replaceAll("\"", "\"");
-//			//String[] jsonArray = json.split(",");
-////			System.out.println(json.indexOf(","));
-//			System.out.println(json.substring(0,json.indexOf(",")));
-//			String json2 = json.substring(json.indexOf(",")+2);
-////			System.out.println(json2);
-//			System.out.println(json2.substring(0, json2.indexOf(",")));
-//			System.out.println(json2.substring(json2.indexOf(",")+2));
-			
 	}
 //	
 //	//컨텐츠 리스트 조회 테스트
