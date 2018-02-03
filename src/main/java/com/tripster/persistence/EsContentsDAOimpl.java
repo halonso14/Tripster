@@ -42,13 +42,15 @@ public class EsContentsDAOimpl implements EsContentsDAO {
 	    		String sJson = hit.getSourceAsString();
 	    		EsContentsVO contents = om.readValue(sJson, EsContentsVO.class);
 	    		result.add(contents);
-	    		int contents_review_cnt = dao.getRestaurantDetail(result.get(index).getContents_id()).getContentsReviewCnt();
-	    		int contents_scrap_cnt = dao.getRestaurantDetail(result.get(index).getContents_id()).getContentsScrapCnt();
-	    		int contents_plan_cnt = dao.getContentsPlan(result.get(index).getContents_id());
-	    		result.get(index).setContents_plan_cnt(contents_plan_cnt);
-	    		result.get(index).setContents_review_cnt(contents_review_cnt);
-	    		result.get(index).setContents_scrap_cnt(contents_scrap_cnt);
-	    		index++;
+
+//	    		int contents_review_cnt = dao.getRestaurantDetail(result.get(index).getContents_id()).getContentsReviewCnt();
+//	    		int contents_scrap_cnt = dao.getRestaurantDetail(result.get(index).getContents_id()).getContentsScrapCnt();
+//	    		int contents_plan_cnt = dao.getContentsPlan(result.get(index).getContents_id());
+//	    		result.get(index).setContents_plan_cnt(contents_plan_cnt);
+//	    		result.get(index).setContents_review_cnt(contents_review_cnt);
+//	    		result.get(index).setContents_scrap_cnt(contents_scrap_cnt);
+//	    		index++;
+
 		}
 		resultset.setContentsList(result);
 		resultset.setContentsCnt(hits.getTotalHits()); 

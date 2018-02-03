@@ -92,7 +92,10 @@ public class MemberDAOImpl implements MemberDAO {
 	public MemberVO select(String memberEmail) throws Exception {
 		return session.selectOne(namespace + ".select", memberEmail);
 	}
-	
+	@Override
+	public MemberVO getMemberPicture(Integer memberID) throws Exception{
+		return session.selectOne(namespace + ".selectPicture", memberID);
+	}
 	@Override
 	public MemberVO changeProfile(MemberVO vo) throws Exception {
 		return session.selectOne(namespace + ".changeProfile", vo);
@@ -132,4 +135,5 @@ public class MemberDAOImpl implements MemberDAO {
 	public Integer followingCount(Integer memberID) throws Exception{
 		return session.selectOne(namespace+".followingCount", memberID);
 	}
+	
 }

@@ -35,6 +35,8 @@ public class EsPlanVO {
 	public String getMember_picture() {
 		if(this.member_picture.equals("")) {
 			this.member_picture = "https://www.bigmouthvoices.com/profile_picture/large/default-profile_picture.jpg";
+		}else if(this.member_picture.contains("displayFile")){
+			return member_picture;
 		}else {
 			this.member_picture ="/displayFile?fileName="+this.member_picture+"&directory=profile";
 		}
@@ -48,6 +50,10 @@ public class EsPlanVO {
 			int num = (int)(Math.random()*11)+1;
 			this.memo_picture_name = "/resources/images/plan/"+num +".jpg";
 
+		}else if(this.memo_picture_name.contains("displayFile")){
+			return memo_picture_name;
+		}else if(this.memo_picture_name.contains("/resources/images/")){
+			return memo_picture_name;
 		}else {
 			this.memo_picture_name ="/displayFile?fileName="+this.memo_picture_name+"&directory=plan";
 		}

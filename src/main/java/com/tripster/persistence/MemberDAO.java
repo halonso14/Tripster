@@ -13,6 +13,8 @@ public interface MemberDAO {
 	
 	public MemberVO getMemberPw(String memberEmail) throws Exception;
 	
+	public MemberVO getMemberPicture(Integer memberID) throws Exception;
+	
 	public void keepLogin(Integer memberID, String sessionKey, Date next);
 	
 	public MemberVO checkSessionKey(String value);
@@ -46,4 +48,5 @@ public interface MemberDAO {
 	public Integer followCount(Integer memberID) throws Exception;
 	
 	public Integer followingCount(Integer memberID) throws Exception;
+	
 }

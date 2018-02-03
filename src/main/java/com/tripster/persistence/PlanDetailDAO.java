@@ -23,4 +23,7 @@ public interface PlanDetailDAO {
 	
 	//최근 등록된 일정상세의 id 값 조회
 	public int selectPlanDetailID()throws Exception;
+	
+	//PlanID 조회
+	public int selectPlanID(int planDetailID) throws Exception;
 }

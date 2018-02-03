@@ -11,6 +11,7 @@ import com.tripster.domain.Criteria;
 import com.tripster.domain.PlanDetailVO;
 import com.tripster.domain.PlanVO;
 import com.tripster.persistence.EsPlanDAO;
+import com.tripster.persistence.MemberDAO;
 import com.tripster.persistence.PlanDAO;
 import com.tripster.persistence.PlanDetailDAO;
 
@@ -23,14 +24,15 @@ public class PlanServiceImpl implements PlanService{
 	private PlanDetailDAO planDetailDAO;
 	@Inject  
 	private EsPlanDAO esPlanDao;
-	
+	@Inject
+	private MemberDAO memberDAO;
 	//플랜 등록.
 	@Transactional
 	@Override
 	public void registerPlan(PlanVO vo) throws Exception {
 		planDAO.insertPlan(vo);
-		// 일정등록 엘라스틱서치 데이터 트랜젝션처리 
-		// esPlanDao.insertEsPlan(vo, planDAO.selectLastPlanID());
+       // 일정등록 엘라스틱서치 데이터 트랜젝션처리(회원사진조회 후 함께 업데이트)
+		 esPlanDao.insertEsPlan(vo, planDAO.selectLastPlanID());
 	}
 
 	//플랜 수정.
@@ -40,9 +42,12 @@ public class PlanServiceImpl implements PlanService{
 	}
 
 	//플랜 삭제.
+	@Transactional
 	@Override
 	public void removePlan(int planID) throws Exception {	
 		planDAO.deletePlan(planID);
+		// 플랜삭제 엘라스틱서치 데이터 트랜젝션처리
+		esPlanDao.deleteEsPlan(Integer.toString(planID));
 	}
 
 	//플랜 조회.

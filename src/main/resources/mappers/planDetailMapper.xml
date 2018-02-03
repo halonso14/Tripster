@@ -74,4 +74,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select
 		max(plan_Detail_ID) from tbl_Plan_Detail
 	</select>
+	
+	<!-- planID값 조회. -->
+	<select id="selectPlanID" resultType="_int">
+		SELECT Plan_ID FROM tbl_Plan_Detail WHERE tbl_Plan_Detail.Plan_Detail_ID = #{planDetailID} LIMIT 1
+	</select>
 </mapper>
