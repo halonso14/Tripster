@@ -4,7 +4,7 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<html style="overflow-x: hidden;">
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
@@ -67,65 +67,40 @@
 		
 		<!-- container -->
 		<div class="container">
-			<div class="container pagecontainer offset-0">	
-		
-				<!-- SLIDER -->
-				<div class="col-md-8 details-slider">
-				
-					<div id="c-carousel">
-						<div id="wrapper">
-							<div id="inner">
-								<div id="caroufredsel_wrapper2">
-									<div id="carousel">
-										<img src="images/details-slider/slide1.jpg" alt=""/>
-										<img src="images/details-slider/slide2.jpg" alt=""/>
-										<img src="images/details-slider/slide3.jpg" alt=""/>
-						
-									</div>
-								</div>
-								<div id="pager-wrapper">
-									<div id="pager">
-										<img src="images/details-slider/slide1.jpg" width="120" height="68" alt=""/>
-										<img src="images/details-slider/slide2.jpg" width="120" height="68" alt=""/>
-										<img src="images/details-slider/slide3.jpg" width="120" height="68" alt=""/>
+			<div class="container pagecontainer offset-0" s>	
+				<div class="col-md-8 details-slider" style="background-image:url('${vo.contentsThumbnail}')">
+			</div>			
+	
+			<div class="col-md-4 detailsright offset-0">
+				<div class="offset-2">
+					<div style="padding:10px 0">
+
+						<!-- '리스트 페이지' 버튼 -->
+						<c:choose>
+							<c:when test="${cri.keyword==null}">
+								<a href= "javascript:history.go(-1);"><span class="backListBtn">목록보기</span></a>
+							</c:when>
+							<c:when test="${cri.tab=='total'}">
+								<a href="/search/result?cnt=${cri.cnt}&tab=${cri.tab}&page=${cri.page}&keyword=${cri.keyword}"><span class="backListBtn">목록보기</span></a>
+							</c:when>
+							<c:otherwise>
+								<a href="/search/${cri.tab}?cnt=${cri.cnt}&tab=${cri.tab}&page=${cri.page}&keyword=${cri.keyword}"><span class="backListBtn">목록보기</span></a>
+							</c:otherwise>	
+						</c:choose>
+						<div class="clearfix"></div>					
+					</div>
 							
-									</div>
-								</div>
-							</div>
-							<div class="clearfix"></div>
-							<button id="prev_btn2" class="prev2"><img src="images/spacer.png" alt=""/></button>
-							<button id="next_btn2" class="next2"><img src="images/spacer.png" alt=""/></button>		
-						</div>
-					</div> <!-- /c-carousel -->
-				</div> <!-- END OF SLIDER -->	
-								
-
-				<div class="col-md-4 detailsright offset-0">
-					<div class="offset-2">
-						<div style="padding:10px 0">
-							<c:choose>
-								<c:when test="${vo.categoryID == 1 }" > <span class="size14 label label-warning">맛집</span></c:when>
-								<c:when test="${vo.categoryID == 2 }" > <span class="size14 label label-primary">관광지</span></c:when>
-								<c:otherwise><span class="size14 label label-default">컨텐츠</span></c:otherwise>
-							</c:choose> 
-							<!-- '리스트 페이지' 버튼 -->
-							<c:choose>
-								<c:when test="${cri.keyword==null}">
-									<a href= "javascript:history.go(-1);"><span class="backListBtn">목록보기</span></a>
-								</c:when>
-								<c:when test="${cri.tab=='total'}">
-									<a href="/search/result?cnt=${cri.cnt}&tab=${cri.tab}&page=${cri.page}&keyword=${cri.keyword}"><span class="backListBtn">목록보기</span></a>
-								</c:when>
-								<c:otherwise>
-									<a href="/search/${cri.tab}?cnt=${cri.cnt}&tab=${cri.tab}&page=${cri.page}&keyword=${cri.keyword}"><span class="backListBtn">목록보기</span></a>
-								</c:otherwise>	
-							</c:choose>
-							<div class="clearfix"></div>					
-						</div>			
-
-						&nbsp;
-						<span class="size18" style="padding:0 0 20px 0; display:inline-block">	
-							<c:set value="${vo.title}" var="esTitle"/>
+					<div style="padding:5px 0 20px 0; ">	
+						<c:choose>
+							<c:when test="${vo.categoryID == 1 }" > 
+								<span class="size14 label label-warning" >맛집</span>
+							</c:when>
+				 			<c:otherwise>
+				 				<span class="size14 label label-primary">관광지</span>
+			 				</c:otherwise>
+						</c:choose> 
+						<c:set value="${vo.title}" var="esTitle"/>
+						<span style="font-size:20px;"><b>
 							<c:choose>
 								<c:when test="${fn:length(esTitle) > 30}">
 									<c:out value="${fn:substring(esTitle,0,29)}"/>..
@@ -133,156 +108,51 @@
 								<c:otherwise>
 									<c:out value="${esTitle}"/>
 								</c:otherwise> 
-							</c:choose>
-						</span>
-					
+							</c:choose>					
+						</b></span>
 					</div>
-					
-					<div class="line3 "></div>
-					
-					<div class="col-md-6 bordertype1 padding20">
-						<span class="opensans size30 bold grey2">97%</span><br>
-						of guests<br>recommend
-					</div>
-					<div class="col-md-6 bordertype2 padding20">
-						<span class="opensans size30 bold grey2">4.5</span>/5<br>
-						guest ratings
-					</div>
-					
-					<div class="col-md-6 bordertype3">
-						<img src="images/user-rating-4.png" alt=""><br>
-						18 reviews
-					</div>
-					<div class="col-md-6 bordertype3">
-						<a href="#" class="grey">+Add review</a>
-					</div>
-					<div class="clearfix"></div><br>
-					
-					<div class="hpadding20">
-						<c:if test="${userSession.memberID != null}">
-							<button class="btn scrapButton" onmouseenter="mouseover('${userSession.memberID}',$(this))" value="${vo.contentsID}" rel="6">스크랩</button>
-							<script>
-								scrapButton = $(".scrapButton");
-								let scrapIdList = ${scrapList };
-								for(let i=0;i<scrapIdList.length;i++){
-									if(scrapButton.val() == scrapIdList[i]){
-										scrapButton.addClass("scraped");
-									};
-								};
-							</script>
-						</c:if>
-					</div>
+					<div class="line3 "></div>	
 				</div>
-				<div class="col-md-8 details-slider">
-					<div id="c-carousel">
-						<div class="wrapper2">
-							<div class="list_carousel2">${pageMaker.makeQuery()}
-								<ul class="foo5">
-									<c:if test="${not empty vo.contentsThumbnail}">
-										<c:set var="image" value=""/>
-					           				<li>
-												<a href="${vo.contentsThumbnail}"><img class="img-responsive" src="${vo.contentsThumbnail}" style="max-height: 407px;max-width: 950px; width: 950px; height: 407px" /></a>
-											</li>
-									</c:if>
-								</ul>
-								<div class="clearfix"></div>
-									<a id="prev_btn" class="xprev" href=""><img src="/resources/images/spacer.png" alt=""/></a>
-									<a id="next_btn" class="xnext" href=""><img src="/resources/images/spacer.png" alt=""/></a>
-							</div>				
-						</div>
 
+				<div class="opensans size14 grey" style="padding:10px">
+					<c:forEach var="keyword" items="${vo.keyword }">
+				     	<span class="keywordTag" ><b># </b> ${keyword}</span>
+					</c:forEach>
+				</div> 
+				<div class="line3 "></div>
+				
+				<div class="col-md-6 bordertype1 padding20 ">
+					<div class="progress-custom" style="position:relative; height:30px!important; margin:0 10px">	
+						<div style="width:100%; height:100%; background-color:silver"></div>						
+								<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: ${vo.rating*20}%; position:absolute; top:0;"></div>
+						<img src="/resources/images/star.png" style="position:absolute; top:0;left:0; width:100%; height:100%"/>
 					</div>
-					<!-- 왼쪽 슬라이더 끝 -->
-				</div>
-				<!-- 이미지 슬라이더 -->
-				<script>
-				//------------------------------
-				//CaroufredSell
-				//------------------------------
-				$(document).ready(function(jQuery){
-					jQuery(".foo5").carouFredSel({
-						width: "100%",
-						height: 407,
-						items: {
-							visible: 5,
-							minimum: 1,
-							start: 2
-						},
-						scroll: {
-							items: 1,
-							easing: "easeInOutQuad",
-							duration: 500,
-							pauseOnHover: true
-						},
-						auto: false,
-						prev: {
-							button: "#prev_btn",
-							key: "left"
-						},
-						next: {
-							button: "#next_btn",
-							key: "right"
-						},				
-						swipe: true
-					});
-				});
-				</script>
-
-				<!-- 오른쪽 파트 시작 -->
-				<div class="col-md-4 detailsright offset-0">
-					<div class="padding20">
-					<h4 class="lh1">${vo.title}</h4>
-					<img src="/resources/images/smallrating-5.png" alt=""/>
-				</div>
-				
-				<div class="line3"></div>
-				
-				<div class="hpadding20">
-					<h2 class="opensans slim green2">Wonderful!</h2>
-				</div>
-				
-				<div class="line3 margtop20"></div>
-				
+					<p class="size14" style="padding-top:10px">${vo.rating} Stars</p>
+				</div>						
 				<div class="col-md-6 bordertype1 padding20">
+					<span class="opensans size24 grey2" style="padding-top:10px">0 Plans</span><br>
+					<p class="size14" style="padding-top:8px" id="${vo.contentsID}">${vo.contentsScrapCnt} Scraps</p>
+				</div>
+		
 
-					${vo.location}
-				</div>
-				<div class="col-md-6 bordertype2 padding20">
-					<span class="opensans size30 bold grey2">Taste</span><br/>
-					of ${vo.city}
-				</div>
-				
-				<div class="col-md-6 bordertype3">
-					<img src="/resources/images/user-rating-4.png" alt=""/><br/>
-					${vo.contentsReviewCnt} reviews
-				</div>
-				<div class="col-md-6 bordertype3">
-					<img src="/resources/images/user-rating-4.png" alt=""/><br/>
-					<ui id="scrapCnt">${vo.contentsScrapCnt}</ui> scraps
-				</div>
-				<div class="clearfix"></div><br/>
 				<div class="hpadding20">
-				<c:if test="${userSession.memberID != null}">
-					
-					<button class="btn scrapButton" onmouseenter="mouseover('${userSession.memberID}',$(this))" value="${vo.contentsID}" rel="6">스크랩</button>
-				
-					<script>
-					scrapButton = $(".scrapButton");
-						let scrapIdList = ${scrapList };
-						
-						for(let i=0;i<scrapIdList.length;i++){
-							if(scrapButton.val() == scrapIdList[i]){
-								scrapButton.addClass("scraped");
+					<c:if test="${userSession.memberID != null}">
+						<button class="btn scrapButton" onmouseenter="mouseover('${userSession.memberID}',$(this))" value="${vo.contentsID}" rel="6">스크랩</button>
+						<script>
+							scrapButton = $(".scrapButton");
+							let scrapIdList = ${scrapList };
+							for(let i=0;i<scrapIdList.length;i++){
+								if(scrapButton.val() == scrapIdList[i]){
+									scrapButton.addClass("scraped");
+								};
 							};
-						};
-					</script>
-				</c:if>
+						</script>
+					</c:if>
+				</div>
+				</div>
+				</div>
 				
-				</div>
-					
-				</div>
-			</div>
-
+				
 			<!-- 아래 파트 시작 -->
 			<div class="container mt25 offset-0">
 				<div class="col-md-12 pagecontainer2 offset-0">
@@ -742,7 +612,6 @@ $(document).ready(function() {
 	function getFileNames(data) {
 	
 		fileNames.push(data);
-
 	}
 	
 	
@@ -921,6 +790,5 @@ function initialize() {
 			
 		    <!-- Bootstrap-->	
 		    <script src="/resources/dist/js/bootstrap.min.js"></script>
-
-</body>
-</html>
+	    </body>
+    </html>

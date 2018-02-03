@@ -52,6 +52,7 @@ public class ContentsVO {
 		this.title = title;
 	}
 	public String getKeyword() {
+		this.keyword = this.keyword.replace("['", "").replace("]'", "").replace("'", "").replace("_"," ");
 		return keyword;
 	}
 	public void setKeyword(String keyword) {
