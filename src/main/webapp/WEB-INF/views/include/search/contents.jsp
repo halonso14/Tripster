@@ -21,7 +21,7 @@
 				</div>
 			
 			<span class="size11 grey ">${esContentsVO.contents_rating} Stars</span><br><br>
-			<span class="margtop20 green size18"><b>0</b></span><span class="green size14"> Plan</span><br>
+			<span class="margtop20 green size18"><b>${esContentsVO.contents_plan_cnt}</b></span><span class="green size14"> Plan</span><br>
 			<span class="size11 grey"><ui id="${esContentsVO.contents_id}">${esContentsVO.contents_scrap_cnt}</ui> Scrap</span><br><br>
 			
 				<button class="btn scrapButton " value="${esContentsVO.contents_id}" onmouseenter="scrapmouseover('${userSession.memberID }',$(this))" rel="6" style="width:80px;">스크랩</button>

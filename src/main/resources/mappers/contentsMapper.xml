@@ -174,4 +174,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   where Contents_ID = #{contentsID}
   </select>
   
+  <!-- 컨텐츠를 일정에 넣은 횟수 조회 -->
+  <select id="getContentsPlan" resultType="Integer">
+  SELECT 
+  	count(*) 
+  FROM 
+  	tripsterdb.tbl_Plan_Detail 
+  where 
+  	Contents_ID = #{contentsID}
+  </select>
+  
 </mapper>

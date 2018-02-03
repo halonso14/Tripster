@@ -14,9 +14,17 @@ public class EsContentsVO{
 	private int contents_view_cnt;
 	private int contents_review_cnt;
 	private int contents_scrap_cnt;
+	private int contents_plan_cnt;
 	private String contents_country;
 	private String contents_city;
 	private String contents_thumbnail;
+	public int getContents_plan_cnt() {
+		return contents_plan_cnt;
+	}
+
+	public void setContents_plan_cnt(int contents_plan_cnt) {
+		this.contents_plan_cnt = contents_plan_cnt;
+	}
 	private Date created;
 	private Date updated;
 	
@@ -131,9 +139,9 @@ public class EsContentsVO{
 				+ contents_title + ", category_value_kor=" + category_value_kor + ", contents_keyword="
 				+ contents_keyword + ", contents_location=" + contents_location + ", contents_rating=" + contents_rating
 				+ ", contents_view_cnt=" + contents_view_cnt + ", contents_review_cnt=" + contents_review_cnt
-				+ ", contents_scrap_cnt=" + contents_scrap_cnt + ", contents_country=" + contents_country
-				+ ", contents_city=" + contents_city + ", contents_thumbnail=" + contents_thumbnail + ", created="
-				+ created + ", updated=" + updated + "]";
+				+ ", contents_scrap_cnt=" + contents_scrap_cnt + ", contents_plan_cnt=" + contents_plan_cnt
+				+ ", contents_country=" + contents_country + ", contents_city=" + contents_city
+				+ ", contents_thumbnail=" + contents_thumbnail + ", created=" + created + ", updated=" + updated + "]";
 	}
 
 
