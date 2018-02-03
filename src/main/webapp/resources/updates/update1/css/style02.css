@@ -1,6 +1,8 @@
 div.planHeader{
 	vertical-align: middle;
-
+}
+div.detailsright > div#contentHeader{
+	paddig:20px!important;
 }
 ul#writer {
 	-webkit-padding-start: 0px!important;

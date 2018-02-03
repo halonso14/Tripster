@@ -1,67 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html style="overflow-x: hidden;">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+		<title>Tripster :: ${vo.title}</title>
+	
+		<!-- Bootstrap -->
+	    <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
+	    <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
+		<link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
+		<link href="/resources/updates/update1/css/style02.css" rel="stylesheet" media="screen">   
+	    <!-- Button -->
+		<link href="/resources/assets/css/scrapBtn.css" rel="stylesheet" media="screen">
+		<!-- scrap -->
+		<script src="/resources/js/scrapHD.js"></script>
+		<!-- review -->
+		<!-- 
+		<script src="/resources/js/review.js"></script>
+	 -->
+		<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	
+	    <!-- Fonts -->	
+		<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet' type='text/css'>	
+		<!-- Font-Awesome -->
+	    <link rel="stylesheet" type="text/css" href="/resources/assets/css/font-awesome.css" media="screen" />
+		
+	    <!-- REVOLUTION BANNER CSS SETTINGS -->
+	    <link rel="stylesheet" type="text/css" href="/resources/css/fullscreen.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="/resources/rs-plugin/css/settings.css" media="screen" />
+		
+	    <!-- Picker UI-->	
+		<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />	
+		
+		<!-- bin/jquery.slider.min.css -->
+		<link rel="stylesheet" href="/resources/plugins/jslider/css/jslider.css" type="text/css">
+		<link rel="stylesheet" href="/resources/plugins/jslider/css/jslider.round-blue.css" type="text/css">
+		
+	    <!-- jQuery-->	
+	    <script src="/resources/assets/js/jquery.v2.0.3.js"></script>
+		<script src="/resources/assets/js/jquery-ui.js"></script>	
+		
+		<!-- bin/jquery.slider.min.js -->
+		<script type="text/javascript" src="/resources/plugins/jslider/js/jshashtable-2.1_src.js"></script>
+		<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.numberformatter-1.2.3.js"></script>
+		<script type="text/javascript" src="/resources/plugins/jslider/js/tmpl.js"></script>
+		<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.dependClass-0.1.js"></script>
+		<script type="text/javascript" src="/resources/plugins/jslider/js/draggable-0.1.js"></script>
+		<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.slider.js"></script>
+		<!-- end -->
 
-	<title>Tripster :: ${vo.title}</title>
-	
-	
-	<!-- Bootstrap -->
-    <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
- 	<link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">   
-    <!-- Button -->
-	<link href="/resources/assets/css/scrapBtn.css" rel="stylesheet" media="screen">
-	<!-- scrap -->
-	<script src="/resources/js/scrapHD.js"></script>
-	<!-- review -->
-	<!-- 
-	<script src="/resources/js/review.js"></script>
- -->
-	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-
-    <!-- Fonts -->	
-	<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet' type='text/css'>	
-	<!-- Font-Awesome -->
-    <link rel="stylesheet" type="text/css" href="/resources/assets/css/font-awesome.css" media="screen" />
-	
-    <!-- REVOLUTION BANNER CSS SETTINGS -->
-    <link rel="stylesheet" type="text/css" href="/resources/css/fullscreen.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="/resources/rs-plugin/css/settings.css" media="screen" />
-	
-    <!-- Picker UI-->	
-	<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />	
-	
-	<!-- bin/jquery.slider.min.css -->
-	<link rel="stylesheet" href="/resources/plugins/jslider/css/jslider.css" type="text/css">
-	<link rel="stylesheet" href="/resources/plugins/jslider/css/jslider.round-blue.css" type="text/css">
-	
-    <!-- jQuery-->	
-    <script src="/resources/assets/js/jquery.v2.0.3.js"></script>
-	<script src="/resources/assets/js/jquery-ui.js"></script>	
-	
-	<!-- bin/jquery.slider.min.js -->
-	<script type="text/javascript" src="/resources/plugins/jslider/js/jshashtable-2.1_src.js"></script>
-	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.numberformatter-1.2.3.js"></script>
-	<script type="text/javascript" src="/resources/plugins/jslider/js/tmpl.js"></script>
-	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.dependClass-0.1.js"></script>
-	<script type="text/javascript" src="/resources/plugins/jslider/js/draggable-0.1.js"></script>
-	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.slider.js"></script>
-	<!-- end -->
-    
-
-	<style type="text/css">
-	html {
-		overflow-x: hidden;
-	}
-	</style>
-
+	</head>
 	<body id="top" class="thebg" >
 		<!-- 로그인 세션  -->
 		<c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
@@ -72,24 +67,115 @@
 		
 		<!-- container -->
 		<div class="container">
-			<!-- '리스트 페이지' 버튼 -->
-			<c:choose>
-				<c:when test="${cri.keyword==null}">
-					<a href= "javascript:history.go(-1);">목록보기</a>
-				</c:when>
-				<c:when test="${cri.tab=='total'}">
-					<a href="/search/result?cnt=${cri.cnt}&tab=${cri.tab}&page=${cri.page}&keyword=${cri.keyword}">목록보기</a>
-				</c:when>
-				<c:otherwise>
-					<a href="/search/${cri.tab}?cnt=${cri.cnt}&tab=${cri.tab}&page=${cri.page}&keyword=${cri.keyword}">목록보기</a>
-				</c:otherwise>	
-			</c:choose>
+			<div class="container pagecontainer offset-0">	
+		
+				<!-- SLIDER -->
+				<div class="col-md-8 details-slider">
+				
+					<div id="c-carousel">
+						<div id="wrapper">
+							<div id="inner">
+								<div id="caroufredsel_wrapper2">
+									<div id="carousel">
+										<img src="images/details-slider/slide1.jpg" alt=""/>
+										<img src="images/details-slider/slide2.jpg" alt=""/>
+										<img src="images/details-slider/slide3.jpg" alt=""/>
+						
+									</div>
+								</div>
+								<div id="pager-wrapper">
+									<div id="pager">
+										<img src="images/details-slider/slide1.jpg" width="120" height="68" alt=""/>
+										<img src="images/details-slider/slide2.jpg" width="120" height="68" alt=""/>
+										<img src="images/details-slider/slide3.jpg" width="120" height="68" alt=""/>
+							
+									</div>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+							<button id="prev_btn2" class="prev2"><img src="images/spacer.png" alt=""/></button>
+							<button id="next_btn2" class="next2"><img src="images/spacer.png" alt=""/></button>		
+						</div>
+					</div> <!-- /c-carousel -->
+				</div> <!-- END OF SLIDER -->	
+								
 
-			<div class="container pagecontainer offset-0">
-				<!-- 슬라이더 파트 시작  -->
+				<div class="col-md-4 detailsright offset-0">
+					<div class="offset-2">
+						<div style="padding:10px 0">
+							<c:choose>
+								<c:when test="${vo.categoryID == 1 }" > <span class="size14 label label-warning">맛집</span></c:when>
+								<c:when test="${vo.categoryID == 2 }" > <span class="size14 label label-primary">관광지</span></c:when>
+								<c:otherwise><span class="size14 label label-default">컨텐츠</span></c:otherwise>
+							</c:choose> 
+							<!-- '리스트 페이지' 버튼 -->
+							<c:choose>
+								<c:when test="${cri.keyword==null}">
+									<a href= "javascript:history.go(-1);"><span class="backListBtn">목록보기</span></a>
+								</c:when>
+								<c:when test="${cri.tab=='total'}">
+									<a href="/search/result?cnt=${cri.cnt}&tab=${cri.tab}&page=${cri.page}&keyword=${cri.keyword}"><span class="backListBtn">목록보기</span></a>
+								</c:when>
+								<c:otherwise>
+									<a href="/search/${cri.tab}?cnt=${cri.cnt}&tab=${cri.tab}&page=${cri.page}&keyword=${cri.keyword}"><span class="backListBtn">목록보기</span></a>
+								</c:otherwise>	
+							</c:choose>
+							<div class="clearfix"></div>					
+						</div>			
+
+						&nbsp;
+						<span class="size18" style="padding:0 0 20px 0; display:inline-block">	
+							<c:set value="${vo.title}" var="esTitle"/>
+							<c:choose>
+								<c:when test="${fn:length(esTitle) > 30}">
+									<c:out value="${fn:substring(esTitle,0,29)}"/>..
+								</c:when>
+								<c:otherwise>
+									<c:out value="${esTitle}"/>
+								</c:otherwise> 
+							</c:choose>
+						</span>
+					
+					</div>
+					
+					<div class="line3 "></div>
+					
+					<div class="col-md-6 bordertype1 padding20">
+						<span class="opensans size30 bold grey2">97%</span><br>
+						of guests<br>recommend
+					</div>
+					<div class="col-md-6 bordertype2 padding20">
+						<span class="opensans size30 bold grey2">4.5</span>/5<br>
+						guest ratings
+					</div>
+					
+					<div class="col-md-6 bordertype3">
+						<img src="images/user-rating-4.png" alt=""><br>
+						18 reviews
+					</div>
+					<div class="col-md-6 bordertype3">
+						<a href="#" class="grey">+Add review</a>
+					</div>
+					<div class="clearfix"></div><br>
+					
+					<div class="hpadding20">
+						<c:if test="${userSession.memberID != null}">
+							<button class="btn scrapButton" onmouseenter="mouseover('${userSession.memberID}',$(this))" value="${vo.contentsID}" rel="6">스크랩</button>
+							<script>
+								scrapButton = $(".scrapButton");
+								let scrapIdList = ${scrapList };
+								for(let i=0;i<scrapIdList.length;i++){
+									if(scrapButton.val() == scrapIdList[i]){
+										scrapButton.addClass("scraped");
+									};
+								};
+							</script>
+						</c:if>
+					</div>
+				</div>
 				<div class="col-md-8 details-slider">
 					<div id="c-carousel">
-						<div class="wrapper2">${cri.tab}
+						<div class="wrapper2">
 							<div class="list_carousel2">${pageMaker.makeQuery()}
 								<ul class="foo5">
 									<c:if test="${not empty vo.contentsThumbnail}">
@@ -104,76 +190,44 @@
 									<a id="next_btn" class="xnext" href=""><img src="/resources/images/spacer.png" alt=""/></a>
 							</div>				
 						</div>
-<!-- 						
-						<div id="wrapper">
-							<div id="inner">
-								<div id="caroufredsel_wrapper2">
-									<div id="carousel">
-										<img
-											src="https://www.e-architect.co.uk/images/jpgs/new_york/southwest-ny-bar-d050813.jpg"
-											alt="" style="width: 625px; height: 387.5px;"> <img
-											src="http://catchrestaurants.com/catchnyc/wp-content/uploads/2015/07/12-CATCH_0171_FINAL1.jpg"
-											alt="" style="width: 625px; height: 387.5px;"> <img
-											src="${vo.contentsThumbnail}" alt=""
-											style="width: 625px; height: 387.5px;"> <img
-											src="http://catchrestaurants.com/catchnyc/wp-content/uploads/2015/07/12-CATCH_0171_FINAL1.jpg"
-											alt="" style="width: 625px; height: 387.5px;"> <img
-											src="${vo.contentsThumbnail}" alt=""
-											style="width: 625px; height: 387.5px;"> <img
-											src="http://catchrestaurants.com/catchnyc/wp-content/uploads/2015/07/12-CATCH_0171_FINAL1.jpg"
-											alt="" style="width: 625px; height: 387.5px;">
-									</div>
-								</div>
-							</div>
-							<div class="clearfix"></div>
-						</div>
- -->		
+
 					</div>
 					<!-- 왼쪽 슬라이더 끝 -->
 				</div>
-<!-- 이미지 슬라이더 -->
-<script>
-						//------------------------------
-						//CaroufredSell
-						//------------------------------
-						$(document).ready(function(jQuery){
-							jQuery(".foo5").carouFredSel({
-								width: "100%",
-								height: 407,
-								items: {
-									visible: 5,
-									minimum: 1,
-									start: 2
-								},
-								scroll: {
-									items: 1,
-									easing: "easeInOutQuad",
-									duration: 500,
-									pauseOnHover: true
-								},
-								auto: false,
-								prev: {
-									button: "#prev_btn",
-									key: "left"
-								},
-								next: {
-									button: "#next_btn",
-									key: "right"
-								},				
-								swipe: true
-							});
-						});
-</script>
-					<!-- 로그인 체크 -->
-					<!-- 
-					<c:choose>
-						<c:when test="${empty userSession}">
-						</c:when>
-						<c:otherwise>
-							<button class="btn-search4 left" id="scrapBtn" value=${scrapCheck}>스크랩</button>
-						</c:otherwise>
-					</c:choose>
-					 -->
+				<!-- 이미지 슬라이더 -->
+				<script>
+				//------------------------------
+				//CaroufredSell
+				//------------------------------
+				$(document).ready(function(jQuery){
+					jQuery(".foo5").carouFredSel({
+						width: "100%",
+						height: 407,
+						items: {
+							visible: 5,
+							minimum: 1,
+							start: 2
+						},
+						scroll: {
+							items: 1,
+							easing: "easeInOutQuad",
+							duration: 500,
+							pauseOnHover: true
+						},
+						auto: false,
+						prev: {
+							button: "#prev_btn",
+							key: "left"
+						},
+						next: {
+							button: "#next_btn",
+							key: "right"
+						},				
+						swipe: true
+					});
+				});
+				</script>
+
 				<!-- 오른쪽 파트 시작 -->
 				<div class="col-md-4 detailsright offset-0">
 					<div class="padding20">
