@@ -36,7 +36,7 @@ response.setHeader("Pragma", "no-cache");
 							<li>
 								<c:choose>
 									<c:when test="${userSession.memberPicture==null}">
-										<a class="header-profile-box" style="background-image:url('https://www.iweek.org.za/wp-content/uploads/2015/09/no-profile-photo1-300x200.jpg')"></a>
+										<a class="header-profile-box" style="background-image:url('/resources/images/user.png')"></a>
 									</c:when>
 									<c:otherwise>
 										<a class="header-profile-box" style="background-image:url('/displayFile?fileName=${userSession.memberPicture}&directory=profile')"></a>

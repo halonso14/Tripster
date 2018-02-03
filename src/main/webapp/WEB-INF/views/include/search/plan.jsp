@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
@@ -15,8 +16,21 @@
 	</div>
 
 	<div class="itemlabel2 ">
-	
-		<a class="plan-title"><b>${esPlanVO.plan_title}</b></a>
+		<c:set value="${esPlanVO.plan_title}" var="esTitle"/>
+		<a class="plan-title"><b>
+			<c:choose>
+				<c:when test="${fn:length(esTitle) > 16}">
+					<c:out value="${fn:substring(esTitle,0,15)}"/>..
+				</c:when>
+				<c:otherwise>
+					<c:out value="${esTitle}"/>
+				</c:otherwise> 
+			</c:choose>
+		</b></a>
+
+
+		
+		
 		<div>
 			<span class="plan-status">댓글 0 / 좋아요 ${esPlanVO.plan_like_cnt} </span>			
 			<button class="btn likeButton" onmouseenter="likemouseover('${userSession.memberID }',$(this))" value="${esPlanVO.plan_id}">좋아요</button>

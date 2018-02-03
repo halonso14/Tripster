@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="offset-2" >
@@ -45,19 +46,28 @@
 			<c:choose>
 				<c:when test="${esContentsVO.category_id == 1 }" > <span class="size14 label label-warning">${esContentsVO.category_value_kor}</span></c:when>
 				<c:when test="${esContentsVO.category_id == 2 }" > <span class="size14 label label-primary">${esContentsVO.category_value_kor}</span></c:when>
-				<c:otherwise> <span class="size14 label label-default"> ${esContentsVO.category_value_kor}</span></c:otherwise>
+				<c:otherwise><span class="size14 label label-default">${esContentsVO.category_value_kor} </span></c:otherwise>
 			</c:choose>
 			<span class="size18">	
-				<a href="/contents/${esContentsVO.category_id}/${esContentsVO.contents_id}${pageMaker.makeQuery()}">
-					&nbsp;<b>${esContentsVO.contents_title} </b>
-				</a>
+
+				<c:set value="${esContentsVO.contents_title}" var="esTitle"/>
+				<a href="/contents/${esContentsVO.category_id}/${esContentsVO.contents_id}${pageMaker.makeQuery()}"><b>
+					<c:choose>
+						<c:when test="${fn:length(esTitle) > 25}">
+							<c:out value="${fn:substring(esTitle,0,24)}"/>..
+						</c:when>
+						<c:otherwise>
+							<c:out value="${esTitle}"/>
+						</c:otherwise> 
+					</c:choose>
+				</b></a>
 
 			</span><br>
 			<span class="margtop10 size12 grey glyphicon glyphicon-map-marker"></span><span class="grey size12"> ${esContentsVO.contents_location} </span> 
 			<div class="line4 wh80percent"></div>
 			<span class="opensans size14 grey">
 				
-			<c:forEach var="keyword" items="${esContentsVO.contents_keyword}">
+			<c:forEach var="keyword" items="${esContentsVO.contents_keyword}" begin="0" end="5">
 		     	<span style="display:inline-block; border-radius:15px; border:1px solid #ddd; padding:5px 10px; margin:5px 2px">
 		     		<b># </b> ${keyword}
 		     	</span>

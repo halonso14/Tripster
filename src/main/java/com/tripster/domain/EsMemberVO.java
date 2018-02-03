@@ -44,7 +44,7 @@ public class EsMemberVO {
 	}
 	public String getMember_picture() {
 		if(this.member_picture.equals("")) {
-			this.member_picture = "https://www.iweek.org.za/wp-content/uploads/2015/09/no-profile-photo1-300x200.jpg";
+			this.member_picture = "/resources/images/user.png";
 		}else {
 			this.member_picture ="/displayFile?fileName="+this.member_picture+"&directory=profile";
 		}

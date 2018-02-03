@@ -1,3 +1,9 @@
+.autoImage {
+  	background-size: cover!important; 
+  	background-position: center!important;
+ 	overflow: hidden!important;
+}
+
 .scrapBtn {
 	border: 2px solid #ebebeb;
 	padding: 5px 15px;
@@ -176,6 +182,7 @@ ul.pagination {
 	border-radius: 30px;
 	background-color:#fff;
 	background-size: cover;
+	background-position: center;
 	margin:10px 20px;
 }
 
@@ -192,7 +199,7 @@ ul.pagination {
 }
 .plan-title{
 	display:block;
-	font-size:18px;
+	font-size:16px;
 	color:#000;
 	margin:20px;
 }
@@ -223,8 +230,15 @@ ul>li>a.header-profile-box{
   border:1px solid #c0c0c0!important;
   margin:8px 0;
   background-size: cover; 
+  background-position: center;
 }
 
+a.memberProfileList > div.listitem {
+	background-size: cover; 
+	background-position: center;
+	border:1px solid #c5c5c5;
+
+}
 
 #member > #planRegister > a{
 	background:#fff;

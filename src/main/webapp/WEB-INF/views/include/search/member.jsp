@@ -6,9 +6,9 @@
 <div class="col-md-4" style="margin-bottom:40px">
 	<!-- CONTAINER-->
 	<div class="carscontainer" style="border:1px solid #e6e6e6">
-		<div class="listitem ">
-			<a href="/member/viewMember?memberID=${esMemberVO.member_id }"><img src="${esMemberVO.member_picture}" ></a>
-		</div>						
+		<a class= "memberProfileList" href="/member/viewMember?memberID=${esMemberVO.member_id }">
+			<div class="listitem " style="background-image:url('${esMemberVO.member_picture}')"></div>
+		</a>						
 		<div class="purchasecontainer"  >
 			<div class="offset-2 left bold" style="margin-left: 10px;padding-top:5px;">${esMemberVO.member_name}</div>		
 			
