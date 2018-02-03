@@ -1,7 +1,8 @@
 package com.tripster.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -10,12 +11,15 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.tripster.domain.ContentsReviewVO;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.MapType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.tripster.domain.Criteria;
-import com.tripster.domain.PlanVO;
 import com.tripster.persistence.ContentsDAO;
 import com.tripster.persistence.ContentsReviewDAO;
-import com.tripster.persistence.RecommandDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/**/*.xml"})
@@ -32,8 +36,38 @@ public class ContentsDAOTest {
 	@Test
 	public void testRead() throws Exception {
 		
-		System.out.println(dao.getScrapCnt(1));
+		try {
+			
+			ObjectMapper mapper = new ObjectMapper();
+			String data = dao.getRestaurantDetail(60000).getContents();
+			String json = data.replace("[", "").replace("]", "").replaceAll("'", "\"");
+			String json2 = json.substring(json.indexOf(",")+2);
+			String convert = json2.substring(json2.indexOf(",")+2);
+			Map<String, Object> map = new HashMap<String, Object>(); 
+			// convert JSON string to Map 
+			map = mapper.readValue(convert, new TypeReference<Map<String, String>>(){}); 
+			System.out.println(map);
+
+			
+			}catch (JsonGenerationException e) { 
+				e.printStackTrace(); 
+			}catch (JsonMappingException e) { 
+				e.printStackTrace(); 
+			}catch (IOException e) { 
+				e.printStackTrace(); 
+			}
 		
+			
+			String data = dao.getRestaurantDetail(60000).getContents();
+			String json = data.replace("[", "").replace("]", "").replaceAll("'", "\"");
+			//String[] jsonArray = json.split(",");
+//			System.out.println(json.indexOf(","));
+			System.out.println(json.substring(0,json.indexOf(",")));
+			String json2 = json.substring(json.indexOf(",")+2);
+//			System.out.println(json2);
+			System.out.println(json2.substring(0, json2.indexOf(",")));
+			System.out.println(json2.substring(json2.indexOf(",")+2));
+			
 	}
 //	
 //	//컨텐츠 리스트 조회 테스트
