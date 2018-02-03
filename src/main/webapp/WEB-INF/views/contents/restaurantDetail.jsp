@@ -166,13 +166,20 @@
 				<div class="col-md-12 pagecontainer2 offset-0">
 					<div class="cstyle10"></div>
 						<ul class="nav nav-tabs" id="myTab">
-							<li onclick="mySelectUpdate()" class="active"><a data-toggle="tab" href="#reviews"><span class="thingstodo"></span><span class="hidetext">Reviews</span>&nbsp;</a></li>
-							<li onclick="loadScript('${vo.lat}','${vo.lng}')" class=""><a data-toggle="tab" href="#maps"><span class="maps"></span><span class="hidetext">Maps</span></a></li>
+							<li onclick="mySelectUpdate()" class="active"><a data-toggle="tab" href="#detail"><span class="thingstodo"></span><span class="hidetext">상세보기</span>&nbsp;</a></li>
+							<li onclick="mySelectUpdate()" ><a data-toggle="tab" href="#reviews"><span class="thingstodo"></span><span class="hidetext">리뷰달기</span>&nbsp;</a></li>
+							<li onclick="loadScript('${vo.lat}','${vo.lng}')" class=""><a data-toggle="tab" href="#maps"><span class="maps"></span><span class="hidetext">지도보기</span></a></li>
 						</ul>
 					<div class="tab-content4">
 						<!-- TAB1 -->
+						<div id="detail" class="tab-pane fade active in" data->
+						 
+						 여기에 contents 데이터 쭈려
+						
+						</div>
+						
 						<!-- 리뷰 리스트 조회 -->
-						<div id="reviews" class="tab-pane fade active in" data->
+						<div id="reviews" class="tab-pane fade in" data->
 							<div class="hpadding20">
 								<br/>
 								<span class="opensans dark size16 bold">Reviews</span>
