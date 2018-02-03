@@ -1,0 +1,183 @@
+div.planHeader{
+	vertical-align: middle;
+
+}
+ul#writer {
+	-webkit-padding-start: 0px!important;
+	list-style:none;
+}
+ul#writer > li {
+	display:inline-block;
+	margin: 15px 20px 0 0;
+}
+span.backListBtn {
+	float:right;
+	display:inline-block;
+	padding: 6px 10px;
+	margin-top:3px;
+	border:1px solid #ddd;
+	color:#ddd;
+	border-radius:5px;
+}
+span.backListBtn:hover {
+	background:#eaeaea;
+	border:1px solid grey;
+	color:grey;
+	cursor:pointer;
+
+}
+#modDiv {
+	width: 300px;
+	height: 100px;
+	background-color: gray;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -50px;
+	margin-left: -150px;
+	padding: 10px;
+	z-index: 1000;
+}
+.pagination li {
+	list-style: none;
+	float: left;
+	/* padding: 3px; */
+	/* border: 1px solid blue; */
+	 /* margin-top: 10px;  */
+}
+.pagination li a {
+	/* margin: 3px; */
+	text-decoration: none;
+}
+.aboutarrow {
+    display: block;
+    float: left;
+    position: relative;
+   /*  left: 50%; */
+    bottom: -20px;
+    width: 25px;
+    height: 13px;
+    background: url(/resources/images/about-arrow.png) no-repeat;
+}
+.memoText{
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+    border-left: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding-left: 8px;
+    padding-right: 8px;
+    line-height: 22px;
+}
+
+#eventWrapper{
+	 border-left: 1px solid #ccc;
+}
+.dayCircle {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    left: -6px;
+   /*  top: 9px; */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+}
+.whichDay {
+    font-size: 16px;
+    padding: 7px 16px;
+    color: #fff;
+    background: #ff9900;
+    margin-left: 10px;
+}
+#replyDelBtn{
+    text-transform: uppercase;
+    border: 1px solid #d75124;
+    padding: 0px 0px;
+    background: #e35121;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ff6633), to(#e35121));
+    background: -webkit-linear-gradient(top, #ff6633, #e35121);
+    background: -moz-linear-gradient(top, #ff6633, #e35121);
+    background: -ms-linear-gradient(top, #ff6633, #e35121);
+    background: -o-linear-gradient(top, #ff6633, #e35121);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.18) 0 1px 0;
+    -moz-box-shadow: rgba(0,0,0,0.18) 0 1px 0;
+    box-shadow: rgba(0,0,0,0.18) 0 1px 0;
+    text-shadow: rgba(0,0,0,.4) 0 -1px 0;
+    color: #ffffff;
+    font-size: 90%;
+    font-family: Helvetica, Arial, Sans-Serif;
+    text-decoration: none;
+    vertical-align: middle;
+    font-family: "Open Sans";
+    font-weight: 700;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    transition: .3s;
+    width: 55px;
+    height: 20px;
+}
+.planModifyBtn{
+	text-transform: uppercase;
+    border: 1px solid #006699;
+    padding: 0px 0px;
+    background: #3994d4;
+    background: -webkit-gradient(linear, left top, left bottom, from(#3994d4), to(#1d7db7));
+    background: -webkit-linear-gradient(top, #3994d4, #1d7db7);
+    background: -moz-linear-gradient(top, #3994d4, #1d7db7);
+    background: -ms-linear-gradient(top, #3994d4, #1d7db7);
+    background: -o-linear-gradient(top, #3994d4, #1d7db7);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.18) 0 1px 0;
+    -moz-box-shadow: rgba(0,0,0,0.18) 0 1px 0;
+    box-shadow: rgba(0,0,0,0.18) 0 1px 0;
+    text-shadow: rgba(0,0,0,.4) 0 -1px 0;
+    color: #ffffff;
+    font-size: 90%;
+    font-family: Helvetica, Arial, Sans-Serif;
+    text-decoration: none;
+    vertical-align: middle;
+    font-family: "Open Sans";
+    font-weight: 700;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    transition: .3s;
+    width: 55px;
+    height: 20px;
+}
+.plan_pre {
+  display: block; 
+  margin: 0 0 0px; 
+  font-size: 13px; 
+  color: #333333; 
+  word-break: break-all; 
+  word-wrap: break-word; 
+  background-color: #ffffff; 
+  border: 1px solid #ffffff;
+  border-radius: 4px; 
+  padding: 0px;
+}
+.foo{
+    text-align: left;
+    float: none;
+    position: absolute;
+    top: 0px;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    margin: 0px;
+    width: 3992px;
+    height: 407px;
+    z-index: auto;
+}
+ .list_carousel2 > .foo5> img {
+      top: 0;
+      left: 0;
+      max-height: 407px;
+      max-width: 720px;
+    } 
