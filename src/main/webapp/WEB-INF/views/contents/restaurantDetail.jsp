@@ -90,7 +90,7 @@
 						<div class="clearfix"></div>					
 					</div>
 							
-					<div style="padding:5px 0 20px 0; ">	
+					<div style="padding:5px 0 0 0; ">	
 						<c:choose>
 							<c:when test="${vo.categoryID == 1 }" > 
 								<span class="size14 label label-warning" >맛집</span>
@@ -109,7 +109,11 @@
 									<c:out value="${esTitle}"/>
 								</c:otherwise> 
 							</c:choose>					
-						</b></span>
+						</b></span><br>
+						<p style="padding:5px 2px">
+							<span class="margtop10 size12 grey glyphicon glyphicon-map-marker"></span>
+							<span class="grey size12"> ${vo.location} </span> 
+						</p>
 					</div>
 					<div class="line3 "></div>	
 				</div>
@@ -133,21 +137,25 @@
 					<span class="opensans size24 grey2" style="padding-top:10px">0 Plans</span><br>
 					<p class="size14" style="padding-top:8px" id="${vo.contentsID}">${vo.contentsScrapCnt} Scraps</p>
 				</div>
-		
-
-				<div class="hpadding20">
-					<c:if test="${userSession.memberID != null}">
-						<button class="btn scrapButton" onmouseenter="mouseover('${userSession.memberID}',$(this))" value="${vo.contentsID}" rel="6">스크랩</button>
-						<script>
-							scrapButton = $(".scrapButton");
-							let scrapIdList = ${scrapList };
-							for(let i=0;i<scrapIdList.length;i++){
-								if(scrapButton.val() == scrapIdList[i]){
-									scrapButton.addClass("scraped");
-								};
+				<div class="clearfix"></div>
+				<div class="col-md-12 " style="padding:40px;">
+					<button class="btn scrapButton " value="${vo.contentsID}" onmouseenter="mouseover('${userSession.memberID }',$(this))" rel="6" style="width:100%; ">스크랩</button>
+				</div>
+				<script>
+					var scrapbtn = $("button[value="+${vo.contentsID}+"]");
+					var session = ${empty userSession };
+					var scrapIdList ="";
+					if(session != true){
+						scrapIdList = ${scrapIdList };
+						for(let i=0;i<scrapIdList.length;i++){
+							if(scrapbtn.val() == scrapIdList[i]){
+								scrapbtn.addClass("scraped");
 							};
-						</script>
-					</c:if>
+						};
+					};
+				</script>
+				
+
 				</div>
 				</div>
 				</div>
