@@ -75,12 +75,16 @@ public class PlanController {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		planVO.setPlanStartDate(sdf.parse(startDate));
 		planVO.setPlanEndDate(sdf.parse(endDate));
+		//es plan에 데이터 등록할때 쓸 임의 생성일(실례합니다)
+		planVO.setCreated(sdf.parse(startDate));
+		planVO.setUpdated(sdf.parse(startDate));
 		
 		//planID & planEndChk default값 설정
 		planVO.setPlanEndChk(0);
 		planVO.setPlanLikeCnt(0);
-		planVO.setMemberID(memberVO.getMemberID());
-		
+		planVO.setMemberID(memberVO.getMemberID());	
+		//es plan에 데이터 등록할때 쓸 회원사진 넣기(실례합니다)
+		planVO.setMemberPictureName(memberVO.getMemberPicture());
 		
 		//등록 작업 수행.
 		planService.registerPlan(planVO);

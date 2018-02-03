@@ -52,4 +52,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="thumbnail" resultType="string">
 		SELECT Memo_Picture_Name FROM tbl_Memo_Picture WHERE tbl_Memo_Picture.Plan_Detail_ID IN (SELECT Plan_Detail_ID FROM tbl_Plan_Detail WHERE tbl_Plan_Detail.Plan_ID = #{planID}) LIMIT 1
 	</select>
+
 </mapper>
