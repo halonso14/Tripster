@@ -42,9 +42,9 @@ public class ContentsDAOTest {
 			ArrayList<Object> list;
 			Map<String, Object> map; 
 			String data = dao.getRestaurantDetail(60000).getContents();
-			String json = "[{'name': 'Test order1','detail': 'ahk ks'},{'name': 'Test order2','detail': 'Fisteku'}]";
+			String json = "[{\"name\": \"Test order1\",\"detail\": \"ahk ks\"},{\"name\": \"Test order2\",\"detail\": \"Fisteku\"}]";
 		
-			Collection<List<Map<String,String>>> readValues = new ObjectMapper().readValue(json, new TypeReference<List<Collection<List<Map<String,String>>>>>(){});
+			Collection<Map<String,String>> readValues = new ObjectMapper().readValue(json, new TypeReference<Collection<Map<String,String>>>(){});
 //			map = mapper.readValue(json, new TypeReference<Map<String,Object>>(){});
 			
 			System.out.println(readValues.toString());
@@ -59,7 +59,7 @@ public class ContentsDAOTest {
 		
 //			
 //			String data = dao.getRestaurantDetail(60000).getContents();
-//			String json = data.replace("[", "").replace("]", "").replaceAll("'", "\"");
+//			String json = data.replace("[", "").replace("]", "").replaceAll("\"", "\"");
 //			//String[] jsonArray = json.split(",");
 ////			System.out.println(json.indexOf(","));
 //			System.out.println(json.substring(0,json.indexOf(",")));
