@@ -46,8 +46,8 @@
 									<span>${userSession.memberName}&nbsp;<b class="lightcaret mt-2"></b></span>
 								</a>
 								<ul class="dropdown-menu">
-									<li><a href="member/mypage">마이페이지</a></li>
-									<li><a href="member/logout">로그아웃</a></li>
+									<li><a href="/member/mypage">마이페이지</a></li>
+									<li><a href="/member/logout">로그아웃</a></li>
 								</ul>
 							</li>
 							<li>
