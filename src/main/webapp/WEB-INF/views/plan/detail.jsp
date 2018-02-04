@@ -422,7 +422,7 @@ body {
                  				$(result.memoVO.memoPictureName).each(function(){
                  					var front = this.substr(0,12);
                  					var end = this.substr(12);
-                 					var fullName = front+"s_"+end;
+                 					var fullName = front+end;
                  					var fileInfo = getFileInfo(fullName);
                  					var html = template(fileInfo);
                  					$(".uploadedList").append(html);
