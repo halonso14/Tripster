@@ -88,7 +88,7 @@ public class ContentsController {
 				return resultPage;
 				
 			}else {
-				ModelAndView resultPage = new ModelAndView("contents/PlaceDetail");
+				ModelAndView resultPage = new ModelAndView("contents/placeDetail");
 				if(contentsService.getPlaceDetail(contentsID) != null) {
 					model.addAttribute("vo",contentsService.getPlaceDetail(contentsID));
 					
