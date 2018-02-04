@@ -23,9 +23,7 @@ function mouseover(memberID, $button){
 					$button.removeClass('scraped');
 					$button.text('스크랩');
 					$.post("/scrapDelete/"+contentsID,function(scrapCnt){
-						console.log(scrapCnt);
 						$("#"+contentsID).html(scrapCnt);
-						alert("스크랩 취소");
 					});
 				});
 			} else{
@@ -34,9 +32,7 @@ function mouseover(memberID, $button){
 				$button.unbind('click').bind('click', function() {
 					
 					$.post("/scrap/"+contentsID,function(scrapCnt){
-						console.log(scrapCnt);
 						$("#"+contentsID).html(scrapCnt);
-						alert("스크랩");
 					});
 					$button.addClass('scraped');
 					$button.text('스크랩');

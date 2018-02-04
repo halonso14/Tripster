@@ -18,7 +18,7 @@
 	    <!-- Button -->
 		<link href="/resources/assets/css/scrapBtn.css" rel="stylesheet" media="screen">
 		<!-- scrap -->
-		<script src="/resources/js/scrapHD.js"></script>
+		<script src="/resources/js/searchScrap.js"></script>
 		<!-- review -->
 		<!-- 
 		<script src="/resources/js/review.js"></script>
@@ -134,8 +134,8 @@
 					<p class="size14" style="padding-top:10px">${vo.rating} Stars</p>
 				</div>						
 				<div class="col-md-6 bordertype1 padding20">
-					<span class="opensans size24 grey2" style="padding-top:10px">0 Plans</span><br>
-					<p class="size14" style="padding-top:8px" id="${vo.contentsID}">${vo.contentsScrapCnt} Scraps</p>
+					<span class="opensans size24 grey2" style="padding-top:10px"> Reviews ${vo.contentsViewCnt }</span><br>
+					<p class="size14" style="padding-top:8px" id="${vo.contentsID}"><ui id="${vo.contentsID}">${vo.contentsScrapCnt}</ui> Scraps</p>
 				</div>
 				<div class="clearfix"></div>
 				<div class="col-md-12 " style="padding:40px;">
@@ -146,7 +146,7 @@
 					var session = ${empty userSession };
 					var scrapIdList ="";
 					if(session != true){
-						scrapIdList = ${scrapIdList };
+						scrapIdList = ${scrapIdList};
 						for(let i=0;i<scrapIdList.length;i++){
 							if(scrapbtn.val() == scrapIdList[i]){
 								scrapbtn.addClass("scraped");

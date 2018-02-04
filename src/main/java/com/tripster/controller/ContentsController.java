@@ -59,8 +59,8 @@ public class ContentsController {
 			if(session.getAttribute("login") != null) {
 				MemberVO memberVO = (MemberVO)session.getAttribute("login");
 				model.addAttribute("memberVO",memberVO);
-				List<Integer> scrapList = scrapService.scrapIdList(memberVO.getMemberID());
-				model.addAttribute("scrapList",scrapList);
+				List<Integer> scrapIdList = scrapService.scrapIdList(memberVO.getMemberID());
+				model.addAttribute("scrapIdList",scrapIdList);
 			}
 			ContentsVO vo;
 			vo = contentsService.getContentsDetail(contentsID);
