@@ -946,9 +946,8 @@ left: 254px;
 					function getPageList(page){
 					var str = '';
 						$.getJSON("/member/myplan/"+memberID+"/"+page, function(data){
-							var random = Math.floor(Math.random() * 10) + 1;
-							
 							$(data.list).each(function(index){
+								var random = Math.floor(Math.random() * 10) + 1;
 									str += 
 								"<div class='col-md-4'>"
 									+"<div class='listitem' style='width:243.7px;'>";
@@ -1035,6 +1034,7 @@ left: 254px;
 						var str = '';
 							$.getJSON("/member/likeplan/"+memberID+"/"+page, function(data){
 								$(data.likeList).each(function(index){
+									var random = Math.floor(Math.random() * 10) + 1;
 										str += 
 									"<div class='col-md-4'>"
 										+"<div class='listitem' style='width:243.7px;'>";
@@ -1044,7 +1044,7 @@ left: 254px;
 												"<img src='/displayFile?fileName="+this.pictureName+"&directory=plan'alt='' />";
 										} else{
 											str +=
-												"<img src='' alt='' />";
+												"<img src='/resources/images/plan/"+random+".jpg' alt='' />";
 										}
 											
 										str +=

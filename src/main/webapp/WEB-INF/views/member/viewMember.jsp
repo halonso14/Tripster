@@ -214,7 +214,9 @@ response.setHeader("Pragma", "no-cache");
 	var str = '';
 		
 		$.getJSON("/member/viewMember/"+memberID+"/"+page, function(data){
+			
 			$(data.list).each(function(index){
+				var random = Math.floor(Math.random() * 10) + 1;
 					str += 
 				"<div class='col-md-4'>"
 					+"<div class='listitem'>";
@@ -224,7 +226,7 @@ response.setHeader("Pragma", "no-cache");
 							"<img src='/displayFile?fileName="+this.pictureName+"&directory=plan' alt='' />";
 					} else{
 						str +=
-							"<img src='' alt='' />";
+							"<img src='/resources/images/plan/"+random+".jpg' alt='' />";
 					}
 						
 					str +=
