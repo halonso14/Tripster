@@ -64,10 +64,9 @@ public class ContentsController {
 			
 			ObjectMapper mapper = new ObjectMapper();
 			
-			
+			ModelAndView resultPage = new ModelAndView("contents/restaurantDetail");
 			
 			if(categoryID == 1) {
-				ModelAndView resultPage = new ModelAndView("contents/restaurantDetail");
 				model.addAttribute("vo",contentsService.getRestaurantDetail(contentsID));
 				
 				if(contentsID >= 60000) {
@@ -85,9 +84,8 @@ public class ContentsController {
 					model.addAttribute("reviewList",reviewList);
 				}
 				
-				return resultPage;
 			}else {
-				ModelAndView resultPage = new ModelAndView("contents/PlaceDetail");
+				
 				model.addAttribute("vo",contentsService.getPlaceDetail(contentsID));
 				
 				String rawData = contentsService.getRestaurantDetail(contentsID).getContents();
@@ -101,9 +99,10 @@ public class ContentsController {
 				Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
 				List<Object> reviewList = (List<Object>)outer.get("review");
 				model.addAttribute("reviewList",reviewList);
-				return resultPage;
+				
 			}
 			
+			return resultPage;
 			
 		}catch (JsonGenerationException e) { 
 			e.printStackTrace(); 
