@@ -216,7 +216,7 @@ response.setHeader("Pragma", "no-cache");
 		$.getJSON("/member/viewMember/"+memberID+"/"+page, function(data){
 			
 			$(data.list).each(function(index){
-				var random = Math.floor(Math.random() * 10) + 1;
+				
 					str += 
 				"<div class='col-md-4'>"
 					+"<div class='listitem'>";

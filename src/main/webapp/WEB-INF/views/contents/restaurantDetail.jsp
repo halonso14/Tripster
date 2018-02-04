@@ -352,9 +352,10 @@ $(document).ready(function() {
 					+ "				<ul id='writer' style='list-style:none;'>"
 					+ "					<li class='dropdown'>"
 					+ "						<a data-toggle='dropdown' class='dropdown-toggle' href='#'>"
-					+ this.memberName+name
+					+ this.memberName
 					+ "							 <b class='lightcaret mt-2'></b>"
 					+ "						</a>"
+					+name
 					+ "					</li>"
 					+ "				</ul>"
 //					+ "				</span>"
