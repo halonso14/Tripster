@@ -84,7 +84,7 @@ public class ScrapModuleController {
 	}
 	
 	// 스크랩 리스트 조회 
-	@RequestMapping(value="/scraplist",method=RequestMethod.GET)
+	@RequestMapping(value="/scraplist/",method=RequestMethod.GET)
 	public ResponseEntity<List<ScrapVO>> scrapList(HttpSession session, Model model){
 		
 		ResponseEntity<List<ScrapVO>> entity = null;
@@ -94,9 +94,31 @@ public class ScrapModuleController {
 //			loger.info("scrap list");
 			MemberVO memberVO = (MemberVO) session.getAttribute("login");
 			// 멤버 id를 받아 리스트를 조회하여 뷰단으로 전송
-			loger.info("scrap list"+scrapService.listAll(memberVO.getMemberID()).toString());
 			
 			entity = new ResponseEntity<>(scrapService.listAll(memberVO.getMemberID()),HttpStatus.OK);
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			
+		}
+		
+		return entity;
+		
+	}
+	
+	// 카테고리별 스크랩 리스트 조회 
+	@RequestMapping(value="/scraplist/{categoryID}",method=RequestMethod.GET)
+	public ResponseEntity<List<ScrapVO>> scrapByCategory(@PathVariable("categoryID") Integer categoryID, HttpSession session, Model model){
+		
+		ResponseEntity<List<ScrapVO>> entity = null;
+		
+		try {
+			
+			MemberVO memberVO = (MemberVO) session.getAttribute("login");
+			// 멤버 id를 받아 리스트를 조회하여 뷰단으로 전송
+			entity = new ResponseEntity<>(scrapService.listByCategory(memberVO.getMemberID(), categoryID),HttpStatus.OK);
 			
 		}catch(Exception e) {
 			

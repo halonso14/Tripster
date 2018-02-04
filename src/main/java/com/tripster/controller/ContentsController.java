@@ -52,8 +52,9 @@ public class ContentsController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
 	//컨텐츠 상세 페이지
-	@RequestMapping(value = "/{contentsID}", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public ModelAndView contentsDetail(@PathVariable("contentsID") Integer contentsID
+	@RequestMapping(value = "/{categoryID}/{contentsID}", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public ModelAndView contentsDetail(@PathVariable("contentsID") Integer contentsID,
+										@PathVariable("categoryID") Integer categoryID
 										 ,@ModelAttribute("cri") Criteria cri , Model model, HttpSession session) throws Exception {
 		try {
 			if(session.getAttribute("login") != null) {

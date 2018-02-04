@@ -134,7 +134,7 @@
 					<p class="size14" style="padding-top:10px">${vo.rating} Stars</p>
 				</div>						
 				<div class="col-md-6 bordertype1 padding20">
-					<span class="opensans size24 grey2" style="padding-top:10px"> Reviews ${vo.contentsViewCnt }</span><br>
+					<span class="opensans size24 grey2" style="padding-top:10px"> View Count ${vo.contentsViewCnt }</span><br>
 					<p class="size14" style="padding-top:8px" id="${vo.contentsID}"><ui id="${vo.contentsID}">${vo.contentsScrapCnt}</ui> Scraps</p>
 				</div>
 				<div class="clearfix"></div>

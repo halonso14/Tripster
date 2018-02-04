@@ -46,6 +46,13 @@ public class ScrapServiceImpl implements ScrapService{
 		return scrapDao.listAll(memberID);
 	}
 	
+	// 스크랩 리스트 조회
+	@Override
+	public List<ScrapVO> listByCategory(Integer memberID, Integer categoryID) throws Exception{
+		
+		return scrapDao.listByCategory(memberID, categoryID);
+	}
+	
 	// 컨텐츠에서 스크랩 삭제
 	@Override
 	public void scrapIDRemove(Integer contentsID) throws Exception{
@@ -69,9 +76,10 @@ public class ScrapServiceImpl implements ScrapService{
 	}
 	
 	// 스크랩 체크 리스트
+	// 스크랩 체크 리스트
 	@Override
 	public List<Integer> scrapCheckList(Integer memberID,List<EsContentsVO> contentsList,SearchCriteria cri) throws Exception{
-		
+			
 		List<Integer> scrapCheckList = new ArrayList<>();
 		try {
 			for(int i=cri.getPageStart();i<cri.getPerPageNum()*cri.getPage();i++) {

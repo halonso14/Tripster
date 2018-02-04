@@ -744,10 +744,10 @@ left: 254px;
 						<div class="scrapList padding40">
 						
 							<ul class="nav nav-tabs" id="myTab">
-								<li onclick="scrapList()" class="active"><a data-toggle="tab" href="#restaurant"><span class="reviews"></span><span class="hidetext">Restaurant</span>&nbsp;</a></li>
-								<li onclick="scrapList()" class=""><a data-toggle="tab" href="#place"><span class="maps"></span><span class="hidetext">Place</span>&nbsp;</a></li>
+								<li onclick="restaurantList()" class=""><a data-toggle="tab" href="#restaurant"><span class="reviews"></span><span class="hidetext">Restaurant</span>&nbsp;</a></li>
+								<li onclick="placeList()" class=""><a data-toggle="tab" href="#place"><span class="maps"></span><span class="hidetext">Place</span>&nbsp;</a></li>
 								<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#preferences"><span class="preferences"></span><span class="hidetext">Preferences</span>&nbsp;</a></li>
-								<li onclick="loadScript()" class=""><a data-toggle="tab" href="#maps"><span class="maps"></span><span class="hidetext">Maps</span>&nbsp;</a></li>
+								<li onclick="loadScript()" class="active"><a data-toggle="tab" href="#maps"><span class="maps"></span><span class="hidetext">Maps</span>&nbsp;</a></li>
 								<li onclick="mySelectUpdate(); trigerJslider(); trigerJslider2(); trigerJslider3(); trigerJslider4(); trigerJslider5(); trigerJslider6();" class=""><a data-toggle="tab" href="#reviews"><span class="reviews"></span><span class="hidetext">Reviews</span>&nbsp;</a></li>
 								<li onclick="mySelectUpdate()" class=""><a data-toggle="tab" href="#thingstodo"><span class="thingstodo"></span><span class="hidetext">Things to do</span>&nbsp;</a></li>
 			
@@ -819,13 +819,12 @@ left: 254px;
 								</script>	
 								<script>
 								
-									// 스크랩 리스트 불러오기
-									function scrapList(){
+									// 맛집 리스트 불러오기
+									function restaurantList(){
 										
-										$.getJSON('/scraplist',function(data){
+										$.getJSON('/scraplist/1',function(data){
 											
-											var str1 = "";
-											var str2 = "";
+											var str = "";
 											function getData(list){
 												var scrapData = {
 														scrapID : list.scrapID,
@@ -841,24 +840,40 @@ left: 254px;
 												var source = $("#restaurantTemplate").html();
 												var template = Handlebars.compile(source);
 												
-												if(list.categoryID == 1){
-													if(i%2 == 0){
-														str1 += template(getData(list));
-													}else{
-														str2 += template(getData(list));
-													}
-												}else{
-													if(i%2 == 1){
-														str1 += template(getData(list));
-													}else{
-														str2 += template(getData(list));
-													}
-												}
-												
+												str += template(getData(list));
 											 });
 											 
-											 $("#scrap1").html(str1);
-											 $("#scrap2").html(str2);
+											 $("#scrap").html(str);
+											
+										});
+										
+									}
+									
+									// 관광지 리스트 불러오기
+									function placeList(){
+										
+										$.getJSON('/scraplist/2',function(data){
+											
+											var str = "";
+											function getData(list){
+												var scrapData = {
+														scrapID : list.scrapID,
+													    category : list.categoryID,
+													    title : list.contentsTitle,
+													    thumbnail : list.contentsPhoto,
+													    contentsID : list.contentsID
+												}
+												return scrapData;
+											}
+											
+											$(data).each(function(i,list){
+												var source = $("#restaurantTemplate").html();
+												var template = Handlebars.compile(source);
+												
+												str += template(getData(list));
+											 });
+											 
+											 $("#scrap").html(str);
 											
 										});
 										
