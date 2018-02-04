@@ -16,10 +16,30 @@ public class PlanVO {
 	public int planEndChk; //일정완료여부.(0:미완료 / 1:완료)
 	private List<PlanDetailVO> planDetailVO; //planDetail join시 사용.
 	private String memberName; //회원 이름조회.
+	private String memberPictureName; //es 데이터동기화
+	public String getMemberPictureName() {
+		return memberPictureName;
+	}
+	public void setMemberPictureName(String memberPictureName) {
+		this.memberPictureName = memberPictureName;
+	}
 	private int planLikeCnt; //좋아요 카운트
 	private String pictureName;
+	private Date created;
+	private Date updated;
 	
-	
+	public Date getCreated() {
+		return created;
+	}
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+	public Date getUpdated() {
+		return updated;
+	}
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
 	public int getPlanID() {
 		return planID;
 	}

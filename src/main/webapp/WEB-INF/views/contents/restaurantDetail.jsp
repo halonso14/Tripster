@@ -1,67 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<html style="overflow-x: hidden;">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+		<title>Tripster :: ${vo.title}</title>
+	
+		<!-- Bootstrap -->
+	    <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
+	    <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
+		<link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
+		<link href="/resources/updates/update1/css/style02.css" rel="stylesheet" media="screen">   
+	    <!-- Button -->
+		<link href="/resources/assets/css/scrapBtn.css" rel="stylesheet" media="screen">
+		<!-- scrap -->
+		<script src="/resources/js/scrapHD.js"></script>
+		<!-- review -->
+		<!-- 
+		<script src="/resources/js/review.js"></script>
+	 -->
+		<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	
+	    <!-- Fonts -->	
+		<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet' type='text/css'>	
+		<!-- Font-Awesome -->
+	    <link rel="stylesheet" type="text/css" href="/resources/assets/css/font-awesome.css" media="screen" />
+		
+	    <!-- REVOLUTION BANNER CSS SETTINGS -->
+	    <link rel="stylesheet" type="text/css" href="/resources/css/fullscreen.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="/resources/rs-plugin/css/settings.css" media="screen" />
+		
+	    <!-- Picker UI-->	
+		<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />	
+		
+		<!-- bin/jquery.slider.min.css -->
+		<link rel="stylesheet" href="/resources/plugins/jslider/css/jslider.css" type="text/css">
+		<link rel="stylesheet" href="/resources/plugins/jslider/css/jslider.round-blue.css" type="text/css">
+		
+	    <!-- jQuery-->	
+	    <script src="/resources/assets/js/jquery.v2.0.3.js"></script>
+		<script src="/resources/assets/js/jquery-ui.js"></script>	
+		
+		<!-- bin/jquery.slider.min.js -->
+		<script type="text/javascript" src="/resources/plugins/jslider/js/jshashtable-2.1_src.js"></script>
+		<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.numberformatter-1.2.3.js"></script>
+		<script type="text/javascript" src="/resources/plugins/jslider/js/tmpl.js"></script>
+		<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.dependClass-0.1.js"></script>
+		<script type="text/javascript" src="/resources/plugins/jslider/js/draggable-0.1.js"></script>
+		<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.slider.js"></script>
+		<!-- end -->
 
-	<title>Tripster :: ${vo.title}</title>
-	
-	
-	<!-- Bootstrap -->
-    <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
- 	<link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">   
-    <!-- Button -->
-	<link href="/resources/assets/css/scrapBtn.css" rel="stylesheet" media="screen">
-	<!-- scrap -->
-	<script src="/resources/js/scrapHD.js"></script>
-	<!-- review -->
-	<!-- 
-	<script src="/resources/js/review.js"></script>
- -->
-	<link href="/resources/examples/carousel/carousel.css" rel="stylesheet">
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-
-    <!-- Fonts -->	
-	<link href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,400,300,300italic' rel='stylesheet' type='text/css'>	
-	<!-- Font-Awesome -->
-    <link rel="stylesheet" type="text/css" href="/resources/assets/css/font-awesome.css" media="screen" />
-	
-    <!-- REVOLUTION BANNER CSS SETTINGS -->
-    <link rel="stylesheet" type="text/css" href="/resources/css/fullscreen.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="/resources/rs-plugin/css/settings.css" media="screen" />
-	
-    <!-- Picker UI-->	
-	<link rel="stylesheet" href="/resources/assets/css/jquery-ui.css" />	
-	
-	<!-- bin/jquery.slider.min.css -->
-	<link rel="stylesheet" href="/resources/plugins/jslider/css/jslider.css" type="text/css">
-	<link rel="stylesheet" href="/resources/plugins/jslider/css/jslider.round-blue.css" type="text/css">
-	
-    <!-- jQuery-->	
-    <script src="/resources/assets/js/jquery.v2.0.3.js"></script>
-	<script src="/resources/assets/js/jquery-ui.js"></script>	
-	
-	<!-- bin/jquery.slider.min.js -->
-	<script type="text/javascript" src="/resources/plugins/jslider/js/jshashtable-2.1_src.js"></script>
-	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.numberformatter-1.2.3.js"></script>
-	<script type="text/javascript" src="/resources/plugins/jslider/js/tmpl.js"></script>
-	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.dependClass-0.1.js"></script>
-	<script type="text/javascript" src="/resources/plugins/jslider/js/draggable-0.1.js"></script>
-	<script type="text/javascript" src="/resources/plugins/jslider/js/jquery.slider.js"></script>
-	<!-- end -->
-    
-
-	<style type="text/css">
-	html {
-		overflow-x: hidden;
-	}
-	</style>
-
+	</head>
 	<body id="top" class="thebg" >
 		<!-- 로그인 세션  -->
 		<c:set var = "userSession" value = '<%= session.getAttribute("login") %>'/>
@@ -72,175 +67,121 @@
 		
 		<!-- container -->
 		<div class="container">
-			<!-- '리스트 페이지' 버튼 -->
-			<c:choose>
-				<c:when test="${cri.keyword==null}">
-					<a href= "javascript:history.go(-1);">목록보기</a>
-				</c:when>
-				<c:when test="${cri.tab=='total'}">
-					<a href="/search/result?cnt=${cri.cnt}&tab=${cri.tab}&page=${cri.page}&keyword=${cri.keyword}">목록보기</a>
-				</c:when>
-				<c:otherwise>
-					<a href="/search/${cri.tab}?cnt=${cri.cnt}&tab=${cri.tab}&page=${cri.page}&keyword=${cri.keyword}">목록보기</a>
-				</c:otherwise>	
-			</c:choose>
+			<div class="container pagecontainer offset-0" s>	
+				<div class="col-md-8 details-slider" style="background-image:url('${vo.contentsThumbnail}')">
+			</div>			
+	
+			<div class="col-md-4 detailsright offset-0">
+				<div class="offset-2">
+					<div style="padding:10px 0">
 
-			<div class="container pagecontainer offset-0">
-				<!-- 슬라이더 파트 시작  -->
-				<div class="col-md-8 details-slider">
-					<div id="c-carousel">
-						<div class="wrapper2">${cri.tab}
-							<div class="list_carousel2">${pageMaker.makeQuery()}
-								<ul class="foo5">
-									<c:if test="${not empty vo.contentsThumbnail}">
-										<c:set var="image" value=""/>
-					           				<li>
-												<a href="${vo.contentsThumbnail}"><img class="img-responsive" src="${vo.contentsThumbnail}" style="max-height: 407px;max-width: 950px; width: 950px; height: 407px" /></a>
-											</li>
-									</c:if>
-								</ul>
-								<div class="clearfix"></div>
-									<a id="prev_btn" class="xprev" href=""><img src="/resources/images/spacer.png" alt=""/></a>
-									<a id="next_btn" class="xnext" href=""><img src="/resources/images/spacer.png" alt=""/></a>
-							</div>				
-						</div>
-<!-- 						
-						<div id="wrapper">
-							<div id="inner">
-								<div id="caroufredsel_wrapper2">
-									<div id="carousel">
-										<img
-											src="https://www.e-architect.co.uk/images/jpgs/new_york/southwest-ny-bar-d050813.jpg"
-											alt="" style="width: 625px; height: 387.5px;"> <img
-											src="http://catchrestaurants.com/catchnyc/wp-content/uploads/2015/07/12-CATCH_0171_FINAL1.jpg"
-											alt="" style="width: 625px; height: 387.5px;"> <img
-											src="${vo.contentsThumbnail}" alt=""
-											style="width: 625px; height: 387.5px;"> <img
-											src="http://catchrestaurants.com/catchnyc/wp-content/uploads/2015/07/12-CATCH_0171_FINAL1.jpg"
-											alt="" style="width: 625px; height: 387.5px;"> <img
-											src="${vo.contentsThumbnail}" alt=""
-											style="width: 625px; height: 387.5px;"> <img
-											src="http://catchrestaurants.com/catchnyc/wp-content/uploads/2015/07/12-CATCH_0171_FINAL1.jpg"
-											alt="" style="width: 625px; height: 387.5px;">
-									</div>
-								</div>
-							</div>
-							<div class="clearfix"></div>
-						</div>
- -->		
+						<!-- '리스트 페이지' 버튼 -->
+						<c:choose>
+							<c:when test="${cri.keyword==null}">
+								<a href= "javascript:history.go(-1);"><span class="backListBtn">목록보기</span></a>
+							</c:when>
+							<c:when test="${cri.tab=='total'}">
+								<a href="/search/result?cnt=${cri.cnt}&tab=${cri.tab}&page=${cri.page}&keyword=${cri.keyword}"><span class="backListBtn">목록보기</span></a>
+							</c:when>
+							<c:otherwise>
+								<a href="/search/${cri.tab}?cnt=${cri.cnt}&tab=${cri.tab}&page=${cri.page}&keyword=${cri.keyword}"><span class="backListBtn">목록보기</span></a>
+							</c:otherwise>	
+						</c:choose>
+						<div class="clearfix"></div>					
 					</div>
-					<!-- 왼쪽 슬라이더 끝 -->
+							
+					<div style="padding:5px 0 0 0; ">	
+						<c:choose>
+							<c:when test="${vo.categoryID == 1 }" > 
+								<span class="size14 label label-warning" >맛집</span>
+							</c:when>
+				 			<c:otherwise>
+				 				<span class="size14 label label-primary">관광지</span>
+			 				</c:otherwise>
+						</c:choose> 
+						<c:set value="${vo.title}" var="esTitle"/>
+						<span style="font-size:20px;"><b>
+							<c:choose>
+								<c:when test="${fn:length(esTitle) > 30}">
+									<c:out value="${fn:substring(esTitle,0,29)}"/>..
+								</c:when>
+								<c:otherwise>
+									<c:out value="${esTitle}"/>
+								</c:otherwise> 
+							</c:choose>					
+						</b></span><br>
+						<p style="padding:5px 2px">
+							<span class="margtop10 size12 grey glyphicon glyphicon-map-marker"></span>
+							<span class="grey size12"> ${vo.location} </span> 
+						</p>
+					</div>
+					<div class="line3 "></div>	
 				</div>
-<!-- 이미지 슬라이더 -->
-<script>
-						//------------------------------
-						//CaroufredSell
-						//------------------------------
-						$(document).ready(function(jQuery){
-							jQuery(".foo5").carouFredSel({
-								width: "100%",
-								height: 407,
-								items: {
-									visible: 5,
-									minimum: 1,
-									start: 2
-								},
-								scroll: {
-									items: 1,
-									easing: "easeInOutQuad",
-									duration: 500,
-									pauseOnHover: true
-								},
-								auto: false,
-								prev: {
-									button: "#prev_btn",
-									key: "left"
-								},
-								next: {
-									button: "#next_btn",
-									key: "right"
-								},				
-								swipe: true
-							});
-						});
-</script>
-					<!-- 로그인 체크 -->
-					<!-- 
-					<c:choose>
-						<c:when test="${empty userSession}">
-						</c:when>
-						<c:otherwise>
-							<button class="btn-search4 left" id="scrapBtn" value=${scrapCheck}>스크랩</button>
-						</c:otherwise>
-					</c:choose>
-					 -->
-				<!-- 오른쪽 파트 시작 -->
-				<div class="col-md-4 detailsright offset-0">
-					<div class="padding20">
-					<h4 class="lh1">${vo.title}</h4>
-					<img src="/resources/images/smallrating-5.png" alt=""/>
-				</div>
-				
-				<div class="line3"></div>
-				
-				<div class="hpadding20">
-					<h2 class="opensans slim green2">Wonderful!</h2>
-				</div>
-				
-				<div class="line3 margtop20"></div>
-				
-				<div class="col-md-6 bordertype1 padding20">
 
-					${vo.location}
-				</div>
-				<div class="col-md-6 bordertype2 padding20">
-					<span class="opensans size30 bold grey2">Taste</span><br/>
-					of ${vo.city}
-				</div>
+				<div class="opensans size14 grey" style="padding:10px">
+					<c:forEach var="keyword" items="${vo.keyword }">
+				     	<span class="keywordTag" ><b># </b> ${keyword}</span>
+					</c:forEach>
+				</div> 
+				<div class="line3 "></div>
 				
-				<div class="col-md-6 bordertype3">
-					<img src="/resources/images/user-rating-4.png" alt=""/><br/>
-					${vo.contentsReviewCnt} reviews
+				<div class="col-md-6 bordertype1 padding20 ">
+					<div class="progress-custom" style="position:relative; height:30px!important; margin:0 10px">	
+						<div style="width:100%; height:100%; background-color:silver"></div>						
+								<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: ${vo.rating*20}%; position:absolute; top:0;"></div>
+						<img src="/resources/images/star.png" style="position:absolute; top:0;left:0; width:100%; height:100%"/>
+					</div>
+					<p class="size14" style="padding-top:10px">${vo.rating} Stars</p>
+				</div>						
+				<div class="col-md-6 bordertype1 padding20">
+					<span class="opensans size24 grey2" style="padding-top:10px">0 Plans</span><br>
+					<p class="size14" style="padding-top:8px" id="${vo.contentsID}">${vo.contentsScrapCnt} Scraps</p>
 				</div>
-				<div class="col-md-6 bordertype3">
-					<img src="/resources/images/user-rating-4.png" alt=""/><br/>
-					<ui id="scrapCnt">${vo.contentsScrapCnt}</ui> scraps
+				<div class="clearfix"></div>
+				<div class="col-md-12 " style="padding:40px;">
+					<button class="btn scrapButton " value="${vo.contentsID}" onmouseenter="mouseover('${userSession.memberID }',$(this))" rel="6" style="width:100%; ">스크랩</button>
 				</div>
-				<div class="clearfix"></div><br/>
-				<div class="hpadding20">
-				<c:if test="${userSession.memberID != null}">
-					
-					<button class="btn scrapButton" onmouseenter="mouseover('${userSession.memberID}',$(this))" value="${vo.contentsID}" rel="6">스크랩</button>
-				
-					<script>
-					scrapButton = $(".scrapButton");
-						let scrapIdList = ${scrapList };
-						
+				<script>
+					var scrapbtn = $("button[value="+${vo.contentsID}+"]");
+					var session = ${empty userSession };
+					var scrapIdList ="";
+					if(session != true){
+						scrapIdList = ${scrapIdList };
 						for(let i=0;i<scrapIdList.length;i++){
-							if(scrapButton.val() == scrapIdList[i]){
-								scrapButton.addClass("scraped");
+							if(scrapbtn.val() == scrapIdList[i]){
+								scrapbtn.addClass("scraped");
 							};
 						};
-					</script>
-				</c:if>
+					};
+				</script>
 				
-				</div>
-					
-				</div>
-			</div>
 
+				</div>
+				</div>
+				</div>
+				
+				
 			<!-- 아래 파트 시작 -->
 			<div class="container mt25 offset-0">
 				<div class="col-md-12 pagecontainer2 offset-0">
 					<div class="cstyle10"></div>
 						<ul class="nav nav-tabs" id="myTab">
-							<li onclick="mySelectUpdate()" class="active"><a data-toggle="tab" href="#reviews"><span class="thingstodo"></span><span class="hidetext">Reviews</span>&nbsp;</a></li>
-							<li onclick="loadScript('${vo.lat}','${vo.lng}')" class=""><a data-toggle="tab" href="#maps"><span class="maps"></span><span class="hidetext">Maps</span></a></li>
+							<li onclick="mySelectUpdate()" class="active"><a data-toggle="tab" href="#detail"><span class="thingstodo"></span><span class="hidetext">상세보기</span>&nbsp;</a></li>
+							<li onclick="mySelectUpdate()" ><a data-toggle="tab" href="#reviews"><span class="thingstodo"></span><span class="hidetext">리뷰달기</span>&nbsp;</a></li>
+							<li onclick="loadScript('${vo.lat}','${vo.lng}')" class=""><a data-toggle="tab" href="#maps"><span class="maps"></span><span class="hidetext">지도보기</span></a></li>
 						</ul>
 					<div class="tab-content4">
 						<!-- TAB1 -->
+						<div id="detail" class="tab-pane fade active in" data->
+						 
+						 	<div>${contentsURL}</div>
+						 	<div>${contentsHomePage}</div>
+						 	<div>${reviewList}</div>
+						
+						</div>
+						
 						<!-- 리뷰 리스트 조회 -->
-						<div id="reviews" class="tab-pane fade active in" data->
+						<div id="reviews" class="tab-pane fade in" data->
 							<div class="hpadding20">
 								<br/>
 								<span class="opensans dark size16 bold">Reviews</span>
@@ -688,7 +629,6 @@ $(document).ready(function() {
 	function getFileNames(data) {
 	
 		fileNames.push(data);
-
 	}
 	
 	
@@ -867,6 +807,5 @@ function initialize() {
 			
 		    <!-- Bootstrap-->	
 		    <script src="/resources/dist/js/bootstrap.min.js"></script>
-
-</body>
-</html>
+	    </body>
+    </html>

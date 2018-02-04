@@ -112,6 +112,15 @@
 	from tbl_Member
 	where Member_Email = #{memberEmail}
 	</select>	
+	<select id="selectPicture" resultType = "MemberVO">
+	select Member_Picture memberPicture
+		  ,Member_Name memberName
+		  ,Created created
+		  ,Updated updated
+	from tbl_Member
+	where Member_Email = #{memberID}
+	</select>	
+	
 	
 	<!-- 프로필사진 업로드 -->
 	<update id="uploadPicture">

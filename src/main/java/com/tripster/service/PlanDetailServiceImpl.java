@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tripster.domain.PlanDetailVO;
+import com.tripster.persistence.EsPlanDAO;
 import com.tripster.persistence.MemoDAO;
 import com.tripster.persistence.PlanDetailDAO;
 
@@ -17,12 +18,16 @@ public class PlanDetailServiceImpl implements PlanDetailService{
 
 	@Inject
 	private PlanDetailDAO planDetailDAO;
+	@Inject  
+	private EsPlanDAO esPlanDao;
 	
 	//일정 상세 정보 등록.
+	@Transactional
 	@Override
 	public void registerPlanDetail(PlanDetailVO vo)throws Exception {
 		System.out.println("service당!!!");
 		planDetailDAO.insertPlanDetail(vo);
+
 		
 	}
 

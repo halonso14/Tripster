@@ -45,7 +45,7 @@ public class EsContentsDAOimpl implements EsContentsDAO {
 	    		String sJson = hit.getSourceAsString();
 	    		EsContentsVO contents = om.readValue(sJson, EsContentsVO.class);
 	    		result.add(contents);
-	    		
+	
 	    		// 일치하는 값이 없을경우 엘라스틱 디비에 있는 값이 들어옴
 	    		for(int i=0;i<plan.size();i++) {
 	    			if(result.get(index).getContents_id() == plan.get(i).getContents_id()) {
@@ -69,6 +69,7 @@ public class EsContentsDAOimpl implements EsContentsDAO {
 	    		}
 	    		
 	    		index ++;
+
 		}
 		
 		resultset.setContentsList(result);

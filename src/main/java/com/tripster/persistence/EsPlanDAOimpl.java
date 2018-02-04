@@ -9,9 +9,13 @@ import org.springframework.stereotype.Repository;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -20,6 +24,7 @@ import com.tripster.domain.EsMemberVO;
 import com.tripster.domain.EsPlanVO;
 import com.tripster.domain.EsSearchResultVO;
 import com.tripster.domain.MemberVO;
+import com.tripster.domain.PlanDetailVO;
 import com.tripster.domain.PlanVO;
 import com.tripster.domain.SearchCriteria;
 import com.tripster.elasticsearch.EsSearchMapper;
@@ -68,26 +73,58 @@ public class EsPlanDAOimpl implements EsPlanDAO {
 
 		EsPlanVO esvo = new EsPlanVO();
 		esvo.setPlan_id(planID);
-		esvo.setPlan_title(vo.getPlanTitle());
 		esvo.setMember_id(vo.getMemberID());
 		esvo.setMember_name(vo.getMemberName());
-		esvo.setPlan_endchk(vo.getPlanEndChk());
+		if(vo.getMemberPictureName()!=null) {
+			esvo.setMember_picture(vo.getMemberPictureName());
+		}else {
+			esvo.setMember_picture("");
+		}
+		esvo.setMemo_picture_name("");
+		esvo.setPlan_title(vo.getPlanTitle());
 		esvo.setPlan_enddate(vo.getPlanEndDate());
-		esvo.setPlan_like_cnt(vo.getPlanLikeCnt());
 		esvo.setPlan_startdate(vo.getPlanStartDate());
-		//회원사진 여기에 있으면 회원사진 업데이트 되었을때 일정에 반영 안되니까.. es맵핑부터 수정되야함.
-		esvo.setMember_picture("");
-		esvo.setMemo_picture_name(vo.getPictureName());
+		esvo.setPlan_endchk(0);
+		esvo.setPlan_like_cnt(0);
+		esvo.setCreated(vo.getCreated());
+		esvo.setUpdated(vo.getUpdated());
 
-		
-//		IndexRequest indexRequest = new IndexRequest("member", "member", Integer.toString(vo.getMemberID()));
-//        ObjectMapper om = new ObjectMapper();
-//        byte []json = om.writeValueAsBytes(esvo);
-//        indexRequest.source(json);
-//        IndexResponse r = client.index(indexRequest).actionGet();
-//        if (r.isFragment() == true) {
-//            System.out.println("Insert Document : " + esvo.getMember_name());
-//        }
+	
+		IndexRequest indexRequest = new IndexRequest("plan", "plan", Integer.toString(vo.getPlanID()));
+        ObjectMapper om = new ObjectMapper();
+        byte []json = om.writeValueAsBytes(esvo);
+        indexRequest.source(json);
+        IndexResponse r = client.index(indexRequest).actionGet();
+        if (r.isFragment() == true) {
+            System.out.println("Insert Document : " + esvo.getPlan_title());
+        }
     }
+	
+    // 일정상세의 사진이 등록될때 일정대표사진으로 업데이트 
+	@Override
+    public void updateEsPlan(String planID, String pictureName) throws Exception {	
+        UpdateRequest updateRequest = new UpdateRequest("plan", "plan", planID);
+
+        Map<String, Object> objectHashMap = new HashMap<String, Object>();
+    		objectHashMap.put("memo_picture_name", pictureName); 
+        updateRequest.doc(objectHashMap);
+        
+        UpdateResponse r = client.update(updateRequest).actionGet();
+        if (r.isFragment() == true) {
+            System.out.println("Update Document : " +planID);
+        }
+    }
+	
+	
+	// 일정삭제.
+	@Override
+	public void deleteEsPlan(String planID) throws Exception {
+        DeleteRequest deleteRequest = new DeleteRequest("plan", "plan", planID);
+        DeleteResponse r = client.delete(deleteRequest).get();
+
+        if (r.isFragment() == true) {
+            System.out.println("Delete Document : " + planID);
+        }
+	}
 }
 

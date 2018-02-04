@@ -10,13 +10,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tripster.domain.MemoVO;
+import com.tripster.persistence.EsPlanDAO;
 import com.tripster.persistence.MemoDAO;
-
+import com.tripster.persistence.PlanDetailDAO;
 @Service
 public class MemoServiceImpl implements MemoService{
 	
 	@Inject
 	private MemoDAO memoDAO;
+	@Inject  
+	private EsPlanDAO esPlanDao;
+	@Inject  
+	private PlanDetailDAO planDetailDAO;
 
 	@Transactional
 	@Override
@@ -30,7 +35,12 @@ public class MemoServiceImpl implements MemoService{
 		
 		for(String memoPictureName: files) {
 			memoDAO.addAttach(memoPictureName,planDetailID);
+			// 일정상세등록 엘라스틱서치 데이터 트랜젝션처리
+//			int planID = planDetailDAO.selectPlanID(planDetailID);
+//			esPlanDao.updateEsPlan(Integer.toString(planID) ,memoPictureName);
+		
 		}
+
 		
 	}
 

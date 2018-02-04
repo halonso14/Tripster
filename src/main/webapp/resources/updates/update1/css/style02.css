@@ -1,7 +1,8 @@
+
 div.planHeader{
 	vertical-align: middle;
-
 }
+
 ul#writer {
 	-webkit-padding-start: 0px!important;
 	list-style:none;
@@ -181,3 +182,35 @@ span.backListBtn:hover {
       max-height: 407px;
       max-width: 720px;
     } 
+span.keywordTag {
+	display:inline-block; 
+	border-radius:15px;
+	 border:1px solid #ddd; 
+	 padding:3px 7px; 
+	 margin:4px 2px;
+}
+.details-slider{
+	height:300px; 
+	overflow:hidden;
+  background-size: cover; 
+  background-position: center;	
+}
+#inner{height:334px;}
+
+
+@media (min-width:399px) and (max-width:499px){
+.details-slider{
+	height:434px; 
+	overflow:hidden;
+	  background-size: cover; 
+  background-position: center;
+	}
+#inner{height:434px;}
+}
+@media (min-width: 500px){
+.details-slider{
+height:534px; overflow:hidden;
+  background-size: cover; 
+  background-position: center;
+
+}

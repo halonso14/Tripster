@@ -55,6 +55,10 @@ public class PlanDetailDAOImpl implements PlanDetailDAO{
 		return session.selectOne(namespace+".selectPlanDetailID");
 	}
 	
-	
+	//PlanID 조회
+	@Override
+	public int selectPlanID(int planDetailID) throws Exception{
+		return session.selectOne(namespace+".selectPlanID");
+	}
 	
 }
