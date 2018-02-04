@@ -52,9 +52,8 @@ public class ContentsController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
 	//컨텐츠 상세 페이지
-	@RequestMapping(value = "/{categoryID}/{contentsID}", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public ModelAndView restaurantDetail(@PathVariable("contentsID") Integer contentsID
-										 ,@PathVariable("categoryID") Integer categoryID
+	@RequestMapping(value = "/{contentsID}", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public ModelAndView contentsDetail(@PathVariable("contentsID") Integer contentsID
 										 ,@ModelAttribute("cri") Criteria cri , Model model, HttpSession session) throws Exception {
 		try {
 			if(session.getAttribute("login") != null) {
@@ -64,50 +63,26 @@ public class ContentsController {
 				model.addAttribute("scrapList",scrapList);
 			}
 			ContentsVO vo;
+			vo = contentsService.getContentsDetail(contentsID);
 			
-			if(categoryID == 1) {
-				ModelAndView resultPage = new ModelAndView("contents/restaurantDetail");
-				vo = contentsService.getRestaurantDetail(contentsID);
-				model.addAttribute("vo", vo);
-				
-				if(!(vo.getContents().trim().equals(""))) {
-					ObjectMapper mapper = new ObjectMapper();
-					String rawData = vo.getContents();
-					String data = rawData.replaceAll("'", "\"");
-					Collection<Map<String,Object>> readValues = mapper.readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
-					Object[] dataList = readValues.toArray();
-					Map<String,String> contentsURL = (Map<String,String>)dataList[0];
-					model.addAttribute("contentsURL",contentsURL.get("url"));
-					Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
-					model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
-					Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
-					List<Object> reviewList = (List<Object>)outer.get("review");
-					model.addAttribute("reviewList",reviewList);
-				}
-				return resultPage;
-				
-			}else {
-				ModelAndView resultPage = new ModelAndView("contents/placeDetail");
-				vo = contentsService.getPlaceDetail(contentsID);
-				model.addAttribute("vo", vo);
-				
-				if(!(vo.getContents().trim().equals(""))) {
-					ObjectMapper mapper = new ObjectMapper();
-					String rawData = vo.getContents();
-					String data = rawData.replaceAll("'", "\"");
-					Collection<Map<String,Object>> readValues = mapper.readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
-					Object[] dataList = readValues.toArray();
-					Map<String,String> contentsURL = (Map<String,String>)dataList[0];
-					model.addAttribute("contentsURL",contentsURL.get("url"));
-					Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
-					model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
-					Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
-					List<Object> reviewList = (List<Object>)outer.get("review");
-					model.addAttribute("reviewList",reviewList);
-				}
-				return resultPage;
+			ModelAndView resultPage = new ModelAndView("contents/contentsDetail");
+			model.addAttribute("vo", vo);
+			
+			if(!(vo.getContents().trim().equals(""))) {
+				ObjectMapper mapper = new ObjectMapper();
+				String rawData = vo.getContents();
+				String data = rawData.replaceAll("'", "\"");
+				Collection<Map<String,Object>> readValues = mapper.readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
+				Object[] dataList = readValues.toArray();
+				Map<String,String> contentsURL = (Map<String,String>)dataList[0];
+				model.addAttribute("contentsURL",contentsURL.get("url"));
+				Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
+				model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
+				Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
+				List<Object> reviewList = (List<Object>)outer.get("review");
+				model.addAttribute("reviewList",reviewList);
 			}
-			
+			return resultPage;
 			
 		}catch (JsonGenerationException e) { 
 			e.printStackTrace(); 
@@ -118,46 +93,6 @@ public class ContentsController {
 		}
 		
 		return new ModelAndView("/");
-	}
-	
-	//리뷰 리스트 페이지, 컨텐츠 상세 페이지 내부에서 조회
-	//@PathVariable로 변수를 받아서 사용
-	@RequestMapping(value = "/review/{contentsID}/{curPage}", method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> contentsReviewList(
-			@PathVariable("contentsID") Integer contentsID,
-			@PathVariable("curPage") Integer curPage) {
-		ResponseEntity<Map<String, Object>> entity = null;
-			
-		try {
-			//댓글 리스트 정보를 전달하기 위해, Criteria 객체 생성
-			Criteria cri = new Criteria();
-			//현재 댓글 페이지 정보 저장
-			cri.setCurPage(curPage);
-			
-			//페이지 정보를 전달하기 위해, PageMaker 객체 생성
-			PageMaker pageMaker = new PageMaker(); 
-			pageMaker.setCri(cri);
-			
-			//Map 객체 저장
-			Map<String, Object> map = new HashMap<String, Object>();
-			//ResponsEntity 객체에 담을 댓글 리스트 정보 저장
-			List<ContentsReviewVO> list = contentsReviewService.getReviewList(contentsID, cri);
-			map.put("list", list);
-			logger.info("list: " + list.toString());
-			//ResponsEntity 객체에 담을 페이지 정보 저장
-			int reviewCount = contentsReviewService.getTotalReviewNum(contentsID);
-			pageMaker.setTotalCount(reviewCount);
-			map.put("pageMaker", pageMaker);
-			//View로 전달할 ResponsEntity 객체 생성 + 정보 전달 
-			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-			//오류 발생 시, BAR_REQUEST 상태 입력
-			entity = new ResponseEntity<Map<String, Object>>(HttpStatus.BAD_REQUEST);
-		}
-		
-		return entity;
 	}
 	
 	//컨텐츠 리뷰 작성
