@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.tripster.domain.ContentsVO;
 import com.tripster.domain.Criteria;
+import com.tripster.domain.EsContentsVO;
 
 public interface ContentsDAO {
 	//맛집 상세 정보 조회
@@ -39,6 +40,12 @@ public interface ContentsDAO {
 	//컨텐츠 스크랩카운트 조회
 	public Integer getScrapCnt(Integer contentsID)throws Exception;
 	
-	//컨텐츠를 일정에 넣은 횟수 조회
-	public Integer getContentsPlan(Integer contentsID) throws Exception;
+	//검색결과 컨텐츠의 플랜 카운트 리스트 (검색 페이지에서 사용 )
+	public List<EsContentsVO> getPlanCntList() throws Exception;
+	
+	//검색결과 컨텐츠의 플랜 카운트 리스트 (검색 페이지에서 사용 )
+	public List<EsContentsVO> getReviewCntList() throws Exception;
+
+	//검색결과 컨텐츠의 스크랩 카운트 리스트(검색 페이지에서 사용 ) 
+	public List<EsContentsVO> getScrapCntList() throws Exception;
 }

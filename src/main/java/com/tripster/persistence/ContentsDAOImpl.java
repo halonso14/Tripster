@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.tripster.domain.ContentsVO;
 import com.tripster.domain.Criteria;
+import com.tripster.domain.EsContentsVO;
 
 @Repository
 public class ContentsDAOImpl implements ContentsDAO{
@@ -100,10 +101,23 @@ public class ContentsDAOImpl implements ContentsDAO{
 	public Integer getScrapCnt(Integer contentsID)throws Exception{
 		return session.selectOne(namespace+".getScrapCnt",contentsID);
 	}
+
+	//검색결과 컨텐츠의 플랜 카운트 리스트 (검색 페이지에서 사용 )
+	@Override
+	public List<EsContentsVO> getPlanCntList() throws Exception{
+		return session.selectList(namespace+".getPlanCntList");
+	}
 	
-	//컨텐츠를 일정에 넣은 횟수 조회 ( 검색 서비스에서 사용 )
-	public Integer getContentsPlan(Integer contentsID) throws Exception{
-		return session.selectOne(namespace+".getContentsPlan",contentsID);
+	//검색결과 컨텐츠의 플랜 카운트 리스트 (검색 페이지에서 사용 )
+	@Override
+	public List<EsContentsVO> getReviewCntList() throws Exception{
+		return session.selectList(namespace+".getReviewCntList");
+	}
+	
+	//검색결과 컨텐츠의 스크랩 카운트 리스트(검색 페이지에서 사용 ) 
+	@Override
+	public List<EsContentsVO> getScrapCntList() throws Exception{
+		return session.selectList(namespace+".getScrapCntList");
 	}
 
 }

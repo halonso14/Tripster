@@ -22,7 +22,7 @@ public class EsContentsDAOimpl implements EsContentsDAO {
 	@Inject
 	private EsSearchMapper namespace;
 	@Inject
-	private ContentsDAO dao;
+	private ContentsDAO contentsDAO;
     
 	// 컨텐츠 검색결과 리스트 조회
 	@Override
@@ -36,20 +36,41 @@ public class EsContentsDAOimpl implements EsContentsDAO {
 		
 		ObjectMapper om = new ObjectMapper(); 
 		om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		int index = 0;
+		List<EsContentsVO> plan = contentsDAO.getPlanCntList(); 
+		List<EsContentsVO> review = contentsDAO.getReviewCntList(); 
+		List<EsContentsVO> scrap = contentsDAO.getScrapCntList();
 		
+		int index = 0;
 		for(SearchHit hit : hits) {
 	    		String sJson = hit.getSourceAsString();
 	    		EsContentsVO contents = om.readValue(sJson, EsContentsVO.class);
 	    		result.add(contents);
-	    		int contents_review_cnt = dao.getRestaurantDetail(result.get(index).getContents_id()).getContentsReviewCnt();
-	    		int contents_scrap_cnt = dao.getRestaurantDetail(result.get(index).getContents_id()).getContentsScrapCnt();
-	    		int contents_plan_cnt = dao.getContentsPlan(result.get(index).getContents_id());
-	    		result.get(index).setContents_plan_cnt(contents_plan_cnt);
-	    		result.get(index).setContents_review_cnt(contents_review_cnt);
-	    		result.get(index).setContents_scrap_cnt(contents_scrap_cnt);
-	    		index++;
+	    		
+	    		// 일치하는 값이 없을경우 엘라스틱 디비에 있는 값이 들어옴
+	    		for(int i=0;i<plan.size();i++) {
+	    			if(result.get(index).getContents_id() == plan.get(i).getContents_id()) {
+	    				result.get(index).setContents_plan_cnt(plan.get(i).getContents_plan_cnt());
+	    				break;
+	    			}
+	    		}
+	    		
+	    		for(int i=0;i<review.size();i++) {
+	    			if(result.get(index).getContents_id() == review.get(i).getContents_id()) {
+	    				result.get(index).setContents_review_cnt(review.get(i).getContents_review_cnt());
+	    				break;
+	    			}
+	    		}
+	    		
+	    		for(int i=0;i<scrap.size();i++) {
+	    			if(result.get(index).getContents_id() == scrap.get(i).getContents_id()) {
+	    				result.get(index).setContents_scrap_cnt(scrap.get(i).getContents_scrap_cnt());
+	    				break;
+	    			}
+	    		}
+	    		
+	    		index ++;
 		}
+		
 		resultset.setContentsList(result);
 		resultset.setContentsCnt(hits.getTotalHits()); 
 		return resultset;

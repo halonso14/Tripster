@@ -174,14 +174,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   where Contents_ID = #{contentsID}
   </select>
   
-  <!-- 컨텐츠를 일정에 넣은 횟수 조회 -->
-  <select id="getContentsPlan" resultType="Integer">
+  <!-- 검색결과 컨텐츠의 플랜 카운트 리스트 (검색 페이지에서 사용 ) -->
+  <select id="getPlanCntList" resultType="EsContentsVO">
   SELECT 
-  	count(*) 
+  	Contents_ID contents_id,  
+  	count(Contents_ID) contents_plan_cnt 
   FROM 
   	tripsterdb.tbl_Plan_Detail 
-  where 
-  	Contents_ID = #{contentsID}
+  GROUP BY 
+  	Contents_ID
   </select>
   
+  <!-- 검색결과 컨텐츠의 리뷰 카운트 리스트 (검색페이지에서 사용 ) -->
+  <select id="getReviewCntList" resultType="EsContentsVO">
+   SELECT 
+   	Contents_ID contents_id, 
+   	count(Contents_ID) contents_review_cnt
+   FROM  
+   	tripsterdb.tbl_Contents_Review 
+   GROUP BY 
+   	Contents_ID;
+  </select>
+  
+  <!-- 검색결과 컨텐츠의 스크랩 카운트 리스트(검색 페이지에서 사용 ) -->
+  <select id="getScrapCntList" resultType="EsContentsVO">
+  SELECT 
+  	Contents_ID contents_id,
+  	count(Contents_ID) contents_scrap_cnt
+  FROM 
+  	tripsterdb.tbl_Scrap 
+  GROUP BY 
+  	Contents_ID;
+  </select>
+
 </mapper>

@@ -11,8 +11,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.tripster.domain.EsContentsVO;
 import com.tripster.domain.EsSearchResultVO;
-import com.tripster.domain.MemberVO;
 import com.tripster.domain.SearchCriteria;
+import com.tripster.persistence.ContentsDAO;
 import com.tripster.persistence.EsContentsDAO;
 import com.tripster.service.EsSearchService;
 
@@ -24,6 +24,8 @@ public class esSearchTest {
 	EsSearchService service;
 	@Inject
 	EsContentsDAO dao;
+	@Inject
+	ContentsDAO contentsDAO;
 	
 //	@Test
 //	public void contentsListPageTest() throws Exception{
@@ -57,7 +59,28 @@ public class esSearchTest {
 		SearchCriteria cri = new SearchCriteria();
 		cri.setKeyword("강남");
 		EsSearchResultVO searchContents = service.getContentsSearchList(cri);
-		System.out.println(searchContents.getContentsList().get(0).toString());
+//		List<EsContentsVO> scrap = contentsDAO.getScrapCntList();
+//		System.out.println("1"+searchContents.getContentsList().get(1).getContents_scrap_cnt());
+//		
+//		for(int j=0;j<searchContents.getContentsList().size();j++) {
+//			System.out.println("컨텐츠아이디:"+searchContents.getContentsList().get(j).getContents_id());
+//			for(int i=0;i<scrap.size();i++) {
+//				System.out.println("스크랩 아이디:"+scrap.get(i).getContents_id());
+//				if(searchContents.getContentsList().get(j).getContents_id() == scrap.get(i).getContents_id()) {
+//					System.out.println("j:"+j);
+//					System.out.println("i"+i);
+//					System.out.println("cnt:"+scrap.get(i).getContents_scrap_cnt());
+//					searchContents.getContentsList().get(1).setContents_scrap_cnt(scrap.get(i).getContents_scrap_cnt()+1);
+//					
+//				}
+//			}
+//		}
+//		
+//		System.out.println("2"+searchContents.getContentsList().get(1).getContents_scrap_cnt());
+		
+		
+		//System.out.println(searchContents.getContentsList().get(2).getContents_scrap_cnt());
+		System.out.println(dao.getContentsList(cri, 10).getContentsList().get(2).getContents_scrap_cnt());
 		
 	}
 
