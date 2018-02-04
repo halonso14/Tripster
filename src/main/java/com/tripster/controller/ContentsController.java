@@ -68,39 +68,44 @@ public class ContentsController {
 			
 			if(categoryID == 1) {
 				ModelAndView resultPage = new ModelAndView("contents/restaurantDetail");
-				model.addAttribute("vo",contentsService.getRestaurantDetail(contentsID));
-				
-				if(contentsID >= 60000) {
+				if(contentsService.getRestaurantDetail(contentsID) != null) {
+					model.addAttribute("vo",contentsService.getRestaurantDetail(contentsID));
 					
-					String rawData = contentsService.getRestaurantDetail(contentsID).getContents();
-					String data = rawData.replaceAll("'", "\"");
-					Collection<Map<String,Object>> readValues = new ObjectMapper().readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
-					Object[] dataList = readValues.toArray();
-					Map<String,String> contentsURL = (Map<String,String>)dataList[0];
-					model.addAttribute("contentsURL",contentsURL.get("url"));
-					Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
-					model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
-					Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
-					List<Object> reviewList = (List<Object>)outer.get("review");
-					model.addAttribute("reviewList",reviewList);
+					if(contentsService.getRestaurantDetail(contentsID).getContents().isEmpty()) {
+						String rawData = contentsService.getRestaurantDetail(contentsID).getContents();
+						String data = rawData.replaceAll("'", "\"");
+						Collection<Map<String,Object>> readValues = new ObjectMapper().readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
+						Object[] dataList = readValues.toArray();
+						Map<String,String> contentsURL = (Map<String,String>)dataList[0];
+						model.addAttribute("contentsURL",contentsURL.get("url"));
+						Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
+						model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
+						Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
+						List<Object> reviewList = (List<Object>)outer.get("review");
+						model.addAttribute("reviewList",reviewList);
+					}
 				}
-				
 				return resultPage;
+				
 			}else {
 				ModelAndView resultPage = new ModelAndView("contents/PlaceDetail");
-				model.addAttribute("vo",contentsService.getPlaceDetail(contentsID));
-				
-				String rawData = contentsService.getRestaurantDetail(contentsID).getContents();
-				String data = rawData.replaceAll("'", "\"");
-				Collection<Map<String,Object>> readValues = new ObjectMapper().readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
-				Object[] dataList = readValues.toArray();
-				Map<String,String> contentsURL = (Map<String,String>)dataList[0];
-				model.addAttribute("contentsURL",contentsURL.get("url"));
-				Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
-				model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
-				Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
-				List<Object> reviewList = (List<Object>)outer.get("review");
-				model.addAttribute("reviewList",reviewList);
+				if(contentsService.getPlaceDetail(contentsID) != null) {
+					model.addAttribute("vo",contentsService.getPlaceDetail(contentsID));
+					
+					if(contentsService.getPlaceDetail(contentsID).getContents().isEmpty()) {
+						String rawData = contentsService.getPlaceDetail(contentsID).getContents();
+						String data = rawData.replaceAll("'", "\"");
+						Collection<Map<String,Object>> readValues = new ObjectMapper().readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
+						Object[] dataList = readValues.toArray();
+						Map<String,String> contentsURL = (Map<String,String>)dataList[0];
+						model.addAttribute("contentsURL",contentsURL.get("url"));
+						Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
+						model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
+						Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
+						List<Object> reviewList = (List<Object>)outer.get("review");
+						model.addAttribute("reviewList",reviewList);
+					}
+				}
 				return resultPage;
 			}
 			
