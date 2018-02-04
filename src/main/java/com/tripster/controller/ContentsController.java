@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.elasticsearch.common.Strings;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -22,12 +24,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tripster.domain.ContentsReviewVO;
+import com.tripster.domain.ContentsVO;
 import com.tripster.domain.Criteria;
 import com.tripster.domain.MemberVO;
 import com.tripster.domain.PageMaker;
@@ -61,50 +63,47 @@ public class ContentsController {
 				List<Integer> scrapList = scrapService.scrapIdList(memberVO.getMemberID());
 				model.addAttribute("scrapList",scrapList);
 			}
-			
-			ObjectMapper mapper = new ObjectMapper();
-			
-			
+			ContentsVO vo;
 			
 			if(categoryID == 1) {
 				ModelAndView resultPage = new ModelAndView("contents/restaurantDetail");
-				if(contentsService.getRestaurantDetail(contentsID) != null) {
-					model.addAttribute("vo",contentsService.getRestaurantDetail(contentsID));
-					
-					if(contentsService.getRestaurantDetail(contentsID).getContents().isEmpty()) {
-						String rawData = contentsService.getRestaurantDetail(contentsID).getContents();
-						String data = rawData.replaceAll("'", "\"");
-						Collection<Map<String,Object>> readValues = new ObjectMapper().readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
-						Object[] dataList = readValues.toArray();
-						Map<String,String> contentsURL = (Map<String,String>)dataList[0];
-						model.addAttribute("contentsURL",contentsURL.get("url"));
-						Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
-						model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
-						Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
-						List<Object> reviewList = (List<Object>)outer.get("review");
-						model.addAttribute("reviewList",reviewList);
-					}
+				vo = contentsService.getRestaurantDetail(contentsID);
+				model.addAttribute("vo", vo);
+				
+				if(!(vo.getContents().trim().equals(""))) {
+					ObjectMapper mapper = new ObjectMapper();
+					String rawData = vo.getContents();
+					String data = rawData.replaceAll("'", "\"");
+					Collection<Map<String,Object>> readValues = mapper.readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
+					Object[] dataList = readValues.toArray();
+					Map<String,String> contentsURL = (Map<String,String>)dataList[0];
+					model.addAttribute("contentsURL",contentsURL.get("url"));
+					Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
+					model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
+					Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
+					List<Object> reviewList = (List<Object>)outer.get("review");
+					model.addAttribute("reviewList",reviewList);
 				}
 				return resultPage;
 				
 			}else {
 				ModelAndView resultPage = new ModelAndView("contents/placeDetail");
-				if(contentsService.getPlaceDetail(contentsID) != null) {
-					model.addAttribute("vo",contentsService.getPlaceDetail(contentsID));
-					
-					if(contentsService.getPlaceDetail(contentsID).getContents().isEmpty()) {
-						String rawData = contentsService.getPlaceDetail(contentsID).getContents();
-						String data = rawData.replaceAll("'", "\"");
-						Collection<Map<String,Object>> readValues = new ObjectMapper().readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
-						Object[] dataList = readValues.toArray();
-						Map<String,String> contentsURL = (Map<String,String>)dataList[0];
-						model.addAttribute("contentsURL",contentsURL.get("url"));
-						Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
-						model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
-						Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
-						List<Object> reviewList = (List<Object>)outer.get("review");
-						model.addAttribute("reviewList",reviewList);
-					}
+				vo = contentsService.getPlaceDetail(contentsID);
+				model.addAttribute("vo", vo);
+				
+				if(!(vo.getContents().trim().equals(""))) {
+					ObjectMapper mapper = new ObjectMapper();
+					String rawData = vo.getContents();
+					String data = rawData.replaceAll("'", "\"");
+					Collection<Map<String,Object>> readValues = mapper.readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
+					Object[] dataList = readValues.toArray();
+					Map<String,String> contentsURL = (Map<String,String>)dataList[0];
+					model.addAttribute("contentsURL",contentsURL.get("url"));
+					Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
+					model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
+					Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
+					List<Object> reviewList = (List<Object>)outer.get("review");
+					model.addAttribute("reviewList",reviewList);
 				}
 				return resultPage;
 			}
