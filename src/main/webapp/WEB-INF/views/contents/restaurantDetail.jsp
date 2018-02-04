@@ -438,6 +438,7 @@ $(document).ready(function() {
 	// 리뷰 등록
 	$("#writeReview").on("click",function() {
 		
+		alert("등록되었습니다");
 		var contentsReviewTitle = $("#reviewTitle").val();
 		var contentsReview = $("#reviewDetail").val();
 		
@@ -459,25 +460,27 @@ $(document).ready(function() {
 			var files = file[0];
 			
 			formData.append("file",files);
-			
-			// 파일 이름 생성 및 이미지생성 ajax
-			$.ajax({
-				url : "/uploadAjaxReview",
-				data : formData,
-				dataType : 'text',
-				processData : false,
-				contentType : false,
-				async: false,
-				type : 'post',
-				// 데이터를 보낸 후 
-				success : function(data) {
-					
-					var str = "";
-					getFileNames(data);
-					
-				}
-			});
-			
+			if(files != null){
+				// 파일 이름 생성 및 이미지생성 ajax
+				$.ajax({
+					url : "/uploadAjaxReview",
+					data : formData,
+					dataType : 'text',
+					processData : false,
+					contentType : false,
+					async: false,
+					type : 'post',
+					// 데이터를 보낸 후 
+					success : function(data) {
+						
+						var str = "";
+						getFileNames(data);
+						
+					}
+				});
+	
+			}
+						
 			// 리뷰 등록 ajax
 			$.ajax({
 				type : 'post',
@@ -497,6 +500,7 @@ $(document).ready(function() {
 				}),
 				success : function(data) {
 					// 리뷰 등록후 처음 1 페이지로 이동
+					alert("등록되었습니다");
 					getReviewList(1);
 				}
 			});

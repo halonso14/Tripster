@@ -70,17 +70,20 @@ public class ContentsController {
 				ModelAndView resultPage = new ModelAndView("contents/restaurantDetail");
 				model.addAttribute("vo",contentsService.getRestaurantDetail(contentsID));
 				
-				String rawData = contentsService.getRestaurantDetail(contentsID).getContents();
-				String data = rawData.replaceAll("'", "\"");
-				Collection<Map<String,Object>> readValues = new ObjectMapper().readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
-				Object[] dataList = readValues.toArray();
-				Map<String,String> contentsURL = (Map<String,String>)dataList[0];
-				model.addAttribute("contentsURL",contentsURL.get("url"));
-				Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
-				model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
-				Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
-				List<Object> reviewList = (List<Object>)outer.get("review");
-				model.addAttribute("reviewList",reviewList);
+				if(contentsID >= 60000) {
+					
+					String rawData = contentsService.getRestaurantDetail(contentsID).getContents();
+					String data = rawData.replaceAll("'", "\"");
+					Collection<Map<String,Object>> readValues = new ObjectMapper().readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
+					Object[] dataList = readValues.toArray();
+					Map<String,String> contentsURL = (Map<String,String>)dataList[0];
+					model.addAttribute("contentsURL",contentsURL.get("url"));
+					Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
+					model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
+					Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
+					List<Object> reviewList = (List<Object>)outer.get("review");
+					model.addAttribute("reviewList",reviewList);
+				}
 				
 				return resultPage;
 			}else {
