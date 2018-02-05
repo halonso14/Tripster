@@ -3,6 +3,7 @@ package com.tripster.persistence;
 import java.util.List;
 
 import com.tripster.domain.Criteria;
+import com.tripster.domain.EsPlanVO;
 import com.tripster.domain.PlanVO;
 
 public interface PlanDAO {
@@ -32,4 +33,7 @@ public interface PlanDAO {
 	
 	//plan thumbnail로 쓰일 사진주소가져오기 (es용)
 	public String selectthumbnail(int planID)throws Exception;
+	
+	// 좋아요 카운트 리스트
+	public List<EsPlanVO> getLikeCntList() throws Exception;
 }

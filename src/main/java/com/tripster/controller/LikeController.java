@@ -18,20 +18,23 @@ import com.tripster.domain.Criteria;
 import com.tripster.domain.MemberVO;
 import com.tripster.domain.PlanVO;
 import com.tripster.service.LikeService;
+import com.tripster.service.PlanService;
 
 @RestController
 public class LikeController {
 	
 	@Inject
 	LikeService service;
+	@Inject
+	PlanService planService;
 
 	private static final Logger loger = LoggerFactory.getLogger(ScrapModuleController.class);
 
 	// 좋아요 추가
 	@RequestMapping(value="/like/{planID}",method=RequestMethod.POST)
-	public ResponseEntity<String> like(@PathVariable("planID")Integer planID,HttpSession session ){
+	public ResponseEntity<Integer> like(@PathVariable("planID")Integer planID,HttpSession session ){
 		
-		ResponseEntity<String> entity = null;
+		ResponseEntity<Integer> entity = null;
 		
 		try {
 
@@ -39,11 +42,12 @@ public class LikeController {
 			MemberVO memberVO = (MemberVO) session.getAttribute("login"); 
 			Integer memberID = memberVO.getMemberID();
 			service.like(memberID,planID);
-			entity = new ResponseEntity<>("success",HttpStatus.OK);
+			int likeCnt = planService.readPlan(planID).getPlanLikeCnt();
+			entity = new ResponseEntity<>(likeCnt,HttpStatus.OK);
 			
 		}catch(Exception e) {
 			
-			entity = new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 			
 		return entity;
@@ -51,9 +55,9 @@ public class LikeController {
 	
 	// 좋아요 삭제
 	@RequestMapping(value="/likeDelete/{planID}",method=RequestMethod.POST)
-	public ResponseEntity<String> likeDelete(@PathVariable("planID")Integer planID,HttpSession session ){
+	public ResponseEntity<Integer> likeDelete(@PathVariable("planID")Integer planID,HttpSession session ){
 		
-		ResponseEntity<String> entity = null;
+		ResponseEntity<Integer> entity = null;
 		
 		try {
 			
@@ -61,12 +65,13 @@ public class LikeController {
 			MemberVO memberVO = (MemberVO) session.getAttribute("login"); 
 			Integer memberID = memberVO.getMemberID();
 			service.likeDelete(memberID,planID);
-			entity = new ResponseEntity<>("delete",HttpStatus.OK);
+			int likeCnt = planService.readPlan(planID).getPlanLikeCnt();
+			entity = new ResponseEntity<>(likeCnt,HttpStatus.OK);
 			
 		}catch(Exception e) {
 			
 			e.printStackTrace();
-			entity = new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			
 		}
 		

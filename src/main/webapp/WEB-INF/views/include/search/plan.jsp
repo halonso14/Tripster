@@ -32,7 +32,7 @@
 		
 		
 		<div>
-			<span class="plan-status">댓글 0 / 좋아요 ${esPlanVO.plan_like_cnt} </span>			
+			<span class="plan-status"> 좋아요 <ui id="${esPlanVO.plan_id}">${esPlanVO.plan_like_cnt}</ui> </span>			
 			<button class="btn likeButton" onmouseenter="likemouseover('${userSession.memberID }',$(this))" value="${esPlanVO.plan_id}">좋아요</button>
 			<div class="clearfix"></div>
 		</div>

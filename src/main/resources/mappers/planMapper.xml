@@ -52,5 +52,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="thumbnail" resultType="string">
 		SELECT Memo_Picture_Name FROM tbl_Memo_Picture WHERE tbl_Memo_Picture.Plan_Detail_ID IN (SELECT Plan_Detail_ID FROM tbl_Plan_Detail WHERE tbl_Plan_Detail.Plan_ID = #{planID}) LIMIT 1
 	</select>
+	
+		<!-- 좋아요 카운트 리스트 -->
+	<select id="getLikeCntList" resultType="EsPlanVO">
+	  SELECT 
+	  	Plan_ID plan_id,
+	  	count(plan_id) plan_like_cnt
+	  FROM 
+	  	tripsterdb.tbl_Like
+	  GROUP BY 
+	  	Plan_ID;
+	</select>
 
 </mapper>

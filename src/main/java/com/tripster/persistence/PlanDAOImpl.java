@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.tripster.domain.Criteria;
+import com.tripster.domain.EsPlanVO;
 import com.tripster.domain.PlanVO;
 
 @Repository
@@ -86,7 +87,14 @@ public class PlanDAOImpl implements PlanDAO{
 		return session.selectOne(namespace+".thumbnail",planID);
 	}
 	
+//////////검색 페이지 에서 사용 //////////////////////////////////////////
 	
-	
+	// 좋아요 카운트 리스트
+	@Override
+	public List<EsPlanVO> getLikeCntList() throws Exception{
+		
+		return session.selectList(namespace+".getLikeCntList");
+		
+	}	
 	
 }

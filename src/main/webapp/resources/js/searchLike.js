@@ -20,14 +20,20 @@ function likemouseover(memberID, $button){
 					$button.removeClass('unlike');
 					$button.removeClass('like');
 					$button.text('좋아요');
-					$.post("/likeDelete/"+planID);
+					$.post("/likeDelete/"+planID,function(data){
+						
+						$("ui[id="+planID+"]").html(data);
+					});
 				});
 			} else{
 				$button.unbind('mouseleave').bind('mouseleave', function() {
 				});
 				$button.unbind('click').bind('click', function() {
 					console.log("like");
-					$.post("/like/"+planID);
+					$.post("/like/"+planID,function(data){
+						
+						$("ui[id="+planID+"]").html(data);
+					});
 					$button.addClass('like');
 					$button.text('좋아요');
 				});

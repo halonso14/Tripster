@@ -1,13 +1,11 @@
 package com.tripster.persistence;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -19,15 +17,17 @@ import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import com.tripster.domain.EsMemberVO;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tripster.domain.EsPlanVO;
 import com.tripster.domain.EsSearchResultVO;
-import com.tripster.domain.MemberVO;
-import com.tripster.domain.PlanDetailVO;
 import com.tripster.domain.PlanVO;
 import com.tripster.domain.SearchCriteria;
 import com.tripster.elasticsearch.EsSearchMapper;
+import com.tripster.service.PlanService;
 
 @Repository
 public class EsPlanDAOimpl implements EsPlanDAO {
@@ -42,6 +42,8 @@ public class EsPlanDAOimpl implements EsPlanDAO {
 
 	@Inject
 	private EsSearchMapper namespace;
+	@Inject
+	private PlanDAO planDAO;
 	
 	// 일정 검색결과 리스트 조회
 	@Override
@@ -56,10 +58,24 @@ public class EsPlanDAOimpl implements EsPlanDAO {
 		ObjectMapper om = new ObjectMapper(); 
 		om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
+		List<EsPlanVO> likeCntList = planDAO.getLikeCntList();
+		
+		int index = 0;
 		for(SearchHit hit : hits) {
 	    		String sJson = hit.getSourceAsString();
 	    		EsPlanVO plan = om.readValue(sJson, EsPlanVO.class);
 	    		result.add(plan);
+	    		
+	    		// 일치하는 값이 없을경우 엘라스틱 디비에 있는 값이 들어옴
+	    		for(int i=0;i<likeCntList.size();i++) {
+	    			if(result.get(index).getPlan_id() == likeCntList.get(i).getPlan_id()) {
+	    				result.get(index).setPlan_like_cnt((likeCntList.get(i).getPlan_like_cnt()));
+	    				break;
+	    			}
+	    		}
+	    		
+	    		index ++;
+	    		
 		}
 		
 		resultset.setPlanList(result); 

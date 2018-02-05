@@ -90,5 +90,10 @@ public class LikeDAOTest {
 //		System.out.println(list.toString());
 //		
 //	}
+	
+	@Test
+	public void test() throws Exception{
+		System.out.println(planDAO.selectPlan(166).getPlanLikeCnt());
+	}
 
 }
