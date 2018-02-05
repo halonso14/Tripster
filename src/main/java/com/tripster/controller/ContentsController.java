@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tripster.domain.ContentsReviewVO;
@@ -72,9 +73,16 @@ public class ContentsController {
 
 			if(!(vo.getContents().trim().equals(""))) {
 				ObjectMapper mapper = new ObjectMapper();
+				mapper.enable(DeserializationFeature.UNWRAP_ROOT_VALUE);
+
+				
 				String rawData = vo.getContents();
-				String data = rawData.replaceAll("'", "\"");
-				Collection<Map<String,Object>> readValues = mapper.readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
+				System.out.println(rawData);
+				String data = rawData.replaceAll("'", "\"").replaceAll("’", "\"").replaceAll("‘", "\"").replaceAll("\" ", "\"");
+				System.out.println(data);
+				
+//				Collection<Map<String,Object>> readValues = mapper.readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
+				List<Map<String,Object>> readValues =  mapper.readValue(data, new TypeReference<List<Map<String,Object>>>(){});
 				Object[] dataList = readValues.toArray();
 				Map<String,String> contentsURL = (Map<String,String>)dataList[0];
 				model.addAttribute("contentsURL",contentsURL.get("url"));
