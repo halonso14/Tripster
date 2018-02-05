@@ -230,7 +230,64 @@ var chartMap2 = AmCharts.makeChart( "chartdiv_rcm", {
   "dataProvider": {
     "map": "worldLow",
     "getAreasFromMap": true,
-    "areas": []
+    "areas": [
+    {
+	      "id": "AE",
+	      "color": "#82d7cd"
+	    },
+	    {
+		      "id": "AU",
+		      "color": "#82d7cd"
+		 },
+		 {
+		      "id": "BR",
+		      "color": "#82d7cd"
+		 },
+		 {
+		      "id": "CA",
+		      "color": "#82d7cd"
+		  },
+		  {
+		      "id": "CN",
+		      "color": "#82d7cd"
+		  },
+		  {
+		      "id": "DE",
+		      "color": "#82d7cd"
+		  },
+		  {
+		      "id": "FR",
+		      "color": "#82d7cd"
+		  },
+		  {
+		      "id": "ID",
+		      "color": "#82d7cd"
+		  },
+		  {
+		      "id": "IN",
+		      "color": "#ef2929"
+		  },
+		  {
+		      "id": "IT",
+		      "color": "#82d7cd"
+		  },
+		  {
+		      "id": "JP",
+		      "color": "#82d7cd"
+		  },
+		  {
+		      "id": "KR",
+		      "color": "#82d7cd"
+		  },
+		  {
+		      "id": "VN",
+		      "color": "#82d7cd"
+		  },
+		  {
+		      "id": "US",
+		      "color": "#82d7cd"
+		  }
+    ]
   },
   "areasSettings": {
     "autoZoom": true,
@@ -266,11 +323,24 @@ var chartMap2 = AmCharts.makeChart( "chartdiv_rcm", {
 		    	console.log();		
 	    			//사용자가 선택한 국가iso 저장
 		    	selected_country_list.push(event.mapObject.id);
-		    	event.mapObject.color = "#D01781";//분홍색
+		    	//event.mapObject.color = "#D01781";//분홍색
+		    	
+		    	// update color in data
+		    	var area  = chartMap2.getObjectById(event.mapObject.id);
+		    	area.color = "#D01781";//분홍색
+		    	area.colorReal = area.color;
+		    	area.validate();
 		    	
 	    	}else{
 	    			//이미 저장되어 있으면 삭제
 	    		selected_country_list.splice(index,1);
+	    		// update color in data
+		    	var area  = chartMap2.getObjectById(event.mapObject.id);
+		    	area.color = "#0bff85";//분홍색
+		    	area.colorReal = area.color;
+		    	area.validate();
+		    	
+	    		
 	    	}
     	
 	    	
