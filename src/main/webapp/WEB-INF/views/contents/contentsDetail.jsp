@@ -492,23 +492,27 @@ $(document).ready(function() {
 			
 			formData.append("file",files);
 			
-			// 파일 이름 생성 및 이미지생성 ajax
-			$.ajax({
-				url : "/uploadAjaxReview",
-				data : formData,
-				dataType : 'text',
-				processData : false,
-				contentType : false,
-				async: false,
-				type : 'post',
-				// 데이터를 보낸 후 
-				success : function(data) {
-					
-					var str = "";
-					getFileNames(data);
-					
-				}
-			});
+			if(files != null){
+				// 파일 이름 생성 및 이미지생성 ajax
+				$.ajax({
+					url : "/uploadAjaxReview",
+					data : formData,
+					dataType : 'text',
+					processData : false,
+					contentType : false,
+					async: false,
+					type : 'post',
+					// 데이터를 보낸 후 
+					success : function(data) {
+						
+						var str = "";
+						getFileNames(data);
+						
+					}
+				});
+				
+			}
+			
 			
 			// 리뷰 등록 ajax
 			$.ajax({
