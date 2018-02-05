@@ -141,6 +141,7 @@
 				<div class="col-md-12 " style="padding:40px;">
 					<button class="btn scrapButton " value="${vo.contentsID}" onmouseenter="scrapmouseover('${userSession.memberID }',$(this))" rel="6" style="width:100%; ">스크랩</button>
 				</div>
+				
 				<script>
 					var scrapbtn = $("button[value="+${vo.contentsID}+"]");
 					var session = ${empty userSession };
@@ -291,7 +292,7 @@ $(document).ready(function() {
 	
 	var scrapCheck = "${scrapCheck}";
 	
-	var fileNames = new Array;
+	var fileNames = "";
 	
 	var contentsReviewRating = 0;
 	
@@ -312,10 +313,10 @@ $(document).ready(function() {
 				var name = "";
 				// 회원 사진
 				var profile = "<img src='/displayFile?fileName="+ this.memberPictureName+ "&directory='profile' style='width: 52px;height:  52px;' class='circleimg' alt=''/>";
-				
+				var viewImage ="";
 				if(memberID == this.memberID) {
 					tmp +=  " <div style='margin-bottom: 10px;'>"
-						+ "		<button class='btn-search4 right modify' id='"+this.contentsReviewID+"' value=1>Modify</button>"
+						+ "		<button class='btn-search4 right modify' id='"+this.contentsReviewID+"' filename="+this.reviewPictureName+" value=1>Modify</button>"
 						+ "     <button class='btn-search4 right delete' id='"+this.contentsReviewID+"' value=1>delete</button>"
 						+ "		<div class='clearfix'></div>"
 						+ "</div>"
@@ -336,6 +337,10 @@ $(document).ready(function() {
 					profile = "<img src='/resources/images/user-avatar.jpg' class='circleimg' alt=''/>";
 				}
 				
+				// 등록된 사진이 있을 경우
+				if(this.reviewPictureName){
+					viewImage = " 			<div id='getImage' value="+this.contentsReviewID+">"+getImage(this.reviewPictureName,this.contentsReviewID)+"</div>" ;
+				}
 				
 				var d = new Date(this.updatedDate);
 				var dformat = [d.getFullYear(),(d.getMonth() + 1).padLeft(), ].join('/')+ ' '+ [d.getHours().padLeft(),d.getMinutes().padLeft(),d.getSeconds().padLeft() ].join(':');
@@ -373,7 +378,7 @@ $(document).ready(function() {
 					+ "			<p data-contentsReviewID='"+this.contentsReviewID+"' class='"+this.contentsReviewID+"'>"
 					+ this.contentsReview
 					+ "</p>"
-					+ " 			<div id='getImage'>"+getImage(this.reviewPictureName)+"</div>" 
+					+ viewImage
 					+ "		</div>"
 					+ "	</div>";
 					
@@ -387,7 +392,7 @@ $(document).ready(function() {
 			// 초기화후 업로드 박스 제거
 			$('.uploadList').removeAttr('style');
 			// 리뷰 등록시 업로드했던 파일 이름 제거
-			fileNames = new Array;
+			fileNames = "";
 			// 페이징 처리
 			printPaging(data.pageMaker);
 		});
@@ -480,7 +485,14 @@ $(document).ready(function() {
 				});
 	
 			}
-						
+			
+			console.log(contentsID);
+			console.log(memberID);
+			console.log(memberName);
+			console.log(contentsReviewTitle);
+			console.log(contentsReview);
+			console.log(contentsReviewRating);
+			console.log(fileNames);
 			// 리뷰 등록 ajax
 			$.ajax({
 				type : 'post',
@@ -504,6 +516,7 @@ $(document).ready(function() {
 					getReviewList(1);
 				}
 			});
+			
 			// 등록 후 리뷰 텍스트 내용 초기화
 			$("#reviewTitle").val("리뷰 제목을 입력해주세요");
 			$("#reviewDetail").val("");
@@ -519,6 +532,8 @@ $(document).ready(function() {
 		var contentsReviewID = $(this).attr('id');
 		var modifyTitle = $("span[contentsreviewid="+contentsReviewID+"]").text();
 		var modifyContents = $("p[data-contentsreviewid="+contentsReviewID+"]").text();
+		var fileNameLocal = "";
+		
 		if (this.value == 1) {
 			// 수정 텍스트 출력
 			$(this).attr('value', 0);
@@ -528,6 +543,10 @@ $(document).ready(function() {
 			// 내용 수정
 			var str2 = "<textarea id='textarea2' cols=" + 30 + "rows=" + 10 + ">"+modifyContents+"</textarea>";
 			$('.'+ contentsReviewID).html(str2);
+			// 이미지 수정
+			var image = "<a><small filename="+$(this).attr("filename")+" reviewID="+contentsReviewID+">x</small></a>";
+			$("li[imgID="+contentsReviewID+"]").append(image);
+			
 			
 		} else {
 			// 수정 내용 저장
@@ -540,6 +559,37 @@ $(document).ready(function() {
 			}else{
 				$(this).attr('value', 1);
 				alert("리뷰 수정");
+				
+				var formData = new FormData();
+				var file = $("input[name=upload]")[0].files;
+				// 가져온 파일을 저장
+				var files = file[0];
+				
+				formData.append("file",files);
+				
+				if(files != null){
+					// 파일 이름 생성 및 이미지생성 ajax
+					$.ajax({
+						url : "/uploadAjaxReview",
+						data : formData,
+						dataType : 'text',
+						processData : false,
+						contentType : false,
+						async: false,
+						type : 'post',
+						// 데이터를 보낸 후 
+						success : function(data) {
+							alert(data);
+							var str = "";
+							fileNameLocal = data;
+							console.log(fileNameLocal);
+						}
+					});
+		
+				}
+				
+				console.log(fileNameLocal);
+				
 				// 수정 내용 전달
 				$.ajax({
 					type : 'put',
@@ -551,8 +601,10 @@ $(document).ready(function() {
 					dataType : 'text',
 					data : JSON.stringify({
 						contentsID : contentsID,
+						contentsReviewID : contentsReviewID,
 						memberID : memberID,
 						contentsReview : modify,
+						reviewPictureName : fileNameLocal,
 						contentsReviewTitle : titleModify
 					}),
 					success : function(result) {
@@ -581,64 +633,77 @@ $(document).ready(function() {
 			success : function(result) {
 				alert("삭제되었습니다");
 				// 리뷰 등록후 처음 1 페이지로 이동
-				getReviewList(1);;
+				getReviewList(1);
 			}
 		});
 	})
 	
-	// 업로드 버튼을 누른경우 css 적용
-	$('#uploadBtn').on('click', function() {
-		if(memberID == ""){
-			alert("로그인 후 이용해 주세요");
-			return ;
-		}
-		$('.uploadList').css({
-			'width' : '100%',
-			'height' : '200px',
-			'border' : '1px dotted blue',
-			'overflow' : 'scroll'
-		});
-	});
-	
-	// 리뷰 아이디를 받아 이미지 생성 
-	function getImage(reviewPictureName) {
-		var fileList = new Array;
-		var str = "";
-		fileList = reviewPictureName;
-		// 받은 파일 이름들로 이미지 추가
-		for (var i = 0; i < fileList.length; i++) {
-			// 확장자 검사
-			if (checkImageType(fileList[i])) {
-				// 이미지 파일일 경우 썸네일 생성
-				str = str
-						+ "<li>"
-						// 썸네일 생성
-						+ "<img src='/displayFile?fileName="
-						+ fileList[i]
-						+ "&directory=review' style='width:320px;'/>"
-						+ "</li>";
-			} else {
-				// 이미지 파일이 아닐경우 다운로드
-				str = str
-						+ "<li><a href='/displayFile?fileName="
-						+ fileList[i]
-						+ "&directory=review'>"
-						+ getOriginalName(fileList[i])
-						+ "</a></li>";
+	// 리뷰 이미지 삭제
+	$('#reviewList').on('click','small',function() {
+		
+		alert($(this).attr('filename'));
+		// 파일이름
+		var filename = $(this).attr('filename');
+		var reviewID = $(this).attr("reviewID");
+		
+		$.ajax({
+			url: "/deleteFile",
+			type:"post",
+			data:{fileName:filename, directory:"review"},
+			dataType:"text",
+			success:function(result){
+				alert(result);
+				$("li[imgid="+reviewID+"]").remove();
+				var upload = "<input type='file' name='upload'/>";
+				
+				$("div[value="+reviewID+"]").html(upload);
+				
 			}
+		});
+		
+		
+	})
+
+	// 리뷰 아이디를 받아 이미지 생성 
+	function getImage(reviewPictureName,contentsReviewID) {
+		var str = "";
+		
+		if(reviewPictureName == null){
+			return "";
 		}
+		
+		// 확장자 검사
+		if (checkImageType(reviewPictureName)) {
+			// 이미지 파일일 경우 썸네일 생성
+			str = str
+					+ "<li imgID="+contentsReviewID+">"
+					// 썸네일 생성
+					+ "<img src='/displayFile?fileName="
+					+ reviewPictureName
+					+ "&directory=review' style='width:320px;'/>"
+					+ "</li>";
+		} else {
+			// 이미지 파일이 아닐경우 다운로드
+			str = str
+					+ "<li imgID="+contentsReviewID+"><a href='/displayFile?fileName="
+					+ reviewPictureName
+					+ "&directory=review'>"
+					+ getOriginalName(reviewPictureName)
+					+ "</a></li>";
+		}
+		
 		return str;
 	}
 	
 	function getFileNames(data) {
-	
-		fileNames.push(data);
+		fileNames = data;
 	}
 	
 	
 	
 	// 확장자 체크
 	function checkImageType(fileName) {
+		console.log(fileName);
 		var pattern = /jpg$|gif$|png$|jpeg$/i;
 		// 이미지 확장자일 경우 true 리턴
 		return fileName.match(pattern);

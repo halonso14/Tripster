@@ -7,6 +7,7 @@ public class ScrapVO {
 	private int scrapID;
 	private int memberID;
 	private int categoryID;
+	
 	public int getRating() {
 		return rating;
 	}

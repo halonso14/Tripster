@@ -28,5 +28,5 @@ public interface ContentsReviewDAO {
 	public void registReviewPicture(String fileName) throws Exception;
 	
 	// 파일 이름 조회
-	public List<String> getFileNames(Integer reviewID) throws Exception;
+	public String getFileNames(Integer reviewID) throws Exception;
 }

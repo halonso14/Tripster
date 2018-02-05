@@ -31,12 +31,10 @@ public class ContentsReviewServiceImpl implements ContentsReviewService {
 	public void writeReview(ContentsReviewVO vo) throws Exception {
 		
 		dao.write(vo);
-		contentsDao.updateReviewCnt(vo.getContentsID(), 1);
-		
-		// 파일 이름 저장
-		for(int i=0;i<vo.getReviewPictureName().size();i++) {
-			dao.registReviewPicture(vo.getReviewPictureName().get(i));
+		if(vo.getReviewPictureName() != null) {
+			dao.registReviewPicture(vo.getReviewPictureName());
 		}
+		contentsDao.updateReviewCnt(vo.getContentsID(), 1);
 		
 	}
 
@@ -61,9 +59,8 @@ public class ContentsReviewServiceImpl implements ContentsReviewService {
 		// 리뷰 리스트의 리뷰에 첨부파일 이름 넣기
 		for(int i=0;i<list.size();i++) {
 			// 리뷰리스트에 있는 리뷰의 첨부파일리스트 이름 저장
-			List<String> str = dao.getFileNames(list.get(i).getContentsReviewID());
+			String str = dao.getFileNames(list.get(i).getContentsReviewID());
 			MemberVO memberVO = memberDao.mypage(list.get(i).getMemberID());
-			// 첨부파일 리스트 이름을 각 리뷰객체에 저장
 			list.get(i).setReviewPictureName(str);
 			list.get(i).setMemberPictureName(memberVO.getMemberPicture());
 		}
@@ -78,7 +75,7 @@ public class ContentsReviewServiceImpl implements ContentsReviewService {
 	
 	//리뷰 아이디를 받아 파일 이름 조회
 	@Override
-	public List<String> getFileNames(Integer reviewID) throws Exception{
+	public String getFileNames(Integer reviewID) throws Exception{
 		return dao.getFileNames(reviewID);
 	}
 	

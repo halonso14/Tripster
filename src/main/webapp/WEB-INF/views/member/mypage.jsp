@@ -737,8 +737,7 @@ left: 254px;
 					  </div>
 
 					  <!-- END OF TAB 4 -->	
-					  
-					  
+						  
 					  <!-- TAB 5 -->					  
 					  <div class="tab-pane" id="scrapList">
 				
@@ -859,6 +858,7 @@ left: 254px;
 
 					  </div>
 					  <!-- END OF TAB 5 -->	
+					  
 					  
 					  <!-- TAB 6 -->
 					  <div class="tab-pane" id="password">

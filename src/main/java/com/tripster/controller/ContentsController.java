@@ -62,6 +62,7 @@ public class ContentsController {
 				model.addAttribute("memberVO",memberVO);
 				List<Integer> scrapIdList = scrapService.scrapIdList(memberVO.getMemberID());
 				model.addAttribute("scrapIdList",scrapIdList);
+
 			}
 			ContentsVO vo;
 			vo = contentsService.getContentsDetail(contentsID);
@@ -105,6 +106,7 @@ public class ContentsController {
 		System.out.println("contentsReviewVO="+vo.toString());
 		try {
 			
+			System.out.println("vo: "+vo.toString());
 			//PathVariable 활용, 해당 맛집의 리뷰 저장
 			vo.setContentsID(contentsID);
 			contentsReviewService.writeReview(vo);
