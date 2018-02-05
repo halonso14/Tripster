@@ -32,7 +32,7 @@ public class EsSearchMapper {
             "contents_title", "contents_keyword", "contents_contents"		
     		);
         SearchResponse response = client
-        			.prepareSearch("contents").setTypes("contents") 	// 검색할 테이블 
+        			.prepareSearch("contents2").setTypes("contents2") 	// 검색할 테이블 
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH).setQuery(qb)
                 .setSize(size).get();	// 가져올 검색결과 갯수 
         return response;
