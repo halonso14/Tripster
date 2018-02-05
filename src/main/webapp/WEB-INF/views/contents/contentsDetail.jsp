@@ -173,30 +173,41 @@
 					<div class="tab-content4">
 						<!-- TAB1 -->
 						<div id="detail" class="tab-pane fade active in " data->
-						 	<c:set var="reviewList" value="${reviewList}" />
+							
+							<p class="detailTitle"><b>상세정보</b></p>
+							<p class="detailContents"> 
+								<span>주소 :</span>  ${vo.location} <br>
+								<span>전화번호 :</span>   ${vo.tel} <br>
+								<span>운영시간 :</span> ${vo.time} 
+							</p>
+							
+							
+							<p class="detailTitle"><b>외부링크</b></p>
+							<p class="detailContents"> 
+								<span>구글지도 컨텐츠 보기 :</span>  ${contentsURL}<br>
+								<span>홈페이지 보기 :</span> ${contentsHomePage}
+							</p>
 
-						 	${fn:replace(reviewList,'[{','')}
-
-						 	<div>${contentsURL}</div>
-						 	<div>${contentsHomePage}</div>
-						 	<div>${contentsHomePage}</div>
-						 	
-						 	<p>구글리뷰 ${fn:length(reviewList)} </p>
-						 	
-						 	
-						 	<ul class="googleReiview ">
-							<c:forEach items="${reviewList}" var="reviews" >
-							 	<li class="col-md-6">
-							 		<span>${reviewList}</span>
-						 		</li>
-							</c:forEach>
-
-
-						 	
-
-						
-								
-							</ul>
+	
+						 	<p class="detailTitle"><b>구글리뷰 ${fn:length(review)}건 </b></p>
+						 	<div class="googleReiview ">
+								<c:forEach items="${reviewList}" var="reviewList" varStatus="status">
+								 	<div class="col-md-6">
+								 		<div class="inner">
+								 			<div class=" col-md-2">
+									 			<span class="reviewProfile" style="background-image:url(${reviewList['thumbnail']})"></span> 
+							 					<span class="reviewAuthor"><c:out value="${reviewList['author']}"/></span>						 			
+								 			</div>
+								 			<div class=" col-md-10">
+									 			<img src="/resources/images/bigrating-${reviewList['rating']}.png"/><br><br>
+							 					<span class="reviewComment"><c:out value="${reviewList['comment']}"/></span>						 			
+								 			</div>	
+								 			<div class="clearfix"></div>
+										</div>
+									</div>
+								 	<div class="clearfix"></div>	
+								</c:forEach>
+							</div>
 						</div>
 						
 						<!-- 리뷰 리스트 조회 -->

@@ -81,8 +81,14 @@ public class ContentsController {
 				Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
 				model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
 				Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
-				List<Object> reviewList = (List<Object>)outer.get("review");
-				System.out.println(reviewList);
+				List<Object> review = (List<Object>)outer.get("review");
+				model.addAttribute("review",review);
+				System.out.println(review);
+				
+				Object[] reviewList= new Object[review.size()];
+				for(int i=0; i<review.size(); i++) {
+					reviewList[i] = (Map<String,String>)review.get(i);
+				}
 				model.addAttribute("reviewList",reviewList);
 			}
 			return resultPage;
