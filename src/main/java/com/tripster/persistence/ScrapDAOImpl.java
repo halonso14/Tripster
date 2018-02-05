@@ -43,6 +43,15 @@ public class ScrapDAOImpl implements ScrapDAO {
 		return session.selectList(namespace + ".listAll",memberID);
 	}
 	
+	// 카테고리별 스크랩 리스트 조회
+	@Override
+	public List<ScrapVO> listByCategory(Integer memberID, Integer categoryID) throws Exception {
+		Map<String,Integer> map = new HashMap<>();
+		map.put("memberID", memberID);
+		map.put("categoryID", categoryID);
+		return session.selectList(namespace + ".listByCategory",map);
+	}
+	
 	// 컨텐츠에서 스크랩 삭제
 	@Override
 	public void scrapIDRemove(Integer contentsID) throws Exception{

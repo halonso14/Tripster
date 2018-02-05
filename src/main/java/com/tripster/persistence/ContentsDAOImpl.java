@@ -23,26 +23,10 @@ public class ContentsDAOImpl implements ContentsDAO{
 	
 	//컨텐츠 상세 정보 조회
 	@Override
-	public ContentsVO getRestaurantDetail(Integer contentsID) throws Exception {
+	public ContentsVO getContentsDetail(Integer contentsID) throws Exception {
 		//쿼리 결과 반환
-		return session.selectOne(namespace + ".getRestaurantDetail", contentsID);
+		return session.selectOne(namespace + ".getContentsDetail", contentsID);
 	}
-	
-	@Override
-	public ContentsVO getPlaceDetail(Integer contentsID) throws Exception {
-		//쿼리 결과 반환
-		return session.selectOne(namespace + ".getPlaceDetail", contentsID);
-	}
-	
-	//맛집 리스트 조회
-	public List<ContentsVO> getRestaurantList(Criteria cri) throws Exception {
-		return session.selectList(namespace + ".getRestaurantList", cri);
-	};
-	
-	//관광지 리스트 조회
-	public List<ContentsVO> getPlaceList(Criteria cri) throws Exception {
-		return session.selectList(namespace + ".getPlaceList", cri);
-	};
 	
 	//총 맛집 정보 개수 조회
 	@Override

@@ -51,7 +51,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			
 	from tbl_Scrap
 	
-	where Member_ID = #{memberID}
+	where Member_ID = #{memberID} 
+
+</select>
+
+<!-- 카테고리별 스크랩 리스트 조회 -->
+<select id="listByCategory" resultType="com.tripster.domain.ScrapVO">
+	select
+			 Scrap_ID scrapID
+			,Member_ID memberID
+			,Category_ID categoryID
+			,Contents_ID contentsID
+			,Contents_Title contentsTitle
+			,Contents_Thumbnail contentsPhoto
+			,Created created
+			
+	from tbl_Scrap
+	
+	where Member_ID = #{memberID} and Category_ID = #{categoryID} 
 
 </select>
 

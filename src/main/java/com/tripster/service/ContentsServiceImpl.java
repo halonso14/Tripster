@@ -17,35 +17,15 @@ public class ContentsServiceImpl implements ContentsService {
 	@Inject 
 	private ContentsDAO dao;
 	
-	//맛집 상세 정보 조회
-	@Override
-	public ContentsVO getRestaurantDetail(Integer contentsID) throws Exception {
-		//조회수 추가
-		dao.updateViewCnt(contentsID);
-		return dao.getRestaurantDetail(contentsID);
-	}
-	
-	//관광지 상세 정보 조회
+	//컨텐츠 상세 정보 조회
 	@Transactional
 	@Override
-	public ContentsVO getPlaceDetail(Integer contentsID) throws Exception {
+	public ContentsVO getContentsDetail(Integer contentsID) throws Exception {
 		//조회수 추가
 		dao.updateViewCnt(contentsID);
-		return dao.getPlaceDetail(contentsID);
+		return dao.getContentsDetail(contentsID);
 	}
-	
-	//맛집 리스트 조회
-	@Override
-	public List<ContentsVO> getRestaurantList(Criteria cri) throws Exception {
-		return dao.getRestaurantList(cri);
-	}
-	
-	//관광지 리스트 조회
-	@Override
-	public List<ContentsVO> getPlaceList(Criteria cri) throws Exception {
-		return dao.getPlaceList(cri);
-	}
-	
+
 	//총 맛집 개수 조회
 	@Override
 	public int getTotalRestaurantNum(Criteria cri) throws Exception {
