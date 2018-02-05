@@ -214,3 +214,24 @@ height:534px; overflow:hidden;
   background-position: center;
 
 }
+
+div#detail{
+	padding:20px
+}
+.googleReiview{
+	padding:0;
+}
+.googleReiview > li {
+	padding:10px;
+}
+.googleReiview > li > span{
+	display:block;
+	background:#fff;
+	box-shadow: 2px 2px 4px #ccc ;
+	border:1px solid #ddd; 
+	border-radius:5px;
+	padding: 20px;
+	margin:10px
+}
+
+

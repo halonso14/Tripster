@@ -172,12 +172,31 @@
 						</ul>
 					<div class="tab-content4">
 						<!-- TAB1 -->
-						<div id="detail" class="tab-pane fade active in" data->
-						 
+						<div id="detail" class="tab-pane fade active in " data->
+						 	<c:set var="reviewList" value="${reviewList}" />
+
+						 	${fn:replace(reviewList,'[{','')}
+
 						 	<div>${contentsURL}</div>
 						 	<div>${contentsHomePage}</div>
-						 	<div>${reviewList}</div>
+						 	<div>${contentsHomePage}</div>
+						 	
+						 	<p>구글리뷰 ${fn:length(reviewList)} </p>
+						 	
+						 	
+						 	<ul class="googleReiview ">
+							<c:forEach items="${reviewList}" var="reviews" >
+							 	<li class="col-md-6">
+							 		<span>${reviewList}</span>
+						 		</li>
+							</c:forEach>
+
+
+						 	
+
 						
+								
+							</ul>
 						</div>
 						
 						<!-- 리뷰 리스트 조회 -->
