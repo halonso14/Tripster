@@ -135,7 +135,7 @@ $(".submit").click(function(){
     }
 
     console.log(JSON.stringify(data));
-    alert(JSON.stringify(data));
+    //alert(JSON.stringify(data));
     
     $.ajax({
         url: rcm_url+"research/"+memberID+"/insert",

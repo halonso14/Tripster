@@ -70,7 +70,7 @@
    
     <fieldset>
         <h2 class="fs-title">즐거운 추억이 있는 나라와 도시를 선택해주세요!</h2>
-		<h3 class="fs-subtitle"> 인상깊었던 여행지를 눌러주세요.(붉은 지역은 방문 도시도 선택 가능) </h3>
+		<h3 class="fs-subtitle"> 인상깊었던 여행지를 눌러주세요.(민트색 지역은 방문 도시도 선택 가능) </h3>
 		<h3 class="fs-subtitle"> 확대해서 추억이 있는 도시를 찾을 수 있어요! </h3>
 		<div class="container">
 			<div id="maps">

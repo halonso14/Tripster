@@ -265,7 +265,7 @@ var chartMap2 = AmCharts.makeChart( "chartdiv_rcm", {
 		  },
 		  {
 		      "id": "IN",
-		      "color": "#ef2929"
+		      "color": "#82d7cd"
 		  },
 		  {
 		      "id": "IT",

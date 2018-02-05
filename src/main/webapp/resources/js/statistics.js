@@ -725,7 +725,7 @@ window.initGoogleMap=function(data) {
 			    infowindow.open(gmap, marker_list[i]);
         			//국가/도시정보 세팅
             	$('#fligh_price_ymmu').html('KRW '+city_from_data[i].flight_price);
-            	$('#airport_ymmu').html(city_from_data[i].airport+'<br/>');
+            	//$('#airport_ymmu').html(city_from_data[i].airport+'<br/>');
             	var safe_desc = '이 도시는 ';
 	           	if(city_from_data[i].safe == 3){
 	           			safe_desc += '안전한 편입니다. 국가에 따라 다르나, 늦은밤 외출을 자제하고, 고가의 소지품을 주의하세요. 외진 곳, 관광객이 많지 않은 곳은 혼자서 다니지 않습니다.';
