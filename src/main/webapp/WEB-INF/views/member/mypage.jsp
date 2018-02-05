@@ -132,7 +132,7 @@ left: 254px;
 						  Follow
 						  </a></li>
 					  <li>
-						  <a href="#scrapList" data-toggle="tab" onclick="scrapList()">
+						  <a href="#scrapList" data-toggle="tab" onclick="restaurantList()">
 						  <span class="history-icon"></span>								  
 						  Scrap
 						  </a></li>
@@ -744,8 +744,8 @@ left: 254px;
 						<div class="scrapList padding40">
 						
 							<ul class="nav nav-tabs" id="myTab">
-								<li onclick="scrapList()" class="active"><a data-toggle="tab" href="#restaurant"><span class="reviews"></span><span class="hidetext">Restaurant</span>&nbsp;</a></li>
-								<li onclick="scrapList()" class=""><a data-toggle="tab" href="#place"><span class="maps"></span><span class="hidetext">Place</span>&nbsp;</a></li>
+								<li onclick="restaurantList()" class="active"><a data-toggle="tab" href="#restaurant"><span class="reviews"></span><span class="hidetext">Restaurant</span>&nbsp;</a></li>
+								<li onclick="placeList()" class=""><a data-toggle="tab" href="#place"><span class="maps"></span><span class="hidetext">Place</span>&nbsp;</a></li>
 								
 			
 							</ul>			
@@ -761,14 +761,14 @@ left: 254px;
 									</div>		
 									
 									
-									<div class="col-md-5 offset-0" id="scrap2">
-									</div>
+									
 									
 								</div>
 								
 								<!-- TAB 2 -->
 								<div id="place" class="tab-pane fade ">
-								    
+								    <div class="col-md-5 offset-0" id="scrap2">
+									</div>
 								</div>
 								
 								<!-- 맛집 스크랩 리스트 -->
@@ -796,13 +796,13 @@ left: 254px;
 								</script>	
 								<script>
 								
-									// 스크랩 리스트 불러오기
-									function scrapList(){
+									
+									//맛집 리스트 불러오기
+									function restaurantList(){
 										
-										$.getJSON('/scraplist',function(data){
+										$.getJSON('/scraplist/1',function(data){
 											
-											var str1 = "";
-											var str2 = "";
+											var str = "";
 											function getData(list){
 												var scrapData = {
 														scrapID : list.scrapID,
@@ -818,35 +818,50 @@ left: 254px;
 												var source = $("#restaurantTemplate").html();
 												var template = Handlebars.compile(source);
 												
-												if(list.categoryID == 1){
-													if(i%2 == 0){
-														str1 += template(getData(list));
-													}else{
-														str2 += template(getData(list));
-													}
-												}else{
-													if(i%2 == 1){
-														str1 += template(getData(list));
-													}else{
-														str2 += template(getData(list));
-													}
-												}
-												
+												str += template(getData(list));
 											 });
 											 
-											 $("#scrap1").html(str1);
-											 $("#scrap2").html(str2);
+											 $("#scrap1").html(str);
 											
 										});
 										
 									}
-									
+
+									// 관광지 리스트 불러오기
+									function placeList(){
+										
+										$.getJSON('/scraplist/2',function(data){
+											var str = "";
+											function getData(list){
+												var scrapData = {
+														scrapID : list.scrapID,
+													    category : list.categoryID,
+													    title : list.contentsTitle,
+													    thumbnail : list.contentsPhoto,
+													    contentsID : list.contentsID
+												}
+												return scrapData;
+											}
+											
+											$(data).each(function(i,list){
+												var source = $("#restaurantTemplate").html();
+												var template = Handlebars.compile(source);
+												
+												str += template(getData(list));
+											 });
+											 
+											 $("#scrap2").html(str);
+											
+										});
+										
+									}
+
 									// 스크랩 삭제
 									function scrapDelete(data){
 										var scrapID = data.value;
 										$.post("/scrapIDremove/"+scrapID,function(data){
 											alert(data);
-											scrapList();
+											restaurantList();
 										})
 									}
 									
