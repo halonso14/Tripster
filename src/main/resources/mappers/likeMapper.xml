@@ -126,4 +126,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		tbl_Follow.Member_ID = tbl_Member.Member_ID and tbl_Follow.Follow_ID = #{memberID};
   </select>
   
+  <!-- 좋아요 카운트 -->
+   <update id="updateLikeCnt">
+  update
+  	tbl_Plan
+  set
+  	Plan_Like_Cnt = Plan_Like_Cnt + #{amount}
+  where
+  	Plan_ID = #{planID}
+  </update>
+  
 </mapper>

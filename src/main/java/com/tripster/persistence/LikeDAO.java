@@ -39,5 +39,8 @@ public interface LikeDAO {
 	
 	// 유저의 팔로잉 리스트 조회
 	public List<MemberVO> userFollowingList(Integer memberID, Criteria cri) throws Exception;
+	
+	// 좋아요 카운트 갱신
+	public void updateLikeCnt(Integer planID, int amount) throws Exception;
 
 }

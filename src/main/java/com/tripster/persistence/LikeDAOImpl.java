@@ -121,5 +121,16 @@ public class LikeDAOImpl implements LikeDAO {
 		return session.selectList(namespace + ".userFollowingList", paramMap);
 
 	}
+	
+	// 좋아요 카운트 갱신
+	@Override
+	public void updateLikeCnt(Integer planID, int amount) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("planID", planID);
+		paramMap.put("amount", amount);
+		
+		session.update(namespace + ".updateLikeCnt", paramMap);
+	};
 
 }
