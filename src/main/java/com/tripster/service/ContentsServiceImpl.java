@@ -18,7 +18,6 @@ public class ContentsServiceImpl implements ContentsService {
 	private ContentsDAO dao;
 	
 	//맛집 상세 정보 조회
-	@Transactional
 	@Override
 	public ContentsVO getRestaurantDetail(Integer contentsID) throws Exception {
 		//조회수 추가

@@ -18,7 +18,7 @@
 	    <!-- Button -->
 		<link href="/resources/assets/css/scrapBtn.css" rel="stylesheet" media="screen">
 		<!-- scrap -->
-		<script src="/resources/js/scrapHD.js"></script>
+		<script src="/resources/js/searchScrap.js"></script>
 		<!-- review -->
 		<!-- 
 		<script src="/resources/js/review.js"></script>
@@ -134,12 +134,12 @@
 					<p class="size14" style="padding-top:10px">${vo.rating} Stars</p>
 				</div>						
 				<div class="col-md-6 bordertype1 padding20">
-					<span class="opensans size24 grey2" style="padding-top:10px">0 Plans</span><br>
-					<p class="size14" style="padding-top:8px" id="${vo.contentsID}">${vo.contentsScrapCnt} Scraps</p>
+					<span class="opensans size24 grey2" style="padding-top:10px"> Reviews ${vo.contentsViewCnt }</span><br>
+					<p class="size14" style="padding-top:8px" id="${vo.contentsID}"><ui id="${vo.contentsID}">${vo.contentsScrapCnt}</ui> Scraps</p>
 				</div>
 				<div class="clearfix"></div>
 				<div class="col-md-12 " style="padding:40px;">
-					<button class="btn scrapButton " value="${vo.contentsID}" onmouseenter="mouseover('${userSession.memberID }',$(this))" rel="6" style="width:100%; ">스크랩</button>
+					<button class="btn scrapButton " value="${vo.contentsID}" onmouseenter="scrapmouseover('${userSession.memberID }',$(this))" rel="6" style="width:100%; ">스크랩</button>
 				</div>
 				<script>
 					var scrapbtn = $("button[value="+${vo.contentsID}+"]");
@@ -439,7 +439,6 @@ $(document).ready(function() {
 	// 리뷰 등록
 	$("#writeReview").on("click",function() {
 		
-		alert("등록되었습니다");
 		var contentsReviewTitle = $("#reviewTitle").val();
 		var contentsReview = $("#reviewDetail").val();
 		

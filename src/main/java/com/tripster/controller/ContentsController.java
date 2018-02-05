@@ -63,12 +63,22 @@ public class ContentsController {
 				List<Integer> scrapList = scrapService.scrapIdList(memberVO.getMemberID());
 				model.addAttribute("scrapList",scrapList);
 			}
+<<<<<<< HEAD
 			ContentsVO vo;
 			
 			if(categoryID == 1) {
 				ModelAndView resultPage = new ModelAndView("contents/restaurantDetail");
 				vo = contentsService.getRestaurantDetail(contentsID);
 				model.addAttribute("vo", vo);
+=======
+			
+			ObjectMapper mapper = new ObjectMapper();
+			
+			ModelAndView resultPage = new ModelAndView("contents/restaurantDetail");
+			
+			if(categoryID == 1) {
+				model.addAttribute("vo",contentsService.getRestaurantDetail(contentsID));
+>>>>>>> bfb6edea4dcd2325febee6914de409a2aa3da1aa
 				
 				if(!(vo.getContents().trim().equals(""))) {
 					ObjectMapper mapper = new ObjectMapper();
@@ -84,6 +94,7 @@ public class ContentsController {
 					List<Object> reviewList = (List<Object>)outer.get("review");
 					model.addAttribute("reviewList",reviewList);
 				}
+<<<<<<< HEAD
 				return resultPage;
 				
 			}else {
@@ -106,8 +117,28 @@ public class ContentsController {
 					model.addAttribute("reviewList",reviewList);
 				}
 				return resultPage;
+=======
+				
+			}else {
+				
+				model.addAttribute("vo",contentsService.getPlaceDetail(contentsID));
+				
+				String rawData = contentsService.getRestaurantDetail(contentsID).getContents();
+				String data = rawData.replaceAll("'", "\"");
+				Collection<Map<String,Object>> readValues = new ObjectMapper().readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
+				Object[] dataList = readValues.toArray();
+				Map<String,String> contentsURL = (Map<String,String>)dataList[0];
+				model.addAttribute("contentsURL",contentsURL.get("url"));
+				Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
+				model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
+				Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
+				List<Object> reviewList = (List<Object>)outer.get("review");
+				model.addAttribute("reviewList",reviewList);
+				
+>>>>>>> bfb6edea4dcd2325febee6914de409a2aa3da1aa
 			}
 			
+			return resultPage;
 			
 		}catch (JsonGenerationException e) { 
 			e.printStackTrace(); 

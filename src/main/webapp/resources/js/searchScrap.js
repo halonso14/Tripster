@@ -24,7 +24,7 @@ function scrapmouseover(memberID, $button){
 					$button.text('스크랩');
 					$.post("/scrapDelete/"+contentsID,function(scrapCnt){
 						console.log(scrapCnt);
-						$("#"+contentsID).html(scrapCnt);
+						$("ui[id="+contentsID+"]").html(scrapCnt);
 						alert("스크랩 취소");
 					});
 				});
@@ -35,7 +35,7 @@ function scrapmouseover(memberID, $button){
 					
 					$.post("/scrap/"+contentsID,function(scrapCnt){
 						console.log(scrapCnt);
-						$("#"+contentsID).html(scrapCnt);
+						$("ui[id="+contentsID+"]").html(scrapCnt);
 						alert("스크랩");
 					});
 					$button.addClass('scraped');
