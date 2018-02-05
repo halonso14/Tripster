@@ -230,7 +230,62 @@ var chartMap2 = AmCharts.makeChart( "chartdiv_rcm", {
   "dataProvider": {
     "map": "worldLow",
     "getAreasFromMap": true,
-    "areas": []
+    "areas": [{
+	      "id": "AE",
+	      "color": "#ef2929"
+	    },
+	    {
+		      "id": "AU",
+		      "color": "#ef2929"
+		 },
+		 {
+		      "id": "BR",
+		      "color": "#ef2929"
+		 },
+		 {
+		      "id": "CA",
+		      "color": "#ef2929"
+		  },
+		  {
+		      "id": "CN",
+		      "color": "#ef2929"
+		  },
+		  {
+		      "id": "DE",
+		      "color": "#ef2929"
+		  },
+		  {
+		      "id": "FR",
+		      "color": "#ef2929"
+		  },
+		  {
+		      "id": "ID",
+		      "color": "#ef2929"
+		  },
+		  {
+		      "id": "IN",
+		      "color": "#ef2929"
+		  },
+		  {
+		      "id": "IT",
+		      "color": "#ef2929"
+		  },
+		  {
+		      "id": "JP",
+		      "color": "#ef2929"
+		  },
+		  {
+		      "id": "KR",
+		      "color": "#ef2929"
+		  },
+		  {
+		      "id": "VN",
+		      "color": "#ef2929"
+		  },
+		  {
+		      "id": "US",
+		      "color": "#ef2929"
+		  }]
   },
   "areasSettings": {
     "autoZoom": true,
