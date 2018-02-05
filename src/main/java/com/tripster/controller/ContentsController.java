@@ -69,24 +69,28 @@ public class ContentsController {
 			
 			ModelAndView resultPage = new ModelAndView("contents/contentsDetail");
 			model.addAttribute("vo", vo);
-			
-			if(contentsID >= 60000) {
-				if(!(vo.getContents().trim().equals(""))) {
-					ObjectMapper mapper = new ObjectMapper();
-					String rawData = vo.getContents();
-					String data = rawData.replaceAll("'", "\"");
-					Collection<Map<String,Object>> readValues = mapper.readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
-					Object[] dataList = readValues.toArray();
-					Map<String,String> contentsURL = (Map<String,String>)dataList[0];
-					model.addAttribute("contentsURL",contentsURL.get("url"));
-					Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
-					model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
-					Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
-					List<Object> reviewList = (List<Object>)outer.get("review");
-					System.out.println(reviewList);
-					model.addAttribute("reviewList",reviewList);
-				}
+
+			if(!(vo.getContents().trim().equals(""))) {
+				ObjectMapper mapper = new ObjectMapper();
+				String rawData = vo.getContents();
+				String data = rawData.replaceAll("'", "\"");
+				Collection<Map<String,Object>> readValues = mapper.readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
+				Object[] dataList = readValues.toArray();
+				Map<String,String> contentsURL = (Map<String,String>)dataList[0];
+				model.addAttribute("contentsURL",contentsURL.get("url"));
+				Map<String,String> contentsHomePage = (Map<String,String>)dataList[1];
+				model.addAttribute("contentsHomePage",contentsHomePage.get("homepage"));
+				Map<String,List<Object>> outer = (Map<String,List<Object>>)dataList[2];
+				List<Object> review = (List<Object>)outer.get("review");
+				model.addAttribute("review",review);
+				System.out.println(review);
 				
+				Object[] reviewList= new Object[review.size()];
+				for(int i=0; i<review.size(); i++) {
+					reviewList[i] = (Map<String,String>)review.get(i);
+				}
+				model.addAttribute("reviewList",reviewList);
+
 			}
 			
 			return resultPage;
