@@ -1,0 +1,41 @@
+.scrapListBox {
+	width: 49%;
+	padding: 5px;
+	display:inline-block;
+}
+.scrapBox {
+	background:#fff;
+	box-shadow: 2px 2px 4px #ddd ;
+	border:1px solid #ddd; 
+	border-radius:2px;
+	padding: 10px;
+	margin:5px;
+}
+.scrapTumbnail{
+	heigth:100px;
+	padding:50px;
+	float:left;
+	background-size: cover; 
+	background-position: center;
+
+}
+.scrapInfo{
+	padding:10px;
+}
+.scrapInfo > a.scrapTitle{
+	display:block;
+	margin:10px 0;
+	
+}
+p.scrapInfo > button.scrapBtn{
+	color:#ddd!important;
+	border:1px solid #ccc;
+	margin:0 5px ;
+	width:100%
+}
+p.scrapInfo > button.scrapBtn:hover{
+	color:#000!important;
+	background:#ccc;
+	border:1px solid #ddd;
+	
+}

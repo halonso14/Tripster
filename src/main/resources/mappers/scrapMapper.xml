@@ -24,10 +24,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							,#{contentsID}
 							,(select Contents_Title
 							  from tbl_Contents where Contents_ID = #{contentsID})
-							,"http://cfile26.uf.tistory.com/image/2642053B532A9F7519A004"
-							 <!-- (select Contents_Thumbnail
-							  from tbl_Contents where Contents_ID = #{contentsID}) -->
-							)
+							,(select IFNULL(Contents_Thumbnail,"") AS Contents_Thumbnail
+							  from tbl_Contents where Contents_ID = #{contentsID})
+							  )
+
 </insert>
 
   <!-- 스크랩 삭제 -->
@@ -59,15 +59,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="listByCategory" resultType="com.tripster.domain.ScrapVO">
 	select
 			 Scrap_ID scrapID
-			,Member_ID memberID
 			,Category_ID categoryID
 			,Contents_ID contentsID
 			,Contents_Title contentsTitle
 			,Contents_Thumbnail contentsPhoto
 			,Created created
-			
 	from tbl_Scrap
-	
 	where Member_ID = #{memberID} and Category_ID = #{categoryID} 
 
 </select>

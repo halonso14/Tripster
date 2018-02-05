@@ -32,7 +32,7 @@ response.setHeader("Pragma", "no-cache");
     <link href="/resources/dist/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/custom.css" rel="stylesheet" media="screen">
     	<link href="/resources/updates/update1/css/search.css" rel="stylesheet" media="screen">
-    
+    	<link href="/resources/updates/update1/css/style03.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/endChk.css" rel="stylesheet" media="screen">
     <link href="/resources/assets/css/followBtn.css" rel="stylesheet" media="screen">
     <!-- ymmu bootstrap table -->
@@ -739,141 +739,7 @@ left: 254px;
 					  <!-- END OF TAB 4 -->	
 						  
 					  <!-- TAB 5 -->					  
-					  <div class="tab-pane" id="scrapList">
-				
-						<div class="scrapList padding40">
-						
-							<ul class="nav nav-tabs" id="myTab">
-								<li onclick="restaurantList()" class="active"><a data-toggle="tab" href="#restaurant"><span class="reviews"></span><span class="hidetext">Restaurant</span>&nbsp;</a></li>
-								<li onclick="placeList()" class=""><a data-toggle="tab" href="#place"><span class="maps"></span><span class="hidetext">Place</span>&nbsp;</a></li>
-								
-			
-							</ul>			
-							
-							<div class="line4" ></div>
-							
-							<div class="col-md-12 offset-0" >
-							
-								<!-- TAB 1 -->				
-								<div id="restaurant" class="tab-pane fade active in">
-								
-									<div class="col-md-5 offset-0" id="scrap1">
-									</div>		
-									
-									
-									
-									
-								</div>
-								
-								<!-- TAB 2 -->
-								<div id="place" class="tab-pane fade ">
-								    <div class="col-md-5 offset-0" id="scrap2">
-									</div>
-								</div>
-								
-								<!-- 맛집 스크랩 리스트 -->
-								<script id="restaurantTemplate" type="text/x-handlebars-template">
-										
-									<div>
-										<div class="col-md-9 offset-0">
-											<input type="hidden" id="scrapID" value="{{scrapID}}">
-											<img alt="" class="left mr20" src="{{thumbnail}}" style="width:100px;,height:auto;">
-											
-											<a class="dark" href="/contents/1/{{contentsID}}"><b>{{title}}</b></a> /
-											<span class="dark size12"> 뭐 넣을까 </span><br>
-											<span class="opensans green bold size14">맛집</span> <span class="grey">{{category}}</span><br>
-											
-											<img alt="" src="/resources/images/filter-rating-5.png"><br/>
-
-										</div>
-										<div class="col-md-3 offset-0">
-											<button class="close mr20 mt10" value="{{scrapID}}" onclick="scrapDelete(this)">×</button>
-										</div>
-										<div class="clearfix"></div>
-										<div class="line2"></div>
-									</div>
-
-								</script>	
-								<script>
-								
-									
-									//맛집 리스트 불러오기
-									function restaurantList(){
-										
-										$.getJSON('/scraplist/1',function(data){
-											
-											var str = "";
-											function getData(list){
-												var scrapData = {
-														scrapID : list.scrapID,
-													    category : list.categoryID,
-													    title : list.contentsTitle,
-													    thumbnail : list.contentsPhoto,
-													    contentsID : list.contentsID
-												}
-												return scrapData;
-											}
-											
-											$(data).each(function(i,list){
-												var source = $("#restaurantTemplate").html();
-												var template = Handlebars.compile(source);
-												
-												str += template(getData(list));
-											 });
-											 
-											 $("#scrap1").html(str);
-											
-										});
-										
-									}
-
-									// 관광지 리스트 불러오기
-									function placeList(){
-										
-										$.getJSON('/scraplist/2',function(data){
-											var str = "";
-											function getData(list){
-												var scrapData = {
-														scrapID : list.scrapID,
-													    category : list.categoryID,
-													    title : list.contentsTitle,
-													    thumbnail : list.contentsPhoto,
-													    contentsID : list.contentsID
-												}
-												return scrapData;
-											}
-											
-											$(data).each(function(i,list){
-												var source = $("#restaurantTemplate").html();
-												var template = Handlebars.compile(source);
-												
-												str += template(getData(list));
-											 });
-											 
-											 $("#scrap2").html(str);
-											
-										});
-										
-									}
-
-									// 스크랩 삭제
-									function scrapDelete(data){
-										var scrapID = data.value;
-										$.post("/scrapIDremove/"+scrapID,function(data){
-											alert(data);
-											restaurantList();
-										})
-									}
-									
-								</script>
-								
-									
-							</div>
-						</div>
-
-					  </div>
-					  <!-- END OF TAB 5 -->	
-					  
+						<%@include file="../include/mypage/tab5.jsp" %>	
 					  
 					  <!-- TAB 6 -->
 					  <div class="tab-pane" id="password">
