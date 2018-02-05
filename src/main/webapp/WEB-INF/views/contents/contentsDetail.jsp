@@ -179,7 +179,7 @@
 							<p class="detailContents"> 
 								<span>주소 :</span>  ${vo.location} <br>
 								<span>전화번호 :</span>   ${vo.tel} <br>
-								<span>운영시간 :</span> ${vo.time} 
+								<span>운영시간 :</span> 평일 오전 9:00 ~ 오후 6:00  / 주말,공휴일 휴무.
 							</p>
 							
 							

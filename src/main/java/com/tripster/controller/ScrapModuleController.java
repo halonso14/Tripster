@@ -84,7 +84,7 @@ public class ScrapModuleController {
 	}
 	
 	// 스크랩 리스트 조회 
-	@RequestMapping(value="/scraplist/",method=RequestMethod.GET)
+	@RequestMapping(value="/scraplist",method=RequestMethod.GET)
 	public ResponseEntity<List<ScrapVO>> scrapList(HttpSession session, Model model){
 		
 		ResponseEntity<List<ScrapVO>> entity = null;

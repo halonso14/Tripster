@@ -4,8 +4,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="/resources/updates/update1/css/style03.css" rel="stylesheet" media="screen">
 <meta charset='utf-8' />
 <link href='/resources/css/fullcalendar.min.css' rel='stylesheet' />
+<link href="/resources/updates/update1/css/style03.css" rel="stylesheet" media="screen">
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 <!--<link href='calendar/fullcalendar.print.min.css' rel='stylesheet' media='print' />-->
 <style>
@@ -24,6 +26,7 @@ body {
 	width: 300px;
 	padding: 0 10px;
 	border: 1px solid #ccc;
+
 	background: #eee;
 	text-align: left;
 	overflow-y:scroll; 
@@ -540,30 +543,55 @@ body {
 <!-- 스크랩리스트 템플릿 -->
 <script id="scrapList" type="text/x-handlebars-template">
 
-<div class='fc-event' id={{contentsID}} name={{categoryID}} data-name="{{contentsTitle}}"style="background-color: #f6f8f900; font-size: 14px;">
-               <a href="#"><img alt="" class="left mr20" src="{{contentsPhoto}}" style="width: 100%; max-width: 90px; height:63px; vertical-align: middle"></a>
-               <a class="dark" href="#" id="contentsTitle"><b>{{contentsTitle}}</b></a><br>
-               <span class="opensans green bold size14">$36-$160</span>
-            </div>
-            <div class="line4"></div>
+						<div class="scrapListBox-detail ">
+							<div class="scrapBox">
+								<input type="hidden" id="scrapID" value="{{scrapID}}">
+									
+								<p class="scrapTumbnail col-md-5" style="background-image:url({{thumbnail}})"></p>	
+								
+								<p class="scrapInfo col-md-7">
+									<span class="size14 label label-warning">{{category}}</span><br>
+									<a class="scrapTitle dark" href="/contents/1/{{contentsID}}"><b>{{title}}</b></a>
+
+									<button class="scrapBtn" value="{{scrapID}}" onclick="scrapDelete(this)">스크랩취소</button>
+								</p>
+								<div class="clearfix"></div>	
+							</div>
+						</div>
 </script>
 
 <!-- 스크랩 리스트 조회 -->
 <script>
 $.getJSON('/scraplist',function(data){
-   
-   var str = "";
-   
+   	var categoryKor ="";
+	var random = 0;
+	var str = "";
+	function getData(list){
+		if(list.contentsPhoto==""){
+			if(list.categoryID==1){ 
+				categoryKor ="맛집";
+				random = list.categoryID % 10 +10;
+			}else{ 
+				categoryKor ="관광지";
+				random = list.categoryID % 10 +20;
+			}
+			list.contentsPhoto ="/resources/images/contents/"+ random + ".jpg";
+		}
+		var scrapData = {
+				scrapID : list.scrapID,
+			    category : categoryKor,
+			    title : list.contentsTitle,
+			    thumbnail : list.contentsPhoto,
+			    contentsID : list.contentsID,
+			   	created : list.created
+		}
+		return scrapData;
+	}
+	
    $(data).each(function(i,list){
       var source = $("#scrapList").html();
-      var scrapData = {
-            contentsID : list.contentsID,
-            categoryID : list.categoryID,
-            contentsTitle : list.contentsTitle,
-            contentsPhoto : list.contentsPhoto
-      }
       var template = Handlebars.compile(source);
-      str += template(scrapData);
+      str += template(getData(list));
    });
    
    $('#tab-newtopic').html(str);
