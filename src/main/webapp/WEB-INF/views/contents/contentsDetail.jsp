@@ -139,7 +139,7 @@
 				</div>
 				<div class="clearfix"></div>
 				<div class="col-md-12 " style="padding:40px;">
-					<button class="btn scrapButton " value="${vo.contentsID}" onmouseenter="mouseover('${userSession.memberID }',$(this))" rel="6" style="width:100%; ">스크랩</button>
+					<button class="btn scrapButton " value="${vo.contentsID}" onmouseenter="scrapmouseover('${userSession.memberID }',$(this))" rel="6" style="width:100%; ">스크랩</button>
 				</div>
 				<script>
 					var scrapbtn = $("button[value="+${vo.contentsID}+"]");
@@ -804,7 +804,6 @@ function initialize() {
 		    <!-- Js Easing-->	
 		    <script src="/resources/assets/js/jquery.easing.js"></script>
 		
-			
 		    <!-- Bootstrap-->	
 		    <script src="/resources/dist/js/bootstrap.min.js"></script>
 	    </body>
