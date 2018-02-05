@@ -82,7 +82,6 @@ public class ContentsController {
 				System.out.println(data);
 				
 				Collection<Map<String,Object>> readValues = mapper.readValue(data, new TypeReference<Collection<Map<String,Object>>>(){});
-//				List<Map<String,Object>> readValues =  mapper.readValue(data, new TypeReference<List<Map<String,Object>>>(){});
 				Object[] dataList = readValues.toArray();
 				Map<String,String> contentsURL = (Map<String,String>)dataList[0];
 				model.addAttribute("contentsURL",contentsURL.get("url"));

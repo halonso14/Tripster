@@ -184,9 +184,9 @@
 							
 							
 							<p class="detailTitle"><b>외부링크</b></p>
-							<p class="detailContents"> 
-								<span>구글지도 컨텐츠 보기 :</span>  ${contentsURL}<br>
-								<span>홈페이지 보기 :</span> ${contentsHomePage}
+							<p class="detailContents" style="word-break:break-all;"> 
+								<a href="${contentsURL}"  ><span style="color:blue">구글지도 컨텐츠 보기</span></a> <br>
+								<a href=" ${contentsHomePage}"  ><span style="color:blue">홈페이지 보기 </span></a>
 							</p>
 
 	
