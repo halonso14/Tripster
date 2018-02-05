@@ -41,15 +41,16 @@ body {
 	padding-top: 1em;
 	color:#ff6633;
 }
+/* 
 #external-events .fc-event {
-	margin: 10px 0;
+ 	margin: 10px 0;
 	cursor: pointer;
 	height:65px;
 	width:100%;
-	max-width:300px;
+	max-width:300px; 
 	
 }
-#external-events p {
+ #external-events p {
 	margin: 1.5em 0;
 	font-size: 11px;
 	color: #666;
@@ -57,7 +58,7 @@ body {
 #external-events p input {
 	margin: 0;
 	vertical-align: middle;
-}
+} */
 #calendar {
 	float: right;
 	width: 750px;
@@ -542,7 +543,7 @@ body {
 
 <!-- 스크랩리스트 템플릿 -->
 <script id="scrapList" type="text/x-handlebars-template">
-
+<div class='fc-event' id={{contentsID}} name={{categoryID}} data-name="{{contentsTitle}}">
 						<div class="scrapListBox-detail ">
 							<div class="scrapBox">
 								<input type="hidden" id="scrapID" value="{{scrapID}}">
@@ -558,6 +559,27 @@ body {
 								<div class="clearfix"></div>	
 							</div>
 						</div>
+</div>
+</script>
+
+
+<!-- 스크랩리스트 템플릿 -->
+<script id="scrapList" type="text/x-handlebars-template">
+
+						<div class="scrapListBox-detail fc-event " id={{contentsID}} name={{categoryID}} data-name="{{contentsTitle}}">
+							<div class="scrapBox-detail">
+									
+								<p class="scrapTumbnail col-md-5" style="background-image:url({{contentsPhoto}})"></p>	
+								
+								<p class="scrapInfo col-md-7">
+									<span class="label label-warning">{{category}}</span><br>
+
+									<a class="scrapTitle dark" href="/contents/1/{{contentsID}}" id="contentsTitle" style="font-size:14px"><b>{{contentsTitle}}</b></a>
+								</p>
+								<div class="clearfix"></div>	
+							</div>
+						</div>
+
 </script>
 
 <!-- 스크랩 리스트 조회 -->
@@ -578,12 +600,11 @@ $.getJSON('/scraplist',function(data){
 			list.contentsPhoto ="/resources/images/contents/"+ random + ".jpg";
 		}
 		var scrapData = {
-				scrapID : list.scrapID,
 			    category : categoryKor,
-			    title : list.contentsTitle,
-			    thumbnail : list.contentsPhoto,
+			    contentsTitle : list.contentsTitle,
+			    contentsPhoto : list.contentsPhoto,
 			    contentsID : list.contentsID,
-			   	created : list.created
+			    categoryID : list.categoryID
 		}
 		return scrapData;
 	}
@@ -603,7 +624,7 @@ $.getJSON('/scraplist',function(data){
           	
            $(this).data('event', {
                title: $.trim(s), // use the element's text as the event title
-               stick: true, // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
+               stick: false, // true : next / prev 버튼 클릭 후 다시 제자리로 돌아왔을 때도 추가된 일정 그대로 남아 있음
                              // false: 없어짐.
                color:$(this).data('color')
            });
