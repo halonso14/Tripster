@@ -77,5 +77,12 @@ public class ContentsReviewDAOImpl implements ContentsReviewDAO{
 	public String getFileNames(Integer reviewID) throws Exception{
 		return session.selectOne(namespace+".getFileNames",reviewID);
 	}
+	
+	// 파일 이름 삭제
+	@Override
+	public void deleteFileName(String filename) throws Exception{
+		System.out.println("delete filename:"+filename);
+		session.delete(namespace+".deleteFileName", filename);
+	}
 				
 }

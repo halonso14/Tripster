@@ -41,6 +41,9 @@ public class ContentsReviewServiceImpl implements ContentsReviewService {
 	@Override
 	public void modifyReview(ContentsReviewVO vo) throws Exception {
 		dao.modify(vo);
+		if(vo.getReviewPictureName() != null) {
+			dao.registReviewPicture(vo.getReviewPictureName());
+		}
 	}
 
 	@Transactional
@@ -79,5 +82,10 @@ public class ContentsReviewServiceImpl implements ContentsReviewService {
 		return dao.getFileNames(reviewID);
 	}
 	
+	// 리뷰 파일 이름 삭제
+	@Override
+	public void deleteFileName(String filename) throws Exception{
+		dao.deleteFileName(filename);
+	}
 	
 }

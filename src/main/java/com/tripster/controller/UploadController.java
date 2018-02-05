@@ -205,6 +205,11 @@ public class UploadController {
 			inputDirectory = "tripster/plan";
 		} else if(directory.equals("review")) {
 			inputDirectory = "tripster/review";
+			try {
+				reviewservice.deleteFileName(fileName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else {
 			inputDirectory = "tripster/profile";
 		}

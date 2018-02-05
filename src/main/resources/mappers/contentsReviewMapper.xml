@@ -31,7 +31,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   update
   	tbl_Contents_Review
   set
-  	Contents_Review_Title = #{contentsReviewTitle}, Contents_Review = #{contentsReview}
+  	Contents_Review_Title = #{contentsReviewTitle}, 
+  	Contents_Review = #{contentsReview}
   where
   	Contents_Review_ID = #{contentsReviewID}
   </update>
@@ -101,5 +102,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   where Contents_Review_ID = #{reviewID}
   </select>
   
+  <delete id="deleteFileName">
+   delete from
+  	tbl_Review_Attachment
+   where
+  	Review_Picture_Name = #{filename};
+  
+  </delete>
+
   
   </mapper>

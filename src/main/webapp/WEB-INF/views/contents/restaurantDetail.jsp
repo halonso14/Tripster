@@ -531,7 +531,8 @@ $(document).ready(function() {
 		var contentsReviewID = $(this).attr('id');
 		var modifyTitle = $("span[contentsreviewid="+contentsReviewID+"]").text();
 		var modifyContents = $("p[data-contentsreviewid="+contentsReviewID+"]").text();
-		var fileNameLocal = "";
+		var modifyImage = $(this).attr("filename");
+		/* var fileNameLocal = ""; */
 		
 		if (this.value == 1) {
 			// 수정 텍스트 출력
@@ -580,14 +581,14 @@ $(document).ready(function() {
 						success : function(data) {
 							alert(data);
 							var str = "";
-							fileNameLocal = data;
-							console.log(fileNameLocal);
+							modifyImage = data;
+							console.log(modifyImage);
 						}
 					});
 		
 				}
 				
-				console.log(fileNameLocal);
+				console.log(modifyImage);
 				
 				// 수정 내용 전달
 				$.ajax({
@@ -603,7 +604,7 @@ $(document).ready(function() {
 						contentsReviewID : contentsReviewID,
 						memberID : memberID,
 						contentsReview : modify,
-						reviewPictureName : fileNameLocal,
+						reviewPictureName : modifyImage,
 						contentsReviewTitle : titleModify
 					}),
 					success : function(result) {

@@ -29,4 +29,7 @@ public interface ContentsReviewDAO {
 	
 	// 파일 이름 조회
 	public String getFileNames(Integer reviewID) throws Exception;
+	
+	// 파일 이름 삭제
+	public void deleteFileName(String filename) throws Exception;
 }

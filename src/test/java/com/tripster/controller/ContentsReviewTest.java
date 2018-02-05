@@ -57,18 +57,8 @@ public class ContentsReviewTest {
 	
 	@Test
 	public void reviewList() throws Exception{
-		
-		ContentsReviewVO vo = new ContentsReviewVO();
-		vo.setContentsID(1);
-		vo.setContentsReviewTitle("tt");
-		vo.setContentsReview("sdf");
-		vo.setMemberID(68);
-		
-		service.writeReview(vo);
-		
-		System.out.println(contentsDAO.getRestaurantDetail(1).getContentsReviewCnt());
-		
-		
+		String filename = "/2018/02/05/f2e78941-3003-4257-a4ed-4ad2fb2f81e3_gggg.png";
+		dao.deleteFileName(filename);
 		
 	}
 	

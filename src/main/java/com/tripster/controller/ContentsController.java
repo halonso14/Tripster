@@ -206,7 +206,7 @@ public class ContentsController {
 			//PathVariable 활용, 해당 컨텐츠의 리뷰 수정 사항 저장
 			vo.setContentsReviewID(contentsReviewID);
 			contentsReviewService.modifyReview(vo);
-			
+			System.out.println("리뷰수정:"+vo.toString());
 			entity = new ResponseEntity<String>("modified",HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();
