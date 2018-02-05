@@ -23,7 +23,7 @@ public class ContentsReviewVO {
 	//리뷰 평점
 	private double contentsReviewRating;
 	//리뷰 사진
-	private List<String> reviewPictureName;
+	private String reviewPictureName;
 	//회원 사진
 	private String memberPictureName;
 	//리뷰 작성/수정 일자
@@ -78,12 +78,15 @@ public class ContentsReviewVO {
 	public void setContentsReviewRating(double contentsReviewRating) {
 		this.contentsReviewRating = contentsReviewRating;
 	}
-	public List<String> getReviewPictureName() {
+	
+	public String getReviewPictureName() {
 		return reviewPictureName;
 	}
-	public void setReviewPictureName(List<String> reviewPictureName) {
+	public void setReviewPictureName(String reviewPictureName) {
 		this.reviewPictureName = reviewPictureName;
 	}
+
+	
 	public Date getUpdatedDate() {
 		return updatedDate;
 	}

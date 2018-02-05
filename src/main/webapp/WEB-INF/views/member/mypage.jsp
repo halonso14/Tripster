@@ -124,7 +124,7 @@ left: 254px;
 					  <li>
 						  <a href="#bookings" data-toggle="tab" onclick="mySelectUpdate()">
 						  <span class="bookings-icon"></span>						  
-						  Recommand
+						  Recommend
 						  </a></li>
 					  <li>
 						  <a href="#myfollowList" data-toggle="tab" onclick="mySelectUpdate()">

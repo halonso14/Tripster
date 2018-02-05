@@ -172,20 +172,20 @@ public class UploadController {
 	
 	// 디비에서 파일 가져오기
 	@RequestMapping(value="/getFileName",method=RequestMethod.POST)
-	public ResponseEntity<List<String>> getAttach(Integer reviewID){
+	public ResponseEntity<String> getAttach(Integer reviewID){
 		
 		logger.info("reviewID:"+reviewID);
 		
-		ResponseEntity<List<String>> entity = null;
+		ResponseEntity<String> entity = null;
 		
 		try {
-			List<String> fileNames = reviewservice.getFileNames(reviewID);
+			String fileNames = reviewservice.getFileNames(reviewID);
 			logger.info("fileNames:"+fileNames.toString());
-			entity = new ResponseEntity<List<String>>(fileNames,HttpStatus.OK);
+			entity = new ResponseEntity<String>(fileNames,HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();
 			//오류 발생 시, BAR_REQUEST 상태 입력
-			entity = new ResponseEntity<List<String>>(HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 		
 		return entity;

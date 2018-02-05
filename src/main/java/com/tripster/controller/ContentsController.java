@@ -59,7 +59,7 @@ public class ContentsController {
 				MemberVO memberVO = (MemberVO)session.getAttribute("login");
 				model.addAttribute("memberVO",memberVO);
 				List<Integer> scrapList = scrapService.scrapIdList(memberVO.getMemberID());
-				model.addAttribute("scrapList",scrapList);
+				model.addAttribute("scrapIdList",scrapList);
 			}
 			
 			ObjectMapper mapper = new ObjectMapper();
@@ -164,6 +164,7 @@ public class ContentsController {
 		System.out.println("contentsReviewVO="+vo.toString());
 		try {
 			
+			System.out.println("vo: "+vo.toString());
 			//PathVariable 활용, 해당 맛집의 리뷰 저장
 			vo.setContentsID(contentsID);
 			contentsReviewService.writeReview(vo);

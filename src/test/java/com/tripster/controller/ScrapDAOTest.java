@@ -59,10 +59,8 @@ public class ScrapDAOTest {
 	@Test
 	public void scrapdelete() throws Exception{
 		
-		//service.scrap(41, 1);
-		service.scrapDelete(1, 41);
-		//scrapDao.scrapDelete(41, 5034);
-		//scrapDao.create(41, 1);
+		System.out.println(scrapDao.listAll(68).toString());
+		
 	}
 
 }

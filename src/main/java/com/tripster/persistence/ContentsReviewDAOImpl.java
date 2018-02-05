@@ -74,8 +74,8 @@ public class ContentsReviewDAOImpl implements ContentsReviewDAO{
 	
 	// 파일 이름 조회
 	@Override
-	public List<String> getFileNames(Integer reviewID) throws Exception{
-		return session.selectList(namespace+".getFileNames",reviewID);
+	public String getFileNames(Integer reviewID) throws Exception{
+		return session.selectOne(namespace+".getFileNames",reviewID);
 	}
 				
 }

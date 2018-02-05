@@ -7,9 +7,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <insert id="write">
   insert into
-  	tbl_Contents_Review (Contents_ID, Member_ID, Member_Name, Contents_Review_Title, Contents_Review, Contents_Review_Rating)
+  	tbl_Contents_Review (
+						  	Contents_ID, 
+						  	Member_ID, 
+						  	Member_Name, 
+						  	Contents_Review_Title, 
+						  	Contents_Review, 
+						  	Contents_Review_Rating
+						  	
+  	
+  	)
   values
-  	(#{contentsID}, #{memberID}, #{memberName}, #{contentsReviewTitle}, #{contentsReview}, #{contentsReviewRating})
+  							(#{contentsID}
+  							, #{memberID}
+  							, #{memberName}
+  							, #{contentsReviewTitle}
+  							, #{contentsReview}
+  							, #{contentsReviewRating})
+  							
   </insert>
   
   <update id="modify">
@@ -64,9 +79,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   </select>
   
   <insert id="registReviewPicture">
-  insert into tbl_Review_Attachment 
+  insert into tbl_Review_Attachment
   		(Contents_Review_ID,Review_Picture_Name)
-  	values
+  values
   		(#{reviewID},#{fileName})
   </insert>
   
